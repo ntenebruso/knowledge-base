@@ -1,7 +1,13 @@
-+++
-title = 'Home'
-date = 2023-01-01T08:00:00-07:00
-draft = false
-+++
+---
+title: Home
+date: 2024-07-26T13:51:00
+draft: false
+---
 
-Here is where I host my notes...
+Here is where I host my personal notes pertaining to technology. Feel free to browse and take a look at notes.
+
+## Quick Shortcuts
+
++ [All notes (sorted by category)](/notes)
++ [All categories](/categories)
++ [All Tags](/tags)

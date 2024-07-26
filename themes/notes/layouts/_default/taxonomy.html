@@ -5,7 +5,6 @@
         {{ range .Pages }}
             <li>
                 <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-                <span class="meta">{{ time.Format "January 2, 2006" .PublishDate }}</span>
             </li>
         {{ end }}
     </ul>

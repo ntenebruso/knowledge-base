@@ -1,17 +1,20 @@
 {{ define "main" }}
-<div class="post">
-    <div class="post__toc">
-        <span>Table of contents:</span>{{ .TableOfContents }}
+    <div class="post">
+        <article class="post__content">
+            <header>
+                <h1 class="post__title">{{ .Title }}</h1>
+                <time datetime="{{ .Date }}" class="meta">{{ time.Format "January 2, 2006" .Date }}</time>
+            </header>
+
+            {{ .Content }}
+
+            <footer>
+                {{ partial "terms.html" (dict "taxonomy" "tags" "page" .)}}
+            </footer>
+        </article>
+        <div class="toc">
+            <span>Contents:</span>
+            {{ .TableOfContents }}
+        </div>
     </div>
-    <article>
-        <h1>{{ .Title }}</h1>
-
-        {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }} {{
-        $dateHuman := .Date | time.Format ":date_long" }}
-        <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
-
-        {{ .Content }} {{ partial "terms.html" (dict "taxonomy" "tags" "page" .)
-        }}
-    </article>
-</div>
 {{ end }}

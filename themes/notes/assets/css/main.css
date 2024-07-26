@@ -25,7 +25,14 @@
 :root {
     --color-brand: #00944d;
     --color-bg: #181818;
+    --color-accent: #272727;
     --color-text: #dddddd;
+    --color-meta: #9b9b9b;
+    --color-highlight: #7178ff46;
+}
+
+::selection {
+    background: var(--color-highlight);
 }
 
 *,
@@ -41,6 +48,7 @@ html {
     -webkit-font-smoothing: antialiased;
     background: var(--color-bg);
     color: var(--color-text);
+    font-variant-ligatures: none;
 }
 
 p {
@@ -52,17 +60,20 @@ p {
 ul,
 ol {
     margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    list-style-position: inside;
 }
 
 ul {
+    margin-left: 0.6rem;
     list-style-type: "*";
+}
+
+ol {
+    margin-left: 1.8rem;
 }
 
 ul li,
 ol li {
-    line-height: 1.5rem;
+    padding-left: 1rem;
 }
 
 ul ul,
@@ -77,6 +88,9 @@ blockquote {
     line-height: 1.5rem;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
+    border-left: 2px solid var(--color-accent);
+    padding-left: 1rem;
+    color: var(--color-meta);
 }
 
 h1,
@@ -87,35 +101,38 @@ h5,
 h6 {
     margin-top: 1.5rem;
     margin-bottom: 0;
-    line-height: 1.5rem;
+    line-height: 2rem;
+    font-size: 1.5rem;
 }
 
-h1 {
-    font-size: 4.242rem;
-    line-height: 4.5rem;
-    margin-top: 3rem;
+h1::before {
+    content: "# ";
+    color: var(--color-brand);
 }
 
-h2 {
-    font-size: 2.828rem;
-    line-height: 3rem;
-    margin-top: 3rem;
+h2::before {
+    content: "## ";
+    color: var(--color-brand);
 }
 
-h3 {
-    font-size: 1.414rem;
+h3::before {
+    content: "### ";
+    color: var(--color-brand);
 }
 
-h4 {
-    font-size: 0.707rem;
+h4::before {
+    content: "#### ";
+    color: var(--color-brand);
 }
 
-h5 {
-    font-size: 0.4713333333333333rem;
+h5::before {
+    content: "##### ";
+    color: var(--color-brand);
 }
 
-h6 {
-    font-size: 0.3535rem;
+h6::before {
+    content: "###### ";
+    color: var(--color-brand);
 }
 
 table {
@@ -130,8 +147,20 @@ table th {
     line-height: 33px;
 }
 
+pre {
+    margin-top: 1.5rem;
+    padding: 0.5rem;
+    background: var(--color-accent);
+}
+
 code {
     vertical-align: bottom;
+    font-family: "JetBrainsMono", monospace;
+    font-size: inherit;
+}
+
+hr {
+    margin-top: 1.5rem;
 }
 
 .lead {
@@ -143,18 +172,24 @@ code {
 }
 
 /**** STYLING ****/
+.meta {
+    color: var(--color-meta);
+}
+
 a {
-    color: var(--color-brand);
+    color: var(--color-text);
     text-decoration: none;
+    border-bottom: 2px solid var(--color-brand);
 }
 
 a:hover {
-    text-decoration: underline;
+    color: var(--color-bg);
+    background: var(--color-brand);
 }
 
 .container {
     margin: 0 auto;
-    max-width: 1100px;
+    max-width: 900px;
     width: 90%;
 }
 
@@ -180,26 +215,53 @@ a:hover {
 }
 
 /* Post layout */
-.post__toc {
-    position: fixed;
-    left: 0;
-    top: 0;
-    padding: 0.5rem;
-    background: rgba(0, 0, 0, 0.4);
-    width: 15%;
-    height: 100vh;
+.post {
+    display: flex;
 }
 
-.post__toc nav {
+.post__title {
+    margin-bottom: 1rem;
+}
+
+.post__content {
+    flex: 1;
+}
+
+.toc {
+    width: 10rem;
+    margin-top: 2rem;
+    border-left: 1px solid #303030;
+    padding-left: 0.4rem;
+    margin-left: 1rem;
+    font-size: 0.92rem;
+}
+
+.toc nav {
+    position: sticky;
+    top: 0;
     margin-top: 0.1rem;
 }
 
-.post__toc ul {
+.toc ul {
     list-style: none;
     margin: 0;
 }
 
-.post__toc ul ul li {
+.toc ul li {
+    margin-top: 0.5rem;
+    line-height: 1rem;
+}
+
+.toc ul li a {
+    border-bottom: none;
+    color: var(--color-meta);
+}
+
+.toc ul li a:hover {
+    color: var(--color-text);
+}
+
+.toc ul ul li {
     margin-left: 0.5rem;
 }
 
