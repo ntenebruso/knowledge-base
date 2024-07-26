@@ -1,0 +1,10 @@
+{{ define "main" }} {{ .Content }}
+<ul>
+    {{ range site.RegularPages.ByPublishDate.Reverse }}
+    <li>
+        <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a> | {{ time.Format
+        "January 2, 2006" .PublishDate }}
+    </li>
+    {{ end }}
+</ul>
+{{ end }}

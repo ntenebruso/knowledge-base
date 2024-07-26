@@ -1,0 +1,217 @@
+@font-face {
+    font-family: "JetBrains Mono";
+    font-style: normal;
+    font-weight: 100 800;
+    font-display: swap;
+    src: url(/fonts/JetBrainsMono-Variable.ttf) format("truetype");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+        U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122,
+        U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    font-style: italic;
+    font-weight: 100 800;
+    font-display: swap;
+    src: url(/fonts/JetBrainsMono-Ital-Variable.ttf) format("truetype");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+        U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122,
+        U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/**** GENERAL TYPOGRAPHY ****/
+
+:root {
+    --color-brand: #00944d;
+    --color-bg: #181818;
+    --color-text: #dddddd;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "JetBrains Mono", monospace;
+    -webkit-font-smoothing: antialiased;
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+p {
+    line-height: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+}
+
+ul,
+ol {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    list-style-position: inside;
+}
+
+ul {
+    list-style-type: "*";
+}
+
+ul li,
+ol li {
+    line-height: 1.5rem;
+}
+
+ul ul,
+ol ul,
+ul ol,
+ol ol {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+blockquote {
+    line-height: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    line-height: 1.5rem;
+}
+
+h1 {
+    font-size: 4.242rem;
+    line-height: 4.5rem;
+    margin-top: 3rem;
+}
+
+h2 {
+    font-size: 2.828rem;
+    line-height: 3rem;
+    margin-top: 3rem;
+}
+
+h3 {
+    font-size: 1.414rem;
+}
+
+h4 {
+    font-size: 0.707rem;
+}
+
+h5 {
+    font-size: 0.4713333333333333rem;
+}
+
+h6 {
+    font-size: 0.3535rem;
+}
+
+table {
+    margin-top: 1.5rem;
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+table td,
+table th {
+    padding: 0;
+    line-height: 33px;
+}
+
+code {
+    vertical-align: bottom;
+}
+
+.lead {
+    font-size: 1.414rem;
+}
+
+.hug {
+    margin-top: 0;
+}
+
+/**** STYLING ****/
+a {
+    color: var(--color-brand);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1100px;
+    width: 90%;
+}
+
+/* Site Nav */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+.header nav ul li {
+    margin-left: 1rem;
+}
+
+/* Post layout */
+.post__toc {
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.4);
+    width: 15%;
+    height: 100vh;
+}
+
+.post__toc nav {
+    margin-top: 0.1rem;
+}
+
+.post__toc ul {
+    list-style: none;
+    margin: 0;
+}
+
+.post__toc ul ul li {
+    margin-left: 0.5rem;
+}
+
+.tags__label {
+    display: inline;
+}
+
+.tags ul {
+    display: inline-flex;
+    list-style: none;
+}
+
+.tags ul li {
+    margin-left: 0.5rem;
+}
