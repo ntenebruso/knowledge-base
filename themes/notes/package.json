@@ -1,0 +1,16 @@
+{
+  "comments": {
+    "dependencies": {
+      "lucide": "project"
+    },
+    "devDependencies": {}
+  },
+  "dependencies": {
+    "lucide": "^0.417.0"
+  },
+  "devDependencies": {},
+  "license": "MIT",
+  "main": "index.js",
+  "name": "notes",
+  "version": "1.0.0"
+}

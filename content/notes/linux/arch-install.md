@@ -2,7 +2,9 @@
 title: Arch Linux Installation Guide
 date: 2024-07-26
 draft: false
-categories:
+tags:
+  - installation-guide
+  - arch-linux
   - linux
 ---
 ## Pre-install
@@ -23,8 +25,6 @@ iwctl station wlan0 connect "SSID"
 For non-encrypted disks, follow the [Non-encrypted](#non-encrypted) section. To encrypt your system, follow the [Encrypted](#Encrypted) section.
 
 ### Non-encrypted
-
-#### Create partitions
 
 `fdisk` into disk to partition, e.g:
 
@@ -57,7 +57,7 @@ mkswap /dev/swap_partition
 mkfs.fat -F 32 /dev/efi_system_partition
 ```
 
-### Mount partitions
+#### Mount partitions
 
 ```sh
 mount /dev/root_partition /mnt
@@ -70,36 +70,4 @@ swapon /dev/swap_partition
 ```sh
 mount --mkdir /dev/efi_system_partition /mnt/boot
 ```
-
-### Encrypted (LVM on LUKS)
-
-#### Create partitions
-
-Recommended partition layout. You can use `fdisk` or `cfdisk` to create partitions.
-
-| Mountpoint | Partition                   | Partition Type       | Suggested Size                               |
-| ---------- | --------------------------- | -------------------- | -------------------------------------------- |
-| `/boot`    | `/dev/efi_system_partition` | EFI system partition | 1 GiB                                        |
-| `/`        | `/dev/crypt_partition`      | Linux partition      | Remainder of the device. At least 23–32 GiB. |
-
-`/dev/crypt_partition` will house an LVM group containing both the root and swap volumes. The entire partition will be encrypted on top of LUKS.
-
-#### Format partitions
-
-Use the below command to format and set up a password for your encrypted partition. **DO NOT FORGET THIS PASSWORD!**
-
-```sh
-cryptsetup luksFormat /dev/crypt_partition
-```
-
-```sh
-mkfs.fat -F 32 /dev/efi_system_partition
-```
-
-#### Mount partitions
-
-```sh
-cryptsetup open /dev/crypt_partition cryptlvm
-```
-
 

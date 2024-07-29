@@ -1,15 +1,17 @@
 {{ define "main" }}
     <h1>{{ .Title }}</h1>
     {{ .Content }}
-    {{ range $term, $weightedPages := .Site.Taxonomies.categories }}
-        <h2>{{ .Page.Title }}</h2>
+    {{ range .Sections }}
+        <h2>{{ .Title }}</h2>
         <ul>
-            {{ range $weightedPages }}
+            {{ $pages := where .Site.RegularPages "Section" .Section }}
+            {{ range first 5 $pages }}
                 <li>
                     <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
                     <span class="meta">{{ time.Format "January 2, 2006" .PublishDate }}</span>
                 </li>
             {{ end }}
+            <li><i><a href="{{ .RelPermalink }}">See more...</a></i></li>
         </ul>
     {{ end }}
 {{ end }}

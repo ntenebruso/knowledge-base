@@ -16,8 +16,13 @@
             {{ block "main" . }}
             {{ end }}
         </main>
-        <footer class="container">
+        <footer class="container footer">
             {{ partial "footer.html" . }}
         </footer>
+
+        {{ block "scripts" . }}
+        {{ end }}
+
+        {{ partial "script.html" (dict "src" "js/main.js" )}}
     </body>
 </html>

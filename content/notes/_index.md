@@ -5,4 +5,4 @@ draft: false
 layout: directory
 ---
 
-This is a directory of all notes, organized by category.
+This is a directory of all notes, organized by section.

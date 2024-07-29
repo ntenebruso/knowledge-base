@@ -1,20 +1,4 @@
 {{ define "main" }}
-    <div class="post">
-        <article class="post__content">
-            <header>
-                <h1 class="post__title">{{ .Title }}</h1>
-                <time datetime="{{ .Date }}" class="meta">{{ time.Format "January 2, 2006" .Date }}</time>
-            </header>
-
-            {{ .Content }}
-
-            <footer>
-                {{ partial "terms.html" (dict "taxonomy" "tags" "page" .)}}
-            </footer>
-        </article>
-        <div class="toc">
-            <span>Contents:</span>
-            {{ .TableOfContents }}
-        </div>
-    </div>
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
 {{ end }}

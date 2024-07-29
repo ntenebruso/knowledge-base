@@ -2,12 +2,12 @@
 title: Home
 date: 2024-07-26T13:51:00
 draft: false
+layout: single
 ---
 
-Here is where I host my personal notes pertaining to technology. Feel free to browse and take a look at notes.
+Welcome! I made this website as a way to organize all my tech notes written in markdown. Feel free to take a look at notes and browse around!
 
 ## Quick Shortcuts
 
-+ [All notes (sorted by category)](/notes)
-+ [All categories](/categories)
-+ [All Tags](/tags)
+- [All notes (sorted by section)](/notes)
+- [All tags](/tags)
