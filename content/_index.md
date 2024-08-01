@@ -9,5 +9,5 @@ Welcome! I made this website as a way to organize all my tech notes written in m
 
 ## Quick Shortcuts
 
-- [All notes (sorted by section)](/notes)
-- [All tags](/tags)
+- [All notes (sorted by section)]({{< ref "/notes" >}})
+- [All tags]({{< ref "/tags" >}})
