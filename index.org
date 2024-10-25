@@ -1,0 +1,16 @@
+#+TITLE: Home
+#+AUTHOR: Nick Tenebruso
+#+INCLUDE: ./header.org
+
+* Welcome to my Knowledge Base!
+I use this website to store all of my notes related to school, technology, and other fun things! Hopefully you're able to find something valuable here.
+
+This website is written in Emacs using org-mode, then converted to HTML.
+
+** Contact Me
+- *Email:* [[mailto:nick@ntenebruso.com][nick@ntenebruso.com]]
+- *Backup email:* [[mailto:nickten2006@gmail.com][nickten2006@gmail.com]]
+- [[./pubkey.asc][Download my PGP key]]
+
+** Extra References
+- Visit my friend, [[https://ftrani.com/][Frank Trani]]'s, website. His blog has some very informational posts.

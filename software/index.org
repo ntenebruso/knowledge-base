@@ -1,0 +1,10 @@
+#+TITLE: Linux & Software Notes
+#+AUTHOR: Nick Tenebruso
+#+INCLUDE: ../header.org
+
+* Software Notes
+** Linux
+- [[./arch-installation.org][Arch Linux installation guide]]
+- Neovim setup
+- Doom Emacs config
+- Intro to NixOS

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2024-10-25 Fri 18:07 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Arch Linux Installation Guide</title>
+<meta name="author" content="Nick Tenebruso" />
+<meta name="description" content="Header" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="/src/readtheorg_theme/css/readtheorg.css"/>
+<link rel="stylesheet" type="text/css" href="/src/readtheorg_theme/css/search.css"/>
+<script type="text/javascript" src="/src/lib/js/jquery.min.js"></script>
+<script type="text/javascript" src="/src/lib/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="/src/readtheorg_theme/js/search.js"></script>
+<script type="text/javascript" src="/src/readtheorg_theme/js/readtheorg.js"></script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Arch Linux Installation Guide</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org8d3d25c">1. Pre-install</a></li>
+<li><a href="#org6634c28">2. Set Up Disks</a>
+<ul>
+<li><a href="#orga30e189">2.1. Partition the Drive</a></li>
+<li><a href="#org6fa2b58">2.2. Format the Partitions</a></li>
+<li><a href="#org402f41e">2.3. Mount the Filesystems</a></li>
+</ul>
+</li>
+<li><a href="#org67625d3">3. Install the System</a>
+<ul>
+<li><a href="#org08a3f20">3.1. Install required packages</a></li>
+</ul>
+</li>
+<li><a href="#org19e6e30">4. Configure the System</a>
+<ul>
+<li><a href="#orgf6d03fa">4.1. Fstab</a></li>
+<li><a href="#org479d89b">4.2. Chroot</a></li>
+<li><a href="#orgdac9e5e">4.3. Time</a></li>
+<li><a href="#org268a998">4.4. Localization</a></li>
+<li><a href="#orga0e7b57">4.5. Network Configuration</a></li>
+<li><a href="#org993e6b0">4.6. Bootloader</a></li>
+<li><a href="#org30b185f">4.7. Root password</a></li>
+<li><a href="#orgb690c72">4.8. Install Extra Packages</a></li>
+</ul>
+</li>
+<li><a href="#orgb1b24c1">5. Post-Installation Steps</a>
+<ul>
+<li><a href="#orgccaeef6">5.1. Setting Up Your Users</a>
+<ul>
+<li><a href="#org5073ca3">5.1.1. Setting up Sudo</a></li>
+</ul>
+</li>
+<li><a href="#org60d99fc">5.2. Installing a Desktop Environment</a></li>
+</ul>
+</li>
+<li><a href="#orgfa4c6e5">6. Conclusion</a>
+<ul>
+<li><a href="#org3da72a9">6.1. What&rsquo;s Next???</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="site-header">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/software">Software</a></li>
+    </ul>
+</div>
+<div id="outline-container-org8d3d25c" class="outline-2">
+<h2 id="org8d3d25c"><span class="section-number-2">1.</span> Pre-install</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Download an Arch ISO using the <a href="https://archlinux.org/download/">official download site</a></li>
+
+<li><p>
+Connect to the internet:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">iwctl station wlan0 get-networks
+iwctl station wlan0 connect <span style="color: #b8bb26;">"SSID"</span>
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org6634c28" class="outline-2">
+<h2 id="org6634c28"><span class="section-number-2">2.</span> Set Up Disks</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orga30e189" class="outline-3">
+<h3 id="orga30e189"><span class="section-number-3">2.1.</span> Partition the Drive</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+This guide will go over a <b>non-encrypted</b> disk setup.
+</p>
+
+<p>
+Use <code>fdisk -l</code> to see which disk to format. Once you have found the disk, let&rsquo;s set it up by using the following command:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">fdisk /dev/sda <span style="color: #928374;"># </span><span style="color: #928374;">Replace /dev/sda with your disk!</span>
+</pre>
+</div>
+
+<p>
+In fdisk, you can create your partition layout. If you don&rsquo;t know where to start, here&rsquo;s a good reference table from the <a href="https://wiki.archlinux.org/title/Installation_guide#Example_layouts">Arch Wiki</a>:
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Mountpoint</th>
+<th scope="col" class="org-left">Partition</th>
+<th scope="col" class="org-left">Partition type</th>
+<th scope="col" class="org-left">Suggested size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>/boot</code></td>
+<td class="org-left"><code>/dev/efi_system_partition</code></td>
+<td class="org-left">EFI System Partition</td>
+<td class="org-left">1 GiB</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>[SWAP]</code></td>
+<td class="org-left"><code>/dev/swap_partition</code></td>
+<td class="org-left">Linux Swap</td>
+<td class="org-left">At least 4 GiB</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>/</code></td>
+<td class="org-left"><code>/dev/root_partition</code></td>
+<td class="org-left">Linux x86-64 root</td>
+<td class="org-left">Remainder of the device</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org6fa2b58" class="outline-3">
+<h3 id="org6fa2b58"><span class="section-number-3">2.2.</span> Format the Partitions</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Create an ext4 filesystem on the root partition:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">mkfs.ext4 /dev/root_partition
+</pre>
+</div>
+
+<p>
+Initialize swap, if you made a swap partition:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">mkswap /dev/swap_partition
+</pre>
+</div>
+
+<p>
+If you created an EFI partition, create a FAT32 filesystem:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">mkfs.fat -F <span style="color: #d3869b; font-weight: bold;">32</span> /dev/efi_system_partition
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org402f41e" class="outline-3">
+<h3 id="org402f41e"><span class="section-number-3">2.3.</span> Mount the Filesystems</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Lastly, before installing the system, mount the filesystems that you just created.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">mount /dev/root_partition /mnt
+mount --mkdir /dev/efi_system_partition /mnt/boot
+swapon /dev/swap_partition
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org67625d3" class="outline-2">
+<h2 id="org67625d3"><span class="section-number-2">3.</span> Install the System</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org08a3f20" class="outline-3">
+<h3 id="org08a3f20"><span class="section-number-3">3.1.</span> Install required packages</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Use <code>pacstrap</code> to setup a base system on <code>/mnt</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">pacstrap -K /mnt base linux linux-firmware
+</pre>
+</div>
+
+<p>
+Note that the pacstrap command <b>DOES NOT</b> contain all of the tools from the live image! We&rsquo;ll get to installing some extra tools in a bit.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org19e6e30" class="outline-2">
+<h2 id="org19e6e30"><span class="section-number-2">4.</span> Configure the System</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgf6d03fa" class="outline-3">
+<h3 id="orgf6d03fa"><span class="section-number-3">4.1.</span> Fstab</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+An fstab file defines how and where filesystems should be mounted on boot. It is located in <code>/etc/fstab</code> on Arch Linux. To generate the fstab file:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">genfstab -U /mnt &gt; /mnt/etc/fstab
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org479d89b" class="outline-3">
+<h3 id="org479d89b"><span class="section-number-3">4.2.</span> Chroot</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Now that the base system has been installed, we can chroot into it:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">arch-chroot /mnt
+</pre>
+</div>
+
+<p>
+From here on out, this manual will assume that you are chrooted into the system.
+</p>
+</div>
+</div>
+<div id="outline-container-orgdac9e5e" class="outline-3">
+<h3 id="orgdac9e5e"><span class="section-number-3">4.3.</span> Time</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+Set the time zone with the below commands:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #fabd2f;">ln</span> -sf /usr/share/zoneinfo/&lt;REGION&gt;/&lt;CITY&gt; /etc/localtime
+hwclock --systohc
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org268a998" class="outline-3">
+<h3 id="org268a998"><span class="section-number-3">4.4.</span> Localization</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Uncomment <code>en_US.UTF-8 UTF-8</code> and other necessary locales from <code>/etc/locale.gen</code>. Generate the locales by running:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">locale-gen
+</pre>
+</div>
+
+<p>
+Next, create the file <code>/etc/locale.conf</code> and set the LANG variable:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #83a598;">LANG</span>=en_US.UTF-8
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga0e7b57" class="outline-3">
+<h3 id="orga0e7b57"><span class="section-number-3">4.5.</span> Network Configuration</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+Edit the <code>/etc/hostname</code> file to set your hostname.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>/etc/hostname</label><pre class="src src-shell">yourhostname
+</pre>
+</div>
+
+<p>
+Next, we&rsquo;ll set up a network manager, as one is not installed by default on Arch. Based on personal experience, if you forget to install a network manager, you&rsquo;ll have to re-chroot into the system! I usually use NetworkManager (probably the most popular choice), so I&rsquo;ll show you how to set that up here. Feel free to <a href="https://wiki.archlinux.org/title/Network_configuration#Network_managers">choose your own</a>, though.
+</p>
+
+<p>
+To set up NetworkManager, use <code>pacman</code> to install it then enable it with <code>systemctl</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">pacman -S networkmanager
+sudo systemctl enable NetworkManager.service
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org993e6b0" class="outline-3">
+<h3 id="org993e6b0"><span class="section-number-3">4.6.</span> Bootloader</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+The last &ldquo;official&rdquo; step of installation is to install a bootloader. My personal choice is GRUB, but again, feel free to <a href="https://wiki.archlinux.org/title/Arch_boot_process#Boot_loader">choose your own</a>.
+</p>
+
+<p>
+To install GRUB, first install the package with <code>pacman</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">pacman -S grub
+</pre>
+</div>
+
+<p>
+Then, use the following commands to install GRUB to your EFI partition:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">grub-install --target=x86_64-efi --efi-directory=/boot
+grub-mkconfig -o /boot/grub/grub.cfg
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org30b185f" class="outline-3">
+<h3 id="org30b185f"><span class="section-number-3">4.7.</span> Root password</h3>
+<div class="outline-text-3" id="text-4-7">
+<p>
+To set the root password, run the following command:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">passwd &lt;YOUR PASSWORD&gt;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb690c72" class="outline-3">
+<h3 id="orgb690c72"><span class="section-number-3">4.8.</span> Install Extra Packages</h3>
+<div class="outline-text-3" id="text-4-8">
+<p>
+At this point, your base installation is finished and you&rsquo;re now ready to use your system! Before booting into your system, though, I would recommend installing a couple basic utilities such as a text editor and Git. For instance:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">pacman -S <span style="color: #fabd2f;">git</span> vim wget <span style="color: #928374;"># </span><span style="color: #928374;">add whatever packages you want here</span>
+</pre>
+</div>
+
+<p>
+To reboot into your new system, simply leave the chroot environment with the <code>exit</code> command, then type the <code>reboot</code> command. Congratulations!
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb1b24c1" class="outline-2">
+<h2 id="orgb1b24c1"><span class="section-number-2">5.</span> Post-Installation Steps</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Now, I&rsquo;ll walk you through some common post-installation steps. From here on out, these steps will assume you&rsquo;re booted into your live system.
+</p>
+</div>
+<div id="outline-container-orgccaeef6" class="outline-3">
+<h3 id="orgccaeef6"><span class="section-number-3">5.1.</span> Setting Up Your Users</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+To create your user, then set its password:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">useradd -m &lt;USERNAME&gt;
+passwd &lt;USERNAME&gt;
+</pre>
+</div>
+
+<p>
+After creating your user, it&rsquo;s a good idea to add it to some common groups using <code>usermod</code>, for example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">usermod -aG wheel,networkmanager &lt;USERNAME&gt;
+</pre>
+</div>
+</div>
+<div id="outline-container-org5073ca3" class="outline-4">
+<h4 id="org5073ca3"><span class="section-number-4">5.1.1.</span> Setting up Sudo</h4>
+<div class="outline-text-4" id="text-5-1-1">
+<p>
+Setting up <code>sudo</code> will give your user the ability to run commands as root. First, install the <code>sudo</code> package:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">pacman -S <span style="color: #fabd2f;">sudo</span>
+</pre>
+</div>
+
+<p>
+Then, to configure sudo to grant members of group <code>wheel</code> root access, run the <code>visudo</code> command and uncomment the line:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">%wheel      <span style="color: #83a598;">ALL</span>=<span style="color: #fe8019;">(</span>ALL:ALL<span style="color: #fe8019;">)</span> ALL
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org60d99fc" class="outline-3">
+<h3 id="org60d99fc"><span class="section-number-3">5.2.</span> Installing a Desktop Environment</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Picking a desktop environment is a decision that is entirely up to you, but for the purposes of this example, I&rsquo;ll show you how to install KDE Plasma. However, this process should be relatively the same for any DE you decide to install.
+</p>
+
+<p>
+First, install the <code>plasma</code> package:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">pacman -S plasma
+</pre>
+</div>
+
+<p>
+Then, enable <code>SDDM</code> to run on startup:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">systemctl enable sddm.service
+</pre>
+</div>
+
+<p>
+Here are the installation guides for some other popular desktop environments:
+</p>
+<ul class="org-ul">
+<li><a href="https://wiki.archlinux.org/title/GNOME#Installation">GNOME</a></li>
+<li><a href="https://wiki.archlinux.org/title/Xfce#Installation">XFCE</a></li>
+<li><a href="https://wiki.archlinux.org/title/Cinnamon#Installation">Cinnamon</a></li>
+<li><a href="https://wiki.archlinux.org/title/LXQt#Installation">LXQt</a></li>
+<li><a href="https://wiki.archlinux.org/title/Pantheon#Installation">Pantheon</a></li>
+<li><a href="https://wiki.archlinux.org/title/Budgie#Installation">Budgie</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfa4c6e5" class="outline-2">
+<h2 id="orgfa4c6e5"><span class="section-number-2">6.</span> Conclusion</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+I hope you found this guide for installing Arch Linux to be helpful. Installing Arch from scratch is, in my opinion, one of the absolute best ways to learn Linux comprehensively.
+</p>
+</div>
+<div id="outline-container-org3da72a9" class="outline-3">
+<h3 id="org3da72a9"><span class="section-number-3">6.1.</span> What&rsquo;s Next???</h3>
+<div class="outline-text-3" id="text-6-1">
+<ul class="org-ul">
+<li>To maintain your Arch system, <a href="https://wiki.archlinux.org/title/System_maintenance">follow this article from the Arch Wiki</a>.</li>
+<li>If you ever run into problems after an update, read the <a href="https://archlinux.org/news/">Arch News</a> and see if manual intervention is required.</li>
+<li>In general, the Arch Wiki is going to be your best friend for fixing problems and installing software. Always try to use the Wiki as your first resource.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Nick Tenebruso</p>
+<p class="date">Created: 2024-10-25 Fri 18:07</p>
+</div>
+</body>
+</html>
