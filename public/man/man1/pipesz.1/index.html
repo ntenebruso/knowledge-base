@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pipesz.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pipesz.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pipesz - set or examine pipe and FIFO buffer sizes</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>pipesz</strong> [options] [–set <em>size/] [–] [/command</em> [argument] …]</p>
+<p>
+<strong>pipesz</strong> [options] –get</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Pipes and FIFOs maintain an internal buffer used to transfer data
+between the read end and the write end. In some cases, the default size
+of this internal buffer may not be appropriate. This program provides
+facilities to set and examine the size of these buffers.</p>
+<p>
+The <strong>–set</strong> operation sets pipe buffer sizes. If it is specified, it
+must be specified with an explicit <em>size</em>. Otherwise, it is implied and
+the size is read from <strong>/proc/sys/fs/pipe-max-size</strong>. The kernel may
+adjust <em>size</em> as described in <strong>fcntl*(2). To determine the actual buffer
+sizes set, use the *–verbose</strong> option. If neither <strong>–file</strong> nor <strong>–fd</strong>
+are specified, <strong>–set</strong> acts on standard output.</p>
+<p>
+The <strong>–set</strong> operation permits an optional <em>command</em> to execute after
+setting the pipe buffer sizes. This command is executed with the
+adjusted pipes.</p>
+<p>
+The <strong>–get</strong> operation outputs data in a tabular format. The first column
+is the name of the pipe as passed to <strong>pipesz</strong>. File descriptors are
+named as &#34;fd <em>N</em>&#34;. The second column is the size, in bytes, of the
+pipe&#39;s internal buffer. The third column is the number of unread bytes
+currently in the pipe. The columns are separated by tabs (\t, ASCII
+09h). If <strong>–verbose</strong> is specified, a descriptive header is also emitted.
+If neither <strong>–file</strong> nor <strong>–fd</strong> are specified, <strong>–get</strong> acts on standard
+input.</p>
+<p>
+Unless the <strong>–check</strong> option is specified, <strong>pipesz</strong> does <em>not</em> exit if it
+encounters an error while manipulating a file or file descriptor. This
+allows <strong>pipesz</strong> to be used generically without fear of disrupting the
+execution of pipelines should the type of certain files be later
+changed. For minimal disruption, the <strong>–quiet</strong> option prevents warnings
+from being emitted in these cases.</p>
+<p>
+The kernel imposes limits on the amount of pipe buffer space
+unprivileged processes can use, though see <strong>BUGS</strong> below. The kernel will
+also refuse to shrink a pipe buffer if this would cause a loss of
+buffered data. See *pipe*(7) for additional details.</p>
+<p>
+<strong>pipesz</strong> supports specifying multiple short options consecutively, in
+the usual *getopt*(3) fashion. The first non-option argument is
+interpreted as <em>command</em>. If <em>command</em> might begin with -, use – to
+separate it from arguments to <strong>pipesz</strong>. In shell scripts, it is good
+practice to use – when parameter expansion is involved. <strong>pipesz</strong> itself
+does not read from standard input and does not write to standard output
+unless <strong>–get</strong>, <strong>–help</strong>, or <strong>–version</strong> are specified.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-g</strong>, <strong>–get</strong></p>
+<blockquote>
+<p>Report the size of pipe buffers to standard output and exit. As a
+special behavior, if neither <strong>–file</strong> nor <strong>–fd</strong> are specified, standard
+input is examined. It is an error to specify this option in combination
+with <strong>–set</strong>.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–set</strong> <em>size</em></p>
+<blockquote>
+<p>Set the size of the pipe buffers, in bytes. This option may be suffixed
+by <em>K</em>, <em>M</em>, <em>G</em>, <em>KiB</em>, <em>MiB</em>, or <em>GiB</em> to indicate multiples of 1024.
+Fractional values are supported in this case. Additional suffixes are
+supported but are unlikely to be useful. If this option is not
+specified, a default value is used, as described above. If this option
+is specified multiple times, a warning is emitted and only the
+last-specified <em>size</em> is used. As a special behavior, if neither
+<strong>–file</strong> nor <strong>–fd</strong> are specified, standard output is adjusted. It is an
+error to specify this option in combination with <strong>–get</strong>.</p>
+</blockquote>
+<p>
+<strong>-f</strong>, <strong>–file</strong> <em>path</em></p>
+<blockquote>
+<p>Set the buffer size of the FIFO or pipe at <em>path</em>, relative to the
+current working directory. You may specify this option multiple times to
+affect different files, and you may do so in combination with <strong>–fd</strong>.
+Generally, this option is used with FIFOs, but it will also operate on
+anonymous pipes such as those found in <strong>/proc/PID/fd</strong>. Changes to the
+buffer size of FIFOs are not preserved across system restarts.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–fd</strong> <em>fd</em></p>
+<blockquote>
+<p>Set the buffer size of the pipe or FIFO passed to <strong>pipesz</strong> as the
+specified file descriptor number. You may specify this option multiple
+times to affect different file descriptors, and you may do so in
+combination with <strong>–file</strong>. Shorthand options are provided for the common
+cases of fd 0 (stdin), fd 1 (stdout), and fd 2 (stderr). These should
+suffice in most cases.</p>
+</blockquote>
+<p>
+<strong>-i</strong>, <strong>–stdin</strong></p>
+<blockquote>
+<p>Shorthand for <strong>–fd 0</strong>.</p>
+</blockquote>
+<p>
+<strong>-o</strong>, <strong>–stdout</strong></p>
+<blockquote>
+<p>Shorthand for <strong>–fd 1</strong>.</p>
+</blockquote>
+<p>
+<strong>-e</strong>, <strong>–stderr</strong></p>
+<blockquote>
+<p>Shorthand for <strong>–fd 2</strong>.</p>
+</blockquote>
+<p>
+<strong>-c</strong>, <strong>–check</strong></p>
+<blockquote>
+<p>Exit, without executing <em>command</em>, in case of any error while
+manipulating a file or file descriptor. The default behavior if this is
+not specified is to emit a warning to standard error and continue.</p>
+</blockquote>
+<p>
+<strong>-q</strong>, <strong>–quiet</strong></p>
+<blockquote>
+<p>Do not diagnose non-fatal errors to standard error. This option does not
+affect the normal output of <strong>–get</strong>, <strong>–verbose</strong>, <strong>–help</strong>, or
+<strong>–version</strong>.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>If specified with <strong>–get</strong>, <strong>pipesz</strong> will emit a descriptive header above
+the table. Otherwise, if specified, <strong>pipesz</strong> will print the actual
+buffer sizes set by the kernel to standard error.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>pipesz</strong> <strong>dd</strong> if=/file/ bs=1M | …</p>
+<blockquote>
+<p>Runs *dd*(1) with an expanded standard output pipe, allowing it to avoid
+context switches when piping around large blocks.</p>
+</blockquote>
+<p>
+<strong>pipesz</strong> -s1M -cf <em>/run/my-service.fifo</em></p>
+<blockquote>
+<p>Sets the pipe buffer size of a service FIFO to 1,048,576 bytes. If the
+buffer size could not be set, <strong>pipesz</strong> exits with an error.</p>
+</blockquote>
+<p>
+<strong>echo</strong> hello | <strong>pipesz</strong> -g</p>
+<blockquote>
+<p>Prints the size of pipe used by the shell to pass input to <strong>pipesz</strong>.
+Since <strong>pipesz</strong> does not read standard input, it may also report 6 unread
+bytes in the pipe, depending on relative timings.</p>
+</blockquote>
+<p>
+<strong>find</strong> /proc//PID//fd -exec <strong>pipesz</strong> -gqf {} ;</p>
+<blockquote>
+<p>Prints the size and number of unread bytes of all pipes in use by <em>PID</em>.
+If some pipes are routinely full, <strong>pipesz</strong> might be able to mitigate a
+processing bottleneck.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+NOTES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Linux supports adjusting the size of pipe buffers since kernel 2.6.35.
+This release also introduced <strong>/proc/sys/fs/pipe-max-size</strong>.</p>
+<p>
+This program uses <strong>fcntl*(2) *F_GETPIPE_SZ*/*F_SETPIPE_SZ</strong> to get and
+set pipe buffer sizes.</p>
+<p>
+This program uses <strong>ioctl*(2) *FIONREAD</strong> to report the amount of unread
+data in pipes. If for some reason this fails, the amount of unread data
+is reported as 0.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Before Linux 4.9, some bugs affect how certain resource limits are
+enforced when setting pipe buffer sizes. See *pipe*(7) for details.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*pipe*(7)</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The <strong>pipesz</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

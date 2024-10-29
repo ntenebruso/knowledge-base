@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-mailinfo.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-mailinfo.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-mailinfo - Extracts patch and authorship from a single e-mail
+message</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git mailinfo [-k|-b] [-u | --encoding=&lt;encoding&gt; | -n]
+               [--[no-]scissors] [--quoted-cr=&lt;action&gt;]
+               &lt;msg&gt; &lt;patch&gt;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Reads a single e-mail message from the standard input, and writes the
+commit log message in &lt;msg&gt; file, and the patches in &lt;patch&gt; file. The
+author name, e-mail and e-mail subject are written out to the standard
+output to be used by <em>git am</em> to create a commit. It is usually not
+necessary to use this command directly. See *git-am*(1) instead.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-k</p>
+<blockquote>
+<p>Usually the program removes email cruft from the Subject: header line to
+extract the title line for the commit log message. This option prevents
+this munging, and is most useful when used to read back <em>git
+format-patch -k</em> output.</p>
+<p>
+Specifically, the following are removed until none of them remain:</p>
+<blockquote>
+<p>·</p>
+<p>
+Leading and trailing whitespace.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Leading <strong>Re:</strong>, <strong>re:</strong>, and <strong>:</strong>.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Leading bracketed strings (between <strong>[</strong> and <strong>]</strong>, usually <strong>[PATCH]</strong>).</p>
+</blockquote>
+<p>
+Finally, runs of whitespace are normalized to a single ASCII space
+character.</p>
+</blockquote>
+<p>
+-b</p>
+<blockquote>
+<p>When -k is not in effect, all leading strings bracketed with <em>[</em> and <em>]</em>
+pairs are stripped. This option limits the stripping to only the pairs
+whose bracketed string contains the word &#34;PATCH&#34;.</p>
+</blockquote>
+<p>
+-u</p>
+<blockquote>
+<p>The commit log message, author name and author email are taken from the
+e-mail, and after minimally decoding MIME transfer encoding, re-coded in
+the charset specified by <strong>i18n.commitEncoding</strong> (defaulting to UTF-8) by
+transliterating them. This used to be optional but now it is the
+default.</p>
+<p>
+Note that the patch is always used as-is without charset conversion,
+even with this flag.</p>
+</blockquote>
+<p>
+–encoding=&lt;encoding&gt;</p>
+<blockquote>
+<p>Similar to -u. But when re-coding, the charset specified here is used
+instead of the one specified by <strong>i18n.commitEncoding</strong> or UTF-8.</p>
+</blockquote>
+<p>
+-n</p>
+<blockquote>
+<p>Disable all charset re-coding of the metadata.</p>
+</blockquote>
+<p>
+-m, –message-id</p>
+<blockquote>
+<p>Copy the Message-ID header at the end of the commit message. This is
+useful in order to associate commits with mailing list discussions.</p>
+</blockquote>
+<p>
+–scissors</p>
+<blockquote>
+<p>Remove everything in body before a scissors line (e.g. &#34;– &gt;8 –&#34;). The
+line represents scissors and perforation marks, and is used to request
+the reader to cut the message at that line. If that line appears in the
+body of the message before the patch, everything before it (including
+the scissors line itself) is ignored when this option is used.</p>
+<p>
+This is useful if you want to begin your message in a discussion thread
+with comments and suggestions on the message you are responding to, and
+to conclude it with a patch submission, separating the discussion and
+the beginning of the proposed commit log message with a scissors line.</p>
+<p>
+This can be enabled by default with the configuration option
+mailinfo.scissors.</p>
+</blockquote>
+<p>
+–no-scissors</p>
+<blockquote>
+<p>Ignore scissors lines. Useful for overriding mailinfo.scissors settings.</p>
+</blockquote>
+<p>
+–quoted-cr=&lt;action&gt;</p>
+<blockquote>
+<p>Action when processes email messages sent with base64 or
+quoted-printable encoding, and the decoded lines end with a CRLF instead
+of a simple LF.</p>
+<p>
+The valid actions are:</p>
+<blockquote>
+<p>·</p>
+<p>
+<strong>nowarn</strong>: Git will do nothing when such a CRLF is found.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>warn</strong>: Git will issue a warning for each message if such a CRLF is
+found.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>strip</strong>: Git will convert those CRLF to LF.</p>
+</blockquote>
+<p>
+The default action could be set by configuration option
+<strong>mailinfo.quotedCR</strong>. If no such configuration option has been set,
+<strong>warn</strong> will be used.</p>
+</blockquote>
+<p>
+&lt;msg&gt;</p>
+<blockquote>
+<p>The commit log message extracted from e-mail, usually except the title
+line which comes from e-mail Subject.</p>
+</blockquote>
+<p>
+&lt;patch&gt;</p>
+<blockquote>
+<p>The patch extracted from e-mail.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+mailinfo.scissors</p>
+<blockquote>
+<p>If true, makes *git-mailinfo*(1) (and therefore *git-am*(1)) act by
+default as if the –scissors option was provided on the command-line.
+When active, this feature removes everything from the message body
+before a scissors line (i.e. consisting mainly of &#34;&gt;8&#34;, &#34;8&lt;&#34; and &#34;-&#34;).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+GIT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

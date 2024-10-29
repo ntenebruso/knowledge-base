@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - sg.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - sg.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>sg - execute command as different group ID</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>sg</strong> [-] [group [-c ] command]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>sg</strong> command works similar to <strong>newgrp</strong> but accepts a command. The
+command will be executed with the /bin/sh shell. With most shells you
+may run <strong>sg</strong> from, you need to enclose multi-word commands in quotes.
+Another difference between <strong>newgrp</strong> and <strong>sg</strong> is that some shells treat
+<strong>newgrp</strong> specially, replacing themselves with a new instance of a shell
+that <strong>newgrp</strong> creates. This doesnt happen with <strong>sg</strong>, so upon exit from a
+<strong>sg</strong> command you are returned to your previous group ID.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following configuration variables in /etc/login.defs change the
+behavior of this tool:</p>
+<p>
+<strong>SYSLOG_SG_ENAB</strong> (boolean)</p>
+<blockquote>
+<p>Enable &#34;syslog&#34; logging of <strong>sg</strong> activity.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+FILES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>/etc/passwd</p>
+<blockquote>
+<p>User account information.</p>
+</blockquote>
+<p>
+/etc/shadow</p>
+<blockquote>
+<p>Secure user account information.</p>
+</blockquote>
+<p>
+/etc/group</p>
+<blockquote>
+<p>Group account information.</p>
+</blockquote>
+<p>
+/etc/gshadow</p>
+<blockquote>
+<p>Secure group account information.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*id*(1), *login*(1), *newgrp*(1), *su*(1), *gpasswd*(1), *group*(5),
+*gshadow*(5).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

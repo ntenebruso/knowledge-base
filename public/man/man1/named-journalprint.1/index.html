@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - named-journalprint.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - named-journalprint.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>named-journalprint - print zone journal in human-readable form</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>named-journalprint</strong> [-c serial] [*-dux*] {journal}</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>named-journalprint</strong> scans the contents of a zone journal file, printing
+it in a human-readable form, or, optionally, converting it to a
+different journal file format.</p>
+<p>
+Journal files are automatically created by <em>named</em> when changes are made
+to dynamic zones (e.g., by <em>nsupdate</em>). They record each addition or
+deletion of a resource record, in binary format, allowing the changes to
+be re-applied to the zone when the server is restarted after a shutdown
+or crash. By default, the name of the journal file is formed by
+appending the extension <strong>.jnl</strong> to the name of the corresponding zone
+file.</p>
+<p>
+<strong>named-journalprint</strong> converts the contents of a given journal file into
+a human-readable text format. Each line begins with <strong>add</strong> or <strong>del</strong>, to
+indicate whether the record was added or deleted, and continues with the
+resource record in master-file format.</p>
+<p>
+The <strong>-c</strong> (compact) option provides a mechanism to reduce the size of a
+journal by removing (most/all) transactions prior to the specified
+serial number. Note: this option <em>must not</em> be used while <em>named</em> is
+running, and can cause data loss if the zone file has not been updated
+to contain the data being removed from the journal. Use with extreme
+caution.</p>
+<p>
+The <strong>-x</strong> option causes additional data about the journal file to be
+printed at the beginning of the output and before each group of changes.</p>
+<p>
+The <strong>-u</strong> (upgrade) and <strong>-d</strong> (downgrade) options recreate the journal
+file with a modified format version. The existing journal file is
+replaced. <strong>-d</strong> writes out the journal in the format used by versions of
+BIND up to 9.16.11; <strong>-u</strong> writes it out in the format used by versions
+since 9.16.13. (9.16.12 is omitted due to a journal-formatting bug in
+that release.) Note that these options <em>must not</em> be used while <em>named</em>
+is running.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><em>named(8)</em>, <em>nsupdate(1)</em>, BIND 9 Administrator Reference Manual.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHOR
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Internet Systems Consortium</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>2024, Internet Systems Consortium</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

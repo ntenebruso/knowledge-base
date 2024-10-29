@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - chacl.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - chacl.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>chacl - change the access control list of a file or directory</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>chacl acl pathname…</strong><br>
+<strong>chacl -b acl dacl pathname…</strong><br>
+<strong>chacl -d dacl pathname…</strong><br>
+<strong>chacl -R pathname…</strong><br>
+<strong>chacl -D pathname…</strong><br>
+<strong>chacl -B pathname…</strong><br>
+<strong>chacl -l pathname…</strong><br>
+<strong>chacl -r pathname…</strong>\\</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><em>chacl</em> is an IRIX-compatibility command, and is maintained for those
+users who are familiar with its use from either XFS or IRIX. Refer to
+the <strong>SEE ALSO</strong> section below for a description of tools which conform
+more closely to the (withdrawn draft) POSIX 1003.1e standard which
+describes Access Control Lists (ACLs).</p>
+<p>
+<em>chacl</em> changes the ACL(s) for a file or directory. The ACL(s) specified
+are applied to each file in the pathname arguments.</p>
+<p>
+Each ACL is a string which is interpreted using the /acl_from_text/(3)
+routine. These strings are made up of comma separated clauses each of
+which is of the form, tag:name:perm. Where tag can be:</p>
+<dl>
+<dt>
+&#34;user&#34; (or &#34;u&#34;)
+</dt>
+<dd>indicating that the entry is a &#34;user&#34; ACL entry.</dd>
+<dt>
+&#34;group&#34; (or &#34;g&#34;)
+</dt>
+<dd>indicating that the entry is a &#34;group&#34; ACL entry.</dd>
+<dt>
+&#34;other&#34; (or &#34;o&#34;)
+</dt>
+<dd>indicating that the entry is an &#34;other&#34; ACL entry.</dd>
+<dt>
+&#34;mask&#34; (or &#34;m&#34;)
+</dt>
+<dd>indicating that the entry is a &#34;mask&#34; ACL entry.</dd>
+</dl>
+<p>name is a string which is the user or group name for the ACL entry. A
+null name in a user or group ACL entry indicates the file&#39;s owner or
+file&#39;s group. perm is the string &#34;rwx&#34; where each of the entries may be
+replaced by a &#34;-&#34; indicating no access of that type, e.g. &#34;r-x&#34;, &#34;–x&#34;,
+&#34;—&#34;.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-b</strong>
+</dt>
+<dd>Indicates that there are two ACLs to change, the first is the
+file access ACL and the second the directory default ACL.</dd>
+<dt>
+<strong>-d</strong>
+</dt>
+<dd>Used to set only the default ACL of a directory.</dd>
+<dt>
+<strong>-R</strong>
+</dt>
+<dd>Removes the file access ACL only.</dd>
+<dt>
+<strong>-D</strong>
+</dt>
+<dd>Removes directory default ACL only.</dd>
+<dt>
+<strong>-B</strong>
+</dt>
+<dd>Remove all ACLs.</dd>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>Lists the access ACL and possibly the default ACL associated
+with the specified files or directories. This option was added during
+the Linux port of XFS, and is not IRIX compatible.</dd>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>Set the access ACL recursively for each subtree rooted at
+pathname(s). This option was also added during the Linux port of XFS,
+and is not compatible with IRIX.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>A minimum ACL:</p>
+<pre class="example">
+  chacl u::rwx,g::r-x,o::r-- file
+</pre>
+<p>
+The file ACL is set so that the file&#39;s owner has &#34;rwx&#34;, the file&#39;s group
+has read and execute, and others have read only access to the file.</p>
+<p>
+An ACL that is not a minimum ACL, that is, one that specifies a user or
+group other than the file&#39;s owner or owner&#39;s group, must contain a mask
+entry:</p>
+<pre class="example">
+  chacl u::rwx,g::r-x,o::r--,u:bob:r--,m::r-x file1 file2
+</pre>
+<p>
+To set the default and access ACLs on newdir to be the same as on
+olddir, you could type:</p>
+<pre class="example">
+  chacl -b `chacl -l olddir | \
+      sed -e &#39;s/.*\[//&#39; -e &#39;s#/# #&#39; -e &#39;s/]$//&#39;` newdir
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+CAUTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><em>chacl</em> can replace the existing ACL. To add or delete entries, you must
+first do chacl -l to get the existing ACL, and use the output to form
+the arguments to <em>chacl</em>.</p>
+<p>
+Changing the permission bits of a file will change the file access ACL
+settings (see /chmod/(1)). However, file creation mode masks (see
+/umask/(1)) will not affect the access ACL settings of files created
+using directory default ACLs.</p>
+<p>
+ACLs are filesystem extended attributes and hence are not typically
+archived or restored using the conventional archiving utilities. See
+/attr/(5) for more information about extended attributes and see
+/xfsdump/(8) for a method of backing them up under XFS.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*getfacl*(1), *setfacl*(1), *chmod*(1), *umask*(1), *acl_from_text*(3),
+*acl*(5), *xfsdump*(8)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

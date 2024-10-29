@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - timeout.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - timeout.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>timeout - run a command with a time limit</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>timeout</strong> [/OPTION/] /DURATION COMMAND /[/ARG/]…<br>
+<strong>timeout</strong> [/OPTION/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Start COMMAND, and kill it if still running after DURATION.</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<p>
+<strong>–preserve-status</strong></p>
+<blockquote>
+<p>exit with the same status as COMMAND, even when the</p>
+</blockquote>
+<blockquote>
+<p>command times out</p>
+</blockquote>
+<p>
+<strong>–foreground</strong></p>
+<blockquote>
+<p>when not running timeout directly from a shell prompt,</p>
+</blockquote>
+<blockquote>
+<p>allow COMMAND to read from the TTY and get TTY signals; in this mode,
+children of COMMAND will not be timed out</p>
+</blockquote>
+<p>
+<strong>-k</strong>, *–kill-after*=/DURATION/</p>
+<blockquote>
+<p>also send a KILL signal if COMMAND is still running</p>
+</blockquote>
+<blockquote>
+<p>this long after the initial signal was sent</p>
+</blockquote>
+<p>
+<strong>-s</strong>, *–signal*=/SIGNAL/</p>
+<blockquote>
+<p>specify the signal to be sent on timeout;</p>
+</blockquote>
+<blockquote>
+<p>SIGNAL may be a name like &#39;HUP&#39; or a number; see &#39;kill <strong>-l</strong>&#39; for a list
+of signals</p>
+</blockquote>
+<dl>
+<dt>
+<strong>-v</strong>, <strong>–verbose</strong>
+</dt>
+<dd>diagnose to stderr any signal sent upon timeout</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>DURATION is a floating point number with an optional suffix: &#39;s&#39; for
+seconds (the default), &#39;m&#39; for minutes, &#39;h&#39; for hours or &#39;d&#39; for days. A
+duration of 0 disables the associated timeout.</p>
+<p>
+Upon timeout, send the TERM signal to COMMAND, if no other SIGNAL
+specified. The TERM signal kills any process that does not block or
+catch that signal. It may be necessary to use the KILL signal, since
+this signal can&#39;t be caught.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Exit status:
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<dl>
+<dt>
+124
+</dt>
+<dd>if COMMAND times out, and <strong>–preserve-status</strong> is not specified</dd>
+<dt>
+125
+</dt>
+<dd>if the timeout command itself fails</dd>
+<dt>
+126
+</dt>
+<dd>if COMMAND is found but cannot be invoked</dd>
+<dt>
+127
+</dt>
+<dd>if COMMAND cannot be found</dd>
+<dt>
+137
+</dt>
+<dd>if COMMAND (or timeout itself) is sent the KILL (9) signal
+(128+9)</dd>
+<dt>
+-
+</dt>
+<dd>the exit status of COMMAND otherwise</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+BUGS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Some platforms don&#39;t currently support timeouts beyond the year 2038.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHOR
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Written by Padraig Brady.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*kill*(1)</p>
+<p>
+\\
+Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/timeout">https://www.gnu.org/software/coreutils/timeout</a>&gt;<br>
+or available locally via: info &#39;(coreutils) timeout invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

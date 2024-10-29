@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - chmod.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - chmod.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>chmod - change file mode bits</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>chmod</strong> [/OPTION/]… <em>MODE</em>[/,MODE/]… <em>FILE</em>…<br>
+<strong>chmod</strong> [/OPTION/]… <em>OCTAL-MODE FILE</em>…<br>
+<strong>chmod</strong> [/OPTION/]… <em>–reference=RFILE FILE</em>…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This manual page documents the GNU version of <strong>chmod</strong>. <strong>chmod</strong> changes
+the file mode bits of each given file according to <em>mode</em>, which can be
+either a symbolic representation of changes to make, or an octal number
+representing the bit pattern for the new mode bits.</p>
+<p>
+The format of a symbolic mode is [
+<strong>ugoa</strong>. . .][[*-+=*][/perms/. . .]. . .], where <em>perms</em> is either zero
+or more letters from the set <strong>rwxXst</strong>, or a single letter from the set
+<strong>ugo</strong>. Multiple symbolic modes can be given, separated by commas.</p>
+<p>
+A combination of the letters <strong>ugoa</strong> controls which users&#39; access to the
+file will be changed: the user who owns it (<strong>u</strong>), other users in the
+file&#39;s group (<strong>g</strong>), other users not in the file&#39;s group (<strong>o</strong>), or all
+users (<strong>a</strong>). If none of these are given, the effect is as if (<strong>a</strong>) were
+given, but bits that are set in the umask are not affected.</p>
+<p>
+The operator <strong>+</strong> causes the selected file mode bits to be added to the
+existing file mode bits of each file; <strong>-</strong> causes them to be removed; and
+<strong>=</strong> causes them to be added and causes unmentioned bits to be removed
+except that a directory&#39;s unmentioned set user and group ID bits are not
+affected.</p>
+<p>
+The letters <strong>rwxXst</strong> select file mode bits for the affected users: read
+(<strong>r</strong>), write (<strong>w</strong>), execute (or search for directories) (<strong>x</strong>),
+execute/search only if the file is a directory or already has execute
+permission for some user (<strong>X</strong>), set user or group ID on execution (<strong>s</strong>),
+restricted deletion flag or sticky bit (<strong>t</strong>). Instead of one or more of
+these letters, you can specify exactly one of the letters <strong>ugo</strong>: the
+permissions granted to the user who owns the file (<strong>u</strong>), the permissions
+granted to other users who are members of the file&#39;s group (<strong>g</strong>), and
+the permissions granted to users that are in neither of the two
+preceding categories (<strong>o</strong>).</p>
+<p>
+A numeric mode is from one to four octal digits (0-7), derived by adding
+up the bits with values 4, 2, and 1. Omitted digits are assumed to be
+leading zeros. The first digit selects the set user ID (4) and set group
+ID (2) and restricted deletion or sticky (1) attributes. The second
+digit selects permissions for the user who owns the file: read (4),
+write (2), and execute (1); the third selects permissions for other
+users in the file&#39;s group, with the same values; and the fourth for
+other users not in the file&#39;s group, with the same values.</p>
+<p>
+<strong>chmod</strong> doesn&#39;t change the permissions of symbolic links; the <strong>chmod</strong>
+system call cannot change their permissions on most systems, and most
+systems ignore permissions of symbolic links. However, for each symbolic
+link listed on the command line, <strong>chmod</strong> changes the permissions of the
+pointed-to file. In contrast, <strong>chmod</strong> ignores symbolic links encountered
+during recursive directory traversals. Options that modify this behavior
+are described in the <strong>OPTIONS</strong> section.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+SETUID AND SETGID BITS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>chmod</strong> clears the set-group-ID bit of a regular file if the file&#39;s
+group ID does not match the user&#39;s effective group ID or one of the
+user&#39;s supplementary group IDs, unless the user has appropriate
+privileges. Additional restrictions may cause the set-user-ID and
+set-group-ID bits of <em>MODE</em> or <em>RFILE</em> to be ignored. This behavior
+depends on the policy and functionality of the underlying <strong>chmod</strong> system
+call. When in doubt, check the underlying system behavior.</p>
+<p>
+For directories <strong>chmod</strong> preserves set-user-ID and set-group-ID bits
+unless you explicitly specify otherwise. You can set or clear the bits
+with symbolic modes like <strong>u+s</strong> and <strong>g-s</strong>. To clear these bits for
+directories with a numeric mode requires an additional leading zero like
+<strong>00755</strong>, leading minus like <strong>-6000</strong>, or leading equals like <strong>=755</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+RESTRICTED DELETION FLAG OR STICKY BIT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The restricted deletion flag or sticky bit is a single bit, whose
+interpretation depends on the file type. For directories, it prevents
+unprivileged users from removing or renaming a file in the directory
+unless they own the file or the directory; this is called the
+<em>restricted deletion flag</em> for the directory, and is commonly found on
+world-writable directories like <strong>/tmp</strong>. For regular files on some older
+systems, the bit saves the program&#39;s text image on the swap device so it
+will load more quickly when run; this is called the <em>sticky bit</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+OPTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Change the mode of each FILE to MODE. With <strong>–reference</strong>, change the
+mode of each FILE to that of RFILE.</p>
+<dl>
+<dt>
+<strong>-c</strong>, <strong>–changes</strong>
+</dt>
+<dd>like verbose but report only when a change is
+made</dd>
+<dt>
+<strong>-f</strong>, <strong>–silent</strong>, <strong>–quiet</strong>
+</dt>
+<dd>suppress most error messages</dd>
+<dt>
+<strong>-v</strong>, <strong>–verbose</strong>
+</dt>
+<dd>output a diagnostic for every file processed</dd>
+<dt>
+<strong>–dereference</strong>
+</dt>
+<dd>affect the referent of each symbolic link, rather
+than the symbolic link itself</dd>
+<dt>
+<strong>-h</strong>, <strong>–no-dereference</strong>
+</dt>
+<dd>affect each symbolic link, rather than the
+referent</dd>
+<dt>
+<strong>–no-preserve-root</strong>
+</dt>
+<dd>do not treat &#39;/&#39; specially (the default)</dd>
+<dt>
+<strong>–preserve-root</strong>
+</dt>
+<dd>fail to operate recursively on &#39;/&#39;</dd>
+<dt>
+*–reference*=/RFILE/
+</dt>
+<dd>use RFILE&#39;s mode instead of specifying MODE
+values. RFILE is always dereferenced if a symbolic link.</dd>
+<dt>
+<strong>-R</strong>, <strong>–recursive</strong>
+</dt>
+<dd>change files and directories recursively</dd>
+</dl>
+<p>The following options modify how a hierarchy is traversed when the <strong>-R</strong>
+option is also specified. If more than one is specified, only the final
+one takes effect. &#39;-H&#39; is the default.</p>
+<dl>
+<dt>
+<strong>-H</strong>
+</dt>
+<dd>if a command line argument is a symbolic link to a directory,
+traverse it</dd>
+<dt>
+<strong>-L</strong>
+</dt>
+<dd>traverse every symbolic link to a directory encountered</dd>
+<dt>
+<strong>-P</strong>
+</dt>
+<dd>do not traverse any symbolic links</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>Each MODE is of the form &#39;[ugoa]*([-<del>=]([rwxXst]*|[ugo]))+|[-+=][0-7]</del>&#39;.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHOR
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Written by David MacKenzie and Jim Meyering.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*chmod*(2)</p>
+<p>
+\\
+Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/chmod">https://www.gnu.org/software/coreutils/chmod</a>&gt;<br>
+or available locally via: info &#39;(coreutils) chmod invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

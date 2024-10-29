@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pgrep.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pgrep.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pgrep, pkill, pwait - look up, signal, or wait for processes based on
+name and other attributes</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>pgrep</strong> [options] pattern<br>
+<strong>pkill</strong> [options] pattern<br>
+<strong>pwait</strong> [options] pattern</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>pgrep</strong> looks through the currently running processes and lists the
+process IDs which match the selection criteria to stdout. All the
+criteria have to match. For example,</p>
+<blockquote>
+<p>$ pgrep -u root sshd</p>
+</blockquote>
+<p>
+will only list the processes called <strong>sshd</strong> AND owned by <strong>root</strong>. On the
+other hand,</p>
+<blockquote>
+<p>$ pgrep -u root,daemon</p>
+</blockquote>
+<p>
+will list the processes owned by <strong>root</strong> OR <strong>daemon</strong>.</p>
+<p>
+<strong>pkill</strong> will send the specified signal (by default <strong>SIGTERM</strong>) to each
+process instead of listing them on stdout.</p>
+<p>
+<strong>pwait</strong> will wait for each process instead of listing them on stdout.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<ul>
+<li><strong>-*/signal/<br>
+*–signal</strong> <em>signal</em> :: Defines the signal to send to each matched
+process. Either the numeric or the symbolic signal name can be used.
+(<strong>pkill</strong> only.)</li>
+<li><strong>-c</strong>, <strong>–count</strong> :: Suppress normal output; instead print a count of
+matching processes. When count does not match anything, e.g. returns
+zero, the command will return non-zero value. Note that for pkill and
+pwait, the count is the number of matching processes, not the
+processes that were successfully signaled or waited for.</li>
+<li><strong>-d</strong>, <strong>–delimiter</strong> <em>delimiter</em> :: Sets the string used to delimit
+each process ID in the output (by default a newline). (<strong>pgrep</strong> only.)</li>
+<li><strong>-e</strong>, <strong>–echo</strong> :: Display name and PID of the process being killed.
+(<strong>pkill</strong> only.)</li>
+<li><strong>-f</strong>, <strong>–full</strong> :: The <em>pattern</em> is normally only matched against the
+process name. When <strong>-f</strong> is set, the full command line is used.</li>
+<li><strong>-g</strong>, <strong>–pgroup</strong> <em>pgrp</em>,… :: Only match processes in the process
+group IDs listed. Process group 0 is translated into <strong>pgrep</strong>&#39;s,
+<strong>pkill</strong>&#39;s, or <strong>pwait</strong>&#39;s own process group.</li>
+<li><strong>-G</strong>, <strong>–group</strong> <em>gid</em>,… :: Only match processes whose real group ID
+is listed. Either the numerical or symbolical value may be used.</li>
+<li><strong>-i</strong>, <strong>–ignore-case</strong> :: Match processes case-insensitively.</li>
+<li><strong>-l</strong>, <strong>–list-name</strong> :: List the process name as well as the process
+ID. (<strong>pgrep</strong> only.)</li>
+<li><strong>-a</strong>, <strong>–list-full</strong> :: List the full command line as well as the
+process ID. (<strong>pgrep</strong> only.)</li>
+<li><strong>-n</strong>, <strong>–newest</strong> :: Select only the newest (most recently started) of
+the matching processes.</li>
+<li><strong>-o</strong>, <strong>–oldest</strong> :: Select only the oldest (least recently started) of
+the matching processes.</li>
+<li><strong>-O</strong>, <strong>–older</strong> <em>secs</em> :: Select processes older than secs.</li>
+<li><strong>-P</strong>, <strong>–parent</strong> <em>ppid</em>,… :: Only match processes whose parent
+process ID is listed.</li>
+<li><strong>-s</strong>, <strong>–session</strong> <em>sid</em>,… :: Only match processes whose process
+session ID is listed. Session ID 0 is translated into <strong>pgrep</strong>&#39;s,
+<strong>pkill</strong>&#39;s, or <strong>pwait</strong>&#39;s own session ID.</li>
+<li><strong>-t</strong>, <strong>–terminal</strong> <em>term</em>,… :: Only match processes whose
+controlling terminal is listed. The terminal name should be specified
+without the &#34;<em>dev</em>&#34; prefix.</li>
+<li><strong>-u</strong>, <strong>–euid</strong> <em>euid</em>,… :: Only match processes whose effective user
+ID is listed. Either the numerical or symbolical value may be used.</li>
+<li><strong>-U</strong>, <strong>–uid</strong> <em>uid</em>,… :: Only match processes whose real user ID is
+listed. Either the numerical or symbolical value may be used.</li>
+<li><strong>-v</strong>, <strong>–inverse</strong> :: Negates the matching. This option is usually used
+in <strong>pgrep</strong>&#39;s or <strong>pwait</strong>&#39;s context. In <strong>pkill</strong>&#39;s context the short
+option is disabled to avoid accidental usage of the option.</li>
+<li><strong>-w</strong>, <strong>–lightweight</strong> :: Shows all thread ids instead of pids in
+<strong>pgrep</strong>&#39;s or <strong>pwait</strong>&#39;s context. In <strong>pkill</strong>&#39;s context this option is
+disabled.</li>
+<li><strong>-x</strong>, <strong>–exact</strong> :: Only match processes whose names (or command lines
+if <strong>-f</strong> is specified) <strong>exactly</strong> match the <em>pattern</em>.</li>
+<li><strong>-F</strong>, <strong>–pidfile</strong> <em>file</em> :: Read <em>PID/s from /file</em>. This option is
+more useful for <strong>pkill*or*pwait</strong> than <strong>pgrep</strong>.</li>
+<li><strong>-L</strong>, <strong>–logpidfile</strong> :: Fail if pidfile (see <strong>-F</strong>) not locked.</li>
+<li><strong>-r</strong>, <strong>–runstates</strong> <em>D,R,S,Z,</em>… :: Match only processes which match
+the process state.</li>
+<li>*–ns */pid/ :: Match processes that belong to the same namespaces.
+Required to run as root to match processes from other users. See
+<strong>–nslist</strong> for how to limit which namespaces to match.</li>
+<li><strong>–nslist */name/</strong>,…* :: Match only the provided namespaces.
+Available namespaces: ipc, mnt, net, pid, user,uts.</li>
+<li><strong>-q</strong>, <strong>–queue */value/ :: Use *sigqueue(3)</strong> rather than <strong>kill(2)</strong> and
+the value argument is used to specify an integer to be sent with the
+signal. If the receiving process has installed a handler for this
+signal using the SA_SIGINFO flag to <strong>sigaction(2)</strong> , then it can
+obtain this data via the si_value field of the siginfo_t structure.</li>
+<li><strong>-V</strong>, <strong>–version</strong> :: Display version information and exit.</li>
+<li><strong>-h</strong>, <strong>–help</strong> :: Display help and exit.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPERANDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+<em>pattern</em>
+</dt>
+<dd>Specifies an Extended Regular Expression for matching
+against the process names or command lines.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Example 1: Find the process ID of the <strong>named</strong> daemon:</p>
+<blockquote>
+<p>$ pgrep -u root named</p>
+</blockquote>
+<p>
+Example 2: Make <strong>syslog</strong> reread its configuration file:</p>
+<blockquote>
+<p>$ pkill -HUP syslogd</p>
+</blockquote>
+<p>
+Example 3: Give detailed information on all <strong>xterm</strong> processes:</p>
+<blockquote>
+<p>$ ps -fp $(pgrep -d, -x xterm)</p>
+</blockquote>
+<p>
+Example 4: Make all <strong>chrome</strong> processes run nicer:</p>
+<blockquote>
+<p>$ renice +4 $(pgrep chrome)</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<dl>
+<dt>
+0
+</dt>
+<dd>One or more processes matched the criteria. For pkill and pwait,
+one or more processes must also have been successfully signalled or
+waited for.</dd>
+<dt>
+1
+</dt>
+<dd>No processes matched or none of them could be signalled.</dd>
+<dt>
+2
+</dt>
+<dd>Syntax error in the command line.</dd>
+<dt>
+3
+</dt>
+<dd>Fatal error: out of memory etc.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+NOTES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The process name used for matching is limited to the 15 characters
+present in the output of /proc//pid//stat. Use the <strong>-f</strong> option to match
+against the complete command line, /proc//pid//cmdline.</p>
+<p>
+The running <strong>pgrep</strong>, <strong>pkill</strong>, or <strong>pwait</strong> process will never report
+itself as a match.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The options <strong>-n</strong> and <strong>-o</strong> and <strong>-v</strong> can not be combined. Let me know if
+you need to do this.</p>
+<p>
+Defunct processes are reported.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>*ps*(1), *regex*(7), *signal*(7), *sigqueue*(3), *killall*(1),
+*skill*(1), *kill*(1), *kill*(2)</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+AUTHOR
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p><a href="kjetilho@ifi.uio.no">Kjetil Torgrim Homme</a></p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>Please send bug reports to <a href="procps@freelists.html">procps@freelists.html</a></p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

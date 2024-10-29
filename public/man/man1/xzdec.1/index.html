@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - xzdec.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - xzdec.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>xzdec, lzmadec - Small .xz and .lzma decompressors</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>xzdec</strong> [/option…/] [/file…/]<br>
+<strong>lzmadec</strong> [/option…/] [/file…/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>xzdec</strong> is a liblzma-based decompression-only tool for <strong>.xz</strong> (and only
+<strong>.xz</strong>) files. <strong>xzdec</strong> is intended to work as a drop-in replacement for
+<strong>xz*(1) in the most common situations where a script has been written to
+use *xz –decompress –stdout</strong> (and possibly a few other commonly used
+options) to decompress <strong>.xz</strong> files. <strong>lzmadec</strong> is identical to <strong>xzdec</strong>
+except that <strong>lzmadec</strong> supports <strong>.lzma</strong> files instead of <strong>.xz</strong> files.</p>
+<p>
+To reduce the size of the executable, <strong>xzdec</strong> doesn&#39;t support
+multithreading or localization, and doesn&#39;t read options from
+<strong>XZ_DEFAULTS</strong> and <strong>XZ_OPT</strong> environment variables. <strong>xzdec</strong> doesn&#39;t
+support displaying intermediate progress information: sending <strong>SIGINFO</strong>
+to <strong>xzdec</strong> does nothing, but sending <strong>SIGUSR1</strong> terminates the process
+instead of displaying progress information.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-d</strong>, <strong>–decompress</strong>, <strong>–uncompress</strong>
+</dt>
+<dd>Ignored for <strong>xz*(1)
+compatibility. *xzdec</strong> supports only decompression.</dd>
+<dt>
+<strong>-k</strong>, <strong>–keep</strong>
+</dt>
+<dd>Ignored for <strong>xz*(1) compatibility. *xzdec</strong> never
+creates or removes any files.</dd>
+<dt>
+<strong>-c</strong>, <strong>–stdout</strong>, <strong>–to-stdout</strong>
+</dt>
+<dd>Ignored for <strong>xz*(1) compatibility.
+*xzdec</strong> always writes the decompressed data to standard output.</dd>
+<dt>
+<strong>-q</strong>, <strong>–quiet</strong>
+</dt>
+<dd>Specifying this once does nothing since <strong>xzdec</strong>
+never displays any warnings or notices. Specify this twice to suppress
+errors.</dd>
+<dt>
+<strong>-Q</strong>, <strong>–no-warn</strong>
+</dt>
+<dd>Ignored for <strong>xz*(1) compatibility. *xzdec</strong> never
+uses the exit status 2.</dd>
+<dt>
+<strong>-h</strong>, <strong>–help</strong>
+</dt>
+<dd>Display a help message and exit successfully.</dd>
+<dt>
+<strong>-V</strong>, <strong>–version</strong>
+</dt>
+<dd>Display the version number of <strong>xzdec</strong> and
+liblzma.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+<strong>0</strong>
+</dt>
+<dd>All was good.</dd>
+<dt>
+<strong>1</strong>
+</dt>
+<dd>An error occurred.</dd>
+</dl>
+<p><strong>xzdec</strong> doesn&#39;t have any warning messages like <strong>xz*(1) has, thus the
+exit status 2 is not used by *xzdec</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+NOTES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Use <strong>xz*(1) instead of *xzdec</strong> or <strong>lzmadec</strong> for normal everyday use.
+<strong>xzdec</strong> or <strong>lzmadec</strong> are meant only for situations where it is important
+to have a smaller decompressor than the full-featured *xz*(1).</p>
+<p>
+<strong>xzdec</strong> and <strong>lzmadec</strong> are not really that small. The size can be reduced
+further by dropping features from liblzma at compile time, but that
+shouldn&#39;t usually be done for executables distributed in typical
+non-embedded operating system distributions. If you need a truly small
+<strong>.xz</strong> decompressor, consider using XZ Embedded.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*xz*(1)</p>
+<p>
+XZ Embedded: &lt;<a href="https://tukaani.org/xz/embedded.html">https://tukaani.org/xz/embedded.html</a>&gt;</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

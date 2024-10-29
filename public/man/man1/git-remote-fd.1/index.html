@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-remote-fd.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-remote-fd.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-remote-fd - Reflect smart transport stream back to caller</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>&#34;fd::&lt;infd&gt;[,&lt;outfd&gt;][/&lt;anything&gt;]&#34; (as URL)</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This helper uses specified file descriptors to connect to a remote Git
+server. This is not meant for end users but for programs and scripts
+calling git fetch, push, or archive.</p>
+<p>
+If only &lt;infd&gt; is given, it is assumed to be a bidirectional socket
+connected to a remote Git server (git-upload-pack, git-receive-pack, or
+git-upload-archive). If both &lt;infd&gt; and &lt;outfd&gt; are given, they are
+assumed to be pipes connected to a remote Git server (&lt;infd&gt; being the
+inbound pipe and &lt;outfd&gt; being the outbound pipe).</p>
+<p>
+It is assumed that any handshaking procedures have already been
+completed (such as sending service request for git://) before this
+helper is started.</p>
+<p>
+&lt;anything&gt; can be any string. It is ignored. It is meant for providing
+information to the user in the URL in case that URL is displayed in some
+context.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+ENVIRONMENT VARIABLES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>GIT_TRANSLOOP_DEBUG</p>
+<blockquote>
+<p>If set, prints debugging information about various reads/writes.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>git fetch fd::17 master</strong></p>
+<blockquote>
+<p>Fetch master, using file descriptor #17 to communicate with
+git-upload-pack.</p>
+</blockquote>
+<p>
+<strong>git fetch fd::17/foo master</strong></p>
+<blockquote>
+<p>Same as above.</p>
+</blockquote>
+<p>
+<strong>git push fd::7,8 master (as URL)</strong></p>
+<blockquote>
+<p>Push master, using file descriptor #7 to read data from git-receive-pack
+and file descriptor #8 to write data to the same service.</p>
+</blockquote>
+<p>
+<strong>git push fd::7,8/bar master</strong></p>
+<blockquote>
+<p>Same as above.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*gitremote-helpers*(7)</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+GIT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

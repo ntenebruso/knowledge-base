@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - flatpak-build-finish.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - flatpak-build-finish.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>flatpak-build-finish - Finalize a build directory</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>flatpak build-finish</strong> [OPTION…] DIRECTORY</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Finalizes a build directory, to prepare it for exporting. DIRECTORY is
+the name of the directory.</p>
+<p>
+The result of this command is that desktop files, icons, D-Bus service
+files, and AppStream metainfo files from the files subdirectory are
+copied to a new export subdirectory. In the metadata file, the command
+key is set in the [Application] group, and the supported keys in the
+[Environment] group are set according to the options.</p>
+<p>
+As part of finalization you can also specify permissions that the app
+needs, using the various options specified below. Additionally during
+finalization the permissions from the runtime are inherited into the app
+unless you specify <strong>–no-inherit-permissions</strong></p>
+<p>
+You should review the exported files and the application metadata before
+creating and distributing an application bundle.</p>
+<p>
+It is an error to run build-finish on a directory that has not been
+initialized as a build directory, or has already been finalized.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Show help options and exit.</p>
+</blockquote>
+<p>
+<strong>–command=COMMAND</strong></p>
+<blockquote>
+<p>The command to use. If this option is not specified, the first
+executable found in files/bin is used.</p>
+<p>
+Note that the command is used when the application is run via <strong>flatpak
+run</strong>, and does not affect what gets executed when the application is run
+in other ways, e.g. via the desktop file or D-Bus activation.</p>
+</blockquote>
+<p>
+<strong>–require-version=MAJOR.MINOR.MICRO</strong></p>
+<blockquote>
+<p>Require this version or later of flatpak to install/update to this
+build.</p>
+</blockquote>
+<p>
+<strong>–share=SUBSYSTEM</strong></p>
+<blockquote>
+<p>Share a subsystem with the host session. This updates the [Context]
+group in the metadata. SUBSYSTEM must be one of: network, ipc. This
+option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–unshare=SUBSYSTEM</strong></p>
+<blockquote>
+<p>Dont share a subsystem with the host session. This updates the [Context]
+group in the metadata. SUBSYSTEM must be one of: network, ipc. This
+option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–socket=SOCKET</strong></p>
+<blockquote>
+<p>Expose a well-known socket to the application. This updates the
+[Context] group in the metadata. SOCKET must be one of: x11, wayland,
+fallback-x11, pulseaudio, system-bus, session-bus, ssh-auth, pcsc, cups,
+gpg-agent. This option can be used multiple times.</p>
+<p>
+The fallback-x11 option makes the X11 socket available only if there is
+no Wayland socket. This option was introduced in 0.11.3. To support
+older Flatpak releases, specify both x11 and fallback-x11. The
+fallback-x11 option takes precedence when both are supported.</p>
+</blockquote>
+<p>
+<strong>–nosocket=SOCKET</strong></p>
+<blockquote>
+<p>Dont expose a well known socket to the application. This updates the
+[Context] group in the metadata. SOCKET must be one of: x11, wayland,
+fallback-x11, pulseaudio, system-bus, session-bus, ssh-auth, pcsc, cups,
+gpg-agent. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–device=DEVICE</strong></p>
+<blockquote>
+<p>Expose a device to the application. This updates the [Context] group in
+the metadata. DEVICE must be one of: dri, kvm, shm, all. This option can
+be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–nodevice=DEVICE</strong></p>
+<blockquote>
+<p>Dont expose a device to the application. This updates the [Context]
+group in the metadata. DEVICE must be one of: dri, kvm, shm, all. This
+option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–allow=FEATURE</strong></p>
+<blockquote>
+<p>Allow access to a specific feature. This updates the [Context] group in
+the metadata. FEATURE must be one of: devel, multiarch, bluetooth,
+canbus, per-app-dev-shm. This option can be used multiple times.</p>
+<p>
+The devel feature allows the application to access certain syscalls such
+as ptrace(), and perf_event_open().</p>
+<p>
+The multiarch feature allows the application to execute programs
+compiled for an ABI other than the one supported natively by the system.
+For example, for the x86_64 architecture, 32-bit x86 binaries will be
+allowed as well.</p>
+<p>
+The bluetooth feature allows the application to use bluetooth
+(AF_BLUETOOTH) sockets. Note, for bluetooth to fully work you must also
+have network access.</p>
+<p>
+The canbus feature allows the application to use canbus (AF_CAN)
+sockets. Note, for this work you must also have network access.</p>
+<p>
+The per-app-dev-shm feature shares a single instance of /dev/shm between
+the application, any unrestricted subsandboxes that it creates, and any
+other instances of the application that are launched while it is
+running.</p>
+</blockquote>
+<p>
+<strong>–disallow=FEATURE</strong></p>
+<blockquote>
+<p>Disallow access to a specific feature. This updates the [Context] group
+in the metadata. FEATURE must be one of: devel, multiarch, bluetooth,
+canbus, per-app-dev-shm. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–filesystem=FS</strong></p>
+<blockquote>
+<p>Allow the application access to a subset of the filesystem. This updates
+the [Context] group in the metadata. FS can be one of: home, host,
+host-os, host-etc, xdg-desktop, xdg-documents, xdg-download, xdg-music,
+xdg-pictures, xdg-public-share, xdg-templates, xdg-videos, xdg-run,
+xdg-config, xdg-cache, xdg-data, an absolute path, or a homedir-relative
+path like ~/dir or paths relative to the xdg dirs, like
+xdg-download/subdir. The optional :ro suffix indicates that the location
+will be read-only. The optional :create suffix indicates that the
+location will be read-write and created if it doesnt exist. This option
+can be used multiple times. See the &#34;[Context] filesystems&#34; list in
+*flatpak-metadata*(5) for details of the meanings of these filesystems.</p>
+</blockquote>
+<p>
+<strong>–nofilesystem=FILESYSTEM</strong></p>
+<blockquote>
+<p>Remove access to the specified subset of the filesystem from the
+application. This overrides to the Context section from the application
+metadata. FILESYSTEM can be one of: home, host, host-os, host-etc,
+xdg-desktop, xdg-documents, xdg-download, xdg-music, xdg-pictures,
+xdg-public-share, xdg-templates, xdg-videos, an absolute path, or a
+homedir-relative path like ~/dir. This option can be used multiple
+times.</p>
+</blockquote>
+<p>
+<strong>–add-policy=SUBSYSTEM.KEY=VALUE</strong></p>
+<blockquote>
+<p>Add generic policy option. For example, &#34;–add-policy=subsystem.key=v1
+–add-policy=subsystem.key=v2&#34; would map to this metadata:</p>
+<blockquote>
+<pre class="example">
+[Policy subsystem]
+key=v1;v2;
+</pre>
+</blockquote>
+<p>
+This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–remove-policy=SUBSYSTEM.KEY=VALUE</strong></p>
+<blockquote>
+<p>Remove generic policy option. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–env=VAR=VALUE</strong></p>
+<blockquote>
+<p>Set an environment variable in the application. This updates the
+[Environment] group in the metadata. This overrides to the Context
+section from the application metadata. This option can be used multiple
+times.</p>
+</blockquote>
+<p>
+<strong>–unset-env=VAR</strong></p>
+<blockquote>
+<p>Unset an environment variable in the application. This updates the
+unset-environment entry in the [Context] group of the metadata. This
+option can be used multiple times.</p>
+</blockquote>
+<p>
+*–env-fd=*/FD/</p>
+<blockquote>
+<p>Read environment variables from the file descriptor <em>FD</em>, and set them
+as if via <strong>–env</strong>. This can be used to avoid environment variables and
+their values becoming visible to other users.</p>
+<p>
+Each environment variable is in the form <em>VAR/=/VALUE</em> followed by a
+zero byte. This is the same format used by env -0 and /proc/*/environ.</p>
+</blockquote>
+<p>
+<strong>–own-name=NAME</strong></p>
+<blockquote>
+<p>Allow the application to own the well known name NAME on the session
+bus. If NAME ends with .*, it allows the application to own all matching
+names. This updates the [Session Bus Policy] group in the metadata. This
+option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–talk-name=NAME</strong></p>
+<blockquote>
+<p>Allow the application to talk to the well known name NAME on the session
+bus. If NAME ends with .*, it allows the application to talk to all
+matching names. This updates the [Session Bus Policy] group in the
+metadata. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–system-own-name=NAME</strong></p>
+<blockquote>
+<p>Allow the application to own the well known name NAME on the system bus.
+If NAME ends with .*, it allows the application to own all matching
+names. This updates the [System Bus Policy] group in the metadata. This
+option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–system-talk-name=NAME</strong></p>
+<blockquote>
+<p>Allow the application to talk to the well known name NAME on the system
+bus. If NAME ends with .*, it allows the application to talk to all
+matching names. This updates the [System Bus Policy] group in the
+metadata. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–persist=FILENAME</strong></p>
+<blockquote>
+<p>If the application doesnt have access to the real homedir, make the
+(homedir-relative) path FILENAME a bind mount to the corresponding path
+in the per-application directory, allowing that location to be used for
+persistent data. This updates the [Context] group in the metadata. This
+option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–runtime=RUNTIME</strong>, <strong>–sdk=SDK</strong></p>
+<blockquote>
+<p>Change the runtime or sdk used by the app to the specified partial ref.
+Unspecified parts of the ref are taken from the old values or defaults.</p>
+</blockquote>
+<p>
+<strong>–metadata=GROUP=KEY[=VALUE]</strong></p>
+<blockquote>
+<p>Set a generic key in the metadata file. If value is left out it will be
+set to &#34;true&#34;.</p>
+</blockquote>
+<p>
+<strong>–extension=NAME=VARIABLE[=VALUE]</strong></p>
+<blockquote>
+<p>Add extension point info. See the documentation for
+*flatpak-metadata*(5) for the possible values of <em>VARIABLE</em> and <em>VALUE</em>.</p>
+</blockquote>
+<p>
+<strong>–remove-extension=NAME</strong></p>
+<blockquote>
+<p>Remove extension point info.</p>
+</blockquote>
+<p>
+<strong>–extension-priority=VALUE</strong></p>
+<blockquote>
+<p>Set the priority (library override order) of the extension point. Only
+useful for extensions. 0 is the default, and higher value means higher
+priority.</p>
+</blockquote>
+<p>
+<strong>–extra-data=NAME:SHA256:DOWNLOAD-SIZE:INSTALL-SIZE:URL</strong></p>
+<blockquote>
+<p>Adds information about extra data uris to the app. These will be
+downloaded and verified by the client when the app is installed and
+placed in the /app/extra directory. You can also supply an
+/app/bin/apply_extra script that will be run after the files are
+downloaded.</p>
+</blockquote>
+<p>
+<strong>–no-exports</strong></p>
+<blockquote>
+<p>Dont look for exports in the build.</p>
+</blockquote>
+<p>
+<strong>–no-inherit-permissions</strong></p>
+<blockquote>
+<p>Dont inherit runtime permissions in the app.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Print debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–ostree-verbose</strong></p>
+<blockquote>
+<p>Print OSTree debug information during command processing.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>$ flatpak build-finish /build/my-app –socket=x11 –share=ipc</strong></p>
+<blockquote>
+<pre class="example">
+Exporting share/applications/gnome-calculator.desktop
+Exporting share/dbus-1/services/org.gnome.Calculator.SearchProvider.service
+More than one executable
+Using gcalccmd as command
+Please review the exported files and the metadata
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*flatpak*(1), *flatpak-build-init*(1), *flatpak-build*(1),
+*flatpak-build-export*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

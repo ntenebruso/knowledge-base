@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - scdaemon.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - scdaemon.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>scdaemon</strong> - Smartcard daemon for the GnuPG system</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>scdaemon</strong> [*–homedir* /dir/] [*–options* /file/] [/options/]
+<strong>–server</strong><br>
+<strong>scdaemon</strong> [*–homedir* /dir/] [*–options* /file/] [/options/]
+<strong>–daemon</strong> [/command_line/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>scdaemon</strong> is a daemon to manage smartcards. It is usually invoked
+by <strong>gpg-agent</strong> and in general not used directly.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Commands are not distinguished from options except for the fact that
+only one command is allowed.</p>
+<dl>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>Print the program version and licensing information.
+Note that you cannot abbreviate this command.</dd>
+<dt>
+<strong>–help, -h</strong>
+</dt>
+<dd>Print a usage message summarizing the most useful
+command-line options. Note that you cannot abbreviate this command.</dd>
+<dt>
+<strong>–dump-options</strong>
+</dt>
+<dd>Print a list of all available options and
+commands. Note that you cannot abbreviate this command.</dd>
+<dt>
+<strong>–server</strong>
+</dt>
+<dd>Run in server mode and wait for commands on the <strong>stdin</strong>.
+The default mode is to create a socket and listen for commands there.</dd>
+<dt>
+<strong>–multi-server</strong>
+</dt>
+<dd>Run in server mode and wait for commands on the
+<strong>stdin</strong> as well as on an additional Unix Domain socket. The server
+command <strong>GETINFO</strong> may be used to get the name of that extra socket.</dd>
+<dt>
+<strong>–daemon</strong>
+</dt>
+<dd>Run the program in the background. This option is
+required to prevent it from being accidentally running in the
+background.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+<strong>–options <em>file</em></strong>
+</dt>
+<dd>Reads configuration from <em>file</em> instead of from
+the default per-user configuration file. The default configuration
+file is named ‘/scdaemon.conf/&#39; and expected in the ‘/.gnupg/&#39;
+directory directly below the home directory of the user.</dd>
+<dt>
+<strong>–homedir <em>dir</em></strong>
+</dt>
+<dd>Set the name of the home directory to <em>dir</em>. If
+this option is not used, the home directory defaults to ‘/~/.gnupg/&#39;.
+It is only recognized when given on the command line. It also
+overrides any home directory stated through the environment variable
+‘/GNUPGHOME/&#39; or (on Windows systems) by means of the Registry entry
+<em>HKCU§oftware\GNU\GnuPG:HomeDir</em>.
+
+On Windows systems it is possible to install GnuPG as a portable
+application. In this case only this command line option is considered,
+all other ways to set a home directory are ignored.</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>–verbose</strong>
+</dt>
+<dd>Outputs additional information while running.
+You can increase the verbosity by giving several verbose commands to
+<strong>gpgsm</strong>, such as ‘-vv&#39;.</dd>
+</dl>
+</dd>
+<dt>
+<strong>–debug-level <em>level</em></strong>
+</dt>
+<dd>Select the debug level for investigating
+problems. <em>level</em> may be a numeric value or a keyword:</dd>
+</dl>
+<blockquote>
+<dl>
+<dt>
+<strong>none</strong>
+</dt>
+<dd>No debugging at all. A value of less than 1 may be used
+instead of the keyword.</dd>
+<dt>
+<strong>basic</strong>
+</dt>
+<dd>Some basic debug messages. A value between 1 and 2 may be
+used instead of the keyword.</dd>
+<dt>
+<strong>advanced</strong>
+</dt>
+<dd>More verbose debug messages. A value between 3 and 5 may
+be used instead of the keyword.</dd>
+<dt>
+<strong>expert</strong>
+</dt>
+<dd>Even more detailed messages. A value between 6 and 8 may
+be used instead of the keyword.</dd>
+<dt>
+<strong>guru</strong>
+</dt>
+<dd>All of the debug messages you can get. A value greater than
+8 may be used instead of the keyword. The creation of hash tracing
+files is only enabled if the keyword is used.</dd>
+</dl>
+</blockquote>
+<p>
+How these messages are mapped to the actual debugging flags is not
+specified and may change with newer releases of this program. They are
+however carefully selected to best aid in debugging.</p>
+<blockquote>
+<p><strong>All debugging options are subject to change and thus should not be
+used</strong> by any application program. As the name says, they are only used
+as helpers to debug problems.</p>
+</blockquote>
+<dl>
+<dt>
+<strong>–debug <em>flags</em></strong>
+</dt>
+<dd>Set debug flags. All flags are or-ed and <em>flags</em>
+may be given in C syntax (e.g. 0x0042) or as a comma separated list of
+flag names. To get a list of all supported flags the single word
+&#34;help&#34; can be used. This option is only useful for debugging and the
+behavior may change at any time without notice.</dd>
+<dt>
+<strong>–debug-all</strong>
+</dt>
+<dd>Same as <strong>–debug=0xffffffff</strong></dd>
+<dt>
+<strong>–debug-wait <em>n</em></strong>
+</dt>
+<dd>When running in server mode, wait <em>n</em> seconds
+before entering the actual processing loop and print the pid. This
+gives time to attach a debugger.</dd>
+<dt>
+<strong>–debug-ccid-driver</strong>
+</dt>
+<dd>Enable debug output from the included CCID
+driver for smartcards. Using this option twice will also enable some
+tracing of the T=1 protocol. Note that this option may reveal
+sensitive data.</dd>
+<dt>
+<strong>–debug-disable-ticker</strong>
+</dt>
+<dd>This option disables all ticker functions
+like checking for card insertions.</dd>
+<dt>
+<strong>–debug-allow-core-dump</strong>
+</dt>
+<dd>For security reasons we won&#39;t create a
+core dump when the process aborts. For debugging purposes it is
+sometimes better to allow core dump. This option enables it and also
+changes the working directory to ‘//tmp/&#39; when running in <strong>–server</strong>
+mode.</dd>
+<dt>
+<strong>–debug-log-tid</strong>
+</dt>
+<dd>This option appends a thread ID to the PID in the
+log output.</dd>
+<dt>
+<strong>–debug-assuan-log-cats <em>cats</em></strong>
+</dt>
+<dd>Changes the active Libassuan
+logging categories to <em>cats</em>. The value for <em>cats</em> is an unsigned
+integer given in usual C-Syntax. A value of 0 switches to a default
+category. If this option is not used the categories are taken from the
+environment variable <strong>ASSUAN_DEBUG</strong>. Note that this option has only an
+effect if the Assuan debug flag has also been with the option
+<strong>–debug</strong>. For a list of categories see the Libassuan manual.</dd>
+<dt>
+<strong>–no-detach</strong>
+</dt>
+<dd>Don&#39;t detach the process from the console. This is
+mainly useful for debugging.</dd>
+<dt>
+<strong>–listen-backlog <em>n</em></strong>
+</dt>
+<dd>Set the size of the queue for pending
+connections. The default is 64. This option has an effect only if
+<strong>–multi-server</strong> is also used.</dd>
+<dt>
+<strong>–log-file <em>file</em></strong>
+</dt>
+<dd>Append all logging output to <em>file</em>. This is
+very helpful in seeing what the agent actually does. Use ‘/socket:///&#39;
+to log to socket.</dd>
+<dt>
+<strong>–pcsc-shared</strong>
+</dt>
+<dd>Use shared mode to access the card via PC/SC. This
+is a somewhat dangerous option because Scdaemon assumes exclusive
+access to the card and for example caches certain information from the
+card. Use this option only if you know what you are doing.</dd>
+<dt>
+<strong>–pcsc-driver <em>library</em></strong>
+</dt>
+<dd>Use <em>library</em> to access the smartcard
+reader. The current default on Unix is ‘/libpcsclite.so/&#39; and on
+Windows ‘/winscard.dll/&#39;. Instead of using this option you might also
+want to install a symbolic link to the default file name (e.g. from
+‘/libpcsclite.so.1/&#39;). A Unicode file name may not be used on Windows.</dd>
+<dt>
+<strong>–disable-ccid</strong>
+</dt>
+<dd>The integrated CCID driver for CCID compliant
+devices can be available when libusb was detected at build time, and
+it is used to access the smartcard reader. If access via PC/SC driver
+is needed, please configure this option to disable CCID driver support
+(if any). In GnuPG 2.2, there was a fallback mechanism from CCID
+driver to PC/SC driver. The fallback mechanism worked, because
+scdaemon in GnuPG 2.2 only supported a single token/reader. To support
+of multiple tokens/readers at the same time, fallback mechanism was
+removed.</dd>
+<dt>
+<strong>–reader-port <em>number_or_string</em></strong>
+</dt>
+<dd>
+<p>This option may be used to
+specify the port of the card terminal. A value of 0 refers to the
+first serial device; add 32768 to access USB devices. The default is
+32768 (first USB device). PC/SC or CCID readers might need a string
+here; run the program in verbose mode to get a list of available
+readers. The default is then the first reader found.</p>
+<p>
+To get a list of available CCID readers you may use this command:</p>
+<pre class="example">
+  echo scd getinfo reader_list \
+    | gpg-connect-agent --decode | awk &#39;/^D/ {print $2}&#39;
+</pre>
+</dd>
+<dt>
+<strong>–card-timeout <em>n</em></strong>
+</dt>
+<dd>This option is deprecated. In GnuPG 2.0, it
+used to be used for DISCONNECT command to control timing issue. Since
+DISCONNECT command works synchronously, it has no effect.</dd>
+<dt>
+<strong>–enable-pinpad-varlen</strong>
+</dt>
+<dd>Please specify this option when the card
+reader supports variable length input for pinpad (default is no). For
+known readers (listed in ccid-driver.c and apdu.c), this option is not
+needed. Note that if your card reader doesn&#39;t supports variable length
+input but you want to use it, you need to specify your pinpad request
+on your card.</dd>
+<dt>
+<strong>–disable-pinpad</strong>
+</dt>
+<dd>Even if a card reader features a pinpad, do not
+try to use it.</dd>
+<dt>
+<strong>–deny-admin</strong>
+</dt>
+<dd>This option disables the use of admin class commands
+for card applications where this is supported. Currently we support it
+for the OpenPGP card. This option is useful to inhibit accidental
+access to admin class command which could ultimately lock the card
+through wrong PIN numbers. Note that GnuPG versions older than 2.0.11
+featured an <strong>–allow-admin</strong> option which was required to use such
+admin commands. This option has no more effect today because the
+default is now to allow admin commands.</dd>
+<dt>
+<strong>–disable-application <em>name</em></strong>
+</dt>
+<dd>This option disables the use of the
+card application named <em>name</em>. This is mainly useful for debugging or
+if a application with lower priority should be used by default.</dd>
+<dt>
+<strong>–application-priority <em>namelist</em></strong>
+</dt>
+<dd>
+<p>This option allows one to
+change the order in which applications of a card a tried if no
+specific application was requested. <em>namelist</em> is a space or comma
+delimited list of application names. Unknown names are simply skipped.
+Applications not mentioned in the list are put in the former order at
+the end of the new priority list.</p>
+<p>
+To get the list of current active applications, use</p>
+<pre class="example">
+    gpg-connect-agent &#39;scd getinfo app_list&#39; /bye
+</pre>
+</dd>
+</dl>
+<p>All the long options may also be given in the configuration file after
+stripping off the two leading dashes.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+CARD APPLICATIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>scdaemon</strong> supports the card applications as described below.</p>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+The OpenPGP card application ``openpgp&#39;&#39;
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>
+This application is currently only used by <strong>gpg</strong> but may in future also
+be useful with <strong>gpgsm</strong>. Version 1 and version 2 of the card is
+supported.</p>
+<p>
+The specifications for these cards are available at<br>
+(<strong><a href="http://g10code.com/docs/openpgp-card-1.0.pdf">http://g10code.com/docs/openpgp-card-1.0.pdf</a></strong>) and<br>
+(<strong><a href="http://g10code.com/docs/openpgp-card-2.0.pdf">http://g10code.com/docs/openpgp-card-2.0.pdf</a></strong>).</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+The Telesec NetKey card ``nks&#39;&#39;
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>
+This is the main application of the Telesec cards as available in
+Germany. It is a superset of the German DINSIG card. The card is used by
+<strong>gpgsm</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+The DINSIG card application ``dinsig&#39;&#39;
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>
+This is an application as described in the German draft standard <em>DIN V
+66291-1</em>. It is intended to be used by cards supporting the German
+signature law and its bylaws (SigG and SigV).</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+The PKCS#15 card application ``p15&#39;&#39;
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>
+This is common framework for smart card applications. It is used by
+<strong>gpgsm</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+The Geldkarte card application ``geldkarte&#39;&#39;
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>
+This is a simple application to display information of a German
+Geldkarte. The Geldkarte is a small amount debit card application which
+comes with almost all German banking cards.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+The SmartCard-HSM card application ``sc-hsm&#39;&#39;
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>
+This application adds read-only support for keys and certificates stored
+on a (<strong><a href="http://www.smartcard-hsm.com,">http://www.smartcard-hsm.com,</a> SmartCard-HSM</strong>).</p>
+<p>
+To generate keys and store certificates you may use
+(<strong><a href="https://github.com/OpenSC/OpenSC/wiki/SmartCardHSM,">https://github.com/OpenSC/OpenSC/wiki/SmartCardHSM,</a> OpenSC</strong>) or the
+tools from (<strong><a href="http://www.openscdp.org,">http://www.openscdp.org,</a> OpenSCDP</strong>).</p>
+<p>
+The SmartCard-HSM cards requires a card reader that supports Extended
+Length APDUs.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+The Undefined card application ``undefined&#39;&#39;
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<p>
+This is a stub application to allow the use of the APDU command even if
+no supported application is found on the card. This application is not
+used automatically but must be explicitly requested using the SERIALNO
+command.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<blockquote>
+<pre class="example">
+$ scdaemon --server -v
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+FILES
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>There are a few configuration files to control certain aspects of
+<strong>scdaemons</strong>&#39;s operation. Unless noted, they are expected in the current
+home directory (see: [option –homedir]).</p>
+<dl>
+<dt>
+<strong>scdaemon.conf</strong>
+</dt>
+<dd>This is the standard configuration file read by
+<strong>scdaemon</strong> on startup. It may contain any valid long option; the
+leading two dashes may not be entered and the option may not be
+abbreviated. This default name may be changed on the command line
+(see: [option –options]).</dd>
+<dt>
+<strong>scd-event</strong>
+</dt>
+<dd>If this file is present and executable, it will be
+called on every card reader&#39;s status change. An example of this script
+is provided with the source code distribution. This option is
+deprecated in favor of the <strong>DEVINFO –watch</strong>.</dd>
+<dt>
+<strong>reader_/n/.status</strong>
+</dt>
+<dd>This file is created by <strong>scdaemon</strong> to let other
+applications now about reader status changes. Its use is now
+deprecated in favor of ‘/scd-event/&#39;.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>*gpg-agent*(1), *gpgsm*(1), *gpg*(1)</p>
+<p>
+The full documentation for this tool is maintained as a Texinfo manual.
+If GnuPG and the info program are properly installed at your site, the
+command</p>
+<blockquote>
+<pre class="example">
+info gnupg
+</pre>
+</blockquote>
+<p>
+should give you access to the complete manual including a menu structure
+and an index.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

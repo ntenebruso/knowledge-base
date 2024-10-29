@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nvim.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nvim.1</h1>
+    <p>is a text editor based on Vim. Start</p>
+<p>
+followed by any number of options and/or files:</p>
+<p>
+Commands in</p>
+<p>
+begin with colon</p>
+<p>
+Type &#34;:help subject&#34; to get help on a specific subject. Use &lt;Tab&gt; and
+CTRL-D to complete subjects (&#34;:help cmdline-completion&#34;).</p>
+<p>
+The &#34;quickref&#34; help section is a condensed reference of editor features:</p>
+<p>
+If you are new to Vim/Nvim, start with the 30-minute tutorial:</p>
+<p>
+After installing/updating Nvim, it&#39;s a good idea to run the self-check:</p>
+<p>
+File(s) to edit. Opens one buffer per file. To switch between buffers,
+use the</p>
+<p>
+and</p>
+<p>
+commands.</p>
+<p>
+Reads text from standard input until</p>
+<p>
+then opens a buffer with that text. User input is read from standard
+error, which should be a terminal.</p>
+<p>
+Finds</p>
+<p>
+in the tags file, the associated file becomes the current file and the
+associated command is executed. Cursor is positioned at the tag location
+in the file.</p>
+<p>
+QuickFix mode. Display the first error in</p>
+<p>
+If</p>
+<p>
+is omitted, the value of the &#39;errorfile&#39; option is used (defaults to</p>
+<p>
+Further errors can be jumped to with the</p>
+<p>
+command.</p>
+<p>
+End of options. Remaining arguments are treated as literal file names,
+including filenames starting with hyphen</p>
+<p>
+Ex mode, reading stdin as Ex commands.</p>
+<p>
+Ex mode, reading stdin as text.</p>
+<p>
+Silent (non-interactive) Ex mode, reading stdin as Ex commands. Useful
+for scripting because it does NOT start a UI, unlike</p>
+<p>
+Silent (non-interactive) Ex mode, reading stdin as text. Useful for
+scripting because it does NOT start a UI, unlike</p>
+<p>
+Diff mode. Show the difference between two to eight files, similar to</p>
+<p>
+Read-only mode. Sets the &#39;readonly&#39; option. Implies</p>
+<p>
+Buffers can still be edited, but cannot be written to disk if already
+associated with a file. To overwrite a file, add an exclamation mark to
+the relevant Ex command, such as</p>
+<p>
+Resets the &#39;write&#39; option, to disable file modifications. Writing to a
+file is disabled, but buffers can still be modified.</p>
+<p>
+Resets the &#39;write&#39; and &#39;modifiable&#39; options, to disable file and buffer
+modifications.</p>
+<p>
+Binary mode.</p>
+<p>
+Arabic mode. Sets the &#39;arabic&#39; option.</p>
+<p>
+Hebrew mode. Sets the &#39;hkmap&#39; and &#39;rightleft&#39; options.</p>
+<p>
+Verbose mode. Prints debug messages.</p>
+<p>
+is the &#39;verbose&#39; level, defaults to</p>
+<p>
+If</p>
+<p>
+is specified, append messages to</p>
+<p>
+instead of printing them.</p>
+<p>
+Vimscript debug mode. Started when executing the first command from a
+script. :help debug-mode</p>
+<p>
+Disable the use of swap files. Sets the &#39;updatecount&#39; option to</p>
+<p>
+Can be useful for editing files on a slow medium.</p>
+<p>
+Recovery mode. If</p>
+<p>
+is omitted then list swap files with recovery information. Otherwise the
+swap file</p>
+<p>
+is used to recover a crashed session. The swap file has the same name as
+the file it&#39;s associated with, but with</p>
+<p>
+appended.</p>
+<p>
+Alias for</p>
+<p>
+Use</p>
+<p>
+instead of the default</p>
+<p>
+If</p>
+<p>
+is</p>
+<p>
+do not load any initialization files (except plugins). If</p>
+<p>
+is</p>
+<p>
+loading plugins is also skipped.</p>
+<p>
+Use</p>
+<p>
+instead of the default</p>
+<p>
+If</p>
+<p>
+is</p>
+<p>
+do not read or write a ShaDa file.</p>
+<p>
+Skip loading plugins (by setting the &#39;noloadplugins&#39; option). Implied by</p>
+<p>
+Start Nvim with &#34;factory defaults&#34; (no user config and plugins, no
+shada).</p>
+<p>
+Open</p>
+<p>
+windows stacked horizontally. If</p>
+<p>
+is omitted, open one window for each file. If</p>
+<p>
+is less than the number of file arguments, allocate windows for the
+first</p>
+<p>
+files and hide the rest.</p>
+<p>
+Like</p>
+<p>
+but tile windows vertically.</p>
+<p>
+Like</p>
+<p>
+but for tab pages.</p>
+<p>
+For the first file, position the cursor on line</p>
+<p>
+If</p>
+<p>
+is omitted, position the cursor on the last line of the file.</p>
+<p>
+and</p>
+<p>
+on the command-line are equivalent to</p>
+<p>
+inside</p>
+<p>
+For the first file, position the cursor on the first occurrence of</p>
+<p>
+If</p>
+<p>
+is omitted, the most recent search pattern is used (if any).</p>
+<p>
+and</p>
+<p>
+on the command-line are equivalent to</p>
+<p>
+and</p>
+<p>
+inside</p>
+<p>
+Execute</p>
+<p>
+after reading the first file. Up to 10 instances allowed.</p>
+<p>
+and</p>
+<p>
+are equivalent.</p>
+<p>
+Like</p>
+<p>
+but execute</p>
+<p>
+before processing any vimrc. Up to 10 instances of these can be used
+independently from instances of</p>
+<p>
+Execute Lua</p>
+<p>
+with optional</p>
+<p>
+after processing any preceding Nvim startup arguments. All</p>
+<p>
+are treated as script arguments and are passed literally to Lua, that
+is,</p>
+<p>
+stops processing of Nvim arguments.</p>
+<p>
+Execute</p>
+<p>
+after the first file argument has been read. If</p>
+<p>
+filename ends with</p>
+<p>
+it is executed as Lua instead of Vimscript. Equivalent to</p>
+<p>
+cannot start with a hyphen</p>
+<p>
+If</p>
+<p>
+is omitted then</p>
+<p>
+is used, if found.</p>
+<p>
+Read normal mode commands from</p>
+<p>
+The same can be done with the command</p>
+<p>
+If the end of the file is reached before</p>
+<p>
+exits, further characters are read from the keyboard.</p>
+<p>
+Append all typed characters to</p>
+<p>
+Can be used for creating a script to be used with</p>
+<p>
+or</p>
+<p>
+Like</p>
+<p>
+but truncate</p>
+<p>
+During startup, append timing messages to</p>
+<p>
+Can be used to diagnose slow startup times.</p>
+<p>
+Dump API metadata serialized to msgpack and exit.</p>
+<p>
+Use standard input and standard output as a msgpack-rpc channel. :help
+–embed</p>
+<p>
+Do not start a UI. When supplied with –embed this implies that the
+embedding application does not intend to (immediately) start a UI. Also
+useful for &#34;scraping&#34; messages in a pipe. :help –headless</p>
+<p>
+Start RPC server on this pipe or TCP socket.</p>
+<p>
+Print usage information and exit.</p>
+<p>
+Print version information and exit.</p>
+<p>
+The name of sub-directories used within each XDG user directory.
+Defaults to</p>
+<p>
+:help $NVIM_APPNAME</p>
+<p>
+Low-level log file, usually found at ~/.local/state/nvim/log. :help
+$NVIM_LOG_FILE</p>
+<p>
+Used to locate user files, such as init.vim. System-dependent. :help
+$VIM</p>
+<p>
+Used to locate runtime files (documentation, syntax highlighting, etc.).</p>
+<p>
+Path to the user-local configuration directory, see</p>
+<p>
+Defaults to</p>
+<p>
+:help xdg</p>
+<p>
+Like</p>
+<p>
+but used to store data not generally edited by the user, namely swap,
+backup, and ShaDa files. Defaults to</p>
+<p>
+:help xdg</p>
+<p>
+Like</p>
+<p>
+but used to store data not generally edited by the user, things like
+runtime files. Defaults to</p>
+<p>
+:help xdg</p>
+<p>
+Ex commands to be executed at startup.</p>
+<p>
+Used to initialize the &#39;shell&#39; option, which decides the default shell
+used by features like</p>
+<p>
+User-local</p>
+<p>
+configuration file.</p>
+<p>
+User-local</p>
+<p>
+configuration directory. See also</p>
+<p>
+System-global</p>
+<p>
+configuration file.</p>
+<p>
+System-global</p>
+<p>
+runtime directory.</p>
+<p>
+Nvim was started by</p>
+<p>
+Most of Vim was written by</p>
+<p>
+Vim is based on Stevie, worked on by</p>
+<p>
+and</p>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

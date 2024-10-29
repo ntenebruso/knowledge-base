@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - awk.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - awk.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>gawk - pattern scanning and processing language</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>gawk</strong> [ POSIX or GNU style options ] <strong>-f</strong> <em>program-file</em> [ <strong>- -</strong> ] file
+. . .<br>
+<strong>gawk</strong> [ POSIX or GNU style options ] [ <strong>- -</strong> ] <em>program-text</em> file
+. . .</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><em>Gawk</em> is the GNU Project&#39;s implementation of the AWK programming
+language. It conforms to the definition of the language in the POSIX
+1003.1 standard. This version in turn is based on the description in
+<em>The AWK Programming Language</em>, by Aho, Kernighan, and Weinberger.
+<em>Gawk</em> provides the additional features found in the current version of
+Brian Kernighan&#39;s <em>awk</em> and numerous GNU-specific extensions.</p>
+<p>
+The command line consists of options to <em>gawk</em> itself, the AWK program
+text (if not supplied via the <strong>-f</strong> or <strong>- -include</strong> options), and values
+to be made available in the <strong>ARGC</strong> and <strong>ARGV</strong> pre-defined AWK variables.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+PREFACE
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>This manual page is intentionally as terse as possible. Full details are
+provided in <em>GAWK: Effective AWK Programming</em>, and you should look there
+for the full story on any specific feature. Where possible, links to the
+online version of the manual are provided.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTION FORMAT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><em>Gawk</em> options may be either traditional POSIX-style one letter options,
+or GNU-style long options. POSIX options start with a single “-”, while
+long options start with “- -”. Long options are provided for both
+GNU-specific features and for POSIX-mandated features.</p>
+<p>
+<em>Gawk</em>-specific options are typically used in long-option form.
+Arguments to long options are either joined with the option by an <strong>=</strong>
+sign, with no intervening spaces, or they may be provided in the next
+command line argument. Long options may be abbreviated, as long as the
+abbreviation remains unique.</p>
+<p>
+Additionally, every long option has a corresponding short option, so
+that the option&#39;s functionality may be used from within <strong>#!</strong> executable
+scripts.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+OPTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><em>Gawk</em> accepts the following options. Standard options are listed first,
+followed by options for <em>gawk</em> extensions, listed alphabetically by
+short option.</p>
+<dl>
+<dt>
+<strong>-f*/ program-file, /*</strong>
+</dt>
+<dd>*- -file*/ program-file/ Read the AWK
+program source from the file <em>program-file</em>, instead of from the first
+command line argument. Multiple <strong>-f</strong> options may be used. Files read
+with <strong>-f</strong> are treated as if they begin with an implicit <strong>@namespace
+&#34;awk&#34;</strong> statement.</dd>
+<dt>
+<strong>-F*/ fs, /*</strong>
+</dt>
+<dd><strong>- -field-separator*/ fs/ Use <em>fs</em> for the input
+field separator (the value of the *FS</strong> predefined variable).</dd>
+<dt>
+<strong>-v*/ var/</strong> = <strong><em>val</em>, *- -assign */var/</strong> = */val/
+</dt>
+<dd>Assign the value
+<em>val</em> to the variable <em>var</em>, before execution of the program begins.
+Such variable values are available to the <strong>BEGIN</strong> rule of an AWK
+program.</dd>
+<dt>
+<strong>-b</strong>, **
+</dt>
+<dd><strong>- -characters-as-bytes</strong> Treat all input data as
+single-byte characters. The <strong>- -posix</strong> option overrides this one.</dd>
+<dt>
+<strong>-c</strong>, **
+</dt>
+<dd><strong>- -traditional</strong> Run in <em>compatibility</em> mode. In
+compatibility mode, <em>gawk</em> behaves identically to Brian Kernighan&#39;s
+<em>awk</em>; none of the GNU-specific extensions are recognized.</dd>
+<dt>
+<strong>-C</strong>, **
+</dt>
+<dd><strong>- -copyright</strong> Print the short version of the GNU
+copyright information message on the standard output and exit
+successfully.</dd>
+<dt>
+<strong>-d</strong>[/file/], <strong>- -dump-variables</strong>[*=*/file/]
+</dt>
+<dd>Print a sorted list of
+global variables, their types and final values to <em>file</em>. The default
+file is <strong>awkvars.out</strong> in the current directory.</dd>
+<dt>
+<strong>-D</strong>[/file/], <strong>- -debug</strong>[*=*/file/]
+</dt>
+<dd>Enable debugging of AWK
+programs. By default, the debugger reads commands interactively from
+the keyboard (standard input). The optional <em>file</em> argument specifies
+a file with a list of commands for the debugger to execute
+non-interactively.
+
+In this mode of execution, <em>gawk</em> loads the AWK source code and then
+prompts for debugging commands. <em>Gawk</em> can only debug AWK program
+source provided with the <strong>-f</strong> and <strong>- -include</strong> options. The debugger
+is documented in <em>GAWK: Effective AWK Programming</em>; see
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Debugger.html#Debugger">https://www.gnu.org/software/gawk/manual/html_node/Debugger.html#Debugger</a></em>.</dd>
+<dt>
+<strong>-e*/ program-text, /*</strong>
+</dt>
+<dd>*- -source*/ program-text/ Use
+<em>program-text</em> as AWK program source code. Each argument supplied via
+<strong>-e</strong> is treated as if it begins with an implicit <strong>@namespace &#34;awk&#34;</strong>
+statement.</dd>
+<dt>
+*-E */file/, *- -exec */file/
+</dt>
+<dd>Similar to <strong>-f</strong>, however, this is
+option is the last one processed. This should be used with <strong>#!</strong>
+scripts, particularly for CGI applications, to avoid passing in
+options or source code (!) on the command line from a URL. This option
+disables command-line variable assignments.</dd>
+<dt>
+<strong>-g</strong>, **
+</dt>
+<dd><strong>- -gen-pot</strong> Scan and parse the AWK program, and generate
+a GNU <strong>.pot</strong> (Portable Object Template) format file on standard output
+with entries for all localizable strings in the program. The program
+itself is not executed.</dd>
+<dt>
+<strong>-h</strong>, **
+</dt>
+<dd><strong>- -help</strong> Print a relatively short summary of the
+available options on the standard output. Per the <em>GNU Coding
+Standards</em>, these options cause an immediate, successful exit.</dd>
+<dt>
+*-i */include-file/, *- -include */include-file/
+</dt>
+<dd>Load an awk source
+library. This searches for the library using the <strong>AWKPATH</strong> environment
+variable. If the initial search fails, another attempt will be made
+after appending the <strong>.awk</strong> suffix. The file will be loaded only once
+(i.e., duplicates are eliminated), and the code does not constitute
+the main program source. Files read with <strong>- -include</strong> are treated as
+if they begin with an implicit <strong>@namespace &#34;awk&#34;</strong> statement.</dd>
+<dt>
+<strong>-I</strong>, **
+</dt>
+<dd><strong>- -trace</strong> Print the internal byte code names as they are
+executed when running the program. The trace is printed to standard
+error. Each ``op code&#39;&#39; is preceded by a <strong>+</strong> sign in the output.</dd>
+<dt>
+<strong>-l*/ lib, /*</strong>
+</dt>
+<dd>*- -load*/ lib/ Load a <em>gawk</em> extension from the
+shared library <em>lib</em>. This searches for the library using the
+<strong>AWKLIBPATH</strong> environment variable. If the initial search fails,
+another attempt will be made after appending the default shared
+library suffix for the platform. The library initialization routine is
+expected to be named <strong>dl_load()</strong>.</dd>
+<dt>
+<strong>-L *[/value/], *- -lint</strong>[*=*/value/]
+</dt>
+<dd>Provide warnings about
+constructs that are dubious or non-portable to other AWK
+implementations. See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Options.html#Options">https://www.gnu.org/software/gawk/manual/html_node/Options.html#Options</a></em>
+for the list of possible values for <em>value</em>.</dd>
+<dt>
+<strong>-M</strong>, **
+</dt>
+<dd><strong>- -bignum</strong> Force arbitrary precision arithmetic on
+numbers. This option has no effect if <em>gawk</em> is not compiled to use
+the GNU MPFR and GMP libraries. (In such a case, <em>gawk</em> issues a
+warning.)
+
+<strong>NOTE:</strong> This feature is <em>on parole</em>. The primary <em>gawk</em> maintainer is
+no longer supporting it, although there is a member of the development
+team who is. If this situation changes, the feature will be removed
+from <em>gawk</em>.</dd>
+</dl>
+<p>Set <strong>GAWK_NO_MPFR_WARN</strong> in the environment to silence the warning.</p>
+<dl>
+<dt>
+<strong>-n</strong>, **
+</dt>
+<dd><strong>- -non-decimal-data</strong> Recognize octal and hexadecimal
+values in input data. <em>Use this option with great caution!</em></dd>
+<dt>
+<strong>-N</strong>, **
+</dt>
+<dd><strong>- -use-lc-numeric</strong> Force <em>gawk</em> to use the locale&#39;s
+decimal point character when parsing input data.</dd>
+<dt>
+<strong>-W nostalgia</strong>, **
+</dt>
+<dd><strong>- -nostalgia</strong> Provide a moment of nostalgia for
+long time <em>awk</em> users.</dd>
+<dt>
+<strong>-o</strong>[/file/], <strong>- -pretty-print</strong>[*=*/file/]
+</dt>
+<dd>Output a pretty printed
+version of the program to <em>file</em>. The default file is <strong>awkprof.out</strong> in
+the current directory. This option implies <strong>- -no-optimize</strong>.</dd>
+<dt>
+<strong>-O</strong>, **
+</dt>
+<dd><strong>- -optimize</strong> Enable <em>gawk</em>&#39;s default optimizations upon
+the internal representation of the program. This option is on by
+default.</dd>
+<dt>
+<strong>-p</strong>[/prof-file/], <strong>- -profile</strong>[*=*/prof-file/]
+</dt>
+<dd>Start a profiling
+session, and send the profiling data to <em>prof-file</em>. The default is
+<strong>awkprof.out</strong> in the current directory. The profile contains execution
+counts of each statement in the program in the left margin and
+function call counts for each user-defined function. <em>Gawk</em> runs more
+slowly in this mode. This option implies <strong>- -no-optimize</strong>.</dd>
+<dt>
+<strong>-P</strong>, **
+</dt>
+<dd><strong>- -posix</strong> This turns on <em>compatibility</em> mode, and
+disables a number of common extensions.</dd>
+<dt>
+<strong>-r</strong>, **
+</dt>
+<dd><strong>- -re-interval</strong> Enable the use of <em>interval expressions</em>
+in regular expression matching. Interval expressions are enabled by
+default, but this option remains for backwards compatibility.</dd>
+<dt>
+<strong>-s</strong>, **
+</dt>
+<dd><strong>- -no-optimize</strong> Disable <em>gawk</em>&#39;s default optimizations
+upon the internal representation of the program.</dd>
+<dt>
+<strong>-S</strong>, **
+</dt>
+<dd><strong>- -sandbox</strong> Run <em>gawk</em> in sandbox mode, disabling the
+<strong>system()</strong> function, input redirection with <strong>getline</strong>, output
+redirection with <strong>print</strong> and <strong>printf</strong>, and loading dynamic extensions.
+Command execution (through pipelines) is also disabled.</dd>
+<dt>
+<strong>-t</strong>, **
+</dt>
+<dd><strong>- -lint-old</strong> Provide warnings about constructs that are
+not portable to the original version of UNIX <em>awk</em>.</dd>
+<dt>
+<strong>-V</strong>, **
+</dt>
+<dd><strong>- -version</strong> Print version information for this particular
+copy of <em>gawk</em> on the standard output. This is useful when reporting
+bugs. Per the <em>GNU Coding Standards</em>, these options cause an
+immediate, successful exit.</dd>
+<dt>
+<strong>- -</strong>
+</dt>
+<dd>Signal the end of options. This is useful to allow further
+arguments to the AWK program itself to start with a “-”.</dd>
+</dl>
+<p>In compatibility mode, any other options are flagged as invalid, but are
+otherwise ignored. In normal operation, as long as program text has been
+supplied, unknown options are passed on to the AWK program in the <strong>ARGV</strong>
+array for processing.</p>
+<p>
+For POSIX compatibility, the <strong>-W</strong> option may be used, followed by the
+name of a long option.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AWK PROGRAM EXECUTION
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>An AWK program consists of a sequence of optional directives,
+pattern-action statements, and optional function definitions.</p>
+<blockquote>
+<p><strong>@include &#34;*/filename /</strong>&#34;<strong>\\
+*@load &#34;*/filename /</strong>&#34;<strong>\\
+*@namespace &#34;*/name /</strong>&#34;<strong>\\
+<em>pattern</em></strong> { <strong><em>action statements</em></strong> }*<br>
+<strong>function */name/*(*/parameter list/</strong>) { <strong><em>statements</em></strong> }*</p>
+</blockquote>
+<p>
+<em>Gawk</em> first reads the program source from the /program-file/(s) if
+specified, from arguments to <strong>- -source</strong>, or from the first non-option
+argument on the command line. The <strong>-f</strong> and <strong>- -source</strong> options may be
+used multiple times on the command line. <em>Gawk</em> reads the program text
+as if all the /program-file/s and command line source texts had been
+concatenated together.</p>
+<p>
+In addition, lines beginning with <strong>@include</strong> may be used to include
+other source files into your program. This is equivalent to using the
+<strong>- -include</strong> option.</p>
+<p>
+Lines beginning with <strong>@load</strong> may be used to load extension functions
+into your program. This is equivalent to using the <strong>- -load</strong> option.</p>
+<p>
+The environment variable <strong>AWKPATH</strong> specifies a search path to use when
+finding source files named with the <strong>-f</strong> and <strong>- -include</strong> options. If
+this variable does not exist, the default path is
+<strong>&#34;.:/usr/local/share/awk&#34;</strong>. (The actual directory may vary, depending
+upon how <em>gawk</em> was built and installed.) If a file name given to the
+<strong>-f</strong> option contains a “/” character, no path search is performed.</p>
+<p>
+The environment variable <strong>AWKLIBPATH</strong> specifies a search path to use
+when finding source files named with the <strong>- -load</strong> option. If this
+variable does not exist, the default path is <strong>&#34;/usr/local/lib/gawk&#34;</strong>.
+(The actual directory may vary, depending upon how <em>gawk</em> was built and
+installed.)</p>
+<p>
+<em>Gawk</em> executes AWK programs in the following order. First, all variable
+assignments specified via the <strong>-v</strong> option are performed. Next, <em>gawk</em>
+compiles the program into an internal form. Then, <em>gawk</em> executes the
+code in the <strong>BEGIN</strong> rule(s) (if any), and then proceeds to read each
+file named in the <strong>ARGV</strong> array (up to <strong>ARGV[ARGC-1]</strong>). If there are no
+files named on the command line, <em>gawk</em> reads the standard input.</p>
+<p>
+If a filename on the command line has the form <em>var/*=*/val</em> it is
+treated as a variable assignment. The variable <em>var</em> will be assigned
+the value <em>val</em>. (This happens after any <strong>BEGIN</strong> rule(s) have been run.)</p>
+<p>
+If the value of a particular element of <strong>ARGV</strong> is empty (<strong>&#34;&#34;</strong>), <em>gawk</em>
+skips over it.</p>
+<p>
+For each input file, if a <strong>BEGINFILE</strong> rule exists, <em>gawk</em> executes the
+associated code before processing the contents of the file. Similarly,
+<em>gawk</em> executes the code associated with <strong>ENDFILE</strong> rules after
+processing the file.</p>
+<p>
+For each record in the input, <em>gawk</em> tests to see if it matches any
+<em>pattern</em> in the AWK program. For each pattern that the record matches,
+<em>gawk</em> executes the associated <em>action</em>. The patterns are tested in the
+order they occur in the program.</p>
+<p>
+Finally, after all the input is exhausted, <em>gawk</em> executes the code in
+the <strong>END</strong> rule(s) (if any).</p>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Command Line Directories
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>According to POSIX, files named on the <em>awk</em> command line must be text
+files. The behavior is ``undefined&#39;&#39; if they are not. Most versions of
+<em>awk</em> treat a directory on the command line as a fatal error.</p>
+<p>
+For <em>gawk</em>, a directory on the command line produces a warning, but is
+otherwise skipped. If either of the <strong>- -posix</strong> or <strong>- -traditional</strong>
+options is given, then <em>gawk</em> reverts to treating directories on the
+command line as a fatal error.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+VARIABLES, RECORDS AND FIELDS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>AWK variables are dynamic; they come into existence when they are first
+used. Their values are either floating-point numbers or strings, or
+both, depending upon how they are used. Additionally, <em>gawk</em> allows
+variables to have regular-expression type. AWK also has one dimensional
+arrays; arrays with multiple dimensions may be simulated. However,
+<em>gawk</em> provides true arrays of arrays. Several pre-defined variables are
+set as a program runs; these are described as needed and summarized
+below.</p>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Records
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>Normally, records are separated by newline characters. You can control
+how records are separated by assigning values to the built-in variable
+<strong>RS</strong>. See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Records.html">https://www.gnu.org/software/gawk/manual/html_node/Records.html</a></em> for
+the details.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Fields
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>As each input record is read, <em>gawk</em> splits the record into <em>fields</em>,
+using the value of the <strong>FS</strong> variable as the field separator.
+Additionally, <strong>FIELDWIDTHS</strong> and <strong>FPAT</strong> may be used to control input
+field splitting. See the details, starting at
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Fields.html">https://www.gnu.org/software/gawk/manual/html_node/Fields.html</a></em>.</p>
+<p>
+Each field in the input record may be referenced by its position: <strong>$1</strong>,
+<strong>$2</strong>, and so on. <strong>$0</strong> is the whole record, including leading and
+trailing whitespace.</p>
+<p>
+The variable <strong>NF</strong> is set to the total number of fields in the input
+record.</p>
+<p>
+References to non-existent fields (i.e., fields after <strong>$NF</strong>) produce the
+null string. However, assigning to a non-existent field (e.g., <strong>$(NF+2)
+= 5</strong>) increases the value of <strong>NF</strong>, creates any intervening fields with
+the null string as their values, and causes the value of <strong>$0</strong> to be
+recomputed, with the fields being separated by the value of <strong>OFS</strong>.
+References to negative numbered fields cause a fatal error. Decrementing
+<strong>NF</strong> causes the values of fields past the new value to be lost, and the
+value of <strong>$0</strong> to be recomputed, with the fields being separated by the
+value of <strong>OFS</strong>.</p>
+<p>
+Assigning a value to an existing field causes the whole record to be
+rebuilt when <strong>$0</strong> is referenced. Similarly, assigning a value to <strong>$0</strong>
+causes the record to be resplit, creating new values for the fields.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+Built-in Variables
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>/Gawk /&#39;s built-in variables are listed below. This list is purposely
+terse. For details, see
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Built_002din-Variables">https://www.gnu.org/software/gawk/manual/html_node/Built_002din-Variables</a></em>.</p>
+<dl>
+<dt>
+<strong>ARGC</strong>
+</dt>
+<dd>The number of command line arguments.</dd>
+<dt>
+<strong>ARGIND</strong>
+</dt>
+<dd>The index in <strong>ARGV</strong> of the current file being processed.</dd>
+<dt>
+<strong>ARGV</strong>
+</dt>
+<dd>Array of command line arguments. The array is indexed from 0
+to <strong>ARGC</strong> - 1.</dd>
+<dt>
+<strong>BINMODE</strong>
+</dt>
+<dd>On non-POSIX systems, specifies use of “binary” mode for
+all file I/O. See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/PC-Using.html">https://www.gnu.org/software/gawk/manual/html_node/PC-Using.html</a></em> for
+the details.</dd>
+<dt>
+<strong>CONVFMT</strong>
+</dt>
+<dd>The conversion format for numbers, <strong>&#34;%.6g&#34;</strong>, by default.</dd>
+<dt>
+<strong>ENVIRON</strong>
+</dt>
+<dd>An array containing the values of the current
+environment. The array is indexed by the environment variables, each
+element being the value of that variable.</dd>
+<dt>
+<strong>ERRNO</strong>
+</dt>
+<dd>If a system error occurs either doing a redirection for
+<strong>getline</strong>, during a read for <strong>getline</strong>, or during a <strong>close()</strong>, then
+<strong>ERRNO</strong> is set to a string describing the error. The value is subject
+to translation in non-English locales.</dd>
+<dt>
+<strong>FIELDWIDTHS</strong>
+</dt>
+<dd>A whitespace-separated list of field widths. When
+set, <em>gawk</em> parses the input into fields of fixed width, instead of
+using the value of the <strong>FS</strong> variable as the field separator. Each
+field width may optionally be preceded by a colon-separated value
+specifying the number of characters to skip before the field starts.</dd>
+<dt>
+<strong>FILENAME</strong>
+</dt>
+<dd>The name of the current input file. If no files are
+specified on the command line, the value of <strong>FILENAME</strong> is “-”.
+However, <strong>FILENAME</strong> is undefined inside the <strong>BEGIN</strong> rule (unless set
+by <strong>getline</strong>).</dd>
+<dt>
+<strong>FNR</strong>
+</dt>
+<dd>The input record number in the current input file.</dd>
+<dt>
+<strong>FPAT</strong>
+</dt>
+<dd>A regular expression describing the contents of the fields
+in a record. When set, <em>gawk</em> parses the input into fields, where the
+fields match the regular expression, instead of using the value of
+<strong>FS</strong> as the field separator.</dd>
+<dt>
+<strong>FS</strong>
+</dt>
+<dd>The input field separator, a space by default. See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Field-Separators.html">https://www.gnu.org/software/gawk/manual/html_node/Field-Separators.html</a></em>
+for the details.</dd>
+<dt>
+<strong>FUNCTAB</strong>
+</dt>
+<dd>An array whose indices and corresponding values are the
+names of all the user-defined or extension functions in the program.
+<strong>NOTE</strong>: You may not use the <strong>delete</strong> statement with the <strong>FUNCTAB</strong>
+array.</dd>
+<dt>
+<strong>IGNORECASE</strong>
+</dt>
+<dd>Controls the case-sensitivity of all regular
+expression and string operations. See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Case_002dsensitivity.html">https://www.gnu.org/software/gawk/manual/html_node/Case_002dsensitivity.html</a></em>
+for details.</dd>
+<dt>
+<strong>LINT</strong>
+</dt>
+<dd>Provides dynamic control of the <strong>- -lint</strong> option from within
+an AWK program.</dd>
+<dt>
+<strong>NF</strong>
+</dt>
+<dd>The number of fields in the current input record.</dd>
+<dt>
+<strong>NR</strong>
+</dt>
+<dd>The total number of input records seen so far.</dd>
+<dt>
+<strong>OFMT</strong>
+</dt>
+<dd>The output format for numbers, <strong>&#34;%.6g&#34;</strong>, by default.</dd>
+<dt>
+<strong>OFS</strong>
+</dt>
+<dd>The output field separator, a space by default.</dd>
+<dt>
+<strong>ORS</strong>
+</dt>
+<dd>The output record separator, by default a newline.</dd>
+<dt>
+<strong>PREC</strong>
+</dt>
+<dd>The working precision of arbitrary precision floating-point
+numbers, 53 by default.</dd>
+<dt>
+<strong>PROCINFO</strong>
+</dt>
+<dd>The elements of this array provide access to information
+about the running AWK program. See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Auto_002dset">https://www.gnu.org/software/gawk/manual/html_node/Auto_002dset</a></em> for
+the details.</dd>
+<dt>
+<strong>ROUNDMODE</strong>
+</dt>
+<dd>The rounding mode to use for arbitrary precision
+arithmetic on numbers, by default <strong>&#34;N&#34;</strong> (IEEE-754 roundTiesToEven
+mode). See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Setting-the-rounding-mode">https://www.gnu.org/software/gawk/manual/html_node/Setting-the-rounding-mode</a></em>
+for the details.</dd>
+<dt>
+<strong>RS</strong>
+</dt>
+<dd>The input record separator, by default a newline.</dd>
+<dt>
+<strong>RT</strong>
+</dt>
+<dd>The record terminator. <em>Gawk</em> sets <strong>RT</strong> to the input text that
+matched the character or regular expression specified by <strong>RS</strong>.</dd>
+<dt>
+<strong>RSTART</strong>
+</dt>
+<dd>The index of the first character matched by <strong>match()</strong>; 0
+if no match.</dd>
+<dt>
+<strong>RLENGTH</strong>
+</dt>
+<dd>The length of the string matched by <strong>match()</strong>; -1 if no
+match.</dd>
+<dt>
+<strong>SUBSEP</strong>
+</dt>
+<dd>The string used to separate multiple subscripts in array
+elements, by default <strong>&#34;\034&#34;</strong>.</dd>
+<dt>
+<strong>SYMTAB</strong>
+</dt>
+<dd>An array whose indices are the names of all currently
+defined global variables and arrays in the program. You may not use
+the <strong>delete</strong> statement with the <strong>SYMTAB</strong> array, nor assign to elements
+with an index that is not a variable name.</dd>
+<dt>
+<strong>TEXTDOMAIN</strong>
+</dt>
+<dd>The text domain of the AWK program; used to find the
+localized translations for the program&#39;s strings.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+Arrays
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<p>Arrays are subscripted with an expression between square brackets (<strong>[</strong>
+and <strong>]</strong>). If the expression is an expression list (<em>expr</em>, <em>expr</em> . . .)
+then the array subscript is a string consisting of the concatenation of
+the (string) value of each expression, separated by the value of the
+<strong>SUBSEP</strong> variable. This facility is used to simulate multiply
+dimensioned arrays. For example:</p>
+<blockquote>
+<p>i = &#34;A&#34;;  j = &#34;B&#34;;  k = &#34;C&#34;<br>
+x[i, j, k] = &#34;hello, world\n&#34;</p>
+</blockquote>
+<p>
+assigns the string <strong>&#34;hello, world\n&#34;</strong> to the element of the array <strong>x</strong>
+which is indexed by the string <strong>&#34;A\034B\034C&#34;</strong>. All arrays in AWK are
+associative, i.e., indexed by string values.</p>
+<p>
+The special operator <strong>in</strong> may be used to test if an array has an index
+consisting of a particular value:</p>
+<blockquote>
+<pre class="example">
+if (val in array)
+	print array[val]
+</pre>
+</blockquote>
+<p>
+If the array has multiple subscripts, use <strong>(i, j) in array</strong>.</p>
+<p>
+The <strong>in</strong> construct may also be used in a <strong>for</strong> loop to iterate over all
+the elements of an array. However, the <strong>(i, j) in array</strong> construct only
+works in tests, not in <strong>for</strong> loops.</p>
+<p>
+An element may be deleted from an array using the <strong>delete</strong> statement.
+The <strong>delete</strong> statement may also be used to delete the entire contents of
+an array, just by specifying the array name without a subscript.</p>
+<p>
+<em>gawk</em> supports true multidimensional arrays. It does not require that
+such arrays be ``rectangular&#39;&#39; as in C or C++. See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Arrays">https://www.gnu.org/software/gawk/manual/html_node/Arrays</a></em> for details.</p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-3">
+<h3 id="headline-14">
+Namespaces
+</h3>
+<div id="outline-text-headline-14" class="outline-text-3">
+<p><em>Gawk</em> provides a simple <em>namespace</em> facility to help work around the
+fact that all variables in AWK are global.</p>
+<p>
+A <em>qualified name</em> consists of a two simple identifiers joined by a
+double colon (<strong>::</strong>). The left-hand identifier represents the namespace
+and the right-hand identifier is the variable within it. All simple
+(non-qualified) names are considered to be in the ``current&#39;&#39; namespace;
+the default namespace is <strong>awk</strong>. However, simple identifiers consisting
+solely of uppercase letters are forced into the <strong>awk</strong> namespace, even if
+the current namespace is different.</p>
+<p>
+You change the current namespace with an <strong>@namespace &#34;*/name /</strong>&#34;*
+directive.</p>
+<p>
+The standard predefined builtin function names may not be used as
+namespace names. The names of additional functions provided by <em>gawk</em>
+may be used as namespace names or as simple identifiers in other
+namespaces. For more details, see
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Namespaces.html#Namespaces">https://www.gnu.org/software/gawk/manual/html_node/Namespaces.html#Namespaces</a></em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+Variable Typing And Conversion
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<p>Variables and fields may be (floating point) numbers, or strings, or
+both. They may also be regular expressions. How the value of a variable
+is interpreted depends upon its context. If used in a numeric
+expression, it will be treated as a number; if used as a string it will
+be treated as a string.</p>
+<p>
+To force a variable to be treated as a number, add zero to it; to force
+it to be treated as a string, concatenate it with the null string.</p>
+<p>
+Uninitialized variables have the numeric value zero and the string value
+&#34;&#34; (the null, or empty, string).</p>
+<p>
+When a string must be converted to a number, the conversion is
+accomplished using /strtod/(3). A number is converted to a string by
+using the value of <strong>CONVFMT</strong> as a format string for /sprintf/(3), with
+the numeric value of the variable as the argument. However, even though
+all numbers in AWK are floating-point, integral values are <em>always</em>
+converted as integers.</p>
+<p>
+<em>Gawk</em> performs comparisons as follows: If two variables are numeric,
+they are compared numerically. If one value is numeric and the other has
+a string value that is a “numeric string,” then comparisons are also
+done numerically. Otherwise, the numeric value is converted to a string
+and a string comparison is performed. Two strings are compared, of
+course, as strings.</p>
+<p>
+Note that string constants, such as <strong>&#34;57&#34;</strong>, are <em>not</em> numeric strings,
+they are string constants. The idea of “numeric string” only applies to
+fields, <strong>getline</strong> input, <strong>FILENAME</strong>, <strong>ARGV</strong> elements, <strong>ENVIRON</strong> elements
+and the elements of an array created by <strong>split()</strong> or <strong>patsplit()</strong> that
+are numeric strings. The basic idea is that <em>user input</em>, and only user
+input, that looks numeric, should be treated that way.</p>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-3">
+<h3 id="headline-16">
+Octal and Hexadecimal Constants
+</h3>
+<div id="outline-text-headline-16" class="outline-text-3">
+<p>You may use C-style octal and hexadecimal constants in your AWK program
+source code. For example, the octal value <strong>011</strong> is equal to decimal <strong>9</strong>,
+and the hexadecimal value <strong>0x11</strong> is equal to decimal 17.</p>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-3">
+<h3 id="headline-17">
+String Constants
+</h3>
+<div id="outline-text-headline-17" class="outline-text-3">
+<p>String constants in AWK are sequences of characters enclosed between
+double quotes (like <strong>&#34;value&#34;</strong>). Within strings, certain <em>escape
+sequences</em> are recognized, as in C. See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Escape-Sequences">https://www.gnu.org/software/gawk/manual/html_node/Escape-Sequences</a></em>
+for the details.</p>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-3">
+<h3 id="headline-18">
+Regexp Constants
+</h3>
+<div id="outline-text-headline-18" class="outline-text-3">
+<p>A regular expression constant is a sequence of characters enclosed
+between forward slashes (like <strong><em>value</em></strong>).</p>
+<p>
+The escape sequences described in the manual may also be used inside
+constant regular expressions (e.g., <strong><em>[ \t\f\n\r\v]</em></strong> matches whitespace
+characters).</p>
+<p>
+<em>Gawk</em> provides <em>strongly typed</em> regular expression constants. These are
+written with a leading <strong>@</strong> symbol (like so: <strong>@/value/</strong>). Such constants
+may be assigned to scalars (variables, array elements) and passed to
+user-defined functions. Variables that have been so assigned have
+regular expression type.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-19" class="outline-2">
+<h2 id="headline-19">
+PATTERNS AND ACTIONS
+</h2>
+<div id="outline-text-headline-19" class="outline-text-2">
+<p>AWK is a line-oriented language. The pattern comes first, and then the
+action. Action statements are enclosed in <strong>{</strong> and <strong>}</strong>. Either the
+pattern may be missing, or the action may be missing, but, of course,
+not both. If the pattern is missing, the action executes for every
+single record of input. A missing action is equivalent to</p>
+<blockquote>
+<p><strong>{ print }</strong></p>
+</blockquote>
+<p>
+which prints the entire record.</p>
+<p>
+Comments begin with the <strong>#</strong> character, and continue until the end of the
+line. Empty lines may be used to separate statements. Normally, a
+statement ends with a newline, however, this is not the case for lines
+ending in a comma, <strong>{</strong>, <strong>?</strong>, <strong>:</strong>, <strong>&amp;&amp;</strong>, or <strong>||</strong>. Lines ending in <strong>do</strong> or
+<strong>else</strong> also have their statements automatically continued on the
+following line. In other cases, a line can be continued by ending it
+with a “\”, in which case the newline is ignored. However, a “\” after a
+<strong>#</strong> is not special.</p>
+<p>
+Multiple statements may be put on one line by separating them with a
+“;”. This applies to both the statements within the action part of a
+pattern-action pair (the usual case), and to the pattern-action
+statements themselves.</p>
+<div id="outline-container-headline-20" class="outline-3">
+<h3 id="headline-20">
+Patterns
+</h3>
+<div id="outline-text-headline-20" class="outline-text-3">
+<p>AWK patterns may be one of the following:</p>
+<blockquote>
+<pre class="example">
+BEGIN
+END
+BEGINFILE
+ENDFILE
+/regular expression/
+relational expression
+pattern &amp;&amp; pattern
+pattern || pattern
+pattern ? pattern : pattern
+(pattern)
+! pattern
+pattern1, pattern2
+</pre>
+</blockquote>
+<p>
+<strong>BEGIN</strong> and <strong>END</strong> are two special kinds of patterns which are not tested
+against the input. The action parts of all <strong>BEGIN</strong> patterns are merged
+as if all the statements had been written in a single <strong>BEGIN</strong> rule. They
+are executed before any of the input is read. Similarly, all the <strong>END</strong>
+rules are merged, and executed when all the input is exhausted (or when
+an <strong>exit</strong> statement is executed). <strong>BEGIN</strong> and <strong>END</strong> patterns cannot be
+combined with other patterns in pattern expressions. <strong>BEGIN</strong> and <strong>END</strong>
+patterns cannot have missing action parts.</p>
+<p>
+<strong>BEGINFILE</strong> and <strong>ENDFILE</strong> are additional special patterns whose actions
+are executed before reading the first record of each command-line input
+file and after reading the last record of each file. Inside the
+<strong>BEGINFILE</strong> rule, the value of <strong>ERRNO</strong> is the empty string if the file
+was opened successfully. Otherwise, there is some problem with the file
+and the code should use <strong>nextfile</strong> to skip it. If that is not done,
+<em>gawk</em> produces its usual fatal error for files that cannot be opened.</p>
+<p>
+For <strong><em><strong><em>regular expression</em></strong></em></strong> patterns, the associated statement is
+executed for each input record that matches the regular expression.
+Regular expressions are essentially the same as those in <em>egrep/(1). See
+/<a href="https://www.gnu.org/software/gawk/manual/html_node/Regexp.html">https://www.gnu.org/software/gawk/manual/html_node/Regexp.html</a></em> for the
+details on regular expressions.</p>
+<p>
+A <em>relational expression</em> may use any of the operators defined below in
+the section on actions. These generally test whether certain fields
+match certain regular expressions.</p>
+<p>
+The <strong>&amp;&amp;</strong>, <strong>||</strong>, and <strong>!</strong> operators are logical AND, logical OR, and
+logical NOT, respectively, as in C. They do short-circuit evaluation,
+also as in C, and are used for combining more primitive pattern
+expressions. As in most languages, parentheses may be used to change the
+order of evaluation.</p>
+<p>
+The <strong>? :</strong> operator is like the same operator in C. If the first pattern
+is true then the pattern used for testing is the second pattern,
+otherwise it is the third. Only one of the second and third patterns is
+evaluated.</p>
+<p>
+The <em>pattern1/*, */pattern2</em> form of an expression is called a <em>range
+pattern</em>. It matches all input records starting with a record that
+matches <em>pattern1</em>, and continuing until a record that matches
+<em>pattern2</em>, inclusive. It does not combine with any other sort of
+pattern expression.</p>
+</div>
+</div>
+<div id="outline-container-headline-21" class="outline-3">
+<h3 id="headline-21">
+Actions
+</h3>
+<div id="outline-text-headline-21" class="outline-text-3">
+<p>Action statements are enclosed in braces, <strong>{</strong> and <strong>}</strong>. Action statements
+consist of the usual assignment, conditional, and looping statements
+found in most languages. The operators, control statements, and
+input/output statements available are patterned after those in C.</p>
+</div>
+</div>
+<div id="outline-container-headline-22" class="outline-3">
+<h3 id="headline-22">
+Operators
+</h3>
+<div id="outline-text-headline-22" class="outline-text-3">
+<p>The operators in AWK, in order of decreasing precedence, are:</p>
+<dl>
+<dt>
+<strong>(</strong>. . .*)*
+</dt>
+<dd>Grouping</dd>
+<dt>
+<strong>$</strong>
+</dt>
+<dd>Field reference.</dd>
+<dt>
+<strong>++ - -</strong>
+</dt>
+<dd>Increment and decrement, both prefix and postfix.</dd>
+<dt>
+<strong>^</strong>
+</dt>
+<dd>Exponentiation.</dd>
+<dt>
+<strong>+ - !</strong>
+</dt>
+<dd>Unary plus, unary minus, and logical negation.</dd>
+<dt>
+<strong>* / %</strong>
+</dt>
+<dd>Multiplication, division, and modulus.</dd>
+<dt>
+<strong>+ -</strong>
+</dt>
+<dd>Addition and subtraction.</dd>
+<dt>
+<em>space</em>
+</dt>
+<dd>String concatenation.</dd>
+<dt>
+<strong>| |&amp;</strong>
+</dt>
+<dd>Piped I/O for <strong>getline</strong>, <strong>print</strong>, and <strong>printf</strong>.</dd>
+<dt>
+<strong>&lt; &gt; &lt;= &gt;= <code class="verbatim">= !</code></strong>
+</dt>
+<dd>The regular relational operators.</dd>
+<dt>
+<strong>~ !~</strong>
+</dt>
+<dd>Regular expression match, negated match.</dd>
+<dt>
+<strong>in</strong>
+</dt>
+<dd>Array membership.</dd>
+<dt>
+<strong>&amp;&amp;</strong>
+</dt>
+<dd>Logical AND.</dd>
+<dt>
+<strong>||</strong>
+</dt>
+<dd>Logical OR.</dd>
+<dt>
+<strong>?:</strong>
+</dt>
+<dd>The C conditional expression. This has the form <em>expr1/* ?
+<strong><em>expr2</em></strong> : */expr3</em> . If <em>expr1</em> is true, the value of the expression
+is <em>expr2</em>, otherwise it is <em>expr3</em>. Only one of <em>expr2</em> and <em>expr3</em>
+is evaluated.</dd>
+<dt>
+<strong>= += -= *= /= %= ^=</strong>
+</dt>
+<dd>Assignment. Both absolute assignment
+<strong>(*/var/</strong> = <strong><em>value</em></strong>)* and operator-assignment (the other forms) are
+supported.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-23" class="outline-3">
+<h3 id="headline-23">
+Control Statements
+</h3>
+<div id="outline-text-headline-23" class="outline-text-3">
+<p>The control statements are as follows:</p>
+<blockquote>
+<pre class="example">
+if (condition) statement [ else statement ]
+while (condition) statement
+do statement while (condition)
+for (expr1; expr2; expr3) statement
+for (var in array) statement
+break
+continue
+delete array [ index ]
+delete array 
+exit [ expression ]
+{ statements }
+switch (expression) {
+case value|regex : statement
+. . .
+[ default: statement ]
+}
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-24" class="outline-3">
+<h3 id="headline-24">
+I/O Statements
+</h3>
+<div id="outline-text-headline-24" class="outline-text-3">
+<p>The input/output statements are as follows:</p>
+<dl>
+<dt>
+<strong>close(*/file /[</strong>, <strong>/how/]</strong>)*
+</dt>
+<dd>Close an open file, pipe or
+coprocess. The optional <em>how</em> should only be used when closing one end
+of a two-way pipe to a coprocess. It must be a string value, either
+<strong>&#34;to&#34;</strong> or <strong>&#34;from&#34;</strong>.</dd>
+<dt>
+<strong>getline</strong>
+</dt>
+<dd>Set <strong>$0</strong> from the next input record; set <strong>NF</strong>, <strong>NR</strong>,
+<strong>FNR</strong>, <strong>RT</strong>.</dd>
+<dt>
+*getline &lt;*/file/
+</dt>
+<dd>Set <strong>$0</strong> from the next record of <em>file</em>; set
+<strong>NF</strong>, <strong>RT</strong>.</dd>
+<dt>
+*getline*/ var/
+</dt>
+<dd>Set <em>var</em> from the next input record; set <strong>NR</strong>,
+<strong>FNR</strong>, <strong>RT</strong>.</dd>
+<dt>
+<strong>getline*/ var/</strong> &lt;*/file/
+</dt>
+<dd>Set <em>var</em> from the next record of <em>file</em>;
+set <strong>RT</strong>.</dd>
+<dt>
+/command/* | getline *[/var/]
+</dt>
+<dd>Run <em>command</em>, piping the output
+either into <strong>$0</strong> or <em>var</em>, as above, and <strong>RT</strong>.</dd>
+<dt>
+/command/* |&amp; getline *[/var/]
+</dt>
+<dd>Run <em>command</em> as a coprocess piping
+the output either into <strong>$0</strong> or <em>var</em>, as above, and <strong>RT</strong>. (The
+<em>command</em> can also be a socket. See the subsection <strong>Special File
+Names</strong>, below.)</dd>
+<dt>
+<strong>fflush(</strong>[/file /]*)*
+</dt>
+<dd>Flush any buffers associated with the open
+output file or pipe <em>file</em>. If <em>file</em> is missing or if it is the null
+string, then flush all open output files and pipes.</dd>
+<dt>
+<strong>next</strong>
+</dt>
+<dd>Stop processing the current input record. Read the next
+input record and start processing over with the first pattern in the
+AWK program. Upon reaching the end of the input data, execute any
+<strong>END</strong> rule(s).</dd>
+<dt>
+<strong>nextfile</strong>
+</dt>
+<dd>Stop processing the current input file. The next input
+record read comes from the next input file. Update <strong>FILENAME</strong> and
+<strong>ARGIND</strong>, reset <strong>FNR</strong> to 1, and start processing over with the first
+pattern in the AWK program. Upon reaching the end of the input data,
+execute any <strong>ENDFILE</strong> and <strong>END</strong> rule(s).</dd>
+<dt>
+<strong>print</strong>
+</dt>
+<dd>Print the current record. The output record is terminated
+with the value of <strong>ORS</strong>.</dd>
+<dt>
+*print*/ expr-list/
+</dt>
+<dd>Print expressions. Each expression is separated
+by the value of <strong>OFS</strong>. The output record is terminated with the value
+of <strong>ORS</strong>.</dd>
+<dt>
+<strong>print*/ expr-list/</strong> &gt;*/file/
+</dt>
+<dd>Print expressions on <em>file</em>. Each
+expression is separated by the value of <strong>OFS</strong>. The output record is
+terminated with the value of <strong>ORS</strong>.</dd>
+<dt>
+*printf*/ fmt, expr-list/
+</dt>
+<dd>Format and print.</dd>
+<dt>
+<strong>printf*/ fmt, expr-list/</strong> &gt;*/file/
+</dt>
+<dd>Format and print on <em>file</em>.</dd>
+<dt>
+<strong>system(*/cmd-line/</strong>)*
+</dt>
+<dd>Execute the command <em>cmd-line</em>, and return
+the exit status. (This may not be available on non-POSIX systems.) See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/I_002fO-Functions.html#I_002fO-Functions">https://www.gnu.org/software/gawk/manual/html_node/I_002fO-Functions.html#I_002fO-Functions</a></em>
+for the full details on the exit status.</dd>
+</dl>
+<p>Additional output redirections are allowed for <strong>print</strong> and <strong>printf</strong>.</p>
+<dl>
+<dt>
+*print . . . &gt;&gt;*/ file/
+</dt>
+<dd>Append output to the <em>file</em>.</dd>
+<dt>
+*print . . . |*/ command/
+</dt>
+<dd>Write on a pipe.</dd>
+<dt>
+*print . . . |&amp;*/ command/
+</dt>
+<dd>Send data to a coprocess or socket. (See
+also the subsection <strong>Special File Names</strong>, below.)</dd>
+</dl>
+<p>The <strong>getline</strong> command returns 1 on success, zero on end of file, and -1
+on an error. If the /errno/(3) value indicates that the I/O operation
+may be retried, and <strong>PROCINFO[&#34;*/input /</strong>&#34;, &#34;RETRY&#34;]* is set, then -2 is
+returned instead of -1, and further calls to <strong>getline</strong> may be attempted.
+Upon an error, <strong>ERRNO</strong> is set to a string describing the problem.</p>
+<p>
+<strong>NOTE</strong>: Failure in opening a two-way socket results in a non-fatal error
+being returned to the calling function. If using a pipe, coprocess, or
+socket to <strong>getline</strong>, or from <strong>print</strong> or <strong>printf</strong> within a loop, you
+<em>must</em> use <strong>close()</strong> to create new instances of the command or socket.
+AWK does not automatically close pipes, sockets, or coprocesses when
+they return EOF.</p>
+<p>
+The AWK versions of the <strong>printf</strong> statement and <strong>sprintf()</strong> function are
+similar to those of C. For details, see
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Printf.html">https://www.gnu.org/software/gawk/manual/html_node/Printf.html</a></em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-25" class="outline-3">
+<h3 id="headline-25">
+Special File Names
+</h3>
+<div id="outline-text-headline-25" class="outline-text-3">
+<p>When doing I/O redirection from either <strong>print</strong> or <strong>printf</strong> into a file,
+or via <strong>getline</strong> from a file, <em>gawk</em> recognizes certain special
+filenames internally. These filenames allow access to open file
+descriptors inherited from /gawk /&#39;s parent process (usually the shell).
+These file names may also be used on the command line to name data
+files. The filenames are:</p>
+<dl>
+<dt>
+<strong>-</strong>
+</dt>
+<dd>The standard input.</dd>
+<dt>
+<strong>/dev/stdin</strong>
+</dt>
+<dd>The standard input.</dd>
+<dt>
+<strong>/dev/stdout</strong>
+</dt>
+<dd>The standard output.</dd>
+<dt>
+<strong>/dev/stderr</strong>
+</dt>
+<dd>The standard error output.</dd>
+<dt>
+*/dev/fd/ */n/
+</dt>
+<dd>The file associated with the open file descriptor
+<em>n</em>.</dd>
+</dl>
+<p>The following special filenames may be used with the <strong>|&amp;</strong> coprocess
+operator for creating TCP/IP network connections:</p>
+<p>
+*/inet/tcp/*/lport/*/*/rhost/*/*/rport/</p>
+<p>
+*/inet4/tcp/*/lport/*/*/rhost/*/*/rport/</p>
+<p>
+*/inet6/tcp/*/lport/*/*/rhost/*/*/rport/ Files for a TCP/IP connection
+on local port <em>lport</em> to remote host <em>rhost</em> on remote port <em>rport</em>. Use
+a port of <strong>0</strong> to have the system pick a port. Use <strong>/inet4</strong> to force an
+IPv4 connection, and <strong>/inet6</strong> to force an IPv6 connection. Plain <strong>/inet</strong>
+uses the system default (most likely IPv4). Usable only with the <strong>|&amp;</strong>
+two-way I/O operator.</p>
+<p>
+*/inet/udp/*/lport/*/*/rhost/*/*/rport/</p>
+<p>
+*/inet4/udp/*/lport/*/*/rhost/*/*/rport/</p>
+<p>
+*/inet6/udp/*/lport/*/*/rhost/*/*/rport/ Similar, but use UDP/IP instead
+of TCP/IP.</p>
+</div>
+</div>
+<div id="outline-container-headline-26" class="outline-3">
+<h3 id="headline-26">
+Numeric Functions
+</h3>
+<div id="outline-text-headline-26" class="outline-text-3">
+<p>AWK has the following built-in arithmetic functions:</p>
+<dl>
+<dt>
+<strong>atan2(*/y/</strong>,*/ x/*)*
+</dt>
+<dd>Return the arctangent of <em>y/x</em> in radians.</dd>
+<dt>
+<strong>cos(*/expr/</strong>)*
+</dt>
+<dd>Return the cosine of <em>expr</em>, which is in radians.</dd>
+<dt>
+<strong>exp(*/expr/</strong>)*
+</dt>
+<dd>The exponential function.</dd>
+<dt>
+<strong>int(*/expr/</strong>)*
+</dt>
+<dd>Truncate to integer.</dd>
+<dt>
+<strong>intdiv(*/num/</strong>, <strong><em>denom</em></strong>, <strong><em>result</em></strong>)*
+</dt>
+<dd>Truncate <em>num</em> and <em>denom</em>
+to integers. Return the quotient of <em>num</em> divided by <em>denom</em> in
+<em>result/*[&#34;quotient&#34;]* and the remainder in /result/*[&#34;remainder&#34;]*.
+This is a /gawk</em> extension, primarily of value when working with
+arbitrarily large integers.</dd>
+<dt>
+<strong>log(*/expr/</strong>)*
+</dt>
+<dd>The natural logarithm function.</dd>
+<dt>
+<strong>rand()</strong>
+</dt>
+<dd>Return a random number <em>N</em>, between zero and one, such
+that 0 ≤ <em>N</em> &lt; 1.</dd>
+<dt>
+<strong>sin(*/expr/</strong>)*
+</dt>
+<dd>Return the sine of <em>expr</em>, which is in radians.</dd>
+<dt>
+<strong>sqrt(*/expr/</strong>)*
+</dt>
+<dd>Return the square root of <em>expr</em>.</dd>
+<dt>
+<strong>srand(</strong>[/expr /]*)*
+</dt>
+<dd>Use <em>expr</em> as the new seed for the random
+number generator. If no <em>expr</em> is provided, use the time of day.
+Return the previous seed for the random number generator.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-27" class="outline-3">
+<h3 id="headline-27">
+String Functions
+</h3>
+<div id="outline-text-headline-27" class="outline-text-3">
+<p><em>Gawk</em> has the following built-in string functions; details are provided
+in
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/String-Functions">https://www.gnu.org/software/gawk/manual/html_node/String-Functions</a></em>.</p>
+<dl>
+<dt>
+<strong>asort(*/s /[</strong>, <strong><em>d</em> [</strong>, <strong>/how/] ]</strong>)*
+</dt>
+<dd>Return the number of elements
+in the source array <em>s</em>. Sort the contents of <em>s</em> using /gawk /&#39;s
+normal rules for comparing values, and replace the indices of the
+sorted values <em>s</em> with sequential integers starting with 1. If the
+optional destination array <em>d</em> is specified, first duplicate <em>s</em> into
+<em>d</em>, and then sort <em>d</em>, leaving the indices of the source array <em>s</em>
+unchanged. The optional string <em>how</em> controls the direction and the
+comparison mode. Valid values for <em>how</em> are described in
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/String-Functions.html#String-Functions">https://www.gnu.org/software/gawk/manual/html_node/String-Functions.html#String-Functions</a></em>.
+<em>s</em> and <em>d</em> are allowed to be the same array; this only makes sense
+when supplying the third argument as well.</dd>
+<dt>
+<strong>asorti(*/s /[</strong>, <strong><em>d</em> [</strong>, <strong>/how/] ]</strong>)*
+</dt>
+<dd>Return the number of
+elements in the source array <em>s</em>. The behavior is the same as that of
+<strong>asort()</strong>, except that the array <em>indices</em> are used for sorting, not
+the array values. When done, the array is indexed numerically, and the
+values are those of the original indices. The original values are
+lost; thus provide a second array if you wish to preserve the
+original. The purpose of the optional string <em>how</em> is the same as for
+<strong>asort()</strong>. Here too, <em>s</em> and <em>d</em> are allowed to be the same array;
+this only makes sense when supplying the third argument as well.</dd>
+<dt>
+<strong>gensub(*/r/</strong>, <strong><em>s</em></strong>, <strong>/h /[</strong>, <strong>/t/]</strong>)*
+</dt>
+<dd>Search the target string
+<em>t</em> for matches of the regular expression <em>r</em>. If <em>h</em> is a string
+beginning with <strong>g</strong> or <strong>G</strong>, then replace all matches of <em>r</em> with <em>s</em>.
+Otherwise, <em>h</em> is a number indicating which match of <em>r</em> to replace.
+If <em>t</em> is not supplied, use <strong>$0</strong> instead. Within the replacement text
+<em>s</em>, the sequence *\*/n,/ where <em>n</em> is a digit from 1 to 9, may be
+used to indicate just the text that matched the <em>n</em>&#39;th parenthesized
+subexpression. The sequence <strong>\0</strong> represents the entire matched text,
+as does the character <strong>&amp;</strong>. Unlike <strong>sub()</strong> and <strong>gsub()</strong>, the modified
+string is returned as the result of the function, and the original
+target string is <em>not</em> changed.</dd>
+<dt>
+<strong>gsub(*/r/</strong>, <strong>/s /[</strong>, <strong>/t/]</strong>)*
+</dt>
+<dd>For each substring matching the
+regular expression <em>r</em> in the string <em>t</em>, substitute the string <em>s</em>,
+and return the number of substitutions. If <em>t</em> is not supplied, use
+<strong>$0</strong>. An <strong>&amp;</strong> in the replacement text is replaced with the text that
+was actually matched. Use <strong>\&amp;</strong> to get a literal <strong>&amp;</strong>. (This must be
+typed as <strong>&#34;\\&amp;&#34;</strong>; see
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Gory-Details.html#Gory-Details">https://www.gnu.org/software/gawk/manual/html_node/Gory-Details.html#Gory-Details</a></em>
+for a fuller discussion of the rules for ampersands and backslashes in
+the replacement text of <strong>sub()</strong>, <strong>gsub()</strong>, and <strong>gensub()</strong>.)</dd>
+<dt>
+<strong>index(*/s/</strong>,*/ t/*)*
+</dt>
+<dd>Return the index of the string <em>t</em> in the
+string <em>s</em>, or zero if <em>t</em> is not present. (This implies that
+character indices start at one.)</dd>
+<dt>
+<strong>length(</strong>[/s/]*)*
+</dt>
+<dd>Return the length of the string <em>s</em>, or the
+length of <strong>$0</strong> if <em>s</em> is not supplied. With an array argument,
+<strong>length()</strong> returns the number of elements in the array.</dd>
+<dt>
+<strong>match(*/s/</strong>, <strong>/r /[</strong>, <strong>/a/]</strong>)*
+</dt>
+<dd>Return the position in <em>s</em> where
+the regular expression <em>r</em> occurs, or zero if <em>r</em> is not present, and
+set the values of <strong>RSTART</strong> and <strong>RLENGTH</strong>. Note that the argument order
+is the same as for the <strong>~</strong> operator: <em>str/* ~* /re</em>.</dd>
+</dl>
+<p>See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/String-Functions.html#String-Functions">https://www.gnu.org/software/gawk/manual/html_node/String-Functions.html#String-Functions</a></em>
+for a description of how the array <em>a</em> is filled if it is provided.</p>
+<dl>
+<dt>
+<strong>patsplit(*/s/</strong>, <strong>/a /[</strong>, <strong><em>r</em> [</strong>, <strong>/seps/] ]</strong>)*
+</dt>
+<dd>Split the string
+<em>s</em> into the array <em>a</em> and the separators array <em>seps</em> on the regular
+expression <em>r</em>, and return the number of fields. Element values are
+the portions of <em>s</em> that matched <em>r</em>. The value of <strong>seps[*/i/*]</strong> is
+the possibly null separator that appeared after <strong>a[*/i/*].</strong> The value
+of <strong>seps[0]</strong> is the possibly null leading separator. If <em>r</em> is
+omitted, <strong>FPAT</strong> is used instead. The arrays <em>a</em> and <em>seps</em> are cleared
+first. Splitting behaves identically to field splitting with <strong>FPAT</strong>.</dd>
+<dt>
+<strong>split(*/s/</strong>, <strong>/a /[</strong>, <strong><em>r</em> [</strong>, <strong>/seps/] ]</strong>)*
+</dt>
+<dd>Split the string <em>s</em>
+into the array <em>a</em> and the separators array <em>seps</em> on the regular
+expression <em>r</em>, and return the number of fields. If <em>r</em> is omitted,
+<strong>FS</strong> is used instead. The arrays <em>a</em> and <em>seps</em> are cleared first.
+<strong>seps[*/i/*]</strong> is the field separator matched by <em>r</em> between <strong>a[*/i/*]</strong>
+and <strong>a[*/i/*+1].</strong> Splitting behaves identically to field splitting.</dd>
+<dt>
+<strong>sprintf(*/fmt /</strong>,*/ expr-list /*)*
+</dt>
+<dd>Print <em>expr-list</em> according to
+<em>fmt</em>, and return the resulting string.</dd>
+<dt>
+<strong>strtonum(*/str/</strong>)*
+</dt>
+<dd>Examine <em>str</em>, and return its numeric value. If
+<em>str</em> begins with a leading <strong>0</strong>, treat it as an octal number. If <em>str</em>
+begins with a leading <strong>0x</strong> or <strong>0X</strong>, treat it as a hexadecimal number.
+Otherwise, assume it is a decimal number.</dd>
+<dt>
+<strong>sub(*/r/</strong>, <strong>/s /[</strong>, <strong>/t/]</strong>)*
+</dt>
+<dd>Just like <strong>gsub()</strong>, but replace only
+the first matching substring. Return either zero or one.</dd>
+<dt>
+<strong>substr(*/s/</strong>, <strong>/i /[</strong>, <strong>/n/]</strong>)*
+</dt>
+<dd>Return the at most <em>n</em>-character
+substring of <em>s</em> starting at <em>i</em>. If <em>n</em> is omitted, use the rest of
+<em>s</em>.</dd>
+<dt>
+<strong>tolower(*/str/</strong>)*
+</dt>
+<dd>Return a copy of the string <em>str</em>, with all the
+uppercase characters in <em>str</em> translated to their corresponding
+lowercase counterparts. Non-alphabetic characters are left unchanged.</dd>
+<dt>
+<strong>toupper(*/str/</strong>)*
+</dt>
+<dd>Return a copy of the string <em>str</em>, with all the
+lowercase characters in <em>str</em> translated to their corresponding
+uppercase counterparts. Non-alphabetic characters are left unchanged.</dd>
+</dl>
+<p><em>Gawk</em> is multibyte aware. This means that <strong>index()</strong>, <strong>length()</strong>,
+<strong>substr()</strong> and <strong>match()</strong> all work in terms of characters, not bytes.</p>
+</div>
+</div>
+<div id="outline-container-headline-28" class="outline-3">
+<h3 id="headline-28">
+Time Functions
+</h3>
+<div id="outline-text-headline-28" class="outline-text-3">
+<p><em>Gawk</em> provides the following functions for obtaining time stamps and
+formatting them. Details are provided in
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Time-Functions">https://www.gnu.org/software/gawk/manual/html_node/Time-Functions</a></em>.</p>
+<dl>
+<dt>
+<strong>mktime(*/datespec/ [</strong>, <strong>/utc-flag/]</strong>)*
+</dt>
+<dd>Turn <em>datespec</em> into a time
+stamp of the same form as returned by <strong>systime()</strong>, and return the
+result. If <em>utc-flag</em> is present and is non-zero or non-null, the time
+is assumed to be in the UTC time zone; otherwise, the time is assumed
+to be in the local time zone. If <em>datespec</em> does not contain enough
+elements or if the resulting time is out of range, <strong>mktime()</strong> returns
+-1. See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Time-Functions.html#Time-Functions">https://www.gnu.org/software/gawk/manual/html_node/Time-Functions.html#Time-Functions</a></em>
+for the details of <em>datespec</em>.</dd>
+<dt>
+<strong>strftime(</strong>[/format <em>[*, */timestamp</em>[*, <strong>/utc-flag/]]]</strong>)*
+</dt>
+<dd>Format
+<em>timestamp</em> according to the specification in <em>format</em>. If <em>utc-flag</em>
+is present and is non-zero or non-null, the result is in UTC,
+otherwise the result is in local time. The <em>timestamp</em> should be of
+the same form as returned by <strong>systime()</strong>. If <em>timestamp</em> is missing,
+the current time of day is used. If <em>format</em> is missing, a default
+format equivalent to the output of /date/(1) is used. The default
+format is available in <strong>PROCINFO[&#34;strftime&#34;]</strong>. See the specification
+for the <strong>strftime()</strong> function in ISO C for the format conversions that
+are guaranteed to be available.</dd>
+<dt>
+<strong>systime()</strong>
+</dt>
+<dd>Return the current time of day as the number of seconds
+since the Epoch (1970-01-01 00:00:00 UTC on POSIX systems).</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-29" class="outline-3">
+<h3 id="headline-29">
+Bit Manipulations Functions
+</h3>
+<div id="outline-text-headline-29" class="outline-text-3">
+<p><em>Gawk</em> supplies the following bit manipulation functions. They work by
+converting double-precision floating point values to <strong>uintmax_t</strong>
+integers, doing the operation, and then converting the result back to
+floating point. Passing negative operands to any of these functions
+causes a fatal error.</p>
+<p>
+The functions are:</p>
+<dl>
+<dt>
+<strong>and(*/v1/</strong>, <strong>/v2 /[, …]</strong>)*
+</dt>
+<dd>Return the bitwise AND of the values
+provided in the argument list. There must be at least two.</dd>
+<dt>
+<strong>compl(*/val/</strong>)*
+</dt>
+<dd>Return the bitwise complement of <em>val</em>.</dd>
+<dt>
+<strong>lshift(*/val/</strong>, <strong><em>count</em></strong>)*
+</dt>
+<dd>Return the value of <em>val</em>, shifted
+left by <em>count</em> bits.</dd>
+<dt>
+<strong>or(*/v1/</strong>, <strong>/v2 /[, …]</strong>)*
+</dt>
+<dd>Return the bitwise OR of the values
+provided in the argument list. There must be at least two.</dd>
+<dt>
+<strong>rshift(*/val/</strong>, <strong><em>count</em></strong>)*
+</dt>
+<dd>Return the value of <em>val</em>, shifted
+right by <em>count</em> bits.</dd>
+<dt>
+<strong>xor(*/v1/</strong>, <strong>/v2 /[, …]</strong>)*
+</dt>
+<dd>Return the bitwise XOR of the values
+provided in the argument list. There must be at least two.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-30" class="outline-3">
+<h3 id="headline-30">
+Type Functions
+</h3>
+<div id="outline-text-headline-30" class="outline-text-3">
+<p>The following functions provide type related information about their
+arguments.</p>
+<dl>
+<dt>
+<strong>isarray(*/x/</strong>)*
+</dt>
+<dd>Return true if <em>x</em> is an array, false otherwise.</dd>
+<dt>
+<strong>typeof(*/x/</strong>)*
+</dt>
+<dd>Return a string indicating the type of <em>x</em>. The
+string will be one of <strong>&#34;array&#34;</strong>, <strong>&#34;number&#34;</strong>, <strong>&#34;regexp&#34;</strong>, <strong>&#34;string&#34;</strong>,
+<strong>&#34;strnum&#34;</strong>, <strong>&#34;unassigned&#34;</strong>, or <strong>&#34;undefined&#34;</strong>.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-31" class="outline-3">
+<h3 id="headline-31">
+Internationalization Functions
+</h3>
+<div id="outline-text-headline-31" class="outline-text-3">
+<p>The following functions may be used from within your AWK program for
+translating strings at run-time. For full details, see
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/I18N-Functions.html#I18N-Functions">https://www.gnu.org/software/gawk/manual/html_node/I18N-Functions.html#I18N-Functions</a></em>.</p>
+<dl>
+<dt>
+<strong>bindtextdomain(*/directory /[</strong>, <strong>/domain/]</strong>)*
+</dt>
+<dd>Specify the
+directory where <em>gawk</em> looks for the <strong>.gmo</strong> files, in case they will
+not or cannot be placed in the ``standard&#39;&#39; locations. It returns the
+directory where <em>domain</em> is ``bound.&#39;&#39;
+
+The default <em>domain</em> is the value of <strong>TEXTDOMAIN</strong>. If <em>directory</em> is
+the null string (<strong>&#34;&#34;</strong>), then <strong>bindtextdomain()</strong> returns the current
+binding for the given <em>domain</em>.</dd>
+<dt>
+<strong>dcgettext(*/string /[</strong>, <strong>/domain /[</strong>, <strong>/category/]]</strong>)*
+</dt>
+<dd>Return the
+translation of <em>string</em> in text domain <em>domain</em> for locale category
+<em>category</em>. The default value for <em>domain</em> is the current value of
+<strong>TEXTDOMAIN</strong>. The default value for <em>category</em> is <strong>&#34;LC_MESSAGES&#34;</strong>.</dd>
+<dt>
+?
+</dt>
+<dd><strong>dcngettext(*/string1/</strong>, <strong><em>string2</em></strong>, <strong>/number /[</strong>, <strong>/domain /[</strong>,
+<strong>/category/]]</strong>)* :: Return the plural form used for <em>number</em> of the
+translation of <em>string1</em> and <em>string2</em> in text domain <em>domain</em> for
+locale category <em>category</em>. The default value for <em>domain</em> is the
+current value of <strong>TEXTDOMAIN</strong>. The default value for <em>category</em> is
+<strong>&#34;LC_MESSAGES&#34;</strong>.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-32" class="outline-3">
+<h3 id="headline-32">
+Boolean Valued Functions
+</h3>
+<div id="outline-text-headline-32" class="outline-text-3">
+<p>You can create special Boolean-typed values; see the manual for how they
+work and why they exist.</p>
+<dl>
+<dt>
+<strong>mkbool(*/expression /</strong>)*
+</dt>
+<dd>Based on the boolean value of
+<em>expression</em> return either a true value or a false value. True values
+have numeric value one. False values have numeric value zero.</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-33" class="outline-2">
+<h2 id="headline-33">
+USER-DEFINED FUNCTIONS
+</h2>
+<div id="outline-text-headline-33" class="outline-text-2">
+<p>Functions in AWK are defined as follows:</p>
+<blockquote>
+<p><strong>function */name/*(*/parameter list/</strong>) { <strong>/statements /</strong>}*</p>
+</blockquote>
+<p>
+Functions execute when they are called from within expressions in either
+patterns or actions. Actual parameters supplied in the function call are
+used to instantiate the formal parameters declared in the function.
+Arrays are passed by reference, other variables are passed by value.</p>
+<p>
+Local variables are declared as extra parameters in the parameter list.
+The convention is to separate local variables from real parameters by
+extra spaces in the parameter list. For example:</p>
+<blockquote>
+<pre class="example">
+function  f(p, q,     a, b)	# a and b are local
+{
+	. . .
+}
+
+/abc/	{ . . . ; f(1, 2) ; . . . }
+</pre>
+</blockquote>
+<p>
+The left parenthesis in a function call is required to immediately
+follow the function name, without any intervening whitespace. This
+restriction does not apply to the built-in functions listed above.</p>
+<p>
+Functions may call each other and may be recursive. Function parameters
+used as local variables are initialized to the null string and the
+number zero upon function invocation.</p>
+<p>
+Use *return*/ expr/ to return a value from a function. The return value
+is undefined if no value is provided, or if the function returns by
+“falling off” the end.</p>
+<p>
+Functions may be called indirectly. To do this, assign the name of the
+function to be called, as a string, to a variable. Then use the variable
+as if it were the name of a function, prefixed with an <strong>@</strong> sign, like
+so:</p>
+<blockquote>
+<pre class="example">
+function myfunc()
+{
+	print &#34;myfunc called&#34;
+	. . .
+}
+
+{	. . .
+	the_func = &#34;myfunc&#34;
+	@the_func()	# call through the_func to myfunc
+	. . .
+}
+</pre>
+</blockquote>
+<p>
+If <strong>- -lint</strong> has been provided, <em>gawk</em> warns about calls to undefined
+functions at parse time, instead of at run time. Calling an undefined
+function at run time is a fatal error.</p>
+</div>
+</div>
+<div id="outline-container-headline-34" class="outline-2">
+<h2 id="headline-34">
+DYNAMICALLY LOADING NEW FUNCTIONS
+</h2>
+<div id="outline-text-headline-34" class="outline-text-2">
+<p>You can dynamically add new functions written in C or C++ to the running
+<em>gawk</em> interpreter with the <strong>@load</strong> statement. The full details are
+beyond the scope of this manual page; see
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Dynamic-Extensions.html#Dynamic-Extensions">https://www.gnu.org/software/gawk/manual/html_node/Dynamic-Extensions.html#Dynamic-Extensions</a></em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-35" class="outline-2">
+<h2 id="headline-35">
+SIGNALS
+</h2>
+<div id="outline-text-headline-35" class="outline-text-2">
+<p>The <em>gawk</em> profiler accepts two signals. <strong>SIGUSR1</strong> causes it to dump a
+profile and function call stack to the profile file, which is either
+<strong>awkprof.out</strong>, or whatever file was named with the <strong>- -profile</strong> option.
+It then continues to run. <strong>SIGHUP</strong> causes <em>gawk</em> to dump the profile and
+function call stack and then exit.</p>
+</div>
+</div>
+<div id="outline-container-headline-36" class="outline-2">
+<h2 id="headline-36">
+INTERNATIONALIZATION
+</h2>
+<div id="outline-text-headline-36" class="outline-text-2">
+<p>String constants are sequences of characters enclosed in double quotes.
+In non-English speaking environments, it is possible to mark strings in
+the AWK program as requiring translation to the local natural language.
+Such strings are marked in the AWK program with a leading underscore
+(“_”). For example,</p>
+<blockquote>
+<p>gawk &#39;BEGIN { print &#34;hello, world&#34; }&#39;</p>
+</blockquote>
+<p>
+always prints <strong>hello, world</strong>. But,</p>
+<blockquote>
+<p>gawk &#39;BEGIN { print _&#34;hello, world&#34; }&#39;</p>
+</blockquote>
+<p>
+might print <strong>bonjour, monde</strong> in France. See
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Internationalization.html#Internationalization">https://www.gnu.org/software/gawk/manual/html_node/Internationalization.html#Internationalization</a></em>
+for the steps involved in producing and running a localizable AWK
+program.</p>
+</div>
+</div>
+<div id="outline-container-headline-37" class="outline-2">
+<h2 id="headline-37">
+GNU EXTENSIONS
+</h2>
+<div id="outline-text-headline-37" class="outline-text-2">
+<p><em>Gawk</em> has a too-large number of extensions to POSIX <em>awk</em>. They are
+described in
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/POSIX_002fGNU.html">https://www.gnu.org/software/gawk/manual/html_node/POSIX_002fGNU.html</a></em>.
+All the extensions can be disabled by invoking <em>gawk</em> with the
+<strong>- -traditional</strong> or <strong>- -posix</strong> options.</p>
+</div>
+</div>
+<div id="outline-container-headline-38" class="outline-2">
+<h2 id="headline-38">
+ENVIRONMENT VARIABLES
+</h2>
+<div id="outline-text-headline-38" class="outline-text-2">
+<p>The <strong>AWKPATH</strong> environment variable can be used to provide a list of
+directories that <em>gawk</em> searches when looking for files named via the
+<strong>-f</strong>, <strong>- -file</strong>, <strong>-i</strong> and <strong>- -include</strong> options, and the <strong>@include</strong>
+directive. If the initial search fails, the path is searched again after
+appending <strong>.awk</strong> to the filename.</p>
+<p>
+The <strong>AWKLIBPATH</strong> environment variable can be used to provide a list of
+directories that <em>gawk</em> searches when looking for files named via the
+<strong>-l</strong> and <strong>- -load</strong> options.</p>
+<p>
+The <strong>GAWK_PERSIST_FILE</strong> environment variable, if present, specifies a
+file to use as the backing store for persistent memory. <em>This is an
+experimental feature</em>. See <em>GAWK: Effective AWK Programming</em> for the
+details.</p>
+<p>
+The <strong>GAWK_READ_TIMEOUT</strong> environment variable can be used to specify a
+timeout in milliseconds for reading input from a terminal, pipe or
+two-way communication including sockets.</p>
+<p>
+For connection to a remote host via socket, <strong>GAWK_SOCK_RETRIES</strong> controls
+the number of retries, and <strong>GAWK_MSEC_SLEEP</strong> the interval between
+retries. The interval is in milliseconds. On systems that do not support
+/usleep/(3), the value is rounded up to an integral number of seconds.</p>
+<p>
+If <strong>POSIXLY_CORRECT</strong> exists in the environment, then <em>gawk</em> behaves
+exactly as if <strong>- -posix</strong> had been specified on the command line. If
+<strong>- -lint</strong> has been specified, <em>gawk</em> issues a warning message to this
+effect.</p>
+<p>
+Set <strong>GAWK_NO_MPFR_WARN</strong> in the environment to silence the warning about
+MPFR mode being deprecated.</p>
+</div>
+</div>
+<div id="outline-container-headline-39" class="outline-2">
+<h2 id="headline-39">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-39" class="outline-text-2">
+<p>If the <strong>exit</strong> statement is used with a value, then <em>gawk</em> exits with the
+numeric value given to it.</p>
+<p>
+Otherwise, if there were no problems during execution, <em>gawk</em> exits with
+the value of the C constant <strong>EXIT_SUCCESS</strong>. This is usually zero.</p>
+<p>
+If an error occurs, <em>gawk</em> exits with the value of the C constant
+<strong>EXIT_FAILURE</strong>. This is usually one.</p>
+<p>
+If <em>gawk</em> exits because of a fatal error, the exit status is 2. On
+non-POSIX systems, this value may be mapped to <strong>EXIT_FAILURE</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-40" class="outline-2">
+<h2 id="headline-40">
+VERSION INFORMATION
+</h2>
+<div id="outline-text-headline-40" class="outline-text-2">
+<p>This man page documents <em>gawk</em>, version 5.2.</p>
+</div>
+</div>
+<div id="outline-container-headline-41" class="outline-2">
+<h2 id="headline-41">
+AUTHORS
+</h2>
+<div id="outline-text-headline-41" class="outline-text-2">
+<p>The original version of UNIX <em>awk</em> was designed and implemented by
+Alfred Aho, Peter Weinberger, and Brian Kernighan of Bell Laboratories.
+Brian Kernighan continues to maintain and enhance it.</p>
+<p>
+Paul Rubin and Jay Fenlason, of the Free Software Foundation, wrote
+<em>gawk</em>, to be compatible with the original version of <em>awk</em> distributed
+in Seventh Edition UNIX. John Woods contributed a number of bug fixes.
+David Trueman, with contributions from Arnold Robbins, made <em>gawk</em>
+compatible with the new version of UNIX <em>awk</em>. Arnold Robbins is the
+current maintainer.</p>
+<p>
+See <em>GAWK: Effective AWK Programming</em> for a full list of the
+contributors to <em>gawk</em> and its documentation.</p>
+<p>
+See the <strong>README</strong> file in the <em>gawk</em> distribution for up-to-date
+information about maintainers and which ports are currently supported.</p>
+</div>
+</div>
+<div id="outline-container-headline-42" class="outline-2">
+<h2 id="headline-42">
+BUG REPORTS
+</h2>
+<div id="outline-text-headline-42" class="outline-text-2">
+<p>If you find a bug in <em>gawk</em>, please use the /gawkbug/(1) program to
+report it.</p>
+<p>
+Full instructions for reporting a bug are provided in
+<em><a href="https://www.gnu.org/software/gawk/manual/html_node/Bugs.html">https://www.gnu.org/software/gawk/manual/html_node/Bugs.html</a></em>. <em>Please</em>
+carefully read and follow the instructions given there. This will make
+bug reporting and resolution much easier for everyone involved. Really.</p>
+</div>
+</div>
+<div id="outline-container-headline-43" class="outline-2">
+<h2 id="headline-43">
+BUGS
+</h2>
+<div id="outline-text-headline-43" class="outline-text-2">
+<p>The <strong>-F</strong> option is not necessary given the command line variable
+assignment feature; it remains only for backwards compatibility.</p>
+<p>
+This manual page is too long; <em>gawk</em> has too many features.</p>
+</div>
+</div>
+<div id="outline-container-headline-44" class="outline-2">
+<h2 id="headline-44">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-44" class="outline-text-2">
+<p>/egrep/(1), /sed/(1), /gawkbug/(1), /printf/(3), and /strftime/(3).</p>
+<p>
+<em>The AWK Programming Language</em>, Alfred V. Aho, Brian W. Kernighan, Peter</p>
+<ol>
+<li>Weinberger, Addison-Wesley, 1988. ISBN 0-201-07981-X.</li>
+</ol>
+<p><em>GAWK: Effective AWK Programming</em>, Edition 5.2, shipped with the <em>gawk</em>
+source. The current version of this document is available online at
+<em><a href="https://www.gnu.org/software/gawk/manual">https://www.gnu.org/software/gawk/manual</a></em>.</p>
+<p>
+The GNU <strong>gettext</strong> documentation, available online at
+<em><a href="https://www.gnu.org/software/gettext">https://www.gnu.org/software/gettext</a></em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-45" class="outline-2">
+<h2 id="headline-45">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-45" class="outline-text-2">
+<pre class="example">
+Print and sort the login names of all users:
+
+	BEGIN	{ FS = &#34;:&#34; }
+		{ print $1 | &#34;sort&#34; }
+
+Count lines in a file:
+
+		{ nlines++ }
+	END	{ print nlines }
+
+Precede each line by its number in the file:
+
+	{ print FNR, $0 }
+
+Concatenate and line number (a variation on a theme):
+
+	{ print NR, $0 }
+
+Run an external command for particular lines of data:
+
+	tail -f access_log |
+	awk &#39;/myhome.html/ { system(&#34;nmap &#34; $1 &#34;&gt;&gt; logdir/myhome.html&#34;) }&#39;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-46" class="outline-2">
+<h2 id="headline-46">
+ACKNOWLEDGEMENTS
+</h2>
+<div id="outline-text-headline-46" class="outline-text-2">
+<p>Brian Kernighan provided valuable assistance during testing and
+debugging. We thank him.</p>
+</div>
+</div>
+<div id="outline-container-headline-47" class="outline-2">
+<h2 id="headline-47">
+COPYING PERMISSIONS
+</h2>
+<div id="outline-text-headline-47" class="outline-text-2">
+<p>Copyright © 1989, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
+2001, 2002, 2003, 2004, 2005, 2007, 2009, 2010, 2011, 2012, 2013, 2014,
+2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022 Free Software Foundation,
+Inc.</p>
+<p>
+Permission is granted to make and distribute verbatim copies of this
+manual page provided the copyright notice and this permission notice are
+preserved on all copies.</p>
+<p>
+Permission is granted to process this file through troff and print the
+results, provided the printed document carries copying permission notice
+identical to this one except for the removal of this paragraph (this
+paragraph not being relevant to the printed manual page).</p>
+<p>
+Permission is granted to copy and distribute modified versions of this
+manual page under the conditions for verbatim copying, provided that the
+entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.</p>
+<p>
+Permission is granted to copy and distribute translations of this manual
+page into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by the Foundation.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

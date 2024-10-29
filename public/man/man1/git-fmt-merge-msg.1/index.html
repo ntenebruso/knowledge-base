@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-fmt-merge-msg.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-fmt-merge-msg.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-fmt-merge-msg - Produce a merge commit message</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git fmt-merge-msg [-m &lt;message&gt;] [--into-name &lt;branch&gt;] [--log[=&lt;n&gt;] | --no-log]
+git fmt-merge-msg [-m &lt;message&gt;] [--log[=&lt;n&gt;] | --no-log] -F &lt;file&gt;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Takes the list of merged objects on stdin and produces a suitable commit
+message to be used for the merge commit, usually to be passed as the
+<em>&lt;merge-message&gt;</em> argument of <em>git merge</em>.</p>
+<p>
+This command is intended mostly for internal use by scripts
+automatically invoking <em>git merge</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–log[=&lt;n&gt;]</p>
+<blockquote>
+<p>In addition to branch names, populate the log message with one-line
+descriptions from the actual commits that are being merged. At most &lt;n&gt;
+commits from each merge parent will be used (20 if &lt;n&gt; is omitted). This
+overrides the <strong>merge.log</strong> configuration variable.</p>
+</blockquote>
+<p>
+–no-log</p>
+<blockquote>
+<p>Do not list one-line descriptions from the actual commits being merged.</p>
+</blockquote>
+<p>
+–[no-]summary</p>
+<blockquote>
+<p>Synonyms to –log and –no-log; these are deprecated and will be removed
+in the future.</p>
+</blockquote>
+<p>
+-m &lt;message&gt;, –message &lt;message&gt;</p>
+<blockquote>
+<p>Use &lt;message&gt; instead of the branch names for the first line of the log
+message. For use with <strong>–log</strong>.</p>
+</blockquote>
+<p>
+–into-name &lt;branch&gt;</p>
+<blockquote>
+<p>Prepare the merge message as if merging to the branch <strong>&lt;branch&gt;</strong>,
+instead of the name of the real branch to which the merge is made.</p>
+</blockquote>
+<p>
+-F &lt;file&gt;, –file &lt;file&gt;</p>
+<blockquote>
+<p>Take the list of merged objects from &lt;file&gt; instead of stdin.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>merge.branchdesc</p>
+<blockquote>
+<p>In addition to branch names, populate the log message with the branch
+description text associated with them. Defaults to false.</p>
+</blockquote>
+<p>
+merge.log</p>
+<blockquote>
+<p>In addition to branch names, populate the log message with at most the
+specified number of one-line descriptions from the actual commits that
+are being merged. Defaults to false, and true is a synonym for 20.</p>
+</blockquote>
+<p>
+merge.suppressDest</p>
+<blockquote>
+<p>By adding a glob that matches the names of integration branches to this
+multi-valued configuration variable, the default merge message computed
+for merges into these integration branches will omit &#34;into &lt;branch
+name&gt;&#34; from its title.</p>
+<p>
+An element with an empty value can be used to clear the list of globs
+accumulated from previous configuration entries. When there is no
+<strong>merge.suppressDest</strong> variable defined, the default value of <strong>master</strong> is
+used for backward compatibility.</p>
+</blockquote>
+<p>
+merge.summary</p>
+<blockquote>
+<p>Synonym to <strong>merge.log</strong>; this is deprecated and will be removed in the
+future.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<blockquote>
+<pre class="example">
+$ git fetch origin master
+$ git fmt-merge-msg --log &lt;$GIT_DIR/FETCH_HEAD
+</pre>
+</blockquote>
+<p>
+Print a log message describing a merge of the &#34;master&#34; branch from the
+&#34;origin&#34; remote.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*git-merge*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

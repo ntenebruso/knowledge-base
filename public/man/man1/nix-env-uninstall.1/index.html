@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nix-env-uninstall.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nix-env-uninstall.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Name
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><code class="verbatim">nix-env --uninstall</code> - remove packages from user environment</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Synopsis
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><code class="verbatim">nix-env</code> {<code class="verbatim">--uninstall</code> | <code class="verbatim">-e</code>} <em>drvnames…</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Description
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The uninstall operation creates a new user environment, based on the
+current generation of the active profile, from which the store paths
+designated by the symbolic names <em>drvnames</em> are removed.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Options
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are allowed for all <code class="verbatim">nix-env</code> operations, but may
+not always have an effect.</p>
+<ul>
+<li><code class="verbatim">--file</code> / <code class="verbatim">-f</code> <em>path</em>
+
+Specifies the Nix expression (designated below as the <em>active Nix</em>
+expression) used by the <code class="verbatim">--install</code>, <code class="verbatim">--upgrade</code>, and <code class="verbatim">--query</code>
+–available operations to obtain derivations. The default is
+<code class="verbatim">~/.nix-defexpr</code>.
+
+If the argument starts with <code class="verbatim">http://</code> or <code class="verbatim">https://</code>, it is interpreted
+as the URL of a tarball that will be downloaded and unpacked to a
+temporary location. The tarball must include a single top-level
+directory containing at least a file named <code class="verbatim">default.nix</code>.</li>
+<li><code class="verbatim">--profile</code> / <code class="verbatim">-p</code> <em>path</em>
+
+Specifies the profile to be used by those operations that operate on a
+profile (designated below as the <em>active profile</em>). A profile is a
+sequence of user environments called <em>generations</em>, one of which is
+the <em>current generation</em>.</li>
+<li><code class="verbatim">--dry-run</code>
+
+For the <code class="verbatim">--install</code>, <code class="verbatim">--upgrade</code>, <code class="verbatim">--uninstall</code>,
+<code class="verbatim">--switch-generation</code>, <code class="verbatim">--delete-generations</code> and <code class="verbatim">--rollback</code>
+operations, this flag will cause <code class="verbatim">nix-env</code> to print what <em>would</em> be
+done if this flag had not been specified, without actually doing it.
+
+<code class="verbatim">--dry-run</code> also prints out which paths will be <strong>substituted</strong> (i.e.,
+downloaded) and which paths will be built from source (because no
+substitute is available).</li>
+<li><code class="verbatim">--system-filter</code> <em>system</em>
+
+By default, operations such as <code class="verbatim">--query --available</code> show derivations
+matching any platform. This option allows you to use derivations for
+the specified platform <em>system</em>.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Common Options
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Most Nix commands accept the following command-line options:</p>
+<ul>
+<li><code class="verbatim">--help</code>
+
+Prints out a summary of the command syntax and exits.</li>
+<li><code class="verbatim">--version</code>
+
+Prints out the Nix version number on standard output and exits.</li>
+<li>
+<p><code class="verbatim">--verbose</code> / <code class="verbatim">-v</code></p>
+<p>
+Increases the level of verbosity of diagnostic messages printed on
+standard error. For each Nix operation, the information printed on
+standard output is well-defined; any diagnostic information is printed
+on standard error, never on standard output.</p>
+<p>
+This option may be specified repeatedly. Currently, the following
+verbosity levels exist:</p>
+<ul>
+<li><code class="verbatim">0</code> “Errors only”</li>
+</ul>
+<p>Only print messages explaining why the Nix invocation failed.</p>
+<ul>
+<li><code class="verbatim">1</code> “Informational”</li>
+</ul>
+<p>Print <em>useful</em> messages about what Nix is doing. This is the default.</p>
+<ul>
+<li><code class="verbatim">2</code> “Talkative”</li>
+</ul>
+<p>Print more informational messages.</p>
+<ul>
+<li><code class="verbatim">3</code> “Chatty”</li>
+</ul>
+<p>Print even more informational messages.</p>
+<ul>
+<li><code class="verbatim">4</code> “Debug”</li>
+</ul>
+<p>Print debug information.</p>
+<ul>
+<li><code class="verbatim">5</code> “Vomit”</li>
+</ul>
+<p>Print vast amounts of debug information.</p>
+</li>
+<li><code class="verbatim">--quiet</code>
+
+Decreases the level of verbosity of diagnostic messages printed on
+standard error. This is the inverse option to <code class="verbatim">-v</code> / <code class="verbatim">--verbose</code>.
+
+This option may be specified repeatedly. See the previous verbosity
+levels list.</li>
+<li>
+<p><code class="verbatim">--log-format</code> <em>format</em></p>
+<p>
+This option can be used to change the output of the log format, with
+<em>format</em> being one of:</p>
+<ul>
+<li><code class="verbatim">raw</code></li>
+</ul>
+<p>This is the raw format, as outputted by nix-build.</p>
+<ul>
+<li><code class="verbatim">internal-json</code></li>
+</ul>
+<p>Outputs the logs in a structured manner.</p>
+<blockquote>
+<p><strong>Warning</strong></p>
+</blockquote>
+<blockquote>
+<p>While the schema itself is relatively stable, the format of the
+error-messages (namely of the <code class="verbatim">msg</code>-field) can change between
+releases.</p>
+</blockquote>
+<ul>
+<li><code class="verbatim">bar</code></li>
+</ul>
+<p>Only display a progress bar during the builds.</p>
+<ul>
+<li><code class="verbatim">bar-with-logs</code></li>
+</ul>
+<p>Display the raw logs, with the progress bar at the bottom.</p>
+</li>
+<li><code class="verbatim">--no-build-output</code> / <code class="verbatim">-Q</code>
+
+By default, output written by builders to standard output and standard
+error is echoed to the Nix command&#39;s standard error. This option
+suppresses this behaviour. Note that the builder&#39;s standard output and
+error are always written to a log file in <code class="verbatim">prefix/nix/var/log/nix</code>.</li>
+<li><code class="verbatim">--max-jobs</code> / <code class="verbatim">-j</code> <em>number</em>
+
+Sets the maximum number of build jobs that Nix will perform in
+parallel to the specified number. Specify <code class="verbatim">auto</code> to use the number of
+CPUs in the system. The default is specified by the <code class="verbatim">max-jobs</code>
+configuration setting, which itself defaults to <code class="verbatim">1</code>. A higher value is
+useful on SMP systems or to exploit I/O latency.
+
+Setting it to <code class="verbatim">0</code> disallows building on the local machine, which is
+useful when you want builds to happen only on remote builders.</li>
+<li><code class="verbatim">--cores</code>
+
+Sets the value of the <code class="verbatim">NIX_BUILD_CORES</code> environment variable in the
+invocation of builders. Builders can use this variable at their
+discretion to control the maximum amount of parallelism. For instance,
+in Nixpkgs, if the derivation attribute <code class="verbatim">enableParallelBuilding</code> is
+set to <code class="verbatim">true</code>, the builder passes the <code class="verbatim">-jN</code> flag to GNU Make. It
+defaults to the value of the <code class="verbatim">cores</code> configuration setting, if set, or
+<code class="verbatim">1</code> otherwise. The value <code class="verbatim">0</code> means that the builder should use all
+available CPU cores in the system.</li>
+<li><code class="verbatim">--max-silent-time</code>
+
+Sets the maximum number of seconds that a builder can go without
+producing any data on standard output or standard error. The default
+is specified by the <code class="verbatim">max-silent-time</code> configuration setting. <code class="verbatim">0</code> means
+no time-out.</li>
+<li><code class="verbatim">--timeout</code>
+
+Sets the maximum number of seconds that a builder can run. The default
+is specified by the <code class="verbatim">timeout</code> configuration setting. <code class="verbatim">0</code> means no
+timeout.</li>
+<li><code class="verbatim">--keep-going</code> / <code class="verbatim">-k</code>
+
+Keep going in case of failed builds, to the greatest extent possible.
+That is, if building an input of some derivation fails, Nix will still
+build the other inputs, but not the derivation itself. Without this
+option, Nix stops if any build fails (except for builds of
+substitutes), possibly killing builds in progress (in case of parallel
+or distributed builds).</li>
+<li><code class="verbatim">--keep-failed</code> / <code class="verbatim">-K</code>
+
+Specifies that in case of a build failure, the temporary directory
+(usually in <code class="verbatim">/tmp</code>) in which the build takes place should not be
+deleted. The path of the build directory is printed as an
+informational message.</li>
+<li><code class="verbatim">--fallback</code>
+
+Whenever Nix attempts to build a derivation for which substitutes are
+known for each output path, but realising the output paths through the
+substitutes fails, fall back on building the derivation.
+
+The most common scenario in which this is useful is when we have
+registered substitutes in order to perform binary distribution from,
+say, a network repository. If the repository is down, the realisation
+of the derivation will fail. When this option is specified, Nix will
+build the derivation instead. Thus, installation from binaries falls
+back on installation from source. This option is not the default since
+it is generally not desirable for a transient failure in obtaining the
+substitutes to lead to a full build from source (with the related
+consumption of resources).</li>
+<li><code class="verbatim">--readonly-mode</code>
+
+When this option is used, no attempt is made to open the Nix database.
+Most Nix operations do need database access, so those operations will
+fail.</li>
+<li><code class="verbatim">--arg</code> <em>name</em> <em>value</em>
+
+This option is accepted by <code class="verbatim">nix-env</code>, <code class="verbatim">nix-instantiate</code>, <code class="verbatim">nix-shell</code>
+and <code class="verbatim">nix-build</code>. When evaluating Nix expressions, the expression
+evaluator will automatically try to call functions that it encounters.
+It can automatically call functions for which every argument has a
+<strong>default value</strong> (e.g., <code class="verbatim">{ argName ?  defaultValue }: ...</code>).
+
+With <code class="verbatim">--arg</code>, you can also call functions that have arguments without
+a default value (or override a default value). That is, if the
+evaluator encounters a function with an argument named <em>name</em>, it will
+call it with value <em>value</em>.
+
+For instance, the top-level <code class="verbatim">default.nix</code> in Nixpkgs is actually a
+function:</li>
+</ul>
+<pre class="example">
+{ # The system (e.g., `i686-linux&#39;) for which to build the packages.
+system ? builtins.currentSystem
+...
+}: ...
+</pre>
+<blockquote>
+<p>So if you call this Nix expression (e.g., when you do
+<code class="verbatim">nix-env --install --attr pkgname</code>), the function will be called
+automatically using the value <code class="verbatim">builtins.currentSystem</code> for the <code class="verbatim">system</code>
+argument. You can override this using <code class="verbatim">--arg</code>, e.g.,
+<code class="verbatim">nix-env --install --attr pkgname --arg system \&#34;i686-freebsd\&#34;</code>. (Note
+that since the argument is a Nix string literal, you have to escape the
+quotes.)</p>
+</blockquote>
+<ul>
+<li><code class="verbatim">--argstr</code> <em>name</em> <em>value</em>
+
+This option is like <code class="verbatim">--arg</code>, only the value is not a Nix expression
+but a string. So instead of <code class="verbatim">--arg system \&#34;i686-linux\&#34;</code> (the outer
+quotes are to keep the shell happy) you can say
+<code class="verbatim">--argstr system i686-linux</code>.</li>
+<li><code class="verbatim">--attr</code> / <code class="verbatim">-A</code> <em>attrPath</em>
+
+Select an attribute from the top-level Nix expression being evaluated.
+(<code class="verbatim">nix-env</code>, <code class="verbatim">nix-instantiate</code>, <code class="verbatim">nix-build</code> and <code class="verbatim">nix-shell</code> only.) The
+<em>attribute path</em> <em>attrPath</em> is a sequence of attribute names separated
+by dots. For instance, given a top-level Nix expression <em>e</em>, the
+attribute path <code class="verbatim">xorg.xorgserver</code> would cause the expression
+<code class="verbatim">e.xorg.xorgserver</code> to be used. See <code class="verbatim">nix-env --install</code> for some
+concrete examples.
+
+In addition to attribute names, you can also specify array indices.
+For instance, the attribute path <code class="verbatim">foo.3.bar</code> selects the <code class="verbatim">bar</code>
+attribute of the fourth element of the array in the <code class="verbatim">foo</code> attribute of
+the top-level expression.</li>
+<li><code class="verbatim">--expr</code> / <code class="verbatim">-E</code>
+
+Interpret the command line arguments as a list of Nix expressions to
+be parsed and evaluated, rather than as a list of file names of Nix
+expressions. (<code class="verbatim">nix-instantiate</code>, <code class="verbatim">nix-build</code> and <code class="verbatim">nix-shell</code> only.)
+
+For <code class="verbatim">nix-shell</code>, this option is commonly used to give you a shell in
+which you can build the packages returned by the expression. If you
+want to get a shell which contain the <em>built</em> packages ready for use,
+give your expression to the <code class="verbatim">nix-shell --packages</code> convenience flag
+instead.</li>
+<li><code class="verbatim">-I</code> / <code class="verbatim">--include</code> <em>path</em>
+
+Add an entry to the list of search paths used to resolve <strong>lookup
+paths</strong>. This option may be given multiple times.
+
+Paths added through <code class="verbatim">-I</code> take precedence over the <code class="verbatim">nix-path</code>
+configuration setting and the <code class="verbatim">NIX_PATH</code> environment variable.</li>
+<li><code class="verbatim">--option</code> <em>name</em> <em>value</em>
+
+Set the Nix configuration option <em>name</em> to <em>value</em>. This overrides
+settings in the Nix configuration file (see nix.conf5).</li>
+<li><code class="verbatim">--repair</code>
+
+Fix corrupted or missing store paths by redownloading or rebuilding
+them. Note that this is slow because it requires computing a
+cryptographic hash of the contents of every path in the closure of the
+build. Also note the warning under <code class="verbatim">nix-store --repair-path</code>.
+
+<strong>Note</strong>
+
+See <code class="verbatim">man nix.conf</code> for overriding configuration settings with command
+line flags.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Environment variables
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<ul>
+<li><code class="verbatim">NIX_PROFILE</code>
+
+Location of the Nix profile. Defaults to the target of the symlink
+<code class="verbatim">~/.nix-profile</code>, if it exists, or <code class="verbatim">/nix/var/nix/profiles/default</code>
+otherwise.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+Common Environment Variables
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Most Nix commands interpret the following environment variables:</p>
+<ul>
+<li><code class="verbatim">IN_NIX_SHELL</code>
+
+Indicator that tells if the current environment was set up by
+<code class="verbatim">nix-shell</code>. It can have the values <code class="verbatim">pure</code> or <code class="verbatim">impure</code>.</li>
+<li>
+<p><code class="verbatim">NIX_PATH</code></p>
+<p>
+A colon-separated list of search path entries used to resolve <strong>lookup
+paths</strong>.</p>
+<p>
+This environment variable overrides the value of the <code class="verbatim">nix-path</code>
+configuration setting.</p>
+<p>
+It can be extended using the <code class="verbatim">-I</code> option.</p>
+<blockquote>
+<p><strong>Example</strong></p>
+</blockquote>
+<pre class="example">
+$ export NIX_PATH=`/home/eelco/Dev:nixos-config=/etc/nixos
+</pre>
+<p>
+If <code class="verbatim">NIX_PATH</code> is set to an empty string, resolving search paths will
+always fail.</p>
+<blockquote>
+<p><strong>Example</strong></p>
+</blockquote>
+<pre class="example">
+$ NIX_PATH= nix-instantiate --eval &#39;&lt;nixpkgs&gt;&#39;
+error: file &#39;nixpkgs&#39; was not found in the Nix search path (add it using $NIX_PATH or -I)
+</pre>
+</li>
+<li><code class="verbatim">NIX_IGNORE_SYMLINK_STORE</code>
+
+Normally, the Nix store directory (typically <code class="verbatim">/nix/store</code>) is not
+allowed to contain any symlink components. This is to prevent “impure”
+builds. Builders sometimes “canonicalise” paths by resolving all
+symlink components. Thus, builds on different machines (with
+<code class="verbatim">/nix/store</code> resolving to different locations) could yield different
+results. This is generally not a problem, except when builds are
+deployed to machines where <code class="verbatim">/nix/store</code> resolves differently. If you
+are sure that you&#39;re not going to do that, you can set
+<code class="verbatim">NIX_IGNORE_SYMLINK_STORE</code> to <code class="verbatim">1</code>.
+
+Note that if you&#39;re symlinking the Nix store so that you can put it on
+another file system than the root file system, on Linux you&#39;re better
+off using <code class="verbatim">bind</code> mount points, e.g.,</li>
+</ul>
+<pre class="example">
+$ mkdir /nix
+$ mount -o bind /mnt/otherdisk/nix /nix
+</pre>
+<blockquote>
+<p>Consult the mount 8 manual page for details.</p>
+</blockquote>
+<ul>
+<li><code class="verbatim">NIX_STORE_DIR</code>
+
+Overrides the location of the Nix store (default <code class="verbatim">prefix/store</code>).</li>
+<li><code class="verbatim">NIX_DATA_DIR</code>
+
+Overrides the location of the Nix static data directory (default
+<code class="verbatim">prefix/share</code>).</li>
+<li><code class="verbatim">NIX_LOG_DIR</code>
+
+Overrides the location of the Nix log directory (default
+<code class="verbatim">prefix/var/log/nix</code>).</li>
+<li><code class="verbatim">NIX_STATE_DIR</code>
+
+Overrides the location of the Nix state directory (default
+<code class="verbatim">prefix/var/nix</code>).</li>
+<li><code class="verbatim">NIX_CONF_DIR</code>
+
+Overrides the location of the system Nix configuration directory
+(default <code class="verbatim">prefix/etc/nix</code>).</li>
+<li><code class="verbatim">NIX_CONFIG</code>
+
+Applies settings from Nix configuration from the environment. The
+content is treated as if it was read from a Nix configuration file.
+Settings are separated by the newline character.</li>
+<li><code class="verbatim">NIX_USER_CONF_FILES</code>
+
+Overrides the location of the Nix user configuration files to load
+from.
+
+The default are the locations according to the <strong>XDG Base Directory
+Specification</strong>. See the <strong>XDG Base Directories</strong> sub-section for
+details.
+
+The variable is treated as a list separated by the <code class="verbatim">:</code> token.</li>
+<li><code class="verbatim">TMPDIR</code>
+
+Use the specified directory to store temporary files. In particular,
+this includes temporary build directories; these can take up
+substantial amounts of disk space. The default is <code class="verbatim">/tmp</code>.</li>
+<li><code class="verbatim">NIX_REMOTE</code>
+
+This variable should be set to <code class="verbatim">daemon</code> if you want to use the Nix
+daemon to execute Nix operations. This is necessary in <strong>multi-user</strong>
+Nix installations. If the Nix daemon&#39;s Unix socket is at some
+non-standard path, this variable should be set to
+<code class="verbatim">unix://path/to/socket</code>. Otherwise, it should be left unset.</li>
+<li><code class="verbatim">NIX_SHOW_STATS</code>
+
+If set to <code class="verbatim">1</code>, Nix will print some evaluation statistics, such as the
+number of values allocated.</li>
+<li><code class="verbatim">NIX_COUNT_CALLS</code>
+
+If set to <code class="verbatim">1</code>, Nix will print how often functions were called during
+Nix expression evaluation. This is useful for profiling your Nix
+expressions.</li>
+<li><code class="verbatim">GC_INITIAL_HEAP_SIZE</code>
+
+If Nix has been configured to use the Boehm garbage collector, this
+variable sets the initial size of the heap in bytes. It defaults to
+384 MiB. Setting it to a low value reduces memory consumption, but
+will increase runtime due to the overhead of garbage collection.</li>
+</ul>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+XDG Base Directories
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Nix follows the <strong>XDG Base Directory Specification</strong>.</p>
+<p>
+For backwards compatibility, Nix commands will follow the standard only
+when <code class="verbatim">use-xdg-base-directories</code> is enabled. <strong>New Nix commands</strong>
+(experimental) conform to the standard by default.</p>
+<p>
+The following environment variables are used to determine locations of
+various state and configuration files:</p>
+<ul>
+<li>[=XDG_CONFIG_HOME=]{#env-XDG/CONFIG/HOME} (default <code class="verbatim">~/.config</code>)</li>
+<li>[=XDG_STATE_HOME=]{#env-XDG/STATE/HOME} (default <code class="verbatim">~/.local/state</code>)</li>
+<li>[=XDG_CACHE_HOME=]{#env-XDG/CACHE/HOME} (default <code class="verbatim">~/.cache</code>)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+Examples
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<pre class="example">
+$ nix-env --uninstall gcc
+$ nix-env --uninstall &#39;.*&#39; (remove everything)
+</pre>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

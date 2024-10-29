@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-send-pack.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-send-pack.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-send-pack - Push objects over Git protocol to another repository</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git send-pack [--mirror] [--dry-run] [--force]
+                [--receive-pack=&lt;git-receive-pack&gt;]
+                [--verbose] [--thin] [--atomic]
+                [--[no-]signed | --signed=(true|false|if-asked)]
+                [&lt;host&gt;:]&lt;directory&gt; (--all | &lt;ref&gt;...)
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Usually you would want to use <em>git push</em>, which is a higher-level
+wrapper of this command, instead. See *git-push*(1).</p>
+<p>
+Invokes <em>git-receive-pack</em> on a possibly remote repository, and updates
+it from the current repository, sending named refs.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–receive-pack=&lt;git-receive-pack&gt;</p>
+<blockquote>
+<p>Path to the <em>git-receive-pack</em> program on the remote end. Sometimes
+useful when pushing to a remote repository over ssh, and you do not have
+the program in a directory on the default $PATH.</p>
+</blockquote>
+<p>
+–exec=&lt;git-receive-pack&gt;</p>
+<blockquote>
+<p>Same as –receive-pack=&lt;git-receive-pack&gt;.</p>
+</blockquote>
+<p>
+–all</p>
+<blockquote>
+<p>Instead of explicitly specifying which refs to update, update all heads
+that locally exist.</p>
+</blockquote>
+<p>
+–stdin</p>
+<blockquote>
+<p>Take the list of refs from stdin, one per line. If there are refs
+specified on the command line in addition to this option, then the refs
+from stdin are processed after those on the command line.</p>
+<p>
+If <strong>–stateless-rpc</strong> is specified together with this option then the
+list of refs must be in packet format (pkt-line). Each ref must be in a
+separate packet, and the list must end with a flush packet.</p>
+</blockquote>
+<p>
+–dry-run</p>
+<blockquote>
+<p>Do everything except actually send the updates.</p>
+</blockquote>
+<p>
+–force</p>
+<blockquote>
+<p>Usually, the command refuses to update a remote ref that is not an
+ancestor of the local ref used to overwrite it. This flag disables the
+check. This means that the remote repository can lose commits; use it
+with care.</p>
+</blockquote>
+<p>
+–verbose</p>
+<blockquote>
+<p>Run verbosely.</p>
+</blockquote>
+<p>
+–thin</p>
+<blockquote>
+<p>Send a &#34;thin&#34; pack, which records objects in deltified form based on
+objects not included in the pack to reduce network traffic.</p>
+</blockquote>
+<p>
+–atomic</p>
+<blockquote>
+<p>Use an atomic transaction for updating the refs. If any of the refs
+fails to update then the entire push will fail without changing any
+refs.</p>
+</blockquote>
+<p>
+–[no-]signed, –signed=(true|false|if-asked)</p>
+<blockquote>
+<p>GPG-sign the push request to update refs on the receiving side, to allow
+it to be checked by the hooks and/or be logged. If <strong>false</strong> or
+<strong>–no-signed</strong>, no signing will be attempted. If <strong>true</strong> or <strong>–signed</strong>,
+the push will fail if the server does not support signed pushes. If set
+to <strong>if-asked</strong>, sign if and only if the server supports signed pushes.
+The push will also fail if the actual call to <strong>gpg –sign</strong> fails. See
+*git-receive-pack*(1) for the details on the receiving end.</p>
+</blockquote>
+<p>
+–push-option=&lt;string&gt;</p>
+<blockquote>
+<p>Pass the specified string as a push option for consumption by hooks on
+the server side. If the server doesn&#39;t support push options, error out.
+See *git-push*(1) and *githooks*(5) for details.</p>
+</blockquote>
+<p>
+&lt;host&gt;</p>
+<blockquote>
+<p>A remote host to house the repository. When this part is specified,
+<em>git-receive-pack</em> is invoked via ssh.</p>
+</blockquote>
+<p>
+&lt;directory&gt;</p>
+<blockquote>
+<p>The repository to update.</p>
+</blockquote>
+<p>
+&lt;ref&gt;…</p>
+<blockquote>
+<p>The remote refs to update.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SPECIFYING THE REFS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>There are three ways to specify which refs to update on the remote end.</p>
+<p>
+With the <strong>–all</strong> flag, all refs that exist locally are transferred to
+the remote side. You cannot specify any <em>&lt;ref&gt;</em> if you use this flag.</p>
+<p>
+Without <strong>–all</strong> and without any <em>&lt;ref&gt;</em>, the heads that exist both on
+the local side and on the remote side are updated.</p>
+<p>
+When one or more <em>&lt;ref&gt;</em> are specified explicitly (whether on the
+command line or via <strong>–stdin</strong>), it can be either a single pattern, or a
+pair of such patterns separated by a colon &#34;:&#34; (this means that a ref
+name cannot have a colon in it). A single pattern <em>&lt;name&gt;</em> is just
+shorthand for <em>&lt;name&gt;:&lt;name&gt;</em>.</p>
+<p>
+Each pattern pair consists of the source side (before the colon) and the
+destination side (after the colon). The ref to be pushed is determined
+by finding a match that matches the source side, and where it is pushed
+is determined by using the destination side. The rules used to match a
+ref are the same rules used by <em>git rev-parse</em> to resolve a symbolic ref
+name. See *git-rev-parse*(1).</p>
+<blockquote>
+<p>·</p>
+<p>
+It is an error if &lt;src&gt; does not match exactly one of the local refs.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+It is an error if &lt;dst&gt; matches more than one remote ref.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+If &lt;dst&gt; does not match any remote ref, either</p>
+<blockquote>
+<p>·</p>
+<p>
+it has to start with &#34;refs/&#34;; &lt;dst&gt; is used as the destination literally
+in this case.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+&lt;src&gt; == &lt;dst&gt; and the ref that matched the &lt;src&gt; must not exist in the
+set of remote refs; the ref matched &lt;src&gt; locally is used as the name of
+the destination.</p>
+</blockquote>
+</blockquote>
+<p>
+Without <strong>–force</strong>, the &lt;src&gt; ref is stored at the remote only if &lt;dst&gt;
+does not exist, or &lt;dst&gt; is a proper subset (i.e. an ancestor) of &lt;src&gt;.
+This check, known as the &#34;fast-forward check&#34;, is performed to avoid
+accidentally overwriting the remote ref and losing other people&#39;s
+commits from there.</p>
+<p>
+With <strong>–force</strong>, the fast-forward check is disabled for all refs.</p>
+<p>
+Optionally, a &lt;ref&gt; parameter can be prefixed with a plus <em>+</em> sign to
+disable the fast-forward check only on that ref.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+GIT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

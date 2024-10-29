@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - bluetoothctl-mgmt.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - bluetoothctl-mgmt.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>bluetoothctl-mgmt - Management Submenu</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>bluetoothctl</strong> [–options] [mgmt.commands]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+MGMT COMMANDS
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+select
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>Select a different index</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># select &lt;index&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+revision
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Get the MGMT Revision</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># revision</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+commands
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>List supported commands</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># commands</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+config
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Show configuration info</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># config</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+info
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Show controller info</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># info</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+extinfo
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>Show extended controller info</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># extinfo</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+auto-power
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>Power all available features</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># auto-power</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+power
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>Toggle powered state</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># power &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+discov
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>Toggle discoverable state</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># discov &lt;yes/no/limited&gt; [timeout]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+connectable
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<p>Toggle connectable state</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># connectable &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-3">
+<h3 id="headline-14">
+fast-conn
+</h3>
+<div id="outline-text-headline-14" class="outline-text-3">
+<p>Toggle fast connectable state</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># fast-conn &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+bondable
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<p>Toggle bondable state</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># bondable &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-3">
+<h3 id="headline-16">
+pairable
+</h3>
+<div id="outline-text-headline-16" class="outline-text-3">
+<p>Toggle bondable state</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># pairable &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-3">
+<h3 id="headline-17">
+linksec
+</h3>
+<div id="outline-text-headline-17" class="outline-text-3">
+<p>Toggle link level security</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># linksec &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-3">
+<h3 id="headline-18">
+ssp
+</h3>
+<div id="outline-text-headline-18" class="outline-text-3">
+<p>Toggle SSP mode</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># spp &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-19" class="outline-3">
+<h3 id="headline-19">
+sc
+</h3>
+<div id="outline-text-headline-19" class="outline-text-3">
+<p>Toggle SC support</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># sc &lt;on/off/only&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-3">
+<h3 id="headline-20">
+hs
+</h3>
+<div id="outline-text-headline-20" class="outline-text-3">
+<p>Toggle HS support</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># hs &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-21" class="outline-3">
+<h3 id="headline-21">
+le
+</h3>
+<div id="outline-text-headline-21" class="outline-text-3">
+<p>Toggle LE support</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># le &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-22" class="outline-3">
+<h3 id="headline-22">
+advertising
+</h3>
+<div id="outline-text-headline-22" class="outline-text-3">
+<p>Toggle LE advertising</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># advertise &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-23" class="outline-3">
+<h3 id="headline-23">
+bredr
+</h3>
+<div id="outline-text-headline-23" class="outline-text-3">
+<p>Toggle BR/EDR support</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># bredr &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-24" class="outline-3">
+<h3 id="headline-24">
+privacy
+</h3>
+<div id="outline-text-headline-24" class="outline-text-3">
+<p>Toggle privacy support</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># privacy &lt;on/off&gt; [irk]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-25" class="outline-3">
+<h3 id="headline-25">
+class
+</h3>
+<div id="outline-text-headline-25" class="outline-text-3">
+<p>Set device major/minor class</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># class &lt;major&gt; &lt;minor&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-26" class="outline-3">
+<h3 id="headline-26">
+disconnect
+</h3>
+<div id="outline-text-headline-26" class="outline-text-3">
+<p>Disconnect device</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># disconnect [-t type] &lt;remote address&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-27" class="outline-3">
+<h3 id="headline-27">
+con
+</h3>
+<div id="outline-text-headline-27" class="outline-text-3">
+<p>List connections</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># con</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-28" class="outline-3">
+<h3 id="headline-28">
+find
+</h3>
+<div id="outline-text-headline-28" class="outline-text-3">
+<p>Discover nearby devices</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># find [-l|-b] [-L]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-29" class="outline-3">
+<h3 id="headline-29">
+find-service
+</h3>
+<div id="outline-text-headline-29" class="outline-text-3">
+<p>Discover nearby service</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># find-service [-u UUID] [-r RSSI_Threshold] [-l|-b]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-30" class="outline-3">
+<h3 id="headline-30">
+stop-find
+</h3>
+<div id="outline-text-headline-30" class="outline-text-3">
+<p>Stop discovery</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># stop-find [-l|-b]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-31" class="outline-3">
+<h3 id="headline-31">
+name
+</h3>
+<div id="outline-text-headline-31" class="outline-text-3">
+<p>Set local name</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># name &lt;name&gt; [shortname]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-32" class="outline-3">
+<h3 id="headline-32">
+pair
+</h3>
+<div id="outline-text-headline-32" class="outline-text-3">
+<p>Pair with a remote device</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># pair [-c cap] [-t type] &lt;remote address&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-33" class="outline-3">
+<h3 id="headline-33">
+cancelpair
+</h3>
+<div id="outline-text-headline-33" class="outline-text-3">
+<p>Cancel pairing</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># cancelpair [-t type] &lt;remote address&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-34" class="outline-3">
+<h3 id="headline-34">
+unpair
+</h3>
+<div id="outline-text-headline-34" class="outline-text-3">
+<p>Unpair device</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># unpair [-t type] &lt;remote address&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-35" class="outline-3">
+<h3 id="headline-35">
+keys
+</h3>
+<div id="outline-text-headline-35" class="outline-text-3">
+<p>Load Link Keys</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong>keys</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-36" class="outline-3">
+<h3 id="headline-36">
+ltks
+</h3>
+<div id="outline-text-headline-36" class="outline-text-3">
+<p>Load Long Term Keys</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># ltks</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-37" class="outline-3">
+<h3 id="headline-37">
+irks
+</h3>
+<div id="outline-text-headline-37" class="outline-text-3">
+<p>Load Identity Resolving Keys</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># irks [–local index] [–file file path]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-38" class="outline-3">
+<h3 id="headline-38">
+block
+</h3>
+<div id="outline-text-headline-38" class="outline-text-3">
+<p>Block Device</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># block [-t type] &lt;remote address&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-39" class="outline-3">
+<h3 id="headline-39">
+unblock
+</h3>
+<div id="outline-text-headline-39" class="outline-text-3">
+<p>Unblock Device</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># unblock [-t type] &lt;remote address&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-40" class="outline-3">
+<h3 id="headline-40">
+add-uuid
+</h3>
+<div id="outline-text-headline-40" class="outline-text-3">
+<p>Add UUID</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># add-uuid &lt;UUID&gt; &lt;service class hint&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-41" class="outline-3">
+<h3 id="headline-41">
+rm-uuid
+</h3>
+<div id="outline-text-headline-41" class="outline-text-3">
+<p>Remove UUID</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># rm-uuid &lt;UUID&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-42" class="outline-3">
+<h3 id="headline-42">
+clr-uuids
+</h3>
+<div id="outline-text-headline-42" class="outline-text-3">
+<p>Clear UUIDs</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># clear-uuids</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-43" class="outline-3">
+<h3 id="headline-43">
+local-oob
+</h3>
+<div id="outline-text-headline-43" class="outline-text-3">
+<p>Local OOB data</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># local-oob</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-44" class="outline-3">
+<h3 id="headline-44">
+remote-oob
+</h3>
+<div id="outline-text-headline-44" class="outline-text-3">
+<p>Remote OOB data</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># remote-oob [-t &lt;addr_type&gt;] [-r &lt;rand192&gt;] [-h
+&lt;hash192&gt;]</strong> [-R &lt;rand256&gt;] [-H &lt;hash256&gt;] &lt;addr&gt;</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-45" class="outline-3">
+<h3 id="headline-45">
+did
+</h3>
+<div id="outline-text-headline-45" class="outline-text-3">
+<p>Set Device ID</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># did &lt;source&gt;:&lt;vendor&gt;:&lt;product&gt;:&lt;version&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-46" class="outline-3">
+<h3 id="headline-46">
+static-addr
+</h3>
+<div id="outline-text-headline-46" class="outline-text-3">
+<p>Set static address</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># static-addr &lt;address&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-47" class="outline-3">
+<h3 id="headline-47">
+public-addr
+</h3>
+<div id="outline-text-headline-47" class="outline-text-3">
+<p>Set public address</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># public-addr &lt;address&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-48" class="outline-3">
+<h3 id="headline-48">
+ext-config
+</h3>
+<div id="outline-text-headline-48" class="outline-text-3">
+<p>External configuration</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># ext-config &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-49" class="outline-3">
+<h3 id="headline-49">
+debug-keys
+</h3>
+<div id="outline-text-headline-49" class="outline-text-3">
+<p>Toggle debug keys</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># debug-keys &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-50" class="outline-3">
+<h3 id="headline-50">
+conn-info
+</h3>
+<div id="outline-text-headline-50" class="outline-text-3">
+<p>Get connection information</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># conn-info [-t type] &lt;remote address&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-51" class="outline-3">
+<h3 id="headline-51">
+io-cap
+</h3>
+<div id="outline-text-headline-51" class="outline-text-3">
+<p>Set IO Capability</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># io-cap &lt;cap&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-52" class="outline-3">
+<h3 id="headline-52">
+scan-params
+</h3>
+<div id="outline-text-headline-52" class="outline-text-3">
+<p>Set Scan Parameters</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># scan-params &lt;interval&gt; &lt;window&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-53" class="outline-3">
+<h3 id="headline-53">
+get-clock
+</h3>
+<div id="outline-text-headline-53" class="outline-text-3">
+<p>Get Clock Information</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># get-clock [address]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-54" class="outline-3">
+<h3 id="headline-54">
+add-device
+</h3>
+<div id="outline-text-headline-54" class="outline-text-3">
+<p>Add Device</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># add-device [-a action] [-t type] &lt;address&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-55" class="outline-3">
+<h3 id="headline-55">
+del-device
+</h3>
+<div id="outline-text-headline-55" class="outline-text-3">
+<p>Remove Device</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># del-device [-t type] &lt;address&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-56" class="outline-3">
+<h3 id="headline-56">
+clr-devices
+</h3>
+<div id="outline-text-headline-56" class="outline-text-3">
+<p>Clear Devices</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># clr-devices</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-57" class="outline-3">
+<h3 id="headline-57">
+bredr-oob
+</h3>
+<div id="outline-text-headline-57" class="outline-text-3">
+<p>Local OOB data (BR/EDR)</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># bredr-oob</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-58" class="outline-3">
+<h3 id="headline-58">
+le-oob
+</h3>
+<div id="outline-text-headline-58" class="outline-text-3">
+<p>Local OOB data (LE)</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># le-oob</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-59" class="outline-3">
+<h3 id="headline-59">
+advinfo
+</h3>
+<div id="outline-text-headline-59" class="outline-text-3">
+<p>Show advertising features</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># advinfo</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-60" class="outline-3">
+<h3 id="headline-60">
+advsize
+</h3>
+<div id="outline-text-headline-60" class="outline-text-3">
+<p>Show advertising size info</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># advsize [options] &lt;instance_id&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-61" class="outline-3">
+<h3 id="headline-61">
+add-adv
+</h3>
+<div id="outline-text-headline-61" class="outline-text-3">
+<p>Add advertising instance</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># add-adv [options] &lt;instance_id&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-62" class="outline-3">
+<h3 id="headline-62">
+rm-adv
+</h3>
+<div id="outline-text-headline-62" class="outline-text-3">
+<p>Remove advertising instance</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># rm-adv &lt;instance_id&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-63" class="outline-3">
+<h3 id="headline-63">
+clr-adv
+</h3>
+<div id="outline-text-headline-63" class="outline-text-3">
+<p>Clear advertising instances</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># clr-adv</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-64" class="outline-3">
+<h3 id="headline-64">
+add-ext-adv-params
+</h3>
+<div id="outline-text-headline-64" class="outline-text-3">
+<p>Add extended advertising params</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># add-ext-adv-parms [options] &lt;instance_id&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-65" class="outline-3">
+<h3 id="headline-65">
+add-ext-adv-data
+</h3>
+<div id="outline-text-headline-65" class="outline-text-3">
+<p>Add extended advertising data</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># add-ext-adv-data [options] &lt;instance_id&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-66" class="outline-3">
+<h3 id="headline-66">
+appearance
+</h3>
+<div id="outline-text-headline-66" class="outline-text-3">
+<p>Set appearance</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># appearance &lt;appearance&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-67" class="outline-3">
+<h3 id="headline-67">
+phy
+</h3>
+<div id="outline-text-headline-67" class="outline-text-3">
+<p>Get/Set PHY Configuration</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># phy [LE1MTX] [LE1MRX] [LE2MTX] [LE2MRX] [LECODEDTX]
+[LECODEDRX]</strong> [BR1M1SLOT] [BR1M3SLOT] [BR1M5SLOT][EDR2M1SLOT]
+[EDR2M3SLOT] [EDR2M5SLOT][EDR3M1SLOT] [EDR3M3SLOT] [EDR3M5SLOT]</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-68" class="outline-3">
+<h3 id="headline-68">
+wbs
+</h3>
+<div id="outline-text-headline-68" class="outline-text-3">
+<p>Toggle Wideband-Speech support</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># wbs &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-69" class="outline-3">
+<h3 id="headline-69">
+secinfo
+</h3>
+<div id="outline-text-headline-69" class="outline-text-3">
+<p>Show security information</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># secinfo</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-70" class="outline-3">
+<h3 id="headline-70">
+expinfo
+</h3>
+<div id="outline-text-headline-70" class="outline-text-3">
+<p>Show experimental features</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># expinfo</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-71" class="outline-3">
+<h3 id="headline-71">
+exp-debug
+</h3>
+<div id="outline-text-headline-71" class="outline-text-3">
+<p>Set debug feature</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># exp-debug &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-72" class="outline-3">
+<h3 id="headline-72">
+exp-privacy
+</h3>
+<div id="outline-text-headline-72" class="outline-text-3">
+<p>Set LL privacy feature</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># exp-privacy &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-73" class="outline-3">
+<h3 id="headline-73">
+exp-quality
+</h3>
+<div id="outline-text-headline-73" class="outline-text-3">
+<p>Set bluetooth quality report feature</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># exp-quality &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-74" class="outline-3">
+<h3 id="headline-74">
+exp-offload
+</h3>
+<div id="outline-text-headline-74" class="outline-text-3">
+<p>Toggle codec support</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># exp-offload &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-75" class="outline-3">
+<h3 id="headline-75">
+read-sysconfig
+</h3>
+<div id="outline-text-headline-75" class="outline-text-3">
+<p>Read System Configuration</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># read-sysconfig</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-76" class="outline-3">
+<h3 id="headline-76">
+set-sysconfig
+</h3>
+<div id="outline-text-headline-76" class="outline-text-3">
+<p>Set System Configuration</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># set-sysconfig &lt;-v|-h&gt; [options…]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-77" class="outline-3">
+<h3 id="headline-77">
+get-flags
+</h3>
+<div id="outline-text-headline-77" class="outline-text-3">
+<p>Get device flags</p>
+</div>
+</div>
+<div id="outline-container-headline-78" class="outline-3">
+<h3 id="headline-78">
+set-flags
+</h3>
+<div id="outline-text-headline-78" class="outline-text-3">
+<p>Set device flags</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># set-flags [-f flags] [-t type] &lt;address&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-79" class="outline-2">
+<h2 id="headline-79">
+RESOURCES
+</h2>
+<div id="outline-text-headline-79" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-80" class="outline-2">
+<h2 id="headline-80">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-80" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-81" class="outline-2">
+<h2 id="headline-81">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-81" class="outline-text-2">
+<p>Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

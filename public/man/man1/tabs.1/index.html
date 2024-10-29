@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - tabs.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - tabs.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>tabs</strong> - set tabs on a terminal</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>tabs</strong> [/options/]] <em>[tabstop-list]</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>tabs</strong> program clears and sets tab-stops on the terminal. This uses
+the terminfo <strong>clear_all_tabs</strong> and <strong>set_tab</strong> capabilities. If either is
+absent, <strong>tabs</strong> is unable to clear/set tab-stops. The terminal should be
+configured to use hard tabs, e.g.,</p>
+<pre class="example">
+stty tab0
+</pre>
+<p>
+Like <strong>clear*(1), *tabs</strong> writes to the standard output. You can redirect
+the standard output to a file (which prevents <strong>tabs</strong> from actually
+changing the tabstops), and later <strong>cat</strong> the file to the screen, setting
+tabstops at that point.</p>
+<p>
+These are hardware tabs, which cannot be queried rapidly by applications
+running in the terminal, if at all. Curses and other full-screen
+applications may use hardware tabs in optimizing their output to the
+terminal. If the hardware tabstops differ from the information in the
+terminal database, the result is unpredictable. Before running curses
+programs, you should either reset tab-stops to the standard interval</p>
+<pre class="example">
+tabs -8
+</pre>
+<p>
+or use the <strong>reset</strong> program, since the normal initialization sequences do
+not ensure that tab-stops are reset.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+General Options
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<dl>
+<dt>
+*-T*/name/
+</dt>
+<dd>Tell <strong>tabs</strong> which terminal type to use. If this option
+is not given, <strong>tabs</strong> will use the <strong>$TERM</strong> environment variable. If
+that is not set, it will use the <em>ansi+tabs</em> entry.</dd>
+<dt>
+<strong>-d</strong>
+</dt>
+<dd>The debugging option shows a ruler line, followed by two data
+lines. The first data line shows the expected tab-stops marked with
+asterisks. The second data line shows the actual tab-stops, marked
+with asterisks.</dd>
+<dt>
+<strong>-n</strong>
+</dt>
+<dd>This option tells <strong>tabs</strong> to check the options and run any
+debugging option, but not to modify the terminal settings.</dd>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>reports the version of ncurses which was used in this program,
+and exits.</dd>
+</dl>
+<p>The <strong>tabs</strong> program processes a single list of tab stops. The last option
+to be processed which defines a list is the one that determines the list
+to be processed.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Implicit Lists
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Use a single number as an option, e.g., <strong>-5</strong> to set tabs at the given
+interval (in this case 1, 6, 11, 16, 21, etc.). Tabs are repeated up to
+the right margin of the screen.</p>
+<p>
+Use <strong>-0</strong> to clear all tabs.</p>
+<p>
+Use <strong>-8</strong> to set tabs to the standard interval.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Explicit Lists
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>An explicit list can be defined after the options (this does not use a
+-). The values in the list must be in increasing numeric order, and
+greater than zero. They are separated by a comma or a blank, for
+example,</p>
+<pre class="example">
+tabs 1,6,11,16,21
+
+
+tabs 1 6 11 16 21
+</pre>
+<p>
+Use a + to treat a number as an increment relative to the previous
+value, e.g.,</p>
+<pre class="example">
+tabs 1,+5,+5,+5,+5
+</pre>
+<p>
+which is equivalent to the 1,6,11,16,21 example.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Predefined Tab-Stops
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>POSIX defines several predefined lists of tab stops.</p>
+<dl>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>Assembler, IBM S/370, first format<br>
+1,10,16,36,72</dd>
+<dt>
+<strong>-a2</strong>
+</dt>
+<dd>Assembler, IBM S/370, second format<br>
+1,10,16,40,72</dd>
+<dt>
+<strong>-c</strong>
+</dt>
+<dd>COBOL, normal format<br>
+1,8,12,16,20,55</dd>
+<dt>
+<strong>-c2</strong>
+</dt>
+<dd>COBOL compact format<br>
+1,6,10,14,49</dd>
+<dt>
+<strong>-c3</strong>
+</dt>
+<dd>COBOL compact format extended<br>
+1,6,10,14,18,22,26,30,34,38,42,46,50,54,58,62,67</dd>
+<dt>
+<strong>-f</strong>
+</dt>
+<dd>FORTRAN<br>
+1,7,11,15,19,23</dd>
+<dt>
+<strong>-p</strong>
+</dt>
+<dd>PL/I<br>
+1,5,9,13,17,21,25,29,33,37,41,45,49,53,57,61</dd>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>SNOBOL<br>
+1,10,55</dd>
+<dt>
+<strong>-u</strong>
+</dt>
+<dd>UNIVAC 1100 Assembler<br>
+1,12,20,44</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Margins
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>A few terminals provide the capability for changing their left/right
+margins. The tabs program has an option to use this feature:</p>
+<dl>
+<dt>
+*+m*/ margin/
+</dt>
+<dd>
+<p>The effect depends on whether the terminal has the
+margin capabilities:</p>
+<ul>
+<li>If the terminal provides the capability for setting the left margin,
+tabs uses this, and adjusts the available width for tab-stops.</li>
+<li>If the terminal does not provide the margin capabilities, tabs
+imitates the effect, putting the tab stops at the appropriate place
+on each line. The terminal&#39;s left-margin is not modified.</li>
+</ul>
+<p>If the <em>margin</em> parameter is omitted, the default is 10. Use <strong>+m0</strong> to
+reset the left margin, i.e., to the left edge of the terminal&#39;s
+display. Before setting a left-margin, tabs resets the margin to
+reduce problems which might arise on moving the cursor before the
+current left-margin.</p>
+</dd>
+</dl>
+<p>When setting or resetting the left-margin, tabs may reset the
+right-margin.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+PORTABILITY
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p><em>IEEE Std 1003.1/The Open Group Base Specifications Issue 7</em>
+(POSIX.1-2008) describes a <strong>tabs</strong> utility. However</p>
+<ul>
+<li>This standard describes a <strong>+m</strong> option, to set a terminal&#39;s
+left-margin. Very few of the entries in the terminal database provide
+the <strong>smgl</strong> (<strong>set_left_margin</strong>) or <strong>smglp</strong> (<strong>set_left_margin_parm</strong>)
+capability needed to support the feature.</li>
+<li>There is no counterpart in X/Open Curses Issue 7 for this utility,
+unlike *tput*(1).</li>
+</ul>
+<p>The <strong>-d</strong> (debug) and <strong>-n</strong> (no-op) options are extensions not provided by
+other implementations.</p>
+<p>
+A <strong>tabs</strong> utility appeared in PWB/Unix 1.0 (1977). There was a reduced
+version of the <strong>tabs</strong> utility in Unix 7th edition and in 3BSD (1979).
+The latter supported a single -n option (to cause the first tab stop to
+be set on the left margin). That option is not documented by POSIX.</p>
+<p>
+The PWB/Unix <strong>tabs</strong> utility, which was included in System III (1980),
+used built-in tables rather than the terminal database, to support a
+half-dozen hardcopy terminal (printer) types. It also had built-in logic
+to support the left-margin, as well as a feature for copying the tab
+settings from a file.</p>
+<p>
+Later versions of Unix, e.g., SVr4, added support for the terminal
+database, but kept the tables to support the printers. In an earlier
+development effort, the tab-stop initialization provided by <strong>tset</strong>
+(1982) and incorporated into <strong>tput</strong> uses the terminal database,</p>
+<p>
+The <strong>+m</strong> option was documented in the Base Specifications Issue 5
+(Unix98, 1997), and omitted in Issue 6 (Unix03, 2004) without
+documenting the rationale, though an introductory comment <em>and
+optionally adjusts the margin</em> remains, overlooked in the removal. The
+documented <strong>tabs</strong> utility in Issues 6 and later has no mechanism for
+setting margins. The <strong>+m</strong> option in this implementation differs from the
+feature in SVr4 by using terminal capabilities rather than built-in
+tables.</p>
+<p>
+POSIX documents no limits on the number of tab stops. Documentation for
+other implementations states that there is a limit on the number of tab
+stops (e.g., 20 in PWB/Unix&#39;s <strong>tabs</strong> utility). While some terminals may
+not accept an arbitrary number of tab stops, this implementation will
+attempt to set tab stops up to the right margin of the screen, if the
+given list happens to be that long.</p>
+<p>
+The <em>Rationale</em> section of the POSIX documentation goes into some detail
+about the ways the committee considered redesigning the <strong>tabs</strong> and
+<strong>tput</strong> utilities, without proposing an improved solution. It comments
+that</p>
+<blockquote>
+<p>no known historical version of tabs supports the capability of setting
+arbitrary tab stops.</p>
+</blockquote>
+<p>
+However, the <em>Explicit Lists</em> described in this manual page were
+implemented in PWB/Unix. Those provide the capability of setting
+abitrary tab stops.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>*infocmp*(1M), *tset*(1), *curses*(3X), *terminfo*(5).</p>
+<p>
+This describes <strong>ncurses</strong> version 6.4 (patch 20221231).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nano.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nano.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>nano - Nano&#39;s ANOther text editor, inspired by Pico</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>nano</strong> [/options/] <a href="*+*/line/[*,*/column/">*+*/line/[*,*/column/</a> /file/]…</p>
+<p>
+<strong>nano</strong> [*/options/*] [[*+*[*crCR*]{<strong>/*|</strong>?*}*/string/*] */file/*]…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+NOTICE
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Since version 8.0, to be newcomer friendly, <strong>^F</strong> starts a forward
+search, <strong>^B</strong> starts a backward search, <strong>M-F</strong> searches the next
+occurrence forward, and <strong>M-B</strong> searches the next occurrence backward. If
+you want those keystrokes to do what they did before version 8.0, add
+the following lines at the end of your <em>nanorc</em> file:</p>
+<blockquote>
+<p><strong>bind ^F forward main</strong><br>
+<strong>bind ^B back main</strong><br>
+<strong>bind M-F formatter main</strong><br>
+<strong>bind M-B linter main</strong></p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>nano</strong> is a small and friendly text editor. It copies the look and feel
+of Pico, but is free software, and implements several features that Pico
+lacks, such as: opening multiple files, scrolling per line, undo/redo,
+syntax coloring, line numbering, and soft-wrapping overlong lines.</p>
+<p>
+When giving a filename on the command line, the cursor can be put on a
+specific line by adding the line number with a plus sign (<strong>+</strong>) before
+the filename, and even in a specific column by adding it with a comma.
+Negative numbers count from the end of the file or line.</p>
+<p>
+The cursor can be put on the first or last occurrence of a specific
+string by specifying that string after <strong>+/</strong> or <strong>+?</strong> before the filename.
+The string can be made case sensitive and/or caused to be interpreted as
+a regular expression by inserting <strong>c</strong> and/or <strong>r</strong> after the <strong>+</strong> sign.
+These search modes can be explicitly disabled by using the uppercase
+variant of those letters: <strong>C</strong> and/or <strong>R</strong>. When the string contains
+spaces, it needs to be enclosed in quotes. To give an example: to open a
+file at the first occurrence of the word &#34;Foo&#34;, you would do:</p>
+<blockquote>
+<p>*nano +c/Foo */file/</p>
+</blockquote>
+<p>
+As a special case: if instead of a filename a dash (<strong>-</strong>) is given,
+<strong>nano</strong> will read data from standard input.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EDITING
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Entering text and moving around in a file is straightforward: typing the
+letters and using the normal cursor movement keys. Commands are entered
+by using the Control (^) and the Alt or Meta (M-) keys. Typing <strong>^K</strong>
+deletes the current line and puts it in the cutbuffer. Consecutive *^K*s
+put all deleted lines together in the cutbuffer. Any cursor movement or
+executing any other command causes the next <strong>^K</strong> to overwrite the
+cutbuffer. A <strong>^U</strong> pastes the current contents of the cutbuffer at the
+current cursor position.</p>
+<p>
+When a more precise piece of text needs to be cut or copied, you can
+mark its start with <strong>^6</strong>, move the cursor to its end (the marked text is
+highlighted), and then use <strong>^K</strong> to cut it, or <strong>M-6</strong> to copy it to the
+cutbuffer. You can also save the marked text to a file with <strong>^O</strong>, or
+spell check it with <strong>^T^T</strong>.</p>
+<p>
+On some terminals, text can be selected also by holding down Shift while
+using the arrow keys. Holding down the Ctrl or Alt key too increases the
+stride. Any cursor movement without Shift being held cancels such a
+selection.</p>
+<p>
+Any valid Unicode code point can be inserted into the buffer by typing
+<strong>M-V</strong> followed by the hexadecimal digits of the code point (concluded
+with <strong>&lt;Space&gt;</strong> or <strong>&lt;Enter&gt;</strong> when it are fewer than six digits). A
+literal control code (except <strong>^J</strong>) can be inserted by typing <strong>M-V</strong>
+followed by the pertinent keystroke.</p>
+<p>
+The two lines at the bottom of the screen show some important commands;
+the built-in help (<strong>^G</strong>) lists all the available ones. The default key
+bindings can be changed via a <em>nanorc</em> file – see *nanorc*(5).</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+OPTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<dl>
+<dt>
+<strong>-A</strong>, <strong>–smarthome</strong>
+</dt>
+<dd>Make the Home key smarter. When Home is pressed
+anywhere but at the very beginning of non-whitespace characters on a
+line, the cursor jumps to that beginning (either forwards or
+backwards). If the cursor is already at that position, it jumps to the
+true beginning of the line.</dd>
+<dt>
+<strong>-B</strong>, <strong>–backup</strong>
+</dt>
+<dd>When saving a file, back up the previous version
+of it, using the current filename suffixed with a tilde (<strong>~</strong>).</dd>
+<dt>
+<strong>-C <em>directory</em></strong>, *–backupdir=*/directory/
+</dt>
+<dd>Make and keep not just
+one backup file, but make and keep a uniquely numbered one every time
+a file is saved – when backups are enabled (<strong>-B</strong>). The uniquely
+numbered files are stored in the specified <em>directory</em>.</dd>
+<dt>
+<strong>-D</strong>, <strong>–boldtext</strong>
+</dt>
+<dd>For the interface, use bold instead of reverse
+video. This can be overridden for specific elements by setting the
+options <strong>titlecolor</strong>, <strong>statuscolor</strong>, <strong>promptcolor</strong>, <strong>minicolor</strong>,
+<strong>keycolor</strong>, <strong>numbercolor</strong>, and/or <strong>selectedcolor</strong> in your nanorc file.
+See *nanorc*(5).</dd>
+<dt>
+<strong>-E</strong>, <strong>–tabstospaces</strong>
+</dt>
+<dd>Convert each typed tab to spaces – to the
+number of spaces that a tab at that position would take up. (Note:
+pasted tabs are not converted.)</dd>
+<dt>
+<strong>-F</strong>, <strong>–multibuffer</strong>
+</dt>
+<dd>Read a file into a new buffer by default.</dd>
+<dt>
+<strong>-G</strong>, <strong>–locking</strong>
+</dt>
+<dd>Use vim-style file locking when editing files.</dd>
+<dt>
+<strong>-H</strong>, <strong>–historylog</strong>
+</dt>
+<dd>Save the last hundred search strings and
+replacement strings and executed commands, so they can be easily
+reused in later sessions.</dd>
+<dt>
+<strong>-I</strong>, <strong>–ignorercfiles</strong>
+</dt>
+<dd>Don&#39;t look at the system&#39;s <em>nanorc</em> nor at
+the user&#39;s <em>nanorc</em>.</dd>
+<dt>
+<strong>-J <em>number</em></strong>, *–guidestripe=*/number/
+</dt>
+<dd>Draw a vertical stripe at
+the given column, to help judge the width of the text. (The color of
+the stripe can be changed with <strong>set stripecolor</strong> in your <em>nanorc</em>
+file.)</dd>
+<dt>
+<strong>-K</strong>, <strong>–rawsequences</strong>
+</dt>
+<dd>Interpret escape sequences directly, instead
+of asking <strong>ncurses</strong> to translate them. (If you need this option to get
+some keys to work properly, it means that the <strong>terminfo</strong> terminal
+description that is used does not fully match the actual behavior of
+your terminal. This can happen when you ssh into a BSD machine, for
+example.) Using this option disables <strong>nano</strong>&#39;s mouse support.</dd>
+<dt>
+<strong>-L</strong>, <strong>–nonewlines</strong>
+</dt>
+<dd>Don&#39;t automatically add a newline when a text
+does not end with one. (This can cause you to save non-POSIX text
+files.)</dd>
+<dt>
+<strong>-M</strong>, <strong>–trimblanks</strong>
+</dt>
+<dd>Snip trailing whitespace from the wrapped line
+when automatic hard-wrapping occurs or when text is justified.</dd>
+<dt>
+<strong>-N</strong>, <strong>–noconvert</strong>
+</dt>
+<dd>Disable automatic conversion of files from
+DOS/Mac format.</dd>
+<dt>
+<strong>-O</strong>, <strong>–bookstyle</strong>
+</dt>
+<dd>When justifying, treat any line that starts
+with whitespace as the beginning of a paragraph (unless auto-indenting
+is on).</dd>
+<dt>
+<strong>-P</strong>, <strong>–positionlog</strong>
+</dt>
+<dd>For the 200 most recent files, log the last
+position of the cursor, and place it at that position again upon
+reopening such a file.</dd>
+<dt>
+<strong>-Q &#34;<em>regex</em></strong>&#34;<strong>*, *–quotestr=&#34;*/regex/</strong>&#34;&#34;&#34;*
+</dt>
+<dd>Set the regular
+expression for matching the quoting part of a line. The default value
+is &#34;<strong>^([ \t]*([!#%:;&gt;|}]|//))+</strong>&#34;. (Note that <strong>\t</strong> stands for an actual
+Tab.) This makes it possible to rejustify blocks of quoted text when
+composing email, and to rewrap blocks of line comments when writing
+source code.</dd>
+<dt>
+<strong>-R</strong>, <strong>–restricted</strong>
+</dt>
+<dd>Restricted mode: don&#39;t read or write to any
+file not specified on the command line. This means: don&#39;t read or
+write history files; don&#39;t allow suspending; don&#39;t allow spell
+checking; don&#39;t allow a file to be appended to, prepended to, or saved
+under a different name if it already has one; and don&#39;t make backup
+files. Restricted mode can also be activated by invoking <strong>nano</strong> with
+any name beginning with &#39;r&#39; (e.g. &#34;rnano&#34;).</dd>
+<dt>
+<strong>-S</strong>, <strong>–softwrap</strong>
+</dt>
+<dd>Display over multiple screen rows lines that
+exceed the screen&#39;s width. (You can make this soft-wrapping occur at
+whitespace instead of rudely at the screen&#39;s edge, by using also
+<strong>–atblanks</strong>.)</dd>
+<dt>
+<strong>-T <em>number</em></strong>, *–tabsize=*/number/
+</dt>
+<dd>Set the size (width) of a tab
+to <em>number columns. The value of</em> <em>number</em> must be greater than 0. The
+default value is <strong>8</strong>.</dd>
+<dt>
+<strong>-U</strong>, <strong>–quickblank</strong>
+</dt>
+<dd>Make status-bar messages disappear after 1
+keystroke instead of after 20. Note that option <strong>-c</strong>
+(<strong>–constantshow</strong>) overrides this. When option <strong>–minibar</strong> or <strong>–zero</strong>
+is in effect, <strong>–quickblank</strong> makes a message disappear after 0.8
+seconds instead of after the default 1.5 seconds.</dd>
+<dt>
+<strong>-V</strong>, <strong>–version</strong>
+</dt>
+<dd>Show the current version number and exit.</dd>
+<dt>
+<strong>-W</strong>, <strong>–wordbounds</strong>
+</dt>
+<dd>Detect word boundaries differently by treating
+punctuation characters as part of a word.</dd>
+<dt>
+<strong>-X &#34;<em>characters</em></strong>&#34;<strong>*, *–wordchars=&#34;*/characters/</strong>&#34;&#34;&#34;*
+</dt>
+<dd>Specify
+which other characters (besides the normal alphanumeric ones) should
+be considered as part of a word. When using this option, you probably
+want to omit <strong>-W</strong> (<strong>–wordbounds</strong>).</dd>
+<dt>
+<strong>-Y <em>name</em></strong>, *–syntax=*/name/
+</dt>
+<dd>Specify the name of the syntax
+highlighting to use from among the ones defined in the <em>nanorc files.</em></dd>
+<dt>
+<strong>-Z</strong>, <strong>–zap</strong>
+</dt>
+<dd>Let an unmodified Backspace or Delete erase the
+marked region (instead of a single character, and without affecting
+the cutbuffer).</dd>
+<dt>
+<strong>-a</strong>, <strong>–atblanks</strong>
+</dt>
+<dd>When doing soft line wrapping, wrap lines at
+whitespace instead of always at the edge of the screen.</dd>
+<dt>
+<strong>-b</strong>, <strong>–breaklonglines</strong>
+</dt>
+<dd>Automatically hard-wrap the current line
+when it becomes overlong. (This option is the opposite of <strong>-w</strong>
+(<strong>–nowrap</strong>) – the last one given takes effect.)</dd>
+<dt>
+<strong>-c</strong>, <strong>–constantshow</strong>
+</dt>
+<dd>Constantly show the cursor position on the
+status bar. Note that this overrides option <strong>-U</strong> (<strong>–quickblank</strong>).</dd>
+<dt>
+<strong>-d</strong>, <strong>–rebinddelete</strong>
+</dt>
+<dd>Interpret the Delete and Backspace keys
+differently so that both Backspace and Delete work properly. You
+should only use this option when on your system either Backspace acts
+like Delete or Delete acts like Backspace.</dd>
+<dt>
+<strong>-e</strong>, <strong>–emptyline</strong>
+</dt>
+<dd>Do not use the line below the title bar,
+leaving it entirely blank.</dd>
+<dt>
+<strong>-f <em>file</em></strong>, *–rcfile=*/file/
+</dt>
+<dd>Read only this <em>file</em> for setting
+nano&#39;s options, instead of reading both the system-wide and the user&#39;s
+nanorc files.</dd>
+<dt>
+<strong>-g</strong>, <strong>–showcursor</strong>
+</dt>
+<dd>Make the cursor visible in the file browser
+(putting it on the highlighted item) and in the help viewer. Useful
+for braille users and people with poor vision.</dd>
+<dt>
+<strong>-h</strong>, <strong>–help</strong>
+</dt>
+<dd>Show a summary of the available command-line options
+and exit.</dd>
+<dt>
+<strong>-i</strong>, <strong>–autoindent</strong>
+</dt>
+<dd>Automatically indent a newly created line to
+the same number of tabs and/or spaces as the previous line (or as the
+next line if the previous line is the beginning of a paragraph).</dd>
+<dt>
+<strong>-j</strong>, <strong>–jumpyscrolling</strong>
+</dt>
+<dd>Scroll the buffer contents per half-screen
+instead of per line.</dd>
+<dt>
+<strong>-k</strong>, <strong>–cutfromcursor</strong>
+</dt>
+<dd>Make the &#39;Cut Text&#39; command (normally <strong>^K</strong>)
+cut from the current cursor position to the end of the line, instead
+of cutting the entire line.</dd>
+<dt>
+<strong>-l</strong>, <strong>–linenumbers</strong>
+</dt>
+<dd>Display line numbers to the left of the text
+area. (Any line with an anchor additionally gets a mark in the
+margin.)</dd>
+<dt>
+<strong>-m</strong>, <strong>–mouse</strong>
+</dt>
+<dd>Enable mouse support, if available for your system.
+When enabled, mouse clicks can be used to place the cursor, set the
+mark (with a double click), and execute shortcuts. The mouse works in
+the X Window System, and on the console when gpm is running. Text can
+still be selected through dragging by holding down the Shift key.</dd>
+<dt>
+<strong>-n</strong>, <strong>–noread</strong>
+</dt>
+<dd>Treat any name given on the command line as a new
+file. This allows <strong>nano</strong> to write to named pipes: it starts with a
+blank buffer, and writes to the pipe when the user saves the &#34;file&#34;.
+This way <strong>nano</strong> can be used as an editor in combination with for
+instance <strong>gpg</strong> without having to write sensitive data to disk first.</dd>
+<dt>
+<strong>-o <em>directory</em></strong>, *–operatingdir=*/directory/
+</dt>
+<dd>Set the operating
+directory. This makes *nano*/ set up something/ similar to a chroot.</dd>
+<dt>
+<strong>-p</strong>, <strong>–preserve</strong>
+</dt>
+<dd>Preserve the XOFF and XON sequences (<strong>^S</strong> and
+<strong>^Q</strong>) so that they are caught by the terminal (stopping and resuming
+the output). Note that option <strong>-/</strong> (<strong>–modernbindings</strong>) overrides
+this.</dd>
+<dt>
+<strong>-q</strong>, <strong>–indicator</strong>
+</dt>
+<dd>Display a &#34;scrollbar&#34; on the righthand side of
+the edit window. It shows the position of the viewport in the buffer
+and how much of the buffer is covered by the viewport.</dd>
+<dt>
+<strong>-r <em>number</em></strong>, *–fill=*/number/
+</dt>
+<dd>Set the target width for
+justifying and automatic hard-wrapping at this <em>number</em> of columns. If
+the value is 0 or less, wrapping occurs at the width of the screen
+minus <em>number</em> columns, allowing the wrap point to vary along with the
+width of the screen if the screen is resized. The default value is
+<strong>-8</strong>.</dd>
+<dt>
+?
+</dt>
+<dd><strong>-s &#34;<em>program</em> [/argument /…]</strong>&#34;<strong>, *–speller=&#34;*/program/ [/argument
+/…]</strong>&#34;** :: Use this command to perform spell checking and
+correcting, instead of using the built-in corrector that calls
+*hunspell*(1) or *spell*(1).</dd>
+<dt>
+<strong>-t</strong>, <strong>–saveonexit</strong>
+</dt>
+<dd>Save a changed buffer without prompting (when
+exiting with <strong>^X</strong>).</dd>
+<dt>
+<strong>-u</strong>, <strong>–unix</strong>
+</dt>
+<dd>Save a file by default in Unix format. This
+overrides nano&#39;s default behavior of saving a file in the format that
+it had. (This option has no effect when you also use <strong>–noconvert</strong>.)</dd>
+<dt>
+<strong>-v</strong>, <strong>–view</strong>
+</dt>
+<dd>Just view the file and disallow editing: read-only
+mode. This mode allows the user to open also other files for viewing,
+unless <strong>–restricted</strong> is given too.</dd>
+<dt>
+<strong>-w</strong>, <strong>–nowrap</strong>
+</dt>
+<dd>Do not automatically hard-wrap the current line
+when it becomes overlong. This is the default. (This option is the
+opposite of <strong>-b</strong> (<strong>–breaklonglines</strong>) – the last one given takes
+effect.)</dd>
+<dt>
+<strong>-x</strong>, <strong>–nohelp</strong>
+</dt>
+<dd>Don&#39;t show the two help lines at the bottom of the
+screen.</dd>
+<dt>
+<strong>-y</strong>, <strong>–afterends</strong>
+</dt>
+<dd>Make Ctrl+Right and Ctrl+Delete stop at word
+ends instead of beginnings.</dd>
+<dt>
+<strong>-z</strong>, <strong>–listsyntaxes</strong>
+</dt>
+<dd>List the names of the available syntaxes and
+exit.</dd>
+<dt>
+<strong>-!</strong>, <strong>–magic</strong>
+</dt>
+<dd>When neither the file&#39;s name nor its first line
+give a clue, try using libmagic to determine the applicable syntax.</dd>
+<dt>
+<strong>-@</strong>, <strong>–colonparsing</strong>
+</dt>
+<dd>When a filename given on the command line
+ends in a colon plus digits and this filename does not exist, then
+snip the colon plus digits and understand the digits as a line number.
+If the trimmed filename does not exist either, then repeat the process
+and understand the obtained two numbers as line and column number. But
+if the doubly trimmed filename does not exist either, then forget the
+trimming and accept the original filename as is. To disable this colon
+parsing for some file, use <strong>+1</strong> or similar before the relevant
+filename.</dd>
+<dt>
+<strong>-%</strong>, <strong>–stateflags</strong>
+</dt>
+<dd>Use the top-right corner of the screen for
+showing some state flags: <strong>I</strong> when auto-indenting, <strong>M</strong> when the mark
+is on, <strong>L</strong> when hard-wrapping (breaking long lines), <strong>R</strong> when
+recording a macro, and <strong>S</strong> when soft-wrapping. When the buffer is
+modified, a star (<strong>*</strong>) is shown after the filename in the center of
+the title bar.</dd>
+<dt>
+<strong>-_</strong>, <strong>–minibar</strong>
+</dt>
+<dd>Suppress the title bar and instead show
+information about the current buffer at the bottom of the screen, in
+the space for the status bar. In this &#34;mini bar&#34; the filename is shown
+on the left, followed by an asterisk if the buffer has been modified.
+On the right are displayed the current line and column number, the
+code of the character under the cursor (in Unicode format: U+xxxx),
+the same flags as are shown by <strong>–stateflags</strong>, and a percentage that
+expresses how far the cursor is into the file (linewise). When a file
+is loaded or saved, and also when switching between buffers, the
+number of lines in the buffer is displayed after the filename. This
+number is cleared upon the next keystroke, or replaced with an [i/n]
+counter when multiple buffers are open. The line plus column numbers
+and the character code are displayed only when <strong>–constantshow</strong> is
+used, and can be toggled on and off with <strong>M-C</strong>. The state flags are
+displayed only when <strong>–stateflags</strong> is used.</dd>
+<dt>
+<strong>-0</strong>, <strong>–zero</strong>
+</dt>
+<dd>Hide all elements of the interface (title bar,
+status bar, and help lines) and use all rows of the terminal for
+showing the contents of the buffer. The status bar appears only when
+there is a significant message, and disappears after 1.5 seconds or
+upon the next keystroke. With <strong>M-Z</strong> the title bar plus status bar can
+be toggled. With <strong>M-X</strong> the help lines.</dd>
+<dt>
+<strong>-/</strong>, <strong>–modernbindings</strong>
+</dt>
+<dd>Use key bindings similar to the ones that
+most modern programs use: <strong>^X</strong> cuts, <strong>^C</strong> copies, <strong>^V</strong> pastes, <strong>^Z</strong>
+undoes, <strong>^Y</strong> redoes, <strong>^F</strong> searches forward, <strong>^G</strong> searches next, <strong>^S</strong>
+saves, <strong>^O</strong> opens a file, <strong>^Q</strong> quits, and (when the terminal permits)
+<strong>^H</strong> shows help. Furthermore, <strong>^A</strong> sets the mark, <strong>^R</strong> makes
+replacements, <strong>^D</strong> searches previous, <strong>^P</strong> shows the position, <strong>^T</strong>
+goes to a line, <strong>^W</strong> writes out a file, and <strong>^E</strong> executes a command.
+Note that this overrides option <strong>-p</strong> (<strong>–preserve</strong>).</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+TOGGLES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Several of the above options can be switched on and off also while
+<strong>nano</strong> is running. For example, <strong>M-L</strong> toggles the hard-wrapping of long
+lines, <strong>M-S</strong> toggles soft-wrapping, <strong>M-N</strong> toggles line numbers, <strong>M-M</strong>
+toggles the mouse, <strong>M-I</strong> auto-indentation, and <strong>M-X</strong> the help lines. See
+at the end of the <strong>^G</strong> help text for a complete list.</p>
+<p>
+The <strong>M-X</strong> toggle is special: it works in all menus except the help
+viewer and the linter. All other toggles work in the main menu only.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+FILES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>When <strong>–rcfile</strong> is given, <strong>nano</strong> reads just the specified file for
+setting its options and syntaxes and key bindings. Without that option,
+<strong>nano</strong> reads two configuration files: first the system&#39;s <em>nanorc</em> (if it
+exists), and then the user&#39;s <em>nanorc</em> (if it exists), either <em>~</em>.nanorc/
+or <em>$XDG_CONFIG_HOME/nano/nanorc</em> or <em>~</em>.config/nano/nanorc/, whichever
+is encountered first. See *nanorc*(5) for more information on the
+possible contents of those files.</p>
+<p>
+See <em><em>usr/share/nano</em></em> and <em><em>usr/share/nano/extra</em></em> for available
+syntax-coloring definitions.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+NOTES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Suspension is enabled by default, reachable via <strong>^T^Z</strong>. (If you want a
+plain <strong>^Z</strong> to suspend nano, add <strong>bind ^Z suspend main</strong> to your nanorc.)</p>
+<p>
+At a Yes-No prompt, <strong>^Y</strong> can be used for &#34;Yes&#34;, <strong>^N</strong> for &#34;No&#34;, and <strong>^A</strong>
+for &#34;All&#34;. These unlisted bindings work in any locale.</p>
+<p>
+When you want to copy marked text from <strong>nano</strong> to the system&#39;s clipboard,
+see one of the examples in the *nanorc*(5) man page.</p>
+<p>
+If no alternative spell checker command is specified on the command line
+nor in one of the <em>nanorc</em> files, <strong>nano</strong> checks the <strong>SPELL</strong> environment
+variable for one.</p>
+<p>
+In some cases <strong>nano</strong> tries to dump the buffer into an emergency file.
+This happens mainly if <strong>nano</strong> receives a SIGHUP or SIGTERM or runs out
+of memory. It writes the buffer into a file named <em>nano.save</em> if the
+buffer didn&#39;t have a name already, or adds a &#34;.save&#34; suffix to the
+current filename. If an emergency file with that name already exists in
+the current directory, it adds &#34;.save&#34; plus a number (e.g. &#34;.save.1&#34;) to
+the current filename in order to make it unique. In multibuffer mode,
+<strong>nano</strong> writes all open buffers to their respective emergency files.</p>
+<p>
+If you have any question about how to use <strong>nano</strong> in some specific
+situation, you can ask on <em>help-nano@gnu.org</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The recording and playback of keyboard macros works correctly only on a
+terminal emulator, not on a Linux console (VT), because the latter does
+not by default distinguish modified from unmodified arrow keys.</p>
+<p>
+Please report any other bugs that you encounter via:<br>
+<em><a href="https://savannah.gnu.org/bugs">https://savannah.gnu.org/bugs</a></em>?group=nano/.</p>
+<p>
+When nano crashes, it saves any modified buffers to emergency .save
+files. If you are able to reproduce the crash and you want to get a
+backtrace, define the environment variable <strong>NANO_NOCATCH</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+HOMEPAGE
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p><em><a href="https://nano-editor.org/">https://nano-editor.org/</a></em></p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>*nanorc*(5)</p>
+<p>
+<em><em>usr/share/doc/nano</em></em> (or equivalent on your system)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

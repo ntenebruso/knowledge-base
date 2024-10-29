@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - df.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - df.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>df - report file system space usage</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>df</strong> [/OPTION/]… [/FILE/]…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This manual page documents the GNU version of <strong>df</strong>. <strong>df</strong> displays the
+amount of space available on the file system containing each file name
+argument. If no file name is given, the space available on all currently
+mounted file systems is shown. Space is shown in 1K blocks by default,
+unless the environment variable POSIXLY_CORRECT is set, in which case
+512-byte blocks are used.</p>
+<p>
+If an argument is the absolute file name of a device node containing a
+mounted file system, <strong>df</strong> shows the space available on that file system
+rather than on the file system containing the device node. This version
+of <strong>df</strong> cannot show the space available on unmounted file systems,
+because on most kinds of systems doing so requires non-portable intimate
+knowledge of file system structures.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Show information about the file system on which each FILE resides, or
+all file systems by default.</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<dl>
+<dt>
+<strong>-a</strong>, <strong>–all</strong>
+</dt>
+<dd>include pseudo, duplicate, inaccessible file systems</dd>
+<dt>
+<strong>-B</strong>, *–block-size*=/SIZE/
+</dt>
+<dd>scale sizes by SIZE before printing
+them; e.g., &#39;-BM&#39; prints sizes in units of 1,048,576 bytes; see SIZE
+format below</dd>
+<dt>
+<strong>-h</strong>, <strong>–human-readable</strong>
+</dt>
+<dd>print sizes in powers of 1024 (e.g.,
+1023M)</dd>
+<dt>
+<strong>-H</strong>, <strong>–si</strong>
+</dt>
+<dd>print sizes in powers of 1000 (e.g., 1.1G)</dd>
+<dt>
+<strong>-i</strong>, <strong>–inodes</strong>
+</dt>
+<dd>list inode information instead of block usage</dd>
+<dt>
+<strong>-k</strong>
+</dt>
+<dd>like *–block-size*=/1K/</dd>
+<dt>
+<strong>-l</strong>, <strong>–local</strong>
+</dt>
+<dd>limit listing to local file systems</dd>
+<dt>
+<strong>–no-sync</strong>
+</dt>
+<dd>do not invoke sync before getting usage info (default)</dd>
+<dt>
+<strong>–output</strong>[=/FIELD_LIST/]
+</dt>
+<dd>use the output format defined by
+FIELD_LIST, or print all fields if FIELD_LIST is omitted.</dd>
+<dt>
+<strong>-P</strong>, <strong>–portability</strong>
+</dt>
+<dd>use the POSIX output format</dd>
+<dt>
+<strong>–sync</strong>
+</dt>
+<dd>invoke sync before getting usage info</dd>
+<dt>
+<strong>–total</strong>
+</dt>
+<dd>elide all entries insignificant to available space, and
+produce a grand total</dd>
+<dt>
+<strong>-t</strong>, *–type*=/TYPE/
+</dt>
+<dd>limit listing to file systems of type TYPE</dd>
+<dt>
+<strong>-T</strong>, <strong>–print-type</strong>
+</dt>
+<dd>print file system type</dd>
+<dt>
+<strong>-x</strong>, *–exclude-type*=/TYPE/
+</dt>
+<dd>limit listing to file systems not of
+type TYPE</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>(ignored)</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>Display values are in units of the first available SIZE from
+<strong>–block-size</strong>, and the DF_BLOCK_SIZE, BLOCK_SIZE and BLOCKSIZE
+environment variables. Otherwise, units default to 1024 bytes (or 512 if
+POSIXLY_CORRECT is set).</p>
+<p>
+The SIZE argument is an integer and optional unit (example: 10K is
+10*1024). Units are K,M,G,T,P,E,Z,Y,R,Q (powers of 1024) or KB,MB,…
+(powers of 1000). Binary prefixes can be used, too: KiB=K, MiB=M, and so
+on.</p>
+<p>
+FIELD_LIST is a comma-separated list of columns to be included. Valid
+field names are: &#39;source&#39;, &#39;fstype&#39;, &#39;itotal&#39;, &#39;iused&#39;, &#39;iavail&#39;,
+&#39;ipcent&#39;, &#39;size&#39;, &#39;used&#39;, &#39;avail&#39;, &#39;pcent&#39;, &#39;file&#39; and &#39;target&#39; (see
+info page).</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHOR
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Written by Torbjorn Granlund, David MacKenzie, and Paul Eggert.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/df">https://www.gnu.org/software/coreutils/df</a>&gt;<br>
+or available locally via: info &#39;(coreutils) df invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

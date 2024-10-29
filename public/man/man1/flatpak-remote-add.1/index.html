@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - flatpak-remote-add.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - flatpak-remote-add.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>flatpak-remote-add - Add a remote repository</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>flatpak remote-add</strong> [OPTION…] NAME LOCATION</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Adds a remote repository to the flatpak repository configuration. NAME
+is the name for the new remote, and LOCATION is a url or pathname. The
+LOCATION is either a flatpak repository, or a .flatpakrepo file which
+describes a repository. In the former case you may also have to specify
+extra options, such as the gpg key for the repo.</p>
+<p>
+Unless overridden with the <strong>–user</strong> or <strong>–installation</strong> options, this
+command changes the default system-wide installation.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Show help options and exit.</p>
+</blockquote>
+<p>
+<strong>–from</strong></p>
+<blockquote>
+<p>Assume the URI is a .flatpakrepo file rather than the repository itself.
+This is enabled by default if the extension is .flatpakrepo, so
+generally you dont need this option.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–user</strong></p>
+<blockquote>
+<p>Modify the per-user configuration.</p>
+</blockquote>
+<p>
+<strong>–system</strong></p>
+<blockquote>
+<p>Modify the default system-wide configuration.</p>
+</blockquote>
+<p>
+<strong>–installation=NAME</strong></p>
+<blockquote>
+<p>Modify a system-wide installation specified by NAME among those defined
+in <em>etc/flatpak/installations.d</em>. Using <strong>–installation=default</strong> is
+equivalent to using <strong>–system</strong>.</p>
+</blockquote>
+<p>
+<strong>–no-gpg-verify</strong></p>
+<blockquote>
+<p>Disable GPG verification for the added remote.</p>
+</blockquote>
+<p>
+<strong>–prio=PRIO</strong></p>
+<blockquote>
+<p>Set the priority for the remote. Default is 1, higher is more
+prioritized. This is mainly used for graphical installation tools. It is
+also used when searching for a remote to provide an apps runtime. The
+apps origin is checked before other remotes with the same priority.</p>
+</blockquote>
+<p>
+<strong>–subset=SUBSET</strong></p>
+<blockquote>
+<p>Limit the refs available from the remote to those that are part of the
+named subset.</p>
+</blockquote>
+<p>
+<strong>–no-enumerate</strong></p>
+<blockquote>
+<p>Mark the remote as not enumerated. This means the remote will not be
+used to list applications, for instance in graphical installation tools.</p>
+</blockquote>
+<p>
+<strong>–no-use-for-deps</strong></p>
+<blockquote>
+<p>Mark the remote as not to be used for automatic runtime dependency
+resolution.</p>
+</blockquote>
+<p>
+<strong>–if-not-exists</strong></p>
+<blockquote>
+<p>Do nothing if the provided remote already exists.</p>
+</blockquote>
+<p>
+<strong>–disable</strong></p>
+<blockquote>
+<p>Disable the added remote.</p>
+</blockquote>
+<p>
+<strong>–title=TITLE</strong></p>
+<blockquote>
+<p>A title for the remote, e.g. for display in a UI.</p>
+</blockquote>
+<p>
+<strong>–comment=COMMENT</strong></p>
+<blockquote>
+<p>A single-line comment for the remote, e.g. for display in a UI.</p>
+</blockquote>
+<p>
+<strong>–description=DESCRIPTION</strong></p>
+<blockquote>
+<p>A full-paragraph description for the remote, e.g. for display in a UI.</p>
+</blockquote>
+<p>
+<strong>–homepage=URL</strong></p>
+<blockquote>
+<p>URL for a website for the remote, e.g. for display in a UI.</p>
+</blockquote>
+<p>
+<strong>–icon=URL</strong></p>
+<blockquote>
+<p>URL for an icon for the remote, e.g. for display in a UI.</p>
+</blockquote>
+<p>
+<strong>–default-branch=BRANCH</strong></p>
+<blockquote>
+<p>A default branch for the remote, mainly for use in a UI.</p>
+</blockquote>
+<p>
+<strong>–filter=PATH</strong></p>
+<blockquote>
+<p>Add a local filter to the remote. A filter file is a list of lines, each
+file starting with &#34;allow&#34; or &#34;deny&#34;, and then a glob for the ref to
+allow or disallow. The globs specify a partial ref (i.e. you can leave
+out trailing parts which will then match everything), but otherwise only
+&#34;*&#34; is special, matching anything in that part of the ref.</p>
+<p>
+By default all refs are allowed, but if a ref matches a deny rule it is
+disallowed unless it specifically matches an allow rule. This means you
+can use this to implement both allowlisting and blocklisting.</p>
+<p>
+Here is an example filter file:</p>
+<blockquote>
+<pre class="example">
+# This is an allowlist style filter as it denies all first
+deny *
+allow runtime/org.freedesktop.*
+allow org.some.app/arm
+allow org.signal.Signal/*/stable
+allow org.signal.Signal.*/*/stable
+</pre>
+</blockquote>
+</blockquote>
+<p>
+<strong>–gpg-import=FILE</strong></p>
+<blockquote>
+<p>Import gpg keys from the specified keyring file as trusted for the new
+remote. If the file is - the keyring is read from standard input.</p>
+</blockquote>
+<p>
+<strong>–authenticator-name=NAME</strong></p>
+<blockquote>
+<p>Specify the authenticator to use for the remote.</p>
+</blockquote>
+<p>
+<strong>–authenticator-option=KEY=VALUE</strong></p>
+<blockquote>
+<p>Specify an authenticator option for the remote.</p>
+</blockquote>
+<p>
+<strong>–authenticator-install</strong></p>
+<blockquote>
+<p>Enable auto-installation of authenticator.</p>
+</blockquote>
+<p>
+<strong>–no-authenticator-install</strong></p>
+<blockquote>
+<p>Disable auto-installation of authenticator.</p>
+</blockquote>
+<p>
+<strong>–no-follow-redirect</strong></p>
+<blockquote>
+<p>Do not follow xa.redirect-url defined in the summary file.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Print debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–ostree-verbose</strong></p>
+<blockquote>
+<p>Print OSTree debug information during command processing.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>$ flatpak remote-add gnome <a href="https://sdk.gnome.org/gnome.flatpakrepo">https://sdk.gnome.org/gnome.flatpakrepo</a></strong></p>
+<p>
+<strong>$ flatpak –user remote-add –no-gpg-verify test-repo
+<a href="https://people.gnome.org/~alexl/gnome-sdk/repo/">https://people.gnome.org/~alexl/gnome-sdk/repo/</a></strong></p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*flatpak*(1), *flatpak-remote-modify*(1), *flatpak-remote-delete*(1),
+*flatpak-remotes*(1), *flatpak-flatpakrepo*(5)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - info.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - info.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>info - read Info documents</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>info</strong> [/OPTION/]… [/MENU-ITEM/…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Read documentation in Info format.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Frequently-used options:
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<dl>
+<dt>
+<strong>-a</strong>, <strong>–all</strong>
+</dt>
+<dd>use all matching manuals</dd>
+<dt>
+<strong>-k</strong>, *–apropos*=/STRING/
+</dt>
+<dd>look up STRING in all indices of all
+manuals</dd>
+<dt>
+<strong>-d</strong>, *–directory*=/DIR/
+</dt>
+<dd>add DIR to INFOPATH</dd>
+<dt>
+<strong>-f</strong>, *–file*=/MANUAL/
+</dt>
+<dd>specify Info manual to visit</dd>
+<dt>
+<strong>-h</strong>, <strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+*–index-search*=/STRING/
+</dt>
+<dd>go to node pointed by index entry STRING</dd>
+<dt>
+<strong>-n</strong>, *–node*=/NODENAME/
+</dt>
+<dd>specify nodes in first visited Info file</dd>
+<dt>
+<strong>-o</strong>, *–output*=/FILE/
+</dt>
+<dd>output selected nodes to FILE</dd>
+<dt>
+<strong>–subnodes</strong>
+</dt>
+<dd>recursively output menu items</dd>
+<dt>
+<strong>-v</strong>, <strong>–variable</strong> VAR=VALUE
+</dt>
+<dd>assign VALUE to Info variable VAR</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>display version information and exit</dd>
+<dt>
+<strong>-w</strong>, <strong>–where</strong>, <strong>–location</strong>
+</dt>
+<dd>print physical location of Info file</dd>
+</dl>
+<p>The first non-option argument, if present, is the menu entry to start
+from; it is searched for in all &#39;dir&#39; files along INFOPATH. If it is not
+present, info merges all &#39;dir&#39; files and shows the result. Any remaining
+arguments are treated as the names of menu items relative to the initial
+node visited.</p>
+<p>
+For a summary of key bindings, type H within Info.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+info
+</dt>
+<dd>show top-level dir menu</dd>
+<dt>
+info info-stnd
+</dt>
+<dd>show the manual for this Info program</dd>
+<dt>
+info emacs
+</dt>
+<dd>start at emacs node from top-level dir</dd>
+<dt>
+info emacs buffers
+</dt>
+<dd>select buffers menu entry in emacs manual</dd>
+<dt>
+info emacs -n Files
+</dt>
+<dd>start at Files node within emacs manual</dd>
+<dt>
+info &#39;(emacs)Files&#39;
+</dt>
+<dd>alternative way to start at Files node</dd>
+<dt>
+info –subnodes -o out.txt emacs
+</dt>
+<dd>dump entire emacs manual to
+out.txt</dd>
+<dt>
+info -f ./foo.info
+</dt>
+<dd>show file ./foo.info, not searching dir</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Email bug reports to bug-texinfo@gnu.org, general questions and
+discussion to help-texinfo@gnu.org.<br>
+Texinfo home page: <a href="http://www.gnu.org/software/texinfo/">http://www.gnu.org/software/texinfo/</a></p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Copyright © 2023 Free Software Foundation, Inc. License GPLv3+: GNU GPL
+version 3 or later &lt;<a href="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</a>&gt;<br>
+This is free software: you are free to change and redistribute it. There
+is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The full documentation for <strong>info</strong> is maintained as a Texinfo manual. If
+the <strong>info</strong> program is properly installed at your site, the command</p>
+<blockquote>
+<p><strong>info info</strong></p>
+</blockquote>
+<p>
+should give you access to the complete manual. (Or, if you have Emacs,
+M-x info will lead to the manual.)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

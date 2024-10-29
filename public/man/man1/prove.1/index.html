@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - prove.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - prove.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>prove - Run tests through a TAP harness.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+USAGE
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>prove [options] [files or directories]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+OPTIONS
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Boolean options:</p>
+<p>
+-v, –verbose Print all test lines. Also sets TEST_VERBOSE -l, –lib Add
+lib to the path for your tests (-Ilib). -b, –blib Add blib/lib and
+blib/arch to the path for your tests -s, –shuffle Run the tests in
+random order. -c, –color Colored test output (default). –nocolor Do
+not color test output. –count Show the X/Y test count when not verbose
+(default) –nocount Disable the X/Y test count. -D –dry Dry run. Show
+test that would have run. -f, –failures Show failed tests. -o,
+–comments Show comments. –ignore-exit Ignore exit status from test
+scripts. -m, –merge Merge test scripts STDERR with their STDOUT. -r,
+–recurse Recursively descend into directories. –reverse Run the tests
+in reverse order. -q, –quiet Suppress some test output while running
+tests. -Q, –QUIET Only print summary results. -p, –parse Show full
+list of TAP parse errors, if any. –directives Only show results with
+TODO or SKIP directives. –timer Print elapsed time after each test.
+–trap Trap Ctrl-C and print summary on interrupt. –normalize Normalize
+TAP output in verbose output -T Enable tainting checks. -t Enable
+tainting warnings. -W Enable fatal warnings. -w Enable warnings. -h,
+–help Display this help -?, Display this help -V, –version Display the
+version -H, –man Longer manpage for prove –norc Dont process default
+.proverc</p>
+<p>
+Options that take arguments:</p>
+<p>
+-I Library paths to include. -P Load plugin (searches
+App::Prove::Plugin::*.) -M Load a module. -e, –exec Interpreter to run
+the tests ( for compiled tests.) –ext Set the extension for tests
+(default .t) –harness Define test harness to use. See TAP::Harness.
+–formatter Result formatter to use. See FORMATTERS. –source Load
+and/or configure a SourceHandler. See SOURCE HANDLERS. -a, –archive
+out.tgz Store the resulting TAP in an archive file. -j, –jobs N Run N
+test jobs in parallel (try 9.) –state=opts Control proves persistent
+state. –statefile=file Use `file` instead of `.prove` for state
+–rc=rcfile Process options from rcfile –rules Rules for parallel vs
+sequential processing.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+NOTES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+.proverc
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>If <em>~</em>.proverc/ or <em>.</em>.proverc/ exist they will be read and any options
+they contain processed before the command line options. Options in
+<em>.proverc</em> are specified in the same way as command line options:</p>
+<p>
+​# .proverc –state=hot,fast,save -j9</p>
+<p>
+Additional option files may be specified with the <code class="verbatim">--rc</code> option. Default
+option file processing is disabled by the <code class="verbatim">--norc</code> option.</p>
+<p>
+Under Windows and VMS the option file is named <em>_proverc</em> rather than
+<em>.proverc</em> and is sought only in the current directory.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Reading from &#34;STDIN&#34;
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>If you have a list of tests (or URLs, or anything else you want to test)
+in a file, you can add them to your tests by using a &#39;-&#39;:</p>
+<p>
+prove - &lt; my_list_of_things_to_test.txt</p>
+<p>
+See the <code class="verbatim">README</code> in the <code class="verbatim">examples</code> directory of this distribution.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Default Test Directory
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>If no files or directories are supplied, <code class="verbatim">prove</code> looks for all files
+matching the pattern <code class="verbatim">t/*.t</code>.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Colored Test Output
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Colored test output using TAP::Formatter::Color is the default, but if
+output is not to a terminal, color is disabled. You can override this by
+adding the <code class="verbatim">--color</code> switch.</p>
+<p>
+Color support requires Term::ANSIColor and, on windows platforms, also
+Win32::Console::ANSI. If the necessary module(s) are not installed
+colored output will not be available.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Exit Code
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>If the tests fail <code class="verbatim">prove</code> will exit with non-zero status.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Arguments to Tests
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>It is possible to supply arguments to tests. To do so separate them from
+prove&#39;s own arguments with the arisdottle, &#39;::&#39;. For example</p>
+<p>
+prove -v t/mytest.t :: –url <a href="http://example.com">http://example.com</a></p>
+<p>
+would run <em>t/mytest.t</em> with the options &#39;–url <a href="http://example.com&#39;.">http://example.com&#39;.</a> When
+running multiple tests they will each receive the same arguments.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+&#34;–exec&#34;
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>Normally you can just pass a list of Perl tests and the harness will
+know how to execute them. However, if your tests are not written in Perl
+or if you want all tests invoked exactly the same way, use the <code class="verbatim">-e</code>, or
+<code class="verbatim">--exec</code> switch:</p>
+<p>
+prove –exec <em>usr/bin/ruby -w t</em> prove –exec <em>usr/bin/perl -Tw -mstrict
+-Ilib t</em> prove –exec /path/to/my/customer/exec</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+&#34;–merge&#34;
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>If you need to make sure your diagnostics are displayed in the correct
+order relative to test results you can use the <code class="verbatim">--merge</code> option to merge
+the test scripts&#39; STDERR into their STDOUT.</p>
+<p>
+This guarantees that STDOUT (where the test results appear) and STDERR
+(where the diagnostics appear) will stay in sync. The harness will
+display any diagnostics your tests emit on STDERR.</p>
+<p>
+Caveat: this is a bit of a kludge. In particular note that if anything
+that appears on STDERR looks like a test result the test harness will
+get confused. Use this option only if you understand the consequences
+and can live with the risk.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+&#34;–trap&#34;
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<p>The <code class="verbatim">--trap</code> option will attempt to trap SIGINT (Ctrl-C) during a test
+run and display the test summary even if the run is interrupted</p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-3">
+<h3 id="headline-14">
+&#34;–state&#34;
+</h3>
+<div id="outline-text-headline-14" class="outline-text-3">
+<p>You can ask <code class="verbatim">prove</code> to remember the state of previous test runs and
+select and/or order the tests to be run based on that saved state.</p>
+<p>
+The <code class="verbatim">--state</code> switch requires an argument which must be a comma
+separated list of one or more of the following options.</p>
+<dl>
+<dt>
+&#34;last&#34;
+</dt>
+<dd>Run the same tests as the last time the state was saved.
+This makes it possible, for example, to recreate the ordering of a
+shuffled test. # Run all tests in random order $ prove -b --state=save
+--shuffle # Run them again in the same order $ prove -b –state=last</dd>
+<dt>
+&#34;failed&#34;
+</dt>
+<dd>Run only the tests that failed on the last run. # Run all
+tests $ prove -b --state=save # Run failures $ prove -b –state=failed
+If you also specify the <code class="verbatim">save</code> option newly passing tests will be
+excluded from subsequent runs. # Repeat until no more failures $ prove
+-b –state=failed,save</dd>
+<dt>
+&#34;passed&#34;
+</dt>
+<dd>Run only the passed tests from last time. Useful to make
+sure that no new problems have been introduced.</dd>
+<dt>
+&#34;all&#34;
+</dt>
+<dd>Run all tests in normal order. Multiple options may be
+specified, so to run all tests with the failures from last time first:
+$ prove -b –state=failed,all,save</dd>
+<dt>
+&#34;hot&#34;
+</dt>
+<dd>Run the tests that most recently failed first. The last
+failure time of each test is stored. The <code class="verbatim">hot</code> option causes tests to
+be run in most-recent- failure order. $ prove -b --state=hot,save
+Tests that have never failed will not be selected. To run all tests
+with the most recently failed first use $ prove -b
+–state=hot,all,save This combination of options may also be specified
+thus $ prove -b –state=adrian</dd>
+<dt>
+&#34;todo&#34;
+</dt>
+<dd>Run any tests with todos.</dd>
+<dt>
+&#34;slow&#34;
+</dt>
+<dd>Run the tests in slowest to fastest order. This is useful in
+conjunction with the <code class="verbatim">-j</code> parallel testing switch to ensure that your
+slowest tests start running first. $ prove -b –state=slow -j9</dd>
+<dt>
+&#34;fast&#34;
+</dt>
+<dd>Run test tests in fastest to slowest order.</dd>
+<dt>
+&#34;new&#34;
+</dt>
+<dd>Run the tests in newest to oldest order based on the
+modification times of the test scripts.</dd>
+<dt>
+&#34;old&#34;
+</dt>
+<dd>Run the tests in oldest to newest order.</dd>
+<dt>
+&#34;fresh&#34;
+</dt>
+<dd>Run those test scripts that have been modified since the
+last test run.</dd>
+<dt>
+&#34;save&#34;
+</dt>
+<dd>Save the state on exit. The state is stored in a file called
+<em>.prove</em> (<em>_prove</em> on Windows and VMS) in the current directory.</dd>
+</dl>
+<p>The <code class="verbatim">--state</code> switch may be used more than once.</p>
+<p>
+$ prove -b –state=hot –state=all,save</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+–rules
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<p>The <code class="verbatim">--rules</code> option is used to control which tests are run sequentially
+and which are run in parallel, if the <code class="verbatim">--jobs</code> option is specified. The
+option may be specified multiple times, and the order matters.</p>
+<p>
+The most practical use is likely to specify that some tests are not
+&#34;parallel-ready&#34;. Since mentioning a file with –rules doesn&#39;t cause it
+to be selected to run as a test, you can &#34;set and forget&#34; some rules
+preferences in your .proverc file. Then you&#39;ll be able to take maximum
+advantage of the performance benefits of parallel testing, while some
+exceptions are still run in parallel.</p>
+<p>
+<em>–rules examples</em></p>
+<p>
+​# All tests are allowed to run in parallel, except those starting with
+&#34;p&#34; –rules=seq=t/p*.t –rules=par=** # All tests must run in sequence
+except those starting with &#34;p&#34;, which should be run parallel
+–rules=par=t/p*.t</p>
+<p>
+<em>–rules resolution</em></p>
+<ul>
+<li>By default, all tests are eligible to be run in parallel. Specifying
+any of your own rules removes this one.</li>
+<li>&#34;First match wins&#34;. The first rule that matches a test will be the one
+that applies.</li>
+<li>Any test which does not match a rule will be run in sequence at the
+end of the run.</li>
+<li>The existence of a rule does not imply selecting a test. You must
+still specify the tests to run.</li>
+<li>Specifying a rule to allow tests to run in parallel does not make them
+run in parallel. You still need specify the number of parallel <code class="verbatim">jobs</code>
+in your Harness object.</li>
+</ul>
+<p><em>–rules Glob-style pattern matching</em></p>
+<p>
+We implement our own glob-style pattern matching for –rules. Here are
+the supported patterns:</p>
+<p>
+​** is any number of characters, including /, within a pathname * is zero
+or more characters within a filename/directory name ? is exactly one
+character within a filename/directory name {foo,bar,baz} is any of foo,
+bar or baz. \ is an escape character</p>
+<p>
+<em>More advanced specifications for parallel vs sequence run rules</em></p>
+<p>
+If you need more advanced management of what runs in parallel vs in
+sequence, see the associated &#39;rules&#39; documentation in TAP::Harness and
+TAP::Parser::Scheduler. If what&#39;s possible directly through <code class="verbatim">prove</code> is
+not sufficient, you can write your own harness to access these features
+directly.</p>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-3">
+<h3 id="headline-16">
+@INC
+</h3>
+<div id="outline-text-headline-16" class="outline-text-3">
+<p>prove introduces a separation between &#34;options passed to the perl which
+runs prove&#34; and &#34;options passed to the perl which runs tests&#34;; this
+distinction is by design. Thus the perl which is running a test starts
+with the default <code class="verbatim">@INC</code>. Additional library directories can be added via
+the <code class="verbatim">PERL5LIB</code> environment variable, via -Ifoo in <code class="verbatim">PERL5OPT</code> or via the
+<code class="verbatim">-Ilib</code> option to <em>prove</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-3">
+<h3 id="headline-17">
+Taint Mode
+</h3>
+<div id="outline-text-headline-17" class="outline-text-3">
+<p>Normally when a Perl program is run in taint mode the contents of the
+<code class="verbatim">PERL5LIB</code> environment variable do not appear in <code class="verbatim">@INC</code>.</p>
+<p>
+Because <code class="verbatim">PERL5LIB</code> is often used during testing to add build directories
+to <code class="verbatim">@INC</code> prove passes the names of any directories found in <code class="verbatim">PERL5LIB</code>
+as -I switches. The net effect of this is that <code class="verbatim">PERL5LIB</code> is honoured
+even when prove is run in taint mode.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-2">
+<h2 id="headline-18">
+FORMATTERS
+</h2>
+<div id="outline-text-headline-18" class="outline-text-2">
+<p>You can load a custom TAP::Parser::Formatter:</p>
+<p>
+prove –formatter MyFormatter</p>
+</div>
+</div>
+<div id="outline-container-headline-19" class="outline-2">
+<h2 id="headline-19">
+SOURCE HANDLERS
+</h2>
+<div id="outline-text-headline-19" class="outline-text-2">
+<p>You can load custom TAP::Parser::SourceHandlers, to change the way the
+parser interprets particular <em>sources</em> of TAP.</p>
+<p>
+prove –source MyHandler –source YetAnother t</p>
+<p>
+If you want to provide config to the source you can use:</p>
+<p>
+prove –source MyCustom \ –source Perl –perl-option foo=bar baz
+–perl-option avg=0.278 \ –source File –file-option extensions=.txt
+–file-option extensions=.tmp t –source pgTAP –pgtap-option
+pset=format=html –pgtap-option pset=border=2</p>
+<p>
+Each <code class="verbatim">--$source-option</code> option must specify a key/value pair separated
+by an <code class="verbatim">=</code>. If an option can take multiple values, just specify it
+multiple times, as with the <code class="verbatim">extensions=</code> examples above. If the option
+should be a hash reference, specify the value as a second pair separated
+by a <code class="verbatim">=</code>, as in the <code class="verbatim">pset=</code> examples above (escape <code class="verbatim">=</code> with a
+backslash).</p>
+<p>
+All <code class="verbatim">--sources</code> are combined into a hash, and passed to &#34;new&#34; in
+TAP::Harness&#39;s <code class="verbatim">sources</code> parameter.</p>
+<p>
+See TAP::Parser::IteratorFactory for more details on how configuration
+is passed to <em>SourceHandlers</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-2">
+<h2 id="headline-20">
+PLUGINS
+</h2>
+<div id="outline-text-headline-20" class="outline-text-2">
+<p>Plugins can be loaded using the =-P=/=plugin=/ syntax, eg:</p>
+<p>
+prove -PMyPlugin</p>
+<p>
+This will search for a module named <code class="verbatim">App::Prove::Plugin::MyPlugin</code>, or
+failing that, <code class="verbatim">MyPlugin</code>. If the plugin can&#39;t be found, <code class="verbatim">prove</code> will
+complain &amp; exit.</p>
+<p>
+You can pass arguments to your plugin by appending <code class="verbatim">=arg1,arg2,etc</code> to
+the plugin name:</p>
+<p>
+prove -PMyPlugin=fou,du,fafa</p>
+<p>
+Please check individual plugin documentation for more details.</p>
+<div id="outline-container-headline-21" class="outline-3">
+<h3 id="headline-21">
+Available Plugins
+</h3>
+<div id="outline-text-headline-21" class="outline-text-3">
+<p>For an up-to-date list of plugins available, please check CPAN:</p>
+<p>
+&lt;<a href="https://metacpan.org/search?q=App">https://metacpan.org/search?q=App</a>%3A%3AProve+Plugin&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-22" class="outline-3">
+<h3 id="headline-22">
+Writing Plugins
+</h3>
+<div id="outline-text-headline-22" class="outline-text-3">
+<p>Please see &#34;PLUGINS&#34; in App::Prove.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

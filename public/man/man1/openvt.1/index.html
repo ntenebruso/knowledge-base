@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - openvt.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - openvt.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>openvt - start a program on a new virtual terminal (VT).</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>openvt</strong> [-c vtnumber] [OPTIONS] [–] command</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>openvt</strong> will find the first available VT, and run on it the given
+<strong>command</strong> with the given <strong>command options ,</strong> standard input, output and
+error are directed to that terminal. The current search path ($PATH) is
+used to find the requested command. If no command is specified then the
+environment variable $SHELL is used.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+OPTIONS
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<dl>
+<dt>
+<em>-c, –console=VTNUMBER</em>
+</dt>
+<dd>Use the given VT number and not the first
+available. Note you must have write access to the supplied VT for this
+to work.</dd>
+<dt>
+<em>-f, –force</em>
+</dt>
+<dd>Force opening a VT without checking whether it is
+already in use.</dd>
+<dt>
+<em>-e, –exec</em>
+</dt>
+<dd>Directly execute the given command, without forking.
+This option is meant for use in <em>/etc/inittab</em>.</dd>
+<dt>
+<em>-s, –switch</em>
+</dt>
+<dd>Switch to the new VT when starting the command. The
+VT of the new command will be made the new current VT.</dd>
+<dt>
+<em>-u, –user</em>
+</dt>
+<dd>Figure out the owner of the current VT, and run login
+as that user. Suitable to be called by init. Shouldn&#39;t be used with
+<em>-c</em> or <em>-l</em>.</dd>
+<dt>
+<em>-l, –login</em>
+</dt>
+<dd>Make the command a login shell. A - is prepended to
+the name of the command to be executed.</dd>
+<dt>
+<em>-v, –verbose</em>
+</dt>
+<dd>Be a bit more verbose.</dd>
+<dt>
+<em>-w, –wait</em>
+</dt>
+<dd>wait for command to complete. If -w and -s are used
+together then <strong>openvt</strong> will switch back to the controlling terminal
+when the command completes.</dd>
+<dt>
+<em>-V, –version</em>
+</dt>
+<dd>print program version and exit.</dd>
+<dt>
+<em>-h, –help</em>
+</dt>
+<dd>show this text and exit.</dd>
+<dt>
+<em>–</em>
+</dt>
+<dd>end of options to <strong>openvt</strong>.</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+NOTE
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>If <strong>openvt</strong> is compiled with a getopt_long() and you wish to set options
+to the command to be run, then you must supply the end of options –
+flag before the command.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>openvt</strong> can be used to start a shell on the next free VT, by using the
+command:</p>
+<dl>
+<dt>
+<em>openvt bash</em>
+</dt>
+<dd>
+<dl>
+<dt>
+To start the shell as a login shell, use:
+</dt>
+<dd>
+<ul>
+<li><em>openvt
+  -l bash</em> :: - To get a long listing you must supply the –
+    separator: :: - <em>openvt – ls -l</em> :: * HISTORY</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Earlier, <strong>openvt</strong> was called <strong>open</strong>. It was written by Jon Tombs
+&lt;jon@gtex02.us.es&gt; or &lt;jon@robots.ox.ac.uk&gt;. The <em>-w</em> idea is from
+&#34;sam&#34;.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*chvt*(1), *doshell*(8), *login*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

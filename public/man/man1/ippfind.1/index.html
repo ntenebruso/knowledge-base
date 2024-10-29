@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - ippfind.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - ippfind.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>ippfind - find internet printing protocol printers</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>ippfind</strong> [ <em>options</em> ] <em>regtype</em>[*,*/subtype/][*.*/domain/*.*] … [
+<em>expression</em> … ]<br>
+<strong>ippfind</strong> [ <em>options</em> ] <em>name</em>[*.*/regtype/[*.*/domain/*.*]] … [
+<em>expression</em> … ]<br>
+<strong>ippfind</strong> <strong>–help</strong><br>
+<strong>ippfind</strong> <strong>–version</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>ippfind</strong> finds services registered with a DNS server or available
+through local devices. Its primary purpose is to find IPP printers and
+show their URIs, show their current status, or run commands.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+REGISTRATION TYPES
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p><strong>ippfind</strong> supports the following registration types:</p>
+<dl>
+<dt>
+_http._tcp
+</dt>
+<dd>HyperText Transport Protocol (HTTP, RFC 2616)</dd>
+<dt>
+_https._tcp
+</dt>
+<dd>Secure HyperText Transport Protocol (HTTPS, RFC 2818)</dd>
+<dt>
+_ipp._tcp
+</dt>
+<dd>Internet Printing Protocol (IPP, RFC 2911)</dd>
+<dt>
+_ipps._tcp
+</dt>
+<dd>Secure Internet Printing Protocol (IPPS, draft)</dd>
+<dt>
+_printer._tcp
+</dt>
+<dd>Line Printer Daemon (LPD, RFC 1179)</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+EXPRESSIONS
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p><strong>ippfind</strong> supports expressions much like the <strong>find*(1) utility. However,
+unlike *find*(1), *ippfind</strong> uses POSIX regular expressions instead of
+shell filename matching patterns. If <em>–exec</em>, <em>-l</em>, <em>–ls</em>, <em>-p</em>,
+<em>–print</em>, <em>–print-name</em>, <em>-q</em>, <em>–quiet</em>, <em>-s</em>, or <em>-x</em> is not
+specified, <strong>ippfind</strong> adds <em>–print</em> to print the service URI of anything
+it finds. The following expressions are supported:</p>
+<dl>
+<dt>
+*-d */regex/
+</dt>
+<dd>
+<dl>
+<dt>
+*–domain */regex/
+</dt>
+<dd>
+<p>True if the domain matches the
+given regular expression.</p>
+<dl>
+<dt>
+<strong>–false</strong>
+</dt>
+<dd>Always false.</dd>
+<dt>
+*-h */regex/
+</dt>
+<dd>
+<dl>
+<dt>
+*–host */regex/
+</dt>
+<dd>
+<p>True is the hostname matches
+the given regular expression.</p>
+<dl>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>–ls</strong>
+</dt>
+<dd>
+<p>Lists attributes returned by
+Get-Printer-Attributes for IPP printers and traditional <em>find</em>
+&#34;-ls&#34; output for HTTP URLs. The result is true if the URI is
+accessible, false otherwise.</p>
+<dl>
+<dt>
+<strong>–local</strong>
+</dt>
+<dd>True if the service is local to this computer.</dd>
+<dt>
+*-N */name/
+</dt>
+<dd>
+<dl>
+<dt>
+*–literal-name */name/
+</dt>
+<dd>
+<p>True if the service
+instance name matches the given name.</p>
+<dl>
+<dt>
+*-n */regex/
+</dt>
+<dd>
+<dl>
+<dt>
+*–name */regex/
+</dt>
+<dd>
+<p>True if the service
+instance name matches the given regular expression.</p>
+<dl>
+<dt>
+*–path */regex/
+</dt>
+<dd>True if the URI resource path matches
+the given regular expression.</dd>
+<dt>
+<strong>-P */number/[</strong>-*/number/]
+</dt>
+<dd>
+<ul>
+<li>
+<p><strong>–port
+ */number/[</strong>-*/number/] :: True if the port matches the
+ given number or range.</p>
+<dl>
+<dt>
+<strong>-p</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>–print</strong>
+</dt>
+<dd>
+<p>Prints the URI if the result of
+previous expressions is true. The result is always true.</p>
+<dl>
+<dt>
+<strong>-q</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>–quiet</strong>
+</dt>
+<dd>
+<p>Quiet mode - just returns the
+exit codes below.</p>
+<dl>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>–remote</strong>
+</dt>
+<dd>
+<p>True if the service is not
+local to this computer.</p>
+<dl>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>–print-name</strong>
+</dt>
+<dd>
+<p>Prints the service
+instance name if the result of previous
+expressions is true. The result is always true.</p>
+<dl>
+<dt>
+<strong>–true</strong>
+</dt>
+<dd>Always true.</dd>
+<dt>
+*-t */key/
+</dt>
+<dd>
+<dl>
+<dt>
+*–txt */key/
+</dt>
+<dd>
+<p>True if the TXT
+record contains the named key.</p>
+<dl>
+<dt>
+*–txt-*/key regex/
+</dt>
+<dd>True if the TXT record
+contains the named key and matches the given
+regular expression.</dd>
+<dt>
+*-u */regex/
+</dt>
+<dd>
+<dl>
+<dt>
+*–uri */regex/
+</dt>
+<dd>
+<p>True if the
+URI matches the given regular expression.</p>
+<dl>
+<dt>
+<strong>-x */utility /[ /argument /… ] *;</strong>
+</dt>
+<dd>
+<ul>
+<li>*–exec
+ <strong>/utility /[ /argument /… ]
+ *;</strong> :: Executes the specified program if the
+ current result is true. &#34;{foo}&#34; arguments
+ are replaced with the corresponding value -
+ see SUBSTITUTIONS below.</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Expressions may also contain modifiers:</p>
+<dl>
+<dt>
+<strong>( */expression /</strong>)*
+</dt>
+<dd>Group the result of expressions.</dd>
+<dt>
+*! */expression/
+</dt>
+<dd>
+<dl>
+<dt>
+*–not */expression/
+</dt>
+<dd>
+<p>Unary NOT of the
+expression.</p>
+<dl>
+<dt>
+<em>expression expression</em>
+</dt>
+<dd>
+<ul>
+<li>
+<p><em>expression /*–and
+ */expression</em> :: Logical AND of expressions.</p>
+<dl>
+<dt>
+<em>expression /*–or */expression</em>
+</dt>
+<dd>Logical OR of expressions.</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+SUBSTITUTIONS
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>The substitutions for &#34;{foo}&#34; in <em>-e</em> and <em>–exec</em> are:</p>
+<dl>
+<dt>
+<strong>{service_domain}</strong>
+</dt>
+<dd>Domain name, e.g., &#34;example.com.&#34;, &#34;local.&#34;,
+etc.</dd>
+<dt>
+<strong>{service_hostname}</strong>
+</dt>
+<dd>Fully-qualified domain name, e.g.,
+&#34;printer.example.com.&#34;, &#34;printer.local.&#34;, etc.</dd>
+<dt>
+<strong>{service_name}</strong>
+</dt>
+<dd>Service instance name, e.g., &#34;My Fine Printer&#34;.</dd>
+<dt>
+<strong>{service_port}</strong>
+</dt>
+<dd>Port number for server, typically 631 for IPP and
+80 for HTTP.</dd>
+<dt>
+<strong>{service_regtype}</strong>
+</dt>
+<dd>DNS-SD registration type, e.g., &#34;_ipp._tcp&#34;,
+&#34;_http._tcp&#34;, etc.</dd>
+<dt>
+<strong>{service_scheme}</strong>
+</dt>
+<dd>URI scheme for DNS-SD registration type, e.g.,
+&#34;ipp&#34;, &#34;http&#34;, etc.</dd>
+<dt>
+<strong>{}</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>{service_uri}</strong>
+</dt>
+<dd>
+<p>URI for service, e.g.,
+&#34;ipp://printer.local./ipp/print&#34;, &#34;<a href="http://printer.local./">http://printer.local./</a>&#34;, etc.</p>
+<dl>
+<dt>
+<strong>{txt_*/key/</strong>}*
+</dt>
+<dd>Value of TXT record <em>key</em> (lowercase).</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+OPTIONS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><strong>ippfind</strong> supports the following options:</p>
+<dl>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>Show program help.</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>Show program version.</dd>
+<dt>
+<strong>-4</strong>
+</dt>
+<dd>Use IPv4 when listing.</dd>
+<dt>
+<strong>-6</strong>
+</dt>
+<dd>Use IPv6 when listing.</dd>
+<dt>
+*-T */seconds/
+</dt>
+<dd>Specify find timeout in seconds. If 1 or less,
+<strong>ippfind</strong> stops as soon as it thinks it has found everything. The
+default timeout is 1 second.</dd>
+<dt>
+*-V */version/
+</dt>
+<dd>Specifies the IPP version when listing. Supported
+values are &#34;1.1&#34;, &#34;2.0&#34;, &#34;2.1&#34;, and &#34;2.2&#34;.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>ippfind</strong> returns 0 if the result for all processed expressions is true,
+1 if the result of any processed expression is false, 2 if browsing or
+any query or resolution failed, 3 if an undefined option or invalid
+expression was specified, and 4 if it ran out of memory.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>When executing a program, <strong>ippfind</strong> sets the following environment
+variables for the matching service registration:</p>
+<dl>
+<dt>
+<strong>IPPFIND_SERVICE_DOMAIN</strong>
+</dt>
+<dd>Domain name, e.g., &#34;example.com.&#34;,
+&#34;local.&#34;, etc.</dd>
+<dt>
+<strong>IPPFIND_SERVICE_HOSTNAME</strong>
+</dt>
+<dd>Fully-qualified domain name, e.g.,
+&#34;printer.example.com.&#34;, &#34;printer.local.&#34;, etc.</dd>
+<dt>
+<strong>IPPFIND_SERVICE_NAME</strong>
+</dt>
+<dd>Service instance name, e.g., &#34;My Fine
+Printer&#34;.</dd>
+<dt>
+<strong>IPPFIND_SERVICE_PORT</strong>
+</dt>
+<dd>Port number for server, typically 631 for
+IPP and 80 for HTTP.</dd>
+<dt>
+<strong>IPPFIND_SERVICE_REGTYPE</strong>
+</dt>
+<dd>DNS-SD registration type, e.g.,
+&#34;_ipp._tcp&#34;, &#34;_http._tcp&#34;, etc.</dd>
+<dt>
+<strong>IPPFIND_SERVICE_SCHEME</strong>
+</dt>
+<dd>URI scheme for DNS-SD registration type,
+e.g., &#34;ipp&#34;, &#34;http&#34;, etc.</dd>
+<dt>
+<strong>IPPFIND_SERVICE_URI</strong>
+</dt>
+<dd>URI for service, e.g.,
+&#34;ipp://printer.local./ipp/print&#34;, &#34;<a href="http://printer.local./">http://printer.local./</a>&#34;, etc.</dd>
+<dt>
+<strong>IPPFIND_TXT_/KEY/</strong>
+</dt>
+<dd>Values of TXT record <em>KEY</em> (uppercase).</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>To show the status of all registered IPP printers on your network, run:</p>
+<pre class="example">
+    ippfind --ls
+</pre>
+<p>
+Similarly, to send a PostScript test page to every PostScript printer,
+run:</p>
+<pre class="example">
+    ippfind --txt-pdl application/postscript --exec ipptool
+      -f onepage-letter.ps &#39;{}&#39; print-job.test \;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>*ipptool*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>Copyright © 2020-2024 by OpenPrinting.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

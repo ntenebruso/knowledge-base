@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-http-fetch.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-http-fetch.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-http-fetch - Download from a remote Git repository via HTTP</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git http-fetch [-c] [-t] [-a] [-d] [-v] [-w &lt;filename&gt;] [--recover] [--stdin | --packfile=&lt;hash&gt; | &lt;commit&gt;] &lt;URL&gt;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Downloads a remote Git repository via HTTP.</p>
+<p>
+This command always gets all objects. Historically, there were three
+options <strong>-a</strong>, <strong>-c</strong> and <strong>-t</strong> for choosing which objects to download. They
+are now silently ignored.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>commit-id</p>
+<blockquote>
+<p>Either the hash or the filename under [URL]/refs/ to pull.</p>
+</blockquote>
+<p>
+-a, -c, -t</p>
+<blockquote>
+<p>These options are ignored for historical reasons.</p>
+</blockquote>
+<p>
+-v</p>
+<blockquote>
+<p>Report what is downloaded.</p>
+</blockquote>
+<p>
+-w &lt;filename&gt;</p>
+<blockquote>
+<p>Writes the commit-id into the specified filename under
+$GIT_DIR/refs/&lt;filename&gt; on the local end after the transfer is
+complete.</p>
+</blockquote>
+<p>
+–stdin</p>
+<blockquote>
+<p>Instead of a commit id on the command line (which is not expected in
+this case), <em>git http-fetch</em> expects lines on stdin in the format</p>
+<blockquote>
+<pre class="example">
+&lt;commit-id&gt;[\t&lt;filename-as-in--w&gt;]
+</pre>
+</blockquote>
+</blockquote>
+<p>
+–packfile=&lt;hash&gt;</p>
+<blockquote>
+<p>For internal use only. Instead of a commit id on the command line (which
+is not expected in this case), <em>git http-fetch</em> fetches the packfile
+directly at the given URL and uses index-pack to generate corresponding
+.idx and .keep files. The hash is used to determine the name of the
+temporary file and is arbitrary. The output of index-pack is printed to
+stdout. Requires –index-pack-args.</p>
+</blockquote>
+<p>
+–index-pack-args=&lt;args&gt;</p>
+<blockquote>
+<p>For internal use only. The command to run on the contents of the
+downloaded pack. Arguments are URL-encoded separated by spaces.</p>
+</blockquote>
+<p>
+–recover</p>
+<blockquote>
+<p>Verify that everything reachable from target is fetched. Used after an
+earlier fetch is interrupted.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+GIT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-archive.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-archive.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-archive - Create an archive of files from a named tree</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git archive [--format=&lt;fmt&gt;] [--list] [--prefix=&lt;prefix&gt;/] [&lt;extra&gt;]
+              [-o &lt;file&gt; | --output=&lt;file&gt;] [--worktree-attributes]
+              [--remote=&lt;repo&gt; [--exec=&lt;git-upload-archive&gt;]] &lt;tree-ish&gt;
+              [&lt;path&gt;...]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Creates an archive of the specified format containing the tree structure
+for the named tree, and writes it out to the standard output. If
+&lt;prefix&gt; is specified it is prepended to the filenames in the archive.</p>
+<p>
+<em>git archive</em> behaves differently when given a tree ID as opposed to a
+commit ID or tag ID. When a tree ID is provided, the current time is
+used as the modification time of each file in the archive. On the other
+hand, when a commit ID or tag ID is provided, the commit time as
+recorded in the referenced commit object is used instead. Additionally
+the commit ID is stored in a global extended pax header if the tar
+format is used; it can be extracted using <em>git get-tar-commit-id</em>. In
+ZIP files it is stored as a file comment.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–format=&lt;fmt&gt;</p>
+<blockquote>
+<p>Format of the resulting archive. Possible values are <strong>tar</strong>, <strong>zip</strong>,
+<strong>tar.gz</strong>, <strong>tgz</strong>, and any format defined using the configuration option
+<strong>tar.&lt;format&gt;.command</strong>. If <strong>–format</strong> is not given, and the output file
+is specified, the format is inferred from the filename if possible (e.g.
+writing to <strong>foo.zip</strong> makes the output to be in the <strong>zip</strong> format).
+Otherwise the output format is <strong>tar</strong>.</p>
+</blockquote>
+<p>
+-l, –list</p>
+<blockquote>
+<p>Show all available formats.</p>
+</blockquote>
+<p>
+-v, –verbose</p>
+<blockquote>
+<p>Report progress to stderr.</p>
+</blockquote>
+<p>
+–prefix=&lt;prefix&gt;/</p>
+<blockquote>
+<p>Prepend &lt;prefix&gt;/ to paths in the archive. Can be repeated; its
+rightmost value is used for all tracked files. See below which value
+gets used by <strong>–add-file</strong>.</p>
+</blockquote>
+<p>
+-o &lt;file&gt;, –output=&lt;file&gt;</p>
+<blockquote>
+<p>Write the archive to &lt;file&gt; instead of stdout.</p>
+</blockquote>
+<p>
+–add-file=&lt;file&gt;</p>
+<blockquote>
+<p>Add a non-tracked file to the archive. Can be repeated to add multiple
+files. The path of the file in the archive is built by concatenating the
+value of the last <strong>–prefix</strong> option (if any) before this <strong>–add-file</strong>
+and the basename of &lt;file&gt;.</p>
+</blockquote>
+<p>
+–add-virtual-file=&lt;path&gt;:&lt;content&gt;</p>
+<blockquote>
+<p>Add the specified contents to the archive. Can be repeated to add
+multiple files.</p>
+<p>
+The <strong>&lt;path&gt;</strong> argument can start and end with a literal double-quote
+character; the contained file name is interpreted as a C-style string,
+i.e. the backslash is interpreted as escape character. The path must be
+quoted if it contains a colon, to avoid the colon from being
+misinterpreted as the separator between the path and the contents, or if
+the path begins or ends with a double-quote character.</p>
+<p>
+The file mode is limited to a regular file, and the option may be
+subject to platform-dependent command-line limits. For non-trivial
+cases, write an untracked file and use <strong>–add-file</strong> instead.</p>
+<p>
+Note that unlike <strong>–add-file</strong> the path created in the archive is not
+affected by the <strong>–prefix</strong> option, as a full <strong>&lt;path&gt;</strong> can be given as
+the value of the option.</p>
+</blockquote>
+<p>
+–worktree-attributes</p>
+<blockquote>
+<p>Look for attributes in .gitattributes files in the working tree as well
+(see the section called “ATTRIBUTES”).</p>
+</blockquote>
+<p>
+–mtime=&lt;time&gt;</p>
+<blockquote>
+<p>Set modification time of archive entries. Without this option the
+committer time is used if <strong>&lt;tree-ish&gt;</strong> is a commit or tag, and the
+current time if it is a tree.</p>
+</blockquote>
+<p>
+&lt;extra&gt;</p>
+<blockquote>
+<p>This can be any options that the archiver backend understands. See next
+section.</p>
+</blockquote>
+<p>
+–remote=&lt;repo&gt;</p>
+<blockquote>
+<p>Instead of making a tar archive from the local repository, retrieve a
+tar archive from a remote repository. Note that the remote repository
+may place restrictions on which sha1 expressions may be allowed in
+<strong>&lt;tree-ish&gt;</strong>. See *git-upload-archive*(1) for details.</p>
+</blockquote>
+<p>
+–exec=&lt;git-upload-archive&gt;</p>
+<blockquote>
+<p>Used with –remote to specify the path to the <em>git-upload-archive</em> on
+the remote side.</p>
+</blockquote>
+<p>
+&lt;tree-ish&gt;</p>
+<blockquote>
+<p>The tree or commit to produce an archive for.</p>
+</blockquote>
+<p>
+&lt;path&gt;</p>
+<blockquote>
+<p>Without an optional path parameter, all files and subdirectories of the
+current working directory are included in the archive. If one or more
+paths are specified, only these are included.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+BACKEND EXTRA OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+zip
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>-&lt;digit&gt;</p>
+<blockquote>
+<p>Specify compression level. Larger values allow the command to spend more
+time to compress to smaller size. Supported values are from <strong>-0</strong>
+(store-only) to <strong>-9</strong> (best ratio). Default is <strong>-6</strong> if not given.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+tar
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>-&lt;number&gt;</p>
+<blockquote>
+<p>Specify compression level. The value will be passed to the compression
+command configured in <strong>tar.&lt;format&gt;.command</strong>. See manual page of the
+configured command for the list of supported levels and the default
+level if this option isn&#39;t specified.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>tar.umask</p>
+<blockquote>
+<p>This variable can be used to restrict the permission bits of tar archive
+entries. The default is 0002, which turns off the world write bit. The
+special value &#34;user&#34; indicates that the archiving user&#39;s umask will be
+used instead. See umask(2) for details. If <strong>–remote</strong> is used then only
+the configuration of the remote repository takes effect.</p>
+</blockquote>
+<p>
+tar.&lt;format&gt;.command</p>
+<blockquote>
+<p>This variable specifies a shell command through which the tar output
+generated by <strong>git archive</strong> should be piped. The command is executed
+using the shell with the generated tar file on its standard input, and
+should produce the final output on its standard output. Any
+compression-level options will be passed to the command (e.g., <strong>-9</strong>).</p>
+<p>
+The <strong>tar.gz</strong> and <strong>tgz</strong> formats are defined automatically and use the
+magic command <strong>git archive gzip</strong> by default, which invokes an internal
+implementation of gzip.</p>
+</blockquote>
+<p>
+tar.&lt;format&gt;.remote</p>
+<blockquote>
+<p>If true, enable the format for use by remote clients via
+<strong>git-upload-archive*(1). Defaults to false for user-defined formats, but
+true for the *tar.gz</strong> and <strong>tgz</strong> formats.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+ATTRIBUTES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>export-ignore</p>
+<blockquote>
+<p>Files and directories with the attribute export-ignore won&#39;t be added to
+archive files. See *gitattributes*(5) for details.</p>
+</blockquote>
+<p>
+export-subst</p>
+<blockquote>
+<p>If the attribute export-subst is set for a file then Git will expand
+several placeholders when adding this file to an archive. See
+*gitattributes*(5) for details.</p>
+</blockquote>
+<p>
+Note that attributes are by default taken from the <strong>.gitattributes</strong>
+files in the tree that is being archived. If you want to tweak the way
+the output is generated after the fact (e.g. you committed without
+adding an appropriate export-ignore in its <strong>.gitattributes</strong>), adjust the
+checked out <strong>.gitattributes</strong> file as necessary and use
+<strong>–worktree-attributes</strong> option. Alternatively you can keep necessary
+attributes that should apply while archiving any tree in your
+<strong>$GIT_DIR/info/attributes</strong> file.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p><strong>git archive –format=tar –prefix=junk/ HEAD | (cd <em>var/tmp</em> &amp;&amp; tar xf
+-)</strong></p>
+<blockquote>
+<p>Create a tar archive that contains the contents of the latest commit on
+the current branch, and extract it in the <strong>/var/tmp/junk</strong> directory.</p>
+</blockquote>
+<p>
+<strong>git archive –format=tar –prefix=git-1.4.0/ v1.4.0 | gzip
+&gt;git-1.4.0.tar.gz</strong></p>
+<blockquote>
+<p>Create a compressed tarball for v1.4.0 release.</p>
+</blockquote>
+<p>
+<strong>git archive –format=tar.gz –prefix=git-1.4.0/ v1.4.0
+&gt;git-1.4.0.tar.gz</strong></p>
+<blockquote>
+<p>Same as above, but using the builtin tar.gz handling.</p>
+</blockquote>
+<p>
+<strong>git archive –prefix=git-1.4.0/ -o git-1.4.0.tar.gz v1.4.0</strong></p>
+<blockquote>
+<p>Same as above, but the format is inferred from the output file.</p>
+</blockquote>
+<p>
+<strong>git archive –format=tar –prefix=git-1.4.0/ v1.4.0<sup>tree</sup> | gzip
+&gt;git-1.4.0.tar.gz</strong></p>
+<blockquote>
+<p>Create a compressed tarball for v1.4.0 release, but without a global
+extended pax header.</p>
+</blockquote>
+<p>
+<strong>git archive –format=zip –prefix=git-docs/ HEAD:Documentation/ &gt;
+git-1.4.0-docs.zip</strong></p>
+<blockquote>
+<p>Put everything in the current head&#39;s Documentation/ directory into
+<em>git-1.4.0-docs.zip</em>, with the prefix <em>git-docs/</em>.</p>
+</blockquote>
+<p>
+<strong>git archive -o latest.zip HEAD</strong></p>
+<blockquote>
+<p>Create a Zip archive that contains the contents of the latest commit on
+the current branch. Note that the output format is inferred by the
+extension of the output file.</p>
+</blockquote>
+<p>
+<strong>git archive -o latest.tar –prefix=build/ –add-file=configure
+–prefix= HEAD</strong></p>
+<blockquote>
+<p>Creates a tar archive that contains the contents of the latest commit on
+the current branch with no prefix and the untracked file <em>configure</em>
+with the prefix <em>build/</em>.</p>
+</blockquote>
+<p>
+<strong>git config tar.tar.xz.command &#34;xz -c&#34;</strong></p>
+<blockquote>
+<p>Configure a &#34;tar.xz&#34; format for making LZMA-compressed tarfiles. You can
+use it specifying <strong>–format=tar.xz</strong>, or by creating an output file like
+<strong>-o foo.tar.xz</strong>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>*gitattributes*(5)</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+GIT
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

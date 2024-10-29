@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - hd.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - hd.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>hexdump - display file contents in hexadecimal, decimal, octal, or ascii</p>
+<p>
+<strong>hexdump</strong> <em>options file</em> …</p>
+<p>
+<strong>hd</strong> <em>options file</em> …</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>The <strong>hexdump</strong> utility is a filter which displays the specified files, or
+standard input if no files are specified, in a user-specified format.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+OPTIONS
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Below, the <em>length</em> and <em>offset</em> arguments may be followed by the
+multiplicative suffixes KiB (=1024), MiB (=1024*1024), and so on for
+GiB, TiB, PiB, EiB, ZiB and YiB (the &#34;iB&#34; is optional, e.g., &#34;K&#34; has the
+same meaning as &#34;KiB&#34;), or the suffixes KB (=1000), MB (=1000*1000), and
+so on for GB, TB, PB, EB, ZB and YB.</p>
+<p>
+<strong>-b</strong>, <strong>–one-byte-octal</strong></p>
+<blockquote>
+<p><em>One-byte octal display</em>. Display the input offset in hexadecimal,
+followed by sixteen space-separated, three-column, zero-filled bytes of
+input data, in octal, per line.</p>
+</blockquote>
+<p>
+<strong>-c</strong>, <strong>–one-byte-char</strong></p>
+<blockquote>
+<p><em>One-byte character display</em>. Display the input offset in hexadecimal,
+followed by sixteen space-separated, three-column, space-filled
+characters of input data per line.</p>
+</blockquote>
+<p>
+<strong>-C</strong>, <strong>–canonical</strong></p>
+<blockquote>
+<p><em>Canonical hex+ASCII display</em>. Display the input offset in hexadecimal,
+followed by sixteen space-separated, two-column, hexadecimal bytes,
+followed by the same sixteen bytes in <strong>%_p</strong> format enclosed in <strong>|</strong>
+characters. Invoking the program as <strong>hd</strong> implies this option.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–two-bytes-decimal</strong></p>
+<blockquote>
+<p><em>Two-byte decimal display</em>. Display the input offset in hexadecimal,
+followed by eight space-separated, five-column, zero-filled, two-byte
+units of input data, in unsigned decimal, per line.</p>
+</blockquote>
+<p>
+<strong>-e</strong>, <strong>–format</strong> <em>format_string</em></p>
+<blockquote>
+<p>Specify a format string to be used for displaying data.</p>
+</blockquote>
+<p>
+<strong>-f</strong>, <strong>–format-file</strong> <em>file</em></p>
+<blockquote>
+<p>Specify a file that contains one or more newline-separated format
+strings. Empty lines and lines whose first non-blank character is a hash
+mark (#) are ignored.</p>
+</blockquote>
+<p>
+<strong>-L</strong>, <strong>–color</strong>[=/when/]</p>
+<blockquote>
+<p>Accept color units for the output. The optional argument <em>when</em> can be
+<strong>auto</strong>, <strong>never</strong> or <strong>always</strong>. If the <em>when</em> argument is omitted, it
+defaults to <strong>auto</strong>. The colors can be disabled; for the current built-in
+default see the <strong>–help</strong> output. See also the <strong>Colors</strong> subsection and
+the <strong>COLORS</strong> section below.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–length</strong> <em>length</em></p>
+<blockquote>
+<p>Interpret only <em>length</em> bytes of input.</p>
+</blockquote>
+<p>
+<strong>-o</strong>, <strong>–two-bytes-octal</strong></p>
+<blockquote>
+<p><em>Two-byte octal display</em>. Display the input offset in hexadecimal,
+followed by eight space-separated, six-column, zero-filled, two-byte
+quantities of input data, in octal, per line.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–skip</strong> <em>offset</em></p>
+<blockquote>
+<p>Skip <em>offset</em> bytes from the beginning of the input.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–no-squeezing</strong></p>
+<blockquote>
+<p>The <strong>-v</strong> option causes <strong>hexdump</strong> to display all input data. Without the
+<strong>-v</strong> option, any number of groups of output lines which would be
+identical to the immediately preceding group of output lines (except for
+the input offsets), are replaced with a line comprised of a single
+asterisk.</p>
+</blockquote>
+<p>
+<strong>-x</strong>, <strong>–two-bytes-hex</strong></p>
+<blockquote>
+<p><em>Two-byte hexadecimal display</em>. Display the input offset in hexadecimal,
+followed by eight space-separated, four-column, zero-filled, two-byte
+quantities of input data, in hexadecimal, per line.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+<p>
+For each input file, <strong>hexdump</strong> sequentially copies the input to standard
+output, transforming the data according to the format strings specified
+by the <strong>-e</strong> and <strong>-f</strong> options, in the order that they were specified.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+FORMATS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>A format string contains any number of format units, separated by
+whitespace. A format unit contains up to three items: an iteration
+count, a byte count, and a format.</p>
+<p>
+The iteration count is an optional positive integer, which defaults to
+one. Each format is applied iteration count times.</p>
+<p>
+The byte count is an optional positive integer. If specified it defines
+the number of bytes to be interpreted by each iteration of the format.</p>
+<p>
+If an iteration count and/or a byte count is specified, a single slash
+must be placed after the iteration count and/or before the byte count to
+disambiguate them. Any whitespace before or after the slash is ignored.</p>
+<p>
+The format is required and must be surrounded by double quote (&#34; &#34;)
+marks. It is interpreted as a fprintf-style format string (see
+*fprintf*(3)), with the following exceptions:</p>
+<ol>
+<li></li>
+</ol>
+<blockquote>
+<p>An asterisk (*) may not be used as a field width or precision.</p>
+</blockquote>
+<ol>
+<li></li>
+</ol>
+<blockquote>
+<p>A byte count or field precision <em>is</em> required for each <strong>s</strong> conversion
+character (unlike the *fprintf*(3) default which prints the entire
+string if the precision is unspecified).</p>
+</blockquote>
+<ol>
+<li></li>
+</ol>
+<blockquote>
+<p>The conversion characters <strong>h</strong>, <strong>l</strong>, <strong>n</strong>, <strong>p</strong>, and <strong>q</strong> are not supported.</p>
+</blockquote>
+<ol>
+<li></li>
+</ol>
+<blockquote>
+<p>The single character escape sequences described in the C standard are
+supported:</p>
+</blockquote>
+<blockquote>
+<table>
+<tbody>
+<tr>
+<td>NULL</td>
+<td>\0</td>
+</tr>
+<tr>
+<td>&lt;alert character&gt;</td>
+<td>\a</td>
+</tr>
+<tr>
+<td>&lt;backspace&gt;</td>
+<td>\b</td>
+</tr>
+<tr>
+<td>&lt;form-feed&gt;</td>
+<td>\f</td>
+</tr>
+<tr>
+<td>&lt;newline&gt;</td>
+<td>\n</td>
+</tr>
+<tr>
+<td>&lt;carriage return&gt;</td>
+<td>\r</td>
+</tr>
+<tr>
+<td>&lt;tab&gt;</td>
+<td>\t</td>
+</tr>
+<tr>
+<td>&lt;vertical tab&gt;</td>
+<td>\v</td>
+</tr>
+</tbody>
+</table>
+<p>
+\\</p>
+</blockquote>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Conversion strings
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>The <strong>hexdump</strong> utility also supports the following additional conversion
+strings.</p>
+<p>
+<strong>_a[dox]</strong></p>
+<blockquote>
+<p>Display the input offset, cumulative across input files, of the next
+byte to be displayed. The appended characters <strong>d</strong>, <strong>o</strong>, and <strong>x</strong> specify
+the display base as decimal, octal or hexadecimal respectively.</p>
+</blockquote>
+<p>
+<strong>_A[dox]</strong></p>
+<blockquote>
+<p>Almost identical to the <strong>_a</strong> conversion string except that it is only
+performed once, when all of the input data has been processed.</p>
+</blockquote>
+<p>
+<strong>_c</strong></p>
+<blockquote>
+<p>Output characters in the default character set. Non-printing characters
+are displayed in three-character, zero-padded octal, except for those
+representable by standard escape notation (see above), which are
+displayed as two-character strings.</p>
+</blockquote>
+<p>
+<strong>_p</strong></p>
+<blockquote>
+<p>Output characters in the default character set. Non-printing characters
+are displayed as a single <strong>.</strong>.</p>
+</blockquote>
+<p>
+<strong>_u</strong></p>
+<blockquote>
+<p>Output US ASCII characters, with the exception that control characters
+are displayed using the following, lower-case, names. Characters greater
+than 0xff, hexadecimal, are displayed as hexadecimal strings.</p>
+</blockquote>
+<blockquote>
+<table>
+<tbody>
+<tr>
+<td>000 nul</td>
+<td>001 soh</td>
+<td>002 stx</td>
+<td>003 etx</td>
+<td>004 eot</td>
+<td>005 enq</td>
+</tr>
+<tr>
+<td>006 ack</td>
+<td>007 bel</td>
+<td>008 bs</td>
+<td>009 ht</td>
+<td>00A lf</td>
+<td>00B vt</td>
+</tr>
+<tr>
+<td>00C ff</td>
+<td>00D cr</td>
+<td>00E so</td>
+<td>00F si</td>
+<td>010 dle</td>
+<td>011 dc1</td>
+</tr>
+<tr>
+<td>012 dc2</td>
+<td>013 dc3</td>
+<td>014 dc4</td>
+<td>015 nak</td>
+<td>016 syn</td>
+<td>017 etb</td>
+</tr>
+<tr>
+<td>018 can</td>
+<td>019 em</td>
+<td>01A sub</td>
+<td>01B esc</td>
+<td>01C fs</td>
+<td>01D gs</td>
+</tr>
+<tr>
+<td>01E rs</td>
+<td>01F us</td>
+<td>0FF del</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>
+\\</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Colors
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>When put at the end of a format specifier, <strong>hexdump</strong> highlights the
+respective string with the color specified. Conditions, if present, are
+evaluated prior to highlighting.</p>
+<p>
+<strong>_L[color_unit_1,color_unit_2,…,color_unit_n]</strong></p>
+<p>
+The full syntax of a color unit is as follows:</p>
+<p>
+<strong>[!]COLOR[:VALUE][@OFFSET_START[-END]]</strong></p>
+<p>
+<strong>!</strong></p>
+<blockquote>
+<p>Negate the condition. Please note that it only makes sense to negate a
+unit if both a value/string and an offset are specified. In that case
+the respective output string will be highlighted if and only if the
+value/string does not match the one at the offset.</p>
+</blockquote>
+<p>
+<strong>COLOR</strong></p>
+<blockquote>
+<p>One of the 8 basic shell colors.</p>
+</blockquote>
+<p>
+<strong>VALUE</strong></p>
+<blockquote>
+<p>A value to be matched specified in hexadecimal, or octal base, or as a
+string. Please note that the usual C escape sequences are not
+interpreted by <strong>hexdump</strong> inside the color_units.</p>
+</blockquote>
+<p>
+<strong>OFFSET</strong></p>
+<blockquote>
+<p>An offset or an offset range at which to check for a match. Please note
+that lone OFFSET_START uses the same value as END offset.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Counters
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>The default and supported byte counts for the conversion characters are
+as follows:</p>
+<p>
+<strong>%_c</strong>, <strong>%_p</strong>, <strong>%_u</strong>, <strong>%c</strong></p>
+<blockquote>
+<p>One byte counts only.</p>
+</blockquote>
+<p>
+<strong>%d</strong>, <strong>%i</strong>, <strong>%o</strong>, <strong>%u</strong>, <strong>%X</strong>, <strong>%x</strong></p>
+<blockquote>
+<p>Four byte default, one, two and four byte counts supported.</p>
+</blockquote>
+<p>
+<strong>%E</strong>, <strong>%e</strong>, <strong>%f</strong>, <strong>%G</strong>, <strong>%g</strong></p>
+<blockquote>
+<p>Eight byte default, four byte counts supported.</p>
+</blockquote>
+<p>
+The amount of data interpreted by each format string is the sum of the
+data required by each format unit, which is the iteration count times
+the byte count, or the iteration count times the number of bytes
+required by the format if the byte count is not specified.</p>
+<p>
+The input is manipulated in <em>blocks</em>, where a block is defined as the
+largest amount of data specified by any format string. Format strings
+interpreting less than an input block&#39;s worth of data, whose last format
+unit both interprets some number of bytes and does not have a specified
+iteration count, have the iteration count incremented until the entire
+input block has been processed or there is not enough data remaining in
+the block to satisfy the format string.</p>
+<p>
+If, either as a result of user specification or <strong>hexdump</strong> modifying the
+iteration count as described above, an iteration count is greater than
+one, no trailing whitespace characters are output during the last
+iteration.</p>
+<p>
+It is an error to specify a byte count as well as multiple conversion
+characters or strings unless all but one of the conversion characters or
+strings is <strong>_a</strong> or <strong>_A</strong>.</p>
+<p>
+If, as a result of the specification of the <strong>-n</strong> option or end-of-file
+being reached, input data only partially satisfies a format string, the
+input block is zero-padded sufficiently to display all available data
+(i.e., any format units overlapping the end of data will display some
+number of the zero bytes).</p>
+<p>
+Further output by such format strings is replaced by an equivalent
+number of spaces. An equivalent number of spaces is defined as the
+number of spaces output by an <strong>s</strong> conversion character with the same
+field width and precision as the original conversion character or
+conversion string but with any <strong>+</strong>, , <strong>#</strong> conversion flag characters
+removed, and referencing a NULL string.</p>
+<p>
+If no format strings are specified, the default display is very similar
+to the <strong>-x</strong> output format (the <strong>-x</strong> option causes more space to be used
+between format units than in the default output).</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>hexdump</strong> exits 0 on success and &gt; 0 if an error occurred.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+CONFORMING TO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The <strong>hexdump</strong> utility is expected to be IEEE Std 1003.2 (&#34;POSIX.2&#34;)
+compatible.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Display the input in perusal format:</p>
+<blockquote>
+<pre class="example">
+   &#34;%06.6_ao &#34;  12/1 &#34;%3_u &#34;
+   &#34;\t&#34; &#34;%_p &#34;
+   &#34;\n&#34;
+</pre>
+</blockquote>
+<p>
+Implement the <strong>-x</strong> option:</p>
+<blockquote>
+<pre class="example">
+   &#34;%07.7_Ax\n&#34;
+   &#34;%07.7_ax  &#34; 8/2 &#34;%04x &#34; &#34;\n&#34;
+</pre>
+</blockquote>
+<p>
+MBR Boot Signature example: Highlight the addresses cyan and the bytes
+at offsets 510 and 511 green if their value is 0xAA55, red otherwise.</p>
+<blockquote>
+<pre class="example">
+   &#34;%07.7_Ax_L[cyan]\n&#34;
+   &#34;%07.7_ax_L[cyan]  &#34; 8/2 &#34;   %04x_L[green:0xAA55@510-511,!red:0xAA55@510-511] &#34; &#34;\n&#34;
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+COLORS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The output colorization is implemented by *terminal-colors.d*(5)
+functionality. Implicit coloring can be disabled by an empty file</p>
+<blockquote>
+<p><em>/etc/terminal-colors.d/hexdump.disable</em>\\</p>
+</blockquote>
+<p>
+for the <strong>hexdump</strong> command or for all tools by</p>
+<blockquote>
+<p><em>/etc/terminal-colors.d/disable</em>\\</p>
+</blockquote>
+<p>
+The user-specific <em>$XDG_CONFIG_HOME/terminal-colors.d</em> or
+<em>$HOME</em>.config/terminal-colors.d/ overrides the global setting.</p>
+<p>
+Note that the output colorization may be enabled by default, and in this
+case <em>terminal-colors.d</em> directories do not have to exist yet.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>The <strong>hexdump</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

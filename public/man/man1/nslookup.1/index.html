@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nslookup.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nslookup.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>nslookup - query Internet name servers interactively</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>nslookup</strong> [-option] [name | -] [server]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>nslookup</strong> is a program to query Internet domain name servers.
+<strong>nslookup</strong> has two modes: interactive and non-interactive. Interactive
+mode allows the user to query name servers for information about various
+hosts and domains or to print a list of hosts in a domain.
+Non-interactive mode prints just the name and requested information for
+a host or domain.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+ARGUMENTS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Interactive mode is entered in the following cases:</p>
+<blockquote>
+<ol>
+<li>when no arguments are given (the default name server is used);</li>
+<li>when the first argument is a hyphen (-) and the second argument is
+the host name or Internet address of a name server.</li>
+</ol>
+</blockquote>
+<p>
+Non-interactive mode is used when the name or Internet address of the
+host to be looked up is given as the first argument. The optional second
+argument specifies the host name or address of a name server.</p>
+<p>
+Options can also be specified on the command line if they precede the
+arguments and are prefixed with a hyphen. For example, to change the
+default query type to host information, with an initial timeout of 10
+seconds, type:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+nslookup -query=hinfo  -timeout=10
+</pre>
+</blockquote>
+</blockquote>
+<p>
+The <strong>-version</strong> option causes <strong>nslookup</strong> to print the version number and
+immediately exit.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+INTERACTIVE COMMANDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>*host</strong> [server]*
+</dt>
+<dd>This command looks up information for <em>host</em>
+using the current default server or using <strong>server</strong>, if specified. If
+<em>host</em> is an Internet address and the query type is A or PTR, the name
+of the host is returned. If <em>host</em> is a name and does not have a
+trailing period (<strong>.</strong>), the search list is used to qualify the name.
+
+To look up a host not in the current domain, append a period to the
+name.</dd>
+<dt>
+<strong>*server</strong> domain | <strong>lserver</strong> domain*
+</dt>
+<dd>These commands change the
+default server to <strong>domain</strong>; <strong>lserver</strong> uses the initial server to look
+up information about <strong>domain</strong>, while <strong>server</strong> uses the current default
+server. If an authoritative answer cannot be found, the names of
+servers that might have the answer are returned.</dd>
+<dt>
+<strong><strong>root</strong></strong>
+</dt>
+<dd>This command is not implemented.</dd>
+<dt>
+<strong><strong>finger</strong></strong>
+</dt>
+<dd>This command is not implemented.</dd>
+<dt>
+<strong><strong>ls</strong></strong>
+</dt>
+<dd>This command is not implemented.</dd>
+<dt>
+<strong><strong>view</strong></strong>
+</dt>
+<dd>This command is not implemented.</dd>
+<dt>
+<strong><strong>help</strong></strong>
+</dt>
+<dd>This command is not implemented.</dd>
+<dt>
+<strong><strong>?</strong></strong>
+</dt>
+<dd>This command is not implemented.</dd>
+<dt>
+<strong><strong>exit</strong></strong>
+</dt>
+<dd>This command exits the program.</dd>
+<dt>
+<strong>*set</strong> keyword[=value]*
+</dt>
+<dd>
+<p>This command is used to change state
+information that affects the lookups. Valid keywords are:</p>
+<dl>
+<dt>
+<strong><strong>all</strong></strong>
+</dt>
+<dd>This keyword prints the current values of the frequently
+used options to <strong>set</strong>. Information about the current default server
+and host is also printed.</dd>
+<dt>
+<strong><strong>class=value</strong></strong>
+</dt>
+<dd>
+<p>This keyword changes the query class to one of:</p>
+<dl>
+<dt>
+<strong><strong>IN</strong></strong>
+</dt>
+<dd>the Internet class</dd>
+<dt>
+<strong><strong>CH</strong></strong>
+</dt>
+<dd>the Chaos class</dd>
+<dt>
+<strong><strong>HS</strong></strong>
+</dt>
+<dd>the Hesiod class</dd>
+<dt>
+<strong><strong>ANY</strong></strong>
+</dt>
+<dd>wildcard</dd>
+</dl>
+</dd>
+</dl>
+<p>The class specifies the protocol group of the information. The default
+is <strong>IN</strong>; the abbreviation for this keyword is <strong>cl</strong>.</p>
+<dl>
+<dt>
+<strong><strong>nodebug</strong></strong>
+</dt>
+<dd>This keyword turns on or off the display of the full
+response packet, and any intermediate response packets, when
+searching. The default for this keyword is <strong>nodebug</strong>; the
+abbreviation for this keyword is <strong>[no]deb</strong>.</dd>
+<dt>
+<strong><strong>nod2</strong></strong>
+</dt>
+<dd>This keyword turns debugging mode on or off. This
+displays more about what nslookup is doing. The default is <strong>nod2</strong>.</dd>
+<dt>
+<strong><strong>domain=name</strong></strong>
+</dt>
+<dd>This keyword sets the search list to <strong>name</strong>.</dd>
+<dt>
+<strong><strong>nosearch</strong></strong>
+</dt>
+<dd>If the lookup request contains at least one period,
+but does not end with a trailing period, this keyword appends the
+domain names in the domain search list to the request until an
+answer is received. The default is <strong>search</strong>.</dd>
+<dt>
+<strong><strong>port=value</strong></strong>
+</dt>
+<dd>This keyword changes the default TCP/UDP name
+server port to <strong>value</strong> from its default, port 53. The abbreviation
+for this keyword is <strong>po</strong>.</dd>
+<dt>
+<strong>*querytype=value</strong> | <strong>type=value*</strong>
+</dt>
+<dd>This keyword changes the type
+of the information query to <strong>value</strong>. The defaults are A and then
+AAAA; the abbreviations for these keywords are <strong>q</strong> and <strong>ty</strong>.
+
+Please note that it is only possible to specify one query type. Only
+the default behavior looks up both when an alternative is not
+specified.</dd>
+<dt>
+<strong><strong>norecurse</strong></strong>
+</dt>
+<dd>This keyword tells the name server to query other
+servers if it does not have the information. The default is
+<strong>recurse</strong>; the abbreviation for this keyword is <strong>[no]rec</strong>.</dd>
+<dt>
+<strong><strong>ndots=number</strong></strong>
+</dt>
+<dd>This keyword sets the number of dots (label
+separators) in a domain that disables searching. Absolute names
+always stop searching.</dd>
+<dt>
+<strong><strong>retry=number</strong></strong>
+</dt>
+<dd>This keyword sets the number of retries to
+<strong>number</strong>.</dd>
+<dt>
+<strong><strong>timeout=number</strong></strong>
+</dt>
+<dd>This keyword changes the initial timeout
+interval to wait for a reply to <strong>number</strong>, in seconds.</dd>
+<dt>
+<strong><strong>novc</strong></strong>
+</dt>
+<dd>This keyword indicates that a virtual circuit should
+always be used when sending requests to the server. <strong>novc</strong> is the
+default.</dd>
+<dt>
+<strong><strong>nofail</strong></strong>
+</dt>
+<dd>This keyword tries the next nameserver if a nameserver
+responds with SERVFAIL or a referral (nofail), or terminates the
+query (fail) on such a response. The default is <strong>nofail</strong>.</dd>
+</dl>
+</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+RETURN VALUES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>nslookup</strong> returns with an exit status of 1 if any query failed, and 0
+otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+IDN SUPPORT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>If <strong>nslookup</strong> has been built with IDN (internationalized domain name)
+support, it can accept and display non-ASCII domain names. <strong>nslookup</strong>
+appropriately converts character encoding of a domain name before
+sending a request to a DNS server or displaying a reply from the server.
+To turn off IDN support, define the <strong>IDN_DISABLE</strong> environment variable.
+IDN support is disabled if the variable is set when <strong>nslookup</strong> runs, or
+when the standard output is not a tty.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+FILES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>/etc/resolv.conf</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p><em>dig(1)</em>, <em>host(1)</em>, <em>named(8)</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AUTHOR
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Internet Systems Consortium</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>2024, Internet Systems Consortium</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

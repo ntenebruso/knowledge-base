@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-ls-tree.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-ls-tree.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-ls-tree - List the contents of a tree object</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git ls-tree [-d] [-r] [-t] [-l] [-z]
+            [--name-only] [--name-status] [--object-only] [--full-name] [--full-tree] [--abbrev[=&lt;n&gt;]] [--format=&lt;format&gt;]
+            &lt;tree-ish&gt; [&lt;path&gt;...]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Lists the contents of a given tree object, like what &#34;/bin/ls -a&#34; does
+in the current working directory. Note that:</p>
+<blockquote>
+<p>·</p>
+<p>
+the behaviour is slightly different from that of &#34;<em>bin/ls&#34; in that the
+/&lt;path&gt;</em> denotes just a list of patterns to match, e.g. so specifying
+directory name (without <strong>-r</strong>) will behave differently, and order of the
+arguments does not matter.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+the behaviour is similar to that of &#34;<em>bin/ls&#34; in that the /&lt;path&gt;</em> is
+taken as relative to the current working directory. E.g. when you are in
+a directory <em>sub</em> that has a directory <em>dir</em>, you can run <em>git ls-tree
+-r HEAD dir</em> to list the contents of the tree (that is <strong>sub/dir</strong> in
+<strong>HEAD</strong>). You don&#39;t want to give a tree that is not at the root level
+(e.g. <strong>git ls-tree -r HEAD:sub dir</strong>) in this case, as that would result
+in asking for <strong>sub/sub/dir</strong> in the <strong>HEAD</strong> commit. However, the current
+working directory can be ignored by passing –full-tree option.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>&lt;tree-ish&gt;</p>
+<blockquote>
+<p>Id of a tree-ish.</p>
+</blockquote>
+<p>
+-d</p>
+<blockquote>
+<p>Show only the named tree entry itself, not its children.</p>
+</blockquote>
+<p>
+-r</p>
+<blockquote>
+<p>Recurse into sub-trees.</p>
+</blockquote>
+<p>
+-t</p>
+<blockquote>
+<p>Show tree entries even when going to recurse them. Has no effect if <strong>-r</strong>
+was not passed. <strong>-d</strong> implies <strong>-t</strong>.</p>
+</blockquote>
+<p>
+-l, –long</p>
+<blockquote>
+<p>Show object size of blob (file) entries.</p>
+</blockquote>
+<p>
+-z</p>
+<blockquote>
+<p>\0 line termination on output and do not quote filenames. See OUTPUT
+FORMAT below for more information.</p>
+</blockquote>
+<p>
+–name-only, –name-status</p>
+<blockquote>
+<p>List only filenames (instead of the &#34;long&#34; output), one per line. Cannot
+be combined with <strong>–object-only</strong>.</p>
+</blockquote>
+<p>
+–object-only</p>
+<blockquote>
+<p>List only names of the objects, one per line. Cannot be combined with
+<strong>–name-only</strong> or <strong>–name-status</strong>. This is equivalent to specifying
+<strong>–format=%(objectname)</strong>, but for both this option and that exact format
+the command takes a hand-optimized codepath instead of going through the
+generic formatting mechanism.</p>
+</blockquote>
+<p>
+–abbrev[=&lt;n&gt;]</p>
+<blockquote>
+<p>Instead of showing the full 40-byte hexadecimal object lines, show the
+shortest prefix that is at least <em>&lt;n&gt;</em> hexdigits long that uniquely
+refers the object. Non default number of digits can be specified with
+–abbrev=&lt;n&gt;.</p>
+</blockquote>
+<p>
+–full-name</p>
+<blockquote>
+<p>Instead of showing the path names relative to the current working
+directory, show the full path names.</p>
+</blockquote>
+<p>
+–full-tree</p>
+<blockquote>
+<p>Do not limit the listing to the current working directory. Implies
+–full-name.</p>
+</blockquote>
+<p>
+–format=&lt;format&gt;</p>
+<blockquote>
+<p>A string that interpolates <strong>%(fieldname)</strong> from the result being shown.
+It also interpolates <strong>%%</strong> to <strong>%</strong>, and <strong>%xNN</strong> where <strong>NN</strong> are hex digits
+interpolates to character with hex code <strong>NN</strong>; for example <strong>%x00</strong>
+interpolates to <strong>\0</strong> (NUL), <strong>%x09</strong> to <strong>\t</strong> (TAB) and <strong>%x0a</strong> to <strong>\n</strong>
+(LF). When specified, <strong>–format</strong> cannot be combined with other
+format-altering options, including <strong>–long</strong>, <strong>–name-only</strong> and
+<strong>–object-only</strong>.</p>
+</blockquote>
+<p>
+[&lt;path&gt;…]</p>
+<blockquote>
+<p>When paths are given, show them (note that this isn&#39;t really raw
+pathnames, but rather a list of patterns to match). Otherwise implicitly
+uses the root level of the tree as the sole path argument.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OUTPUT FORMAT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The output format of <strong>ls-tree</strong> is determined by either the <strong>–format</strong>
+option, or other format-altering options such as <strong>–name-only</strong> etc. (see
+<strong>–format</strong> above).</p>
+<p>
+The use of certain <strong>–format</strong> directives is equivalent to using those
+options, but invoking the full formatting machinery can be slower than
+using an appropriate formatting option.</p>
+<p>
+In cases where the <strong>–format</strong> would exactly map to an existing option
+<strong>ls-tree</strong> will use the appropriate faster path. Thus the default format
+is equivalent to:</p>
+<blockquote>
+<pre class="example">
+%(objectmode) %(objecttype) %(objectname)%x09%(path)
+</pre>
+</blockquote>
+<p>
+This output format is compatible with what <strong>–index-info –stdin</strong> of
+<em>git update-index</em> expects.</p>
+<p>
+When the <strong>-l</strong> option is used, format changes to</p>
+<blockquote>
+<pre class="example">
+%(objectmode) %(objecttype) %(objectname) %(objectsize:padded)%x09%(path)
+</pre>
+</blockquote>
+<p>
+Object size identified by &lt;objectname&gt; is given in bytes, and
+right-justified with minimum width of 7 characters. Object size is given
+only for blobs (file) entries; for other entries <strong>-</strong> character is used
+in place of size.</p>
+<p>
+Without the <strong>-z</strong> option, pathnames with &#34;unusual&#34; characters are quoted
+as explained for the configuration variable <strong>core.quotePath</strong> (see
+<strong>git-config*(1)). Using *-z</strong> the filename is output verbatim and the
+line is terminated by a NUL byte.</p>
+<p>
+Customized format:</p>
+<p>
+It is possible to print in a custom format by using the <strong>–format</strong>
+option, which is able to interpolate different fields using a
+<strong>%(fieldname)</strong> notation. For example, if you only care about the
+&#34;objectname&#34; and &#34;path&#34; fields, you can execute with a specific
+&#34;–format&#34; like</p>
+<blockquote>
+<pre class="example">
+git ls-tree --format=%(objectname) %(path) &lt;tree-ish&gt;
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+FIELD NAMES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Various values from structured fields can be used to interpolate into
+the resulting output. For each outputting line, the following names can
+be used:</p>
+<p>
+objectmode</p>
+<blockquote>
+<p>The mode of the object.</p>
+</blockquote>
+<p>
+objecttype</p>
+<blockquote>
+<p>The type of the object (<strong>commit</strong>, <strong>blob</strong> or <strong>tree</strong>).</p>
+</blockquote>
+<p>
+objectname</p>
+<blockquote>
+<p>The name of the object.</p>
+</blockquote>
+<p>
+objectsize[:padded]</p>
+<blockquote>
+<p>The size of a <strong>blob</strong> object (&#34;-&#34; if it&#39;s a <strong>commit</strong> or <strong>tree</strong>). It also
+supports a padded format of size with &#34;%(objectsize:padded)&#34;.</p>
+</blockquote>
+<p>
+path</p>
+<blockquote>
+<p>The pathname of the object.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+GIT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

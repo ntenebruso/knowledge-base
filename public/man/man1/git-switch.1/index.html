@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-switch.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-switch.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-switch - Switch branches</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git switch [&lt;options&gt;] [--no-guess] &lt;branch&gt;
+git switch [&lt;options&gt;] --detach [&lt;start-point&gt;]
+git switch [&lt;options&gt;] (-c|-C) &lt;new-branch&gt; [&lt;start-point&gt;]
+git switch [&lt;options&gt;] --orphan &lt;new-branch&gt;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Switch to a specified branch. The working tree and the index are updated
+to match the branch. All new commits will be added to the tip of this
+branch.</p>
+<p>
+Optionally a new branch could be created with either <strong>-c</strong>, <strong>-C</strong>,
+automatically from a remote branch of same name (see <strong>–guess</strong>), or
+detach the working tree from any branch with <strong>–detach</strong>, along with
+switching.</p>
+<p>
+Switching branches does not require a clean index and working tree (i.e.
+no differences compared to <strong>HEAD</strong>). The operation is aborted however if
+the operation leads to loss of local changes, unless told otherwise with
+<strong>–discard-changes</strong> or <strong>–merge</strong>.</p>
+<p>
+THIS COMMAND IS EXPERIMENTAL. THE BEHAVIOR MAY CHANGE.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>&lt;branch&gt;</p>
+<blockquote>
+<p>Branch to switch to.</p>
+</blockquote>
+<p>
+&lt;new-branch&gt;</p>
+<blockquote>
+<p>Name for the new branch.</p>
+</blockquote>
+<p>
+&lt;start-point&gt;</p>
+<blockquote>
+<p>The starting point for the new branch. Specifying a <strong>&lt;start-point&gt;</strong>
+allows you to create a branch based on some other point in history than
+where HEAD currently points. (Or, in the case of <strong>–detach</strong>, allows you
+to inspect and detach from some other point.)</p>
+<p>
+You can use the <strong>@{-N}</strong> syntax to refer to the N-th last branch/commit
+switched to using &#34;git switch&#34; or &#34;git checkout&#34; operation. You may also
+specify <strong>-</strong> which is synonymous to <strong>@{-1}</strong>. This is often used to switch
+quickly between two branches, or to undo a branch switch by mistake.</p>
+<p>
+As a special case, you may use <strong>A…B</strong> as a shortcut for the merge base
+of <strong>A</strong> and <strong>B</strong> if there is exactly one merge base. You can leave out at
+most one of <strong>A</strong> and <strong>B</strong>, in which case it defaults to <strong>HEAD</strong>.</p>
+</blockquote>
+<p>
+-c &lt;new-branch&gt;, –create &lt;new-branch&gt;</p>
+<blockquote>
+<p>Create a new branch named <strong>&lt;new-branch&gt;</strong> starting at <strong>&lt;start-point&gt;</strong>
+before switching to the branch. This is the transactional equivalent of</p>
+<blockquote>
+<pre class="example">
+$ git branch &lt;new-branch&gt;
+$ git switch &lt;new-branch&gt;
+</pre>
+</blockquote>
+<p>
+that is to say, the branch is not reset/created unless &#34;git switch&#34; is
+successful (e.g., when the branch is in use in another worktree, not
+just the current branch stays the same, but the branch is not reset to
+the start-point, either).</p>
+</blockquote>
+<p>
+-C &lt;new-branch&gt;, –force-create &lt;new-branch&gt;</p>
+<blockquote>
+<p>Similar to <strong>–create</strong> except that if <strong>&lt;new-branch&gt;</strong> already exists, it
+will be reset to <strong>&lt;start-point&gt;</strong>. This is a convenient shortcut for:</p>
+<blockquote>
+<pre class="example">
+$ git branch -f &lt;new-branch&gt;
+$ git switch &lt;new-branch&gt;
+</pre>
+</blockquote>
+</blockquote>
+<p>
+-d, –detach</p>
+<blockquote>
+<p>Switch to a commit for inspection and discardable experiments. See the
+&#34;DETACHED HEAD&#34; section in *git-checkout*(1) for details.</p>
+</blockquote>
+<p>
+–guess, –no-guess</p>
+<blockquote>
+<p>If <strong>&lt;branch&gt;</strong> is not found but there does exist a tracking branch in
+exactly one remote (call it <strong>&lt;remote&gt;</strong>) with a matching name, treat as
+equivalent to</p>
+<blockquote>
+<pre class="example">
+$ git switch -c &lt;branch&gt; --track &lt;remote&gt;/&lt;branch&gt;
+</pre>
+</blockquote>
+<p>
+If the branch exists in multiple remotes and one of them is named by the
+<strong>checkout.defaultRemote</strong> configuration variable, we&#39;ll use that one for
+the purposes of disambiguation, even if the <strong>&lt;branch&gt;</strong> isn&#39;t unique
+across all remotes. Set it to e.g. <strong>checkout.defaultRemote=origin</strong> to
+always checkout remote branches from there if <strong>&lt;branch&gt;</strong> is ambiguous
+but exists on the <em>origin</em> remote. See also <strong>checkout.defaultRemote</strong> in
+*git-config*(1).</p>
+<p>
+<strong>–guess</strong> is the default behavior. Use <strong>–no-guess</strong> to disable it.</p>
+<p>
+The default behavior can be set via the <strong>checkout.guess</strong> configuration
+variable.</p>
+</blockquote>
+<p>
+-f, –force</p>
+<blockquote>
+<p>An alias for <strong>–discard-changes</strong>.</p>
+</blockquote>
+<p>
+–discard-changes</p>
+<blockquote>
+<p>Proceed even if the index or the working tree differs from <strong>HEAD</strong>. Both
+the index and working tree are restored to match the switching target.
+If <strong>–recurse-submodules</strong> is specified, submodule content is also
+restored to match the switching target. This is used to throw away local
+changes.</p>
+</blockquote>
+<p>
+-m, –merge</p>
+<blockquote>
+<p>If you have local modifications to one or more files that are different
+between the current branch and the branch to which you are switching,
+the command refuses to switch branches in order to preserve your
+modifications in context. However, with this option, a three-way merge
+between the current branch, your working tree contents, and the new
+branch is done, and you will be on the new branch.</p>
+<p>
+When a merge conflict happens, the index entries for conflicting paths
+are left unmerged, and you need to resolve the conflicts and mark the
+resolved paths with <strong>git add</strong> (or <strong>git rm</strong> if the merge should result in
+deletion of the path).</p>
+</blockquote>
+<p>
+–conflict=&lt;style&gt;</p>
+<blockquote>
+<p>The same as <strong>–merge</strong> option above, but changes the way the conflicting
+hunks are presented, overriding the <strong>merge.conflictStyle</strong> configuration
+variable. Possible values are &#34;merge&#34; (default), &#34;diff3&#34;, and &#34;zdiff3&#34;.</p>
+</blockquote>
+<p>
+-q, –quiet</p>
+<blockquote>
+<p>Quiet, suppress feedback messages.</p>
+</blockquote>
+<p>
+–progress, –no-progress</p>
+<blockquote>
+<p>Progress status is reported on the standard error stream by default when
+it is attached to a terminal, unless <strong>–quiet</strong> is specified. This flag
+enables progress reporting even if not attached to a terminal,
+regardless of <strong>–quiet</strong>.</p>
+</blockquote>
+<p>
+-t, –track [direct|inherit]</p>
+<blockquote>
+<p>When creating a new branch, set up &#34;upstream&#34; configuration. <strong>-c</strong> is
+implied. See <strong>–track</strong> in *git-branch*(1) for details.</p>
+<p>
+If no <strong>-c</strong> option is given, the name of the new branch will be derived
+from the remote-tracking branch, by looking at the local part of the
+refspec configured for the corresponding remote, and then stripping the
+initial part up to the &#34;<strong>&#34;. This would tell us to use *hack</strong> as the
+local branch when branching off of <strong>origin/hack</strong> (or
+<strong>remotes/origin/hack</strong>, or even <strong>refs/remotes/origin/hack</strong>). If the given
+name has no slash, or the above guessing results in an empty name, the
+guessing is aborted. You can explicitly give a name with <strong>-c</strong> in such a
+case.</p>
+</blockquote>
+<p>
+–no-track</p>
+<blockquote>
+<p>Do not set up &#34;upstream&#34; configuration, even if the
+<strong>branch.autoSetupMerge</strong> configuration variable is true.</p>
+</blockquote>
+<p>
+–orphan &lt;new-branch&gt;</p>
+<blockquote>
+<p>Create a new unborn branch, named <strong>&lt;new-branch&gt;</strong>. All tracked files are
+removed.</p>
+</blockquote>
+<p>
+–ignore-other-worktrees</p>
+<blockquote>
+<p><strong>git switch</strong> refuses when the wanted ref is already checked out by
+another worktree. This option makes it check the ref out anyway. In
+other words, the ref can be held by more than one worktree.</p>
+</blockquote>
+<p>
+–recurse-submodules, –no-recurse-submodules</p>
+<blockquote>
+<p>Using <strong>–recurse-submodules</strong> will update the content of all active
+submodules according to the commit recorded in the superproject. If
+nothing (or <strong>–no-recurse-submodules</strong>) is used, submodules working trees
+will not be updated. Just like <strong>git-submodule*(1), this will detach
+*HEAD</strong> of the submodules.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following command switches to the &#34;master&#34; branch:</p>
+<blockquote>
+<pre class="example">
+$ git switch master
+</pre>
+</blockquote>
+<p>
+After working in the wrong branch, switching to the correct branch would
+be done using:</p>
+<blockquote>
+<pre class="example">
+$ git switch mytopic
+</pre>
+</blockquote>
+<p>
+However, your &#34;wrong&#34; branch and correct &#34;mytopic&#34; branch may differ in
+files that you have modified locally, in which case the above switch
+would fail like this:</p>
+<blockquote>
+<pre class="example">
+$ git switch mytopic
+error: You have local changes to frotz; not switching branches.
+</pre>
+</blockquote>
+<p>
+You can give the <strong>-m</strong> flag to the command, which would try a three-way
+merge:</p>
+<blockquote>
+<pre class="example">
+$ git switch -m mytopic
+Auto-merging frotz
+</pre>
+</blockquote>
+<p>
+After this three-way merge, the local modifications are <em>not</em> registered
+in your index file, so <strong>git diff</strong> would show you what changes you made
+since the tip of the new branch.</p>
+<p>
+To switch back to the previous branch before we switched to mytopic
+(i.e. &#34;master&#34; branch):</p>
+<blockquote>
+<pre class="example">
+$ git switch -
+</pre>
+</blockquote>
+<p>
+You can grow a new branch from any commit. For example, switch to
+&#34;HEAD~3&#34; and create branch &#34;fixup&#34;:</p>
+<blockquote>
+<pre class="example">
+$ git switch -c fixup HEAD~3
+Switched to a new branch fixup
+</pre>
+</blockquote>
+<p>
+If you want to start a new branch from a remote branch of the same name:</p>
+<blockquote>
+<pre class="example">
+$ git switch new-topic
+Branch new-topic set up to track remote branch new-topic from origin
+Switched to a new branch new-topic
+</pre>
+</blockquote>
+<p>
+To check out commit <strong>HEAD~3</strong> for temporary inspection or experiment
+without creating a new branch:</p>
+<blockquote>
+<pre class="example">
+$ git switch --detach HEAD~3
+HEAD is now at 9fc9555312 Merge branch cc/shared-index-permbits
+</pre>
+</blockquote>
+<p>
+If it turns out whatever you have done is worth keeping, you can always
+create a new name for it (without switching away):</p>
+<blockquote>
+<pre class="example">
+$ git switch -c good-surprises
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+checkout.defaultRemote</p>
+<blockquote>
+<p>When you run <strong>git checkout &lt;something&gt;</strong> or <strong>git switch &lt;something&gt;</strong> and
+only have one remote, it may implicitly fall back on checking out and
+tracking e.g. <strong>origin/&lt;something&gt;</strong>. This stops working as soon as you
+have more than one remote with a <strong>&lt;something&gt;</strong> reference. This setting
+allows for setting the name of a preferred remote that should always win
+when it comes to disambiguation. The typical use-case is to set this to
+<strong>origin</strong>.</p>
+<p>
+Currently this is used by <strong>git-switch*(1) and *git-checkout*(1) when
+*git checkout &lt;something&gt;</strong> or <strong>git switch &lt;something&gt;</strong> will checkout the
+<strong>&lt;something&gt;</strong> branch on another remote, and by <strong>git-worktree*(1) when
+*git worktree add</strong> refers to a remote branch. This setting might be used
+for other checkout-like commands or functionality in the future.</p>
+</blockquote>
+<p>
+checkout.guess</p>
+<blockquote>
+<p>Provides the default value for the <strong>–guess</strong> or <strong>–no-guess</strong> option in
+<strong>git checkout</strong> and <strong>git switch</strong>. See *git-switch*(1) and
+*git-checkout*(1).</p>
+</blockquote>
+<p>
+checkout.workers</p>
+<blockquote>
+<p>The number of parallel workers to use when updating the working tree.
+The default is one, i.e. sequential execution. If set to a value less
+than one, Git will use as many workers as the number of logical cores
+available. This setting and <strong>checkout.thresholdForParallelism</strong> affect
+all commands that perform checkout. E.g. checkout, clone, reset,
+sparse-checkout, etc.</p>
+<p>
+Note: Parallel checkout usually delivers better performance for
+repositories located on SSDs or over NFS. For repositories on spinning
+disks and/or machines with a small number of cores, the default
+sequential checkout often performs better. The size and compression
+level of a repository might also influence how well the parallel version
+performs.</p>
+</blockquote>
+<p>
+checkout.thresholdForParallelism</p>
+<blockquote>
+<p>When running parallel checkout with a small number of files, the cost of
+subprocess spawning and inter-process communication might outweigh the
+parallelization gains. This setting allows you to define the minimum
+number of files for which parallel checkout should be attempted. The
+default is 100.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*git-checkout*(1), *git-branch*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

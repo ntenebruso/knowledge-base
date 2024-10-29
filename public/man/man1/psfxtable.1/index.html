@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - psfxtable.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - psfxtable.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>psfxtable - handle Unicode character tables for console fonts</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>psfxtable</strong> [*-i* /infont/] [*-o* /outfont/] [*-it* /intable/] [*-ot*
+/outtable/] [*-nt*]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>psfxtable</strong> handles the embedded Unicode character table for .psf format
+console fonts. It reads a font and possibly a table and writes a font
+and/or a table. *psfaddtable*(1), *psfgettable*(1) and
+*psfstriptable*(1) are links to it.</p>
+<p>
+Each of the filenames <em>infont</em>, <em>outfont</em>, <em>intable</em>, and <em>outtable</em> may
+be replaced by a single dash (-), in which case standard input or
+standard output is used. If no <em>-i</em> option is given, the font is read
+from standard input. If no <em>-it</em> or <em>-o</em> or <em>-ot</em> option is given, no
+input table is read or no output font or output table is written.</p>
+<p>
+By default the output font (if any) will have a Unicode table when
+either the input font has one, or an explicit table (which overrides an
+input font table) has been provided. The option <em>-nt</em> causes output of a
+font without table. When <em>outfont</em> is requested it will get a psf1
+header when infont has a psf1 header and <em>intable</em> does not have
+sequences and a psf2 header otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>*setfont*(8), *psfaddtable*(1), *psfgettable*(1), *psfstriptable*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

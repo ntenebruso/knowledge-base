@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - dnssec-verify.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - dnssec-verify.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>dnssec-verify - DNSSEC zone verification tool</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>dnssec-verify</strong> [*-c* class] [*-E* engine] [*-I* input-format] [*-o*
+origin] [*-q*] [*-v* level] [*-V*] [*-x*] [*-z*] {zonefile}</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>dnssec-verify</strong> verifies that a zone is fully signed for each algorithm
+found in the DNSKEY RRset for the zone, and that the NSEC/NSEC3 chains
+are complete.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-c class</strong>
+</dt>
+<dd>This option specifies the DNS class of the zone.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-E engine</strong>
+</dt>
+<dd>This option specifies the cryptographic hardware to
+use, when applicable.
+
+When BIND 9 is built with OpenSSL, this needs to be set to the OpenSSL
+engine identifier that drives the cryptographic accelerator or
+hardware service module (usually <strong>pkcs11</strong>).</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-I input-format</strong>
+</dt>
+<dd>This option sets the format of the input zone
+file. Possible formats are <strong>text</strong> (the default) and <strong>raw</strong>. This option
+is primarily intended to be used for dynamic signed zones, so that the
+dumped zone file in a non-text format containing updates can be
+verified independently. This option is not useful for non-dynamic
+zones.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-o origin</strong>
+</dt>
+<dd>This option indicates the zone origin. If not
+specified, the name of the zone file is assumed to be the origin.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-v level</strong>
+</dt>
+<dd>This option sets the debugging level.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>This option prints version information.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-q</strong>
+</dt>
+<dd>This option sets quiet mode, which suppresses output. Without
+this option, when <strong>dnssec-verify</strong> is run it prints to standard output
+the number of keys in use, the algorithms used to verify the zone was
+signed correctly, and other status information. With this option, all
+non-error output is suppressed, and only the exit code indicates
+success.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-x</strong>
+</dt>
+<dd>This option verifies only that the DNSKEY RRset is signed with
+key-signing keys. Without this flag, it is assumed that the DNSKEY
+RRset is signed by all active keys. When this flag is set, it is not
+an error if the DNSKEY RRset is not signed by zone-signing keys. This
+corresponds to the <em>-x option in dnssec-signzone</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-z</strong>
+</dt>
+<dd>This option indicates that the KSK flag on the keys should be
+ignored when determining whether the zone is correctly signed. Without
+this flag, it is assumed that there is a non-revoked, self-signed
+DNSKEY with the KSK flag set for each algorithm, and that RRsets other
+than DNSKEY RRset are signed with a different DNSKEY without the KSK
+flag set.
+
+With this flag set, BIND 9 only requires that for each algorithm,
+there be at least one non-revoked, self-signed DNSKEY, regardless of
+the KSK flag state, and that other RRsets be signed by a non-revoked
+key for the same algorithm that includes the self-signed key; the same
+key may be used for both purposes. This corresponds to the <em>-z option
+in dnssec-signzone</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>zonefile</strong>
+</dt>
+<dd>This option indicates the file containing the zone to be
+signed.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><em>dnssec-signzone(8)</em>, BIND 9 Administrator Reference Manual, <em>RFC 4033</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHOR
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Internet Systems Consortium</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>2024, Internet Systems Consortium</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

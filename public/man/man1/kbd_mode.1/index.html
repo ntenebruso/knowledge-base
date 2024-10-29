@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - kbd_mode.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - kbd_mode.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>kbd_mode - report or set the keyboard mode</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>kbd_mode</strong> [ <em>-a | -u | -k | -s</em> ] [ <em>-f</em> ] [ <em>-C CONSOLE</em> ]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Without argument, <strong>kbd_mode</strong> prints the current keyboard mode (RAW,
+MEDIUMRAW or XLATE). With argument, it sets the keyboard mode as
+indicated:</p>
+<p>
+-s: scancode mode (RAW),</p>
+<p>
+-k: keycode mode (MEDIUMRAW),</p>
+<p>
+-a: ASCII mode (XLATE),</p>
+<p>
+-u: UTF-8 mode (UNICODE).</p>
+<p>
+Of course the &#34;-a&#34; is only traditional, and the code used can be any
+8-bit character set. With &#34;-u&#34; a 16-bit character set is expected, and
+these chars are transmitted to the kernel as 1, 2, or 3 bytes (following
+the UTF-8 coding). In these latter two modes the key mapping defined by
+*loadkeys*(1) is used.</p>
+<p>
+kbd_mode operates on the console specified by the &#34;-C&#34; option; if there
+is none, the console associated with stdin is used.</p>
+<p>
+Warning: changing the keyboard mode, other than between ASCII and
+Unicode, will probably make your keyboard unusable. Set the &#34;-f&#34; option
+to force such changes. This command is only meant for use (say via
+remote login) when some program left your keyboard in the wrong state.
+Note that in some obsolete versions of this program the &#34;-u&#34; option was
+a synonym for &#34;-s&#34; and older versions of this program may not recognize
+the &#34;-f&#34; option.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>*loadkeys*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

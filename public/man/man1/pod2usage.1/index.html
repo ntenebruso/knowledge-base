@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pod2usage.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pod2usage.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pod2usage - print usage messages from embedded pod docs in files</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<dl>
+<dt>
+pod2usage
+</dt>
+<dd>[*-help*] [*-man*] [*-exit* /exitval/] [*-output*
+<em>outfile/] [*-verbose* /level/] [*-pathlist* /dirlist/] [*-formatter*
+/module/] [*-utf8*] /file</em></dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+OPTIONS AND ARGUMENTS
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<dl>
+<dt>
+-help
+</dt>
+<dd>Print a brief help message and exit.</dd>
+<dt>
+-man
+</dt>
+<dd>Print this command&#39;s manual page and exit.</dd>
+<dt>
+-exit exitval
+</dt>
+<dd>The exit status value to return.</dd>
+<dt>
+-output outfile
+</dt>
+<dd>The output file to print to. If the special names
+&#34;-&#34; or &#34;&gt;&amp;1&#34; or &#34;&gt;&amp;STDOUT&#34; are used then standard output is used. If
+&#34;&gt;&amp;2&#34; or &#34;&gt;&amp;STDERR&#34; is used then standard error is used.</dd>
+<dt>
+-verbose level
+</dt>
+<dd>The desired level of verbosity to use: 1 : print
+SYNOPSIS only 2 : print SYNOPSIS sections and any OPTIONS/ARGUMENTS
+sections 3 : print the entire manpage (similar to running pod2text)</dd>
+<dt>
+-pathlist dirlist
+</dt>
+<dd>Specifies one or more directories to search for
+the input file if it was not supplied with an absolute path. Each
+directory path in the given list should be separated by a &#39;:&#39; on Unix
+(&#39;;&#39; on MSWin32 and DOS).</dd>
+<dt>
+-formatter module
+</dt>
+<dd>Which text formatter to use. Default is
+Pod::Text, or for very old Perl versions Pod::PlainText. An
+alternative would be e.g. Pod::Text::Termcap.</dd>
+<dt>
+-utf8
+</dt>
+<dd>This option assumes that the formatter (see above)
+understands the option &#34;utf8&#34;. It turns on generation of utf8 output.</dd>
+<dt>
+file
+</dt>
+<dd>The pathname of a file containing pod documentation to be
+output in usage message format. If omitted, standard input is read -
+but the output is then formatted with Pod::Text only - unless a
+specific formatter has been specified with <strong>-formatter</strong>.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>pod2usage</strong> will read the given input file looking for pod documentation
+and will print the corresponding usage message. If no input file is
+specified then standard input is read.</p>
+<p>
+<strong>pod2usage</strong> invokes the <strong>pod2usage()</strong> function in the <strong>Pod::Usage</strong>
+module. Please see &#34;<strong>pod2usage()</strong>&#34; in Pod::Usage.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Pod::Usage, pod2text, Pod::Text, Pod::Text::Termcap, perldoc</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHOR
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Please report bugs using &lt;<a href="http://rt.cpan.org">http://rt.cpan.org</a>&gt;.</p>
+<p>
+Brad Appleton &lt;bradapp@enteract.com&gt;</p>
+<p>
+Based on code for <strong>pod2text (1)</strong> written by Tom Christiansen
+&lt;tchrist@mox.perl.com&gt;</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

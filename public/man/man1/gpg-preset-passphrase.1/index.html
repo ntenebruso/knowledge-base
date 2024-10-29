@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - gpg-preset-passphrase.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - gpg-preset-passphrase.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>gpg-preset-passphrase</strong> - Put a passphrase into gpg-agent&#39;s cache</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>gpg-preset-passphrase</strong> [/options/] [/command/] <em>cache-id</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>gpg-preset-passphrase</strong> is a utility to seed the internal cache of a
+running <strong>gpg-agent</strong> with passphrases. It is mainly useful for unattended
+machines, where the usual <strong>pinentry</strong> tool may not be used and the
+passphrases for the to be used keys are given at machine startup.</p>
+<p>
+This program works with GnuPG 2 and later. GnuPG 1.x is not supported.</p>
+<p>
+Passphrases set with this utility don&#39;t expire unless the <strong>–forget</strong>
+option is used to explicitly clear them from the cache — or
+<strong>gpg-agent</strong> is either restarted or reloaded (by sending a SIGHUP to it).
+Note that the maximum cache time as set with <strong>–max-cache-ttl</strong> is still
+honored. It is necessary to allow this passphrase presetting by starting
+<strong>gpg-agent</strong> with the <strong>–allow-preset-passphrase</strong>.</p>
+<p>
+<strong>gpg-preset-passphrase</strong> is invoked this way:</p>
+<blockquote>
+<pre class="example">
+gpg-preset-passphrase [options] [command] cacheid
+</pre>
+</blockquote>
+<p>
+<em>cacheid</em> is either a 40 character keygrip of hexadecimal characters
+identifying the key for which the passphrase should be set or cleared.
+The keygrip is listed along with the key when running the command:
+<strong>gpgsm –with-keygrip –list-secret-keys</strong>. Alternatively an arbitrary
+string may be used to identify a passphrase; it is suggested that such a
+string is prefixed with the name of the application (e.g <strong>foo:12346</strong>).
+Scripts should always use the option <strong>–with-colons</strong>, which provides the
+keygrip in a &#34;grp&#34; line (cf. ‘/doc/DETAILS/&#39;)/</p>
+<p>
+One of the following command options must be given:</p>
+<dl>
+<dt>
+<strong>–preset</strong>
+</dt>
+<dd>Preset a passphrase. This is what you usually will use.
+<strong>gpg-preset-passphrase</strong> will then read the passphrase from <strong>stdin</strong>.</dd>
+<dt>
+<strong>–forget</strong>
+</dt>
+<dd>Flush the passphrase for the given cache ID from the
+cache.</dd>
+</dl>
+<p>The following additional options may be used:</p>
+<ul>
+<li><strong>-v</strong><br>
+<strong>–verbose</strong> :: Output additional information while running.</li>
+<li><strong>-P <em>string</em></strong><br>
+<strong>–passphrase <em>string</em></strong> :: Instead of reading the passphrase from
+<strong>stdin</strong>, use the supplied <em>string</em> as passphrase. Note that this makes
+the passphrase visible for other users.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>*gpg*(1), *gpgsm*(1), *gpg-agent*(1), *scdaemon*(1)</p>
+<p>
+The full documentation for this tool is maintained as a Texinfo manual.
+If GnuPG and the info program are properly installed at your site, the
+command</p>
+<blockquote>
+<pre class="example">
+info gnupg
+</pre>
+</blockquote>
+<p>
+should give you access to the complete manual including a menu structure
+and an index.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

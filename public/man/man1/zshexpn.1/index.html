@@ -1,0 +1,3398 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - zshexpn.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - zshexpn.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>zshexpn - zsh expansion and substitution</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>The following types of expansions are performed in the indicated order
+in five steps:</p>
+<p>
+<em>History Expansion</em> This is performed only in interactive shells.</p>
+<dl>
+<dt>
+<em>Alias Expansion</em>
+</dt>
+<dd>Aliases are expanded immediately before the
+command line is parsed as explained under Aliasing in /zshmisc/(1).</dd>
+</dl>
+<p><em>Process Substitution</em></p>
+<p>
+<em>Parameter Expansion</em></p>
+<p>
+<em>Command Substitution</em></p>
+<p>
+<em>Arithmetic Expansion</em></p>
+<p>
+<em>Brace Expansion</em> These five are performed in left-to-right fashion. On
+each argument, any of the five steps that are needed are performed one
+after the other. Hence, for example, all the parts of parameter
+expansion are completed before command substitution is started. After
+these expansions, all unquoted occurrences of the characters `*\*&#39;,`*&#39;<strong>&#39;
+and `</strong>&#34;*&#39; are removed.</p>
+<dl>
+<dt>
+<em>Filename Expansion</em>
+</dt>
+<dd>If the <strong>SH_FILE_EXPANSION</strong> option is set, the
+order of expansion is modified for compatibility with <strong>sh</strong> and <strong>ksh</strong>.
+In that case <em>filename expansion</em> is performed immediately after
+<em>alias expansion</em>, preceding the set of five expansions mentioned
+above.</dd>
+<dt>
+<em>Filename Generation</em>
+</dt>
+<dd>This expansion, commonly referred to as
+<strong>globbing</strong>, is always done last.</dd>
+</dl>
+<p>The following sections explain the types of expansion in detail.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+HISTORY EXPANSION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>History expansion allows you to use words from previous command lines in
+the command line you are typing. This simplifies spelling corrections
+and the repetition of complicated commands or arguments.</p>
+<p>
+Immediately before execution, each command is saved in the history list,
+the size of which is controlled by the <strong>HISTSIZE</strong> parameter. The one
+most recent command is always retained in any case. Each saved command
+in the history list is called a history <em>event</em> and is assigned a
+number, beginning with 1 (one) when the shell starts up. The history
+number that you may see in your prompt (see EXPANSION OF PROMPT
+SEQUENCES in <em>zshmisc/(1)) is the number that is to be assigned to the
+/next</em> command.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Overview
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>A history expansion begins with the first character of the <strong>histchars</strong>
+parameter, which is `*!*&#39; by default, and may occur anywhere on the
+command line, including inside double quotes (but not inside single
+quotes <strong>&#39;…&#39;</strong> or C-style quotes <strong>$&#39;…&#39;</strong> nor when escaped with a
+backslash).</p>
+<p>
+The first character is followed by an optional event designator (see the
+section `Event Designators&#39;) and then an optional word designator (the
+section `Word Designators&#39;); if neither of these designators is present,
+no history expansion occurs.</p>
+<p>
+Input lines containing history expansions are echoed after being
+expanded, but before any other expansions take place and before the
+command is executed. It is this expanded form that is recorded as the
+history event for later references.</p>
+<p>
+History expansions do not nest.</p>
+<p>
+By default, a history reference with no event designator refers to the
+same event as any preceding history reference on that command line; if
+it is the only history reference in a command, it refers to the previous
+command. However, if the option <strong>CSH_JUNKIE_HISTORY</strong> is set, then every
+history reference with no event specification <em>always</em> refers to the
+previous command.</p>
+<p>
+For example, `*!*&#39; is the event designator for the previous command, so
+`*!!:1*&#39; always refers to the first word of the previous command, and
+`*!!$*&#39; always refers to the last word of the previous command. With
+*CSH_JUNKIE_HISTORY* set, then `*!:1*&#39; and `*!$*&#39; function in the same
+manner as `*!!:1*&#39; and `*!!$*&#39;, respectively. Conversely, if
+*CSH_JUNKIE_HISTORY* is unset, then `*!:1*&#39; and `*!$*&#39; refer to the
+first and last words, respectively, of the same event referenced by the
+nearest other history reference preceding them on the current command
+line, or to the previous command if there is no preceding reference.</p>
+<p>
+The character sequence `*^*/foo/*^*/bar/&#39; (where `*^*&#39; is actually the
+second character of the <strong>histchars</strong> parameter) repeats the last command,
+replacing the string <em>foo</em> with <em>bar</em>. More precisely, the sequence
+`*^*/foo/*^*/bar/*^*&#39; is synonymous with `*!!:s^*/foo/*^*/bar/*^*&#39;,
+hence other modifiers (see the section `Modifiers&#39;) may follow the final
+`*^*&#39;. In particular, `*^*/foo/*^*/bar/*^:G*&#39; performs a global
+substitution.</p>
+<p>
+If the shell encounters the character sequence `*!&#34;*&#39; in the input, the
+history mechanism is temporarily disabled until the current list (see
+/zshmisc/(1)) is fully parsed. The `*!&#34;<strong>&#39; is removed from the input, and
+any subsequent `</strong>!*&#39; characters have no special significance.</p>
+<p>
+A less convenient but more comprehensible form of command history
+support is provided by the <strong>fc</strong> builtin.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Event Designators
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>An event designator is a reference to a command-line entry in the
+history list. In the list below, remember that the initial <strong>`!&#39;</strong> in each
+item may be changed to another character by setting the <strong>histchars</strong>
+parameter.</p>
+<p>
+<strong>!</strong> Start a history expansion, except when followed by a blank, newline,
+`*=*&#39; or `*(*&#39;. If followed immediately by a word designator (see the
+section `Word Designators&#39;), this forms a history reference with no
+event designator (see the section `Overview&#39;).</p>
+<dl>
+<dt>
+<strong>!!</strong>
+</dt>
+<dd>Refer to the previous command. By itself, this expansion
+repeats the previous command.</dd>
+<dt>
+*!*/n/
+</dt>
+<dd>Refer to command-line <em>n</em>.</dd>
+<dt>
+*!-*/n/
+</dt>
+<dd>Refer to the current command-line minus <em>n</em>.</dd>
+<dt>
+*!*/str/
+</dt>
+<dd>Refer to the most recent command starting with <em>str</em>.</dd>
+<dt>
+<strong>!?*/str/[</strong>?*]
+</dt>
+<dd>Refer to the most recent command containing <em>str</em>.
+The trailing `*?*&#39; is necessary if this reference is to be followed by
+a modifier or followed by any text that is not to be considered part
+of <em>str</em>.</dd>
+<dt>
+<strong>!#</strong>
+</dt>
+<dd>Refer to the current command line typed in so far. The line is
+treated as if it were complete up to and including the word before the
+one with the `*!#*&#39; reference.</dd>
+<dt>
+<strong>!{</strong>…*}*
+</dt>
+<dd>Insulate a history reference from adjacent characters
+(if necessary).</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Word Designators
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>A word designator indicates which word or words of a given command line
+are to be included in a history reference. A `*:*&#39; usually separates the
+event specification from the word designator. It may be omitted only if
+the word designator begins with a `*^*&#39;, `*$*&#39;, `***&#39;, `*-<strong>&#39; or `*%</strong>&#39;.
+Word designators include:</p>
+<dl>
+<dt>
+<strong>0</strong>
+</dt>
+<dd>The first input word (command).</dd>
+<dt>
+<em>n</em>
+</dt>
+<dd>The /n/th argument.</dd>
+<dt>
+<strong>^</strong>
+</dt>
+<dd>The first argument. That is, <strong>1</strong>.</dd>
+<dt>
+<strong>$</strong>
+</dt>
+<dd>The last argument.</dd>
+<dt>
+<strong>%</strong>
+</dt>
+<dd>The word matched by (the most recent) *?*/str/ search.</dd>
+<dt>
+<em>x/*-*/y</em>
+</dt>
+<dd>A range of words; <em>x</em> defaults to <strong>0</strong>.</dd>
+<dt>
+<strong>*</strong>
+</dt>
+<dd>All the arguments, or a null value if there are none.</dd>
+<dt>
+/x/***
+</dt>
+<dd>Abbreviates `/x/*-$*&#39;.</dd>
+<dt>
+/x/*-*
+</dt>
+<dd>Like `/x/***&#39; but omitting word <strong>$</strong>.</dd>
+</dl>
+<p>Note that a `*%*&#39; word designator works only when used in one of `*!%*&#39;,
+`*!:%*&#39; or `*!?*/str/*?:%*&#39;, and only when used after a <strong>!?</strong> expansion
+(possibly in an earlier command). Anything else results in an error,
+although the error may not be the most obvious one.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Modifiers
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>After the optional word designator, you can add a sequence of one or
+more of the following modifiers, each preceded by a `*:*&#39;. These
+modifiers also work on the result of <em>filename generation</em> and
+<em>parameter expansion</em>, except where noted.</p>
+<p>
+<strong>a</strong> Turn a file name into an absolute path: prepends the current
+directory, if necessary; remove `*.*&#39; path segments; and remove `*..*&#39;
+path segments and the segments that immediately precede them.</p>
+<blockquote>
+<p>This transformation is agnostic about what is in the filesystem, i.e. is
+on the logical, not the physical directory. It takes place in the same
+manner as when changing directories when neither of the options
+<strong>CHASE_DOTS</strong> or <strong>CHASE_LINKS</strong> is set. For example,
+`*/before/here/../after*&#39; is always transformed to `*/before/after*&#39;,
+regardless of whether `*/before/here*&#39; exists or what kind of object
+(dir, file, symlink, etc.) it is.</p>
+</blockquote>
+<dl>
+<dt>
+<strong>A</strong>
+</dt>
+<dd>Turn a file name into an absolute path as the `*a*&#39; modifier
+does, and <em>then</em> pass the result through the <strong>realpath(3)</strong> library
+function to resolve symbolic links.
+
+Note: on systems that do not have a <strong>realpath(3)</strong> library function,
+symbolic links are not resolved, so on those systems `*a*&#39; and `*A*&#39;
+are equivalent.
+
+Note: <strong>foo:A</strong> and <strong>realpath(foo)</strong> are different on some inputs. For
+<strong>realpath(foo)</strong> semantics, see the `*P*` modifier.</dd>
+<dt>
+<strong>c</strong>
+</dt>
+<dd>Resolve a command name into an absolute path by searching the
+command path given by the <strong>PATH</strong> variable. This does not work for
+commands containing directory parts. Note also that this does not
+usually work as a glob qualifier unless a file of the same name is
+found in the current directory.</dd>
+<dt>
+<strong>e</strong>
+</dt>
+<dd>Remove all but the part of the filename extension following the
+`*.*&#39;; see the definition of the filename extension in the description
+of the <strong>r</strong> modifier below. Note that according to that definition the
+result will be empty if the string ends with a `*.*&#39;.</dd>
+<dt>
+<strong>h</strong> [ <em>digits</em> ]
+</dt>
+<dd>Remove a trailing pathname component, shortening
+the path by one directory level: this is the `head&#39; of the pathname.
+This works like `*dirname*&#39;. If the <strong>h</strong> is followed immediately (with
+no spaces or other separator) by any number of decimal digits, and the
+value of the resulting number is non-zero, that number of leading
+components is preserved instead of the final component being removed.
+In an absolute path the leading `*/*&#39; is the first component, so, for
+example, if <strong>var=/my/path/to/something</strong>, then <strong>${var:h3}</strong> substitutes
+<strong>/my/path</strong>. Consecutive `/&#39;s are treated the same as a single `/&#39;. In
+parameter substitution, digits may only be used if the expression is
+in braces, so for example the short form substitution <strong>$var:h2</strong> is
+treated as <strong>${var:h}2</strong>, not as <strong>${var:h2}</strong>. No restriction applies to
+the use of digits in history substitution or globbing qualifiers. If
+more components are requested than are present, the entire path is
+substituted (so this does not trigger a `failed modifier&#39; error in
+history expansion).</dd>
+<dt>
+<strong>l</strong>
+</dt>
+<dd>Convert the words to all lowercase.</dd>
+<dt>
+<strong>p</strong>
+</dt>
+<dd>Print the new command but do not execute it. Only works with
+history expansion.</dd>
+<dt>
+<strong>P</strong>
+</dt>
+<dd>Turn a file name into an absolute path, like <strong>realpath(3)</strong>. The
+resulting path will be absolute, will refer to the same directory
+entry as the input filename, and none of its components will be
+symbolic links or equal to `*.*&#39; or `*..*&#39;.
+
+Unlike <strong>realpath(3)</strong>, non-existent trailing components are permitted
+and preserved.</dd>
+<dt>
+<strong>q</strong>
+</dt>
+<dd>Quote the substituted words, escaping further substitutions.
+Works with history expansion and parameter expansion, though for
+parameters it is only useful if the resulting text is to be
+re-evaluated such as by <strong>eval</strong>.</dd>
+<dt>
+<strong>Q</strong>
+</dt>
+<dd>Remove one level of quotes from the substituted words.</dd>
+<dt>
+<strong>r</strong>
+</dt>
+<dd>Remove a filename extension leaving the root name. Strings with
+no filename extension are not altered. A filename extension is a `*.*&#39;
+followed by any number of characters (including zero) that are neither
+`*.*&#39; nor `*/*&#39; and that continue to the end of the string. For
+example, the extension of `*foo.orig.c*&#39; is `*.c*&#39;, and `*dir.c/foo*&#39;
+has no extension.</dd>
+<dt>
+*s/*/l/*/*/r/[*/*]
+</dt>
+<dd>Substitute <em>r</em> for <em>l</em> as described below. The
+substitution is done only for the first string that matches <em>l</em>. For
+arrays and for filename generation, this applies to each word of the
+expanded text. See below for further notes on substitutions.
+
+The forms `*gs/*/l/*/*/r/&#39; and `*s/*/l/*/*/r/*/:G*&#39; perform global
+substitution, i.e. substitute every occurrence of <em>r</em> for <em>l</em>. Note
+that the <strong>g</strong> or <strong>:G</strong> must appear in exactly the position shown.
+
+See further notes on this form of substitution below.</dd>
+<dt>
+<strong>&amp;</strong>
+</dt>
+<dd>Repeat the previous <strong>s</strong> substitution. Like <strong>s</strong>, may be preceded
+immediately by a <strong>g</strong>. In parameter expansion the <strong>&amp;</strong> must appear
+inside braces, and in filename generation it must be quoted with a
+backslash.</dd>
+<dt>
+<strong>t</strong> [ <em>digits</em> ]
+</dt>
+<dd>Remove all leading pathname components, leaving
+the final component (tail). This works like `*basename*&#39;. Any trailing
+slashes are first removed. Decimal digits are handled as described
+above for (h), but in this case that number of trailing components is
+preserved instead of the default 1; 0 is treated the same as 1.</dd>
+<dt>
+<strong>u</strong>
+</dt>
+<dd>Convert the words to all uppercase.</dd>
+<dt>
+<strong>x</strong>
+</dt>
+<dd>Like <strong>q</strong>, but break into words at whitespace. Does not work
+with parameter expansion.</dd>
+</dl>
+<p>The <strong>s/*/l/*/*/r/*/</strong> substitution works as follows. By default the
+left-hand side of substitutions are not patterns, but character strings.
+Any character can be used as the delimiter in place of `*/*&#39;. A
+backslash quotes the delimiter character. The character `*&amp;*&#39;, in the
+right-hand-side <em>r</em>, is replaced by the text from the left-hand-side
+<em>l</em>. The `*&amp;*&#39; can be quoted with a backslash. A null <em>l</em> uses the
+previous string either from the previous <em>l</em> or from the contextual scan
+string <em>s</em> from `*!?*/s/&#39;. You can omit the rightmost delimiter if a
+newline immediately follows <em>r</em>; the rightmost `*?*&#39; in a context scan
+can similarly be omitted. Note the same record of the last <em>l</em> and <em>r</em>
+is maintained across all forms of expansion.</p>
+<p>
+Note that if a `*&amp;*&#39; is used within glob qualifiers an extra backslash
+is needed as a <strong>&amp;</strong> is a special character in this case.</p>
+<p>
+Also note that the order of expansions affects the interpretation of <em>l</em>
+and <em>r</em>. When used in a history expansion, which occurs before any other
+expansions, <em>l</em> and <em>r</em> are treated as literal strings (except as
+explained for <strong>HIST_SUBST_PATTERN</strong> below). When used in parameter
+expansion, the replacement of <em>r</em> into the parameter&#39;s value is done
+first, and then any additional process, parameter, command, arithmetic,
+or brace references are applied, which may evaluate those substitutions
+and expansions more than once if <em>l</em> appears more than once in the
+starting value. When used in a glob qualifier, any substitutions or
+expansions are performed once at the time the qualifier is parsed, even
+before the `*:s*&#39; expression itself is divided into <em>l</em> and <em>r</em> sides.</p>
+<p>
+If the option <strong>HIST_SUBST_PATTERN</strong> is set, <em>l</em> is treated as a pattern
+of the usual form described in the section FILENAME GENERATION below.
+This can be used in all the places where modifiers are available; note,
+however, that in globbing qualifiers parameter substitution has already
+taken place, so parameters in the replacement string should be quoted to
+ensure they are replaced at the correct time. Note also that complicated
+patterns used in globbing qualifiers may need the extended glob
+qualifier notation <strong>(#q:s/*/…/*/*/…/*/)</strong> in order for the shell to
+recognize the expression as a glob qualifier. Further, note that bad
+patterns in the substitution are not subject to the <strong>NO_BAD_PATTERN</strong>
+option so will cause an error.</p>
+<p>
+When <strong>HIST_SUBST_PATTERN</strong> is set, <em>l</em> may start with a <strong>#</strong> to indicate
+that the pattern must match at the start of the string to be
+substituted, and a <strong>%</strong> may appear at the start or after an <strong>#</strong> to
+indicate that the pattern must match at the end of the string to be
+substituted. The <strong>%</strong> or <strong>#</strong> may be quoted with two backslashes.</p>
+<p>
+For example, the following piece of filename generation code with the
+<strong>EXTENDED_GLOB</strong> option:</p>
+<blockquote>
+<pre class="example">
+print -r -- *.c(#q:s/#%(#b)s(*).c/&#39;S${match[1]}.C&#39;/)
+</pre>
+</blockquote>
+<p>
+takes the expansion of <strong>*.c</strong> and applies the glob qualifiers in the
+<strong>(#q*/…/</strong>)* expression, which consists of a substitution modifier
+anchored to the start and end of each word (<strong>#%</strong>). This turns on
+backreferences (<strong>(#b)</strong>), so that the parenthesised subexpression is
+available in the replacement string as <strong>${match[1]}</strong>. The replacement
+string is quoted so that the parameter is not substituted before the
+start of filename generation.</p>
+<p>
+The following <strong>f</strong>, <strong>F</strong>, <strong>w</strong> and <strong>W</strong> modifiers work only with parameter
+expansion and filename generation. They are listed here to provide a
+single point of reference for all modifiers.</p>
+<p>
+<strong>f</strong> Repeats the immediately (without a colon) following modifier until
+the resulting word doesn&#39;t change any more.</p>
+<dl>
+<dt>
+<strong>F:*/expr/</strong>:*
+</dt>
+<dd>Like <strong>f</strong>, but repeats only <em>n</em> times if the
+expression <em>expr</em> evaluates to <em>n</em>. Any character can be used instead
+of the `*:*&#39;; if `*(<strong>&#39;, `</strong>[*&#39;, or `*{<strong>&#39; is used as the opening
+delimiter, the closing delimiter should be &#39;</strong>)*&#39;, `*]*&#39;, or `*}*&#39;,
+respectively.</dd>
+<dt>
+<strong>w</strong>
+</dt>
+<dd>Makes the immediately following modifier work on each word in
+the string.</dd>
+<dt>
+<strong>W:*/sep/</strong>:*
+</dt>
+<dd>Like <strong>w</strong> but words are considered to be the parts of
+the string that are separated by <em>sep</em>. Any character can be used
+instead of the `*:*&#39;; opening parentheses are handled specially, see
+above.</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+PROCESS SUBSTITUTION
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Each part of a command argument that takes the form `*&lt;(<strong><em>list</em></strong>)*&#39;,
+`*&gt;(<strong><em>list</em></strong>)*&#39; or `*=(<strong><em>list</em></strong>)*&#39; is subject to process substitution.
+The expression may be preceded or followed by other strings except that,
+to prevent clashes with commonly occurring strings and patterns, the
+last form must occur at the start of a command argument, and the forms
+are only expanded when first parsing command or assignment arguments.
+Process substitutions may be used following redirection operators; in
+this case, the substitution must appear with no trailing string.</p>
+<p>
+Note that `*&lt;&lt;(<strong><em>list</em></strong>)*&#39; is not a special syntax; it is equivalent to
+`*&lt; &lt;(<strong><em>list</em></strong>)*&#39;, redirecting standard input from the result of process
+substitution. Hence all the following documentation applies. The second
+form (with the space) is recommended for clarity.</p>
+<p>
+In the case of the <strong>&lt;</strong> or <strong>&gt;</strong> forms, the shell runs the commands in
+<em>list</em> as a subprocess of the job executing the shell command line. If
+the system supports the <strong>/dev/fd</strong> mechanism, the command argument is the
+name of the device file corresponding to a file descriptor; otherwise,
+if the system supports named pipes (FIFOs), the command argument will be
+a named pipe. If the form with <strong>&gt;</strong> is selected then writing on this
+special file will provide input for <em>list</em>. If <strong>&lt;</strong> is used, then the
+file passed as an argument will be connected to the output of the <em>list</em>
+process. For example,</p>
+<blockquote>
+<pre class="example">
+paste &lt;(cut -f1 file1) &lt;(cut -f3 file2) |
+tee &gt;(process1) &gt;(process2) &gt;/dev/null
+</pre>
+</blockquote>
+<p>
+cuts fields 1 and 3 from the files /file1/* and <strong><em>file2</em></strong> respectively,*
+pastes the results together, and sends it to the processes /process1/*
+and <strong><em>process2</em></strong>.*</p>
+<p>
+If <strong>=(*/…/</strong>) is used instead of* <strong>&lt;(*/…/</strong>),* then the file passed as
+an argument will be the name of a temporary file containing the output
+of the <em>list</em> process. This may be used instead of the <strong>&lt;</strong> form for a
+program that expects to lseek (see /lseek/*(2))* on the input file.</p>
+<p>
+There is an optimisation for substitutions of the form <strong>=(&lt;&lt;&lt;*/arg/</strong>),
+where <strong><em>arg</em></strong> is a single-word argument* to the here-string redirection
+<strong>&lt;&lt;&lt;. This form produces a file name</strong> containing the value of /arg/*
+after any substitutions have been* performed. This is handled entirely
+within the current shell. This is effectively the reverse of the special
+form <strong>$(&lt;*/arg/</strong>)* which treats /arg/* as a file name and replaces it
+with the file&#39;s* contents.</p>
+<p>
+The <strong>= form is useful as both the /dev/fd and the named pipe</strong>
+implementation of <strong>&lt;(*/…/</strong>) have drawbacks. In* the former case, some
+programmes may automatically close the file descriptor in question
+before examining the file on the command line, particularly if this is
+necessary for security reasons such as when the programme is running
+setuid. In the second case, if the programme does not actually open the
+file, the subshell attempting to read from or write to the pipe will (in
+a typical implementation, different operating systems may have different
+behaviour) block for ever and have to be killed explicitly. In both
+cases, the shell actually supplies the information using a pipe, so that
+programmes that expect to lseek (see /lseek/*(2)) on the file will not
+work.*</p>
+<p>
+Also note that the previous example can be more compactly and
+efficiently written (provided the <strong>MULTIOS option is set) as:</strong></p>
+<blockquote>
+<pre class="example">
+paste &lt;(cut -f1 file1) &lt;(cut -f3 file2) &gt; &gt;(process1) &gt; &gt;(process2)
+</pre>
+</blockquote>
+<p>
+The shell uses pipes instead of FIFOs to implement the latter two
+process substitutions in the above example.</p>
+<p>
+There is an additional problem with <strong>&gt;(*/process/</strong>); when* this is
+attached to an external command, the parent shell does not wait for
+/process/* to finish and hence an immediately following command* cannot
+rely on the results being complete. The problem and solution are the
+same as described in the section /MULTIOS/* in* /zshmisc/*(1). Hence in
+a simplified* version of the example above:</p>
+<blockquote>
+<pre class="example">
+paste &lt;(cut -f1 file1) &lt;(cut -f3 file2) &gt; &gt;(process)
+</pre>
+</blockquote>
+<p>
+(note that no <strong>MULTIOS are involved), */process/</strong> will be run*
+asynchronously as far as the parent shell is concerned. The workaround
+is:</p>
+<blockquote>
+<pre class="example">
+{ paste &lt;(cut -f1 file1) &lt;(cut -f3 file2) } &gt; &gt;(process)
+</pre>
+</blockquote>
+<p>
+The extra processes here are spawned from the parent shell which will
+wait for their completion.</p>
+<p>
+Another problem arises any time a job with a substitution that requires
+a temporary file is disowned by the shell, including the case where
+`*&amp;!&#39; or `&amp;|&#39; appears at the end of a command containing a*
+substitution. In that case the temporary file will not be cleaned up as
+the shell no longer has any memory of the job. A workaround is to use a
+subshell, for example,</p>
+<blockquote>
+<pre class="example">
+(mycmd =(myoutput)) &amp;!
+</pre>
+</blockquote>
+<p>
+as the forked subshell will wait for the command to finish then remove
+the temporary file.</p>
+<p>
+A general workaround to ensure a process substitution endures for an
+appropriate length of time is to pass it as a parameter to an anonymous
+shell function (a piece of shell code that is run immediately with
+function scope). For example, this code:</p>
+<blockquote>
+<pre class="example">
+() {
+   print File $1:
+   cat $1
+} =(print This be the verse)
+</pre>
+</blockquote>
+<p>
+outputs something resembling the following</p>
+<blockquote>
+<pre class="example">
+File /tmp/zsh6nU0kS:
+This be the verse
+</pre>
+</blockquote>
+<p>
+The temporary file created by the process substitution will be deleted
+when the function exits.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+PARAMETER EXPANSION
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The character `*$&#39; is used to introduce parameter expansions.* See
+/zshparam/*(1)* for a description of parameters, including arrays,
+associative arrays, and subscript notation to access individual array
+elements.</p>
+<p>
+Note in particular the fact that words of unquoted parameters are not
+automatically split on whitespace unless the option <strong>SH_WORD_SPLIT is</strong>
+set; see references to this option below for more details. This is an
+important difference from other shells. However, as in other shells,
+null words are elided from unquoted parameters&#39; expansions.</p>
+<p>
+With default options, after the assignments:</p>
+<blockquote>
+<pre class="example">
+array=(&#34;first word&#34; &#34;&#34; &#34;third word&#34;)
+scalar=&#34;only word&#34;
+</pre>
+</blockquote>
+<p>
+then <strong>$array substitutes two words, `first word&#39; and `third</strong> word*&#39;, and
+$scalar substitutes a single word `only word&#39;. Note* that second element
+of *array was elided. Scalar parameters can* be elided too if their
+value is null (empty). To avoid elision, use quoting as follows:
+*&#34;$scalar&#34; for scalars and &#34;${array[@]}&#34; or &#34;${(@)array}&#34;* for arrays.
+(The last two forms are equivalent.)</p>
+<p>
+Parameter expansions can involve /flags/*, as in `${(@kv)aliases}&#39;,* and
+other operators, such as `*${PREFIX:-&#34;/usr/local&#34;}&#39;. Parameter*
+expansions can also be nested. These topics will be introduced below.
+The full rules are complicated and are noted at the end.</p>
+<p>
+In the expansions discussed below that require a pattern, the form of
+the pattern is the same as that used for filename generation; see the
+section `Filename Generation&#39;. Note that these patterns, along with the
+replacement text of any substitutions, are themselves subject to
+parameter expansion, command substitution, and arithmetic expansion. In
+addition to the following operations, the colon modifiers described in
+the section `Modifiers&#39; in the section `History Expansion&#39; can be
+applied: for example, <strong>${i:s/foo/bar/} performs string</strong> substitution on
+the expansion of parameter <strong>$i.</strong></p>
+<p>
+In the following descriptions, `/word/*&#39; refers to a single word*
+substituted on the command line, not necessarily a space delimited word.</p>
+<p>
+<strong>${*/name/</strong>}* The value, if any, of the parameter /name/* is
+substituted.* The braces are required if the expansion is to be followed
+by a letter, digit, or underscore that is not to be interpreted as part
+of /name/*. In addition, more complicated forms of substitution* usually
+require the braces to be present; exceptions, which only apply if the
+option <strong>KSH_ARRAYS is not set, are a single subscript or any colon</strong>
+modifiers appearing after the name, or any of the characters `*^&#39;,*
+`*=&#39;, `~&#39;, `#&#39; or `+&#39; appearing before the name, all of* which work with
+or without braces.</p>
+<blockquote>
+<p>If /name/* is an array parameter, and the KSH_ARRAYS option is not* set,
+then the value of each element of /name/* is substituted, one element
+per word. Otherwise, the* expansion results in one word only; with
+<strong>KSH_ARRAYS, this is the first</strong> element of an array. No field splitting
+is done on the result unless the <strong>SH_WORD_SPLIT option is set.</strong> See also
+the flags <strong>= and s:*/string/</strong>:.*</p>
+</blockquote>
+<dl>
+<dt>
+<strong>${+*/name/</strong>}*
+</dt>
+<dd>If /name/* is the name of a set parameter `1&#39; is
+substituted,* otherwise `*0&#39; is substituted.*</dd>
+</dl>
+<p><strong>${*/name/</strong>-<strong><em>word</em></strong>}*</p>
+<p>
+<strong>${*/name/</strong>:-<strong><em>word</em></strong>}* If /name/* is set, or in the second form is
+non-null, then substitute* its value; otherwise substitute <em>word/*. In
+the second form */name</em> may be omitted, in which case /word/* is always
+substituted.*</p>
+<p>
+<strong>${*/name/*+*/word/</strong>}*</p>
+<p>
+<strong>${*/name/</strong>:+*/word/*}* If /name/* is set, or in the second form is
+non-null, then substitute* /word/*; otherwise substitute nothing.*</p>
+<p>
+<strong>${*/name/*=*/word/</strong>}*</p>
+<p>
+<strong>${*/name/</strong>:=*/word/*}*</p>
+<p>
+<strong>${*/name/</strong>::=*/word/*}* In the first form, if /name/* is unset then set
+it to <strong><em>word</em></strong>; in the* second form, if /name/* is unset or null then
+set it to <strong><em>word</em></strong>; and* in the third form, unconditionally set /name/*
+to <strong><em>word</em></strong>. In all* forms, the value of the parameter is then
+substituted.</p>
+<p>
+<strong>${*/name/</strong>?*/word/*}*</p>
+<p>
+<strong>${*/name/</strong>:?*/word/*}* In the first form, if <em>name/* is set, or in the
+second form if */name</em> is both set and non-null, then substitute its
+value; otherwise, print /word/* and exit from the shell. Interactive
+shells instead return to* the prompt. If /word/* is omitted, then a
+standard message is printed.*</p>
+<p>
+In any of the above expressions that test a variable and substitute an
+alternate /word/*, note that you can use standard shell quoting in the*
+/word/* value to selectively override the splitting done by the*
+<strong>SH_WORD_SPLIT option and the = flag, but not splitting by the</strong>
+<strong>s:*/string/</strong>: flag.*</p>
+<p>
+In the following expressions, when /name/* is an array and* the
+substitution is not quoted, or if the `*(@)&#39; flag or the* /name/*[@]
+syntax is used, matching and replacement is* performed on each array
+element separately.</p>
+<p>
+<strong>${*/name/*#*/pattern/</strong>}*</p>
+<p>
+<strong>${*/name/*##*/pattern/</strong>}* If the /pattern/* matches the beginning of
+the value of* /name/*, then substitute the value of <strong><em>name</em></strong> with* the
+matched portion deleted; otherwise, just substitute the value of
+/name/*. In the first* form, the smallest matching pattern is preferred;
+in the second form, the largest matching pattern is preferred.</p>
+<p>
+<strong>${*/name/*%*/pattern/</strong>}*</p>
+<p>
+<strong>${*/name/*%%*/pattern/</strong>}* If the /pattern/* matches the end of the
+value of* /name/*, then substitute the value of <strong><em>name</em></strong> with* the
+matched portion deleted; otherwise, just substitute the value of
+/name/*. In the first* form, the smallest matching pattern is preferred;
+in the second form, the largest matching pattern is preferred.</p>
+<dl>
+<dt>
+<strong>${*/name/</strong>:#*/pattern/*}*
+</dt>
+<dd>If the /pattern/* matches the value of
+<strong><em>name</em></strong>, then substitute* the empty string; otherwise, just
+substitute the value of /name/*.* If /name/* is an array* the matching
+array elements are removed (use the `*(M)&#39; flag to* remove the
+non-matched elements).</dd>
+<dt>
+<strong>${*/name/</strong>:|*/arrayname/*}*
+</dt>
+<dd>If /arrayname/* is the name (N.B., not
+contents) of an array* variable, then any elements contained in
+/arrayname/* are removed* from the substitution of /name/*. If the
+substitution is scalar,* either because /name/* is a scalar variable
+or the expression is* quoted, the elements of /arrayname/* are instead
+tested against the* entire expression.</dd>
+<dt>
+<strong>${*/name/</strong>:**/arrayname/*}*
+</dt>
+<dd>Similar to the preceding substitution,
+but in the opposite sense, so that entries present in both the
+original substitution and as elements of /arrayname/* are retained and
+others removed.*</dd>
+</dl>
+<p><strong>${*/name/</strong>:^*/arrayname/*}*</p>
+<p>
+<strong>${*/name/</strong>:^^*/arrayname/*}* Zips two arrays, such that the output
+array is twice as long as the shortest (longest for `*:^^&#39;) of name and
+arrayname, with* the elements alternatingly being picked from them. For
+`*:^&#39;, if one* of the input arrays is longer, the output will stop when
+the end of the shorter array is reached. Thus,</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+a=(1 2 3 4); b=(a b); print ${a:^b}
+</pre>
+</blockquote>
+<p>
+will output `*1 a 2 b&#39;. For `:^^&#39;, then the input is repeated* until all
+of the longer array has been used up and the above will output `*1 a 2 b
+3 a 4 b&#39;.*</p>
+<p>
+Either or both inputs may be a scalar, they will be treated as an array
+of length 1 with the scalar as the only element. If either array is
+empty, the other array is output with no extra elements inserted.</p>
+<p>
+Currently the following code will output `*a b&#39; and `1&#39; as two separate*
+elements, which can be unexpected. The second print provides a
+workaround which should continue to work if this is changed.</p>
+<blockquote>
+<pre class="example">
+a=(a b); b=(1 2); print -l &#34;${a:^b}&#34;; print -l &#34;${${a:^b}}&#34;
+</pre>
+</blockquote>
+</blockquote>
+<p>
+<strong>${*/name/</strong>:*/offset/*}*</p>
+<p>
+<strong>${*/name/</strong>:*/offset/*:*/length/*}* This syntax gives effects similar to
+parameter subscripting in the form <strong>$*/name/</strong>[*/start/*,*/end/*], but
+is* compatible with other shells; note that both <em>offset/* and */length</em>
+are interpreted differently from the components of a subscript.</p>
+<blockquote>
+<p>If /offset/* is non-negative, then if the variable <strong><em>name</em></strong> is a* scalar
+substitute the contents starting /offset/* characters from the* first
+character of the string, and if /name/* is an array substitute* elements
+starting /offset/* elements from the first element. If* /length/* is
+given, substitute that many characters or elements,* otherwise the
+entire rest of the scalar or array.</p>
+<p>
+A positive /offset/* is always treated as the offset of a character or*
+element in /name/* from the first character or element of the array*
+(this is different from native zsh subscript notation). Hence 0 refers
+to the first character or element regardless of the setting of the
+option <strong>KSH_ARRAYS.</strong></p>
+<p>
+A negative offset counts backwards from the end of the scalar or array,
+so that -1 corresponds to the last character or element, and so on.</p>
+<p>
+When positive, <em>length/* counts from the <strong><em>offset</em></strong> position* toward the
+end of the scalar or array. When negative, /length</em> counts back from the
+end. If this results in a position smaller than /offset/*, a diagnostic
+is printed and nothing is substituted.*</p>
+<p>
+The option <strong>MULTIBYTE is obeyed, i.e. the offset and length</strong> count
+multibyte characters where appropriate.</p>
+<p>
+/offset/* and <strong><em>length</em></strong> undergo the same set of shell substitutions* as
+for scalar assignment; in addition, they are then subject to arithmetic
+evaluation. Hence, for example</p>
+<blockquote>
+<pre class="example">
+print ${foo:3}
+print ${foo: 1 + 2}
+print ${foo:$(( 1 + 2))}
+print ${foo:$(echo 1 + 2)}
+</pre>
+</blockquote>
+<p>
+all have the same effect, extracting the string starting at the fourth
+character of <strong>$foo if the substitution would otherwise return a scalar,</strong>
+or the array starting at the fourth element if <strong>$foo would return an</strong>
+array. Note that with the option <strong>KSH_ARRAYS $foo always returns</strong> a
+scalar (regardless of the use of the offset syntax) and a form such as
+<strong>${foo[*]:3} is required to extract elements of an array named</strong> <strong>foo.</strong></p>
+<p>
+If /offset/* is negative, the - may not appear immediately* after the <strong>:
+as this indicates the</strong> <strong>${*/name/</strong>:-<strong><em>word</em></strong>} form of substitution.
+Instead, a space* may be inserted before the <strong>-. Furthermore, neither
+*/offset/</strong> nor* /length/* may begin with an alphabetic character or &amp; as
+these are* used to indicate history-style modifiers. To substitute a
+value from a variable, the recommended approach is to precede it with a
+<strong>$ as this</strong> signifies the intention (parameter substitution can easily
+be rendered unreadable); however, as arithmetic substitution is
+performed, the expression <strong>${var: offs} does work, retrieving the offset
+from</strong> <strong>$offs.</strong></p>
+<p>
+For further compatibility with other shells there is a special case for
+array offset 0. This usually accesses the first element of the array.
+However, if the substitution refers to the positional parameter array,
+e.g. <strong>$@ or $</strong>, then offset 0* instead refers to <strong>$0, offset 1 refers to
+$1, and so on. In</strong> other words, the positional parameter array is
+effectively extended by prepending <strong>$0. Hence ${</strong>:0:1} substitutes $0
+and* *${<strong>:1:1} substitutes $1.</strong></p>
+</blockquote>
+<p>
+<strong>${*/name/*/*/pattern/*/*/repl/</strong>}*</p>
+<p>
+<strong>${*/name/*//*/pattern/*/*/repl/</strong>}*</p>
+<p>
+<strong>${*/name/</strong>:/*/pattern/*/*/repl/*}* Replace the longest possible match
+of /pattern/* in the expansion of* parameter /name/* by string <strong><em>repl</em></strong>.
+The first form* replaces just the first occurrence, the second form all
+occurrences, and the third form replaces only if /pattern/* matches the
+entire string.* Both /pattern/* and <strong><em>repl</em></strong> are subject to
+double-quoted substitution,* so that expressions like
+<strong>${name/$opat/$npat} will work, but obey the</strong> usual rule that pattern
+characters in <strong>$opat are not treated specially</strong> unless either the option
+<strong>GLOB_SUBST is set, or $opat is instead</strong> substituted as <strong>${~opat}.</strong></p>
+<blockquote>
+<p>The /pattern/* may begin with a `#&#39;, in which case the* /pattern/* must
+match at the start of the string, or `%&#39;, in* which case it must match
+at the end of the string, or `*#%&#39; in which* case the /pattern/* must
+match the entire string. The <strong><em>repl</em></strong> may* be an empty string, in which
+case the final `*/&#39; may also be omitted.* To quote the final `*/&#39; in
+other cases it should be preceded by a* single backslash; this is not
+necessary if the `*/&#39; occurs inside a substituted parameter. Note also
+that the `#&#39;,* `*%&#39; and `#% are not active if they occur inside a
+substituted* parameter, even at the start.</p>
+<p>
+If, after quoting rules apply, <strong>${*/name/</strong>} expands to an array,* the
+replacements act on each element individually. Note also the effect of
+the <strong>I and S parameter expansion flags below; however,</strong> the flags <strong>M, R,
+B, E and N are not useful.</strong></p>
+<p>
+For example,</p>
+<blockquote>
+<pre class="example">
+foo=&#34;twinkle twinkle little star&#34; sub=&#34;t*e&#34; rep=&#34;spy&#34;
+print ${foo//${~sub}/$rep}
+print ${(S)foo//${~sub}/$rep}
+</pre>
+</blockquote>
+<p>
+Here, the `*~&#39; ensures that the text of $sub is treated as a* pattern
+rather than a plain string. In the first case, the longest match for
+<strong>t*e is substituted and the result is `spy star&#39;,</strong> while in the second
+case, the shortest matches are taken and the result is `*spy spy lispy
+star&#39;.*</p>
+</blockquote>
+<dl>
+<dt>
+<strong>${#*/spec/</strong>}*
+</dt>
+<dd>If /spec/* is one of the above substitutions,
+substitute* the length in characters of the result instead of the
+result itself. If /spec/* is an array expression,* substitute the
+number of elements of the result. This has the side-effect that
+joining is skipped even in quoted forms, which may affect other
+sub-expressions in /spec/*.* Note that `*^&#39;, `=&#39;, and `~&#39;, below, must
+appear* to the left of `*#&#39; when these forms are combined.*
+
+If the option <strong>POSIX_IDENTIFIERS is not set, and */spec/</strong> is a* simple
+name, then the braces are optional; this is true even for special
+parameters so e.g. <strong>$#- and $#</strong> take the length* of the string <strong>$- and
+the array $</strong> respectively. If* <strong>POSIX_IDENTIFIERS is set, then braces
+are required for</strong> the <strong># to be treated in this fashion.</strong></dd>
+</dl>
+<p><strong>${^*/spec/</strong>}*</p>
+<p>
+<strong>${^^*/spec/</strong>}* Turn on the <strong>RC_EXPAND_PARAM option for the</strong> evaluation
+of /spec/*; if the `^&#39; is doubled, turn it off.* When this option is
+set, array expansions of the form <em>foo/*${<strong><em>xx</em></strong>}*/bar/*,* where the
+parameter /xx</em> is set to <strong>(*/a b c/</strong>), are substituted with* `/fooabar
+foobbar foocbar/*&#39; instead of the default* `/fooa b cbar/*&#39;. Note that
+an empty array will therefore cause* all arguments to be removed.</p>
+<blockquote>
+<p>Internally, each such expansion is converted into the equivalent list
+for brace expansion. E.g., <strong>${^var} becomes</strong> <strong>{$var[1],$var[2],…}, and
+is processed as described in</strong> the section `Brace Expansion&#39; below: note,
+however, the expansion happens immediately, with any explicit brace
+expansion happening later. If word splitting is also in effect the
+<strong>$var[*/N/*] may themselves be split into different list</strong> elements.</p>
+</blockquote>
+<p>
+<strong>${=*/spec/</strong>}*</p>
+<p>
+<strong>${==*/spec/</strong>}* Perform word splitting using the rules for
+<strong>SH_WORD_SPLIT during the</strong> evaluation of /spec/*, but regardless of
+whether the parameter appears in* double quotes; if the `*=&#39; is doubled,
+turn it off.* This forces parameter expansions to be split into separate
+words before substitution, using <strong>IFS as a delimiter.</strong> This is done by
+default in most other shells.</p>
+<blockquote>
+<p>Note that splitting is applied to /word/* in the assignment forms* of
+/spec/* <strong><em>before</em></strong> the assignment to <strong><em>name</em></strong> is performed.* This
+affects the result of array assignments with the <strong>A flag.</strong></p>
+</blockquote>
+<p>
+<strong>${~*/spec/</strong>}*</p>
+<p>
+<strong>${~~*/spec/</strong>}* Turn on the <strong>GLOB_SUBST option for the evaluation of</strong>
+/spec/*; if the `~&#39; is doubled, turn it off. When this option is* set,
+the string resulting from the expansion will be interpreted as a pattern
+anywhere that is possible, such as in filename expansion and filename
+generation and pattern-matching contexts like the right hand side of the
+`*=&#39; and `!=&#39; operators in conditions.*</p>
+<blockquote>
+<p>In nested substitutions, note that the effect of the <strong>~ applies to the</strong>
+result of the current level of substitution. A surrounding pattern
+operation on the result may cancel it. Hence, for example, if the
+parameter <strong>foo is set to *, ${~foo//\*/</strong>.c} is substituted by* the
+pattern <strong>*.c, which may be expanded by filename generation, but</strong>
+<strong>${${~foo}//\*/</strong>.c} substitutes to the string <strong>.c, which will not</strong> be
+further expanded.</p>
+</blockquote>
+<p>
+If a <strong>${…} type parameter expression or a</strong> <strong>$(…) type command
+substitution is used in place of</strong> /name/* above, it is expanded first
+and the result is used as if* it were the value of /name/*. Thus it is*
+possible to perform nested operations: <strong>${${foo#head}%tail}</strong> substitutes
+the value of <strong>$foo with both `head&#39; and `tail&#39;</strong> deleted. The form with
+<strong>$(…) is often useful in</strong> combination with the flags described next;
+see the examples below. Each /name/* or nested ${…} in a parameter
+expansion may* also be followed by a subscript expression as described
+in /Array Parameters/* in <strong>/zshparam/*(1).</strong></p>
+<p>
+Note that double quotes may appear around nested expressions, in which
+case only the part inside is treated as quoted; for example,
+<strong>${(f)&#34;$(foo)&#34;} quotes the result of $(foo), but the flag `(f)&#39;</strong> (see
+below) is applied using the rules for unquoted expansions. Note further
+that quotes are themselves nested in this context; for example, in
+<strong>&#34;${(@f)&#34;$(foo)&#34;}&#34;, there are two sets of quotes, one surrounding the</strong>
+whole expression, the other (redundant) surrounding the <strong>$(foo) as</strong>
+before.</p>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Parameter Expansion Flags
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>If the opening brace is directly followed by an opening parenthesis, the
+string up to the matching closing parenthesis will be taken as a list of
+flags. In cases where repeating a flag is meaningful, the repetitions
+need not be consecutive; for example, `(<strong>q%q%q)&#39;</strong> means the same thing
+as the more readable `(<strong>%%qqq)&#39;. The</strong> following flags are supported:</p>
+<p>
+<strong>#</strong> Evaluate the resulting words as numeric expressions and interpret
+these as character codes. Output the corresponding characters. Note that
+this form is entirely distinct from use of the <strong># without</strong> parentheses.</p>
+<blockquote>
+<p>If the <strong>MULTIBYTE option is set and the number is greater than 127</strong>
+(i.e. not an ASCII character) it is treated as a Unicode character.</p>
+</blockquote>
+<dl>
+<dt>
+<strong>%</strong>
+</dt>
+<dd>Expand all <strong>% escapes in the resulting words in the same way as
+in</strong> prompts (see EXPANSION OF PROMPT SEQUENCES in /zshmisc/*(1)). If
+this flag is given twice,* full prompt expansion is done on the
+resulting words, depending on the setting of the <strong>PROMPT_PERCENT,
+PROMPT_SUBST and PROMPT_BANG</strong> options.</dd>
+<dt>
+<strong>@</strong>
+</dt>
+<dd>In double quotes, array elements are put into separate words.
+E.g., `*&#34;${(@)foo}&#34;&#39; is equivalent to `&#34;${foo[@]}&#34;&#39; and*
+`*&#34;${(@)foo[1,2]}&#34;&#39; is the same as `&#34;$foo[1]&#34; &#34;$foo[2]&#34;&#39;.* This is
+distinct from /field splitting/* by the f, s* or <strong>z flags, which still
+applies within each array element.</strong></dd>
+<dt>
+<strong>A</strong>
+</dt>
+<dd>Convert the substitution into an array expression, even if it
+otherwise would be scalar. This has lower precedence than
+subscripting, so one level of nested expansion is required in order
+that subscripts apply to array elements. Thus <strong>${${(A)*/name/</strong>}[1]}*
+yields the full value of /name/* when <strong><em>name</em></strong> is scalar.*
+
+This assigns an array parameter with `*${...=...}&#39;,* `*${…:=…}&#39; or
+`${...::=...}&#39;.* If this flag is repeated (as in `*AA&#39;), assigns an
+associative* array parameter. Assignment is made before sorting or
+padding; if field splitting is active, the /word/* part is split
+before* assignment. The /name/* part may be a subscripted range for*
+ordinary arrays; when assigning an associative array, the /word/ part
+/must/* be converted to an array, for example by using*
+`*${(AA)=*/name/*=…}&#39; to activate field splitting.*
+
+Surrounding context such as additional nesting or use of the value in
+a scalar assignment may cause the array to be joined back into a
+single string again.</dd>
+<dt>
+<strong>a</strong>
+</dt>
+<dd>Sort in array index order; when combined with `*O&#39; sort in
+reverse* array index order. Note that `*a&#39; is therefore equivalent to
+the* default but `*Oa&#39; is useful for obtaining an array&#39;s elements in
+reverse* order.</dd>
+<dt>
+<strong>b</strong>
+</dt>
+<dd>
+<p>Quote with backslashes only characters that are special to
+pattern matching. This is useful when the contents of the variable are
+to be tested using <strong>GLOB_SUBST, including the ${~*/…/</strong>} switch.*</p>
+<p>
+Quoting using one of the <strong>q family of flags does not work</strong> for this
+purpose since quotes are not stripped from non-pattern characters by
+<strong>GLOB_SUBST. In other words,</strong></p>
+<blockquote>
+<pre class="example">
+pattern=${(q)str}
+[[ $str = ${~pattern} ]]
+</pre>
+</blockquote>
+<p>
+works if <strong>$str is `a*b&#39; but not if it is `a b&#39;, whereas</strong></p>
+<blockquote>
+<pre class="example">
+pattern=${(b)str}
+[[ $str = ${~pattern} ]]
+</pre>
+</blockquote>
+<p>
+is always true for any possible value of <strong>$str.</strong></p>
+</dd>
+<dt>
+<strong>c</strong>
+</dt>
+<dd>With <strong>${#*/name/</strong>}, count the total number of characters in an
+array,* as if the elements were concatenated with spaces between them.
+This is not a true join of the array, so other expressions used with
+this flag may have an effect on the elements of the array before it is
+counted.</dd>
+<dt>
+<strong>C</strong>
+</dt>
+<dd>Capitalize the resulting words. `Words&#39; in this case refers to
+sequences of alphanumeric characters separated by non-alphanumerics,
+/not/* to words* that result from field splitting.</dd>
+<dt>
+<strong>D</strong>
+</dt>
+<dd>Assume the string or array elements contain directories and
+attempt to substitute the leading part of these by names. The
+remainder of the path (the whole of it if the leading part was not
+substituted) is then quoted so that the whole string can be used as a
+shell argument. This is the reverse of `*~&#39; substitution: see* the
+section FILENAME EXPANSION below.</dd>
+<dt>
+<strong>e</strong>
+</dt>
+<dd>Perform single word shell expansions, namely /parameter
+expansion/*,* /command substitution/* and <strong><em>arithmetic expansion</em></strong>, on
+the* result. Such expansions can be nested but too deep recursion may
+have unpredictable effects.</dd>
+<dt>
+<strong>f</strong>
+</dt>
+<dd>Split the result of the expansion at newlines. This is a
+shorthand for `*ps:\n:&#39;.*</dd>
+<dt>
+<strong>F</strong>
+</dt>
+<dd>Join the words of arrays together using newline as a separator.
+This is a shorthand for `*pj:\n:&#39;.*</dd>
+<dt>
+<strong>g:*/opts/</strong>:*
+</dt>
+<dd>Process escape sequences like the echo builtin when
+no options are given (<strong>g::). With the o option, octal escapes don&#39;t
+take a leading</strong> zero. With the <strong>c option, sequences like `^X&#39; are also
+processed.</strong> With the <strong>e option, processes `\M-t&#39; and similar sequences
+like the</strong> print builtin. With both of the <strong>o and e options, behaves
+like the</strong> print builtin except that in none of these modes is `*\c&#39;
+interpreted.*</dd>
+<dt>
+<strong>i</strong>
+</dt>
+<dd>Sort case-insensitively. May be combined with `*n&#39; or `O&#39;.*</dd>
+<dt>
+<strong>k</strong>
+</dt>
+<dd>If <em>name/* refers to an associative array, substitute the
+*/keys</em> (element names) rather than the values of the elements. Used
+with subscripts (including ordinary arrays), force indices or keys to
+be substituted even if the subscript form refers to values. However,
+this flag may not be combined with subscript ranges. With the
+<strong>KSH_ARRAYS option a subscript `[*]&#39; or `[@]&#39; is needed</strong> to operate on
+the whole array, as usual.</dd>
+<dt>
+<strong>L</strong>
+</dt>
+<dd>Convert all letters in the result to lower case.</dd>
+<dt>
+<strong>n</strong>
+</dt>
+<dd>Sort decimal integers numerically; if the first differing
+characters of two test strings are not digits, sorting is lexical.
+`*+&#39; and `-&#39; are not treated specially; they are treated as* any other
+non-digit. Integers with more initial zeroes are sorted before those
+with fewer or none. Hence the array `*foo+24 foo1 foo02* foo2 foo3
+foo20 foo23*&#39; is sorted into the order shown.* May be combined with
+`*i&#39; or `O&#39;.*</dd>
+<dt>
+<strong>-</strong>
+</dt>
+<dd>As <strong>n, but a leading minus sign indicates a negative decimal</strong>
+integer. A leading minus sign not followed by an integer does not
+trigger numeric sorting. Note that `*+&#39; signs are not handled
+specially (this may change in the* future).</dd>
+<dt>
+<strong>o</strong>
+</dt>
+<dd>Sort the resulting words in ascending order; if this appears on
+its own the sorting is lexical and case-sensitive (unless the locale
+renders it case-insensitive). Sorting in ascending order is the
+default for other forms of sorting, so this is ignored if combined
+with `*a&#39;, `i&#39;, `n&#39; or `-&#39;.*</dd>
+<dt>
+<strong>O</strong>
+</dt>
+<dd>Sort the resulting words in descending order; `*O&#39; without
+`a&#39;,* `*i&#39;, `n&#39; or `-&#39; sorts in reverse lexical order. May be*
+combined with `*a&#39;, `i&#39;, `n&#39; or `-&#39; to reverse the* order of sorting.</dd>
+<dt>
+<strong>P</strong>
+</dt>
+<dd>This forces the value of the parameter /name/* to be
+interpreted as a* further parameter name, whose value will be used
+where appropriate. Note that flags set with one of the <strong>typeset family
+of commands</strong> (in particular case transformations) are not applied to
+the value of /name/* used in this fashion.*
+
+If used with a nested parameter or command substitution, the result of
+that will be taken as a parameter name in the same way. For example,
+if you have `*foo=bar&#39; and `bar=baz&#39;, the strings ${(P)foo},*
+*${(P)${foo}}, and ${(P)$(echo bar)} will be expanded to* `*baz&#39;.*
+
+Likewise, if the reference is itself nested, the expression with the
+flag is treated as if it were directly replaced by the parameter name.
+It is an error if this nested substitution produces an array with more
+than one word. For example, if `*name=assoc&#39; where the parameter*
+<strong>assoc is an associative array, then</strong> `*${${(P)name}[elt]}&#39; refers to
+the element of the associative* subscripted `*elt&#39;.*</dd>
+<dt>
+<strong>q</strong>
+</dt>
+<dd>Quote characters that are special to the shell in the resulting
+words with backslashes; unprintable or invalid characters are quoted
+using the <strong>$&#39;\*/NNN/</strong>&#39; form, with separate quotes for each octet.*
+
+If this flag is given twice, the resulting words are quoted in single
+quotes and if it is given three times, the words are quoted in double
+quotes; in these forms no special handling of unprintable or invalid
+characters is attempted. If the flag is given four times, the words
+are quoted in single quotes preceded by a <strong>$. Note that in all three
+of</strong> these forms quoting is done unconditionally, even if this does not
+change the way the resulting string would be interpreted by the shell.
+
+If a <strong>q- is given (only a single q may appear), a minimal</strong> form of
+single quoting is used that only quotes the string if needed to
+protect special characters. Typically this form gives the most
+readable output.
+
+If a <strong>q+ is given, an extended form of minimal quoting is used that</strong>
+causes unprintable characters to be rendered using <strong>$&#39;*/…/</strong>&#39;.* This
+quoting is similar to that used by the output of values by the
+<strong>typeset family of commands.</strong></dd>
+<dt>
+<strong>Q</strong>
+</dt>
+<dd>Remove one level of quotes from the resulting words.</dd>
+<dt>
+<strong>t</strong>
+</dt>
+<dd>
+<p>Use a string describing the type of the parameter where the
+value of the parameter would usually appear. This string consists of
+keywords separated by hyphens (`*-&#39;). The first keyword in the string
+describes* the main type, it can be one of `*scalar&#39;, `array&#39;,
+`integer&#39;,* `*float&#39; or `association&#39;. The other keywords describe the
+type in* more detail:</p>
+<p>
+<strong>local</strong> for local parameters</p>
+<dl>
+<dt>
+<strong>left</strong>
+</dt>
+<dd>for left justified parameters</dd>
+<dt>
+<strong>right_blanks</strong>
+</dt>
+<dd>for right justified parameters with leading blanks</dd>
+<dt>
+<strong>right_zeros</strong>
+</dt>
+<dd>for right justified parameters with leading zeros</dd>
+<dt>
+<strong>lower</strong>
+</dt>
+<dd>for parameters whose value is converted to all lower case
+when it is expanded</dd>
+<dt>
+<strong>upper</strong>
+</dt>
+<dd>for parameters whose value is converted to all upper case
+when it is expanded</dd>
+<dt>
+<strong>readonly</strong>
+</dt>
+<dd>for readonly parameters</dd>
+<dt>
+<strong>tag</strong>
+</dt>
+<dd>for tagged parameters</dd>
+<dt>
+<strong>tied</strong>
+</dt>
+<dd>for parameters tied to another parameter in the manner of
+<strong>PATH</strong> (colon-separated list) and <strong>path (array), whether these are</strong>
+special parameters or user-defined with `*typeset -T&#39;*</dd>
+<dt>
+<strong>export</strong>
+</dt>
+<dd>for exported parameters</dd>
+<dt>
+<strong>unique</strong>
+</dt>
+<dd>for arrays which keep only the first occurrence of
+duplicated values</dd>
+<dt>
+<strong>hide</strong>
+</dt>
+<dd>for parameters with the `hide&#39; flag</dd>
+<dt>
+<strong>hideval</strong>
+</dt>
+<dd>for parameters with the `hideval&#39; flag</dd>
+<dt>
+<strong>special</strong>
+</dt>
+<dd>for special parameters defined by the shell</dd>
+</dl>
+</dd>
+<dt>
+<strong>u</strong>
+</dt>
+<dd>Expand only the first occurrence of each unique word.</dd>
+<dt>
+<strong>U</strong>
+</dt>
+<dd>Convert all letters in the result to upper case.</dd>
+<dt>
+<strong>v</strong>
+</dt>
+<dd>Used with <strong>k, substitute (as two consecutive words) both the
+key</strong> and the value of each associative array element. Used with
+subscripts, force values to be substituted even if the subscript form
+refers to indices or keys.</dd>
+<dt>
+<strong>V</strong>
+</dt>
+<dd>Make any special characters in the resulting words visible.</dd>
+<dt>
+<strong>w</strong>
+</dt>
+<dd>With <strong>${#*/name/</strong>}, count words in arrays or strings; the s*
+flag may be used to set a word delimiter.</dd>
+<dt>
+<strong>W</strong>
+</dt>
+<dd>Similar to <strong>w with the difference that empty words between</strong>
+repeated delimiters are also counted.</dd>
+<dt>
+<strong>X</strong>
+</dt>
+<dd>With this flag, parsing errors occurring with the <strong>Q, e and #</strong>
+flags or the pattern matching forms such as `*${<strong><em>name/*#*/pattern</em></strong>}&#39;
+are reported. Without the flag,* errors are silently ignored.</dd>
+<dt>
+<strong>z</strong>
+</dt>
+<dd>Split the result of the expansion into words using shell
+parsing to find the words, i.e. taking into account any quoting in the
+value. Comments are not treated specially but as ordinary strings,
+similar to interactive shells with the <strong>INTERACTIVE_COMMENTS option
+unset</strong> (however, see the <strong>Z flag below for related options)</strong>
+
+Note that this is done very late, even later than the `*(s)&#39; flag. So
+to* access single words in the result use nested expansions as in
+`*${${(z)foo}[2]}&#39;. Likewise, to remove the quotes in the* resulting
+words use `*${(Q)${(z)foo}}&#39;.*</dd>
+<dt>
+<strong>0</strong>
+</dt>
+<dd>Split the result of the expansion on null bytes. This is a
+shorthand for `*ps:\0:&#39;.*</dd>
+</dl>
+<p>The following flags (except <strong>p) are followed by one or more arguments</strong>
+as shown. Any character, or the matching pairs `*(…)&#39;,* `*{…}&#39;,
+`[…]&#39;, or `&lt;…&gt;&#39;, may be used in place* of a colon as delimiters, but
+note that when a flag takes more than one argument, a matched pair of
+delimiters must surround each argument.</p>
+<p>
+<strong>p</strong> Recognize the same escape sequences as the <strong>print builtin</strong> in string
+arguments to any of the flags described below that follow this argument.</p>
+<blockquote>
+<p>Alternatively, with this option string arguments may be in the form
+<strong>$*/var/</strong> in which case the value of the variable is substituted.* Note
+this form is strict; the string argument does not undergo general
+parameter expansion.</p>
+<p>
+For example,</p>
+<blockquote>
+<pre class="example">
+sep=:
+val=a:b:c
+print ${(ps.$sep.)val}
+</pre>
+</blockquote>
+<p>
+splits the variable on a <strong>:.</strong></p>
+</blockquote>
+<dl>
+<dt>
+<strong>~</strong>
+</dt>
+<dd>
+<p>Strings inserted into the expansion by any of the flags below
+are to be treated as patterns. This applies to the string arguments of
+flags that follow <strong>~ within the same set of parentheses. Compare with
+~</strong> outside parentheses, which forces the entire substituted string to
+be treated as a pattern. Hence, for example,</p>
+<blockquote>
+<pre class="example">
+[[ &#34;?&#34; = ${(~j.|.)array} ]]
+</pre>
+</blockquote>
+<p>
+treats `*|&#39; as a pattern and succeeds if and only if $array* contains
+the string `*?&#39; as an element. The ~ may be* repeated to toggle the
+behaviour; its effect only lasts to the end of the parenthesised
+group.</p>
+</dd>
+<dt>
+<strong>j:*/string/</strong>:*
+</dt>
+<dd>Join the words of arrays together using /string/*
+as a separator.* Note that this occurs before field splitting by the
+<strong>s:*/string/</strong>:* flag or the <strong>SH_WORD_SPLIT option.</strong></dd>
+<dt>
+<strong>l:*/expr/</strong>::*/string1/*::*/string2/*:*
+</dt>
+<dd>Pad the resulting words on
+the left. Each word will be truncated if required and placed in a
+field /expr/* characters wide.*
+
+The arguments <strong>:*/string1/</strong>: and :*/string2/*: are* optional; neither,
+the first, or both may be given. Note that the same pairs of
+delimiters must be used for each of the three arguments. The space to
+the left will be filled with /string1/* (concatenated as* often as
+needed) or spaces if /string1/* is not given. If both* /string1/* and
+<strong><em>string2</em></strong> are given, <strong><em>string2</em></strong> is inserted once* directly to the
+left of each word, truncated if necessary, before /string1/* is used
+to produce any remaining padding.*
+
+If either of /string1/* or <strong><em>string2</em></strong> is present but empty,* i.e.
+there are two delimiters together at that point, the first character
+of <strong>$IFS is used instead.</strong>
+
+If the <strong>MULTIBYTE option is in effect, the flag m may also</strong> be given,
+in which case widths will be used for the calculation of padding;
+otherwise individual multibyte characters are treated as occupying one
+unit of width.
+
+If the <strong>MULTIBYTE option is not in effect, each byte in the string is</strong>
+treated as occupying one unit of width.
+
+Control characters are always assumed to be one unit wide; this allows
+the mechanism to be used for generating repetitions of control
+characters.</dd>
+<dt>
+<strong>m</strong>
+</dt>
+<dd>Only useful together with one of the flags <strong>l or r or with the</strong>
+<strong># length operator when the MULTIBYTE option</strong> is in effect. Use the
+character width reported by the system in calculating how much of the
+string it occupies or the overall length of the string. Most printable
+characters have a width of one unit, however certain Asian character
+sets and certain special effects use wider characters; combining
+characters have zero width. Non-printable characters are arbitrarily
+counted as zero width; how they would actually be displayed will vary.
+
+If the <strong>m is repeated, the character either counts zero (if it has</strong>
+zero width), else one. For printable character strings this has the
+effect of counting the number of glyphs (visibly separate characters),
+except for the case where combining characters themselves have
+non-zero width (true in certain alphabets).</dd>
+<dt>
+<strong>r:*/expr/</strong>::*/string1/*::*/string2/*:*
+</dt>
+<dd>As *l, but pad the words on
+the right and insert */string2/ immediately to the right of the string
+to be padded.
+
+Left and right padding may be used together. In this case the strategy
+is to apply left padding to the first half width of each of the
+resulting words, and right padding to the second half. If the string
+to be padded has odd width the extra padding is applied on the left.</dd>
+<dt>
+<strong>s:*/string/</strong>:*
+</dt>
+<dd>
+<p>Force field splitting at the separator /string/*.
+Note that a <strong><em>string</em></strong> of two or more* characters means that all of
+them must match in sequence; this differs from the treatment of two or
+more characters in the <strong>IFS parameter.</strong> See also the <strong>= flag and the
+SH_WORD_SPLIT option. An empty</strong> string may also be given in which case
+every character will be a separate element.</p>
+<p>
+For historical reasons, the usual behaviour that empty array elements
+are retained inside double quotes is disabled for arrays generated by
+splitting; hence the following:</p>
+<blockquote>
+<pre class="example">
+line=&#34;one::three&#34;
+print -l &#34;${(s.:.)line}&#34;
+</pre>
+</blockquote>
+<p>
+produces two lines of output for <strong>one and three and elides the</strong> empty
+field. To override this behaviour, supply the `*(@)&#39; flag as well,*
+i.e. <strong>&#34;${(@s.:.)line}&#34;.</strong></p>
+</dd>
+<dt>
+<strong>Z:*/opts/</strong>:*
+</dt>
+<dd>
+<p>As <strong>z but takes a combination of option letters
+between a following</strong> pair of delimiter characters. With no options the
+effect is identical to <strong>z. The following options are available:</strong></p>
+<p>
+<strong>(Z+c+)</strong> causes comments to be parsed as a string and retained; any
+field in the resulting array beginning with an unquoted comment
+character is a comment.</p>
+<dl>
+<dt>
+<strong>(Z+C+)</strong>
+</dt>
+<dd>causes comments to be parsed and removed. The rule for
+comments is standard: anything between a word starting with the
+third character of <strong>$HISTCHARS, default #, up to</strong> the next newline
+is a comment.</dd>
+<dt>
+<strong>(Z+n+)</strong>
+</dt>
+<dd>causes unquoted newlines to be treated as ordinary
+whitespace, else they are treated as if they are shell code
+delimiters and converted to semicolons.</dd>
+</dl>
+<p>Options are combined within the same set of delimiters, e.g.
+<strong>(Z+Cn+).</strong></p>
+</dd>
+<dt>
+<strong>_:*/flags/</strong>:*
+</dt>
+<dd>The underscore (<strong>_) flag is reserved for future use.
+As of this</strong> revision of zsh, there are no valid /flags/*; anything
+following an* underscore, other than an empty pair of delimiters, is
+treated as an error, and the flag itself has no effect.</dd>
+</dl>
+<p>The following flags are meaningful with the <strong>${…#…} or</strong> <strong>${…%…}
+forms. The S, I, and * flags may also be</strong> used with the <strong>${…/…}
+forms.</strong></p>
+<p>
+<strong>S</strong> With <strong># or ##, search for the match that starts closest to the start
+of</strong> the string (a `substring match&#39;). Of all matches at a particular
+position, <strong># selects the shortest and ## the longest:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+% str=&#34;aXbXc&#34;
+% echo ${(S)str#X*}
+abXc
+% echo ${(S)str##X*}
+a
+%
+</pre>
+</blockquote>
+<p>
+With <strong>% or %%, search for the match that starts closest to the end of</strong>
+the string:</p>
+<blockquote>
+<pre class="example">
+% str=&#34;aXbXc&#34;
+% echo ${(S)str%X*}
+aXbc
+% echo ${(S)str%%X*}
+aXb
+%
+</pre>
+</blockquote>
+<p>
+(Note that <strong>% and %% don&#39;t search for the match that ends closest to
+the</strong> end of the string, as one might expect.)</p>
+<p>
+With substitution via <strong>${…/…} or</strong> <strong>${…//…}, specifies non-greedy
+matching, i.e. that the</strong> shortest instead of the longest match should be
+replaced:</p>
+<blockquote>
+<pre class="example">
+% str=&#34;abab&#34;
+% echo ${str/*b/_}
+_
+% echo ${(S)str/*b/_}
+_ab
+%
+</pre>
+</blockquote>
+</blockquote>
+<dl>
+<dt>
+<strong>I:*/expr/</strong>:*
+</dt>
+<dd>
+<p>Search the /expr/*th match (where <strong><em>expr</em></strong> evaluates
+to a number).* This only applies when searching for substrings, either
+with the <strong>S</strong> flag, or with <strong>${…/…} (only the */expr/*th match is</strong>
+substituted) or <strong>${…//…} (all matches from the</strong> /expr/*th on are
+substituted). The default is to take the first match.*</p>
+<p>
+The /expr/*th match is counted such that there is either one or zero*
+matches from each starting position in the string, although for global
+substitution matches overlapping previous replacements are ignored.
+With the <strong>${...%...} and ${…%%…} forms, the starting</strong> position for
+the match moves backwards from the end as the index increases, while
+with the other forms it moves forward from the start.</p>
+<p>
+Hence with the string</p>
+<blockquote>
+<pre class="example">
+which switch is the right switch for Ipswich?
+</pre>
+</blockquote>
+<p>
+substitutions of the form <strong>${(SI:*/N/</strong>:)string#w*ch} as <strong><em>N</em></strong>
+increases* from 1 will match and remove `*which&#39;, `witch&#39;, `witch&#39;
+and* `*wich&#39;; the form using `##&#39; will match and remove `which switch*
+is the right switch for Ipswich*&#39;, `witch is the right switch for*
+Ipswich*&#39;, `witch for Ipswich&#39; and `wich&#39;. The form using `%&#39;* will
+remove the same matches as for `*#&#39;, but in reverse order, and the*
+form using `*%%&#39; will remove the same matches as for `##&#39; in reverse*
+order.</p>
+</dd>
+<dt>
+<strong>*</strong>
+</dt>
+<dd>Enable <strong>EXTENDED_GLOB for substitution via ${…/…} or</strong>
+<strong>${…//…}. Note that `*</strong>&#39; does not disable extendedglob.*</dd>
+<dt>
+<strong>B</strong>
+</dt>
+<dd>Include the index of the beginning of the match in the result.</dd>
+<dt>
+<strong>E</strong>
+</dt>
+<dd>Include the index one character past the end of the match in
+the result (note this is inconsistent with other uses of parameter
+index).</dd>
+<dt>
+<strong>M</strong>
+</dt>
+<dd>Include the matched portion in the result.</dd>
+<dt>
+<strong>N</strong>
+</dt>
+<dd>Include the length of the match in the result.</dd>
+<dt>
+<strong>R</strong>
+</dt>
+<dd>Include the unmatched portion in the result (the /R/*est).*</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Rules
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>Here is a summary of the rules for substitution; this assumes that
+braces are present around the substitution, i.e. <strong>${*/…/</strong>}. Some
+particular* examples are given below. Note that the Zsh Development
+Group accepts /no responsibility/* for any brain damage which may occur
+during the* reading of the following rules.</p>
+<p>
+<strong>1. */Nested substitution/ If multiple nested *${*/…/</strong>} forms are
+present, substitution is* performed from the inside outwards. At each
+level, the substitution takes account of whether the current value is a
+scalar or an array, whether the whole substitution is in double quotes,
+and what flags are supplied to the current level of substitution, just
+as if the nested substitution were the outermost. The flags are not
+propagated up to enclosing substitutions; the nested substitution will
+return either a scalar or an array as determined by the flags, possibly
+adjusted for quoting. All the following steps take place where
+applicable at all levels of substitution.</p>
+<blockquote>
+<p>Note that, unless the `*(P)&#39; flag is present, the flags and any*
+subscripts apply directly to the value of the nested substitution; for
+example, the expansion <strong>${${foo}} behaves exactly the same as</strong> <strong>${foo}.
+When the `(P)&#39; flag is present in a nested substitution,</strong> the other
+substitution rules are applied to the value /before/* it is* interpreted
+as a name, so <strong>${${(P)foo}} may differ from ${(P)foo}.</strong></p>
+<p>
+At each nested level of substitution, the substituted words undergo all
+forms of single-word substitution (i.e. not filename generation),
+including command substitution, arithmetic expansion and filename
+expansion (i.e. leading <strong>~ and =). Thus, for example, ${${:-=cat}:h}</strong>
+expands to the directory where the <strong>cat program resides. (Explanation:</strong>
+the internal substitution has no parameter but a default value <strong>=cat,</strong>
+which is expanded by filename expansion to a full path; the outer
+substitution then applies the modifier <strong>:h and takes the directory part</strong>
+of the path.)</p>
+</blockquote>
+<dl>
+<dt>
+*2. */Internal parameter flags/
+</dt>
+<dd>Any parameter flags set by one of
+the <strong>typeset family of commands, in</strong> particular the <strong>-L, -R, -Z, -u
+and -l options for</strong> padding and capitalization, are applied directly
+to the parameter value. Note these flags are options to the command,
+e.g. `*typeset -Z&#39;; they* are not the same as the flags used within
+parameter substitutions.
+
+At the outermost level of substitution, the `*(P)&#39; flag (rule 4.)*
+ignores these transformations and uses the unmodified value of the
+parameter as the name to be replaced. This is usually the desired
+behavior because padding may make the value syntactically illegal as a
+parameter name, but if capitalization changes are desired, use the
+<strong>${${(P)foo}} form (rule 25.).</strong></dd>
+<dt>
+*3. */Parameter subscripting/
+</dt>
+<dd>If the value is a raw parameter
+reference with a subscript, such as <strong>${*/var/</strong>[3]}, the effect of
+subscripting is applied directly to* the parameter. Subscripts are
+evaluated left to right; subsequent subscripts apply to the scalar or
+array value yielded by the previous subscript. Thus if <strong>var is an
+array, ${var[1][2]} is the second</strong> character of the first word, but
+<strong>${var[2,4][2]} is the entire third</strong> word (the second word of the
+range of words two through four of the original array). Any number of
+subscripts may appear. Flags such as `*(k)&#39; and `(v)&#39; which alter the
+result of subscripting are applied.*</dd>
+<dt>
+*4. */Parameter name replacement/
+</dt>
+<dd>At the outermost level of nesting
+only, the `*(P)&#39; flag is applied. This* treats the value so far as a
+parameter name (which may include a subscript expression) and replaces
+that with the corresponding value. This replacement occurs later if
+the `*(P)&#39; flag appears in a nested* substitution.
+
+If the value so far names a parameter that has internal flags (rule
+<strong>2.),</strong> those internal flags are applied to the new value after
+replacement.</dd>
+<dt>
+*5. */Double-quoted joining/
+</dt>
+<dd>If the value after this process is an
+array, and the substitution appears in double quotes, and neither an
+`*(@)&#39; flag nor a `#&#39;* length operator is present at the current
+level, then words of the value are joined with the first character of
+the parameter <strong>$IFS,</strong> by default a space, between each word (single
+word arrays are not modified). If the `*(j)&#39; flag is present, that is
+used for joining* instead of <strong>$IFS.</strong></dd>
+<dt>
+*6. */Nested subscripting/
+</dt>
+<dd>Any remaining subscripts (i.e. of a
+nested substitution) are evaluated at this point, based on whether the
+value is an array or a scalar. As with <strong>3., multiple subscripts can
+appear. Note that ${foo[2,4][2]} is</strong> thus equivalent to
+<strong>${${foo[2,4]}[2]} and also to</strong> <strong>&#34;${${(@)foo[2,4]}[2]}&#34; (the nested
+substitution returns an array in</strong> both cases), but not to
+<strong>&#34;${${foo[2,4]}[2]}&#34; (the nested substitution</strong> returns a scalar
+because of the quotes).</dd>
+<dt>
+*7. */Modifiers/
+</dt>
+<dd>Any modifiers, as specified by a trailing `*#&#39;,
+`%&#39;, `/&#39;* (possibly doubled) or by a set of modifiers of the form
+`*:…&#39; (see* the section `Modifiers&#39; in the section `History
+Expansion&#39;), are applied to the words of the value at this level.</dd>
+<dt>
+*8. */Character evaluation/
+</dt>
+<dd>Any `*(#)&#39; flag is applied, evaluating
+the result so far numerically* as a character.</dd>
+<dt>
+*9. */Length/
+</dt>
+<dd>Any initial `*#&#39; modifier, i.e. in the form
+${#*/var/*}, is* used to evaluate the length of the expression so far.</dd>
+<dt>
+*10. */Forced joining/
+</dt>
+<dd>If the `*(j)&#39; flag is present, or no `(j)&#39;
+flag is present but* the string is to be split as given by rule <strong>11.,
+and joining</strong> did not take place at rule <strong>5., any words in the value
+are joined</strong> together using the given string or the first character of
+<strong>$IFS if none.</strong> Note that the `*(F)&#39; flag implicitly supplies a string
+for joining in this* manner.</dd>
+<dt>
+*11. */Simple word splitting/
+</dt>
+<dd>If one of the `*(s)&#39; or `(f)&#39; flags
+are present, or the `=&#39;* specifier was present (e.g. <strong>${=*/var/</strong>}),
+the word is split on* occurrences of the specified string, or (for <strong>=
+with neither of the two</strong> flags present) any of the characters in
+<strong>$IFS.</strong>
+
+If no `*(s)&#39;, `(f)&#39; or `=&#39; was given, but the word is not* quoted and
+the option <strong>SH_WORD_SPLIT is set, the word is split on</strong> occurrences of
+any of the characters in <strong>$IFS. Note this step, too,</strong> takes place at
+all levels of a nested substitution.</dd>
+<dt>
+*12. */Case modification/
+</dt>
+<dd>Any case modification from one of the
+flags `*(L)&#39;, `(U)&#39; or `(C)&#39;* is applied.</dd>
+<dt>
+*13. */Escape sequence replacement/
+</dt>
+<dd>First any replacements from the
+`*(g)&#39; flag are performed, then any* prompt-style formatting from the
+`*(%)&#39; family of flags is applied.*</dd>
+<dt>
+*14. */Quote application/
+</dt>
+<dd>Any quoting or unquoting using `*(q)&#39; and
+`(Q)&#39; and related flags* is applied.</dd>
+<dt>
+*15. */Directory naming/
+</dt>
+<dd>Any directory name substitution using
+`*(D)&#39; flag is applied.*</dd>
+<dt>
+*16. */Visibility enhancement/
+</dt>
+<dd>Any modifications to make characters
+visible using the `*(V)&#39; flag* are applied.</dd>
+<dt>
+*17. */Lexical word splitting/
+</dt>
+<dd>If the &#39;<strong>(z)&#39; flag or one of the
+forms of the &#39;(Z)&#39; flag is</strong> present, the word is split as if it were a
+shell command line, so that quotation marks and other metacharacters
+are used to decide what constitutes a word. Note this form of
+splitting is entirely distinct from that described by rule <strong>11.: it
+does not use $IFS, and</strong> does not cause forced joining.</dd>
+<dt>
+*18. */Uniqueness/
+</dt>
+<dd>If the result is an array and the `*(u)&#39; flag
+was present, duplicate* elements are removed from the array.</dd>
+<dt>
+*19. */Ordering/
+</dt>
+<dd>If the result is still an array and one of the
+`*(o)&#39; or `(O)&#39; flags* was present, the array is reordered.</dd>
+<dt>
+<strong>20. RC_EXPAND_PARAM</strong>
+</dt>
+<dd>At this point the decision is made whether
+any resulting array elements are to be combined element by element
+with surrounding text, as given by either the <strong>RC_EXPAND_PARAM option
+or the `^&#39; flag.</strong></dd>
+<dt>
+*21. */Re-evaluation/
+</dt>
+<dd>Any `*(e)&#39; flag is applied to the value,
+forcing it to be re-examined* for new parameter substitutions, but
+also for command and arithmetic substitutions.</dd>
+<dt>
+*22. */Padding/
+</dt>
+<dd>Any padding of the value by the `*(l.*/fill/*.)&#39;
+or* `*(r.*/fill/*.)&#39; flags is applied.*</dd>
+<dt>
+*23. */Semantic joining/
+</dt>
+<dd>In contexts where expansion semantics
+requires a single word to result, all words are rejoined with the
+first character of <strong>IFS</strong> between. So in `*${(P)${(f)lines}}&#39;* the
+value of <strong>${lines} is split at newlines, but then must be</strong> joined
+again before the `*(P)&#39; flag can be applied.*
+
+If a single word is not required, this rule is skipped.</dd>
+<dt>
+*24. */Empty argument removal/
+</dt>
+<dd>If the substitution does not appear
+in double quotes, any resulting zero-length argument, whether from a
+scalar or an element of an array, is elided from the list of arguments
+inserted into the command line.
+
+Strictly speaking, the removal happens later as the same happens with
+other forms of substitution; the point to note here is simply that it
+occurs after any of the above parameter operations.</dd>
+<dt>
+*25. */Nested parameter name replacement/
+</dt>
+<dd>If the `*(P)&#39; flag is
+present and rule 4. has not applied, the* value so far is treated as a
+parameter name (which may include a subscript expression) and replaced
+with the corresponding value, with internal flags (rule <strong>2.) applied
+to the new value.</strong></dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+Examples
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>The flag <strong>f is useful to split a double-quoted substitution line by</strong>
+line. For example, <strong>${(f)&#34;$(&lt;*/file/</strong>)&#34;}* substitutes the contents of
+/file/* divided so that each line is* an element of the resulting array.
+Compare this with the effect of <strong>$(&lt;*/file/</strong>) alone, which divides the
+file* up by words, or the same inside double quotes, which makes the
+entire content of the file a single string.</p>
+<p>
+The following illustrates the rules for nested parameter expansions.
+Suppose that <strong>$foo contains the array (bar baz):</strong></p>
+<p>
+<strong>&#34;${(@)${foo}[1]}&#34;</strong> This produces the result <strong>b. First, the inner
+substitution</strong> <strong>&#34;${foo}&#34;, which has no array (@) flag, produces a single
+word</strong> result <strong>&#34;bar baz&#34;. The outer substitution &#34;${(@)…[1]}&#34; detects</strong>
+that this is a scalar, so that (despite the `*(@)&#39; flag) the subscript*
+picks the first character.</p>
+<dl>
+<dt>
+<strong>&#34;${${(@)foo}[1]}&#34;</strong>
+</dt>
+<dd>This produces the result `*bar&#39;. In this case,
+the inner substitution* <strong>&#34;${(@)foo}&#34; produces the array `(bar baz)&#39;.
+The outer</strong> substitution <strong>&#34;${…[1]}&#34; detects that this is an array and
+picks the</strong> first word. This is similar to the simple case
+<strong>&#34;${foo[1]}&#34;.</strong></dd>
+</dl>
+<p>As an example of the rules for word splitting and joining, suppose
+<strong>$foo</strong> contains the array `*(ax1 bx1)&#39;. Then*</p>
+<p>
+<strong>${(s/x/)foo}</strong> produces the words `*a&#39;, `1 b&#39; and `1&#39;.*</p>
+<dl>
+<dt>
+<strong>${(j/x/s/x/)foo}</strong>
+</dt>
+<dd>produces `*a&#39;, `1&#39;, `b&#39; and `1&#39;.*</dd>
+<dt>
+<strong>${(s/x/)foo%%1</strong>}*
+</dt>
+<dd>produces `*a&#39; and ` b&#39; (note the extra space).
+As substitution* occurs before either joining or splitting, the
+operation first generates the modified array <strong>(ax bx), which is joined
+to give</strong> <strong>&#34;ax bx&#34;, and then split to give `a&#39;, ` b&#39; and `&#39;. The final</strong>
+empty string will then be elided, as it is not in double quotes.</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+COMMAND SUBSTITUTION
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>A command enclosed in parentheses preceded by a dollar sign, like
+`*$(…)&#39;, or quoted with grave* accents, like `*`…`&#39;, is replaced
+with its standard output, with* any trailing newlines deleted. If the
+substitution is not enclosed in double quotes, the output is broken into
+words using the <strong>IFS parameter.</strong></p>
+<p>
+The substitution `*$(cat */foo/*)&#39; may be replaced* by the faster
+`*$(&lt;*/foo/*)&#39;. In this case <strong><em>foo</em> undergoes single word shell
+expansions (<em>parameter expansion</em></strong>,* /command substitution/* and
+<strong><em>arithmetic expansion</em></strong>), but not* filename generation.</p>
+<p>
+If the option <strong>GLOB_SUBST is set, the result of any unquoted command</strong>
+substitution, including the special form just mentioned, is eligible for
+filename generation.</p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+ARITHMETIC EXPANSION
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>A string of the form `*$[*/exp/*]&#39; or* `*$((<strong><em>exp</em></strong>))&#39; is substituted*
+with the value of the arithmetic expression <em>exp/*. <strong><em>exp</em></strong> is*
+subjected to /parameter expansion/*, */command substitution</em> and
+/arithmetic expansion/* before it is evaluated.* See the section
+`Arithmetic Evaluation&#39;.</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+BRACE EXPANSION
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>A string of the form `/foo/*{<strong><em>xx</em></strong>,*/yy/*,*/zz/*}*/bar/*&#39;* is expanded
+to the individual words `/fooxxbar/*&#39;, `*/fooyybar/*&#39; and
+`*/foozzbar/*&#39;.* Left-to-right order is preserved. This construct may be
+nested. Commas may be quoted in order to include them literally in a
+word.</p>
+<p>
+An expression of the form `*{<strong><em>n1</em></strong>..*/n2/*}&#39;,* where /n1/* and <strong><em>n2</em></strong>
+are integers,* is expanded to every number between /n1/* and <strong><em>n2</em></strong>
+inclusive. If either number begins with a* zero, all the resulting
+numbers will be padded with leading zeroes to that minimum width, but
+for negative numbers the <strong>- character is also</strong> included in the width. If
+the numbers are in decreasing order the resulting sequence will also be
+in decreasing order.</p>
+<p>
+An expression of the form `*{<strong><em>n1</em></strong>..*/n2/*..*/n3/*}&#39;,* where /n1/*,
+<strong><em>n2</em></strong>, and <strong><em>n3</em></strong> are integers,* is expanded as above, but only every
+<em>n3/*th number starting from */n1</em> is output. If /n3/* is negative the
+numbers are output in reverse order,* this is slightly different from
+simply swapping /n1/* and <strong><em>n2</em></strong> in the case* that the step /n3/*
+doesn&#39;t evenly divide the range. Zero padding can be* specified in any
+of the three numbers, specifying it in the third can be useful to pad
+for example `*{-99..100..01}&#39; which is not possible to specify by
+putting a* 0 on either of the first two numbers (i.e. pad to two
+characters).</p>
+<p>
+An expression of the form `*{<strong><em>c1</em></strong>..*/c2/*}&#39;, where* /c1/* and <strong><em>c2</em></strong>
+are single characters (which may be multibyte* characters), is expanded
+to every character in the range from /c1/* to* /c2/* in whatever
+character sequence is used internally. For* characters with code points
+below 128 this is US ASCII (this is the only case most users will need).
+If any intervening character is not printable, appropriate quotation is
+used to render it printable. If the character sequence is reversed, the
+output is in reverse order, e.g. `*{d..a}&#39; is substituted as `d c b a&#39;.*</p>
+<p>
+If a brace expression matches none of the above forms, it is left
+unchanged, unless the option <strong>BRACE_CCL (an abbreviation for `brace</strong>
+character class&#39;) is set. In that case, it is expanded to a list of the
+individual characters between the braces sorted into the order of the
+characters in the ASCII character set (multibyte characters are not
+currently handled). The syntax is similar to a <strong>[…] expression in
+filename generation:</strong> `*-&#39; is treated specially to denote a range of
+characters, but `^&#39; or* `*!&#39; as the first character is treated normally.
+For example,* `*{abcdef0-9}&#39; expands to 16 words 0 1 2 3 4 5 6 7 8 9 a b
+c d e f.*</p>
+<p>
+Note that brace expansion is not part of filename generation (globbing);
+an expression such as <strong>*/{foo,bar} is split into two separate words</strong>
+<strong>*/foo and */bar before filename generation takes place. In</strong> particular,
+note that this is liable to produce a `no match&#39; error if /either/* of
+the two expressions does not match; this is to be contrasted* with
+<strong>*/(foo|bar), which is treated as a single pattern but otherwise</strong> has
+similar effects.</p>
+<p>
+To combine brace expansion with array expansion, see the <strong>${^*/spec/</strong>}
+form described* in the section `Parameter Expansion&#39; above.</p>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+FILENAME EXPANSION
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>Each word is checked to see if it begins with an unquoted `*~&#39;.* If it
+does, then the word up to a `*/&#39;,* or the end of the word if there is no
+`*/&#39;,* is checked to see if it can be substituted in one of the ways
+described here. If so, then the `*~&#39; and the checked portion are*
+replaced with the appropriate substitute value.</p>
+<p>
+A `*~&#39; by itself is replaced by the value of $HOME.* A `*~&#39; followed by
+a `+&#39; or a `-&#39; is replaced by current* or previous working directory,
+respectively.</p>
+<p>
+A `*~&#39; followed by a number is replaced by the directory at that*
+position in the directory stack. `*~0&#39; is equivalent to `~+&#39;,* and `*~1&#39;
+is the top of the stack.* `*~+&#39; followed by a number is replaced by the
+directory at that* position in the directory stack. `*~+0&#39; is equivalent
+to `~+&#39;,* and `*~+1&#39; is the top of the stack.* `*~-&#39; followed by a
+number is replaced by the directory that* many positions from the bottom
+of the stack. `*~-0&#39; is the bottom of the stack.* The <strong>PUSHD_MINUS</strong>
+option exchanges the effects of `*~+&#39; and `~-&#39; where they are* followed
+by a number.</p>
+<div id="outline-container-headline-17" class="outline-3">
+<h3 id="headline-17">
+Dynamic named directories
+</h3>
+<div id="outline-text-headline-17" class="outline-text-3">
+<p>If the function <strong>zsh_directory_name exists, or the shell variable</strong>
+<strong>zsh_directory_name_functions exists and contains an array of</strong> function
+names, then the functions are used to implement dynamic directory
+naming. The functions are tried in order until one returns status zero,
+so it is important that functions test whether they can handle the case
+in question and return an appropriate status.</p>
+<p>
+A `*~&#39; followed by a string <strong><em>namstr</em></strong> in unquoted square brackets is*
+treated specially as a dynamic directory name. Note that the first
+unquoted closing square bracket always terminates /namstr/*. The shell*
+function is passed two arguments: the string <strong>n (for name) and</strong>
+/namstr/*. It should either set the array reply to a single element*
+which is the directory corresponding to the name and return status zero
+(executing an assignment as the last statement is usually sufficient),
+or it should return status non-zero. In the former case the element of
+reply is used as the directory; in the latter case the substitution is
+deemed to have failed. If all functions fail and the option <strong>NOMATCH is
+set,</strong> an error results.</p>
+<p>
+The functions defined as above are also used to see if a directory can
+be turned into a name, for example when printing the directory stack or
+when expanding <strong>%~ in prompts. In this case each function is passed two</strong>
+arguments: the string <strong>d (for directory) and the candidate for dynamic</strong>
+naming. The function should either return non-zero status, if the
+directory cannot be named by the function, or it should set the array
+reply to consist of two elements: the first is the dynamic name for the
+directory (as would appear within `*~[*/…/*]&#39;), and the second is the*
+prefix length of the directory to be replaced. For example, if the trial
+directory is <strong>/home/myname/src/zsh and the dynamic name for</strong>
+<strong>/home/myname/src (which has 16 characters) is s, then the function</strong>
+sets</p>
+<blockquote>
+<pre class="example">
+reply=(s 16)
+</pre>
+</blockquote>
+<p>
+The directory name so returned is compared with possible static names
+for parts of the directory path, as described below; it is used if the
+prefix length matched (16 in the example) is longer than that matched by
+any static name.</p>
+<p>
+It is not a requirement that a function implements both <strong>n and d calls;
+for example, it might be appropriate for certain</strong> dynamic forms of
+expansion not to be contracted to names. In that case any call with the
+first argument <strong>d should cause a non-zero status to</strong> be returned.</p>
+<p>
+The completion system calls `*zsh_directory_name c&#39; followed by*
+equivalent calls to elements of the array <strong>zsh_directory_name_functions,
+if it exists, in order to</strong> complete dynamic names for directories. The
+code for this should be as for any other completion function as
+described in /zshcompsys/*(1).*</p>
+<p>
+As a working example, here is a function that expands any dynamic names
+beginning with the string <strong>p: to directories below</strong> <strong>/home/pws/perforce.
+In this simple case a static name for the</strong> directory would be just as
+effective.</p>
+<blockquote>
+<pre class="example">
+zsh_directory_name() {
+  emulate -L zsh
+  setopt extendedglob
+  local -a match mbegin mend
+  if [[ $1 = d ]]; then
+    # turn the directory into a name
+    if [[ $2 = (#b)(/home/pws/perforce/)([^/]##)* ]]; then
+      typeset -ga reply
+      reply=(p:$match[2] $(( ${#match[1]} + ${#match[2]} )) )
+    else
+      return 1
+    fi
+  elif [[ $1 = n ]]; then
+    # turn the name into a directory
+    [[ $2 != (#b)p:(?*) ]] &amp;&amp; return 1
+    typeset -ga reply
+    reply=(/home/pws/perforce/$match[1])
+  elif [[ $1 = c ]]; then
+    # complete names
+    local expl
+    local -a dirs
+    dirs=(/home/pws/perforce/*(/:t))
+    dirs=(p:${^dirs})
+    _wanted dynamic-dirs expl &#39;dynamic directory&#39; compadd -S\] -a dirs
+    return
+  else
+    return 1
+  fi
+  return 0
+}
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-3">
+<h3 id="headline-18">
+Static named directories
+</h3>
+<div id="outline-text-headline-18" class="outline-text-3">
+<p>A `*~&#39; followed by anything not already covered consisting* of any
+number of alphanumeric characters or underscore (`*_&#39;),* hyphen (`*-&#39;),
+or dot (`.&#39;) is looked up as a* named directory, and replaced by the
+value of that named directory if found. Named directories are typically
+home directories for users on the system. They may also be defined if
+the text after the `*~&#39; is the name* of a string shell parameter whose
+value begins with a `*/&#39;.* Note that trailing slashes will be removed
+from the path to the directory (though the original parameter is not
+modified).</p>
+<p>
+It is also possible to define directory names using the <strong>-d option to
+the</strong> <strong>hash builtin.</strong></p>
+<p>
+When the shell prints a path (e.g. when expanding <strong>%~ in prompts or
+when</strong> printing the directory stack), the path is checked to see if it
+has a named directory as its prefix. If so, then the prefix portion is
+replaced with a `*~&#39; followed by the name of the directory.* The shorter
+of the two ways of referring to the directory is used, i.e. either the
+directory name or the full path; the name is used if they are the same
+length. The parameters <strong>$PWD and $OLDPWD are never abbreviated in this
+fashion.</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-19" class="outline-3">
+<h3 id="headline-19">
+`=&#39; expansion
+</h3>
+<div id="outline-text-headline-19" class="outline-text-3">
+<p>If a word begins with an unquoted `*=&#39;* and the <strong>EQUALS option is set,</strong>
+the remainder of the word is taken as the name of a command. If a
+command exists by that name, the word is replaced by the full pathname
+of the command.</p>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-3">
+<h3 id="headline-20">
+Notes
+</h3>
+<div id="outline-text-headline-20" class="outline-text-3">
+<p>Filename expansion is performed on the right hand side of a parameter
+assignment, including those appearing after commands of the <strong>typeset
+family. In this case, the right hand side will be treated</strong> as a
+colon-separated list in the manner of the <strong>PATH parameter,</strong> so that a
+`*~&#39; or an `=&#39; following a `:&#39; is eligible for expansion.* All such
+behaviour can be disabled by quoting the `*~&#39;, the `=&#39;, or the whole
+expression (but not* simply the colon); the <strong>EQUALS option is also
+respected.</strong></p>
+<p>
+If the option <strong>MAGIC_EQUAL_SUBST is set, any unquoted shell</strong> argument in
+the form `/identifier/*=*/expression/*&#39; becomes eligible* for file
+expansion as described in the previous paragraph. Quoting the first `*=&#39;
+also inhibits this.*</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-21" class="outline-2">
+<h2 id="headline-21">
+FILENAME GENERATION
+</h2>
+<div id="outline-text-headline-21" class="outline-text-2">
+<p>If a word contains an unquoted instance of one of the characters `**&#39;,
+`(&#39;, `|&#39;, `&lt;&#39;, `[&#39;, or `?&#39;, it is regarded* as a pattern for filename
+generation, unless the <strong>GLOB option is unset.</strong> If the <strong>EXTENDED_GLOB
+option is set,</strong> the `*^&#39; and `#&#39; characters also denote a pattern;
+otherwise* they are not treated specially by the shell.</p>
+<p>
+The word is replaced with a list of sorted filenames that match the
+pattern. If no matching pattern is found, the shell gives an error
+message, unless the <strong>NULL_GLOB option is set,</strong> in which case the word is
+deleted; or unless the <strong>NOMATCH</strong> option is unset, in which case the word
+is left unchanged.</p>
+<p>
+In filename generation, the character `*/&#39; must be matched explicitly;*
+also, a `*.&#39; must be matched* explicitly at the beginning of a pattern
+or after a `*/&#39;, unless the* <strong>GLOB_DOTS option is set.</strong> No filename
+generation pattern matches the files `*.&#39; or `..&#39;. In other instances of
+pattern* matching, the `*/&#39; and `.&#39; are not treated specially.*</p>
+<div id="outline-container-headline-22" class="outline-3">
+<h3 id="headline-22">
+Glob Operators
+</h3>
+<div id="outline-text-headline-22" class="outline-text-3">
+<div id="outline-container-headline-23" class="outline-4">
+<h4 id="headline-23">
+Matches any string, including the null string.
+</h4>
+<div id="outline-text-headline-23" class="outline-text-4">
+<dl>
+<dt>
+<strong>?</strong>
+</dt>
+<dd>Matches any character.</dd>
+<dt>
+<strong>[…]</strong>
+</dt>
+<dd>
+<p>Matches any of the enclosed characters. Ranges of
+characters can be specified by separating two characters by a `*-&#39;.* A
+`*-&#39; or `]&#39; may be matched by including it as the* first character in
+the list. There are also several named classes of characters, in the
+form `*[:*/name/*:]&#39; with the following meanings.* The first set use
+the macros provided by the operating system to test for the given
+character combinations, including any modifications due to local
+language settings, see /ctype/*(3):*</p>
+<p>
+<strong>[:alnum:]</strong> The character is alphanumeric</p>
+<dl>
+<dt>
+<strong>[:alpha:]</strong>
+</dt>
+<dd>The character is alphabetic</dd>
+<dt>
+<strong>[:ascii:]</strong>
+</dt>
+<dd>The character is 7-bit, i.e. is a single-byte
+character without the top bit set.</dd>
+<dt>
+<strong>[:blank:]</strong>
+</dt>
+<dd>The character is a blank character</dd>
+<dt>
+<strong>[:cntrl:]</strong>
+</dt>
+<dd>The character is a control character</dd>
+<dt>
+<strong>[:digit:]</strong>
+</dt>
+<dd>The character is a decimal digit</dd>
+<dt>
+<strong>[:graph:]</strong>
+</dt>
+<dd>The character is a printable character other than
+whitespace</dd>
+<dt>
+<strong>[:lower:]</strong>
+</dt>
+<dd>The character is a lowercase letter</dd>
+<dt>
+<strong>[:print:]</strong>
+</dt>
+<dd>The character is printable</dd>
+<dt>
+<strong>[:punct:]</strong>
+</dt>
+<dd>The character is printable but neither alphanumeric
+nor whitespace</dd>
+<dt>
+<strong>[:space:]</strong>
+</dt>
+<dd>The character is whitespace</dd>
+<dt>
+<strong>[:upper:]</strong>
+</dt>
+<dd>The character is an uppercase letter</dd>
+<dt>
+<strong>[:xdigit:]</strong>
+</dt>
+<dd>The character is a hexadecimal digit</dd>
+</dl>
+<p>Another set of named classes is handled internally by the shell and is
+not sensitive to the locale:</p>
+<p>
+<strong>[:IDENT:]</strong> The character is allowed to form part of a shell
+identifier, such as a parameter name; this test respects the
+<strong>POSIX_IDENTIFIERS</strong> option</p>
+<dl>
+<dt>
+<strong>[:IFS:]</strong>
+</dt>
+<dd>The character is used as an input field separator, i.e.
+is contained in the <strong>IFS parameter</strong></dd>
+<dt>
+<strong>[:IFSSPACE:]</strong>
+</dt>
+<dd>The character is an IFS white space character; see
+the documentation for <strong>IFS in</strong> the /zshparam/*(1) manual page.*</dd>
+<dt>
+<strong>[:INCOMPLETE:]</strong>
+</dt>
+<dd>Matches a byte that starts an incomplete
+multibyte character. Note that there may be a sequence of more than
+one bytes that taken together form the prefix of a multibyte
+character. To test for a potentially incomplete byte sequence, use
+the pattern `*<a href=":INCOMPLETE:">:INCOMPLETE:</a>*&#39;. This will never match a sequence
+starting* with a valid multibyte character.</dd>
+<dt>
+<strong>[:INVALID:]</strong>
+</dt>
+<dd>Matches a byte that does not start a valid
+multibyte character. Note this may be a continuation byte of an
+incomplete multibyte character as any part of a multibyte string
+consisting of invalid and incomplete multibyte characters is treated
+as single bytes.</dd>
+<dt>
+<strong>[:WORD:]</strong>
+</dt>
+<dd>The character is treated as part of a word; this test
+is sensitive to the value of the <strong>WORDCHARS parameter</strong></dd>
+</dl>
+<p>Note that the square brackets are additional to those enclosing the
+whole set of characters, so to test for a single alphanumeric
+character you need `*<a href=":alnum:">:alnum:</a>&#39;. Named* character sets can be used
+alongside other types, e.g. `*[[:alpha:]0-9]&#39;.*</p>
+</dd>
+</dl>
+<p><strong>[^…]</strong></p>
+<p>
+<strong>[!…]</strong> Like <strong>[…], except that it matches any character which is</strong> not
+in the given set.</p>
+<dl>
+<dt>
+<strong>&lt;[*/x/*]-[*/y/*]&gt;</strong>
+</dt>
+<dd>Matches any number in the range /x/* to <strong><em>y</em></strong>,
+inclusive.* Either of the numbers may be omitted to make the range
+open-ended; hence `*&lt;-&gt;&#39; matches any number. To match individual
+digits, the* <strong>[…] form is more efficient.</strong>
+
+Be careful when using other wildcards adjacent to patterns of this
+form; for example, <strong>&lt;0-9&gt;</strong> will actually match any number whatsoever
+at the* start of the string, since the `*&lt;0-9&gt;&#39; will match the first
+digit, and* the `**&#39; will match any others. This is a trap for the
+unwary, but is* in fact an inevitable consequence of the rule that the
+longest possible match always succeeds. Expressions such as
+`*&lt;0-9&gt;[^[:digit:]]*&#39; can be* used instead.</dd>
+<dt>
+<strong>(…)</strong>
+</dt>
+<dd>Matches the enclosed pattern. This is used for grouping. If
+the <strong>KSH_GLOB option is set, then a</strong> `*@&#39;, `*&#39;, `+&#39;, `?&#39; or `!&#39;
+immediately preceding* the `*(&#39; is treated specially, as detailed
+below. The option* <strong>SH_GLOB prevents bare parentheses from being used
+in this way, though</strong> the <strong>KSH_GLOB option is still available.</strong>
+
+Note that grouping cannot extend over multiple directories: it is an
+error to have a `*/&#39; within a group (this only applies for patterns
+used in* filename generation). There is one exception: a group of the
+form <strong>(*/pat/*/)# appearing as a complete path segment can</strong> match a
+sequence of directories. For example, <strong>foo/(a*/)#bar matches</strong>
+<strong>foo/bar, foo/any/bar, foo/any/anyother/bar, and so on.</strong></dd>
+<dt>
+<em>x/*|*/y</em>
+</dt>
+<dd>Matches either /x/* or <strong><em>y</em></strong>.* This operator has lower
+precedence than any other. The `*|&#39; character* must be within
+parentheses, to avoid interpretation as a pipeline. The alternatives
+are tried in order from left to right.</dd>
+<dt>
+*^*/x/
+</dt>
+<dd>(Requires <strong>EXTENDED_GLOB to be set.)</strong> Matches anything
+except the pattern <em>x/*.* This has a higher precedence than `*</em>&#39;, so
+`^foo/bar&#39;* will search directories in `*.&#39; except `./foo&#39;* for a file
+named `*bar&#39;.*</dd>
+<dt>
+<em>x/*~*/y</em>
+</dt>
+<dd>(Requires <strong>EXTENDED_GLOB to be set.)</strong> Match anything that
+matches the pattern /x/* but does not match <strong><em>y</em></strong>.* This has lower
+precedence than any operator except `*|&#39;, so* `**/*~foo/bar&#39; will
+search for all files in all directories in `.&#39;* and then exclude
+`*foo/bar&#39; if there was such a match.* Multiple patterns can be
+excluded by `/foo/*~*/bar/*~*/baz/*&#39;.* In the exclusion pattern
+(<em>y/*), `</em>&#39; and `.&#39; are not treated* specially the way they usually
+are in globbing.</dd>
+<dt>
+/x/*#*
+</dt>
+<dd>(Requires <strong>EXTENDED_GLOB to be set.)</strong> Matches zero or more
+occurrences of the pattern /x/*.* This operator has high precedence;
+`*12#&#39; is equivalent to `1(2#)&#39;,* rather than `*(12)#&#39;. It is an error
+for an unquoted `#&#39; to follow* something which cannot be repeated;
+this includes an empty string, a pattern already followed by `*##&#39;, or
+parentheses when part of a* <strong>KSH_GLOB pattern (for example,
+`!(*/foo/</strong>)#&#39; is* invalid and must be replaced by `**(!(<strong><em>foo</em></strong>))&#39;).*</dd>
+<dt>
+/x/*##*
+</dt>
+<dd>(Requires <strong>EXTENDED_GLOB to be set.)</strong> Matches one or more
+occurrences of the pattern /x/*.* This operator has high precedence;
+`*12##&#39; is equivalent to `1(2##)&#39;,* rather than `*(12)##&#39;. No more
+than two active `#&#39; characters may* appear together. (Note the
+potential clash with glob qualifiers in the form `*1(2##)&#39; which
+should therefore be avoided.)*</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-24" class="outline-3">
+<h3 id="headline-24">
+ksh-like Glob Operators
+</h3>
+<div id="outline-text-headline-24" class="outline-text-3">
+<p>If the <strong>KSH_GLOB option is set, the effects of parentheses can be</strong>
+modified by a preceding `*@&#39;, `*&#39;, `+&#39;, `?&#39; or `!&#39;.* This character need
+not be unquoted to have special effects, but the `*(&#39; must be.*</p>
+<p>
+<strong>@(…)</strong> Match the pattern in the parentheses. (Like `*(…)&#39;.)*</p>
+<dl>
+<dt>
+<strong>*(…)</strong>
+</dt>
+<dd>Match any number of occurrences. (Like `*(…)#&#39;,* except
+that recursive directory searching is not supported.)</dd>
+<dt>
+<strong>+(…)</strong>
+</dt>
+<dd>Match at least one occurrence. (Like `*(…)##&#39;,* except
+that recursive directory searching is not supported.)</dd>
+<dt>
+<strong>?(…)</strong>
+</dt>
+<dd>Match zero or one occurrence. (Like `*(|…)&#39;.)*</dd>
+<dt>
+<strong>!(…)</strong>
+</dt>
+<dd>Match anything but the expression in parentheses. (Like
+`*(^(…))&#39;.)*</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-25" class="outline-3">
+<h3 id="headline-25">
+Precedence
+</h3>
+<div id="outline-text-headline-25" class="outline-text-3">
+<p>The precedence of the operators given above is (highest) `*^&#39;, `/&#39;,*
+`*~&#39;, `|&#39; (lowest); the* remaining operators are simply treated from
+left to right as part of a string, with `*#&#39; and `##&#39; applying to the
+shortest possible* preceding unit (i.e. a character, `*?&#39;, `[…]&#39;,*
+`*&lt;…&gt;&#39;, or a parenthesised expression). As mentioned* above, a `*/&#39;
+used as a directory separator may not appear inside* parentheses, while
+a `*|&#39; must do so; in patterns used in other contexts* than filename
+generation (for example, in <strong>case statements and tests</strong> within
+`*<a href="...">...</a>&#39;), a `/&#39; is not special; and `/&#39; is also* not special after a
+`*~&#39; appearing outside parentheses in a filename* pattern.</p>
+</div>
+</div>
+<div id="outline-container-headline-26" class="outline-3">
+<h3 id="headline-26">
+Globbing Flags
+</h3>
+<div id="outline-text-headline-26" class="outline-text-3">
+<p>There are various flags which affect any text to their right up to the
+end of the enclosing group or to the end of the pattern; they require
+the <strong>EXTENDED_GLOB option. All take the form</strong> <strong>(#*/X/</strong>) where <strong><em>X</em></strong> may
+have one of the following* forms:</p>
+<p>
+<strong>i</strong> Case insensitive: upper or lower case characters in the pattern
+match upper or lower case characters.</p>
+<dl>
+<dt>
+<strong>l</strong>
+</dt>
+<dd>Lower case characters in the pattern match upper or lower case
+characters; upper case characters in the pattern still only match
+upper case characters.</dd>
+<dt>
+<strong>I</strong>
+</dt>
+<dd>Case sensitive: locally negates the effect of <strong>i or l from</strong>
+that point on.</dd>
+<dt>
+<strong>b</strong>
+</dt>
+<dd>
+<p>Activate backreferences for parenthesised groups in the
+pattern; this does not work in filename generation. When a pattern
+with a set of active parentheses is matched, the strings matched by
+the groups are stored in the array <strong>$match, the indices of the
+beginning of the matched</strong> parentheses in the array <strong>$mbegin, and the
+indices of the end in the array</strong> <strong>$mend, with the first element of
+each array corresponding to the first</strong> parenthesised group, and so on.
+These arrays are not otherwise special to the shell. The indices use
+the same convention as does parameter substitution, so that elements
+of <strong>$mend and $mbegin may be used in</strong> subscripts; the <strong>KSH_ARRAYS
+option is respected. Sets of globbing flags</strong> are not considered
+parenthesised groups; only the first nine active parentheses can be
+referenced.</p>
+<p>
+For example,</p>
+<blockquote>
+<pre class="example">
+foo=&#34;a_string_with_a_message&#34;
+if [[ $foo = (a|an)_(#b)(*) ]]; then
+  print ${foo[$mbegin[1],$mend[1]]}
+fi
+</pre>
+</blockquote>
+<p>
+prints `*string_with_a_message&#39;.* Note that the first set of
+parentheses is before the <strong>(#b) and does not create a backreference.</strong></p>
+<p>
+Backreferences work with all forms of pattern matching other than
+filename generation, but note that when performing matches on an
+entire array, such as <strong>${*/array/*#*/pattern/</strong>}, or a global
+substitution, such* as <strong>${*/param/*//*/pat/*/*/repl/</strong>}, only the data
+for the* last match remains available. In the case of global
+replacements this may still be useful. See the example for the <strong>m flag
+below.</strong></p>
+<p>
+The numbering of backreferences strictly follows the order of the
+opening parentheses from left to right in the pattern string, although
+sets of parentheses may be nested. There are special rules for
+parentheses followed by `*#&#39; or `##&#39;. Only the last match of the
+parenthesis is* remembered: for example, in `*[[ abab = (#b)([ab])#
+]]&#39;, only the final* `*b&#39; is stored in match[1]. Thus extra
+parentheses may be necessary* to match the complete segment: for
+example, use `*X((ab|cd)#)Y&#39; to match* a whole string of either `*ab&#39;
+or `cd&#39; between `X&#39; and `Y&#39;,* using the value of <strong>$match[1] rather
+than $match[2].</strong></p>
+<p>
+If the match fails none of the parameters is altered, so in some cases
+it may be necessary to initialise them beforehand. If some of the
+backreferences fail to match – which happens if they are in an
+alternate branch which fails to match, or if they are followed by <strong>#
+and matched</strong> zero times – then the matched string is set to the empty
+string, and the start and end indices are set to -1.</p>
+<p>
+Pattern matching with backreferences is slightly slower than without.</p>
+</dd>
+<dt>
+<strong>B</strong>
+</dt>
+<dd>Deactivate backreferences, negating the effect of the <strong>b flag
+from that</strong> point on.</dd>
+<dt>
+<strong>c*/N/</strong>,*/M/
+</dt>
+<dd>The flag <strong>(#c*/N/</strong>,*/M/*) can be used anywhere* that
+the <strong># or ## operators can be used except in the expressions</strong> `*(<strong><em>)#&#39;
+and `(*</em>)##&#39; in filename generation, where `/&#39;</strong> has special meaning;
+it cannot be combined with other globbing flags and a bad pattern
+error occurs if it is misplaced. It is equivalent to the form
+<strong>{*/N/</strong>,*/M/*} in regular expressions. The previous* character or
+group is required to match between /N/* and <strong><em>M</em></strong> times,* inclusive.
+The form <strong>(#c*/N/</strong>) requires exactly N* matches; <strong>(#c,*/M/</strong>) is
+equivalent to specifying <strong><em>N</em> as 0; *(#c*/N/</strong>,) specifies that there
+is no maximum* limit on the number of matches.</dd>
+<dt>
+<strong>m</strong>
+</dt>
+<dd>
+<p>Set references to the match data for the entire string matched;
+this is similar to backreferencing and does not work in filename
+generation. The flag must be in effect at the end of the pattern, i.e.
+not local to a group. The parameters <strong>$MATCH, $MBEGIN and $MEND will
+be set to</strong> the string matched and to the indices of the beginning and
+end of the string, respectively. This is most useful in parameter
+substitutions, as otherwise the string matched is obvious.</p>
+<p>
+For example,</p>
+<blockquote>
+<pre class="example">
+arr=(veldt jynx grimps waqf zho buck)
+print ${arr//(#m)[aeiou]/${(U)MATCH}}
+</pre>
+</blockquote>
+<p>
+forces all the matches (i.e. all vowels) into uppercase, printing
+`*vEldt jynx grImps wAqf zhO bUck&#39;.*</p>
+<p>
+Unlike backreferences, there is no speed penalty for using match
+references, other than the extra substitutions required for the
+replacement strings in cases such as the example shown.</p>
+</dd>
+<dt>
+<strong>M</strong>
+</dt>
+<dd>Deactivate the <strong>m flag, hence no references to match data will
+be</strong> created.</dd>
+<dt>
+*a*/num/
+</dt>
+<dd>Approximate matching: /num/* errors are allowed in the
+string matched by* the pattern. The rules for this are described in
+the next subsection.</dd>
+<dt>
+<strong>s, e</strong>
+</dt>
+<dd>Unlike the other flags, these have only a local effect, and
+each must appear on its own: `*(#s)&#39; and `(#e)&#39; are the only valid
+forms.* The `*(#s)&#39; flag succeeds only at the start of the test
+string, and the* `*(#e)&#39; flag succeeds only at the end of the test
+string; they* correspond to `*^&#39; and `$&#39; in standard regular
+expressions. They* are useful for matching path segments in patterns
+other than those in filename generation (where path segments are in
+any case treated separately). For example, `**((#s)|/)test((#e)|/)*&#39;
+matches* a path segment `*test&#39; in any of the following strings:
+test,* <strong>test/at/start, at/end/test, in/test/middle.</strong>
+
+Another use is in parameter substitution; for example
+`*${array/(#s)A*Z(#e)}&#39; will remove only elements of an* array which
+match the complete pattern `*A*Z&#39;. There are other ways of performing*
+many operations of this type, however the combination of the
+substitution operations `*/&#39; and `//&#39; with the `(#s)&#39; and `(#e)&#39;
+flags* provides a single simple and memorable method.
+
+Note that assertions of the form `*(^(#s))&#39; also work, i.e. match*
+anywhere except at the start of the string, although this actually
+means `anything except a zero-length portion at the start of the
+string&#39;; you need to use `*(&#34;&#34;~(#s))&#39; to match a zero-length portion
+of the string* not at the start.</dd>
+<dt>
+<strong>q</strong>
+</dt>
+<dd>A `*q&#39; and everything up to the closing parenthesis of the
+globbing* flags are ignored by the pattern matching code. This is
+intended to support the use of glob qualifiers, see below. The result
+is that the pattern `*(#b)(<strong>).c(#q.)&#39; can be used both for globbing</strong>
+and for matching against a string. In the former case, the `*(#q.)&#39;
+will be* treated as a glob qualifier and the `*(#b)&#39; will not be
+useful, while in* the latter case the `*(#b)&#39; is useful for
+backreferences and the* `*(#q.)&#39; will be ignored. Note that colon
+modifiers in the glob* qualifiers are also not applied in ordinary
+pattern matching.</dd>
+<dt>
+<strong>u</strong>
+</dt>
+<dd>Respect the current locale in determining the presence of
+multibyte characters in a pattern, provided the shell was compiled
+with <strong>MULTIBYTE_SUPPORT. This overrides the MULTIBYTE</strong> option; the
+default behaviour is taken from the option. Compare <strong>U.</strong> (Mnemonic:
+typically multibyte characters are from Unicode in the UTF-8 encoding,
+although any extension of ASCII supported by the system library may be
+used.)</dd>
+<dt>
+<strong>U</strong>
+</dt>
+<dd>All characters are considered to be a single byte long. The
+opposite of <strong>u. This overrides the MULTIBYTE option.</strong></dd>
+</dl>
+<p>For example, the test string <strong>fooxx can be matched by the pattern</strong>
+<strong>(#i)FOOXX, but not by (#l)FOOXX,</strong> <strong>(#i)FOO(#I)XX or</strong> <strong>((#i)FOOX)X. The
+string</strong> <strong>(#ia2)readme specifies case-insensitive matching of</strong> <strong>readme
+with up to two errors.</strong></p>
+<p>
+When using the ksh syntax for grouping both <strong>KSH_GLOB and</strong>
+<strong>EXTENDED_GLOB must be set and the left parenthesis should be</strong> preceded
+by <strong>@. Note also that the flags do not affect letters</strong> inside <strong>[…]
+groups, in other words (#i)[a-z]</strong> still matches only lowercase letters.
+Finally, note that when examining whole paths case-insensitively every
+directory must be searched for all files which match, so that a pattern
+of the form <strong>(#i)/foo/bar/… is potentially slow.</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-27" class="outline-3">
+<h3 id="headline-27">
+Approximate Matching
+</h3>
+<div id="outline-text-headline-27" class="outline-text-3">
+<p>When matching approximately, the shell keeps a count of the errors
+found, which cannot exceed the number specified in the <strong>(#a*/num/</strong>)
+flags. Four types of error are recognised:*</p>
+<ol>
+<li>Different characters, as in <strong>fooxbar and fooybar.</strong></li>
+</ol>
+<dl>
+<dt>
+2.
+</dt>
+<dd>Transposition of characters, as in <strong>banana and abnana.</strong></dd>
+<dt>
+3.
+</dt>
+<dd>A character missing in the target string, as with the pattern
+<strong>road and</strong> target string <strong>rod.</strong></dd>
+<dt>
+4.
+</dt>
+<dd>An extra character appearing in the target string, as with
+<strong>stove</strong> and <strong>strove.</strong></dd>
+</dl>
+<p>Thus, the pattern <strong>(#a3)abcd matches dcba, with the</strong> errors occurring by
+using the first rule twice and the second once, grouping the string as
+<strong>[d][cb][a] and [a][bc][d].</strong></p>
+<p>
+Non-literal parts of the pattern must match exactly, including
+characters in character ranges: hence <strong>(#a1)??? matches strings of</strong>
+length four, by applying rule 4 to an empty part of the pattern, but not
+strings of length two, since all the <strong>? must match. Other characters</strong>
+which must match exactly are initial dots in filenames (unless the
+<strong>GLOB_DOTS option is set), and all slashes in filenames, so that</strong> <strong>a/bc
+is two errors from ab/c (the slash cannot be transposed with</strong> another
+character). Similarly, errors are counted separately for non-contiguous
+strings in the pattern, so that <strong>(ab|cd)ef</strong> is two errors from <strong>aebf.</strong></p>
+<p>
+When using exclusion via the <strong>~ operator, approximate matching is</strong>
+treated entirely separately for the excluded part and must be activated
+separately. Thus, <strong>(#a1)README~READ_ME matches</strong> <strong>READ.ME but not
+READ_ME, as the trailing READ_ME is matched</strong> without approximation.
+However, <strong>(#a1)README~(#a1)READ_ME</strong> does not match any pattern of the
+form <strong>READ*/?/*ME as all</strong> such forms are now excluded.</p>
+<p>
+Apart from exclusions, there is only one overall error count; however,
+the maximum errors allowed may be altered locally, and this can be
+delimited by grouping. For example, <strong>(#a1)cat((#a0)dog)fox</strong> allows one
+error in total, which may not occur in the <strong>dog section, and</strong> the
+pattern <strong>(#a1)cat(#a0)dog(#a1)fox</strong> is equivalent. Note that the point at
+which an error is first found is the crucial one for establishing
+whether to use approximation; for example, <strong>(#a1)abc(#a0)xyz will not
+match abcdxyz, because the</strong> error occurs at the `*x&#39;, where
+approximation is turned off.*</p>
+<p>
+Entire path segments may be matched approximately, so that
+`*(#a1)/foo/d/is/available/at/the/bar&#39; allows one error in any path*
+segment. This is much less efficient than without the <strong>(#a1), however,</strong>
+since every directory in the path must be scanned for a possible
+approximate match. It is best to place the <strong>(#a1) after any path</strong>
+segments which are known to be correct.</p>
+</div>
+</div>
+<div id="outline-container-headline-28" class="outline-3">
+<h3 id="headline-28">
+Recursive Globbing
+</h3>
+<div id="outline-text-headline-28" class="outline-text-3">
+<p>A pathname component of the form `*(<strong><em>foo/*</em>)#&#39;</strong> matches a path
+consisting of zero or more directories matching the pattern /foo/*.*</p>
+<p>
+As a shorthand, `***/&#39; is equivalent to `(<strong>/)#&#39;; note that this</strong>
+therefore matches files in the current directory as well as
+subdirectories. Thus:</p>
+<blockquote>
+<pre class="example">
+ls -ld -- (*/)#bar
+</pre>
+</blockquote>
+<p>
+or</p>
+<blockquote>
+<pre class="example">
+ls -ld -- **/bar
+</pre>
+</blockquote>
+<p>
+does a recursive directory search for files named `*bar&#39; (potentially*
+including the file `*bar&#39; in the current directory). This form does not*
+follow symbolic links; the alternative form `****/&#39; does, but is*
+otherwise identical. Neither of these can be combined with other forms
+of globbing within the same path segment; in that case, the `**&#39;*
+operators revert to their usual effect.</p>
+<p>
+Even shorter forms are available when the option <strong>GLOB_STAR_SHORT is</strong>
+set. In that case if no <strong>/ immediately follows a *</strong> or <strong>**</strong> they are
+treated as if both a <strong>/ plus a further * are present.</strong> Hence:</p>
+<blockquote>
+<pre class="example">
+setopt GLOBSTARSHORT
+ls -ld -- **.c
+</pre>
+</blockquote>
+<p>
+is equivalent to</p>
+<blockquote>
+<pre class="example">
+ls -ld -- **/*.c
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-29" class="outline-3">
+<h3 id="headline-29">
+Glob Qualifiers
+</h3>
+<div id="outline-text-headline-29" class="outline-text-3">
+<p>Patterns used for filename generation may end in a list of qualifiers
+enclosed in parentheses. The qualifiers specify which filenames that
+otherwise match the given pattern will be inserted in the argument list.</p>
+<p>
+If the option <strong>BARE_GLOB_QUAL is set, then a trailing set of
+parentheses</strong> containing no `*|&#39; or `(&#39; characters (or `~&#39; if it is
+special)* is taken as a set of glob qualifiers. A glob subexpression
+that would normally be taken as glob qualifiers, for example `*(^x)&#39;,
+can be forced to be treated as part of* the glob pattern by doubling the
+parentheses, in this case producing `*((^x))&#39;.*</p>
+<p>
+If the option <strong>EXTENDED_GLOB is set, a different syntax for glob</strong>
+qualifiers is available, namely `*(#q*/x/*)&#39;* where /x/* is any of the
+same* glob qualifiers used in the other format. The qualifiers must
+still appear at the end of the pattern. However, with this syntax
+multiple glob qualifiers may be chained together. They are treated as a
+logical AND of the individual sets of flags. Also, as the syntax is
+unambiguous, the expression will be treated as glob qualifiers just as
+long any parentheses contained within it are balanced; appearance of
+`*|&#39;, `(&#39; or* `*~&#39; does not negate the effect. Note that qualifiers will
+be* recognised in this form even if a bare glob qualifier exists at the
+end of the pattern, for example `**(#q*)(.)&#39; will recognise executable
+regular* files if both options are set; however, mixed syntax should
+probably be avoided for the sake of clarity. Note that within conditions
+using the `*[[&#39; form the presence of a parenthesised expression*
+<strong>(#q*/…/</strong>) at the end of a string indicates that globbing* should be
+performed; the expression may include glob qualifiers, but it is also
+valid if it is simply <strong>(#q). This does</strong> not apply to the right hand side
+of pattern match operators as the syntax already has special
+significance.</p>
+<p>
+A qualifier may be any one of the following:</p>
+<p>
+<strong>/</strong> directories</p>
+<dl>
+<dt>
+<strong>F</strong>
+</dt>
+<dd>`full&#39; (i.e. non-empty) directories. Note that the opposite
+sense <strong>(^F) expands to empty directories</strong> and all non-directories. Use
+<strong>(/^F) for</strong> empty directories.</dd>
+<dt>
+<strong>.</strong>
+</dt>
+<dd>plain files</dd>
+<dt>
+<strong>@</strong>
+</dt>
+<dd>symbolic links</dd>
+<dt>
+<strong>=</strong>
+</dt>
+<dd>sockets</dd>
+<dt>
+<strong>p</strong>
+</dt>
+<dd>named pipes (FIFOs)</dd>
+<dt>
+<strong>*</strong>
+</dt>
+<dd>executable plain files (0100 or 0010 or 0001)</dd>
+<dt>
+<strong>%</strong>
+</dt>
+<dd>device files (character or block special)</dd>
+<dt>
+<strong>%b</strong>
+</dt>
+<dd>block special files</dd>
+<dt>
+<strong>%c</strong>
+</dt>
+<dd>character special files</dd>
+<dt>
+<strong>r</strong>
+</dt>
+<dd>owner-readable files (0400)</dd>
+<dt>
+<strong>w</strong>
+</dt>
+<dd>owner-writable files (0200)</dd>
+<dt>
+<strong>x</strong>
+</dt>
+<dd>owner-executable files (0100)</dd>
+<dt>
+<strong>A</strong>
+</dt>
+<dd>group-readable files (0040)</dd>
+<dt>
+<strong>I</strong>
+</dt>
+<dd>group-writable files (0020)</dd>
+<dt>
+<strong>E</strong>
+</dt>
+<dd>group-executable files (0010)</dd>
+<dt>
+<strong>R</strong>
+</dt>
+<dd>world-readable files (0004)</dd>
+<dt>
+<strong>W</strong>
+</dt>
+<dd>world-writable files (0002)</dd>
+<dt>
+<strong>X</strong>
+</dt>
+<dd>world-executable files (0001)</dd>
+<dt>
+<strong>s</strong>
+</dt>
+<dd>setuid files (04000)</dd>
+<dt>
+<strong>S</strong>
+</dt>
+<dd>setgid files (02000)</dd>
+<dt>
+<strong>t</strong>
+</dt>
+<dd>files with the sticky bit (01000)</dd>
+<dt>
+*f*/spec/
+</dt>
+<dd>files with access rights matching /spec/*. This <strong><em>spec</em></strong>
+may be a* octal number optionally preceded by a `*=&#39;, a `+&#39;, or a*
+`*-&#39;. If none of these characters is given, the behavior is the* same
+as for `*=&#39;. The octal number describes the mode bits to be* expected,
+if combined with a `*=&#39;, the value given must match the* file-modes
+exactly, with a `*+&#39;, at least the bits in the* given number must be
+set in the file-modes, and with a `*-&#39;, the* bits in the number must
+not be set. Giving a `*?&#39; instead of a* octal digit anywhere in the
+number ensures that the corresponding bits in the file-modes are not
+checked, this is only useful in combination with `*=&#39;.*
+
+If the qualifier `*f&#39; is followed by any other character anything* up
+to the next matching character (`*[&#39;, `{&#39;, and `&lt;&#39; match* `*]&#39;, `}&#39;,
+and `&gt;&#39; respectively, any other character* matches itself) is taken as
+a list of comma-separated /sub-spec/*s. Each <strong><em>sub-spec</em></strong> may be
+either an octal number as* described above or a list of any of the
+characters `*u&#39;, `g&#39;,* `*o&#39;, and `a&#39;, followed by a `=&#39;, a `+&#39;, or a*
+`*-&#39;, followed by a list of any of the characters `r&#39;, `w&#39;,* `*x&#39;,
+`s&#39;, and `t&#39;, or an octal digit. The first list of* characters specify
+which access rights are to be checked. If a `*u&#39;* is given, those for
+the owner of the file are used, if a `*g&#39; is* given, those of the
+group are checked, a `*o&#39; means to test those* of other users, and the
+`*a&#39; says to test all three groups. The* `*=&#39;, `+&#39;, and `-&#39; again says
+how the modes are to be* checked and have the same meaning as
+described for the first form above. The second list of characters
+finally says which access rights are to be expected: `*r&#39; for read
+access, `w&#39; for write access,* `*x&#39; for the right to execute the file
+(or to search a directory),* `*s&#39; for the setuid and setgid bits, and
+`t&#39; for the sticky* bit.
+
+Thus, `**(f70?)&#39; gives the files for which the owner has read,* write,
+and execute permission, and for which other group members have no
+rights, independent of the permissions for other users. The pattern
+`**(f-100)&#39; gives all files for which the owner does not have* execute
+permission, and `**(f:gu+w,o-rx:)&#39; gives the files for which* the
+owner and the other members of the group have at least write
+permission, and for which other users don&#39;t have read or execute
+permission.</dd>
+</dl>
+<p>*e*/string/</p>
+<p>
+<strong>+*/cmd/ The <em>string</em></strong> will be executed as shell code. The filename will
+be* included in the list if and only if the code returns a zero status
+(usually the status of the last command).</p>
+<blockquote>
+<p>In the first form, the first character after the `*e&#39;* will be used as a
+separator and anything up to the next matching separator will be taken
+as the /string/*; `[&#39;, `{&#39;, and `&lt;&#39; match* `*]&#39;, `}&#39;, and `&gt;&#39;,
+respectively, while any other character* matches itself. Note that
+expansions must be quoted in the <em>string</em> to prevent them from being
+expanded before globbing is done. /string/* is then executed as shell
+code. The string globqual* is appended to the array <strong>zsh_eval_context
+the duration of</strong> execution.</p>
+<p>
+During the execution of /string/* the filename currently being tested
+is* available in the parameter <strong>REPLY; the parameter may be altered to</strong>
+a string to be inserted into the list instead of the original filename.
+In addition, the parameter <strong>reply may be set to an array or a</strong> string,
+which overrides the value of <strong>REPLY. If set to an array, the</strong> latter is
+inserted into the command line word by word.</p>
+<p>
+For example, suppose a directory contains a single file `*lonely&#39;. Then*
+the expression `**(e:&#39;reply=(${REPLY}{1,2})&#39;:)&#39; will cause the words*
+`*lonely1&#39; and `lonely2&#39; to be inserted into the command line. Note* the
+quoting of /string/*.*</p>
+<p>
+The form <strong>+*/cmd/</strong> has the same effect, but no delimiters appear* around
+/cmd/*. Instead, <strong><em>cmd</em></strong> is taken as the longest sequence of* characters
+following the <strong>+ that are alphanumeric or underscore.</strong> Typically /cmd/*
+will be the name of a shell function that contains the* appropriate
+test. For example,</p>
+<blockquote>
+<pre class="example">
+nt() { [[ $REPLY -nt $NTREF ]] }
+NTREF=reffile
+ls -ld -- *(+nt)
+</pre>
+</blockquote>
+<p>
+lists all files in the directory that have been modified more recently
+than <strong>reffile.</strong></p>
+</blockquote>
+<dl>
+<dt>
+*d*/dev/
+</dt>
+<dd>files on the device <em>dev</em></dd>
+<dt>
+*l[-|+]*/ct/
+</dt>
+<dd>files having a link count less than <em>ct/* (-), greater
+than* /ct/* (+), or equal to */ct</em></dd>
+<dt>
+<strong>U</strong>
+</dt>
+<dd>files owned by the effective user ID</dd>
+<dt>
+<strong>G</strong>
+</dt>
+<dd>files owned by the effective group ID</dd>
+<dt>
+*u*/id/
+</dt>
+<dd>files owned by user ID /id/* if that is a number.
+Otherwise,* /id/* specifies a user name: the* character after the `*u&#39;
+will be taken as a separator and the string* between it and the next
+matching separator will be taken as a user name. The starting
+separators `*[&#39;, `{&#39;, and `&lt;&#39;* match the final separators `*]&#39;, `}&#39;,
+and `&gt;&#39;, respectively;* any other character matches itself. The
+selected files are those owned by this user. For example, `*u:foo:&#39; or
+`u[foo]&#39; selects* files owned by user `*foo&#39;.*</dd>
+<dt>
+*g*/id/
+</dt>
+<dd>like <strong>u*/id/</strong> but with group IDs or names*</dd>
+<dt>
+*a[Mwhms][-|+]*/n/
+</dt>
+<dd>files accessed exactly /n/* days ago. Files
+accessed within the last* /n/* days are selected using a negative
+value for <strong><em>n</em></strong> (-<strong><em>n</em></strong>).* Files accessed more than <em>n/* days ago are
+selected by a positive */n</em> value (<strong>+*/n/</strong>). Optional unit specifiers
+`M&#39;, `w&#39;,* `*h&#39;, `m&#39; or `s&#39; (e.g. `ah5&#39;) cause the check to be*
+performed with months (of 30 days), weeks, hours, minutes or seconds
+instead of days, respectively. An explicit `*d&#39; for days is also*
+allowed.
+
+Any fractional part of the difference between the access time and the
+current part in the appropriate units is ignored in the comparison.
+For instance, `*echo <strong>(ah-5)&#39; would echo files accessed within the
+last</strong> five hours, while `*echo <strong>(ah+5)&#39; would echo files accessed at
+least</strong> six hours ago, as times strictly between five and six hours are
+treated as five hours.</dd>
+<dt>
+*m[Mwhms][-|+]*/n/
+</dt>
+<dd>like the file access qualifier, except that it
+uses the file modification time.</dd>
+<dt>
+*c[Mwhms][-|+]*/n/
+</dt>
+<dd>like the file access qualifier, except that it
+uses the file inode change time.</dd>
+<dt>
+*L[+|-]*/n/
+</dt>
+<dd>files less than /n/* bytes (-), more than <strong><em>n</em></strong> bytes
+(+), or* exactly /n/* bytes in length.*
+
+If this flag is directly followed by a /size specifier/* `k&#39; (`K&#39;),*
+`*m&#39; (`M&#39;), or `p&#39; (`P&#39;) (e.g. `Lk-50&#39;) the check is* performed with
+kilobytes, megabytes, or blocks (of 512 bytes) instead. (On some
+systems additional specifiers are available for gigabytes, `*g&#39; or
+`G&#39;, and terabytes, `t&#39; or `T&#39;.) If a size specifier* is used a file
+is regarded as &#34;exactly&#34; the size if the file size rounded up to the
+next unit is equal to the test size. Hence `**(Lm1)&#39;* matches files
+from 1 byte up to 1 Megabyte inclusive. Note also that the set of
+files &#34;less than&#34; the test size only includes files that would not
+match the equality test; hence `**(Lm-1)&#39; only matches* files of zero
+size.</dd>
+<dt>
+<strong>^</strong>
+</dt>
+<dd>negates all qualifiers following it</dd>
+<dt>
+<strong>-</strong>
+</dt>
+<dd>toggles between making the qualifiers work on symbolic links
+(the default) and the files they point to, if any; any symbolic link
+for whose target the `*stat&#39; system call fails (whatever the cause of
+the* failure) is treated as a file in its own right</dd>
+<dt>
+<strong>M</strong>
+</dt>
+<dd>sets the <strong>MARK_DIRS option for the current pattern</strong></dd>
+<dt>
+<strong>T</strong>
+</dt>
+<dd>appends a trailing qualifier mark to the filenames, analogous
+to the <strong>LIST_TYPES option, for the current pattern (overrides M)</strong></dd>
+<dt>
+<strong>N</strong>
+</dt>
+<dd>sets the <strong>NULL_GLOB option for the current pattern</strong></dd>
+<dt>
+<strong>D</strong>
+</dt>
+<dd>sets the <strong>GLOB_DOTS option for the current pattern</strong></dd>
+<dt>
+<strong>n</strong>
+</dt>
+<dd>sets the <strong>NUMERIC_GLOB_SORT option for the current pattern</strong></dd>
+<dt>
+*Y*/n/
+</dt>
+<dd>enables short-circuit mode: the pattern will expand to at
+most <em>n</em> filenames. If more than <em>n/* matches exist, only the first
+*/n</em> matches in directory traversal order will be considered.
+
+Implies <strong>oN when no o*/c/</strong> qualifier is used.*</dd>
+<dt>
+*o*/c/
+</dt>
+<dd>
+<p>specifies how the names of the files should be sorted. The
+following values of /c/* sort in the following ways:*</p>
+<dl>
+<dt>
+<strong>n</strong>
+</dt>
+<dd>By name.</dd>
+<dt>
+<strong>L</strong>
+</dt>
+<dd>By the size (length) of the files.</dd>
+<dt>
+<strong>l</strong>
+</dt>
+<dd>By number of links.</dd>
+<dt>
+<strong>a</strong>
+</dt>
+<dd>By time of last access, youngest first.</dd>
+<dt>
+<strong>m</strong>
+</dt>
+<dd>By time of last modification, youngest first.</dd>
+<dt>
+<strong>c</strong>
+</dt>
+<dd>By time of last inode change, youngest first.</dd>
+<dt>
+<strong>d</strong>
+</dt>
+<dd>By directories: files in subdirectories appear before those
+in the current directory at each level of the search – this is best
+combined with other criteria, for example `*odon&#39; to sort on names
+for* files within the same directory.</dd>
+<dt>
+<strong>N</strong>
+</dt>
+<dd>No sorting is performed.</dd>
+</dl>
+<p>*e*/string/</p>
+<dl>
+<dt>
+*+*/cmd/
+</dt>
+<dd>Sort by shell code (see below).</dd>
+</dl>
+<p>Note that the modifiers <strong>^ and - are used,</strong> so `**(^-oL)&#39; gives a list
+of all files sorted by file size in descending* order, following any
+symbolic links. Unless <strong>oN is used, multiple order</strong> specifiers may
+occur to resolve ties.</p>
+<p>
+The default sorting is <strong>n (by name) unless the Y glob qualifier is
+used,</strong> in which case it is <strong>N (unsorted).</strong></p>
+<p>
+<strong>oe and o+ are special cases; they are each followed by shell code,</strong>
+delimited as for the <strong>e glob qualifier and the + glob qualifier</strong>
+respectively (see above). The code is executed for each matched file
+with the parameter <strong>REPLY set to the name of the file on entry and</strong>
+<strong>globsort appended to zsh_eval_context. The code</strong> should modify the
+parameter <strong>REPLY in some fashion. On return, the</strong> value of the
+parameter is used instead of the file name as the string on which to
+sort. Unlike other sort operators, <strong>oe and o+ may be</strong> repeated, but
+note that the maximum number of sort operators of any kind that may
+appear in any glob expression is 12.</p>
+</dd>
+</dl>
+<p><strong>O*/c/ like `*o&#39;, but sorts in descending order; i.e. `*(^o*/c/</strong>)&#39; is
+the* same as `**(O*/c/*)&#39; and `*(^O*/c/*)&#39; is the same as `*(o*/c/*)&#39;;
+`Od&#39;* puts files in the current directory before those in subdirectories
+at each level of the search.</p>
+<dl>
+<dt>
+<strong>[*/beg/</strong>[,*/end/*]]*
+</dt>
+<dd>specifies which of the matched filenames
+should be included in the returned list. The syntax is the same as for
+array subscripts. /beg/* and the optional <strong><em>end</em></strong> may be mathematical*
+expressions. As in parameter subscripting they may be negative to make
+them count from the last match backward. E.g.: `**(-OL[1,3])&#39;* gives a
+list of the names of the three largest files.</dd>
+<dt>
+*P*/string/
+</dt>
+<dd>The /string/* will be prepended to each glob match as a
+separate* word. /string/* is delimited in the same way as arguments to
+the* <strong>e glob qualifier described above. The qualifier can be
+repeated;</strong> the words are prepended separately so that the resulting
+command line contains the words in the same order they were given in
+the list of glob qualifiers.
+
+A typical use for this is to prepend an option before all occurrences
+of a file name; for example, the pattern `**(P:-f:)&#39; produces the*
+command line arguments `*-f <strong><em>file1</em></strong> -f <strong><em>file2</em></strong> …&#39;*
+
+If the modifier <strong>^ is active, then */string/</strong> will be appended*
+instead of prepended. Prepending and appending is done independently
+so both can be used on the same glob expression; for example by
+writing `**(P:foo:^P:bar:^P:baz:)&#39; which produces the command line
+arguments* `*foo baz <strong><em>file1</em></strong> bar …&#39;*</dd>
+</dl>
+<p>More than one of these lists can be combined, separated by commas. The
+whole list matches if at least one of the sublists matches (they are
+`or&#39;ed, the qualifiers in the sublists are `and&#39;ed). Some qualifiers,
+however, affect all matches generated, independent of the sublist in
+which they are given. These are the qualifiers `*M&#39;, `T&#39;,* `*N&#39;, `D&#39;,
+`n&#39;, `o&#39;, `O&#39; and the subscripts given* in brackets (`*[*/…/*]&#39;).*</p>
+<p>
+If a `*:&#39; appears in a qualifier list, the remainder of the expression
+in* parenthesis is interpreted as a modifier (see the section
+`Modifiers&#39; in the section `History Expansion&#39;). Each modifier must be
+introduced by a separate `*:&#39;. Note also that the result after
+modification does not* have to be an existing file. The name of any
+existing file can be followed by a modifier of the form `*(:*/…/*)&#39;*
+even if no actual filename generation is performed, although note that
+the presence of the parentheses causes the entire expression to be
+subjected to any global pattern matching options such as <strong>NULL_GLOB.
+Thus:</strong></p>
+<blockquote>
+<pre class="example">
+ls -ld -- *(-/)
+</pre>
+</blockquote>
+<p>
+lists all directories and symbolic links that point to directories, and</p>
+<blockquote>
+<pre class="example">
+ls -ld -- *(-@)
+</pre>
+</blockquote>
+<p>
+lists all broken symbolic links, and</p>
+<blockquote>
+<pre class="example">
+ls -ld -- *(%W)
+</pre>
+</blockquote>
+<p>
+lists all world-writable device files in the current directory, and</p>
+<blockquote>
+<pre class="example">
+ls -ld -- *(W,X)
+</pre>
+</blockquote>
+<p>
+lists all files in the current directory that are world-writable or
+world-executable, and</p>
+<blockquote>
+<pre class="example">
+print -rC1 /tmp/foo*(u0^@:t)
+</pre>
+</blockquote>
+<p>
+outputs the basename of all root-owned files beginning with the string
+`*foo&#39; in /tmp, ignoring symlinks, and*</p>
+<blockquote>
+<pre class="example">
+ls -ld -- *.*~(lex|parse).[ch](^D^l1)
+</pre>
+</blockquote>
+<p>
+lists all files having a link count of one whose names contain a dot
+(but not those starting with a dot, since <strong>GLOB_DOTS is explicitly</strong>
+switched off) except for <strong>lex.c, lex.h, parse.c and parse.h.</strong></p>
+<blockquote>
+<pre class="example">
+print -rC1 b*.pro(#q:s/pro/shmo/)(#q.:s/builtin/shmiltin/)
+</pre>
+</blockquote>
+<p>
+demonstrates how colon modifiers and other qualifiers may be chained
+together. The ordinary qualifier `*.&#39; is applied first, then the colon*
+modifiers in order from left to right. So if <strong>EXTENDED_GLOB is set and</strong>
+the base pattern matches the regular file <strong>builtin.pro, the shell will</strong>
+print `*shmiltin.shmo&#39;.*</p>
+</div>
+</div>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

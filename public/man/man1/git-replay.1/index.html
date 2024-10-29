@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-replay.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-replay.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-replay - EXPERIMENTAL: Replay commits on a new base, works with bare
+repos too</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+(EXPERIMENTAL!) git replay ([--contained] --onto &lt;newbase&gt; | --advance &lt;branch&gt;) &lt;revision-range&gt;...
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Takes ranges of commits and replays them onto a new location. Leaves the
+working tree and the index untouched, and updates no references. The
+output of this command is meant to be used as input to <strong>git update-ref
+–stdin</strong>, which would update the relevant branches (see the OUTPUT
+section below).</p>
+<p>
+THIS COMMAND IS EXPERIMENTAL. THE BEHAVIOR MAY CHANGE.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–onto &lt;newbase&gt;</p>
+<blockquote>
+<p>Starting point at which to create the new commits. May be any valid
+commit, and not just an existing branch name.</p>
+<p>
+When <strong>–onto</strong> is specified, the update-ref command(s) in the output will
+update the branch(es) in the revision range to point at the new commits,
+similar to the way how <strong>git rebase –update-refs</strong> updates multiple
+branches in the affected range.</p>
+</blockquote>
+<p>
+–advance &lt;branch&gt;</p>
+<blockquote>
+<p>Starting point at which to create the new commits; must be a branch
+name.</p>
+<p>
+When <strong>–advance</strong> is specified, the update-ref command(s) in the output
+will update the branch passed as an argument to <strong>–advance</strong> to point at
+the new commits (in other words, this mimics a cherry-pick operation).</p>
+</blockquote>
+<p>
+&lt;revision-range&gt;</p>
+<blockquote>
+<p>Range of commits to replay. More than one &lt;revision-range&gt; can be
+passed, but in <strong>–advance &lt;branch&gt;</strong> mode, they should have a single tip,
+so that it&#39;s clear where &lt;branch&gt; should point to. See &#34;Specifying
+Ranges&#34; in *git-rev-parse*(1) and the &#34;Commit Limiting&#34; options below.</p>
+</blockquote>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Commit Limiting
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Besides specifying a range of commits that should be listed using the
+special notations explained in the description, additional commit
+limiting may be applied.</p>
+<p>
+Using more options generally further limits the output (e.g.
+<strong>–since=&lt;date1&gt;</strong> limits to commits newer than <strong>&lt;date1&gt;</strong>, and using it
+with <strong>–grep=&lt;pattern&gt;</strong> further limits to commits whose log message has
+a line that matches <strong>&lt;pattern&gt;</strong>), unless otherwise noted.</p>
+<p>
+Note that these are applied before commit ordering and formatting
+options, such as <strong>–reverse</strong>.</p>
+<p>
+-&lt;number&gt;, -n &lt;number&gt;, –max-count=&lt;number&gt;</p>
+<blockquote>
+<p>Limit the number of commits to output.</p>
+</blockquote>
+<p>
+–skip=&lt;number&gt;</p>
+<blockquote>
+<p>Skip <em>number</em> commits before starting to show the commit output.</p>
+</blockquote>
+<p>
+–since=&lt;date&gt;, –after=&lt;date&gt;</p>
+<blockquote>
+<p>Show commits more recent than a specific date.</p>
+</blockquote>
+<p>
+–since-as-filter=&lt;date&gt;</p>
+<blockquote>
+<p>Show all commits more recent than a specific date. This visits all
+commits in the range, rather than stopping at the first commit which is
+older than a specific date.</p>
+</blockquote>
+<p>
+–until=&lt;date&gt;, –before=&lt;date&gt;</p>
+<blockquote>
+<p>Show commits older than a specific date.</p>
+</blockquote>
+<p>
+–author=&lt;pattern&gt;, –committer=&lt;pattern&gt;</p>
+<blockquote>
+<p>Limit the commits output to ones with author/committer header lines that
+match the specified pattern (regular expression). With more than one
+<strong>–author=&lt;pattern&gt;</strong>, commits whose author matches any of the given
+patterns are chosen (similarly for multiple <strong>–committer=&lt;pattern&gt;</strong>).</p>
+</blockquote>
+<p>
+–grep-reflog=&lt;pattern&gt;</p>
+<blockquote>
+<p>Limit the commits output to ones with reflog entries that match the
+specified pattern (regular expression). With more than one
+<strong>–grep-reflog</strong>, commits whose reflog message matches any of the given
+patterns are chosen. It is an error to use this option unless
+<strong>–walk-reflogs</strong> is in use.</p>
+</blockquote>
+<p>
+–grep=&lt;pattern&gt;</p>
+<blockquote>
+<p>Limit the commits output to ones with a log message that matches the
+specified pattern (regular expression). With more than one
+<strong>–grep=&lt;pattern&gt;</strong>, commits whose message matches any of the given
+patterns are chosen (but see <strong>–all-match</strong>).</p>
+<p>
+When <strong>–notes</strong> is in effect, the message from the notes is matched as if
+it were part of the log message.</p>
+</blockquote>
+<p>
+–all-match</p>
+<blockquote>
+<p>Limit the commits output to ones that match all given <strong>–grep</strong>, instead
+of ones that match at least one.</p>
+</blockquote>
+<p>
+–invert-grep</p>
+<blockquote>
+<p>Limit the commits output to ones with a log message that do not match
+the pattern specified with <strong>–grep=&lt;pattern&gt;</strong>.</p>
+</blockquote>
+<p>
+-i, –regexp-ignore-case</p>
+<blockquote>
+<p>Match the regular expression limiting patterns without regard to letter
+case.</p>
+</blockquote>
+<p>
+–basic-regexp</p>
+<blockquote>
+<p>Consider the limiting patterns to be basic regular expressions; this is
+the default.</p>
+</blockquote>
+<p>
+-E, –extended-regexp</p>
+<blockquote>
+<p>Consider the limiting patterns to be extended regular expressions
+instead of the default basic regular expressions.</p>
+</blockquote>
+<p>
+-F, –fixed-strings</p>
+<blockquote>
+<p>Consider the limiting patterns to be fixed strings (don&#39;t interpret
+pattern as a regular expression).</p>
+</blockquote>
+<p>
+-P, –perl-regexp</p>
+<blockquote>
+<p>Consider the limiting patterns to be Perl-compatible regular
+expressions.</p>
+<p>
+Support for these types of regular expressions is an optional
+compile-time dependency. If Git wasn&#39;t compiled with support for them
+providing this option will cause it to die.</p>
+</blockquote>
+<p>
+–remove-empty</p>
+<blockquote>
+<p>Stop when a given path disappears from the tree.</p>
+</blockquote>
+<p>
+–merges</p>
+<blockquote>
+<p>Print only merge commits. This is exactly the same as <strong>–min-parents=2</strong>.</p>
+</blockquote>
+<p>
+–no-merges</p>
+<blockquote>
+<p>Do not print commits with more than one parent. This is exactly the same
+as <strong>–max-parents=1</strong>.</p>
+</blockquote>
+<p>
+–min-parents=&lt;number&gt;, –max-parents=&lt;number&gt;, –no-min-parents,
+–no-max-parents</p>
+<blockquote>
+<p>Show only commits which have at least (or at most) that many parent
+commits. In particular, <strong>–max-parents=1</strong> is the same as <strong>–no-merges</strong>,
+<strong>–min-parents=2</strong> is the same as <strong>–merges</strong>. <strong>–max-parents=0</strong> gives all
+root commits and <strong>–min-parents=3</strong> all octopus merges.</p>
+<p>
+<strong>–no-min-parents</strong> and <strong>–no-max-parents</strong> reset these limits (to no
+limit) again. Equivalent forms are <strong>–min-parents=0</strong> (any commit has 0
+or more parents) and <strong>–max-parents=-1</strong> (negative numbers denote no
+upper limit).</p>
+</blockquote>
+<p>
+–first-parent</p>
+<blockquote>
+<p>When finding commits to include, follow only the first parent commit
+upon seeing a merge commit. This option can give a better overview when
+viewing the evolution of a particular topic branch, because merges into
+a topic branch tend to be only about adjusting to updated upstream from
+time to time, and this option allows you to ignore the individual
+commits brought in to your history by such a merge.</p>
+</blockquote>
+<p>
+–exclude-first-parent-only</p>
+<blockquote>
+<p>When finding commits to exclude (with a <em>^</em>), follow only the first
+parent commit upon seeing a merge commit. This can be used to find the
+set of changes in a topic branch from the point where it diverged from
+the remote branch, given that arbitrary merges can be valid topic branch
+changes.</p>
+</blockquote>
+<p>
+–not</p>
+<blockquote>
+<p>Reverses the meaning of the <em>^</em> prefix (or lack thereof) for all
+following revision specifiers, up to the next <strong>–not</strong>. When used on the
+command line before –stdin, the revisions passed through stdin will not
+be affected by it. Conversely, when passed via standard input, the
+revisions passed on the command line will not be affected by it.</p>
+</blockquote>
+<p>
+–all</p>
+<blockquote>
+<p>Pretend as if all the refs in <strong>refs/</strong>, along with <strong>HEAD</strong>, are listed on
+the command line as <em>&lt;commit&gt;</em>.</p>
+</blockquote>
+<p>
+–branches[=&lt;pattern&gt;]</p>
+<blockquote>
+<p>Pretend as if all the refs in <strong>refs/heads</strong> are listed on the command
+line as <em>&lt;commit&gt;</em>. If <em>&lt;pattern&gt;</em> is given, limit branches to ones
+matching given shell glob. If pattern lacks <em>?</em>, <em>*</em>, or <em>[</em>, <em>/*</em> at
+the end is implied.</p>
+</blockquote>
+<p>
+–tags[=&lt;pattern&gt;]</p>
+<blockquote>
+<p>Pretend as if all the refs in <strong>refs/tags</strong> are listed on the command line
+as <em>&lt;commit&gt;</em>. If <em>&lt;pattern&gt;</em> is given, limit tags to ones matching
+given shell glob. If pattern lacks <em>?</em>, <em>*</em>, or <em>[</em>, <em>/*</em> at the end is
+implied.</p>
+</blockquote>
+<p>
+–remotes[=&lt;pattern&gt;]</p>
+<blockquote>
+<p>Pretend as if all the refs in <strong>refs/remotes</strong> are listed on the command
+line as <em>&lt;commit&gt;</em>. If <em>&lt;pattern&gt;</em> is given, limit remote-tracking
+branches to ones matching given shell glob. If pattern lacks <em>?</em>, <em>*</em>,
+or <em>[</em>, <em>/*</em> at the end is implied.</p>
+</blockquote>
+<p>
+–glob=&lt;glob-pattern&gt;</p>
+<blockquote>
+<p>Pretend as if all the refs matching shell glob <em>&lt;glob-pattern&gt;</em> are
+listed on the command line as <em>&lt;commit&gt;</em>. Leading <em>refs/</em>, is
+automatically prepended if missing. If pattern lacks <em>?</em>, <em>*</em>, or <em>[</em>,
+<em>/*</em> at the end is implied.</p>
+</blockquote>
+<p>
+–exclude=&lt;glob-pattern&gt;</p>
+<blockquote>
+<p>Do not include refs matching <em>&lt;glob-pattern&gt;</em> that the next <strong>–all</strong>,
+<strong>–branches</strong>, <strong>–tags</strong>, <strong>–remotes</strong>, or <strong>–glob</strong> would otherwise
+consider. Repetitions of this option accumulate exclusion patterns up to
+the next <strong>–all</strong>, <strong>–branches</strong>, <strong>–tags</strong>, <strong>–remotes</strong>, or <strong>–glob</strong>
+option (other options or arguments do not clear accumulated patterns).</p>
+<p>
+The patterns given should not begin with <strong>refs/heads</strong>, <strong>refs/tags</strong>, or
+<strong>refs/remotes</strong> when applied to <strong>–branches</strong>, <strong>–tags</strong>, or <strong>–remotes</strong>,
+respectively, and they must begin with <strong>refs/</strong> when applied to <strong>–glob</strong>
+or <strong>–all</strong>. If a trailing <em>/*</em> is intended, it must be given explicitly.</p>
+</blockquote>
+<p>
+–exclude-hidden=[fetch|receive|uploadpack]</p>
+<blockquote>
+<p>Do not include refs that would be hidden by <strong>git-fetch</strong>,
+<strong>git-receive-pack</strong> or <strong>git-upload-pack</strong> by consulting the appropriate
+<strong>fetch.hideRefs</strong>, <strong>receive.hideRefs</strong> or <strong>uploadpack.hideRefs</strong>
+configuration along with <strong>transfer.hideRefs</strong> (see <strong>git-config*(1)). This
+option affects the next pseudo-ref option *–all</strong> or <strong>–glob</strong> and is
+cleared after processing them.</p>
+</blockquote>
+<p>
+–reflog</p>
+<blockquote>
+<p>Pretend as if all objects mentioned by reflogs are listed on the command
+line as <strong>&lt;commit&gt;</strong>.</p>
+</blockquote>
+<p>
+–alternate-refs</p>
+<blockquote>
+<p>Pretend as if all objects mentioned as ref tips of alternate
+repositories were listed on the command line. An alternate repository is
+any repository whose object directory is specified in
+<strong>objects/info/alternates</strong>. The set of included objects may be modified
+by <strong>core.alternateRefsCommand</strong>, etc. See *git-config*(1).</p>
+</blockquote>
+<p>
+–single-worktree</p>
+<blockquote>
+<p>By default, all working trees will be examined by the following options
+when there are more than one (see <strong>git-worktree*(1)): *–all</strong>,
+<strong>–reflog</strong> and <strong>–indexed-objects</strong>. This option forces them to examine
+the current working tree only.</p>
+</blockquote>
+<p>
+–ignore-missing</p>
+<blockquote>
+<p>Upon seeing an invalid object name in the input, pretend as if the bad
+input was not given.</p>
+</blockquote>
+<p>
+–bisect</p>
+<blockquote>
+<p>Pretend as if the bad bisection ref <strong>refs/bisect/bad</strong> was listed and as
+if it was followed by <strong>–not</strong> and the good bisection refs
+<strong>refs/bisect/good-*</strong> on the command line.</p>
+</blockquote>
+<p>
+–stdin</p>
+<blockquote>
+<p>In addition to getting arguments from the command line, read them from
+standard input as well. This accepts commits and pseudo-options like
+<strong>–all</strong> and <strong>–glob=</strong>. When a <strong>–</strong> separator is seen, the following
+input is treated as paths and used to limit the result. Flags like
+<strong>–not</strong> which are read via standard input are only respected for
+arguments passed in the same way and will not influence any subsequent
+command line arguments.</p>
+</blockquote>
+<p>
+–cherry-mark</p>
+<blockquote>
+<p>Like <strong>–cherry-pick</strong> (see below) but mark equivalent commits with <strong>=</strong>
+rather than omitting them, and inequivalent ones with <strong>+</strong>.</p>
+</blockquote>
+<p>
+–cherry-pick</p>
+<blockquote>
+<p>Omit any commit that introduces the same change as another commit on the
+“other side” when the set of commits are limited with symmetric
+difference.</p>
+<p>
+For example, if you have two branches, <strong>A</strong> and <strong>B</strong>, a usual way to list
+all commits on only one side of them is with <strong>–left-right</strong> (see the
+example below in the description of the <strong>–left-right</strong> option). However,
+it shows the commits that were cherry-picked from the other branch (for
+example, “3rd on b” may be cherry-picked from branch A). With this
+option, such pairs of commits are excluded from the output.</p>
+</blockquote>
+<p>
+–left-only, –right-only</p>
+<blockquote>
+<p>List only commits on the respective side of a symmetric difference, i.e.
+only those which would be marked <strong>&lt;</strong> resp. <strong>&gt;</strong> by <strong>–left-right</strong>.</p>
+<p>
+For example, <strong>–cherry-pick –right-only A…B</strong> omits those commits from
+<strong>B</strong> which are in <strong>A</strong> or are patch-equivalent to a commit in <strong>A</strong>. In
+other words, this lists the <strong>+</strong> commits from <strong>git cherry A B</strong>. More
+precisely, <strong>–cherry-pick –right-only –no-merges</strong> gives the exact
+list.</p>
+</blockquote>
+<p>
+–cherry</p>
+<blockquote>
+<p>A synonym for <strong>–right-only –cherry-mark –no-merges</strong>; useful to limit
+the output to the commits on our side and mark those that have been
+applied to the other side of a forked history with <strong>git log –cherry
+upstream…mybranch</strong>, similar to <strong>git cherry upstream mybranch</strong>.</p>
+</blockquote>
+<p>
+-g, –walk-reflogs</p>
+<blockquote>
+<p>Instead of walking the commit ancestry chain, walk reflog entries from
+the most recent one to older ones. When this option is used you cannot
+specify commits to exclude (that is, <em>^commit</em>, <em>commit1..commit2</em>, and
+<em>commit1…commit2</em> notations cannot be used).</p>
+<p>
+With <strong>–pretty</strong> format other than <strong>oneline</strong> and <strong>reference</strong> (for obvious
+reasons), this causes the output to have two extra lines of information
+taken from the reflog. The reflog designator in the output may be shown
+as <strong>ref@{&lt;Nth&gt;}</strong> (where <em>&lt;Nth&gt;</em> is the reverse-chronological index in
+the reflog) or as <strong>ref@{&lt;timestamp&gt;}</strong> (with the <em>&lt;timestamp&gt;</em> for that
+entry), depending on a few rules:</p>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>If the starting point is specified as <strong>ref@{&lt;Nth&gt;}</strong>, show the index
+format.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>If the starting point was specified as <strong>ref@{now}</strong>, show the timestamp
+format.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>If neither was used, but <strong>–date</strong> was given on the command line, show
+the timestamp in the format requested by <strong>–date</strong>.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>Otherwise, show the index format.</p>
+</blockquote>
+<p>
+Under <strong>–pretty=oneline</strong>, the commit message is prefixed with this
+information on the same line. This option cannot be combined with
+<strong>–reverse</strong>. See also *git-reflog*(1).</p>
+<p>
+Under <strong>–pretty=reference</strong>, this information will not be shown at all.</p>
+</blockquote>
+<p>
+–merge</p>
+<blockquote>
+<p>Show commits touching conflicted paths in the range <strong>HEAD…&lt;other&gt;</strong>,
+where <strong>&lt;other&gt;</strong> is the first existing pseudoref in <strong>MERGE_HEAD</strong>,
+<strong>CHERRY_PICK_HEAD</strong>, <strong>REVERT_HEAD</strong> or <strong>REBASE_HEAD</strong>. Only works when the
+index has unmerged entries. This option can be used to show relevant
+commits when resolving conflicts from a 3-way merge.</p>
+</blockquote>
+<p>
+–boundary</p>
+<blockquote>
+<p>Output excluded boundary commits. Boundary commits are prefixed with
+<strong>-</strong>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+History Simplification
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Sometimes you are only interested in parts of the history, for example
+the commits modifying a particular &lt;path&gt;. But there are two parts of
+<em>History Simplification</em>, one part is selecting the commits and the
+other is how to do it, as there are various strategies to simplify the
+history.</p>
+<p>
+The following options select the commits to be shown:</p>
+<p>
+&lt;paths&gt;</p>
+<blockquote>
+<p>Commits modifying the given &lt;paths&gt; are selected.</p>
+</blockquote>
+<p>
+–simplify-by-decoration</p>
+<blockquote>
+<p>Commits that are referred by some branch or tag are selected.</p>
+</blockquote>
+<p>
+Note that extra commits can be shown to give a meaningful history.</p>
+<p>
+The following options affect the way the simplification is performed:</p>
+<p>
+Default mode</p>
+<blockquote>
+<p>Simplifies the history to the simplest history explaining the final
+state of the tree. Simplest because it prunes some side branches if the
+end result is the same (i.e. merging branches with the same content)</p>
+</blockquote>
+<p>
+–show-pulls</p>
+<blockquote>
+<p>Include all commits from the default mode, but also any merge commits
+that are not TREESAME to the first parent but are TREESAME to a later
+parent. This mode is helpful for showing the merge commits that &#34;first
+introduced&#34; a change to a branch.</p>
+</blockquote>
+<p>
+–full-history</p>
+<blockquote>
+<p>Same as the default mode, but does not prune some history.</p>
+</blockquote>
+<p>
+–dense</p>
+<blockquote>
+<p>Only the selected commits are shown, plus some to have a meaningful
+history.</p>
+</blockquote>
+<p>
+–sparse</p>
+<blockquote>
+<p>All commits in the simplified history are shown.</p>
+</blockquote>
+<p>
+–simplify-merges</p>
+<blockquote>
+<p>Additional option to <strong>–full-history</strong> to remove some needless merges
+from the resulting history, as there are no selected commits
+contributing to this merge.</p>
+</blockquote>
+<p>
+–ancestry-path[=&lt;commit&gt;]</p>
+<blockquote>
+<p>When given a range of commits to display (e.g. <em>commit1..commit2</em> or
+<em>commit2 ^commit1</em>), only display commits in that range that are
+ancestors of &lt;commit&gt;, descendants of &lt;commit&gt;, or &lt;commit&gt; itself. If
+no commit is specified, use <em>commit1</em> (the excluded part of the range)
+as &lt;commit&gt;. Can be passed multiple times; if so, a commit is included
+if it is any of the commits given or if it is an ancestor or descendant
+of one of them.</p>
+</blockquote>
+<p>
+A more detailed explanation follows.</p>
+<p>
+Suppose you specified <strong>foo</strong> as the &lt;paths&gt;. We shall call commits that
+modify <strong>foo</strong> !TREESAME, and the rest TREESAME. (In a diff filtered for
+<strong>foo</strong>, they look different and equal, respectively.)</p>
+<p>
+In the following, we will always refer to the same example history to
+illustrate the differences between simplification settings. We assume
+that you are filtering for a file <strong>foo</strong> in this commit graph:</p>
+<blockquote>
+<pre class="example">
+          .-A---M---N---O---P---Q
+         /     /   /   /   /   /
+        I     B   C   D   E   Y
+         \   /   /   /   /   /
+          `-------------   X
+</pre>
+</blockquote>
+<p>
+The horizontal line of history A—Q is taken to be the first parent of
+each merge. The commits are:</p>
+<blockquote>
+<p>·</p>
+<p>
+<strong>I</strong> is the initial commit, in which <strong>foo</strong> exists with contents “asdf”,
+and a file <strong>quux</strong> exists with contents “quux”. Initial commits are
+compared to an empty tree, so <strong>I</strong> is !TREESAME.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+In <strong>A</strong>, <strong>foo</strong> contains just “foo”.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>B</strong> contains the same change as <strong>A</strong>. Its merge <strong>M</strong> is trivial and hence
+TREESAME to all parents.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>C</strong> does not change <strong>foo</strong>, but its merge <strong>N</strong> changes it to “foobar”, so
+it is not TREESAME to any parent.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>D</strong> sets <strong>foo</strong> to “baz”. Its merge <strong>O</strong> combines the strings from <strong>N</strong> and
+<strong>D</strong> to “foobarbaz”; i.e., it is not TREESAME to any parent.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>E</strong> changes <strong>quux</strong> to “xyzzy”, and its merge <strong>P</strong> combines the strings to
+“quux xyzzy”. <strong>P</strong> is TREESAME to <strong>O</strong>, but not to <strong>E</strong>.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>X</strong> is an independent root commit that added a new file <strong>side</strong>, and <strong>Y</strong>
+modified it. <strong>Y</strong> is TREESAME to <strong>X</strong>. Its merge <strong>Q</strong> added <strong>side</strong> to <strong>P</strong>,
+and <strong>Q</strong> is TREESAME to <strong>P</strong>, but not to <strong>Y</strong>.</p>
+</blockquote>
+<p>
+<strong>rev-list</strong> walks backwards through history, including or excluding
+commits based on whether <strong>–full-history</strong> and/or parent rewriting (via
+<strong>–parents</strong> or <strong>–children</strong>) are used. The following settings are
+available.</p>
+<p>
+Default mode</p>
+<blockquote>
+<p>Commits are included if they are not TREESAME to any parent (though this
+can be changed, see <strong>–sparse</strong> below). If the commit was a merge, and it
+was TREESAME to one parent, follow only that parent. (Even if there are
+several TREESAME parents, follow only one of them.) Otherwise, follow
+all parents.</p>
+<p>
+This results in:</p>
+<blockquote>
+<pre class="example">
+          .-A---N---O
+         /     /   /
+        I---------D
+</pre>
+</blockquote>
+<p>
+Note how the rule to only follow the TREESAME parent, if one is
+available, removed <strong>B</strong> from consideration entirely. <strong>C</strong> was considered
+via <strong>N</strong>, but is TREESAME. Root commits are compared to an empty tree, so
+<strong>I</strong> is !TREESAME.</p>
+<p>
+Parent/child relations are only visible with <strong>–parents</strong>, but that does
+not affect the commits selected in default mode, so we have shown the
+parent lines.</p>
+</blockquote>
+<p>
+–full-history without parent rewriting</p>
+<blockquote>
+<p>This mode differs from the default in one point: always follow all
+parents of a merge, even if it is TREESAME to one of them. Even if more
+than one side of the merge has commits that are included, this does not
+imply that the merge itself is! In the example, we get</p>
+<blockquote>
+<pre class="example">
+        I  A  B  N  D  O  P  Q
+</pre>
+</blockquote>
+<p>
+<strong>M</strong> was excluded because it is TREESAME to both parents. <strong>E</strong>, <strong>C</strong> and
+<strong>B</strong> were all walked, but only <strong>B</strong> was !TREESAME, so the others do not
+appear.</p>
+<p>
+Note that without parent rewriting, it is not really possible to talk
+about the parent/child relationships between the commits, so we show
+them disconnected.</p>
+</blockquote>
+<p>
+–full-history with parent rewriting</p>
+<blockquote>
+<p>Ordinary commits are only included if they are !TREESAME (though this
+can be changed, see <strong>–sparse</strong> below).</p>
+<p>
+Merges are always included. However, their parent list is rewritten:
+Along each parent, prune away commits that are not included themselves.
+This results in</p>
+<blockquote>
+<pre class="example">
+          .-A---M---N---O---P---Q
+         /     /   /   /   /
+        I     B   /   D   /
+         \   /   /   /   /
+          `-------------
+</pre>
+</blockquote>
+<p>
+Compare to <strong>–full-history</strong> without rewriting above. Note that <strong>E</strong> was
+pruned away because it is TREESAME, but the parent list of P was
+rewritten to contain <strong>E*s parent *I</strong>. The same happened for <strong>C</strong> and <strong>N</strong>,
+and <strong>X</strong>, <strong>Y</strong> and <strong>Q</strong>.</p>
+</blockquote>
+<p>
+In addition to the above settings, you can change whether TREESAME
+affects inclusion:</p>
+<p>
+–dense</p>
+<blockquote>
+<p>Commits that are walked are included if they are not TREESAME to any
+parent.</p>
+</blockquote>
+<p>
+–sparse</p>
+<blockquote>
+<p>All commits that are walked are included.</p>
+<p>
+Note that without <strong>–full-history</strong>, this still simplifies merges: if one
+of the parents is TREESAME, we follow only that one, so the other sides
+of the merge are never walked.</p>
+</blockquote>
+<p>
+–simplify-merges</p>
+<blockquote>
+<p>First, build a history graph in the same way that <strong>–full-history</strong> with
+parent rewriting does (see above).</p>
+<p>
+Then simplify each commit <strong>C</strong> to its replacement <strong>C</strong> in the final
+history according to the following rules:</p>
+<blockquote>
+<p>·</p>
+<p>
+Set <strong>C</strong> to <strong>C</strong>.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Replace each parent <strong>P</strong> of <strong>C</strong> with its simplification <strong>P</strong>. In the
+process, drop parents that are ancestors of other parents or that are
+root commits TREESAME to an empty tree, and remove duplicates, but take
+care to never drop all parents that we are TREESAME to.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+If after this parent rewriting, <strong>C</strong> is a root or merge commit (has zero
+or &gt;1 parents), a boundary commit, or !TREESAME, it remains. Otherwise,
+it is replaced with its only parent.</p>
+</blockquote>
+<p>
+The effect of this is best shown by way of comparing to <strong>–full-history</strong>
+with parent rewriting. The example turns into:</p>
+<blockquote>
+<pre class="example">
+          .-A---M---N---O
+         /     /       /
+        I     B       D
+         \   /       /
+          `---------
+</pre>
+</blockquote>
+<p>
+Note the major differences in <strong>N</strong>, <strong>P</strong>, and <strong>Q</strong> over <strong>–full-history</strong>:</p>
+<blockquote>
+<p>·</p>
+<p>
+<strong>N*s parent list had *I</strong> removed, because it is an ancestor of the other
+parent <strong>M</strong>. Still, <strong>N</strong> remained because it is !TREESAME.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>P*s parent list similarly had *I</strong> removed. <strong>P</strong> was then removed
+completely, because it had one parent and is TREESAME.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>Q*s parent list had *Y</strong> simplified to <strong>X</strong>. <strong>X</strong> was then removed,
+because it was a TREESAME root. <strong>Q</strong> was then removed completely, because
+it had one parent and is TREESAME.</p>
+</blockquote>
+</blockquote>
+<p>
+There is another simplification mode available:</p>
+<p>
+–ancestry-path[=&lt;commit&gt;]</p>
+<blockquote>
+<p>Limit the displayed commits to those which are an ancestor of &lt;commit&gt;,
+or which are a descendant of &lt;commit&gt;, or are &lt;commit&gt; itself.</p>
+<p>
+As an example use case, consider the following commit history:</p>
+<blockquote>
+<pre class="example">
+            D---E-------F
+           /     \       \
+          B---C---G---H---I---J
+         /                     \
+        A-------K---------------L--M
+</pre>
+</blockquote>
+<p>
+A regular <em>D..M</em> computes the set of commits that are ancestors of <strong>M</strong>,
+but excludes the ones that are ancestors of <strong>D</strong>. This is useful to see
+what happened to the history leading to <strong>M</strong> since <strong>D</strong>, in the sense that
+“what does <strong>M</strong> have that did not exist in <strong>D*”. The result in this
+example would be all the commits, except *A</strong> and <strong>B</strong> (and <strong>D</strong> itself, of
+course).</p>
+<p>
+When we want to find out what commits in <strong>M</strong> are contaminated with the
+bug introduced by <strong>D</strong> and need fixing, however, we might want to view
+only the subset of <em>D..M</em> that are actually descendants of <strong>D</strong>, i.e.
+excluding <strong>C</strong> and <strong>K</strong>. This is exactly what the <strong>–ancestry-path</strong> option
+does. Applied to the <em>D..M</em> range, it results in:</p>
+<blockquote>
+<pre class="example">
+                E-------F
+                 \       \
+                  G---H---I---J
+                               \
+                                L--M
+</pre>
+</blockquote>
+<p>
+We can also use <strong>–ancestry-path=D</strong> instead of <strong>–ancestry-path</strong> which
+means the same thing when applied to the <em>D..M</em> range but is just more
+explicit.</p>
+<p>
+If we instead are interested in a given topic within this range, and all
+commits affected by that topic, we may only want to view the subset of
+<strong>D..M</strong> which contain that topic in their ancestry path. So, using
+<strong>–ancestry-path=H D..M</strong> for example would result in:</p>
+<blockquote>
+<pre class="example">
+                E
+                 \
+                  G---H---I---J
+                               \
+                                L--M
+</pre>
+</blockquote>
+<p>
+Whereas <strong>–ancestry-path=K D..M</strong> would result in</p>
+<blockquote>
+<pre class="example">
+                K---------------L--M
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Before discussing another option, <strong>–show-pulls</strong>, we need to create a
+new example history.</p>
+<p>
+A common problem users face when looking at simplified history is that a
+commit they know changed a file somehow does not appear in the file&#39;s
+simplified history. Let&#39;s demonstrate a new example and show how options
+such as <strong>–full-history</strong> and <strong>–simplify-merges</strong> works in that case:</p>
+<blockquote>
+<pre class="example">
+          .-A---M-----C--N---O---P
+         /     / \  \  \/   /   /
+        I     B   \  R-`-Z   /
+         \   /     \/         /
+          \ /      /\        /
+           `---X--  `---Y--
+</pre>
+</blockquote>
+<p>
+For this example, suppose <strong>I</strong> created <strong>file.txt</strong> which was modified by
+<strong>A</strong>, <strong>B</strong>, and <strong>X</strong> in different ways. The single-parent commits <strong>C</strong>, <strong>Z</strong>,
+and <strong>Y</strong> do not change <strong>file.txt</strong>. The merge commit <strong>M</strong> was created by
+resolving the merge conflict to include both changes from <strong>A</strong> and <strong>B</strong>
+and hence is not TREESAME to either. The merge commit <strong>R</strong>, however, was
+created by ignoring the contents of <strong>file.txt</strong> at <strong>M</strong> and taking only
+the contents of <strong>file.txt</strong> at <strong>X</strong>. Hence, <strong>R</strong> is TREESAME to <strong>X</strong> but not
+<strong>M</strong>. Finally, the natural merge resolution to create <strong>N</strong> is to take the
+contents of <strong>file.txt</strong> at <strong>R</strong>, so <strong>N</strong> is TREESAME to <strong>R</strong> but not <strong>C</strong>.
+The merge commits <strong>O</strong> and <strong>P</strong> are TREESAME to their first parents, but
+not to their second parents, <strong>Z</strong> and <strong>Y</strong> respectively.</p>
+<p>
+When using the default mode, <strong>N</strong> and <strong>R</strong> both have a TREESAME parent, so
+those edges are walked and the others are ignored. The resulting history
+graph is:</p>
+<blockquote>
+<pre class="example">
+        I---X
+</pre>
+</blockquote>
+<p>
+When using <strong>–full-history</strong>, Git walks every edge. This will discover
+the commits <strong>A</strong> and <strong>B</strong> and the merge <strong>M</strong>, but also will reveal the
+merge commits <strong>O</strong> and <strong>P</strong>. With parent rewriting, the resulting graph
+is:</p>
+<blockquote>
+<pre class="example">
+          .-A---M--------N---O---P
+         /     / \  \  \/   /   /
+        I     B   \  R-`--   /
+         \   /     \/         /
+          \ /      /\        /
+           `---X--  `------
+</pre>
+</blockquote>
+<p>
+Here, the merge commits <strong>O</strong> and <strong>P</strong> contribute extra noise, as they did
+not actually contribute a change to <strong>file.txt</strong>. They only merged a topic
+that was based on an older version of <strong>file.txt</strong>. This is a common issue
+in repositories using a workflow where many contributors work in
+parallel and merge their topic branches along a single trunk: many
+unrelated merges appear in the <strong>–full-history</strong> results.</p>
+<p>
+When using the <strong>–simplify-merges</strong> option, the commits <strong>O</strong> and <strong>P</strong>
+disappear from the results. This is because the rewritten second parents
+of <strong>O</strong> and <strong>P</strong> are reachable from their first parents. Those edges are
+removed and then the commits look like single-parent commits that are
+TREESAME to their parent. This also happens to the commit <strong>N</strong>, resulting
+in a history view as follows:</p>
+<blockquote>
+<pre class="example">
+          .-A---M--.
+         /     /    \
+        I     B      R
+         \   /      /
+          \ /      /
+           `---X--
+</pre>
+</blockquote>
+<p>
+In this view, we see all of the important single-parent changes from
+<strong>A</strong>, <strong>B</strong>, and <strong>X</strong>. We also see the carefully-resolved merge <strong>M</strong> and the
+not-so-carefully-resolved merge <strong>R</strong>. This is usually enough information
+to determine why the commits <strong>A</strong> and <strong>B</strong> &#34;disappeared&#34; from history in
+the default view. However, there are a few issues with this approach.</p>
+<p>
+The first issue is performance. Unlike any previous option, the
+<strong>–simplify-merges</strong> option requires walking the entire commit history
+before returning a single result. This can make the option difficult to
+use for very large repositories.</p>
+<p>
+The second issue is one of auditing. When many contributors are working
+on the same repository, it is important which merge commits introduced a
+change into an important branch. The problematic merge <strong>R</strong> above is not
+likely to be the merge commit that was used to merge into an important
+branch. Instead, the merge <strong>N</strong> was used to merge <strong>R</strong> and <strong>X</strong> into the
+important branch. This commit may have information about why the change
+<strong>X</strong> came to override the changes from <strong>A</strong> and <strong>B</strong> in its commit message.</p>
+<p>
+–show-pulls</p>
+<blockquote>
+<p>In addition to the commits shown in the default history, show each merge
+commit that is not TREESAME to its first parent but is TREESAME to a
+later parent.</p>
+<p>
+When a merge commit is included by <strong>–show-pulls</strong>, the merge is treated
+as if it &#34;pulled&#34; the change from another branch. When using
+<strong>–show-pulls</strong> on this example (and no other options) the resulting
+graph is:</p>
+<blockquote>
+<pre class="example">
+        I---X---R---N
+</pre>
+</blockquote>
+<p>
+Here, the merge commits <strong>R</strong> and <strong>N</strong> are included because they pulled the
+commits <strong>X</strong> and <strong>R</strong> into the base branch, respectively. These merges are
+the reason the commits <strong>A</strong> and <strong>B</strong> do not appear in the default history.</p>
+<p>
+When <strong>–show-pulls</strong> is paired with <strong>–simplify-merges</strong>, the graph
+includes all of the necessary information:</p>
+<blockquote>
+<pre class="example">
+          .-A---M--.   N
+         /     /    \ /
+        I     B      R
+         \   /      /
+          \ /      /
+           `---X--
+</pre>
+</blockquote>
+<p>
+Notice that since <strong>M</strong> is reachable from <strong>R</strong>, the edge from <strong>N</strong> to <strong>M</strong>
+was simplified away. However, <strong>N</strong> still appears in the history as an
+important commit because it &#34;pulled&#34; the change <strong>R</strong> into the main
+branch.</p>
+</blockquote>
+<p>
+The <strong>–simplify-by-decoration</strong> option allows you to view only the big
+picture of the topology of the history, by omitting commits that are not
+referenced by tags. Commits are marked as !TREESAME (in other words,
+kept after history simplification rules described above) if (1) they are
+referenced by tags, or (2) they change the contents of the paths given
+on the command line. All other commits are marked as TREESAME (subject
+to be simplified away).</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Commit Ordering
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>By default, the commits are shown in reverse chronological order.</p>
+<p>
+–date-order</p>
+<blockquote>
+<p>Show no parents before all of its children are shown, but otherwise show
+commits in the commit timestamp order.</p>
+</blockquote>
+<p>
+–author-date-order</p>
+<blockquote>
+<p>Show no parents before all of its children are shown, but otherwise show
+commits in the author timestamp order.</p>
+</blockquote>
+<p>
+–topo-order</p>
+<blockquote>
+<p>Show no parents before all of its children are shown, and avoid showing
+commits on multiple lines of history intermixed.</p>
+<p>
+For example, in a commit history like this:</p>
+<blockquote>
+<pre class="example">
+    ---1----2----4----7
+        \              \
+         3----5----6----8---
+</pre>
+</blockquote>
+<p>
+where the numbers denote the order of commit timestamps, <strong>git rev-list</strong>
+and friends with <strong>–date-order</strong> show the commits in the timestamp order:
+8 7 6 5 4 3 2 1.</p>
+<p>
+With <strong>–topo-order</strong>, they would show 8 6 5 3 7 4 2 1 (or 8 7 4 2 6 5 3
+1); some older commits are shown before newer ones in order to avoid
+showing the commits from two parallel development track mixed together.</p>
+</blockquote>
+<p>
+–reverse</p>
+<blockquote>
+<p>Output the commits chosen to be shown (see Commit Limiting section
+above) in reverse order. Cannot be combined with <strong>–walk-reflogs</strong>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Object Traversal
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>These options are mostly targeted for packing of Git repositories.</p>
+<p>
+–no-walk[=(sorted|unsorted)]</p>
+<blockquote>
+<p>Only show the given commits, but do not traverse their ancestors. This
+has no effect if a range is specified. If the argument <strong>unsorted</strong> is
+given, the commits are shown in the order they were given on the command
+line. Otherwise (if <strong>sorted</strong> or no argument was given), the commits are
+shown in reverse chronological order by commit time. Cannot be combined
+with <strong>–graph</strong>.</p>
+</blockquote>
+<p>
+–do-walk</p>
+<blockquote>
+<p>Overrides a previous <strong>–no-walk</strong>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Commit Formatting
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>–pretty[=&lt;format&gt;], –format=&lt;format&gt;</p>
+<blockquote>
+<p>Pretty-print the contents of the commit logs in a given format, where
+<em>&lt;format&gt;</em> can be one of <em>oneline</em>, <em>short</em>, <em>medium</em>, <em>full</em>, <em>fuller</em>,
+<em>reference</em>, <em>email</em>, <em>raw</em>, <em>format:&lt;string&gt;</em> and <em>tformat:&lt;string&gt;</em>.
+When <em>&lt;format&gt;</em> is none of the above, and has <em>%placeholder</em> in it, it
+acts as if <em>–pretty=tformat:&lt;format&gt;</em> were given.</p>
+<p>
+See the &#34;PRETTY FORMATS&#34; section for some additional details for each
+format. When <em>=&lt;format&gt;</em> part is omitted, it defaults to <em>medium</em>.</p>
+<p>
+Note: you can specify the default pretty format in the repository
+configuration (see *git-config*(1)).</p>
+</blockquote>
+<p>
+–abbrev-commit</p>
+<blockquote>
+<p>Instead of showing the full 40-byte hexadecimal commit object name, show
+a prefix that names the object uniquely. &#34;–abbrev=&lt;n&gt;&#34; (which also
+modifies diff output, if it is displayed) option can be used to specify
+the minimum length of the prefix.</p>
+<p>
+This should make &#34;–pretty=oneline&#34; a whole lot more readable for people
+using 80-column terminals.</p>
+</blockquote>
+<p>
+–no-abbrev-commit</p>
+<blockquote>
+<p>Show the full 40-byte hexadecimal commit object name. This negates
+<strong>–abbrev-commit</strong>, either explicit or implied by other options such as
+&#34;–oneline&#34;. It also overrides the <strong>log.abbrevCommit</strong> variable.</p>
+</blockquote>
+<p>
+–oneline</p>
+<blockquote>
+<p>This is a shorthand for &#34;–pretty=oneline –abbrev-commit&#34; used
+together.</p>
+</blockquote>
+<p>
+–encoding=&lt;encoding&gt;</p>
+<blockquote>
+<p>Commit objects record the character encoding used for the log message in
+their encoding header; this option can be used to tell the command to
+re-code the commit log message in the encoding preferred by the user.
+For non plumbing commands this defaults to UTF-8. Note that if an object
+claims to be encoded in <strong>X</strong> and we are outputting in <strong>X</strong>, we will output
+the object verbatim; this means that invalid sequences in the original
+commit may be copied to the output. Likewise, if iconv(3) fails to
+convert the commit, we will quietly output the original object verbatim.</p>
+</blockquote>
+<p>
+–expand-tabs=&lt;n&gt;, –expand-tabs, –no-expand-tabs</p>
+<blockquote>
+<p>Perform a tab expansion (replace each tab with enough spaces to fill to
+the next display column that is a multiple of <em>&lt;n&gt;</em>) in the log message
+before showing it in the output. <strong>–expand-tabs</strong> is a short-hand for
+<strong>–expand-tabs=8</strong>, and <strong>–no-expand-tabs</strong> is a short-hand for
+<strong>–expand-tabs=0</strong>, which disables tab expansion.</p>
+<p>
+By default, tabs are expanded in pretty formats that indent the log
+message by 4 spaces (i.e. <em>medium</em>, which is the default, <em>full</em>, and
+<em>fuller</em>).</p>
+</blockquote>
+<p>
+–notes[=&lt;ref&gt;]</p>
+<blockquote>
+<p>Show the notes (see <strong>git-notes*(1)) that annotate the commit, when
+showing the commit log message. This is the default for *git log</strong>, <strong>git
+show</strong> and <strong>git whatchanged</strong> commands when there is no <strong>–pretty</strong>,
+<strong>–format</strong>, or <strong>–oneline</strong> option given on the command line.</p>
+<p>
+By default, the notes shown are from the notes refs listed in the
+<strong>core.notesRef</strong> and <strong>notes.displayRef</strong> variables (or corresponding
+environment overrides). See *git-config*(1) for more details.</p>
+<p>
+With an optional <em>&lt;ref&gt;</em> argument, use the ref to find the notes to
+display. The ref can specify the full refname when it begins with
+<strong>refs/notes/</strong>; when it begins with <strong>notes/</strong>, <strong>refs/</strong> and otherwise
+<strong>refs/notes/</strong> is prefixed to form the full name of the ref.</p>
+<p>
+Multiple –notes options can be combined to control which notes are
+being displayed. Examples: &#34;–notes=foo&#34; will show only notes from
+&#34;refs/notes/foo&#34;; &#34;–notes=foo –notes&#34; will show both notes from
+&#34;refs/notes/foo&#34; and from the default notes ref(s).</p>
+</blockquote>
+<p>
+–no-notes</p>
+<blockquote>
+<p>Do not show notes. This negates the above <strong>–notes</strong> option, by resetting
+the list of notes refs from which notes are shown. Options are parsed in
+the order given on the command line, so e.g. &#34;–notes –notes=foo
+–no-notes –notes=bar&#34; will only show notes from &#34;refs/notes/bar&#34;.</p>
+</blockquote>
+<p>
+–show-notes-by-default</p>
+<blockquote>
+<p>Show the default notes unless options for displaying specific notes are
+given.</p>
+</blockquote>
+<p>
+–show-notes[=&lt;ref&gt;], –[no-]standard-notes</p>
+<blockquote>
+<p>These options are deprecated. Use the above –notes/–no-notes options
+instead.</p>
+</blockquote>
+<p>
+–show-signature</p>
+<blockquote>
+<p>Check the validity of a signed commit object by passing the signature to
+<strong>gpg –verify</strong> and show the output.</p>
+</blockquote>
+<p>
+–relative-date</p>
+<blockquote>
+<p>Synonym for <strong>–date=relative</strong>.</p>
+</blockquote>
+<p>
+–date=&lt;format&gt;</p>
+<blockquote>
+<p>Only takes effect for dates shown in human-readable format, such as when
+using <strong>–pretty</strong>. <strong>log.date</strong> config variable sets a default value for
+the log command&#39;s <strong>–date</strong> option. By default, dates are shown in the
+original time zone (either committer&#39;s or author&#39;s). If <strong>-local</strong> is
+appended to the format (e.g., <strong>iso-local</strong>), the user&#39;s local time zone
+is used instead.</p>
+<p>
+<strong>–date=relative</strong> shows dates relative to the current time, e.g. “2
+hours ago”. The <strong>-local</strong> option has no effect for <strong>–date=relative</strong>.</p>
+<p>
+<strong>–date=local</strong> is an alias for <strong>–date=default-local</strong>.</p>
+<p>
+<strong>–date=iso</strong> (or <strong>–date=iso8601</strong>) shows timestamps in a ISO 8601-like
+format. The differences to the strict ISO 8601 format are:</p>
+<blockquote>
+<p>·</p>
+<p>
+a space instead of the <strong>T</strong> date/time delimiter</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+a space between time and time zone</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+no colon between hours and minutes of the time zone</p>
+</blockquote>
+<p>
+<strong>–date=iso-strict</strong> (or <strong>–date=iso8601-strict</strong>) shows timestamps in
+strict ISO 8601 format.</p>
+<p>
+<strong>–date=rfc</strong> (or <strong>–date=rfc2822</strong>) shows timestamps in RFC 2822 format,
+often found in email messages.</p>
+<p>
+<strong>–date=short</strong> shows only the date, but not the time, in <strong>YYYY-MM-DD</strong>
+format.</p>
+<p>
+<strong>–date=raw</strong> shows the date as seconds since the epoch (1970-01-01
+00:00:00 UTC), followed by a space, and then the timezone as an offset
+from UTC (a <strong>+</strong> or <strong>-</strong> with four digits; the first two are hours, and
+the second two are minutes). I.e., as if the timestamp were formatted
+with <strong>strftime(&#34;%s %z&#34;)</strong>). Note that the <strong>-local</strong> option does not affect
+the seconds-since-epoch value (which is always measured in UTC), but
+does switch the accompanying timezone value.</p>
+<p>
+<strong>–date=human</strong> shows the timezone if the timezone does not match the
+current time-zone, and doesn&#39;t print the whole date if that matches (ie
+skip printing year for dates that are &#34;this year&#34;, but also skip the
+whole date itself if it&#39;s in the last few days and we can just say what
+weekday it was). For older dates the hour and minute is also omitted.</p>
+<p>
+<strong>–date=unix</strong> shows the date as a Unix epoch timestamp (seconds since
+1970). As with <strong>–raw</strong>, this is always in UTC and therefore <strong>-local</strong> has
+no effect.</p>
+<p>
+<strong>–date=format:…</strong> feeds the format <strong>…</strong> to your system <strong>strftime</strong>,
+except for %s, %z, and %Z, which are handled internally. Use
+<strong>–date=format:%c</strong> to show the date in your system locale&#39;s preferred
+format. See the <strong>strftime</strong> manual for a complete list of format
+placeholders. When using <strong>-local</strong>, the correct syntax is
+<strong>–date=format-local:…</strong>.</p>
+<p>
+<strong>–date=default</strong> is the default format, and is based on ctime(3) output.
+It shows a single line with three-letter day of the week, three-letter
+month, day-of-month, hour-minute-seconds in &#34;HH:MM:SS&#34; format, followed
+by 4-digit year, plus timezone information, unless the local time zone
+is used, e.g. <strong>Thu Jan 1 00:00:00 1970 +0000</strong>.</p>
+</blockquote>
+<p>
+–parents</p>
+<blockquote>
+<p>Print also the parents of the commit (in the form &#34;commit parent…&#34;).
+Also enables parent rewriting, see <em>History Simplification</em> above.</p>
+</blockquote>
+<p>
+–children</p>
+<blockquote>
+<p>Print also the children of the commit (in the form &#34;commit child…&#34;).
+Also enables parent rewriting, see <em>History Simplification</em> above.</p>
+</blockquote>
+<p>
+–left-right</p>
+<blockquote>
+<p>Mark which side of a symmetric difference a commit is reachable from.
+Commits from the left side are prefixed with <strong>&lt;</strong> and those from the
+right with <strong>&gt;</strong>. If combined with <strong>–boundary</strong>, those commits are
+prefixed with <strong>-</strong>.</p>
+<p>
+For example, if you have this topology:</p>
+<blockquote>
+<pre class="example">
+             y---b---b  branch B
+            / \ /
+           /   .
+          /   / \
+         o---x---a---a  branch A
+</pre>
+</blockquote>
+<p>
+you would get an output like this:</p>
+<blockquote>
+<pre class="example">
+        $ git rev-list --left-right --boundary --pretty=oneline A...B
+
+        &gt;bbbbbbb... 3rd on b
+        &gt;bbbbbbb... 2nd on b
+        &lt;aaaaaaa... 3rd on a
+        &lt;aaaaaaa... 2nd on a
+        -yyyyyyy... 1st on b
+        -xxxxxxx... 1st on a
+</pre>
+</blockquote>
+</blockquote>
+<p>
+–graph</p>
+<blockquote>
+<p>Draw a text-based graphical representation of the commit history on the
+left hand side of the output. This may cause extra lines to be printed
+in between commits, in order for the graph history to be drawn properly.
+Cannot be combined with <strong>–no-walk</strong>.</p>
+<p>
+This enables parent rewriting, see <em>History Simplification</em> above.</p>
+<p>
+This implies the <strong>–topo-order</strong> option by default, but the
+<strong>–date-order</strong> option may also be specified.</p>
+</blockquote>
+<p>
+–show-linear-break[=&lt;barrier&gt;]</p>
+<blockquote>
+<p>When –graph is not used, all history branches are flattened which can
+make it hard to see that the two consecutive commits do not belong to a
+linear branch. This option puts a barrier in between them in that case.
+If <strong>&lt;barrier&gt;</strong> is specified, it is the string that will be shown instead
+of the default one.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+OUTPUT
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>When there are no conflicts, the output of this command is usable as
+input to <strong>git update-ref –stdin</strong>. It is of the form:</p>
+<blockquote>
+<pre class="example">
+update refs/heads/branch1 ${NEW_branch1_HASH} ${OLD_branch1_HASH}
+update refs/heads/branch2 ${NEW_branch2_HASH} ${OLD_branch2_HASH}
+update refs/heads/branch3 ${NEW_branch3_HASH} ${OLD_branch3_HASH}
+</pre>
+</blockquote>
+<p>
+where the number of refs updated depends on the arguments passed and the
+shape of the history being replayed. When using <strong>–advance</strong>, the number
+of refs updated is always one, but for <strong>–onto</strong>, it can be one or more
+(rebasing multiple branches simultaneously is supported).</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>For a successful, non-conflicted replay, the exit status is 0. When the
+replay has conflicts, the exit status is 1. If the replay is not able to
+complete (or start) due to some kind of error, the exit status is
+something other than 0 or 1.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>To simply rebase <strong>mybranch</strong> onto <strong>target</strong>:</p>
+<blockquote>
+<pre class="example">
+$ git replay --onto target origin/main..mybranch
+update refs/heads/mybranch ${NEW_mybranch_HASH} ${OLD_mybranch_HASH}
+</pre>
+</blockquote>
+<p>
+To cherry-pick the commits from mybranch onto target:</p>
+<blockquote>
+<pre class="example">
+$ git replay --advance target origin/main..mybranch
+update refs/heads/target ${NEW_target_HASH} ${OLD_target_HASH}
+</pre>
+</blockquote>
+<p>
+Note that the first two examples replay the exact same commits and on
+top of the exact same new base, they only differ in that the first
+provides instructions to make mybranch point at the new commits and the
+second provides instructions to make target point at them.</p>
+<p>
+What if you have a stack of branches, one depending upon another, and
+you&#39;d really like to rebase the whole set?</p>
+<blockquote>
+<pre class="example">
+$ git replay --contained --onto origin/main origin/main..tipbranch
+update refs/heads/branch1 ${NEW_branch1_HASH} ${OLD_branch1_HASH}
+update refs/heads/branch2 ${NEW_branch2_HASH} ${OLD_branch2_HASH}
+update refs/heads/tipbranch ${NEW_tipbranch_HASH} ${OLD_tipbranch_HASH}
+</pre>
+</blockquote>
+<p>
+When calling <strong>git replay</strong>, one does not need to specify a range of
+commits to replay using the syntax <strong>A..B</strong>; any range expression will do:</p>
+<blockquote>
+<pre class="example">
+$ git replay --onto origin/main ^base branch1 branch2 branch3
+update refs/heads/branch1 ${NEW_branch1_HASH} ${OLD_branch1_HASH}
+update refs/heads/branch2 ${NEW_branch2_HASH} ${OLD_branch2_HASH}
+update refs/heads/branch3 ${NEW_branch3_HASH} ${OLD_branch3_HASH}
+</pre>
+</blockquote>
+<p>
+This will simultaneously rebase <strong>branch1</strong>, <strong>branch2</strong>, and <strong>branch3</strong>, all
+commits they have since <strong>base</strong>, playing them on top of <strong>origin/main</strong>.
+These three branches may have commits on top of <strong>base</strong> that they have in
+common, but that does not need to be the case.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+GIT
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

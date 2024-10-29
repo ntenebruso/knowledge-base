@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - capsh.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - capsh.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>capsh - capability shell wrapper</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>capsh</strong> [/OPTION/]…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Linux capability support and use can be explored and constrained with
+this tool. This tool provides a handy wrapper for certain types of
+capability testing and environment creation. It also provides some
+debugging features useful for summarizing capability state.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>capsh</strong> takes a number of optional arguments, acting on them in the
+order they are provided. They are as follows:</p>
+<dl>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>Display the list of commands supported by <strong>capsh</strong>.</dd>
+<dt>
+<strong>–print</strong>
+</dt>
+<dd>Display prevailing capability and related state.</dd>
+<dt>
+<strong>–current</strong>
+</dt>
+<dd>Display prevailing capability state, 1e capabilities
+and IAB vector.</dd>
+<dt>
+*–*/ [args]/
+</dt>
+<dd>Execute <strong>/bin/bash</strong> with trailing arguments. Note,
+you can use <strong>-c &#39;command to execute&#39;</strong> for specific commands.</dd>
+<dt>
+*-+*/ [args]/
+</dt>
+<dd>Uses <strong>cap_launch*(3) to fork a child to execute the
+shell. When the child exits, *capsh</strong> exits with the status of the
+child or 1 in the case that the child was terminated by a signal.</dd>
+<dt>
+*==*/ [args]/
+</dt>
+<dd>Execute <strong>capsh</strong> again with the remaining arguments.
+Useful for testing <strong>exec*() behavior. Note, PATH is searched when the
+running *capsh</strong> was found via the shell&#39;s PATH searching. If the
+<strong>exec</strong> occurs after a *–chroot=*//some/path/ argument the PATH
+located binary may not be resolve to the same binary as that running
+initially. This behavior is an intended feature as it can complete the
+chroot transition.</dd>
+<dt>
+*=+*/ [args]/
+</dt>
+<dd>Uses <strong>cap_launch*(3) to fork a child to re-execute
+*capsh</strong>. When this child exits, <strong>capsh</strong> exits with the status of the
+child or 1 in the case that the child was terminated by a signal.</dd>
+<dt>
+*–caps=*/cap-set/
+</dt>
+<dd>Set the prevailing process capabilities to those
+specified by <em>cap-set</em>. Where <em>cap-set</em> is a text-representation of
+capability state as per *cap_from_text*(3).</dd>
+<dt>
+*–drop=*/cap-list/
+</dt>
+<dd>Remove the listed capabilities from the
+prevailing bounding set. The capabilities are a comma-separated list
+of capabilities as recognized by the <strong>cap_from_name*(3) function. Use
+of this feature requires that *capsh</strong> is operating with <strong>CAP_SETPCAP</strong>
+in its effective set.</dd>
+<dt>
+*–inh=*/cap-list/
+</dt>
+<dd>Set the inheritable set of capabilities for the
+current process to equal those provided in the comma separated list.
+For this action to succeed, the prevailing process should already have
+each of these capabilities in the union of the current inheritable and
+permitted capability sets, or <strong>capsh</strong> should be operating with
+<strong>CAP_SETPCAP</strong> in its effective set.</dd>
+<dt>
+*–user=*/username/
+</dt>
+<dd>Assume the identity of the named user. That is,
+look up the user&#39;s UID and GID with *getpwuid*(3) and their group
+memberships with *getgrouplist*(3) and set them all using
+*cap_setuid*(3) and *cap_setgroups*(3). Following this command, the
+effective capabilities will be cleared, but the permitted set will not
+be, so the running program is still privileged.</dd>
+<dt>
+<strong>–mode</strong>
+</dt>
+<dd>Display the prevailing libcap mode as guessed by the
+*cap_get_mode*(3) function.</dd>
+<dt>
+*–mode=*&lt;mode&gt;
+</dt>
+<dd>Force the program into a *cap_set_mode*(3) security
+mode. This is a set of securebits and prevailing capability
+arrangement recommended for its pre-determined security stance.</dd>
+<dt>
+<strong>–modes</strong>
+</dt>
+<dd>Lists all of the libcap modes supported by
+*–mode=*&lt;mode&gt;.</dd>
+<dt>
+*–inmode=*&lt;mode&gt;
+</dt>
+<dd>Confirm that the prevailing mode is that
+specified in <em>&lt;mode&gt;</em>, or exit with a status 1.</dd>
+<dt>
+*–uid=*/id/
+</dt>
+<dd>Force all UID values to equal <em>id</em> using the
+*setuid*(2) system call. This argument may require explicit
+preparation of the effective set.</dd>
+<dt>
+*–cap-uid=*&lt;uid&gt;
+</dt>
+<dd>use the *cap_setuid*(3) function to set the UID
+of the current process. This performs all preparations for setting the
+UID without dropping capabilities in the process. Following this
+command the prevailing effective capabilities will be lowered.</dd>
+<dt>
+*–is-uid=*/&lt;id&gt;/
+</dt>
+<dd>Exit with status 1 unless the current UID equals
+<em>&lt;id&gt;</em>.</dd>
+<dt>
+*–gid=*/&lt;id&gt;/
+</dt>
+<dd>Force all GID values to equal <em>id</em> using the
+*setgid*(2) system call.</dd>
+<dt>
+*–is-gid=*/&lt;id&gt;/
+</dt>
+<dd>Exit with status 1 unless the current GIQ equals
+<em>&lt;id&gt;</em>.</dd>
+<dt>
+*–groups=*/&lt;gid-list&gt;/
+</dt>
+<dd>Set the supplementary groups to the
+numerical list provided. The groups are set with the <strong>setgroups*(2)
+system call. See *–user</strong> for a more convenient way of doing this.</dd>
+<dt>
+*–keep=*/&lt;0|1&gt;/
+</dt>
+<dd>In a non-pure capability mode, the kernel provides
+liberal privilege to the super-user. However, it is normally the case
+that when the super-user changes UID to some lesser user, then
+capabilities are dropped. For these situations, the kernel can permit
+the process to retain its capabilities after a *setuid*(2) system
+call. This feature is known as <em>keep-caps</em> support. The way to
+activate it using this program is with this argument. Setting the
+value to 1 will cause <em>keep-caps</em> to be active. Setting it to 0 will
+cause keep-caps to deactivate for the current process. In all cases,
+<em>keep-caps</em> is deactivated when an <strong>exec*() is performed. See
+*–secbits*and</strong>–mode* for ways to disable this feature.</dd>
+<dt>
+*–secbits=*/N/
+</dt>
+<dd>Set the security-bits for the program. This is done
+using the <strong>prctl*(2) *PR_SET_SECUREBITS</strong> operation. The list of
+supported bits and their meaning can be found in the <strong>&lt;sys/secbits.h&gt;</strong>
+header file. The program will list these bits via the <strong>–print</strong>
+command. The argument is expressed as a numeric bitmask, in any of the
+formats permitted by <strong>strtoul*(3). An alternative to this
+bit-twiddling is embedded in the <strong>–mode</strong></strong> commandline arguments.</dd>
+<dt>
+*–chroot=*//some/path/
+</dt>
+<dd>Execute the *chroot*(2) system call with
+the new root-directory (<em>) equal to /path</em>. This operation requires
+<strong>CAP_SYS_CHROOT</strong> to be in effect.</dd>
+<dt>
+*–forkfor=*/sec/
+</dt>
+<dd>This command causes the program to fork a child
+process for so many seconds. The child will sleep that long and then
+exit with status 0. The purpose of this command is to support
+exploring the way processes are killable in the face of capability
+changes. See the <strong>–killit</strong> command. Only one fork can be active at a
+time.</dd>
+<dt>
+*–killit=*/sig/
+</dt>
+<dd>This commands causes a <strong>–forkfor</strong> child to be
+*kill*(2)d with the specified signal. The command then waits for the
+child to exit. If the exit status does not match the signal being used
+to kill it, the <strong>capsh</strong> program exits with status 1.</dd>
+<dt>
+*–explain=*/cap_xxx/
+</dt>
+<dd>Give a brief textual description of what
+privileges the specified capability makes available to a running
+program. Note, instead of <em>cap_xxx</em>, one can provide a decimal number
+and <strong>capsh</strong> will look up the corresponding capability&#39;s description.</dd>
+<dt>
+*–shell*/=/full/path/
+</dt>
+<dd>This option changes the shell that is
+invoked when the argument <strong>==</strong> is encountered.</dd>
+<dt>
+<strong>–strict</strong>
+</dt>
+<dd>This option toggles the suppression of subsequent
+attempts to fixup <strong>–caps=</strong> and <strong>–inh=</strong> arguments. That is, when the
+prevailing Effective flag does not contain <strong>CAP_SETPCAP the to be</strong>
+raised Inheritable Flag values (in strict mode) are limited to those
+in the Permitted set. The strict mode defaults to off. Supplying this
+argument an even number of times restores this default behavior.</dd>
+<dt>
+*–suggest=*/phrase/
+</dt>
+<dd>Scan each of the textual descriptions of
+capabilities, known to <strong>capsh, and display all descriptions that
+include */phrase/</strong>.*</dd>
+<dt>
+*–decode=*/N/
+</dt>
+<dd>This is a convenience feature. If you look at
+<strong>/proc/1/status</strong> there are some capability related fields of the
+following form:</dd>
+</dl>
+<pre class="example">
+CapInh:	0000000000000000
+CapPrm:	0000003fffffffff
+CapEff:	0000003fffffffff
+CapBnd:	0000003fffffffff
+CapAmb:	0000000000000000
+</pre>
+<p>
+This option provides a quick way to decode a capability vector
+represented in this hexadecimal form. Here&#39;s an example that decodes the
+two lowest capability bits:</p>
+<pre class="example">
+$ capsh --decode=3
+0x0000000000000003=cap_chown,cap_dac_override
+</pre>
+<dl>
+<dt>
+*–supports=*/xxx/
+</dt>
+<dd>As the kernel evolves, more capabilities are
+added. This option can be used to verify the existence of a capability
+on the system. For example, <strong>–supports=*/cap_syslog/ will cause
+*capsh</strong> to promptly exit with a status of 1 when run on kernel 2.6.27.
+However, when run on kernel 2.6.38 it will silently succeed.</dd>
+<dt>
+*–has-p=*/xxx/
+</dt>
+<dd>Exit with status 1 unless the <em>permitted</em> vector
+has capability <strong>xxx</strong> raised.</dd>
+<dt>
+<strong>–has-ambient</strong>
+</dt>
+<dd>Performs a check to see if the running kernel
+supports ambient capabilities. If not, <strong>capsh</strong> exits with status 1.</dd>
+<dt>
+*–has-a=*/xxx/
+</dt>
+<dd>Exit with status 1 unless the <em>ambient</em> vector has
+capability <strong>xxx</strong> raised.</dd>
+<dt>
+*–has-b=*/xxx/
+</dt>
+<dd>Exit with status 1 unless the <em>bounding</em> vector has
+capability <strong>xxx</strong> in its (default) non-blocked state.</dd>
+<dt>
+*–iab=*/xxx/
+</dt>
+<dd>Attempts to set the IAB tuple of inheritable
+capability vectors. The text conventions used for /xxx/* are those of*
+*cap_iab_from_text*(3).</dd>
+<dt>
+*–addamb=*/xxx/
+</dt>
+<dd>Adds the specified ambient capability to the
+running process.</dd>
+<dt>
+*–delamb=*/xxx/
+</dt>
+<dd>Removes the specified ambient capability from the
+running process.</dd>
+<dt>
+<strong>–noamb</strong>
+</dt>
+<dd>Drops all ambient capabilities from the running process.</dd>
+<dt>
+<strong>–noenv</strong>
+</dt>
+<dd>Suppresses overriding of the HOME and USER environment
+variables when a subsequent <strong>–user</strong> argument is processed.</dd>
+<dt>
+<strong>–quiet</strong>
+</dt>
+<dd>This argument is ignored unless it is the first one. If
+present, it suppresses the capsh runtime check to confirm the running
+libcap is recent enough that it can name all of the kernel supported
+capability values.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Following successful execution, <strong>capsh</strong> exits with status 0. Following
+an error, <strong>capsh</strong> immediately exits with status 1.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHOR
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Please report bugs via:</p>
+<dl>
+<dt>
+<a href="https://bugzilla.kernel.org/buglist.cgi?component=libcap&amp;list_id=1090757">https://bugzilla.kernel.org/buglist.cgi?component=libcap&amp;list_id=1090757</a>
+</dt>
+<dd>
+<ul>
+<li>SEE ALSO</li>
+</ul>
+</dd>
+</dl>
+<p>*libcap*(3), *cap_from_text*(3), *cap_iab*(3) *capabilities*(7),
+*captree*(8), *getcap*(8), *getpcaps*(8), and *setcap*(8).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

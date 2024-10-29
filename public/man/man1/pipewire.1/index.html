@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pipewire.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pipewire.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pipewire - The PipeWire media server</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>pipewire</strong> [/options/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>PipeWire is a service that facilitates sharing of multimedia content
+between devices and applications.</p>
+<p>
+The <strong>pipewire</strong> daemon reads a config file that is further documented in
+<strong>pipewire.conf(5)</strong> manual page.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-h | –help</strong></p>
+<blockquote>
+<p>Show help.</p>
+</blockquote>
+<p>
+<strong>-v | –verbose</strong></p>
+<blockquote>
+<p>Increase the verbosity by one level. This option may be specified
+multiple times.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Show version information.</p>
+</blockquote>
+<p>
+<strong>-c | –config=FILE</strong></p>
+<blockquote>
+<p>Load the given config file (Default: pipewire.conf).</p>
+</blockquote>
+<p>
+<strong>-P | –properties=PROPS</strong></p>
+<blockquote>
+<p>Add the given properties as a SPA JSON object to the context.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+RUNTIME SETTINGS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>A PipeWire daemon will also expose a settings metadata object that can
+be used to change some settings at runtime.</p>
+<p>
+Normally these settings can bypass any of the restrictions listed in the
+config options above, such as quantum and samplerate values.</p>
+<p>
+The settings can be modified using <strong>pw-metadata(1)</strong>:</p>
+<pre class="example">
+pw-metadata -n settings                  # list settings
+pw-metadata -n settings 0                # list server settings
+pw-metadata -n settings 0 log.level 2    # modify a server setting
+</pre>
+<p>
+<strong>log.level = INTEGER</strong></p>
+<blockquote>
+<p>Change the log level of the PipeWire daemon.</p>
+</blockquote>
+<p>
+<strong>clock.rate = INTEGER</strong></p>
+<blockquote>
+<p>The default samplerate.</p>
+</blockquote>
+<p>
+<strong>clock.allowed-rates = [ RATE1 RATE2… ]</strong></p>
+<blockquote>
+<p>The allowed samplerates.</p>
+</blockquote>
+<p>
+<strong>clock.force-rate = INTEGER</strong></p>
+<blockquote>
+<p>Temporarily forces the graph to operate in a fixed sample rate. Both DSP
+processing and devices will switch to the new rate immediately. Running
+streams (PulseAudio, native and ALSA applications) will automatically
+resample to match the new rate.</p>
+<p>
+Set the value to 0 to allow the sample rate to vary again.</p>
+</blockquote>
+<p>
+<strong>clock.quantum = INTEGER</strong></p>
+<blockquote>
+<p>The default quantum (buffer size).</p>
+</blockquote>
+<p>
+<strong>clock.min-quantum = INTEGER</strong></p>
+<blockquote>
+<p>Smallest quantum to be used.</p>
+</blockquote>
+<p>
+<strong>clock.max-quantum = INTEGER</strong></p>
+<blockquote>
+<p>Largest quantum to be used.</p>
+</blockquote>
+<p>
+<strong>clock.force-quantum = INTEGER</strong></p>
+<blockquote>
+<p>Temporarily force the graph to operate in a fixed quantum.</p>
+<p>
+Set the value to 0 to allow the quantum to vary again.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+ENVIRONMENT VARIABLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Socket directories
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>*PIPEWIRE_RUNTIME_DIR *</p>
+<blockquote>
+</blockquote>
+<p>
+*XDG_RUNTIME_DIR *</p>
+<blockquote>
+</blockquote>
+<p>
+*USERPROFILE *</p>
+<blockquote>
+<p>Used to find the PipeWire socket on the server (and native clients).</p>
+</blockquote>
+<p>
+*PIPEWIRE_CORE *</p>
+<blockquote>
+<p>Name of the socket to make.</p>
+</blockquote>
+<p>
+*PIPEWIRE_REMOTE *</p>
+<blockquote>
+<p>Name of the socket to connect to.</p>
+</blockquote>
+<p>
+*PIPEWIRE_DAEMON *</p>
+<blockquote>
+<p>If set to true then the process becomes a new PipeWire server.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Config directories, config file name and prefix
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>*PIPEWIRE_CONFIG_DIR *</p>
+<blockquote>
+</blockquote>
+<p>
+*XDG_CONFIG_HOME *</p>
+<blockquote>
+</blockquote>
+<p>
+*HOME *</p>
+<blockquote>
+<p>Used to find the config file directories.</p>
+</blockquote>
+<p>
+*PIPEWIRE_CONFIG_PREFIX *</p>
+<blockquote>
+</blockquote>
+<p>
+*PIPEWIRE_CONFIG_NAME *</p>
+<blockquote>
+<p>Used to override the application provided config prefix and config name.</p>
+</blockquote>
+<p>
+*PIPEWIRE_NO_CONFIG *</p>
+<blockquote>
+<p>Enables (false) or disables (true) overriding on the default
+configuration.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Context information
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>As part of a client context, the following information is collected from
+environment variables and placed in the context properties:</p>
+<p>
+*LANG *</p>
+<blockquote>
+<p>The current language in application.language.</p>
+</blockquote>
+<p>
+*XDG_SESSION_ID *</p>
+<blockquote>
+<p>Set as the application.process.session-id property.</p>
+</blockquote>
+<p>
+*DISPLAY *</p>
+<blockquote>
+<p>Is set as the window.x11.display property.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Modules
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>*PIPEWIRE_MODULE_DIR *</p>
+<blockquote>
+<p>Sets the directory where to find PipeWire modules.</p>
+</blockquote>
+<p>
+*SPA_SUPPORT_LIB *</p>
+<blockquote>
+<p>The name of the SPA support lib to load. This can be used to switch to
+an alternative support library, for example, to run on the EVL realtime
+kernel.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Logging options
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>*JOURNAL_STREAM *</p>
+<blockquote>
+<p>Is used to parse the stream used for the journal. This is usually
+configured by systemd.</p>
+</blockquote>
+<p>
+*PIPEWIRE_LOG_LINE *</p>
+<blockquote>
+<p>Enables the logging of line numbers. Default true.</p>
+</blockquote>
+<p>
+*PIPEWIRE_LOG *</p>
+<blockquote>
+<p>Specifies a log file to use instead of the default logger.</p>
+</blockquote>
+<p>
+*PIPEWIRE_LOG_SYSTEMD *</p>
+<blockquote>
+<p>Enables the use of systemd for the logger, default true.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+Other settings
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>*PIPEWIRE_CPU *</p>
+<blockquote>
+<p>Selects the CPU and flags. This is a bitmask of any of the <strong>CPU</strong> flags</p>
+</blockquote>
+<p>
+*PIPEWIRE_VM *</p>
+<blockquote>
+<p>Selects the Virtual Machine PipeWire is running on. This can be any of
+the <strong>VM</strong> types.</p>
+</blockquote>
+<p>
+*DISABLE_RTKIT *</p>
+<blockquote>
+<p>Disables the use of RTKit or the Realtime Portal for realtime
+scheduling.</p>
+</blockquote>
+<p>
+*NO_COLOR *</p>
+<blockquote>
+<p>Disables the use of colors in the console output.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+Debugging options
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<p>*PIPEWIRE_DLCLOSE *</p>
+<blockquote>
+<p>Enables (true) or disables (false) the use of dlclose when a shared
+library is no longer in use. When debugging, it might make sense to
+disable dlclose to be able to get debugging symbols from the object.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-3">
+<h3 id="headline-14">
+Stream options
+</h3>
+<div id="outline-text-headline-14" class="outline-text-3">
+<p>*PIPEWIRE_NODE *</p>
+<blockquote>
+<p>Makes a stream connect to a specific object.serial or node.name.</p>
+</blockquote>
+<p>
+*PIPEWIRE_PROPS *</p>
+<blockquote>
+<p>Adds extra properties to a stream or filter.</p>
+</blockquote>
+<p>
+*PIPEWIRE_QUANTUM *</p>
+<blockquote>
+<p>Forces a specific rate and buffer-size for the stream or filter.</p>
+</blockquote>
+<p>
+*PIPEWIRE_LATENCY *</p>
+<blockquote>
+<p>Sets a specific latency for a stream or filter. This is only a
+suggestion but the configured latency will not be larger.</p>
+</blockquote>
+<p>
+*PIPEWIRE_RATE *</p>
+<blockquote>
+<p>Sets a rate for a stream or filter. This is only a suggestion. The rate
+will be switched when the graph is idle.</p>
+</blockquote>
+<p>
+*PIPEWIRE_AUTOCONNECT *</p>
+<blockquote>
+<p>Overrides the default stream autoconnect settings.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+Plugin options
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<p>*SPA_PLUGIN_DIR *</p>
+<blockquote>
+<p>Is used to locate SPA plugins.</p>
+</blockquote>
+<p>
+*SPA_DATA_DIR *</p>
+<blockquote>
+<p>Is used to locate plugin specific config files. This is used by the
+bluetooth plugin currently to locate the quirks database.</p>
+</blockquote>
+<p>
+*SPA_DEBUG *</p>
+<blockquote>
+<p>Set the log level for SPA plugins. This is usually controlled by the
+PIPEWIRE_DEBUG variable when the plugins are managed by PipeWire but
+some standalone tools (like spa-inspect) uses this variable.</p>
+</blockquote>
+<p>
+*ACP_BUILDDIR *</p>
+<blockquote>
+<p>If set, the ACP profiles are loaded from the builddir.</p>
+</blockquote>
+<p>
+*ACP_PATHS_DIR *</p>
+<blockquote>
+</blockquote>
+<p>
+*ACP_PROFILES_DIR *</p>
+<blockquote>
+<p>Used to locate the ACP paths and profile directories respectively.</p>
+</blockquote>
+<p>
+*LADSPA_PATH *</p>
+<blockquote>
+<p>Comma separated list of directories where the ladspa plugins can be
+found.</p>
+</blockquote>
+<p>
+*LIBJACK_PATH *</p>
+<blockquote>
+<p>Directory where the jack1 or jack2 libjack.so can be found.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+AUTHORS
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>The PipeWire Developers
+&lt;<a href="https://gitlab.freedesktop.org/pipewire/pipewire/issues">https://gitlab.freedesktop.org/pipewire/pipewire/issues</a>&gt;; PipeWire is
+available from &lt;<a href="https://pipewire.org">https://pipewire.org</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
+<h2 id="headline-17">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-17" class="outline-text-2">
+<p><strong>pw-top(1)</strong>, <strong>pw-dump(1)</strong>, <strong>pw-mon(1)</strong>, <strong>pw-cat(1)</strong>, <strong>pw-cli(1)</strong>,
+<strong>libpipewire-modules(7)</strong></p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - zless.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - zless.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>zless - file perusal filter for crt viewing of compressed text</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>zless</strong> [ name … ]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>zless</strong> command is a filter which allows examination of compressed
+or plain text files one screenful at a time on a soft-copy terminal. It
+is the equivalent of setting the environment variable LESSOPEN to &#39;|gzip
+-cdfq – %s&#39;, and the environment variable LESSMETACHARS to
+&#39;&lt;space&gt;&lt;tab&gt;&lt;newline&gt;;*?&#34;()&lt;&gt;[|&amp;^`#\$%=~&#39;, and then running <strong>less</strong>.
+However, enough people seem to think that having the command <strong>zless</strong>
+available is important to be worth providing it.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>*zmore*(1), *less*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+BUGS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The <strong>zless</strong> command does not work with compressed data that is piped to
+it via standard input; it requires that input files be specified as
+arguments. To read compressed data from a pipe, you can use
+. . .*|gunzip|less* instead of . . .*|zless*.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+COPYRIGHT NOTICE
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Copyright © 2006-2007, 2015-2023 Free Software Foundation, Inc.<br>
+Copyright © 1992, 1993 Jean-loup Gailly</p>
+<p>
+Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.</p>
+<p>
+Permission is granted to process this file through troff and print the
+results, provided the printed document carries copying permission notice
+identical to this one except for the removal of this paragraph (this
+paragraph not being relevant to the printed manual).</p>
+<p>
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the
+entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.</p>
+<p>
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be stated in a translation
+approved by the Foundation.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

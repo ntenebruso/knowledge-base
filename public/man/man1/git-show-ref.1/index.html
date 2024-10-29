@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-show-ref.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-show-ref.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-show-ref - List references in a local repository</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git show-ref [--head] [-d | --dereference]
+             [-s | --hash[=&lt;n&gt;]] [--abbrev[=&lt;n&gt;]] [--branches] [--tags]
+             [--] [&lt;pattern&gt;...]
+git show-ref --verify [-q | --quiet] [-d | --dereference]
+             [-s | --hash[=&lt;n&gt;]] [--abbrev[=&lt;n&gt;]]
+             [--] [&lt;ref&gt;...]
+git show-ref --exclude-existing[=&lt;pattern&gt;]
+git show-ref --exists &lt;ref&gt;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Displays references available in a local repository along with the
+associated commit IDs. Results can be filtered using a pattern and tags
+can be dereferenced into object IDs. Additionally, it can be used to
+test whether a particular ref exists.</p>
+<p>
+By default, shows the tags, heads, and remote refs.</p>
+<p>
+The <strong>–exclude-existing</strong> form is a filter that does the inverse. It
+reads refs from stdin, one ref per line, and shows those that don&#39;t
+exist in the local repository.</p>
+<p>
+The <strong>–exists</strong> form can be used to check for the existence of a single
+references. This form does not verify whether the reference resolves to
+an actual object.</p>
+<p>
+Use of this utility is encouraged in favor of directly accessing files
+under the <strong>.git</strong> directory.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–head</p>
+<blockquote>
+<p>Show the HEAD reference, even if it would normally be filtered out.</p>
+</blockquote>
+<p>
+–branches, –tags</p>
+<blockquote>
+<p>Limit to local branches and local tags, respectively. These options are
+not mutually exclusive; when given both, references stored in
+&#34;refs/heads&#34; and &#34;refs/tags&#34; are displayed. Note that <strong>–heads</strong> is a
+deprecated synonym for <strong>–branches</strong> and may be removed in the future.</p>
+</blockquote>
+<p>
+-d, –dereference</p>
+<blockquote>
+<p>Dereference tags into object IDs as well. They will be shown with <strong>^{}</strong>
+appended.</p>
+</blockquote>
+<p>
+-s, –hash[=&lt;n&gt;]</p>
+<blockquote>
+<p>Only show the OID, not the reference name. When combined with
+<strong>–dereference</strong>, the dereferenced tag will still be shown after the OID.</p>
+</blockquote>
+<p>
+–verify</p>
+<blockquote>
+<p>Enable stricter reference checking by requiring an exact ref path. Aside
+from returning an error code of 1, it will also print an error message
+if <strong>–quiet</strong> was not specified.</p>
+</blockquote>
+<p>
+–exists</p>
+<blockquote>
+<p>Check whether the given reference exists. Returns an exit code of 0 if
+it does, 2 if it is missing, and 1 in case looking up the reference
+failed with an error other than the reference being missing.</p>
+</blockquote>
+<p>
+–abbrev[=&lt;n&gt;]</p>
+<blockquote>
+<p>Abbreviate the object name. When using <strong>–hash</strong>, you do not have to say
+<strong>–hash –abbrev</strong>; <strong>–hash=n</strong> would do.</p>
+</blockquote>
+<p>
+-q, –quiet</p>
+<blockquote>
+<p>Do not print any results to stdout. Can be used with <strong>–verify</strong> to
+silently check if a reference exists.</p>
+</blockquote>
+<p>
+–exclude-existing[=&lt;pattern&gt;]</p>
+<blockquote>
+<p>Make <strong>git show-ref</strong> act as a filter that reads refs from stdin of the
+form <strong>^(?:&lt;anything&gt;\s)?&lt;refname&gt;(?:\^{})?$</strong> and performs the following
+actions on each: (1) strip <strong>^{}</strong> at the end of line if any; (2) ignore
+if pattern is provided and does not head-match refname; (3) warn if
+refname is not a well-formed refname and skip; (4) ignore if refname is
+a ref that exists in the local repository; (5) otherwise output the
+line.</p>
+</blockquote>
+<p>
+&lt;pattern&gt;…</p>
+<blockquote>
+<p>Show references matching one or more patterns. Patterns are matched from
+the end of the full name, and only complete parts are matched, e.g.
+<em>master</em> matches <em>refs/heads/master</em>, <em>refs/remotes/origin/master</em>,
+<em>refs/tags/jedi/master</em> but not <em>refs/heads/mymaster</em> or
+<em>refs/remotes/master/jedi</em>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OUTPUT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The output is in the format:</p>
+<blockquote>
+<pre class="example">
+&lt;oid&gt; SP &lt;ref&gt; LF
+</pre>
+</blockquote>
+<p>
+For example,</p>
+<blockquote>
+<pre class="example">
+$ git show-ref --head --dereference
+832e76a9899f560a90ffd62ae2ce83bbeff58f54 HEAD
+832e76a9899f560a90ffd62ae2ce83bbeff58f54 refs/heads/master
+832e76a9899f560a90ffd62ae2ce83bbeff58f54 refs/heads/origin
+3521017556c5de4159da4615a39fa4d5d2c279b5 refs/tags/v0.99.9c
+6ddc0964034342519a87fe013781abf31c6db6ad refs/tags/v0.99.9c^{}
+055e4ae3ae6eb344cbabf2a5256a49ea66040131 refs/tags/v1.0rc4
+423325a2d24638ddcc82ce47be5e40be550f4507 refs/tags/v1.0rc4^{}
+...
+</pre>
+</blockquote>
+<p>
+When using <strong>–hash</strong> (and not <strong>–dereference</strong>), the output is in the
+format:</p>
+<blockquote>
+<pre class="example">
+&lt;oid&gt; LF
+</pre>
+</blockquote>
+<p>
+For example,</p>
+<blockquote>
+<pre class="example">
+$ git show-ref --branches --hash
+2e3ba0114a1f52b47df29743d6915d056be13278
+185008ae97960c8d551adcd9e23565194651b5d1
+03adf42c988195b50e1a1935ba5fcbc39b2b029b
+...
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>To show all references called &#34;master&#34;, whether tags or heads or
+anything else, and regardless of how deep in the reference naming
+hierarchy they are, use:</p>
+<blockquote>
+<pre class="example">
+        git show-ref master
+</pre>
+</blockquote>
+<p>
+This will show &#34;refs/heads/master&#34; but also
+&#34;refs/remote/other-repo/master&#34;, if such references exist.</p>
+<p>
+When using the <strong>–verify</strong> flag, the command requires an exact path:</p>
+<blockquote>
+<pre class="example">
+        git show-ref --verify refs/heads/master
+</pre>
+</blockquote>
+<p>
+will only match the exact branch called &#34;master&#34;.</p>
+<p>
+If nothing matches, <strong>git show-ref</strong> will return an error code of 1, and
+in the case of verification, it will show an error message.</p>
+<p>
+For scripting, you can ask it to be quiet with the <strong>–quiet</strong> flag, which
+allows you to do things like</p>
+<blockquote>
+<pre class="example">
+        git show-ref --quiet --verify -- &#34;refs/heads/$headname&#34; ||
+                echo &#34;$headname is not a valid branch&#34;
+</pre>
+</blockquote>
+<p>
+to check whether a particular branch exists or not (notice how we don&#39;t
+actually want to show any results, and we want to use the full refname
+for it in order to not trigger the problem with ambiguous partial
+matches).</p>
+<p>
+To show only tags, or only proper branch heads, use <strong>–tags</strong> and/or
+<strong>–branches</strong> respectively (using both means that it shows tags and
+branches, but not other random references under the refs/ subdirectory).</p>
+<p>
+To do automatic tag object dereferencing, use the <strong>-d</strong> or
+<strong>–dereference</strong> flag, so you can do</p>
+<blockquote>
+<pre class="example">
+        git show-ref --tags --dereference
+</pre>
+</blockquote>
+<p>
+to get a listing of all tags together with what they dereference.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+FILES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><strong>.git/refs/*</strong>, <strong>.git/packed-refs</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*git-for-each-ref*(1), *git-ls-remote*(1), *git-update-ref*(1),
+*gitrepository-layout*(5)</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+GIT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

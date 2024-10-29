@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - mmcli.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - mmcli.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>mmcli - Control and monitor the ModemManager</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>mmcli</strong> [/OPTION/…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>ModemManager is a DBus-powered Linux daemon which provides a unified
+high level API for communicating with (mobile broadband) modems. It acts
+as a standard RIL (Radio Interface Layer) and may be used by different
+connection managers, like NetworkManager. Thanks to the built-in plugin
+architecture, ModemManager talks to very different kinds of modems with
+very different kinds of ports. In addition to the standard AT serial
+ports, Qualcomm-based QCDM and QMI ports are also supported.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+HELP OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-h, –help</strong>
+</dt>
+<dd>Show summary of options by group.</dd>
+<dt>
+<strong>–help-all</strong>
+</dt>
+<dd>Show all groups and options.</dd>
+<dt>
+<strong>–help-manager</strong>
+</dt>
+<dd>Show manager specific options.</dd>
+<dt>
+<strong>–help-common</strong>
+</dt>
+<dd>Show common options. These are used for defining
+the device an option operates on. For example, modems, bearers, SIMs,
+SMS&#39;, etc.</dd>
+<dt>
+<strong>–help-modem</strong>
+</dt>
+<dd>Show modem specific options.</dd>
+<dt>
+<strong>–help-3gpp</strong>
+</dt>
+<dd>Show 3GPP specific options.</dd>
+<dt>
+<strong>–help-cdma</strong>
+</dt>
+<dd>Show CDMA specific options.</dd>
+<dt>
+<strong>–help-simple</strong>
+</dt>
+<dd>Show simple options. These are useful for getting
+connected or disconnected and understanding the state of things as
+fast as possible without worrying so much about the details.</dd>
+<dt>
+<strong>–help-location</strong>
+</dt>
+<dd>Show location or positioning specific options.</dd>
+<dt>
+<strong>–help-messaging</strong>
+</dt>
+<dd>Show messaging specific options. See also
+<strong>–help-sms</strong> which is related.</dd>
+<dt>
+<strong>–help-time</strong>
+</dt>
+<dd>Show time specific options.</dd>
+<dt>
+<strong>–help-firmware</strong>
+</dt>
+<dd>Show firmware specific options.</dd>
+<dt>
+<strong>–help-oma</strong>
+</dt>
+<dd>Show OMA specific options.</dd>
+<dt>
+<strong>–help-sim</strong>
+</dt>
+<dd>Show SIM card specific options.</dd>
+<dt>
+<strong>–help-bearer</strong>
+</dt>
+<dd>Show bearer specific options.</dd>
+<dt>
+<strong>–help-sms</strong>
+</dt>
+<dd>Show SMS specific options. See also <strong>–help-messaging</strong>
+which is related.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+MANAGER OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+<strong>-B, –get-daemon-version</strong>
+</dt>
+<dd>Retrieve the version of the currently
+running ModemManager daemon.</dd>
+<dt>
+<strong>-G, –set-logging=[ERR|WARN|INFO|DEBUG]</strong>
+</dt>
+<dd>Set the logging level in
+ModemManager daemon. For debugging information you can supply <strong>DEBUG</strong>.
+Each value above <strong>DEBUG</strong> provides less detail. In most cases <strong>ERR</strong>
+(for displaying errors) are the important messages.
+
+The default mode is <strong>ERR</strong>.</dd>
+<dt>
+<strong>-L, –list-modems</strong>
+</dt>
+<dd>List available modems.</dd>
+<dt>
+<strong>-M, –monitor-modems</strong>
+</dt>
+<dd>List available modems and monitor modems
+added or removed.</dd>
+<dt>
+<strong>-S, –scan-modems</strong>
+</dt>
+<dd>Scan for any potential new modems. This is only
+useful when expecting pure RS232 modems, as they are not notified
+automatically by the kernel.</dd>
+<dt>
+<strong>-I, –inhibit-device=[UID]</strong>
+</dt>
+<dd>Inhibit the specific device from being
+used by ModemManager. The <strong>UID</strong> that should be given is the value of
+the <strong>Device</strong> property exposed by a given modem (i.e. equal to the
+<strong>ID_MM_PHYSDEV_UID</strong> if one set, or otherwise equal to the full device
+sysfs path).
+
+This command will not exit right away, as that would implicitly remove
+the inhibition. The user must make sure to stop the mmcli process
+hitting Ctrl+C in order to un-inhibit the device.
+
+When a device is inhibited via this method, ModemManager will disable
+the modem (therefore stopping any ongoing connection) and will no
+longer use it until it is uninhibited.</dd>
+<dt>
+<strong>–report-kernel-event=[&#39;KEY1=VALUE1,KEY2=VALUE2,…&#39;]</strong>
+</dt>
+<dd>
+<p>Manually
+report kernel events, instead of relying on udev (e.g. if the daemon
+is running with <strong>–no-auto-scan</strong> or if the system was built without
+udev support).</p>
+<p>
+The supported *KEY*s are:</p>
+<dl>
+<dt>
+<strong>&#39;action&#39;</strong>
+</dt>
+<dd>Action to report, one of &#39;add&#39; or &#39;remove&#39;. Required.</dd>
+<dt>
+<strong>&#39;subsystem&#39;</strong>
+</dt>
+<dd>Subsystem of the specific port being reported, e.g.
+&#39;tty&#39; (for serial ports),</dd>
+<dt>
+<strong>&#39;name&#39;</strong>
+</dt>
+<dd>Name of the port being reported, e.g. &#39;ttyACM0&#39;, &#39;wwan0&#39;
+or &#39;cdc-wdm0&#39;.</dd>
+<dt>
+<strong>&#39;uid&#39;</strong>
+</dt>
+<dd>The specific UID of the device, equivalent to the
+<strong>ID_MM_PHYSDEV_UID</strong> udev tag. All ports reported with the same &#39;UID&#39;
+value will be considered part of the same device, which may be
+useful for e.g. modems with multiple platform TTYs.</dd>
+</dl>
+</dd>
+<dt>
+<strong>–report-kernel-event-auto-scan</strong>
+</dt>
+<dd>When built with udev support but
+the daemon is running with <strong>–no-auto-scan</strong>, this method may be used
+to automatically report kernel events based on udev.
+
+This command will not exit right away. The user must make sure to stop
+the mmcli process hitting Ctrl+C in order to stopping monitoring for
+new events.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+COMMON OPTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>All options below take a <strong>PATH</strong> or <strong>INDEX</strong> argument. If no action is
+provided, the default information about the modem, bearer, etc. is shown
+instead.</p>
+<p>
+The <strong>PATH</strong> and <strong>INDEX</strong> are created automatically when the modem is
+plugged in. They can be found using <strong>mmcli -L</strong>. This produces something
+like (for modems only):</p>
+<blockquote>
+<p>Found 1 modems: /org/freedesktop/ModemManager1/Modem/*4*</p>
+</blockquote>
+<p>
+In this case, the <strong>INDEX</strong> is <strong>4</strong> and the <strong>PATH</strong> is the entire string
+above.</p>
+<p>
+However, for the bearers, SIMs and SMS cases, the <strong>PATH</strong> is slightly
+different. The <em>Modem</em> is replaced with the object name in use, like
+<em>Bearer</em>. For example:</p>
+<blockquote>
+<p>/org/freedesktop/ModemManager1//Bearer//4</p>
+</blockquote>
+<dl>
+<dt>
+<strong>-m, –modem=[PATH|INDEX]</strong>
+</dt>
+<dd>Specify a modem.</dd>
+<dt>
+<strong>-b, –bearer=[PATH|INDEX]</strong>
+</dt>
+<dd>Specify a bearer.</dd>
+<dt>
+<strong>-i, –sim=[PATH|INDEX]</strong>
+</dt>
+<dd>Specify a SIM card.</dd>
+<dt>
+<strong>-s, –sms=[PATH|INDEX]</strong>
+</dt>
+<dd>Specify an SMS.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+MODEM OPTIONS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>All of the modem options below make use of the <strong>–modem</strong> or <strong>-m</strong> switch
+to specify the modem to act on.</p>
+<p>
+Some operations require a <strong>MODE</strong>. <strong>MODE</strong> can be any combination of the
+modes actually supported by the modem. In the perfect case, the
+following are possible:</p>
+<p>
+<strong>&#39;2G&#39;</strong> - 2G technologies, e.g. EDGE, CDMA1x <strong>&#39;3G&#39;</strong> - 3G technologies,
+e.g. HSPA, EV-DO <strong>&#39;4G&#39;</strong> - 4G technologies, e.g. LTE <strong>&#39;ANY&#39;</strong> - for all
+supported modes.</p>
+<dl>
+<dt>
+<strong>-w, –monitor-state</strong>
+</dt>
+<dd>Monitor the state of a given modem.</dd>
+<dt>
+<strong>-e, –enable</strong>
+</dt>
+<dd>Enable a given modem.
+
+This powers the antenna, starts the automatic registration process and
+in general prepares the modem to be connected.</dd>
+<dt>
+<strong>-d, –disable</strong>
+</dt>
+<dd>Disable a given modem.
+
+This disconnects the existing connection(s) for the modem and puts it
+into a low power mode.</dd>
+<dt>
+<strong>-r, –reset</strong>
+</dt>
+<dd>Resets the modem to the settings it had when it was
+power cycled.</dd>
+<dt>
+<strong>–factory-reset=CODE</strong>
+</dt>
+<dd>Resets the modem to its original factory
+default settings.
+
+The <strong>CODE</strong> provided is vendor specific. Without the correct vendor
+code, it&#39;s unlikely this operation will succeed. This is not a common
+user action.</dd>
+<dt>
+<strong>–command=COMMAND</strong>
+</dt>
+<dd>Send an AT <strong>COMMAND</strong> to the given modem. For
+example, <strong>COMMAND</strong> could be &#39;AT+GMM&#39; to probe for phone model
+information. This operation is only available when ModemManager is run
+in debug mode.</dd>
+<dt>
+<strong>–create-bearer=[&#39;KEY1=VALUE1,KEY2=VALUE2,…&#39;]</strong>
+</dt>
+<dd>
+<p>Create a new
+packet data bearer for a given modem. The *KEY*s and some *VALUE*s are
+listed below:</p>
+<dl>
+<dt>
+<strong>&#39;apn&#39;</strong>
+</dt>
+<dd>Access Point Name. Required in 3GPP.</dd>
+<dt>
+<strong>&#39;ip-type&#39;</strong>
+</dt>
+<dd>Addressing type. Given as a MMBearerIpFamily value
+(e.g. &#39;ipv4&#39;, &#39;ipv6&#39;, &#39;ipv4v6&#39;). Optional in 3GPP and CDMA.</dd>
+<dt>
+<strong>&#39;allowed-auth&#39;</strong>
+</dt>
+<dd>Authentication method to use. Given as a
+MMBearerAllowedAuth value (e.g.
+&#39;none|pap|chap|mschap|mschapv2|eap&#39;). Optional in 3GPP.</dd>
+<dt>
+<strong>&#39;user&#39;</strong>
+</dt>
+<dd>User name (if any) required by the network. Optional in
+3GPP.</dd>
+<dt>
+<strong>&#39;password&#39;</strong>
+</dt>
+<dd>Password (if any) required by the network. Optional
+in 3GPP.</dd>
+<dt>
+<strong>&#39;allow-roaming&#39;</strong>
+</dt>
+<dd>Flag to tell whether connection is allowed
+during roaming, given as a boolean value (i.e &#39;yes&#39; or &#39;no&#39;).
+Optional in 3GPP.</dd>
+<dt>
+<strong>&#39;rm-protocol&#39;</strong>
+</dt>
+<dd>Protocol of the Rm interface, given as a
+MMModemCdmaRmProtocol value (e.g. &#39;async&#39;, &#39;packet-relay&#39;,
+&#39;packet-network-ppp&#39;, &#39;packet-network-slip&#39;, &#39;stu-iii&#39;). Optional in
+CDMA.</dd>
+<dt>
+<strong>&#39;number&#39;</strong>
+</dt>
+<dd>Telephone number to dial. Required in POTS.</dd>
+</dl>
+</dd>
+<dt>
+<strong>–delete-bearer=[PATH|INDEX]</strong>
+</dt>
+<dd>Delete bearer from a given modem.</dd>
+<dt>
+<strong>–set-allowed-modes=[MODE1|MODE2|…]</strong>
+</dt>
+<dd>Set allowed modes for a
+given modem. For possible modes, see the beginning of this section.</dd>
+<dt>
+<strong>–set-preferred-mode=MODE</strong>
+</dt>
+<dd>Set the preferred <strong>MODE</strong> for the given
+modem. The <strong>MODE</strong> <em>MUST</em> be one of the allowed modes as set with the
+<strong>–set-allowed-modes</strong> option. Possible <strong>MODE</strong> arguments are detailed
+at the beginning of this section.</dd>
+<dt>
+<strong>–set-current-bands=[BAND1|BAND2|…]</strong>
+</dt>
+<dd>Set bands to be used for a
+given modem. These are frequency ranges the modem should use. There
+are quite a number of supported bands and listing them all here would
+be quite extensive. For details, see the MMModemBand documentation.
+
+An example would be: &#39;egsm|dcs|pcs|g850&#39; to select all the GSM
+frequency bands.</dd>
+<dt>
+<strong>–set-primary-sim-slot=[SLOT]</strong>
+</dt>
+<dd>Request to switch the primary SIM
+slot.
+
+The given <strong>SLOT</strong> must be a valid slot number in the [1,N] range, where
+N is the amount of SIM slots available in the system.</dd>
+<dt>
+<strong>–inhibit</strong>
+</dt>
+<dd>Inhibit the specific modem from being used by
+ModemManager. This method is completely equivalent to
+<strong>–inhibit-device</strong>, with the only difference being that in this case,
+the modem must be managed by the daemon at the time the inhibition is
+requested.
+
+This command will not exit right away, as that would implicitly remove
+the inhibition. The user must make sure to stop the mmcli process
+hitting Ctrl+C in order to un-inhibit the device.
+
+When a device is inhibited via this method, ModemManager will disable
+the modem (therefore stopping any ongoing connection) and will no
+longer use it until it is uninhibited.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+3GPP OPTIONS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The 3rd Generation Partnership Project (3GPP) is a collaboration between
+groups of telecommunications associations. These options pertain to
+devices which support 3GPP.</p>
+<p>
+Included are options to control USSD (Unstructured Supplementary Service
+Data) sessions.</p>
+<p>
+All of the 3GPP options below make use of the <strong>–modem</strong> or <strong>-m</strong> switch
+to specify the modem to act on.</p>
+<dl>
+<dt>
+<strong>–3gpp-scan</strong>
+</dt>
+<dd>Scan for available 3GPP networks.</dd>
+<dt>
+<strong>–3gpp-register-home</strong>
+</dt>
+<dd>Request a given modem to register in its
+home network.
+
+This registers with the default network(s) specified by the modem,</dd>
+<dt>
+<strong>–3gpp-register-in-operator=MCCMNC</strong>
+</dt>
+<dd>Request a given modem to
+register on the network of the given <strong>MCCMNC</strong> (Mobile Country Code,
+Mobile Network Code) based operator. This code is used for GSM/LTE,
+CDMA, iDEN, TETRA and UMTS public land mobile networks and some
+satellite mobile networks. The ITU-T Recommendation E.212 defines
+mobile country codes.</dd>
+<dt>
+<strong>–3gpp-ussd-status</strong>
+</dt>
+<dd>Request the status of <em>ANY</em> ongoing USSD
+session.</dd>
+<dt>
+<strong>–3gpp-ussd-initiate=COMMAND</strong>
+</dt>
+<dd>Request the given modem to initiate
+a USSD session with <strong>COMMAND</strong>.
+
+For example, <strong>COMMAND</strong> could be &#39;*101#&#39; to give your current pre-pay
+balance.</dd>
+<dt>
+<strong>–3gpp-ussd-respond=RESPONSE</strong>
+</dt>
+<dd>When initiating an USSD session, a
+RESPONSE may be needed by a network-originated request. This option
+allows for that.</dd>
+<dt>
+<strong>–3gpp-ussd-cancel</strong>
+</dt>
+<dd>Cancel an ongoing USSD session for a given
+modem.</dd>
+<dt>
+<strong>–3gpp-disable-facility-lock=FACILITY,CONTROL_KEY</strong>
+</dt>
+<dd>
+<p>Disable
+selected facility lock using provided control key.</p>
+<dl>
+<dt>
+<strong>&#39;FACILITY&#39;</strong>
+</dt>
+<dd>One of the following types of lock:</dd>
+</dl>
+<p><strong>&#39;net-pers&#39;</strong> - network personalization <strong>&#39;net-sub-pers&#39;</strong> - network
+subset personalization <strong>&#39;provider-pers&#39;</strong> - provider personalization
+<strong>&#39;corp-pers&#39;</strong> - corporate personalization</p>
+<dl>
+<dt>
+<strong>&#39;CONTROL_KEY&#39;</strong>
+</dt>
+<dd>Alphanumeric code to unlock facility.</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+CDMA OPTIONS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>All CDMA (Code Division Multiple Access) options require the <strong>–modem</strong>
+or <strong>-m</strong> option.</p>
+<dl>
+<dt>
+<strong>–cdma-activate=CARRIER</strong>
+</dt>
+<dd>Activate the given modem using OTA (Over
+the Air) settings. The <strong>CARRIER</strong> is a code provided by the network for
+the default settings they provide.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SIMPLE OPTIONS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>All simple options must be used with <strong>–modem</strong> or <strong>-m</strong>.</p>
+<dl>
+<dt>
+<strong>–simple-connect=[&#39;KEY1=VALUE1,KEY2=VALUE2,…&#39;]</strong>
+</dt>
+<dd>
+<p>Run a full
+connection sequence using <strong>KEY</strong> / <strong>VALUE</strong> pairs. You can use the
+<strong>–create-bearer</strong> options, plus any of the following ones:</p>
+<dl>
+<dt>
+<strong>&#39;pin&#39;</strong>
+</dt>
+<dd>SIM-PIN unlock code.</dd>
+<dt>
+<strong>&#39;operator-id&#39;</strong>
+</dt>
+<dd>ETSI MCC-MNC of a network to force registration.</dd>
+</dl>
+</dd>
+<dt>
+<strong>–simple-disconnect</strong>
+</dt>
+<dd>Disconnect <em>ALL</em> connected bearers for a
+given modem.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+LOCATION OPTIONS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>These options detail how to discover your location using Global
+Positioning System (GPS) or directly from your mobile network
+infrastructure (either 3GPP or 3GPP2).</p>
+<p>
+All location options must be used with <strong>–modem</strong> or <strong>-m</strong>.</p>
+<dl>
+<dt>
+<strong>–location-status</strong>
+</dt>
+<dd>Show the current status for discovering our
+location.</dd>
+<dt>
+<strong>–location-get</strong>
+</dt>
+<dd>Show all location information available.</dd>
+<dt>
+<strong>–location-enable-3gpp</strong>
+</dt>
+<dd>Enable location discovery using the 3GPP
+network.</dd>
+<dt>
+<strong>–location-disable-3gpp</strong>
+</dt>
+<dd>Disable location discovery using the 3GPP
+network.</dd>
+<dt>
+<strong>–location-enable-agps-msa</strong>
+</dt>
+<dd>Enable A-GPS (MSA) support. This
+command does not implicitly start the GPS engine, it just specifies
+that A-GPS should be enabled when the engine is started. Therefore,
+the user should request enabling A-GPS before the raw or NMEA outputs
+are enabled with <strong>–location-enable-gps-raw</strong> or
+<strong>–location-enable-gps-nmea</strong>.</dd>
+<dt>
+<strong>–location-disable-agps-msa</strong>
+</dt>
+<dd>Disable A-GPS (MSA) support.</dd>
+<dt>
+<strong>–location-enable-agps-msb</strong>
+</dt>
+<dd>Enable A-GPS (MSB) support. This
+command does not implicitly start the GPS engine, it just specifies
+that A-GPS should be enabled when the engine is started. Therefore,
+the user should request enabling A-GPS before the raw or NMEA outputs
+are enabled with <strong>–location-enable-gps-raw</strong> or
+<strong>–location-enable-gps-nmea</strong>.</dd>
+<dt>
+<strong>–location-disable-agps-msb</strong>
+</dt>
+<dd>Disable A-GPS (MSB) support.</dd>
+<dt>
+<strong>–location-enable-gps-nmea</strong>
+</dt>
+<dd>Enable location discovery using GPS
+and reported with NMEA traces.
+
+This command will start the GPS engine, if it isn&#39;t started already.</dd>
+<dt>
+<strong>–location-disable-gps-nmea</strong>
+</dt>
+<dd>Disable location discovery using GPS
+and NMEA traces.
+
+If the raw output is not enabled at the same time, the GPS engine will
+be stopped.</dd>
+<dt>
+<strong>–location-enable-gps-raw</strong>
+</dt>
+<dd>Enable location discovery using GPS and
+reported with raw (i.e. longitude/latitude) values.
+
+This command will start the GPS engine, if it isn&#39;t started already.</dd>
+<dt>
+<strong>–location-disable-gps-raw</strong>
+</dt>
+<dd>Disable location discovery using GPS
+and raw values.
+
+If the NMEA output is not enabled at the same time, the GPS engine
+will be stopped.</dd>
+<dt>
+<strong>–location-enable-cdma-bs</strong>
+</dt>
+<dd>Enable location discovery using the
+3GPP2 network.</dd>
+<dt>
+<strong>–location-disable-cdma-bs</strong>
+</dt>
+<dd>Disable location discovery using the
+3GPP2 network.</dd>
+<dt>
+<strong>–location-enable-gps-unmanaged</strong>
+</dt>
+<dd>Enable location discovery using
+GPS but without taking control of the NMEA tty port. This allows other
+programs, e.g. gpsd, to use the NMEA tty once the GPS engine has been
+enabled.</dd>
+<dt>
+<strong>–location-disable-gps-unmanaged</strong>
+</dt>
+<dd>Disable location discovery using
+GPS and unmanaged port.</dd>
+<dt>
+<strong>–location-set-gps-refresh-rate=SEC</strong>
+</dt>
+<dd>Set the location refresh rate
+on the DBus interface to SEC seconds. If set to 0, the new location is
+published on the DBus interface as soon as ModemManager detects it.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–location-set-supl-server=[IP:PORT] or
+–location-set-supl-server=[FQDN:PORT]</strong> :: Configure the location of
+the A-GPS SUPL server, either specifying the IP address (<strong>IP:PORT</strong>) or
+specifyng a fully qualified domain name (<strong>[FQDN:PORT]</strong>).</dd>
+<dt>
+<strong>–location-inject-assistance-data=[PATH]</strong>
+</dt>
+<dd>Inject assistance data
+into the GNSS module, loaded from a local file at <strong>PATH</strong>. The
+assistance data should be in a format expected by the device, e.g.
+downloaded from the URLs exposed by the &#39;AssistanceDataServers&#39;
+property.</dd>
+<dt>
+<strong>–location-set-enable-signal</strong>
+</dt>
+<dd>Enable reporting location updates
+via DBus property signals. This is required if applications rely on
+listening to &#39;Location&#39; property updates, instead of explicit queries
+with the policy-protected &#39;GetLocation&#39; method.
+
+This DBus property signal updates are by default disabled.</dd>
+<dt>
+<strong>–location-set-disable-signal</strong>
+</dt>
+<dd>Disable reporting location updates
+via DBus property signals.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+MESSAGING OPTIONS
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>All messaging options must be used with <strong>–modem</strong> or <strong>-m</strong>.</p>
+<dl>
+<dt>
+<strong>–messaging-status</strong>
+</dt>
+<dd>Show the status of the messaging support.</dd>
+<dt>
+<strong>–messaging-list-sms</strong>
+</dt>
+<dd>List SMS messages available on a given
+modem.</dd>
+<dt>
+<strong>–messaging-create-sms=[&#39;KEY1=VALUE1,…&#39;]</strong>
+</dt>
+<dd>
+<p>Create a new SMS on a
+given modem. *KEY*s can be any of the following:</p>
+<dl>
+<dt>
+<strong>&#39;number&#39;</strong>
+</dt>
+<dd>Number to which the message is addressed.</dd>
+<dt>
+<strong>&#39;text&#39;</strong>
+</dt>
+<dd>Message text, in UTF-8. When sending, if the text is
+larger than the limit of the technology or modem, the message will
+be broken into multiple parts or messages. Note that text and data
+are never given at the same time.</dd>
+<dt>
+<strong>&#39;smsc&#39;</strong>
+</dt>
+<dd>Indicates the SMS service center number.</dd>
+<dt>
+<strong>&#39;validity&#39;</strong>
+</dt>
+<dd>Specifies when the SMS expires in the SMSC.</dd>
+<dt>
+<strong>&#39;class&#39;</strong>
+</dt>
+<dd>3GPP message class (0..3).</dd>
+<dt>
+<strong>&#39;delivery-report-request&#39;</strong>
+</dt>
+<dd>Specifies whether delivery report is
+requested when sending the SMS (&#39;yes&#39; or &#39;no&#39;)</dd>
+<dt>
+<strong>&#39;storage&#39;</strong>
+</dt>
+<dd>Specifies the storage where this message is kept.
+Storages may be &#39;sm&#39;, &#39;me&#39;, &#39;mt&#39;, &#39;sr&#39;, &#39;bm&#39;, &#39;ta&#39;.</dd>
+</dl>
+</dd>
+<dt>
+<strong>–messaging-create-sms-with-data=PATH</strong>
+</dt>
+<dd>Use <strong>PATH</strong> to a filename as
+the data to create a new SMS.</dd>
+<dt>
+<strong>–messaging-create-sms-with-text=PATH</strong>
+</dt>
+<dd>Use <strong>PATH</strong> to a filename as
+the message to create a new SMS.</dd>
+<dt>
+<strong>–messaging-delete-sms=[PATH|INDEX]</strong>
+</dt>
+<dd>Delete an SMS from a given
+modem.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+TIME OPTIONS
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>All time operations require the <strong>–modem</strong> or <strong>-m</strong> option.</p>
+<dl>
+<dt>
+<strong>–time</strong>
+</dt>
+<dd>Display the current network time from the operator. This
+includes the timezone which is usually of importance.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+VOICE OPTIONS
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>All voice operations require the <strong>–modem</strong> or <strong>-m</strong> option.</p>
+<dl>
+<dt>
+<strong>–voice-list-calls</strong>
+</dt>
+<dd>List calls managed (initiated, received,
+ongoing) on a given modem.</dd>
+<dt>
+<strong>–voice-create-call=[&#39;KEY1=VALUE1,…&#39;]</strong>
+</dt>
+<dd>
+<p>Create a new outgoing
+call on a given modem. *KEY*s can be any of the following:</p>
+<dl>
+<dt>
+<strong>&#39;number&#39;</strong>
+</dt>
+<dd>Number to call.</dd>
+</dl>
+</dd>
+<dt>
+<strong>–voice-delete-call=[PATH|INDEX]</strong>
+</dt>
+<dd>Delete a call from a given
+modem.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+FIRMWARE OPTIONS
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>All firmware options require the <strong>–modem</strong> or <strong>-m</strong> option.</p>
+<dl>
+<dt>
+<strong>–firmware-status</strong>
+</dt>
+<dd>Show firmware update specific details and
+properties.</dd>
+<dt>
+<strong>–firmware-list</strong>
+</dt>
+<dd>List all the firmware images installed on a given
+modem.</dd>
+<dt>
+<strong>–firmware-select=ID</strong>
+</dt>
+<dd>Select a firmware image from those installed
+on a given modem. A list of available firmware images can be seen
+using the <strong>–firmware-list</strong> option.
+
+The <strong>ID</strong> provided is a <em>UNIQUE</em> identifier for the firmware.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+SIGNAL OPTIONS
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>All signal options require the <strong>–modem</strong> or <strong>-m</strong> option.</p>
+<dl>
+<dt>
+<strong>–signal-setup=[Rate]</strong>
+</dt>
+<dd>Setup extended signal quality information
+retrieval at the specified rate (in seconds).
+
+By default this is disabled (rate set to 0).</dd>
+<dt>
+<strong>–signal-get</strong>
+</dt>
+<dd>Retrieve the last extended signal quality
+information loaded.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
+<h2 id="headline-17">
+OMA OPTIONS
+</h2>
+<div id="outline-text-headline-17" class="outline-text-2">
+<p>All OMA options require the <strong>–modem</strong> or <strong>-m</strong> option.</p>
+<dl>
+<dt>
+<strong>–oma-status</strong>
+</dt>
+<dd>Show the status of the OMA device management
+subsystem.</dd>
+<dt>
+<strong>–oma-start-client-initiated-session=[SESSION TYPE]</strong>
+</dt>
+<dd>Request to
+start a client initiated session.
+
+The given session type must be one of:
+&#39;client-initiated-device-configure&#39; &#39;client-initiated-prl-update&#39;
+&#39;client-initiated-hands-free-activation&#39;</dd>
+<dt>
+<strong>–oma-accept-network-initiated-session=[SESSION ID]</strong>
+</dt>
+<dd>Request to
+accept a network initiated session.</dd>
+<dt>
+<strong>–oma-reject-network-initiated-session=[SESSION ID]</strong>
+</dt>
+<dd>Request to
+reject a network initiated session.</dd>
+<dt>
+<strong>–oma-cancel-session</strong>
+</dt>
+<dd>Request to cancel current OMA session, if
+any.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-2">
+<h2 id="headline-18">
+SIM OPTIONS
+</h2>
+<div id="outline-text-headline-18" class="outline-text-2">
+<dl>
+<dt>
+<strong>–pin=PIN</strong>
+</dt>
+<dd>Send <strong>PIN</strong> code to a given SIM card.</dd>
+<dt>
+<strong>–puk=PUK</strong>
+</dt>
+<dd>Send <strong>PUK</strong> code to a given SIM card. This must be used
+<em>WITH</em> <strong>–pin</strong>.</dd>
+<dt>
+<strong>–enable-pin</strong>
+</dt>
+<dd>Enable PIN request for a given SIM card. This must
+be used <em>WITH</em> <strong>–pin</strong>.</dd>
+<dt>
+<strong>–disable-pin</strong>
+</dt>
+<dd>Disable PIN request for a given SIM card. This must
+be used <em>WITH</em> <strong>–pin</strong>.</dd>
+<dt>
+<strong>–change-pin=PIN</strong>
+</dt>
+<dd>Change the PIN for a given SIM card. It will be
+set to <strong>PIN</strong>. This must be used <em>WITH</em> <strong>–pin</strong> to supply the old PIN
+number.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-19" class="outline-2">
+<h2 id="headline-19">
+BEARER OPTIONS
+</h2>
+<div id="outline-text-headline-19" class="outline-text-2">
+<p>All bearer options require the <strong>–bearer</strong> or <strong>-b</strong> option.</p>
+<dl>
+<dt>
+<strong>-c, –connect</strong>
+</dt>
+<dd>Connect to a given bearer.</dd>
+<dt>
+<strong>-x, –disconnect</strong>
+</dt>
+<dd>Disconnect from a given bearer.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-2">
+<h2 id="headline-20">
+SMS OPTIONS
+</h2>
+<div id="outline-text-headline-20" class="outline-text-2">
+<p>All SMS options require the <strong>–sms</strong> or <strong>-s</strong> option.</p>
+<dl>
+<dt>
+<strong>–send</strong>
+</dt>
+<dd>Send an SMS.</dd>
+<dt>
+<strong>–store</strong>
+</dt>
+<dd>This option will store the SMS in the default storage
+defined by the modem, which may be either modem-memory or SMS-memory.
+To know what the existing default storage is, see the
+<strong>–messaging-status</strong> option.</dd>
+<dt>
+<strong>–store-in-storage=STORAGE</strong>
+</dt>
+<dd>
+<p>This option states which <strong>STORAGE</strong> to
+use for SMS messages. Possible values for <strong>STORAGE</strong> include:</p>
+<dl>
+<dt>
+<strong>&#39;sm&#39;</strong>
+</dt>
+<dd>SIM card storage area.</dd>
+<dt>
+<strong>&#39;me&#39;</strong>
+</dt>
+<dd>Mobile equipment storage area.</dd>
+<dt>
+<strong>&#39;mt&#39;</strong>
+</dt>
+<dd>Sum of SIM and Mobile equipment storages</dd>
+<dt>
+<strong>&#39;sr&#39;</strong>
+</dt>
+<dd>Status report message storage area.</dd>
+<dt>
+<strong>&#39;bm&#39;</strong>
+</dt>
+<dd>Broadcast message storage area.</dd>
+<dt>
+<strong>&#39;ta&#39;</strong>
+</dt>
+<dd>Terminal adaptor message storage area.</dd>
+</dl>
+</dd>
+<dt>
+<strong>–create-file-with-data=PATH</strong>
+</dt>
+<dd>This option takes an SMS that has
+<em>DATA</em> (not <em>TEXT</em>) and will create a local file described by <strong>PATH</strong>
+and store the content of the SMS there.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-21" class="outline-2">
+<h2 id="headline-21">
+CALL OPTIONS
+</h2>
+<div id="outline-text-headline-21" class="outline-text-2">
+<dl>
+<dt>
+<strong>–start</strong>
+</dt>
+<dd>Initiate an outgoing call.</dd>
+<dt>
+<strong>–accept</strong>
+</dt>
+<dd>Accept an incoming call.</dd>
+<dt>
+<strong>–hangup</strong>
+</dt>
+<dd>Reject an incoming call or hangup an ongoing one.</dd>
+<dt>
+<strong>–send-dtmf=[0-9A-D*#]</strong>
+</dt>
+<dd>Send a DTMF sequence through an ongoing
+call.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-22" class="outline-2">
+<h2 id="headline-22">
+APPLICATION OPTIONS
+</h2>
+<div id="outline-text-headline-22" class="outline-text-2">
+<dl>
+<dt>
+<strong>-J, –output-json</strong>
+</dt>
+<dd>Run action with machine-friendly JSON output,
+to be used e.g. by shell scripts that rely on mmcli operations.</dd>
+<dt>
+<strong>-K, –output-keyvalue</strong>
+</dt>
+<dd>Run action with machine-friendly key-value
+output, to be used e.g. by shell scripts that rely on mmcli
+operations.</dd>
+<dt>
+<strong>-v, –verbose</strong>
+</dt>
+<dd>Perform actions with more details reported and/or
+logged.</dd>
+<dt>
+<strong>-V, –version</strong>
+</dt>
+<dd>Returns the version of this program.</dd>
+<dt>
+<strong>-a, –async</strong>
+</dt>
+<dd>Use asynchronous methods. This is purely a
+development tool and has no practical benefit to most user operations.</dd>
+<dt>
+<strong>–timeout=SECONDS</strong>
+</dt>
+<dd>Use <strong>SECONDS</strong> for the timeout when performing
+operations with this command. This option is useful when executing
+long running operations, like <strong>–3gpp-scan</strong>.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-23" class="outline-2">
+<h2 id="headline-23">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-23" class="outline-text-2">
+<div id="outline-container-headline-24" class="outline-3">
+<h3 id="headline-24">
+Send the PIN to the SIM card
+</h3>
+<div id="outline-text-headline-24" class="outline-text-3">
+<p>You&#39;ll need first to know which the proper path/index is for the SIM in
+your modem:</p>
+<p>
+$ mmcli -m 0 -K | grep &#34;modem.generic.sim&#34; | awk -F &#34;: &#34; &#39;{ print $2 }&#39;
+/org/freedesktop/ModemManager1/SIM/0</p>
+<p>
+And after that, you can just use the SIM index:</p>
+<p>
+$ sudo mmcli -i 0 –pin=1234 successfully sent PIN code to the SIM</p>
+</div>
+</div>
+<div id="outline-container-headline-25" class="outline-3">
+<h3 id="headline-25">
+Simple connect and disconnect
+</h3>
+<div id="outline-text-headline-25" class="outline-text-3">
+<p>You can launch the simple connection process like:</p>
+<p>
+$ sudo mmcli -m 0 –simple-connect=&#34;pin=1234,apn=internet&#34; successfully
+connected the modem</p>
+<p>
+Then, you can disconnect it like:</p>
+<p>
+$ sudo mmcli -m 0 –simple-disconnect successfully disconnected all
+bearers in the modem</p>
+</div>
+</div>
+<div id="outline-container-headline-26" class="outline-3">
+<h3 id="headline-26">
+3GPP network scan
+</h3>
+<div id="outline-text-headline-26" class="outline-text-3">
+<p>Scanning for 3GPP networks may really take a long time, so a specific
+timeout must be given:</p>
+<p>
+$ sudo mmcli -m 0 –3gpp-scan –timeout=300 ——————— 3GPP
+scan | networks: 21403 - Orange SP (gprs, unknown) | 21407 - Movistar
+(gprs, unknown) | 21404 - YOIGO (gprs, unknown) | 21401 - vodafone ES
+(gprs, unknown)</p>
+</div>
+</div>
+<div id="outline-container-headline-27" class="outline-3">
+<h3 id="headline-27">
+Creating a new SMS message &amp; storing it
+</h3>
+<div id="outline-text-headline-27" class="outline-text-3">
+<p>Using the “sm” (SIM), you can do this using:</p>
+<p>
+$ sudo mmcli -m 0 –messaging-create-sms=&#34;text=&#39;Hello
+world&#39;,number=&#39;+1234567890&#39;&#34; Successfully created new SMS:
+/org/freedesktop/ModemManager1/SMS/21 (unknown)</p>
+<p>
+$ sudo mmcli -s 21 –store-in-storage=&#34;sm&#34; successfully stored the SMS</p>
+<p>
+$ sudo mmcli -s 21 ——————————- General | dbus path:
+/org/freedesktop/ModemManager1/SMS/21 ——————————-
+Content | number: +1234567890 | text: Hello world
+——————————- Properties | PDU type: submit | state:
+stored | smsc: unknown | validity: 0 | class: 0 | storage: sm | delivery
+report: not requested | message reference: 0</p>
+<p>
+$ sudo mmcli -m 0 –messaging-status —————————-
+Messaging | supported storages: sm, me | default storage: me</p>
+</div>
+</div>
+<div id="outline-container-headline-28" class="outline-3">
+<h3 id="headline-28">
+Sending binary SMS messages from files
+</h3>
+<div id="outline-text-headline-28" class="outline-text-3">
+<p>As you can see below, the important part is the
+<strong>–messaging-create-sms-with-data</strong> and the <strong>PATH</strong> provided.</p>
+<p>
+$ sudo mmcli -m 0 \ –messaging-create-sms=&#34;number=&#39;+1234567890&#39;&#34; \
+–messaging-create-sms-with-data=/path/to/your/file Successfully created
+new SMS: /org/freedesktop/ModemManager1/SMS/22 (unknown)</p>
+<p>
+$ sudo mmcli -s 22 –send successfully sent the SMS</p>
+</div>
+</div>
+<div id="outline-container-headline-29" class="outline-3">
+<h3 id="headline-29">
+Listing SMS messages
+</h3>
+<div id="outline-text-headline-29" class="outline-text-3">
+<p>When the receiver gets all the parts of the message, they can now
+recover the sent file with another <strong>mmcli</strong> command in their ModemManager
+setup:</p>
+<p>
+$&gt; sudo mmcli -m 0 –messaging-list-sms
+/org/freedesktop/ModemManager1/SMS/0 (received)</p>
+<p>
+$&gt; sudo mmcli -s 0 –create-file-with-data=/path/to/the/output/file</p>
+</div>
+</div>
+<div id="outline-container-headline-30" class="outline-3">
+<h3 id="headline-30">
+GPS location status
+</h3>
+<div id="outline-text-headline-30" class="outline-text-3">
+<p>You first need to check whether the modem has GPS-specific location
+capabilities. Note that we&#39;ll assume the modem is exposed as index 0; if
+you have more than one modem, just use –list-modems to check the proper
+modem index:</p>
+<p>
+$ mmcli -m 0 –location-status —————————- Location |
+capabilities: 3gpp-lac-ci, gps-raw, gps-nmea | enabled: none | signals:
+no</p>
+<p>
+The output says that the modem supports 3GPP Location area code/Cell ID,
+GPS raw and GPS-NMEA location sources. None is enabled yet, as we didn&#39;t
+enable the modem, which we can do issuing:</p>
+<p>
+$ sudo mmcli -m 0 –enable successfully enabled the modem</p>
+<p>
+$ mmcli -m 0 –location-status —————————- Location |
+capabilities: 3gpp-lac-ci, gps-raw, gps-nmea | enabled: 3gpp-lac-ci |
+signals: no</p>
+</div>
+</div>
+<div id="outline-container-headline-31" class="outline-3">
+<h3 id="headline-31">
+GPS location technology enabling
+</h3>
+<div id="outline-text-headline-31" class="outline-text-3">
+<p>We can start the GPS engine by enabling the RAW or NMEA GPS location
+sources:</p>
+<p>
+$ sudo mmcli -m 0 \ –location-enable-gps-raw \
+–location-enable-gps-nmea successfully setup location gathering</p>
+<p>
+If we do check again the status, we&#39;ll see the GPS-specific locations
+are enabled:</p>
+<p>
+$ mmcli -m 0 –location-status ——————————– Location
+​| capabilities: 3gpp-lac-ci, gps-raw, gps-nmea | enabled: 3gpp-lac-ci,
+gps-raw, gps-nmea | signals: no</p>
+</div>
+</div>
+<div id="outline-container-headline-32" class="outline-3">
+<h3 id="headline-32">
+GPS location retrieval
+</h3>
+<div id="outline-text-headline-32" class="outline-text-3">
+<p>You can query all location information at the same time with a single
+command. If any of the specific outputs is not available, the
+corresponding section will be omitted from the output.</p>
+<p>
+$ sudo mmcli -m 0 --location-get ------------------------- 3GPP location
+​| Mobile country code: 214 | Mobile network code: 3 | Location area
+code: 21071 | Cell ID: 7033737 ------------------------- GPS NMEA traces
+​| $GPGGA,,,,,,0,,,,,,,,*66 | $GPRMC,,V,,,,,,,,,,N*53 |
+$GPGSA,A,1,,,,,,,,,,,,,,,*1E | $GPGSV,4,1,16,24,,,,29,,,,05,,,,18,,,*7A
+​| $GPGSV,4,2,16,22,,,,14,,,,11,,,,17,,,*7B |
+$GPGSV,4,3,16,03,,,,12,,,,30,,,,13,,,*78 |
+$GPGSV,4,4,16,23,,,,15,,,,27,,,,07,,,*79 | $GPVTG,,T,,M,,N,,K,N*2C</p>
+</div>
+</div>
+<div id="outline-container-headline-33" class="outline-3">
+<h3 id="headline-33">
+A-GPS support
+</h3>
+<div id="outline-text-headline-33" class="outline-text-3">
+<p>If A-GPS is enabled before starting the GPS engine, and if a data
+connection is available in the modem, the configured SUPL servers may be
+used to obtain a faster initial position fix.</p>
+<p>
+Note that the GPS engine will not be started when just A-GPS capability
+is enabled. An explicit output (RAW or NMEA) is required to be enabled
+in order to start the GPS engine.</p>
+<p>
+$ mmcli -m 0 –location-status ——————————– Location
+​| capabilities: 3gpp-lac-ci, gps-raw, gps-nmea, agps-msa, agps-msb |
+enabled: 3gpp-lac-ci | signals: no —————————– GPS |
+refresh rate: 30 seconds | a-gps supl server: supl.google.com:7276</p>
+<p>
+$ sudo mmcli -m 0 –location-enable-agps-msa successfully setup location
+gathering</p>
+<p>
+$ sudo mmcli -m 0 –location-enable-gps-nmea successfully setup location
+gathering</p>
+<p>
+$ sudo mmcli -m 0 –location-enable-gps-raw successfully setup location
+gathering</p>
+</div>
+</div>
+<div id="outline-container-headline-34" class="outline-3">
+<h3 id="headline-34">
+Injecting assistance data
+</h3>
+<div id="outline-text-headline-34" class="outline-text-3">
+<p>If the modem device does not have an ongoing connection (e.g. no mobile
+network coverage) but the system has other means to access the Internet
+(e.g. WiFi), the user may be able to download location assistance data
+and inject it in the module.</p>
+<p>
+E.g. If the device supports XTRA assistance data, the user may download
+it from one of the servers listed by ModemManager and manually inject it
+afterwards. The XTRA assistance data is usually valid for several days.</p>
+<p>
+$ mmcli -m 0 –location-status ——————————– Location
+​| capabilities: 3gpp-lac-ci, gps-raw, gps-nmea, agps-msa, agps-msb |
+enabled: 3gpp-lac-ci | signals: no ——————————– GPS
+​| refresh rate: 30 seconds | a-gps supl server: supl.google.com:7276 |
+supported assistance: xtra | assistance servers:
+<a href="https://xtrapath3.izatcloud.net/xtra3grcej.bin">https://xtrapath3.izatcloud.net/xtra3grcej.bin</a> |
+<a href="https://xtrapath1.izatcloud.net/xtra3grcej.bin">https://xtrapath1.izatcloud.net/xtra3grcej.bin</a> |
+<a href="https://xtrapath2.izatcloud.net/xtra3grcej.bin">https://xtrapath2.izatcloud.net/xtra3grcej.bin</a></p>
+<p>
+$ wget -q <a href="https://xtrapath3.izatcloud.net/xtra3grcej.bin">https://xtrapath3.izatcloud.net/xtra3grcej.bin</a></p>
+<p>
+$ sudo mmcli -m 0 –location-inject-assistance-data=./xtra3grcej.bin
+successfully injected assistance data</p>
+<p>
+$ sudo mmcli -m 0 –location-enable-gps-nmea successfully setup location
+gathering</p>
+<p>
+$ sudo mmcli -m 0 –location-enable-gps-raw successfully setup location
+gathering</p>
+</div>
+</div>
+<div id="outline-container-headline-35" class="outline-3">
+<h3 id="headline-35">
+Key-Value output
+</h3>
+<div id="outline-text-headline-35" class="outline-text-3">
+<p>Writing shell scripts that use mmcli to perform operations with the
+modem is easy when using the <strong>–output-keyvalue</strong> option. For example,
+you could gather all the main status information of the modem with a
+single call and then parse it to read single fields:</p>
+<p>
+$ STATUS=$(mmcli -m 0 –output-keyvalue) $ echo &#34;${STATUS}&#34; | grep
+&#34;modem.generic.state &#34; | awk -F &#34;: &#34; &#39;{ print $2 }&#39; failed $ echo
+&#34;${STATUS}&#34; | grep &#34;modem.generic.state-failed-reason &#34; | awk -F &#34;: &#34; &#39;{
+print $2 }&#39; sim-missing</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-36" class="outline-2">
+<h2 id="headline-36">
+AUTHORS
+</h2>
+<div id="outline-text-headline-36" class="outline-text-2">
+<p>Written by Martyn Russell &lt;martyn@lanedo.com&gt; and Aleksander Morgado
+&lt;aleksander@aleksander.es&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-37" class="outline-2">
+<h2 id="headline-37">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-37" class="outline-text-2">
+<p>*ModemManager*(8), *NetworkManager*(8)</p>
+<p>
+AT (<a href="http://en.wikipedia.org/wiki/AT_commands).">http://en.wikipedia.org/wiki/AT_commands).</a></p>
+<p>
+3GPP (<a href="http://en.wikipedia.org/wiki/3GPP).">http://en.wikipedia.org/wiki/3GPP).</a></p>
+<p>
+MCCMNC (<a href="http://en.wikipedia.org/wiki/Mobile_Network_Code).">http://en.wikipedia.org/wiki/Mobile_Network_Code).</a></p>
+<p>
+USSD
+(<a href="http://en.wikipedia.org/wiki/Unstructured_Supplementary_Service_Data).">http://en.wikipedia.org/wiki/Unstructured_Supplementary_Service_Data).</a></p>
+<p>
+CDMA (<a href="http://en.wikipedia.org/wiki/Code_division_multiple_access).">http://en.wikipedia.org/wiki/Code_division_multiple_access).</a></p>
+<p>
+OTA (<a href="http://en.wikipedia.org/wiki/Over-the-air_programming).">http://en.wikipedia.org/wiki/Over-the-air_programming).</a></p>
+<p>
+GPS (<a href="http://en.wikipedia.org/wiki/Global_Positioning_System)">http://en.wikipedia.org/wiki/Global_Positioning_System)</a></p>
+<p>
+NMEA (<a href="http://en.wikipedia.org/wiki/NMEA_0183)">http://en.wikipedia.org/wiki/NMEA_0183)</a></p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

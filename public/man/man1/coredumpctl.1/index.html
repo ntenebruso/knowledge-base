@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - coredumpctl.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - coredumpctl.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>coredumpctl - Retrieve and process saved core dumps and metadata</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>coredumpctl</strong> [OPTIONS…] {COMMAND} [PID|COMM|EXE|MATCH…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>coredumpctl</strong> is a tool that can be used to retrieve and process core
+dumps and metadata which were saved by *systemd-coredump*(8).</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following commands are understood:</p>
+<p>
+<strong>list</strong></p>
+<blockquote>
+<p>List core dumps captured in the journal matching specified
+characteristics. If no command is specified, this is the implied
+default.</p>
+<p>
+The output is designed to be human readable and contains a table with
+the following columns:</p>
+<p>
+TIME</p>
+<blockquote>
+<p>The timestamp of the crash, as reported by the kernel.</p>
+<p>
+Added in version 233.</p>
+</blockquote>
+<p>
+PID</p>
+<blockquote>
+<p>The identifier of the process that crashed.</p>
+<p>
+Added in version 233.</p>
+</blockquote>
+<p>
+UID, GID</p>
+<blockquote>
+<p>The user and group identifiers of the process that crashed.</p>
+<p>
+Added in version 233.</p>
+</blockquote>
+<p>
+SIGNAL</p>
+<blockquote>
+<p>The signal that caused the process to crash, when applicable.</p>
+<p>
+Added in version 233.</p>
+</blockquote>
+<p>
+COREFILE</p>
+<blockquote>
+<p>Information whether the coredump was stored, and whether it is still
+accessible: &#34;none&#34; means the core was not stored, &#34;-&#34; means that it was
+not available (for example because the process was not terminated by a
+signal), &#34;present&#34; means that the core file is accessible by the current
+user, &#34;journal&#34; means that the core was stored in the &#34;journal&#34;,
+&#34;truncated&#34; is the same as one of the previous two, but the core was too
+large and was not stored in its entirety, &#34;error&#34; means that the core
+file cannot be accessed, most likely because of insufficient
+permissions, and &#34;missing&#34; means that the core was stored in a file, but
+this file has since been removed.</p>
+<p>
+Added in version 233.</p>
+</blockquote>
+<p>
+EXE</p>
+<blockquote>
+<p>The full path to the executable. For backtraces of scripts this is the
+name of the interpreter.</p>
+<p>
+Added in version 233.</p>
+</blockquote>
+<p>
+Its worth noting that different restrictions apply to data saved in the
+journal and core dump files saved in /var/lib/systemd/coredump, see
+overview in *systemd-coredump*(8). Thus it may very well happen that a
+particular core dump is still listed in the journal while its
+corresponding core dump file has already been removed.</p>
+<p>
+Added in version 215.</p>
+</blockquote>
+<p>
+<strong>info</strong></p>
+<blockquote>
+<p>Show detailed information about the last core dump or core dumps
+matching specified characteristics captured in the journal.</p>
+<p>
+Added in version 215.</p>
+</blockquote>
+<p>
+<strong>dump</strong></p>
+<blockquote>
+<p>Extract the last core dump matching specified characteristics. The core
+dump will be written on standard output, unless an output file is
+specified with <strong>–output=</strong>.</p>
+<p>
+Added in version 215.</p>
+</blockquote>
+<p>
+<strong>debug</strong></p>
+<blockquote>
+<p>Invoke a debugger on the last core dump matching specified
+characteristics. By default, <strong>gdb*(1) will be used. This may be changed
+using the *–debugger=</strong> option or the <em>$SYSTEMD_DEBUGGER</em> environment
+variable. Use the <strong>–debugger-arguments=</strong> option to pass extra command
+line arguments to the debugger.</p>
+<p>
+Added in version 239.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Print a short help text and exit.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Print a short version string and exit.</p>
+</blockquote>
+<p>
+<strong>–no-pager</strong></p>
+<blockquote>
+<p>Do not pipe output into a pager.</p>
+</blockquote>
+<p>
+<strong>–no-legend</strong></p>
+<blockquote>
+<p>Do not print the legend, i.e. column headers and the footer with hints.</p>
+</blockquote>
+<p>
+*–json=*/MODE/</p>
+<blockquote>
+<p>Shows output formatted as JSON. Expects one of &#34;short&#34; (for the shortest
+possible output without any redundant whitespace or line breaks),
+&#34;pretty&#34; (for a pretty version of the same, with indentation and line
+breaks) or &#34;off&#34; (to turn off JSON output, the default).</p>
+</blockquote>
+<p>
+<strong>-1</strong></p>
+<blockquote>
+<p>Show information of the most recent core dump only, instead of listing
+all known core dumps. Equivalent to <strong>–reverse -n 1</strong>.</p>
+<p>
+Added in version 215.</p>
+</blockquote>
+<p>
+<strong>-n</strong> <em>INT</em></p>
+<blockquote>
+<p>Show at most the specified number of entries. The specified parameter
+must be an integer greater or equal to 1.</p>
+<p>
+Added in version 248.</p>
+</blockquote>
+<p>
+<strong>-S</strong>, <strong>–since</strong></p>
+<blockquote>
+<p>Only print entries which are since the specified date.</p>
+<p>
+Added in version 233.</p>
+</blockquote>
+<p>
+<strong>-U</strong>, <strong>–until</strong></p>
+<blockquote>
+<p>Only print entries which are until the specified date.</p>
+<p>
+Added in version 233.</p>
+</blockquote>
+<p>
+<strong>-r</strong>, <strong>–reverse</strong></p>
+<blockquote>
+<p>Reverse output so that the newest entries are displayed first.</p>
+<p>
+Added in version 233.</p>
+</blockquote>
+<p>
+<strong>-F</strong> <em>FIELD</em>, *–field=*/FIELD/</p>
+<blockquote>
+<p>Print all possible data values the specified field takes in matching
+core dump entries of the journal.</p>
+<p>
+Added in version 215.</p>
+</blockquote>
+<p>
+<strong>-o</strong> <em>FILE</em>, *–output=*/FILE/</p>
+<blockquote>
+<p>Write the core to <strong>FILE</strong>.</p>
+<p>
+Added in version 215.</p>
+</blockquote>
+<p>
+*–debugger=*/DEBUGGER/</p>
+<blockquote>
+<p>Use the given debugger for the <strong>debug</strong> command. If not given and
+<em>$SYSTEMD_DEBUGGER</em> is unset, then *gdb*(1) will be used.</p>
+<p>
+Added in version 239.</p>
+</blockquote>
+<p>
+<strong>-A</strong> <em>ARGS</em>, *–debugger-arguments=*/ARGS/</p>
+<blockquote>
+<p>Pass the given <em>ARGS</em> as extra command line arguments to the debugger.
+Quote as appropriate when <em>ARGS</em> contain whitespace. (See Examples.)</p>
+<p>
+Added in version 248.</p>
+</blockquote>
+<p>
+*–file=*/GLOB/</p>
+<blockquote>
+<p>Takes a file glob as an argument. If specified, coredumpctl will operate
+on the specified journal files matching <em>GLOB</em> instead of the default
+runtime and system journal paths. May be specified multiple times, in
+which case files will be suitably interleaved.</p>
+<p>
+Added in version 246.</p>
+</blockquote>
+<p>
+<strong>-D</strong> <em>DIR</em>, *–directory=*/DIR/</p>
+<blockquote>
+<p>Use the journal files in the specified <strong>DIR</strong>.</p>
+<p>
+Added in version 225.</p>
+</blockquote>
+<p>
+*–root=*/ROOT/</p>
+<blockquote>
+<p>Use root directory <strong>ROOT</strong> when searching for coredumps.</p>
+<p>
+Added in version 252.</p>
+</blockquote>
+<p>
+*–image=*/image/</p>
+<blockquote>
+<p>Takes a path to a disk image file or block device node. If specified,
+all operations are applied to file system in the indicated disk image.
+This option is similar to <strong>–root=</strong>, but operates on file systems stored
+in disk images or block devices. The disk image should either contain
+just a file system or a set of file systems within a GPT partition
+table, following the <strong>Discoverable Partitions Specification</strong>[1]. For
+further information on supported disk images, see *systemd-nspawn*(1)s
+switch of the same name.</p>
+<p>
+Added in version 252.</p>
+</blockquote>
+<p>
+*–image-policy=*/policy/</p>
+<blockquote>
+<p>Takes an image policy string as argument, as per
+<strong>systemd.image-policy*(7). The policy is enforced when operating on the
+disk image specified via *–image=</strong>, see above. If not specified
+defaults to the &#34;*&#34; policy, i.e. all recognized file systems in the
+image are used.</p>
+</blockquote>
+<p>
+<strong>-q</strong>, <strong>–quiet</strong></p>
+<blockquote>
+<p>Suppresses informational messages about lack of access to journal files
+and possible in-flight coredumps.</p>
+<p>
+Added in version 233.</p>
+</blockquote>
+<p>
+<strong>–all</strong></p>
+<blockquote>
+<p>Look at all available journal files in <em>var/log/journal</em> (excluding
+journal namespaces) instead of only local ones.</p>
+<p>
+Added in version 250.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+MATCHING
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>A match can be:</p>
+<p>
+<em>PID</em></p>
+<blockquote>
+<p>Process ID of the process that dumped core. An integer.</p>
+<p>
+Added in version 215.</p>
+</blockquote>
+<p>
+<em>COMM</em></p>
+<blockquote>
+<p>Name of the executable (matches <strong>COREDUMP_COMM=</strong>). Must not contain
+slashes.</p>
+<p>
+Added in version 215.</p>
+</blockquote>
+<p>
+<em>EXE</em></p>
+<blockquote>
+<p>Path to the executable (matches <strong>COREDUMP_EXE=</strong>). Must contain at least
+one slash.</p>
+<p>
+Added in version 215.</p>
+</blockquote>
+<p>
+<em>MATCH</em></p>
+<blockquote>
+<p>General journalctl match filter, must contain an equals sign (&#34;=&#34;). See
+*journalctl*(1).</p>
+<p>
+Added in version 215.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>On success, 0 is returned; otherwise, a non-zero failure code is
+returned. Not finding any matching core dumps is treated as failure.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><em>$SYSTEMD_DEBUGGER</em></p>
+<blockquote>
+<p>Use the given debugger for the <strong>debug</strong> command. See the <strong>–debugger=</strong>
+option.</p>
+<p>
+Added in version 239.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p><strong>Example 1. List all the core dumps of a program</strong></p>
+<blockquote>
+<pre class="example">
+$ coredumpctl list /usr/lib64/firefox/firefox
+TIME       PID  UID  GID SIG     COREFILE EXE                         SIZE
+Tue ...   8018 1000 1000 SIGSEGV missing  /usr/lib64/firefox/firefox     -
+Wed ... 251609 1000 1000 SIGTRAP missing  /usr/lib64/firefox/firefox     -
+Fri ... 552351 1000 1000 SIGSEGV present  /usr/lib64/firefox/firefox 28.7M
+</pre>
+</blockquote>
+<p>
+The journal has three entries pertaining to /usr/lib64/firefox/firefox,
+and only the last entry still has an available core file (in external
+storage on disk).</p>
+<p>
+Note that coredumpctl needs access to the journal files to retrieve the
+relevant entries from the journal. Thus, an unprivileged user will
+normally only see information about crashing programs of this user.</p>
+<p>
+<strong>Example 2. Invoke gdb on the last core dump</strong></p>
+<blockquote>
+<pre class="example">
+$ coredumpctl debug
+</pre>
+</blockquote>
+<p>
+<strong>Example 3. Use gdb to display full register info from the last core
+dump</strong></p>
+<blockquote>
+<pre class="example">
+$ coredumpctl debug --debugger-arguments=&#34;-batch -ex info all-registers&#34;
+</pre>
+</blockquote>
+<p>
+<strong>Example 4. Show information about a core dump matched by PID</strong></p>
+<blockquote>
+<pre class="example">
+$ coredumpctl info 6654
+           PID: 6654 (bash)
+           UID: 1000 (user)
+           GID: 1000 (user)
+        Signal: 11 (SEGV)
+     Timestamp: Mon 2021-01-01 00:00:01 CET (20s ago)
+  Command Line: bash -c $kill -SEGV $$
+    Executable: /usr/bin/bash
+ Control Group: /user.slice/user-1000.slice/...
+          Unit: user@1000.service
+     User Unit: vte-spawn-....scope
+         Slice: user-1000.slice
+     Owner UID: 1000 (user)
+       Boot ID: ...
+    Machine ID: ...
+      Hostname: ...
+       Storage: /var/lib/systemd/coredump/core.bash.1000.....zst (present)
+  Size on Disk: 51.7K
+       Message: Process 130414 (bash) of user 1000 dumped core.
+
+                Stack trace of thread 130414:
+                #0  0x00007f398142358b kill (libc.so.6 + 0x3d58b)
+                #1  0x0000558c2c7fda09 kill_builtin (bash + 0xb1a09)
+                #2  0x0000558c2c79dc59 execute_builtin.lto_priv.0 (bash + 0x51c59)
+                #3  0x0000558c2c79709c execute_simple_command (bash + 0x4b09c)
+                #4  0x0000558c2c798408 execute_command_internal (bash + 0x4c408)
+                #5  0x0000558c2c7f6bdc parse_and_execute (bash + 0xaabdc)
+                #6  0x0000558c2c85415c run_one_command.isra.0 (bash + 0x10815c)
+                #7  0x0000558c2c77d040 main (bash + 0x31040)
+                #8  0x00007f398140db75 __libc_start_main (libc.so.6 + 0x27b75)
+                #9  0x0000558c2c77dd1e _start (bash + 0x31d1e)
+</pre>
+</blockquote>
+<p>
+<strong>Example 5. Extract the last core dump of /usr/bin/bar to a file named
+bar.coredump</strong></p>
+<blockquote>
+<pre class="example">
+$ coredumpctl -o bar.coredump dump /usr/bin/bar
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>*systemd-coredump*(8), *coredump.conf*(5),
+*systemd-journald.service*(8), *gdb*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+NOTES
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>Discoverable Partitions Specification
+
+https://uapi-group.org/specifications/specs/discoverable_partitions_specification</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

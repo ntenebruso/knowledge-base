@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-status.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-status.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-status - Show the working tree status</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git status [&lt;options&gt;] [--] [&lt;pathspec&gt;...]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Displays paths that have differences between the index file and the
+current HEAD commit, paths that have differences between the working
+tree and the index file, and paths in the working tree that are not
+tracked by Git (and are not ignored by <strong>gitignore*(5)). The first are
+what you <em>would</em> commit by running *git commit</strong>; the second and third
+are what you <em>could</em> commit by running <em>git add</em> before running <strong>git
+commit</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-s, –short</p>
+<blockquote>
+<p>Give the output in the short-format.</p>
+</blockquote>
+<p>
+-b, –branch</p>
+<blockquote>
+<p>Show the branch and tracking info even in short-format.</p>
+</blockquote>
+<p>
+–show-stash</p>
+<blockquote>
+<p>Show the number of entries currently stashed away.</p>
+</blockquote>
+<p>
+–porcelain[=&lt;version&gt;]</p>
+<blockquote>
+<p>Give the output in an easy-to-parse format for scripts. This is similar
+to the short output, but will remain stable across Git versions and
+regardless of user configuration. See below for details.</p>
+<p>
+The version parameter is used to specify the format version. This is
+optional and defaults to the original version <em>v1</em> format.</p>
+</blockquote>
+<p>
+–long</p>
+<blockquote>
+<p>Give the output in the long-format. This is the default.</p>
+</blockquote>
+<p>
+-v, –verbose</p>
+<blockquote>
+<p>In addition to the names of files that have been changed, also show the
+textual changes that are staged to be committed (i.e., like the output
+of <strong>git diff –cached</strong>). If <strong>-v</strong> is specified twice, then also show the
+changes in the working tree that have not yet been staged (i.e., like
+the output of <strong>git diff</strong>).</p>
+</blockquote>
+<p>
+-u[&lt;mode&gt;], –untracked-files[=&lt;mode&gt;]</p>
+<blockquote>
+<p>Show untracked files.</p>
+<p>
+The mode parameter is used to specify the handling of untracked files.
+It is optional: it defaults to <em>all</em>, and if specified, it must be stuck
+to the option (e.g. <strong>-uno</strong>, but not <strong>-u no</strong>).</p>
+<p>
+The possible options are:</p>
+<blockquote>
+<p>·</p>
+<p>
+<em>no</em> - Show no untracked files.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>normal</em> - Shows untracked files and directories.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>all</em> - Also shows individual files in untracked directories.</p>
+</blockquote>
+<p>
+When <strong>-u</strong> option is not used, untracked files and directories are shown
+(i.e. the same as specifying <strong>normal</strong>), to help you avoid forgetting to
+add newly created files. Because it takes extra work to find untracked
+files in the filesystem, this mode may take some time in a large working
+tree. Consider enabling untracked cache and split index if supported
+(see <strong>git update-index –untracked-cache</strong> and <strong>git update-index
+–split-index</strong>), Otherwise you can use <strong>no</strong> to have <strong>git status</strong> return
+more quickly without showing untracked files. All usual spellings for
+Boolean value <strong>true</strong> are taken as <strong>normal</strong> and <strong>false</strong> as <strong>no</strong>.</p>
+<p>
+The default can be changed using the status.showUntrackedFiles
+configuration variable documented in *git-config*(1).</p>
+</blockquote>
+<p>
+–ignore-submodules[=&lt;when&gt;]</p>
+<blockquote>
+<p>Ignore changes to submodules when looking for changes. &lt;when&gt; can be
+either &#34;none&#34;, &#34;untracked&#34;, &#34;dirty&#34; or &#34;all&#34;, which is the default.
+Using &#34;none&#34; will consider the submodule modified when it either
+contains untracked or modified files or its HEAD differs from the commit
+recorded in the superproject and can be used to override any settings of
+the <em>ignore</em> option in *git-config*(1) or *gitmodules*(5). When
+&#34;untracked&#34; is used submodules are not considered dirty when they only
+contain untracked content (but they are still scanned for modified
+content). Using &#34;dirty&#34; ignores all changes to the work tree of
+submodules, only changes to the commits stored in the superproject are
+shown (this was the behavior before 1.7.0). Using &#34;all&#34; hides all
+changes to submodules (and suppresses the output of submodule summaries
+when the config option <strong>status.submoduleSummary</strong> is set).</p>
+</blockquote>
+<p>
+–ignored[=&lt;mode&gt;]</p>
+<blockquote>
+<p>Show ignored files as well.</p>
+<p>
+The mode parameter is used to specify the handling of ignored files. It
+is optional: it defaults to <em>traditional</em>.</p>
+<p>
+The possible options are:</p>
+<blockquote>
+<p>·</p>
+<p>
+<em>traditional</em> - Shows ignored files and directories, unless
+–untracked-files=all is specified, in which case individual files in
+ignored directories are displayed.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>no</em> - Show no ignored files.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>matching</em> - Shows ignored files and directories matching an ignore
+pattern.</p>
+</blockquote>
+<p>
+When <em>matching</em> mode is specified, paths that explicitly match an
+ignored pattern are shown. If a directory matches an ignore pattern,
+then it is shown, but not paths contained in the ignored directory. If a
+directory does not match an ignore pattern, but all contents are
+ignored, then the directory is not shown, but all contents are shown.</p>
+</blockquote>
+<p>
+-z</p>
+<blockquote>
+<p>Terminate entries with NUL, instead of LF. This implies the
+<strong>–porcelain=v1</strong> output format if no other format is given.</p>
+</blockquote>
+<p>
+–column[=&lt;options&gt;], –no-column</p>
+<blockquote>
+<p>Display untracked files in columns. See configuration variable
+<strong>column.status</strong> for option syntax. <strong>–column</strong> and <strong>–no-column</strong> without
+options are equivalent to <em>always</em> and <em>never</em> respectively.</p>
+</blockquote>
+<p>
+–ahead-behind, –no-ahead-behind</p>
+<blockquote>
+<p>Display or do not display detailed ahead/behind counts for the branch
+relative to its upstream branch. Defaults to true.</p>
+</blockquote>
+<p>
+–renames, –no-renames</p>
+<blockquote>
+<p>Turn on/off rename detection regardless of user configuration. See also
+<strong>git-diff*(1) *–no-renames</strong>.</p>
+</blockquote>
+<p>
+–find-renames[=&lt;n&gt;]</p>
+<blockquote>
+<p>Turn on rename detection, optionally setting the similarity threshold.
+See also <strong>git-diff*(1) *–find-renames</strong>.</p>
+</blockquote>
+<p>
+&lt;pathspec&gt;…</p>
+<blockquote>
+<p>See the <em>pathspec</em> entry in *gitglossary*(7).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OUTPUT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The output from this command is designed to be used as a commit template
+comment. The default, long format, is designed to be human readable,
+verbose and descriptive. Its contents and format are subject to change
+at any time.</p>
+<p>
+The paths mentioned in the output, unlike many other Git commands, are
+made relative to the current directory if you are working in a
+subdirectory (this is on purpose, to help cutting and pasting). See the
+status.relativePaths config option below.</p>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Short Format
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>In the short-format, the status of each path is shown as one of these
+forms</p>
+<blockquote>
+<pre class="example">
+XY PATH
+XY ORIG_PATH -&gt; PATH
+</pre>
+</blockquote>
+<p>
+where <strong>ORIG_PATH</strong> is where the renamed/copied contents came from.
+<strong>ORIG_PATH</strong> is only shown when the entry is renamed or copied. The <strong>XY</strong>
+is a two-letter status code.</p>
+<p>
+The fields (including the <strong>-&gt;</strong>) are separated from each other by a
+single space. If a filename contains whitespace or other nonprintable
+characters, that field will be quoted in the manner of a C string
+literal: surrounded by ASCII double quote (34) characters, and with
+interior special characters backslash-escaped.</p>
+<p>
+There are three different types of states that are shown using this
+format, and each one uses the <strong>XY</strong> syntax differently:</p>
+<blockquote>
+<p>·</p>
+<p>
+When a merge is occurring and the merge was successful, or outside of a
+merge situation, <strong>X</strong> shows the status of the index and <strong>Y</strong> shows the
+status of the working tree.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+When a merge conflict has occurred and has not yet been resolved, <strong>X</strong>
+and <strong>Y</strong> show the state introduced by each head of the merge, relative to
+the common ancestor. These paths are said to be <em>unmerged</em>.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+When a path is untracked, <strong>X</strong> and <strong>Y</strong> are always the same, since they
+are unknown to the index. <strong>??</strong> is used for untracked paths. Ignored
+files are not listed unless <strong>–ignored</strong> is used; if it is, ignored files
+are indicated by <strong>!!</strong>.</p>
+</blockquote>
+<p>
+Note that the term <em>merge</em> here also includes rebases using the default
+<strong>–merge</strong> strategy, cherry-picks, and anything else using the merge
+machinery.</p>
+<p>
+In the following table, these three classes are shown in separate
+sections, and these characters are used for <strong>X</strong> and <strong>Y</strong> fields for the
+first two sections that show tracked paths:</p>
+<blockquote>
+<p>·</p>
+<p>
+= unmodified</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>M</em> = modified</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>T</em> = file type changed (regular file, symbolic link or submodule)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>A</em> = added</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>D</em> = deleted</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>R</em> = renamed</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>C</em> = copied (if config option status.renames is set to &#34;copies&#34;)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>U</em> = updated but unmerged</p>
+</blockquote>
+<blockquote>
+<pre class="example">
+X          Y     Meaning
+-------------------------------------------------
+         [AMD]   not updated
+M        [ MTD]  updated in index
+T        [ MTD]  type changed in index
+A        [ MTD]  added to index
+D                deleted from index
+R        [ MTD]  renamed in index
+C        [ MTD]  copied in index
+[MTARC]          index and work tree matches
+[ MTARC]    M    work tree changed since index
+[ MTARC]    T    type changed in work tree since index
+[ MTARC]    D    deleted in work tree
+            R    renamed in work tree
+            C    copied in work tree
+-------------------------------------------------
+D           D    unmerged, both deleted
+A           U    unmerged, added by us
+U           D    unmerged, deleted by them
+U           A    unmerged, added by them
+D           U    unmerged, deleted by us
+A           A    unmerged, both added
+U           U    unmerged, both modified
+-------------------------------------------------
+?           ?    untracked
+!           !    ignored
+-------------------------------------------------
+</pre>
+</blockquote>
+<p>
+Submodules have more state and instead report</p>
+<blockquote>
+<p>·</p>
+<p>
+<em>M</em> = the submodule has a different HEAD than recorded in the index</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>m</em> = the submodule has modified content</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>?</em> = the submodule has untracked files</p>
+</blockquote>
+<p>
+This is since modified content or untracked files in a submodule cannot
+be added via <strong>git add</strong> in the superproject to prepare a commit.</p>
+<p>
+<em>m</em> and <em>?</em> are applied recursively. For example if a nested submodule
+in a submodule contains an untracked file, this is reported as <em>?</em> as
+well.</p>
+<p>
+If -b is used the short-format status is preceded by a line</p>
+<blockquote>
+<pre class="example">
+## branchname tracking info
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Porcelain Format Version 1
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Version 1 porcelain format is similar to the short format, but is
+guaranteed not to change in a backwards-incompatible way between Git
+versions or based on user configuration. This makes it ideal for parsing
+by scripts. The description of the short format above also describes the
+porcelain format, with a few exceptions:</p>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>The user&#39;s color.status configuration is not respected; color will
+always be off.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>The user&#39;s status.relativePaths configuration is not respected; paths
+shown will always be relative to the repository root.</p>
+</blockquote>
+<p>
+There is also an alternate -z format recommended for machine parsing. In
+that format, the status field is the same, but some other things change.
+First, the <em>-&gt;</em> is omitted from rename entries and the field order is
+reversed (e.g <em>from -&gt; to</em> becomes <em>to from</em>). Second, a NUL (ASCII 0)
+follows each filename, replacing space as a field separator and the
+terminating newline (but a space still separates the status field from
+the first filename). Third, filenames containing special characters are
+not specially formatted; no quoting or backslash-escaping is performed.</p>
+<p>
+Any submodule changes are reported as modified <strong>M</strong> instead of <strong>m</strong> or
+single <strong>?</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Porcelain Format Version 2
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Version 2 format adds more detailed information about the state of the
+worktree and changed items. Version 2 also defines an extensible set of
+easy to parse optional headers.</p>
+<p>
+Header lines start with &#34;#&#34; and are added in response to specific
+command line arguments. Parsers should ignore headers they don&#39;t
+recognize.</p>
+<p>
+\\</p>
+<p>
+<strong>Branch Headers</strong></p>
+<blockquote>
+<p>If <strong>–branch</strong> is given, a series of header lines are printed with
+information about the current branch.</p>
+<blockquote>
+<pre class="example">
+Line                                     Notes
+------------------------------------------------------------
+# branch.oid &lt;commit&gt; | (initial)        Current commit.
+# branch.head &lt;branch&gt; | (detached)      Current branch.
+# branch.upstream &lt;upstream-branch&gt;      If upstream is set.
+# branch.ab +&lt;ahead&gt; -&lt;behind&gt;           If upstream is set and
+                                         the commit is present.
+------------------------------------------------------------
+</pre>
+</blockquote>
+</blockquote>
+<p>
+\\</p>
+<p>
+<strong>Stash Information</strong></p>
+<blockquote>
+<p>If <strong>–show-stash</strong> is given, one line is printed showing the number of
+stash entries if non-zero:</p>
+<blockquote>
+<pre class="example">
+# stash &lt;N&gt;
+</pre>
+</blockquote>
+</blockquote>
+<p>
+\\</p>
+<p>
+<strong>Changed Tracked Entries</strong></p>
+<blockquote>
+<p>Following the headers, a series of lines are printed for tracked
+entries. One of three different line formats may be used to describe an
+entry depending on the type of change. Tracked entries are printed in an
+undefined order; parsers should allow for a mixture of the 3 line types
+in any order.</p>
+<p>
+Ordinary changed entries have the following format:</p>
+<blockquote>
+<pre class="example">
+1 &lt;XY&gt; &lt;sub&gt; &lt;mH&gt; &lt;mI&gt; &lt;mW&gt; &lt;hH&gt; &lt;hI&gt; &lt;path&gt;
+</pre>
+</blockquote>
+<p>
+Renamed or copied entries have the following format:</p>
+<blockquote>
+<pre class="example">
+2 &lt;XY&gt; &lt;sub&gt; &lt;mH&gt; &lt;mI&gt; &lt;mW&gt; &lt;hH&gt; &lt;hI&gt; &lt;X&gt;&lt;score&gt; &lt;path&gt;&lt;sep&gt;&lt;origPath&gt;
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+Field       Meaning
+--------------------------------------------------------
+&lt;XY&gt;        A 2 character field containing the staged and
+            unstaged XY values described in the short format,
+            with unchanged indicated by a &#34;.&#34; rather than
+            a space.
+&lt;sub&gt;       A 4 character field describing the submodule state.
+            &#34;N...&#34; when the entry is not a submodule.
+            &#34;S&lt;c&gt;&lt;m&gt;&lt;u&gt;&#34; when the entry is a submodule.
+            &lt;c&gt; is &#34;C&#34; if the commit changed; otherwise &#34;.&#34;.
+            &lt;m&gt; is &#34;M&#34; if it has tracked changes; otherwise &#34;.&#34;.
+            &lt;u&gt; is &#34;U&#34; if there are untracked changes; otherwise &#34;.&#34;.
+&lt;mH&gt;        The octal file mode in HEAD.
+&lt;mI&gt;        The octal file mode in the index.
+&lt;mW&gt;        The octal file mode in the worktree.
+&lt;hH&gt;        The object name in HEAD.
+&lt;hI&gt;        The object name in the index.
+&lt;X&gt;&lt;score&gt;  The rename or copy score (denoting the percentage
+            of similarity between the source and target of the
+            move or copy). For example &#34;R100&#34; or &#34;C75&#34;.
+&lt;path&gt;      The pathname.  In a renamed/copied entry, this
+            is the target path.
+&lt;sep&gt;       When the `-z` option is used, the 2 pathnames are separated
+            with a NUL (ASCII 0x00) byte; otherwise, a tab (ASCII 0x09)
+            byte separates them.
+&lt;origPath&gt;  The pathname in the commit at HEAD or in the index.
+            This is only present in a renamed/copied entry, and
+            tells where the renamed/copied contents came from.
+--------------------------------------------------------
+</pre>
+</blockquote>
+<p>
+Unmerged entries have the following format; the first character is a &#34;u&#34;
+to distinguish from ordinary changed entries.</p>
+<blockquote>
+<pre class="example">
+u &lt;XY&gt; &lt;sub&gt; &lt;m1&gt; &lt;m2&gt; &lt;m3&gt; &lt;mW&gt; &lt;h1&gt; &lt;h2&gt; &lt;h3&gt; &lt;path&gt;
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+Field       Meaning
+--------------------------------------------------------
+&lt;XY&gt;        A 2 character field describing the conflict type
+            as described in the short format.
+&lt;sub&gt;       A 4 character field describing the submodule state
+            as described above.
+&lt;m1&gt;        The octal file mode in stage 1.
+&lt;m2&gt;        The octal file mode in stage 2.
+&lt;m3&gt;        The octal file mode in stage 3.
+&lt;mW&gt;        The octal file mode in the worktree.
+&lt;h1&gt;        The object name in stage 1.
+&lt;h2&gt;        The object name in stage 2.
+&lt;h3&gt;        The object name in stage 3.
+&lt;path&gt;      The pathname.
+--------------------------------------------------------
+</pre>
+</blockquote>
+</blockquote>
+<p>
+\\</p>
+<p>
+<strong>Other Items</strong></p>
+<blockquote>
+<p>Following the tracked entries (and if requested), a series of lines will
+be printed for untracked and then ignored items found in the worktree.</p>
+<p>
+Untracked items have the following format:</p>
+<blockquote>
+<pre class="example">
+? &lt;path&gt;
+</pre>
+</blockquote>
+<p>
+Ignored items have the following format:</p>
+<blockquote>
+<pre class="example">
+! &lt;path&gt;
+</pre>
+</blockquote>
+</blockquote>
+<p>
+\\</p>
+<p>
+<strong>Pathname Format Notes and -z</strong></p>
+<blockquote>
+<p>When the <strong>-z</strong> option is given, pathnames are printed as is and without
+any quoting and lines are terminated with a NUL (ASCII 0x00) byte.</p>
+<p>
+Without the <strong>-z</strong> option, pathnames with &#34;unusual&#34; characters are quoted
+as explained for the configuration variable <strong>core.quotePath</strong> (see
+*git-config*(1)).</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The command honors <strong>color.status</strong> (or <strong>status.color</strong> — they mean the
+same thing and the latter is kept for backward compatibility) and
+<strong>color.status.&lt;slot&gt;</strong> configuration variables to colorize its output.</p>
+<p>
+If the config variable <strong>status.relativePaths</strong> is set to false, then all
+paths shown are relative to the repository root, not to the current
+directory.</p>
+<p>
+If <strong>status.submoduleSummary</strong> is set to a non zero number or true
+(identical to -1 or an unlimited number), the submodule summary will be
+enabled for the long format and a summary of commits for modified
+submodules will be shown (see –summary-limit option of
+*git-submodule*(1)). Please note that the summary output from the status
+command will be suppressed for all submodules when
+<strong>diff.ignoreSubmodules</strong> is set to <em>all</em> or only for those submodules
+where <strong>submodule.&lt;name&gt;.ignore=all</strong>. To also view the summary for
+ignored submodules you can either use the –ignore-submodules=dirty
+command line option or the <em>git submodule summary</em> command, which shows
+a similar output but does not honor these settings.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+BACKGROUND REFRESH
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>By default, <strong>git status</strong> will automatically refresh the index, updating
+the cached stat information from the working tree and writing out the
+result. Writing out the updated index is an optimization that isn&#39;t
+strictly necessary (<strong>status</strong> computes the values for itself, but writing
+them out is just to save subsequent programs from repeating our
+computation). When <strong>status</strong> is run in the background, the lock held
+during the write may conflict with other simultaneous processes, causing
+them to fail. Scripts running <strong>status</strong> in the background should consider
+using <strong>git –no-optional-locks status</strong> (see *git*(1) for details).</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+UNTRACKED FILES AND PERFORMANCE
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p><strong>git status</strong> can be very slow in large worktrees if/when it needs to
+search for untracked files and directories. There are many configuration
+options available to speed this up by either avoiding the work or making
+use of cached results from previous Git commands. There is no single
+optimum set of settings right for everyone. We&#39;ll list a summary of the
+relevant options to help you, but before going into the list, you may
+want to run <strong>git status</strong> again, because your configuration may already
+be caching <strong>git status</strong> results, so it could be faster on subsequent
+runs.</p>
+<blockquote>
+<p>·</p>
+<p>
+The <strong>–untracked-files=no</strong> flag or the <strong>status.showUntrackedFiles=no</strong>
+config (see above for both): indicate that <strong>git status</strong> should not
+report untracked files. This is the fastest option. <strong>git status</strong> will
+not list the untracked files, so you need to be careful to remember if
+you create any new files and manually <strong>git add</strong> them.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>advice.statusUoption=false</strong> (see <strong>git-config*(1)): setting this
+variable to *false</strong> disables the warning message given when enumerating
+untracked files takes more than 2 seconds. In a large project, it may
+take longer and the user may have already accepted the trade off (e.g.
+using &#34;-uno&#34; may not be an acceptable option for the user), in which
+case, there is no point issuing the warning message, and in such a case,
+disabling the warning may be the best.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>core.untrackedCache=true</strong> (see *git-update-index*(1)): enable the
+untracked cache feature and only search directories that have been
+modified since the previous <strong>git status</strong> command. Git remembers the set
+of untracked files within each directory and assumes that if a directory
+has not been modified, then the set of untracked files within has not
+changed. This is much faster than enumerating the contents of every
+directory, but still not without cost, because Git still has to search
+for the set of modified directories. The untracked cache is stored in
+the <strong>.git/index</strong> file. The reduced cost of searching for untracked files
+is offset slightly by the increased size of the index and the cost of
+keeping it up-to-date. That reduced search time is usually worth the
+additional size.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>core.untrackedCache=true</strong> and <strong>core.fsmonitor=true</strong> or
+<strong>core.fsmonitor=&lt;hook-command-pathname&gt;</strong> (see *git-update-index*(1)):
+enable both the untracked cache and FSMonitor features and only search
+directories that have been modified since the previous <strong>git status</strong>
+command. This is faster than using just the untracked cache alone
+because Git can also avoid searching for modified directories. Git only
+has to enumerate the exact set of directories that have changed
+recently. While the FSMonitor feature can be enabled without the
+untracked cache, the benefits are greatly reduced in that case.</p>
+</blockquote>
+<p>
+Note that after you turn on the untracked cache and/or FSMonitor
+features it may take a few <strong>git status</strong> commands for the various caches
+to warm up before you see improved command times. This is normal.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>*gitignore*(5)</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+GIT
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

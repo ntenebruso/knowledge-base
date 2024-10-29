@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pkcheck.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pkcheck.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pkcheck - Check whether a process is authorized</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>pkcheck</strong> [*–version*] [*–help|-h*]</p>
+<p>
+<strong>pkcheck</strong> [*–list-temp*]</p>
+<p>
+<strong>pkcheck</strong> [*–revoke-temp*]</p>
+<p>
+<strong>pkcheck</strong> <strong>–action-id|-a</strong> <em>action</em> {<strong>–process|-p</strong> { <em>pid</em> |
+<em>pid,pid-start-time</em> | <em>pid,pid-start-time,uid</em> } |
+<strong>–system-bus-name|-s</strong> <em>busname</em>} [*–allow-user-interaction|-u*]
+[*–enable-internal-agent*] [*–detail|-d* <em>key</em> <em>value</em>…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>pkcheck</strong> is used to check whether a process, specified by either
+<strong>–process</strong> (see below) or <strong>–system-bus-name</strong>, is authorized for
+<em>action</em>. The <strong>–detail</strong> option can be used zero or more times to pass
+details about <em>action</em>. If <strong>–allow-user-interaction</strong> is passed,
+<strong>pkcheck</strong> blocks while waiting for authentication.</p>
+<p>
+The invocation <strong>pkcheck –list-temp</strong> will list all temporary
+authorizations for the current session and <strong>pkcheck –revoke-temp</strong> will
+revoke all temporary authorizations for the current session.</p>
+<p>
+This command is a simple wrapper around the polkit D-Bus interface; see
+the D-Bus interface documentation for details.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+RETURN VALUE
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>If the specified process is authorized, <strong>pkcheck</strong> exits with a return
+value of 0. If the authorization result contains any details, these are
+printed on standard output as key/value pairs using environment style
+reporting, e.g. first the key followed by a an equal sign, then the
+value followed by a newline.</p>
+<blockquote>
+<pre class="example">
+KEY1=VALUE1
+KEY2=VALUE2
+KEY3=VALUE3
+...
+</pre>
+</blockquote>
+<p>
+Octets that are not in [a-zA-Z0-9_] are escaped using octal codes
+prefixed with <em>\</em>. For example, the UTF-8 string <em>føl,你好</em> will be
+printed as <em>f\303\270l\54\344\275\240\345\245\275</em>.</p>
+<p>
+If the specified process is not authorized, <strong>pkcheck</strong> exits with a
+return value of 1 and a diagnostic message is printed on standard error.
+Details are printed on standard output.</p>
+<p>
+If the specified process is not authorized because no suitable
+authentication agent is available or if the <strong>–allow-user-interaction</strong>
+wasnt passed, <strong>pkcheck</strong> exits with a return value of 2 and a diagnostic
+message is printed on standard error. Details are printed on standard
+output.</p>
+<p>
+If the specified process is not authorized because the authentication
+dialog / request was dismissed by the user, <strong>pkcheck</strong> exits with a
+return value of 3 and a diagnostic message is printed on standard error.
+Details are printed on standard output.</p>
+<p>
+If an error occurred while checking for authorization, <strong>pkcheck</strong> exits
+with a return value of 127 with a diagnostic message printed on standard
+error.</p>
+<p>
+If one or more of the options passed are malformed, <strong>pkcheck</strong> exits with
+a return value of 126. If stdin is a tty, then this manual page is also
+shown.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+NOTES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Do not use either the bare <em>pid</em> or <em>pid,start-time</em> syntax forms for
+<strong>–process</strong>. There are race conditions in both. New code should always
+use <em>pid,pid-start-time,uid</em>. The value of <em>start-time</em> can be
+determined by consulting e.g. the <strong>proc*(5) file system depending on the
+operating system. If fewer than 3 arguments are passed, *pkcheck</strong> will
+attempt to look up them up internally, but note that this may be racy.</p>
+<p>
+If your program is a daemon with e.g. a custom Unix domain socket, you
+should determine the <em>uid</em> parameter via operating system mechanisms
+such as PEERCRED.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHENTICATION AGENT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>pkcheck</strong>, like any other polkit application, will use the
+authentication agent registered for the process in question. However, if
+no authentication agent is available, then <strong>pkcheck</strong> can register its
+own textual authentication agent if the option <strong>–enable-internal-agent</strong>
+is passed.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHOR
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Written by David Zeuthen &lt;davidz@redhat.com&gt; with a lot of help from
+many others.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+BUGS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Please send bug reports to either the distribution or the polkit-devel
+mailing list, see the link
+<strong><a href="https://gitlab.freedesktop.org/polkit/polkit/-/issues/">https://gitlab.freedesktop.org/polkit/polkit/-/issues/</a></strong> on how to
+subscribe.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*polkit*(8), *polkitd*(8), *pkaction*(1), *pkexec*(1), *pkttyagent*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

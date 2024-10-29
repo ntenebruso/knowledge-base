@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pw-cat.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pw-cat.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pw-cat - Play and record media with PipeWire</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>pw-cat</strong> [/options/] [/FILE/ | -]</p>
+<p>
+<strong>pw-play</strong> [/options/] [/FILE/ | -]</p>
+<p>
+<strong>pw-record</strong> [/options/] [/FILE/ | -]</p>
+<p>
+<strong>pw-midiplay</strong> [/options/] [/FILE/ | -]</p>
+<p>
+<strong>pw-midirecord</strong> [/options/] [/FILE/ | -]</p>
+<p>
+<strong>pw-dsdplay</strong> [/options/] [/FILE/ | -]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>pw-cat</strong> is a simple tool for playing back or capturing raw or encoded
+media files on a PipeWire server. It understands all audio file formats
+supported by libsndfile for PCM capture and playback. When capturing
+PCM, the filename extension is used to guess the file format with the
+WAV file format as the default.</p>
+<p>
+It understands standard MIDI files for playback and recording. This tool
+will not render MIDI files, it will simply make the MIDI events
+available to the graph. You need a MIDI renderer such as qsynth,
+timidity or a hardware MIDI rendered to hear the MIDI.</p>
+<p>
+DSD playback is supported with the DSF file format. This tool will only
+work with native DSD capable hardware and will produce an error when no
+such hardware was found.</p>
+<p>
+When the <em>FILE</em> is - input and output will be raw data from STDIN and
+STDOUT respectively.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-h | –help</strong></p>
+<blockquote>
+<p>Show help.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Show version information.</p>
+</blockquote>
+<p>
+<strong>-v | –verbose</strong></p>
+<blockquote>
+<p>Verbose operation.</p>
+</blockquote>
+<p>
+<strong>-R | –remote=NAME</strong></p>
+<blockquote>
+<p>The name the <em>remote</em> instance to connect to. If left unspecified, a
+connection is made to the default PipeWire instance.</p>
+</blockquote>
+<p>
+<strong>-p | –playback</strong></p>
+<blockquote>
+<p>Playback mode. Read data from the specified file, and play it back. If
+the tool is called under the name <strong>pw-play</strong> or <strong>pw-midiplay</strong> this is the
+default.</p>
+</blockquote>
+<p>
+<strong>-r | –record</strong></p>
+<blockquote>
+<p>Recording mode. Capture data and write it to the specified file. If the
+tool is called under the name <strong>pw-record</strong> or <strong>pw-midirecord</strong> this is the
+default.</p>
+</blockquote>
+<p>
+<strong>-m | –midi</strong></p>
+<blockquote>
+<p>MIDI mode. <em>FILE</em> is a MIDI file. If the tool is called under the name
+<strong>pw-midiplay</strong> or <strong>pw-midirecord</strong> this is the default. Note that this
+program will <em>not</em> render the MIDI events into audible samples, it will
+simply provide the MIDI events in the graph. You need a separate MIDI
+renderer such as qsynth, timidity or a hardware renderer to hear the
+MIDI.</p>
+</blockquote>
+<p>
+<strong>-d | –dsd</strong></p>
+<blockquote>
+<p>DSD mode. <em>FILE</em> is a DSF file. If the tool is called under the name
+<strong>pw-dsdplay</strong> this is the default. Note that this program will <em>not</em>
+render the DSD audio. You need a DSD capable device to play DSD content
+or this program will exit with an error.</p>
+</blockquote>
+<p>
+<strong>–media-type=VALUE</strong></p>
+<blockquote>
+<p>Set the media type property (default Audio/Midi depending on mode). The
+media type is used by the session manager to select a suitable target to
+link to.</p>
+</blockquote>
+<p>
+<strong>–media-category=VALUE</strong></p>
+<blockquote>
+<p>Set the media category property (default Playback/Capture depending on
+mode). The media type is used by the session manager to select a
+suitable target to link to.</p>
+</blockquote>
+<p>
+<strong>–media-role=VALUE</strong></p>
+<blockquote>
+<p>Set the media role property (default Music). The media type is used by
+the session manager to select a suitable target to link to.</p>
+</blockquote>
+<p>
+<strong>–target=VALUE</strong></p>
+<blockquote>
+<p>Set a node target (default auto). The value can be:</p>
+<ul>
+<li><strong>auto</strong>: Automatically select (Default)</li>
+<li><strong>0</strong>: Don&#39;t try to link this node</li>
+<li><strong>&lt;id&gt;</strong>: The object.serial or the node.name of a target node</li>
+</ul>
+</blockquote>
+<p>
+<strong>–latency=VALUE[*/units/*]</strong></p>
+<blockquote>
+<p>Set the node latency (default 100ms)</p>
+<p>
+The latency determines the minimum amount of time it takes for a sample
+to travel from application to device (playback) and from device to
+application (capture).</p>
+<p>
+The latency determines the size of the buffers that the application will
+be able to fill. Lower latency means smaller buffers but higher
+overhead. Higher latency means larger buffers and lower overhead.</p>
+<p>
+Units can be *s*/ for seconds, <em><strong>ms</strong></em> for milliseconds, <em><strong>us</strong></em> for
+microseconds, <em><strong>ns</strong></em> for nanoseconds. If no units are given, the latency
+value is samples with the samplerate of the file. /</p>
+</blockquote>
+<p>
+<strong>-P | –properties=VALUE</strong></p>
+<blockquote>
+<p>Set extra stream properties as a JSON object.</p>
+</blockquote>
+<p>
+<strong>-q | –quality=VALUE</strong></p>
+<blockquote>
+<p>Resampler quality. When the samplerate of the source or destination file
+does not match the samplerate of the server, the data will be resampled.
+Higher quality uses more CPU. Values between 0 and 15 are allowed, the
+default quality is 4.</p>
+</blockquote>
+<p>
+<strong>–rate=VALUE</strong></p>
+<blockquote>
+<p>The sample rate, default 48000.</p>
+</blockquote>
+<p>
+<strong>–channels=VALUE</strong></p>
+<blockquote>
+<p>The number of channels, default 2.</p>
+</blockquote>
+<p>
+<strong>–channel-map=VALUE</strong></p>
+<blockquote>
+<p>The channelmap. Possible values include: *mono*/, <em><strong>stereo</strong></em>,
+<em><strong>surround-21</strong></em>, <em><strong>quad</strong></em>, <em><strong>surround-22</strong></em>, <em><strong>surround-40</strong></em>,
+<em><strong>surround-31</strong></em>, <em><strong>surround-41</strong></em>, <em><strong>surround-50</strong></em>, <em><strong>surround-51</strong></em>,
+<em><strong>surround-51r</strong></em>, <em><strong>surround-70</strong></em>, <em><strong>surround-71</strong></em> or a comma separated
+list of channel names: <em><strong>FL</strong></em>, <em><strong>FR</strong></em>, <em><strong>FC</strong></em>, <em><strong>LFE</strong></em>, <em><strong>SL</strong></em>, <em><strong>SR</strong></em>,
+<em><strong>FLC</strong></em>, <em><strong>FRC</strong></em>, <em><strong>RC</strong></em>, <em><strong>RL</strong></em>, <em><strong>RR</strong></em>, <em><strong>TC</strong></em>, <em><strong>TFL</strong></em>, <em><strong>TFC</strong></em>,
+<em><strong>TFR</strong></em>, <em><strong>TRL</strong></em>, <em><strong>TRC</strong></em>, <em><strong>TRR</strong></em>, <em><strong>RLC</strong></em>, <em><strong>RRC</strong></em>, <em><strong>FLW</strong></em>, <em><strong>FRW</strong></em>,
+<em><strong>LFE2</strong></em>, <em><strong>FLH</strong></em>, <em><strong>FCH</strong></em>, <em><strong>FRH</strong></em>, <em><strong>TFLC</strong></em>, <em><strong>TFRC</strong></em>, <em><strong>TSL</strong></em>,
+<em><strong>TSR</strong></em>, <em><strong>LLFR</strong></em>, <em><strong>RLFE</strong></em>, <em><strong>BC</strong></em>, <em><strong>BLC</strong></em>, /*BRC*</p>
+</blockquote>
+<p>
+<strong>–format=VALUE</strong></p>
+<blockquote>
+<p>The sample format to use. One of: *u8*/, <em><strong>s8</strong></em>, <em><strong>s16</strong></em> (default),
+<em><strong>s24</strong></em>, <em><strong>s32</strong></em>, <em><strong>f32</strong></em>, <em><strong>f64</strong></em>./</p>
+</blockquote>
+<p>
+<strong>–volume=VALUE</strong></p>
+<blockquote>
+<p>The stream volume, default 1.000. Depending on the locale you have
+configured, &#39;,&#39; or &#39;.&#39; may be used as a decimal separator. Check with
+*locale*/ command./</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHORS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The PipeWire Developers
+&lt;<a href="https://gitlab.freedesktop.org/pipewire/pipewire/issues">https://gitlab.freedesktop.org/pipewire/pipewire/issues</a>&gt;; PipeWire is
+available from &lt;<a href="https://pipewire.org">https://pipewire.org</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*pipewire(1)*/, <em><strong>pw-mon(1)</strong></em>, /</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

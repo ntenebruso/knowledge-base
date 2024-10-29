@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - chown.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - chown.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>chown - change file owner and group</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>chown</strong> [/OPTION/]… [/OWNER/][/:/[/GROUP/]] <em>FILE</em>…<br>
+<strong>chown</strong> [/OPTION/]… <em>–reference=RFILE FILE</em>…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This manual page documents the GNU version of <strong>chown</strong>. <strong>chown</strong> changes
+the user and/or group ownership of each given file. If only an owner (a
+user name or numeric user ID) is given, that user is made the owner of
+each given file, and the files&#39; group is not changed. If the owner is
+followed by a colon and a group name (or numeric group ID), with no
+spaces between them, the group ownership of the files is changed as
+well. If a colon but no group name follows the user name, that user is
+made the owner of the files and the group of the files is changed to
+that user&#39;s login group. If the colon and group are given, but the owner
+is omitted, only the group of the files is changed; in this case,
+<strong>chown</strong> performs the same function as <strong>chgrp</strong>. If only a colon is given,
+or if the entire operand is empty, neither the owner nor the group is
+changed.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Change the owner and/or group of each FILE to OWNER and/or GROUP. With
+<strong>–reference</strong>, change the owner and group of each FILE to those of
+RFILE.</p>
+<dl>
+<dt>
+<strong>-c</strong>, <strong>–changes</strong>
+</dt>
+<dd>like verbose but report only when a change is
+made</dd>
+<dt>
+<strong>-f</strong>, <strong>–silent</strong>, <strong>–quiet</strong>
+</dt>
+<dd>suppress most error messages</dd>
+<dt>
+<strong>-v</strong>, <strong>–verbose</strong>
+</dt>
+<dd>output a diagnostic for every file processed</dd>
+<dt>
+<strong>–dereference</strong>
+</dt>
+<dd>affect the referent of each symbolic link (this is
+the default), rather than the symbolic link itself</dd>
+<dt>
+<strong>-h</strong>, <strong>–no-dereference</strong>
+</dt>
+<dd>affect symbolic links instead of any
+referenced file (useful only on systems that can change the ownership
+of a symlink)</dd>
+<dt>
+*–from*=/CURRENT_OWNER/:CURRENT_GROUP
+</dt>
+<dd>change the ownership of each
+file only if its current owner and/or group match those specified
+here. Either may be omitted, in which case a match is not required for
+the omitted attribute</dd>
+<dt>
+<strong>–no-preserve-root</strong>
+</dt>
+<dd>do not treat &#39;/&#39; specially (the default)</dd>
+<dt>
+<strong>–preserve-root</strong>
+</dt>
+<dd>fail to operate recursively on &#39;/&#39;</dd>
+<dt>
+*–reference*=/RFILE/
+</dt>
+<dd>use RFILE&#39;s ownership rather than specifying
+values RFILE is always dereferenced if a symbolic link.</dd>
+<dt>
+<strong>-R</strong>, <strong>–recursive</strong>
+</dt>
+<dd>operate on files and directories recursively</dd>
+</dl>
+<p>The following options modify how a hierarchy is traversed when the <strong>-R</strong>
+option is also specified. If more than one is specified, only the final
+one takes effect. &#39;-P&#39; is the default.</p>
+<dl>
+<dt>
+<strong>-H</strong>
+</dt>
+<dd>if a command line argument is a symbolic link to a directory,
+traverse it</dd>
+<dt>
+<strong>-L</strong>
+</dt>
+<dd>traverse every symbolic link to a directory encountered</dd>
+<dt>
+<strong>-P</strong>
+</dt>
+<dd>do not traverse any symbolic links</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>Owner is unchanged if missing. Group is unchanged if missing, but
+changed to login group if implied by a &#39;:&#39; following a symbolic OWNER.
+OWNER and GROUP may be numeric as well as symbolic.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+chown root /u
+</dt>
+<dd>Change the owner of /u to &#34;root&#34;.</dd>
+<dt>
+chown root:staff /u
+</dt>
+<dd>Likewise, but also change its group to &#34;staff&#34;.</dd>
+<dt>
+chown -hR root /u
+</dt>
+<dd>Change the owner of /u and subfiles to &#34;root&#34;.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHOR
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Written by David MacKenzie and Jim Meyering.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*chown*(2)</p>
+<p>
+\\
+Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/chown">https://www.gnu.org/software/coreutils/chown</a>&gt;<br>
+or available locally via: info &#39;(coreutils) chown invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

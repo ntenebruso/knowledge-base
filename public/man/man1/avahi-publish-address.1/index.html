@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - avahi-publish-address.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - avahi-publish-address.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>avahi-publish-service - Register an mDNS/DNS-SD service or host name or
+address mapping using the Avahi daemon</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>avahi-publish -s [*/options/*] */name/</strong> <strong><em>service-type</em></strong> <strong><em>port</em></strong>
+[*/TXT data/* …]*</p>
+<p>
+avahi-publish-service [/options/*] <strong><em>name</em></strong> <strong><em>service-type</em></strong> <strong><em>port</em></strong>
+[*/TXT data/* …]*</p>
+<p>
+avahi-publish -a [/options/*] <strong><em>host name</em></strong> */address/</p>
+<p>
+avahi-publish-address [/options/*] <strong><em>host name</em></strong> */address/</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Register an mDNS/DNS-SD service or host name/address mapping using the
+Avahi daemon.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>When calling in service registration mode, specify a DNS-SD service name
+(e.g. &#34;Lennart&#39;s Files&#34;), a service type (e.g. _http._tcp) and an IP
+port number for the service, optionally followed by any number of TXT
+record strings on the command line. When calling in address/host name
+registration mode specify a fully qualified host name and an address
+(IPv4 or IPv6).</p>
+<dl>
+<dt>
+<strong>-s | –service</strong>
+</dt>
+<dd>Register a service. avahi-publish-service is
+equivalent to avahi-publish -s.</dd>
+<dt>
+<strong>-a | –address</strong>
+</dt>
+<dd>Register an address/host name mapping.
+avahi-publish-address is equivalent to avahi-publish -a.</dd>
+<dt>
+<strong>-v | –verbose</strong>
+</dt>
+<dd>Enable verbose mode.</dd>
+<dt>
+<strong>-H | –host=</strong> <em>HOSTNAME</em>
+</dt>
+<dd>Specify a host name for this service, in
+case it doesn&#39;t reside on the local host. This host name needs to be
+fully qualified and resolvable using mDNS or unicast DNS.</dd>
+<dt>
+<strong>-d | –domain=</strong> <em>DOMAIN</em>
+</dt>
+<dd>Publish the service in the specified
+domain. If omitted the Avahi daemon will publish it in its default
+domain (usually .local).</dd>
+<dt>
+<strong>–subtype=</strong> <em>SUBTYPE</em>
+</dt>
+<dd>Register the service with an additional
+subtype in addition to the main type. DNS-SD subtypes have the form
+_anon._sub._ftp._tcp, where _anon is the identifier of the subtype and
+_ftp._tcp is the main type. You may pass this option multiple times to
+register the service with multiple subtypes.</dd>
+<dt>
+<strong>-f | –no-fail</strong>
+</dt>
+<dd>Don&#39;t fail if the daemon is not found running.
+Instead, wait until it appears. If it disconnects, try to reconnect.</dd>
+<dt>
+<strong>-h | –help</strong>
+</dt>
+<dd>Show help</dd>
+<dt>
+<strong>-V | –version</strong>
+</dt>
+<dd>Show version information.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHORS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The Avahi Developers &lt;avahi (at) lists (dot) freedesktop (dot) org&gt;;
+Avahi is available from <strong><a href="http://avahi.org/">http://avahi.org/</a></strong></p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>avahi-resolve(1)</strong>, <strong>avahi-browse(1)</strong>, <strong>avahi-daemon(8)</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+COMMENTS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>This man page was written using <strong>xml2man(1)</strong> by Oliver Kurth.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

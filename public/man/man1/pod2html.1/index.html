@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pod2html.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pod2html.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pod2html - convert .pod files to .html files</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>pod2html –help –htmldir=&lt;name&gt; –htmlroot=&lt;URL&gt; –infile=&lt;name&gt;
+–outfile=&lt;name&gt; –podpath=&lt;name&gt;:…:&lt;name&gt; –podroot=&lt;name&gt;
+–cachedir=&lt;name&gt; –flush –recurse –norecurse –quiet –noquiet
+–verbose –noverbose –index –noindex –backlink –nobacklink –header
+–noheader –poderrors –nopoderrors –css=&lt;URL&gt; –title=&lt;name&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Converts files from pod format (see perlpod) to HTML format.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+ARGUMENTS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>pod2html takes the following arguments:</p>
+<dl>
+<dt>
+backlink
+</dt>
+<dd>–backlink –nobacklink Turn =head1 directives into links
+pointing to the top of the HTML file. –nobacklink (which is the
+default behavior) does not create these backlinks.</dd>
+<dt>
+cachedir
+</dt>
+<dd>–cachedir=name Specify which directory is used for
+storing cache. Default directory is the current working directory.</dd>
+<dt>
+css
+</dt>
+<dd>–css=URL Specify the URL of cascading style sheet to link
+from resulting HTML file. Default is none style sheet.</dd>
+<dt>
+flush
+</dt>
+<dd>–flush Flush the cache.</dd>
+<dt>
+header
+</dt>
+<dd>–header –noheader Create header and footer blocks
+containing the text of the &#34;NAME&#34; section. –noheader – which is the
+default behavior – does not create header or footer blocks.</dd>
+<dt>
+help
+</dt>
+<dd>–help Displays the usage message.</dd>
+<dt>
+htmldir
+</dt>
+<dd>–htmldir=name Sets the directory to which all cross
+references in the resulting HTML file will be relative. Not passing
+this causes all links to be absolute since this is the value that
+tells Pod::Html the root of the documentation tree. Do not use this
+and –htmlroot in the same call to pod2html; they are mutually
+exclusive.</dd>
+<dt>
+htmlroot
+</dt>
+<dd>–htmlroot=URL Sets the base URL for the HTML files. When
+cross-references are made, the HTML root is prepended to the URL. Do
+not use this if relative links are desired: use –htmldir instead. Do
+not pass both this and –htmldir to pod2html; they are mutually
+exclusive.</dd>
+<dt>
+index
+</dt>
+<dd>
+<p>–index Generate an index at the top of the HTML file
+(default behaviour).</p>
+<dl>
+<dt>
+noindex
+</dt>
+<dd>–noindex Do not generate an index at the top of the
+HTML file.</dd>
+</dl>
+</dd>
+<dt>
+infile
+</dt>
+<dd>–infile=name Specify the pod file to convert. Input is
+taken from STDIN if no infile is specified.</dd>
+<dt>
+outfile
+</dt>
+<dd>–outfile=name Specify the HTML file to create. Output
+goes to STDOUT if no outfile is specified.</dd>
+<dt>
+poderrors
+</dt>
+<dd>–poderrors –nopoderrors Include a &#34;POD ERRORS&#34; section
+in the outfile if there were any POD errors in the infile (default
+behaviour). –nopoderrors does not create this &#34;POD ERRORS&#34; section.</dd>
+<dt>
+podpath
+</dt>
+<dd>–podpath=name:…:name Specify which subdirectories of
+the podroot contain pod files whose HTML converted forms can be
+linked-to in cross-references.</dd>
+<dt>
+podroot
+</dt>
+<dd>–podroot=name Specify the base directory for finding
+library pods.</dd>
+<dt>
+quiet
+</dt>
+<dd>–quiet –noquiet Don&#39;t display mostly harmless warning
+messages. –noquiet – which is the default behavior – <em>does</em> display
+these mostly harmless warning messages (but this is not the same as
+&#34;verbose&#34; mode).</dd>
+<dt>
+recurse
+</dt>
+<dd>–recurse –norecurse Recurse into subdirectories
+specified in podpath (default behaviour). –norecurse does not recurse
+into these subdirectories.</dd>
+<dt>
+title
+</dt>
+<dd>–title=title Specify the title of the resulting HTML file.</dd>
+<dt>
+verbose
+</dt>
+<dd>–verbose –noverbose Display progress messages.
+–noverbose – which is the default behavior – does not display these
+progress messages.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHOR
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Tom Christiansen, &lt;tchrist@perl.com&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+BUGS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>See Pod::Html for a list of known bugs in the translator.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>perlpod, Pod::Html</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>This program is distributed under the Artistic License.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

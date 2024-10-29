@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - flatpak-remotes.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - flatpak-remotes.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>flatpak-remotes - List remote repositories</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>flatpak remotes</strong> [OPTION…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Lists the known remote repositories, in priority order.</p>
+<p>
+By default, both per-user and system-wide installations are shown. Use
+the <strong>–user</strong>, <strong>–system</strong> or <strong>–installation</strong> options to change this.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Show help options and exit.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–user</strong></p>
+<blockquote>
+<p>Show the per-user configuration.</p>
+</blockquote>
+<p>
+<strong>–system</strong></p>
+<blockquote>
+<p>Show the default system-wide configuration.</p>
+</blockquote>
+<p>
+<strong>–installation=NAME</strong></p>
+<blockquote>
+<p>Show a system-wide installation by NAME among those defined in
+<em>etc/flatpak/installations.d</em>. Using <strong>–installation=default</strong> is
+equivalent to using <strong>–system</strong>.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–show-details</strong></p>
+<blockquote>
+<p>Show more information for each repository in addition to the name.
+Equivalent to <strong>–columns=all</strong>.</p>
+</blockquote>
+<p>
+<strong>–show-disabled</strong></p>
+<blockquote>
+<p>Show disabled repos.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Print debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–ostree-verbose</strong></p>
+<blockquote>
+<p>Print OSTree debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–columns=FIELD,…</strong></p>
+<blockquote>
+<p>Specify what information to show about each ref. You can list multiple
+fields, or use this option multiple times.</p>
+<p>
+Append :s[tart], :m[iddle], :e[nd] or :f[ull] to column names to change
+ellipsization.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+FIELDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following fields are understood by the <strong>–columns</strong> option:</p>
+<p>
+name</p>
+<blockquote>
+<p>Show the name of the remote</p>
+</blockquote>
+<p>
+title</p>
+<blockquote>
+<p>Show the title of the remote</p>
+</blockquote>
+<p>
+url</p>
+<blockquote>
+<p>Show the URL of the remote</p>
+</blockquote>
+<p>
+filter</p>
+<blockquote>
+<p>Show the path to the client-side filter of the remote.</p>
+</blockquote>
+<p>
+collection</p>
+<blockquote>
+<p>Show the collection ID of the remote</p>
+</blockquote>
+<p>
+priority</p>
+<blockquote>
+<p>Show the priority of the remote</p>
+</blockquote>
+<p>
+options</p>
+<blockquote>
+<p>Show options</p>
+</blockquote>
+<p>
+comment</p>
+<blockquote>
+<p>Show comment</p>
+</blockquote>
+<p>
+description</p>
+<blockquote>
+<p>Show description</p>
+</blockquote>
+<p>
+homepage</p>
+<blockquote>
+<p>Show homepage</p>
+</blockquote>
+<p>
+icon</p>
+<blockquote>
+<p>Show icon</p>
+</blockquote>
+<p>
+all</p>
+<blockquote>
+<p>Show all columns</p>
+</blockquote>
+<p>
+help</p>
+<blockquote>
+<p>Show the list of available columns</p>
+</blockquote>
+<p>
+Note that field names can be abbreviated to a unique prefix.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>$ flatpak remotes –user –show-details</strong></p>
+<blockquote>
+<pre class="example">
+testrepo	Test Repository	 http://209.132.179.91/repo/ no-gpg-verify
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*flatpak*(1), *flatpak-remote-add*(1), *flatpak-remote-delete*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - ippeveprinter.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - ippeveprinter.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>ippeveprinter - an ipp everywhere printer application for cups</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>ippeveprinter</strong> [ <strong>–help</strong> ] [ <strong>–no-web-forms</strong> ] [ <strong>–pam-service</strong>
+<em>service</em> ] [ <strong>–version</strong> ] [ <strong>-2</strong> ] [ <strong>-A</strong> ] [ <strong>-D</strong> <em>device-uri</em> ] [
+<strong>-F</strong> <em>output-type/subtype</em> ] [ <strong>-K</strong> <em>keypath</em> ] [ <strong>-M</strong> <em>manufacturer</em> ]
+[ <strong>-P</strong> <em>filename.ppd</em> ] [ <strong>-V</strong> <em>ipp-version</em> ] [ <strong>-a</strong> <em>filename.conf</em> ]
+[ <strong>-c</strong> <em>command</em> ] [ <strong>-d</strong> <em>spool-directory</em> ] [ <strong>-f</strong>
+<em>type/subtype[,…]</em> ] [ <strong>-i</strong> <em>iconfile.png</em> ] [ <strong>-k</strong> ] [ <strong>-l</strong>
+<em>location</em> ] [ <strong>-m</strong> <em>model</em> ] [ <strong>-n</strong> <em>hostname</em> ] [ <strong>-p</strong> <em>port</em> ] [ <strong>-r</strong>
+<em>subtype[,subtype]</em> ] [ <strong>-s</strong> <em>speed[,color-speed]</em> ] [ <strong>-v[vvv]</strong> ]
+<em>service-name</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>ippeveprinter</strong> is a simple Internet Printing Protocol (IPP) server
+conforming to the IPP Everywhere (PWG 5100.14) specification. It can be
+used to test client software or act as a very basic print server that
+runs a command for every job that is printed.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are recognized by <strong>ippeveprinter:</strong></p>
+<dl>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>Show program usage.</dd>
+<dt>
+<strong>–no-web-forms</strong>
+</dt>
+<dd>Disable the web interface forms used to update the
+media and supply levels.</dd>
+<dt>
+*–pam-service */service/
+</dt>
+<dd>Set the PAM service name. The default
+service is &#34;cups&#34;.</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>Show the CUPS version.</dd>
+<dt>
+<strong>-2</strong>
+</dt>
+<dd>Report support for two-sided (duplex) printing.</dd>
+<dt>
+<strong>-A</strong>
+</dt>
+<dd>Enable authentication for the created printer. <strong>ippeveprinter</strong>
+uses PAM to authenticate HTTP Basic credentials.</dd>
+<dt>
+*-D */device-uri/
+</dt>
+<dd>Set the device URI for print output. The URI can
+be a filename, directory, or a network socket URI of the form
+&#34;socket://ADDRESS[:PORT]&#34; (where the default port number is 9100).
+When specifying a directory, <strong>ippeveprinter</strong> will create an output
+file using the job ID and name.</dd>
+<dt>
+*-F */output-type/subtype[,…]/
+</dt>
+<dd>Specifies the output MIME media
+type. The default is &#34;application/postscript&#34; when the <strong>-P</strong> option is
+specified.</dd>
+<dt>
+*-M */manufacturer/
+</dt>
+<dd>Set the manufacturer of the printer. The
+default is &#34;Example&#34;.</dd>
+<dt>
+*-P */filename.ppd/
+</dt>
+<dd>Load printer attributes from the specified PPD
+file. This option is typically used in conjunction with the
+*ippeveps*(7) printer command (&#34;-c ippeveps&#34;).</dd>
+<dt>
+<strong>-V 1.1</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>-V 2.0</strong>
+</dt>
+<dd>
+<p>Specifies the maximum IPP version to report.
+2.0 is the default.</p>
+<dl>
+<dt>
+*-c */command/
+</dt>
+<dd>Run the specified command for each document that
+is printed. If &#34;command&#34; is not an absolute path
+(&#34;/path/to/command&#34;), <strong>ippeveprinter</strong> looks for the command in the
+&#34;command&#34; subdirectory of the CUPS binary directory, typically
+/usr/lib/cups/command or /usr/libexec/cups/command. The
+*cups-config*(1) command can be used to discover the correct binary
+directory (&#34;cups-config –serverbin&#34;). In addition, the
+CUPS_SERVERBIN environment variable can be used to override the
+default location of this directory - see the *cups*(1) man page for
+more details.</dd>
+<dt>
+*-d */spool-directory/
+</dt>
+<dd>Specifies the directory that will hold the
+print files. The default is a directory under the user&#39;s current
+temporary directory.</dd>
+<dt>
+*-f */type/subtype[,…]/
+</dt>
+<dd>Specifies a list of MIME media types
+that the server will accept. The default depends on the type of
+printer created.</dd>
+<dt>
+*-i */iconfile.png/
+</dt>
+<dd>Specifies the printer icon file for the
+server. The file must be a PNG format image. The default is an
+internally-provided PNG image.</dd>
+<dt>
+<strong>-k</strong>
+</dt>
+<dd>Keeps the print documents in the spool directory rather than
+deleting them.</dd>
+<dt>
+*-l */location/
+</dt>
+<dd>Specifies the human-readable location string that
+is reported by the server. The default is the empty string.</dd>
+<dt>
+*-m */model/
+</dt>
+<dd>Specifies the model name of the printer. The default
+is &#34;Printer&#34;.</dd>
+<dt>
+*-n */hostname/
+</dt>
+<dd>Specifies the hostname that is reported by the
+server. The default is the name returned by the *hostname*(1)
+command.</dd>
+<dt>
+*-p */port/
+</dt>
+<dd>Specifies the port number to listen on. The default
+is a user-specific number from 8000 to 8999.</dd>
+<dt>
+<strong>-r off</strong>
+</dt>
+<dd>Turns off DNS-SD service advertisements entirely.</dd>
+<dt>
+*-r */subtype[,subtype]/
+</dt>
+<dd>Specifies the DNS-SD subtype(s) to
+advertise. Separate multiple subtypes with a comma. The default is
+&#34;_print&#34;.</dd>
+<dt>
+*-s */speed[,color-speed]/
+</dt>
+<dd>Specifies the printer speed in pages
+per minute. If two numbers are specified and the second number is
+greater than zero, the server will report support for color
+printing. The default is &#34;10,0&#34;.</dd>
+<dt>
+<strong>-v[vvv]</strong>
+</dt>
+<dd>Be (very) verbose when logging activity to standard
+error.</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The <strong>ippeveprinter</strong> program returns 1 if it is unable to process the
+command-line arguments or register the IPP service. Otherwise
+<strong>ippeveprinter</strong> will run continuously until terminated.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+CONFORMING TO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The <strong>ippeveprinter</strong> program is unique to CUPS and conforms to the IPP
+Everywhere (PWG 5100.14) specification.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><strong>ippeveprinter</strong> adds environment variables starting with &#34;IPP_&#34; for all
+IPP Job attributes in the print request. For example, when executing a
+command for an IPP Job containing the &#34;media&#34; Job Template attribute,
+the &#34;IPP_MEDIA&#34; environment variable will be set to the value of that
+attribute.</p>
+<p>
+In addition, all IPP &#34;xxx-default&#34; and &#34;pwg-xxx&#34; Printer Description
+attributes are added to the environment. For example, the
+&#34;IPP_MEDIA_DEFAULT&#34; environment variable will be set to the default
+value for the &#34;media&#34; Job Template attribute.</p>
+<p>
+Enumerated values are converted to their keyword equivalents. For
+example, a &#34;print-quality&#34; Job Template attribute with a enum value of 3
+will become the &#34;IPP_PRINT_QUALITY&#34; environment variable with a value of
+&#34;draft&#34;. This string conversion only happens for standard Job Template
+attributes, currently &#34;finishings&#34;, &#34;orientation-requested&#34;, and
+&#34;print-quality&#34;.</p>
+<p>
+Finally, the &#34;CONTENT_TYPE&#34; environment variable contains the MIME media
+type of the document being printed, the &#34;DEVICE_URI&#34; environment
+variable contains the device URI as specified with the &#34;-D&#34; option, the
+&#34;OUTPUT_FORMAT&#34; environment variable contains the output MIME media
+type, and the &#34;PPD&#34; environment variable contains the PPD filename as
+specified with the &#34;-P&#34; option.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+COMMAND OUTPUT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Unless they communicate directly with a printer, print commands send
+printer-ready data to the standard output.</p>
+<p>
+Print commands can send messages back to <strong>ippeveprinter</strong> on the standard
+error with one of the following prefixes:</p>
+<dl>
+<dt>
+*ATTR: */attribute=value[ attribute=value]/
+</dt>
+<dd>Sets the named
+attribute(s) to the given values. Currently only the &#34;job-impressions&#34;
+and &#34;job-impressions-completed&#34; Job Status attributes and the
+&#34;marker-xxx&#34;, &#34;printer-alert&#34;, &#34;printer-alert-description&#34;,
+&#34;printer-supply&#34;, and &#34;printer-supply-description&#34; Printer Status
+attributes can be set.</dd>
+<dt>
+*DEBUG: */Debugging message/
+</dt>
+<dd>Logs a debugging message if at least
+two -v&#39;s have been specified.</dd>
+<dt>
+*ERROR: */Error message/
+</dt>
+<dd>Logs an error message and copies the
+message to the &#34;job-state-message&#34; attribute.</dd>
+<dt>
+*INFO: */Informational message/
+</dt>
+<dd>Logs an informational/progress
+message if -v has been specified and copies the message to the
+&#34;job-state-message&#34; attribute unless an error has been reported.</dd>
+<dt>
+*STATE: */keyword[,keyword,…]/
+</dt>
+<dd>Sets the printer&#39;s
+&#34;printer-state-reasons&#34; attribute to the listed keywords.</dd>
+<dt>
+*STATE: -*/keyword[,keyword,…]/
+</dt>
+<dd>Removes the listed keywords from
+the printer&#39;s &#34;printer-state-reasons&#34; attribute.</dd>
+<dt>
+*STATE: +*/keyword[,keyword,…]/
+</dt>
+<dd>Adds the listed keywords to the
+printer&#39;s &#34;printer-state-reasons&#34; attribute.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Run <strong>ippeveprinter</strong> with a service name of My Cool Printer:</p>
+<pre class="example">
+    ippeveprinter &#34;My Cool Printer&#34;
+</pre>
+<p>
+Run the *file*(1) command whenever a job is sent to the server:</p>
+<pre class="example">
+    ippeveprinter -c /usr/bin/file &#34;My Cool Printer&#34;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>*ippevepcl*(7), *ippeveps*(7), PWG Internet Printing Protocol Workgroup
+(<a href="http://www.pwg.org/ipp)">http://www.pwg.org/ipp)</a></p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Copyright © 2020-2024 by OpenPrinting.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - sftp.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - sftp.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>sftp</strong> - OpenSSH secure file transfer</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>\\
+<strong>sftp</strong> [*-46AaCfNpqrv*] [*-B* /buffer_size/] [*-b* /batchfile/] [*-c*
+/cipher/] [*-D* /sftp_server_command/] [*-F* /ssh_config/] [*-i*
+<em>identity_file/] [*-J* /destination/] [*-l* /limit/] [*-o* /ssh_option/]
+[*-P* /port/] [*-R* /num_requests/] [*-S* /program/] [*-s* /subsystem</em> |
+<em>sftp_server/] [*-X* /sftp_option/] /destination</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>sftp</strong> is a file transfer program, similar to *ftp*(1), which performs
+all operations over an encrypted *ssh*(1) transport. It may also use
+many features of ssh, such as public key authentication and compression.</p>
+<p>
+The <em>destination</em> may be specified either as [user@]host[:path] or as a
+URI in the form sftp://[user@]host[:port][/path.]</p>
+<p>
+If the <em>destination</em> includes a <em>path</em> and it is not a directory, <strong>sftp</strong>
+will retrieve files automatically if a non-interactive authentication
+method is used; otherwise it will do so after successful interactive
+authentication.</p>
+<p>
+If no <em>path</em> is specified, or if the <em>path</em> is a directory, <strong>sftp</strong> will
+log in to the specified <em>host</em> and enter interactive command mode,
+changing to the remote directory if one was specified. An optional
+trailing slash can be used to force the <em>path</em> to be interpreted as a
+directory.</p>
+<p>
+Since the destination formats use colon characters to delimit host names
+from path names or port numbers, IPv6 addresses must be enclosed in
+square brackets to avoid ambiguity.</p>
+<p>
+The options are as follows:</p>
+<dl>
+<dt>
+<strong>-4</strong>
+</dt>
+<dd>Forces <strong>sftp</strong> to use IPv4 addresses only.</dd>
+<dt>
+<strong>-6</strong>
+</dt>
+<dd>Forces <strong>sftp</strong> to use IPv6 addresses only.</dd>
+<dt>
+<strong>-A</strong>
+</dt>
+<dd>Allows forwarding of *ssh-agent*(1) to the remote system. The
+default is not to forward an authentication agent.</dd>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>Attempt to continue interrupted transfers rather than
+overwriting existing partial or complete copies of files. If the
+partial contents differ from those being transferred, then the
+resultant file is likely to be corrupt.</dd>
+<dt>
+<strong>-B</strong> <em>buffer_size</em>
+</dt>
+<dd>Specify the size of the buffer that <strong>sftp</strong> uses
+when transferring files. Larger buffers require fewer round trips at
+the cost of higher memory consumption. The default is 32768 bytes.</dd>
+<dt>
+<strong>-b</strong> <em>batchfile</em>
+</dt>
+<dd>Batch mode reads a series of commands from an
+input <em>batchfile</em> instead of <em>stdin</em>. Since it lacks user interaction,
+it should be used in conjunction with non-interactive authentication
+to obviate the need to enter a password at connection time (see
+*sshd*(8) and *ssh-keygen*(1) for details).
+
+A <em>batchfile</em> of `-&#39; may be used to indicate standard input. <strong>sftp</strong>
+will abort if any of the following commands fail: <strong>get</strong>, <strong>put</strong>,
+<strong>reget</strong>, <strong>reput</strong>, <strong>rename</strong>, <strong>ln</strong>, <strong>rm</strong>, <strong>mkdir</strong>, <strong>chdir</strong>, <strong>ls</strong>,
+<strong>lchdir</strong>, <strong>copy</strong>, <strong>cp</strong>, <strong>chmod</strong>, <strong>chown</strong>, <strong>chgrp</strong>, <strong>lpwd</strong>, <strong>df</strong>,
+<strong>symlink</strong>, and <strong>lmkdir</strong>.
+
+Termination on error can be suppressed on a command by command basis
+by prefixing the command with a `-&#39; character (for example, <strong>-rm
+/tmp/blah</strong> )*. Echo of the command may be suppressed by prefixing the
+command with a `@&#39; character. These two prefixes may be combined in
+any order, for example <strong>-@ls /bsd</strong>.</dd>
+<dt>
+<strong>-C</strong>
+</dt>
+<dd>Enables compression (via ssh&#39;s <strong>-C</strong> flag).</dd>
+<dt>
+<strong>-c</strong> <em>cipher</em>
+</dt>
+<dd>Selects the cipher to use for encrypting the data
+transfers. This option is directly passed to *ssh*(1).</dd>
+<dt>
+<strong>-D</strong> <em>sftp_server_command</em>
+</dt>
+<dd>Connect directly to a local sftp server
+(rather than via *ssh*(1)) . A command and arguments may be specified,
+for example Qq /path/sftp-server -el debug3 . This option may be
+useful in debugging the client and server.</dd>
+<dt>
+<strong>-F</strong> <em>ssh_config</em>
+</dt>
+<dd>Specifies an alternative per-user configuration
+file for *ssh*(1). This option is directly passed to *ssh*(1).</dd>
+<dt>
+<strong>-f</strong>
+</dt>
+<dd>Requests that files be flushed to disk immediately after
+transfer. When uploading files, this feature is only enabled if the
+server implements the &#34;fsync@openssh.com&#34; extension.</dd>
+<dt>
+<strong>-i</strong> <em>identity_file</em>
+</dt>
+<dd>Selects the file from which the identity
+(private key) for public key authentication is read. This option is
+directly passed to *ssh*(1).</dd>
+<dt>
+<strong>-J</strong> <em>destination</em>
+</dt>
+<dd>Connect to the target host by first making an
+<strong>sftp</strong> connection to the jump host described by <em>destination</em> and then
+establishing a TCP forwarding to the ultimate destination from there.
+Multiple jump hops may be specified separated by comma characters.
+This is a shortcut to specify a <strong>ProxyJump</strong> configuration directive.
+This option is directly passed to *ssh*(1).</dd>
+<dt>
+<strong>-l</strong> <em>limit</em>
+</dt>
+<dd>Limits the used bandwidth, specified in Kbit/s.</dd>
+<dt>
+<strong>-N</strong>
+</dt>
+<dd>Disables quiet mode, e.g. to override the implicit quiet mode
+set by the <strong>-b</strong> flag.</dd>
+<dt>
+<strong>-o</strong> <em>ssh_option</em>
+</dt>
+<dd>Can be used to pass options to <strong>ssh</strong> in the
+format used in <strong>ssh_config*(5). This is useful for specifying options
+for which there is no separate *sftp</strong> command-line flag. For example,
+to specify an alternate port use: <strong>sftp -oPort=24</strong>. For full details
+of the options listed below, and their possible values, see
+*ssh_config*(5).</dd>
+<dt>
+AddressFamily
+</dt>
+<dd>
+<dl>
+<dt>
+BatchMode
+</dt>
+<dd>
+<dl>
+<dt>
+BindAddress
+</dt>
+<dd>
+<dl>
+<dt>
+BindInterface
+</dt>
+<dd>
+<dl>
+<dt>
+CanonicalDomains
+</dt>
+<dd>
+<dl>
+<dt>
+CanonicalizeFallbackLocal
+</dt>
+<dd>
+<dl>
+<dt>
+CanonicalizeHostname
+</dt>
+<dd>
+<dl>
+<dt>
+CanonicalizeMaxDots
+</dt>
+<dd>
+<dl>
+<dt>
+CanonicalizePermittedCNAMEs
+</dt>
+<dd>
+<dl>
+<dt>
+CASignatureAlgorithms
+</dt>
+<dd>
+<dl>
+<dt>
+CertificateFile
+</dt>
+<dd>
+<dl>
+<dt>
+CheckHostIP
+</dt>
+<dd>
+<dl>
+<dt>
+Ciphers
+</dt>
+<dd>
+<dl>
+<dt>
+Compression
+</dt>
+<dd>
+<dl>
+<dt>
+ConnectionAttempts
+</dt>
+<dd>
+<dl>
+<dt>
+ConnectTimeout
+</dt>
+<dd>
+<dl>
+<dt>
+ControlMaster
+</dt>
+<dd>
+<dl>
+<dt>
+ControlPath
+</dt>
+<dd>
+<dl>
+<dt>
+ControlPersist
+</dt>
+<dd>
+<dl>
+<dt>
+GlobalKnownHostsFile
+</dt>
+<dd>
+<dl>
+<dt>
+GSSAPIAuthentication
+</dt>
+<dd>
+<dl>
+<dt>
+GSSAPIDelegateCredentials
+</dt>
+<dd>
+<dl>
+<dt>
+HashKnownHosts
+</dt>
+<dd>
+<dl>
+<dt>
+Host
+</dt>
+<dd>
+<dl>
+<dt>
+HostbasedAcceptedAlgorithms
+</dt>
+<dd>
+<dl>
+<dt>
+HostbasedAuthentication
+</dt>
+<dd>
+<dl>
+<dt>
+HostKeyAlgorithms
+</dt>
+<dd>
+<dl>
+<dt>
+HostKeyAlias
+</dt>
+<dd>
+<dl>
+<dt>
+Hostname
+</dt>
+<dd>
+<dl>
+<dt>
+IdentitiesOnly
+</dt>
+<dd>
+<dl>
+<dt>
+IdentityAgent
+</dt>
+<dd>
+<dl>
+<dt>
+IdentityFile
+</dt>
+<dd>
+<dl>
+<dt>
+IPQoS
+</dt>
+<dd>
+<dl>
+<dt>
+KbdInteractiveAuthentication
+</dt>
+<dd>
+<dl>
+<dt>
+KbdInteractiveDevices
+</dt>
+<dd>
+<dl>
+<dt>
+KexAlgorithms
+</dt>
+<dd>
+<dl>
+<dt>
+KnownHostsCommand
+</dt>
+<dd>
+<dl>
+<dt>
+LogLevel
+</dt>
+<dd>
+<dl>
+<dt>
+MACs
+</dt>
+<dd>
+<dl>
+<dt>
+NoHostAuthenticationForLocalhost
+</dt>
+<dd>
+<dl>
+<dt>
+NumberOfPasswordPrompts
+</dt>
+<dd>
+<dl>
+<dt>
+PasswordAuthentication
+</dt>
+<dd>
+<dl>
+<dt>
+PKCS11Provider
+</dt>
+<dd>
+<dl>
+<dt>
+Port
+</dt>
+<dd>
+<dl>
+<dt>
+PreferredAuthentications
+</dt>
+<dd>
+<dl>
+<dt>
+ProxyCommand
+</dt>
+<dd>
+<dl>
+<dt>
+ProxyJump
+</dt>
+<dd>
+<dl>
+<dt>
+PubkeyAcceptedAlgorithms
+</dt>
+<dd>
+<dl>
+<dt>
+PubkeyAuthentication
+</dt>
+<dd>
+<dl>
+<dt>
+RekeyLimit
+</dt>
+<dd>
+<dl>
+<dt>
+RequiredRSASize
+</dt>
+<dd>
+<dl>
+<dt>
+SendEnv
+</dt>
+<dd>
+<dl>
+<dt>
+ServerAliveInterval
+</dt>
+<dd>
+<dl>
+<dt>
+ServerAliveCountMax
+</dt>
+<dd>
+<dl>
+<dt>
+SetEnv
+</dt>
+<dd>
+<dl>
+<dt>
+StrictHostKeyChecking
+</dt>
+<dd>
+<dl>
+<dt>
+TCPKeepAlive
+</dt>
+<dd>
+<dl>
+<dt>
+UpdateHostKeys
+</dt>
+<dd>
+<dl>
+<dt>
+User
+</dt>
+<dd>
+<dl>
+<dt>
+UserKnownHostsFile
+</dt>
+<dd>
+<dl>
+<dt>
+VerifyHostKeyDNS
+</dt>
+<dd>
+<ul>
+<li>
+<p><strong>-P</strong>
+                                                             <em>port</em> :: Specifies
+                                                             the
+                                                             port
+                                                             to
+                                                             connect
+                                                             to
+                                                             on
+                                                             the
+                                                             remote
+                                                             host.</p>
+<dl>
+<dt>
+<strong>-p</strong>
+</dt>
+<dd>Preserves
+modification
+times,
+access
+times,
+and
+modes
+from
+the
+original
+files
+transferred.</dd>
+<dt>
+<strong>-q</strong>
+</dt>
+<dd>Quiet
+mode:
+disables
+the
+progress
+meter
+as
+well
+as
+warning
+and
+diagnostic
+messages
+from
+*ssh*(1).</dd>
+<dt>
+?
+</dt>
+<dd><strong>-R</strong>
+<em>num_requests</em> :: Specify
+how
+many
+requests
+may
+be
+outstanding
+at
+any
+one
+time.
+Increasing
+this
+may
+slightly
+improve
+file
+transfer
+speed
+but
+will
+increase
+memory
+usage.
+The
+default
+is
+64
+outstanding
+requests.</dd>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>Recursively
+copy
+entire
+directories
+when
+uploading
+and
+downloading.
+Note
+that
+<strong>sftp</strong>
+does
+not
+follow
+symbolic
+links
+encountered
+in
+the
+tree
+traversal.</dd>
+<dt>
+?
+</dt>
+<dd><strong>-S</strong>
+<em>program</em> :: Name
+of
+the
+<em>program</em>
+to
+use
+for
+the
+encrypted
+connection.
+The
+program
+must
+understand
+*ssh*(1)
+options.</dd>
+<dt>
+?
+</dt>
+<dd><strong>-s</strong>
+<em>subsystem</em>
+​|
+<em>sftp_server</em> :: Specifies
+the
+SSH2
+subsystem
+or
+the
+path
+for
+an
+sftp
+server
+on
+the
+remote
+host.
+A
+path
+is
+useful
+when
+the
+remote
+*sshd*(8)
+does
+not
+have
+an
+sftp
+subsystem
+configured.</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>Raise
+logging
+level.
+This
+option
+is
+also
+passed
+to
+ssh.</dd>
+<dt>
+?
+</dt>
+<dd><strong>-X</strong>
+<em>sftp_option</em> :: Specify
+an
+option
+that
+controls
+aspects
+of
+SFTP
+protocol
+behaviour.
+The
+valid
+options
+are:</dd>
+<dt>
+*nrequests*=/value/
+</dt>
+<dd>Controls
+how
+many
+concurrent
+SFTP
+read
+or
+write
+requests
+may
+be
+in
+progress
+at
+any
+point
+in
+time
+during
+a
+download
+or
+upload.
+By
+default
+64
+requests
+may
+be
+active
+concurrently.</dd>
+<dt>
+*buffer*=/value/
+</dt>
+<dd>Controls
+the
+maximum
+buffer
+size
+for
+a
+single
+SFTP
+read/write
+operation
+used
+during
+download
+or
+upload.
+By
+default
+a
+32KB
+buffer
+is
+used.</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+INTERACTIVE COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Once in interactive mode, <strong>sftp</strong> understands a set of commands similar
+to those of *ftp*(1). Commands are case insensitive. Pathnames that
+contain spaces must be enclosed in quotes. Any special characters
+contained within pathnames that are recognized by *glob*(3) must be
+escaped with backslashes (`\&#39;.)</p>
+<dl>
+<dt>
+<strong>bye</strong>
+</dt>
+<dd>Quit <strong>sftp</strong>.</dd>
+<dt>
+*cd [*/path]/
+</dt>
+<dd>Change remote directory to <em>path.</em> If <em>path</em> is not
+specified, then change directory to the one the session started in.</dd>
+<dt>
+<strong>chgrp*/ [/</strong>-h*/] grp path /
+</dt>
+<dd>Change group of file <em>path</em> to <em>grp.</em>
+<em>path</em> may contain *glob*/(7)/ characters and may match multiple
+files. <em>grp</em> must be a numeric GID.
+
+If the <strong>-h</strong> flag is specified, then symlinks will not be followed.
+Note that this is only supported by servers that implement the
+&#34;lsetstat@openssh.com&#34; extension.</dd>
+<dt>
+<strong>chmod*/ [/</strong>-h*/] mode path /
+</dt>
+<dd>Change permissions of file <em>path</em> to
+<em>mode.</em> <em>path</em> may contain *glob*/(7)/ characters and may match
+multiple files.
+
+If the <strong>-h</strong> flag is specified, then symlinks will not be followed.
+Note that this is only supported by servers that implement the
+&#34;lsetstat@openssh.com&#34; extension.</dd>
+<dt>
+<strong>chown*/ [/</strong>-h*/] own path /
+</dt>
+<dd>Change owner of file <em>path</em> to <em>own.</em>
+<em>path</em> may contain *glob*/(7)/ characters and may match multiple
+files. <em>own</em> must be a numeric UID.
+
+If the <strong>-h</strong> flag is specified, then symlinks will not be followed.
+Note that this is only supported by servers that implement the
+&#34;lsetstat@openssh.com&#34; extension.</dd>
+<dt>
+<strong>copy */oldpath/</strong> */newpath/
+</dt>
+<dd>Copy remote file from <em>oldpath</em> to
+<em>newpath.</em>
+
+Note that this is only supported by servers that implement the
+&#34;copy-data&#34; extension.</dd>
+<dt>
+<strong>cp */oldpath/</strong> */newpath/
+</dt>
+<dd>Alias to <strong>copy</strong> command.</dd>
+<dt>
+<strong>df*/ [/</strong>-hi*/] [path] /
+</dt>
+<dd>Display usage information for the
+filesystem holding the current directory (or <em>path</em> if specified). If
+the <strong>-h</strong> flag is specified, the capacity information will be displayed
+using &#34;human-readable&#34; suffixes. The <strong>-i</strong> flag requests display of
+inode information in addition to capacity information. This command is
+only supported on servers that implement the ``statvfs@openssh.com&#39;&#39;
+extension.</dd>
+<dt>
+<strong>exit</strong>
+</dt>
+<dd>Quit *sftp*/./</dd>
+<dt>
+<strong>get*/ [/</strong>-afpR*/] remote-path [local-path] /
+</dt>
+<dd>Retrieve the
+<em>remote-path</em> and store it on the local machine. If the local path
+name is not specified, it is given the same name it has on the remote
+machine. <em>remote-path</em> may contain *glob*/(7)/ characters and may
+match multiple files. If it does and <em>local-path</em> is specified, then
+<em>local-path</em> must specify a directory.
+
+If the <strong>-a</strong> flag is specified, then attempt to resume partial
+transfers of existing files. Note that resumption assumes that any
+partial copy of the local file matches the remote copy. If the remote
+file contents differ from the partial local copy then the resultant
+file is likely to be corrupt.
+
+If the <strong>-f</strong> flag is specified, then *fsync*/(2)/ will be called after
+the file transfer has completed to flush the file to disk.
+
+If the <strong>-p</strong> flag is specified, then full file permissions and access
+times are copied too.
+
+If the <strong>-R</strong> flag is specified then directories will be copied
+recursively. Note that <strong>sftp</strong> does not follow symbolic links when
+performing recursive transfers.</dd>
+<dt>
+<strong>help</strong>
+</dt>
+<dd>Display help text.</dd>
+<dt>
+*lcd [*/path]/
+</dt>
+<dd>Change local directory to <em>path.</em> If <em>path</em> is not
+specified, then change directory to the local user&#39;s home directory.</dd>
+<dt>
+<strong>lls [*/ls-options/</strong> [*/path]]/
+</dt>
+<dd>Display local directory listing of
+either <em>path</em> or current directory if <em>path</em> is not specified.
+<em>ls-options</em> may contain any flags supported by the local system&#39;s
+*ls*/(1)/ command. <em>path</em> may contain *glob*/(7)/ characters and may
+match multiple files.</dd>
+<dt>
+*lmkdir */path/
+</dt>
+<dd>Create local directory specified by <em>path.</em></dd>
+<dt>
+<strong>ln*/ [/</strong>-s*/] oldpath newpath /
+</dt>
+<dd>Create a link from <em>oldpath</em> to
+<em>newpath.</em> If the <strong>-s</strong> flag is specified the created link is a
+symbolic link, otherwise it is a hard link.</dd>
+<dt>
+<strong>lpwd</strong>
+</dt>
+<dd>Print local working directory.</dd>
+<dt>
+<strong>ls*/ [/</strong>-1afhlnrSt*/] [path] /
+</dt>
+<dd>Display a remote directory listing
+of either <em>path</em> or the current directory if <em>path</em> is not specified.
+<em>path</em> may contain *glob*/(7)/ characters and may match multiple
+files.
+
+The following flags are recognized and alter the behaviour of <strong>ls</strong>
+accordingly:</dd>
+<dt>
+<strong>-1</strong>
+</dt>
+<dd>Produce single columnar output.</dd>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>List files beginning with a dot (`.&#39;.)</dd>
+<dt>
+<strong>-f</strong>
+</dt>
+<dd>Do not sort the listing. The default sort order is
+lexicographical.</dd>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>When used with a long format option, use unit suffixes: Byte,
+Kilobyte, Megabyte, Gigabyte, Terabyte, Petabyte, and Exabyte in order
+to reduce the number of digits to four or fewer using powers of 2 for
+sizes (K=1024, M=1048576, etc.).</dd>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>Display additional details including permissions and ownership
+information.</dd>
+<dt>
+<strong>-n</strong>
+</dt>
+<dd>Produce a long listing with user and group information
+presented numerically.</dd>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>Reverse the sort order of the listing.</dd>
+<dt>
+<strong>-S</strong>
+</dt>
+<dd>Sort the listing by file size.</dd>
+<dt>
+<strong>-t</strong>
+</dt>
+<dd>Sort the listing by last modification time.</dd>
+<dt>
+*lumask */umask/
+</dt>
+<dd>Set local umask to <em>umask.</em></dd>
+<dt>
+*mkdir */path/
+</dt>
+<dd>Create remote directory specified by <em>path.</em></dd>
+<dt>
+<strong>progress</strong>
+</dt>
+<dd>Toggle display of progress meter.</dd>
+<dt>
+<strong>put*/ [/</strong>-afpR*/] local-path [remote-path] /
+</dt>
+<dd>Upload <em>local-path</em>
+and store it on the remote machine. If the remote path name is not
+specified, it is given the same name it has on the local machine.
+<em>local-path</em> may contain *glob*/(7)/ characters and may match multiple
+files. If it does and <em>remote-path</em> is specified, then <em>remote-path</em>
+must specify a directory.
+
+If the <strong>-a</strong> flag is specified, then attempt to resume partial
+transfers of existing files. Note that resumption assumes that any
+partial copy of the remote file matches the local copy. If the local
+file contents differ from the remote local copy then the resultant
+file is likely to be corrupt.
+
+If the <strong>-f</strong> flag is specified, then a request will be sent to the
+server to call *fsync*/(2)/ after the file has been transferred. Note
+that this is only supported by servers that implement the
+&#34;fsync@openssh.com&#34; extension.
+
+If the <strong>-p</strong> flag is specified, then full file permissions and access
+times are copied too.
+
+If the <strong>-R</strong> flag is specified then directories will be copied
+recursively. Note that <strong>sftp</strong> does not follow symbolic links when
+performing recursive transfers.</dd>
+<dt>
+<strong>pwd</strong>
+</dt>
+<dd>Display remote working directory.</dd>
+<dt>
+<strong>quit</strong>
+</dt>
+<dd>Quit *sftp*/./</dd>
+<dt>
+<strong>reget*/ [/</strong>-fpR*/] remote-path [local-path] /
+</dt>
+<dd>Resume download of
+<em>remote-path.</em> Equivalent to <strong>get</strong> with the <strong>-a</strong> flag set.</dd>
+<dt>
+<strong>reput*/ [/</strong>-fpR*/] local-path [remote-path] /
+</dt>
+<dd>Resume upload of
+<em>local-path.</em> Equivalent to <strong>put</strong> with the <strong>-a</strong> flag set.</dd>
+<dt>
+<strong>rename */oldpath/</strong> newpath*
+</dt>
+<dd>Rename remote file from <em>oldpath</em> to
+<em>newpath.</em></dd>
+<dt>
+*rm */path/
+</dt>
+<dd>Delete remote file specified by <em>path.</em></dd>
+<dt>
+*rmdir */path/
+</dt>
+<dd>Remove remote directory specified by <em>path.</em></dd>
+<dt>
+<strong>symlink */oldpath/</strong> newpath*
+</dt>
+<dd>Create a symbolic link from <em>oldpath</em>
+to <em>newpath.</em></dd>
+<dt>
+<strong>version</strong>
+</dt>
+<dd>Display the <strong>sftp</strong> protocol version.</dd>
+<dt>
+*! Ns */command/
+</dt>
+<dd>Execute <em>command</em> in local shell.</dd>
+<dt>
+<strong>!</strong>
+</dt>
+<dd>Escape to local shell.</dd>
+<dt>
+<strong>?</strong>
+</dt>
+<dd>Synonym for help.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>*ftp*/(1),/ *ls*/(1),/ *scp*/(1),/ *ssh*/(1),/ *ssh-add*/(1),/
+*ssh-keygen*/(1),/ *ssh_config*/(5),/ *glob*/(7),/ *sftp-server*/(8),/
+*sshd*/(8)/</p>
+<ol>
+<li>Lehtinen and T. Ylonen, /SSH File Transfer Protocol,</li>
+</ol>
+<p>draft-ietf-secsh-filexfer-00.txt, January 2001, work in progress
+material./</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

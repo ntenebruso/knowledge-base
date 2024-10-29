@@ -1,0 +1,2157 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - procps.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - procps.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>ps - report a snapshot of the current processes.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>ps</strong> [/options/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>ps</strong> displays information about a selection of the active processes. If
+you want a repetitive update of the selection and the displayed
+information, use <strong>top</strong> instead.</p>
+<p>
+This version of <strong>ps</strong> accepts several kinds of options:</p>
+<ol>
+<li>UNIX options, which may be grouped and must be preceded by a dash.</li>
+<li>BSD options, which may be grouped and must not be used with a dash.</li>
+<li>GNU long options, which are preceded by two dashes.</li>
+</ol>
+<p>Options of different types may be freely mixed, but conflicts can
+appear. There are some synonymous options, which are functionally
+identical, due to the many standards and <strong>ps</strong> implementations that this
+<strong>ps</strong> is compatible with.</p>
+<p>
+Note that <strong>ps -aux</strong> is distinct from <strong>ps aux</strong>. The POSIX and UNIX
+standards require that <strong>ps -aux</strong> print all processes owned by a user
+named <em>x</em>, as well as printing all processes that would be selected by
+the <strong>-a</strong> option. If the user named <em>x</em> does not exist, this <strong>ps</strong> may
+interpret the command as <strong>ps aux</strong> instead and print a warning. This
+behavior is intended to aid in transitioning old scripts and habits. It
+is fragile, subject to change, and thus should not be relied upon.</p>
+<p>
+By default, <strong>ps</strong> selects all processes with the same effective user ID
+(euid=EUID) as the current user and associated with the same terminal as
+the invoker. It displays the process ID (pid=PID), the terminal
+associated with the process (tname=TTY), the cumulated CPU time in
+[DD-]hh:mm:ss format (time=TIME), and the executable name (ucmd=CMD).
+Output is unsorted by default.</p>
+<p>
+The use of BSD-style options will add process state (stat=STAT) to the
+default display and show the command args (args=COMMAND) instead of the
+executable name. You can override this with the <strong>PS_FORMAT</strong> environment
+variable. The use of BSD-style options will also change the process
+selection to include processes on other terminals (TTYs) that are owned
+by you; alternately, this may be described as setting the selection to
+be the set of all processes filtered to exclude processes owned by other
+users or not on a terminal. These effects are not considered when
+options are described as being &#34;identical&#34; below, so <strong>-M</strong> will be
+considered identical to <strong>Z</strong> and so on.</p>
+<p>
+Except as described below, process selection options are additive. The
+default selection is discarded, and then the selected processes are
+added to the set of processes to be displayed. A process will thus be
+shown if it meets any of the given selection criteria.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+To see every process on the system using standard syntax:
+</dt>
+<dd><strong>ps -e</strong><br>
+<strong>ps -ef</strong><br>
+<strong>ps -eF</strong><br>
+<strong>ps -ely</strong></dd>
+<dt>
+To see every process on the system using BSD syntax:
+</dt>
+<dd><strong>ps ax</strong><br>
+<strong>ps axu</strong></dd>
+<dt>
+To print a process tree:
+</dt>
+<dd><strong>ps -ejH</strong><br>
+<strong>ps axjf</strong></dd>
+<dt>
+To get info about threads:
+</dt>
+<dd><strong>ps -eLf</strong><br>
+<strong>ps axms</strong></dd>
+<dt>
+To get security info:
+</dt>
+<dd><strong>ps -eo
+euser,ruser,suser,fuser,f,comm,label</strong><br>
+<strong>ps axZ</strong><br>
+<strong>ps -eM</strong></dd>
+<dt>
+?
+</dt>
+<dd>To see every process running as root (real &amp; effective ID) in user
+format: :: <strong>ps -U root -u root u</strong></dd>
+<dt>
+To see every process with a user-defined format:
+</dt>
+<dd><strong>ps -eo
+pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:14,comm</strong><br>
+<strong>ps axo stat,euid,ruid,tty,tpgid,sess,pgrp,ppid,pid,pcpu,comm</strong><br>
+<strong>ps -Ao pid,tt,user,fname,tmout,f,wchan</strong></dd>
+<dt>
+Print only the process IDs of syslogd:
+</dt>
+<dd><strong>ps -C syslogd -o pid=</strong></dd>
+<dt>
+Print only the name of PID 42:
+</dt>
+<dd><strong>ps -q 42 -o comm=</strong></dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SIMPLE PROCESS SELECTION
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+<strong>a</strong>
+</dt>
+<dd>Lift the BSD-style &#34;only yourself&#34; restriction, which is
+imposed upon the set of all processes when some BSD-style (without
+&#34;-&#34;) options are used or when the <strong>ps</strong> personality setting is
+BSD-like. The set of processes selected in this manner is in addition
+to the set of processes selected by other means. An alternate
+description is that this option causes <strong>ps</strong> to list all processes with
+a terminal (tty), or to list all processes when used together with the
+<strong>x</strong> option.</dd>
+<dt>
+<strong>-A</strong>
+</dt>
+<dd>Select all processes. Identical to <strong>-e</strong>.</dd>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>Select all processes except both session leaders (see
+/getsid/(2)) and processes not associated with a terminal.</dd>
+<dt>
+<strong>-d</strong>
+</dt>
+<dd>Select all processes except session leaders.</dd>
+<dt>
+<strong>–deselect</strong>
+</dt>
+<dd>Select all processes except those that fulfill the
+specified conditions (negates the selection). Identical to <strong>-N</strong>.</dd>
+<dt>
+<strong>-e</strong>
+</dt>
+<dd>Select all processes. Identical to <strong>-A</strong>.</dd>
+<dt>
+<strong>g</strong>
+</dt>
+<dd>Really all, even session leaders. This flag is obsolete and may
+be discontinued in a future release. It is normally implied by the <strong>a</strong>
+flag, and is only useful when operating in the sunos4 personality.</dd>
+<dt>
+<strong>-N</strong>
+</dt>
+<dd>Select all processes except those that fulfill the specified
+conditions (negates the selection). Identical to <strong>–deselect</strong>.</dd>
+<dt>
+<strong>T</strong>
+</dt>
+<dd>Select all processes associated with this terminal. Identical
+to the <strong>t</strong> option without any argument.</dd>
+<dt>
+<strong>r</strong>
+</dt>
+<dd>Restrict the selection to only running processes.</dd>
+<dt>
+<strong>x</strong>
+</dt>
+<dd>Lift the BSD-style &#34;must have a tty&#34; restriction, which is
+imposed upon the set of all processes when some BSD-style (without
+&#34;-&#34;) options are used or when the <strong>ps</strong> personality setting is
+BSD-like. The set of processes selected in this manner is in addition
+to the set of processes selected by other means. An alternate
+description is that this option causes <strong>ps</strong> to list all processes
+owned by you (same EUID as <strong>ps</strong>), or to list all processes when used
+together with the <strong>a</strong> option.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+PROCESS SELECTION BY LIST
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>These options accept a single argument in the form of a blank-separated
+or comma-separated list. They can be used multiple times. For example:
+<strong>ps -p &#34;1 2&#34; -p 3,4</strong></p>
+<dl>
+<dt>
+-<em>123</em>
+</dt>
+<dd>Identical to <strong>–pid */123/</strong>.*</dd>
+<dt>
+<em>123</em>
+</dt>
+<dd>Identical to <strong>–pid */123/</strong>.*</dd>
+<dt>
+*-C*/ cmdlist/
+</dt>
+<dd>Select by command name. This selects the processes
+whose executable name is given in <em>cmdlist</em>. NOTE: The command name is
+not the same as the command line. Previous versions of procps and the
+kernel truncated this command name to 15 characters. This limitation
+is no longer present in both. If you depended on matching only 15
+characters, you may no longer get a match.</dd>
+<dt>
+*-G*/ grplist/
+</dt>
+<dd>Select by real group ID (RGID) or name. This selects
+the processes whose real group name or ID is in the <em>grplist</em> list.
+The real group ID identifies the group of the user who created the
+process, see /getgid/(2).</dd>
+<dt>
+*-g*/ grplist/
+</dt>
+<dd>Select by session OR by effective group name.
+Selection by session is specified by many standards, but selection by
+effective group is the logical behavior that several other operating
+systems use. This <strong>ps</strong> will select by session when the list is
+completely numeric (as sessions are). Group ID numbers will work only
+when some group names are also specified. See the <strong>-s</strong> and <strong>–group</strong>
+options.</dd>
+<dt>
+*–Group*/ grplist/
+</dt>
+<dd>Select by real group ID (RGID) or name.
+Identical to <strong>-G</strong>.</dd>
+<dt>
+*–group*/ grplist/
+</dt>
+<dd>Select by effective group ID (EGID) or name.
+This selects the processes whose effective group name or ID is in
+<em>grplist</em>. The effective group ID describes the group whose file
+access permissions are used by the process (see /getegid/(2)). The
+<strong>-g</strong> option is often an alternative to <strong>–group</strong>.</dd>
+<dt>
+*p*/ pidlist/
+</dt>
+<dd>Select by process ID. Identical to <strong>-p</strong> and <strong>–pid</strong>.</dd>
+<dt>
+*-p*/ pidlist/
+</dt>
+<dd>Select by PID. This selects the processes whose
+process ID numbers appear in <em>pidlist</em>. Identical to <strong>p</strong> and <strong>–pid</strong>.</dd>
+<dt>
+*–pid*/ pidlist/
+</dt>
+<dd>Select by process ID. Identical to <strong>-p</strong> and <strong>p</strong>.</dd>
+<dt>
+*–ppid*/ pidlist/
+</dt>
+<dd>Select by parent process ID. This selects the
+processes with a parent process ID in <em>pidlist</em>. That is, it selects
+processes that are children of those listed in <em>pidlist</em>.</dd>
+<dt>
+*q*/ pidlist/
+</dt>
+<dd>Select by process ID (quick mode). Identical to <strong>-q</strong>
+and <strong>–quick-pid</strong>.</dd>
+<dt>
+*-q*/ pidlist/
+</dt>
+<dd>Select by PID (quick mode). This selects the
+processes whose process ID numbers appear in <em>pidlist</em>. With this
+option <strong>ps</strong> reads the necessary info only for the pids listed in the
+<em>pidlist</em> and doesn&#39;t apply additional filtering rules. The order of
+pids is unsorted and preserved. No additional selection options,
+sorting and forest type listings are allowed in this mode. Identical
+to <strong>q</strong> and <strong>–quick-pid</strong>.</dd>
+<dt>
+*–quick-pid*/ pidlist/
+</dt>
+<dd>Select by process ID (quick mode).
+Identical to <strong>-q</strong> and <strong>q</strong>.</dd>
+<dt>
+*-s*/ sesslist/
+</dt>
+<dd>Select by session ID. This selects the processes
+with a session ID specified in <em>sesslist</em>.</dd>
+<dt>
+*–sid*/ sesslist/
+</dt>
+<dd>Select by session ID. Identical to <strong>-s</strong>.</dd>
+<dt>
+*t*/ ttylist/
+</dt>
+<dd>Select by tty. Nearly identical to <strong>-t</strong> and <strong>–tty</strong>,
+but can also be used with an empty <em>ttylist</em> to indicate the terminal
+associated with <strong>ps</strong>. Using the <strong>T</strong> option is considered cleaner than
+using <strong>t</strong> with an empty <em>ttylist</em>.</dd>
+<dt>
+*-t*/ ttylist/
+</dt>
+<dd>Select by tty. This selects the processes associated
+with the terminals given in <em>ttylist</em>. Terminals (ttys, or screens for
+text output) can be specified in several forms: /dev/ttyS1, ttyS1, S1.
+A plain &#34;-&#34; may be used to select processes not attached to any
+terminal.</dd>
+<dt>
+*–tty*/ ttylist/
+</dt>
+<dd>Select by terminal. Identical to <strong>-t</strong> and <strong>t</strong>.</dd>
+<dt>
+*U*/ userlist/
+</dt>
+<dd>Select by effective user ID (EUID) or name. This
+selects the processes whose effective user name or ID is in
+<em>userlist</em>. The effective user ID describes the user whose file access
+permissions are used by the process (see /geteuid/(2)). Identical to
+<strong>-u</strong> and <strong>–user</strong>.</dd>
+<dt>
+*-U*/ userlist/
+</dt>
+<dd>Select by real user ID (RUID) or name. It selects
+the processes whose real user name or ID is in the <em>userlist</em> list.
+The real user ID identifies the user who created the process, see
+/getuid/(2).</dd>
+<dt>
+*-u*/ userlist/
+</dt>
+<dd>Select by effective user ID (EUID) or name. This
+selects the processes whose effective user name or ID is in
+<em>userlist</em>.
+
+The effective user ID describes the user whose file access permissions
+are used by the process (see /geteuid/(2)). Identical to <strong>U</strong> and
+<strong>–user</strong>.</dd>
+<dt>
+*–User*/ userlist/
+</dt>
+<dd>Select by real user ID (RUID) or name.
+Identical to <strong>-U</strong>.</dd>
+<dt>
+*–user*/ userlist/
+</dt>
+<dd>Select by effective user ID (EUID) or name.
+Identical to <strong>-u</strong> and <strong>U</strong>.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+OUTPUT FORMAT CONTROL
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>These options are used to choose the information displayed by <strong>ps</strong>. The
+output may differ by personality.</p>
+<dl>
+<dt>
+<strong>-c</strong>
+</dt>
+<dd>Show different scheduler information for the <strong>-l</strong> option.</dd>
+<dt>
+<strong>–context</strong>
+</dt>
+<dd>Display security context format (for SELinux).</dd>
+<dt>
+<strong>-f</strong>
+</dt>
+<dd>Do full-format listing. This option can be combined with many
+other UNIX-style options to add additional columns. It also causes the
+command arguments to be printed. When used with <strong>-L</strong>, the NLWP (number
+of threads) and LWP (thread ID) columns will be added. See the <strong>c</strong>
+option, the format keyword <strong>args</strong>, and the format keyword <strong>comm</strong>.</dd>
+<dt>
+<strong>-F</strong>
+</dt>
+<dd>Extra full format. See the <strong>-f</strong> option, which <strong>-F</strong> implies.</dd>
+<dt>
+*–format*/ format/
+</dt>
+<dd>user-defined format. Identical to <strong>-o</strong> and <strong>o</strong>.</dd>
+<dt>
+<strong>j</strong>
+</dt>
+<dd>BSD job control format.</dd>
+<dt>
+<strong>-j</strong>
+</dt>
+<dd>Jobs format.</dd>
+<dt>
+<strong>l</strong>
+</dt>
+<dd>Display BSD long format.</dd>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>Long format. The <strong>-y</strong> option is often useful with this.</dd>
+<dt>
+<strong>-M</strong>
+</dt>
+<dd>Add a column of security data. Identical to <strong>Z</strong> (for SELinux).</dd>
+<dt>
+*O*/ format/
+</dt>
+<dd>is preloaded <strong>o</strong> (overloaded). The BSD <strong>O</strong> option can
+act like <strong>-O</strong> (user-defined output format with some common fields
+predefined) or can be used to specify sort order. Heuristics are used
+to determine the behavior of this option. To ensure that the desired
+behavior is obtained (sorting or formatting), specify the option in
+some other way (e.g. with <strong>-O</strong> or <strong>–sort</strong>). When used as a formatting
+option, it is identical to <strong>-O</strong>, with the BSD personality.</dd>
+<dt>
+*-O*/ format/
+</dt>
+<dd>Like <strong>-o</strong>, but preloaded with some default columns.
+Identical to <strong>-o pid,*/format/</strong>,state,tname,time,command* or <strong>-o
+pid,*/format/</strong>,tname,time,cmd*/,/ see <strong>-o</strong> below.</dd>
+<dt>
+*o*/ format/
+</dt>
+<dd>Specify user-defined format. Identical to <strong>-o</strong> and
+<strong>–format</strong>.</dd>
+<dt>
+*-o*/ format/
+</dt>
+<dd>User-defined format. <em>format</em> is a single argument in
+the form of a blank-separated or comma-separated list, which offers a
+way to specify individual output columns. The recognized keywords are
+described in the <strong>STANDARD FORMAT SPECIFIERS</strong> section below. Headers
+may be renamed (<strong>ps -o pid,ruser=RealUser -o comm=Command</strong>) as
+desired. If all column headers are empty (<strong>ps -o pid= -o comm=</strong>) then
+the header line will not be output. Column width will increase as
+needed for wide headers; this may be used to widen up columns such as
+WCHAN (<strong>ps -o pid,wchan=WIDE-WCHAN-COLUMN -o comm</strong>). Explicit width
+control (<strong>ps opid,wchan:42,cmd</strong>) is offered too. The behavior of <strong>ps
+-o pid=X,comm=Y</strong> varies with personality; output may be one column
+named &#34;X,comm=Y&#34; or two columns named &#34;X&#34; and &#34;Y&#34;. Use multiple <strong>-o</strong>
+options when in doubt. Use the <strong>PS_FORMAT</strong> environment variable to
+specify a default as desired; DefSysV and DefBSD are macros that may
+be used to choose the default UNIX or BSD columns.</dd>
+<dt>
+<strong>s</strong>
+</dt>
+<dd>Display signal format.</dd>
+<dt>
+<strong>u</strong>
+</dt>
+<dd>Display user-oriented format.</dd>
+<dt>
+<strong>v</strong>
+</dt>
+<dd>Display virtual memory format.</dd>
+<dt>
+<strong>X</strong>
+</dt>
+<dd>Register format.</dd>
+<dt>
+<strong>-y</strong>
+</dt>
+<dd>Do not show flags; show rss in place of addr. This option can
+only be used with <strong>-l</strong>.</dd>
+<dt>
+<strong>Z</strong>
+</dt>
+<dd>Add a column of security data. Identical to <strong>-M</strong> (for SELinux).</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+OUTPUT MODIFIERS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<dl>
+<dt>
+<strong>c</strong>
+</dt>
+<dd>Show the true command name. This is derived from the name of
+the executable file, rather than from the argv value. Command
+arguments and any modifications to them are thus not shown. This
+option effectively turns the <strong>args</strong> format keyword into the <strong>comm</strong>
+format keyword; it is useful with the <strong>-f</strong> format option and with the
+various BSD-style format options, which all normally display the
+command arguments. See the <strong>-f</strong> option, the format keyword <strong>args</strong>, and
+the format keyword <strong>comm</strong>.</dd>
+<dt>
+*–cols*/ n/
+</dt>
+<dd>Set screen width.</dd>
+<dt>
+*–columns*/ n/
+</dt>
+<dd>Set screen width.</dd>
+<dt>
+<strong>–cumulative</strong>
+</dt>
+<dd>Include some dead child process data (as a sum with
+the parent).</dd>
+<dt>
+<strong>e</strong>
+</dt>
+<dd>Show the environment after the command.</dd>
+<dt>
+<strong>f</strong>
+</dt>
+<dd>ASCII art process hierarchy (forest).</dd>
+<dt>
+<strong>–forest</strong>
+</dt>
+<dd>ASCII art process tree.</dd>
+<dt>
+<strong>h</strong>
+</dt>
+<dd>No header. (or, one header per screen in the BSD personality).
+The <strong>h</strong> option is problematic. Standard BSD <strong>ps</strong> uses this option to
+print a header on each page of output, but older Linux <strong>ps</strong> uses this
+option to totally disable the header. This version of <strong>ps</strong> follows the
+Linux usage of not printing the header unless the BSD personality has
+been selected, in which case it prints a header on each page of
+output. Regardless of the current personality, you can use the long
+options <strong>–headers</strong> and <strong>–no-headers</strong> to enable printing headers each
+page or disable headers entirely, respectively.</dd>
+<dt>
+<strong>-H</strong>
+</dt>
+<dd>Show process hierarchy (forest).</dd>
+<dt>
+<strong>–headers</strong>
+</dt>
+<dd>Repeat header lines, one per page of output.</dd>
+<dt>
+*k*/ spec/
+</dt>
+<dd>
+<p>Specify sorting order. Sorting syntax is [*+*|*-<strong>] <em>key</em>
+[,[*+*|</strong>-<strong>] <em>key</em>[,…]]. Choose a multi-letter key from the *STANDARD
+FORMAT SPECIFIERS</strong> section. The &#34;+&#34; is optional since default
+direction is increasing numerical or lexicographic order. Identical to
+<strong>–sort</strong>.</p>
+<blockquote>
+<p>Examples:<br>
+<strong>ps jaxkuid,-ppid,+pid</strong><br>
+<strong>ps axk comm o comm,args</strong><br>
+<strong>ps kstart_time -ef</strong></p>
+</blockquote>
+</dd>
+<dt>
+*–lines*/ n/
+</dt>
+<dd>Set screen height.</dd>
+<dt>
+<strong>n</strong>
+</dt>
+<dd>Numeric output for WCHAN and USER (including all types of UID
+and GID).</dd>
+<dt>
+<strong>–no-headers</strong>
+</dt>
+<dd>Print no header line at all. <strong>–no-heading</strong> is an
+alias for this option.</dd>
+<dt>
+*O*/ order/
+</dt>
+<dd>Sorting order (overloaded). The BSD <strong>O</strong> option can act
+like <strong>-O</strong> (user-defined output format with some common fields
+predefined) or can be used to specify sort order. Heuristics are used
+to determine the behavior of this option. To ensure that the desired
+behavior is obtained (sorting or formatting), specify the option in
+some other way (e.g. with <strong>-O</strong> or <strong>–sort</strong>).
+
+For sorting, obsolete BSD <strong>O</strong> option syntax is <strong>O</strong>[*+*|*-<strong>] <em>k1</em>[,[
+*+*|</strong>-*] <em>k2</em>[,…]]. It orders the processes listing according to the
+multilevel sort specified by the sequence of one-letter short keys
+<em>k1</em>,/k2/, … described in the <strong>OBSOLETE SORT KEYS</strong> section below.
+The &#34;+&#34; is currently optional, merely re-iterating the default
+direction on a key, but may help to distinguish an <strong>O</strong> sort from an
+<strong>O</strong> format. The &#34;-&#34; reverses direction only on the key it precedes.</dd>
+<dt>
+*–rows*/ n/
+</dt>
+<dd>Set screen height.</dd>
+<dt>
+<strong>S</strong>
+</dt>
+<dd>Sum up some information, such as CPU usage, from dead child
+processes into their parent. This is useful for examining a system
+where a parent process repeatedly forks off short-lived children to do
+work.</dd>
+<dt>
+*–sort*/ spec/
+</dt>
+<dd>Specify sorting order. Sorting syntax is [/+/|/-<em>]
+/key</em>[,[ <strong>+*|</strong>-<strong>] <em>key</em>[,…]]. Choose a multi-letter key from the
+*STANDARD FORMAT SPECIFIERS</strong> section. The &#34;+&#34; is optional since
+default direction is increasing numerical or lexicographic order.
+Identical to <strong>k</strong>. For example: <strong>ps jax –sort=uid,-ppid,+pid</strong></dd>
+<dt>
+<strong>w</strong>
+</dt>
+<dd>Wide output. Use this option twice for unlimited width.</dd>
+<dt>
+<strong>-w</strong>
+</dt>
+<dd>Wide output. Use this option twice for unlimited width.</dd>
+<dt>
+*–width*/ n/
+</dt>
+<dd>Set screen width.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+THREAD DISPLAY
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<dl>
+<dt>
+<strong>H</strong>
+</dt>
+<dd>Show threads as if they were processes.</dd>
+<dt>
+<strong>-L</strong>
+</dt>
+<dd>Show threads, possibly with LWP and NLWP columns.</dd>
+<dt>
+<strong>m</strong>
+</dt>
+<dd>Show threads after processes.</dd>
+<dt>
+<strong>-m</strong>
+</dt>
+<dd>Show threads after processes.</dd>
+<dt>
+<strong>-T</strong>
+</dt>
+<dd>Show threads, possibly with SPID column.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+OTHER INFORMATION
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<dl>
+<dt>
+*–help*/ section/
+</dt>
+<dd>Print a help message. The <em>section</em> argument can
+be one of /s/imple, /l/ist, /o/utput, /t/hreads, /m/isc, or /a/ll. The
+argument can be shortened to one of the underlined letters as in:
+s | l | o | t | m | a.</dd>
+<dt>
+<strong>–info</strong>
+</dt>
+<dd>Print debugging info.</dd>
+<dt>
+<strong>L</strong>
+</dt>
+<dd>List all format specifiers.</dd>
+<dt>
+<strong>V</strong>
+</dt>
+<dd>Print the procps-ng version.</dd>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>Print the procps-ng version.</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>Print the procps-ng version.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+NOTES
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>This <strong>ps</strong> works by reading the virtual files in /proc. This <strong>ps</strong> does
+not need to be setuid kmem or have any privileges to run. Do not give
+this <strong>ps</strong> any special permissions.</p>
+<p>
+CPU usage is currently expressed as the percentage of time spent running
+during the entire lifetime of a process. This is not ideal, and it does
+not conform to the standards that <strong>ps</strong> otherwise conforms to. CPU usage
+is unlikely to add up to exactly 100%.</p>
+<p>
+The SIZE and RSS fields don&#39;t count some parts of a process including
+the page tables, kernel stack, struct thread_info, and struct
+task_struct. This is usually at least 20 KiB of memory that is always
+resident. SIZE is the virtual size of the process (code+data+stack).</p>
+<p>
+Processes marked &lt;defunct&gt; are dead processes (so-called &#34;zombies&#34;) that
+remain because their parent has not destroyed them properly. These
+processes will be destroyed by /init/(8) if the parent process exits.</p>
+<p>
+If the length of the username is greater than the length of the display
+column, the username will be truncated. See the <strong>-o</strong> and <strong>-O</strong> formatting
+options to customize length.</p>
+<p>
+Commands options such as <strong>ps -aux</strong> are not recommended as it is a
+confusion of two different standards. According to the POSIX and UNIX
+standards, the above command asks to display all processes with a TTY
+(generally the commands users are running) plus all processes owned by a
+user named <em>x</em>. If that user doesn&#39;t exist, then <strong>ps</strong> will assume you
+really meant <strong>ps aux</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+PROCESS FLAGS
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>The sum of these values is displayed in the &#34;F&#34; column, which is
+provided by the <strong>flags</strong> output specifier:</p>
+<blockquote>
+<dl>
+<dt>
+1
+</dt>
+<dd>forked but didn&#39;t exec</dd>
+<dt>
+4
+</dt>
+<dd>used super-user privileges</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+PROCESS STATE CODES
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>Here are the different values that the <strong>s</strong>, <strong>stat</strong> and <strong>state</strong> output
+specifiers (header &#34;STAT&#34; or &#34;S&#34;) will display to describe the state of
+a process:</p>
+<blockquote>
+<dl>
+<dt>
+D
+</dt>
+<dd>uninterruptible sleep (usually IO)</dd>
+<dt>
+I
+</dt>
+<dd>Idle kernel thread</dd>
+<dt>
+R
+</dt>
+<dd>running or runnable (on run queue)</dd>
+<dt>
+S
+</dt>
+<dd>interruptible sleep (waiting for an event to complete)</dd>
+<dt>
+T
+</dt>
+<dd>stopped by job control signal</dd>
+<dt>
+t
+</dt>
+<dd>stopped by debugger during the tracing</dd>
+<dt>
+W
+</dt>
+<dd>paging (not valid since the 2.6.xx kernel)</dd>
+<dt>
+X
+</dt>
+<dd>dead (should never be seen)</dd>
+<dt>
+Z
+</dt>
+<dd>defunct (&#34;zombie&#34;) process, terminated but not reaped by its
+parent</dd>
+</dl>
+</blockquote>
+<p>
+For BSD formats and when the <strong>stat</strong> keyword is used, additional
+characters may be displayed:</p>
+<blockquote>
+<dl>
+<dt>
+&lt;
+</dt>
+<dd>high-priority (not nice to other users)</dd>
+<dt>
+N
+</dt>
+<dd>low-priority (nice to other users)</dd>
+<dt>
+L
+</dt>
+<dd>has pages locked into memory (for real-time and custom IO)</dd>
+<dt>
+s
+</dt>
+<dd>is a session leader</dd>
+<dt>
+l
+</dt>
+<dd>is multi-threaded (using CLONE_THREAD, like NPTL pthreads do)</dd>
+<dt>
++
+</dt>
+<dd>is in the foreground process group</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+OBSOLETE SORT KEYS
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>These keys are used by the BSD <strong>O</strong> option (when it is used for sorting).
+The GNU <strong>–sort</strong> option doesn&#39;t use these keys, but the specifiers
+described below in the <strong>STANDARD FORMAT SPECIFIERS</strong> section. Note that
+the values used in sorting are the internal values <strong>ps</strong> uses and not the
+&#34;cooked&#34; values used in some of the output format fields (e.g. sorting
+on tty will sort into device number, not according to the terminal name
+displayed). Pipe <strong>ps</strong> output into the *sort*(1) command if you want to
+sort the cooked values.</p>
+<table>
+<tbody>
+<tr>
+<td><strong>KEY</strong></td>
+<td>LONG</td>
+<td>DESCRIPTION</td>
+</tr>
+<tr>
+<td>c</td>
+<td>cmd</td>
+<td>simple name of executable</td>
+</tr>
+<tr>
+<td>C</td>
+<td>pcpu</td>
+<td>cpu utilization</td>
+</tr>
+<tr>
+<td>f</td>
+<td>flags</td>
+<td>flags as in long format F field</td>
+</tr>
+<tr>
+<td>g</td>
+<td>pgrp</td>
+<td>process group ID</td>
+</tr>
+<tr>
+<td>G</td>
+<td>tpgid</td>
+<td>controlling tty process group ID</td>
+</tr>
+<tr>
+<td>j</td>
+<td>cutime</td>
+<td>cumulative user time</td>
+</tr>
+<tr>
+<td>J</td>
+<td>cstime</td>
+<td>cumulative system time</td>
+</tr>
+<tr>
+<td>k</td>
+<td>utime</td>
+<td>user time</td>
+</tr>
+<tr>
+<td>m</td>
+<td>min_flt</td>
+<td>number of minor page faults</td>
+</tr>
+<tr>
+<td>M</td>
+<td>maj_flt</td>
+<td>number of major page faults</td>
+</tr>
+<tr>
+<td>n</td>
+<td>cmin_flt</td>
+<td>cumulative minor page faults</td>
+</tr>
+<tr>
+<td>N</td>
+<td>cmaj_flt</td>
+<td>cumulative major page faults</td>
+</tr>
+<tr>
+<td>o</td>
+<td>session</td>
+<td>session ID</td>
+</tr>
+<tr>
+<td>p</td>
+<td>pid</td>
+<td>process ID</td>
+</tr>
+<tr>
+<td>P</td>
+<td>ppid</td>
+<td>parent process ID</td>
+</tr>
+<tr>
+<td>r</td>
+<td>rss</td>
+<td>resident set size</td>
+</tr>
+<tr>
+<td>R</td>
+<td>resident</td>
+<td>resident pages</td>
+</tr>
+<tr>
+<td>s</td>
+<td>size</td>
+<td>memory size in kilobytes</td>
+</tr>
+<tr>
+<td>S</td>
+<td>share</td>
+<td>amount of shared pages</td>
+</tr>
+<tr>
+<td>t</td>
+<td>tty</td>
+<td>the device number of the controlling tty</td>
+</tr>
+<tr>
+<td>T</td>
+<td>start_time</td>
+<td>time process was started</td>
+</tr>
+<tr>
+<td>U</td>
+<td>uid</td>
+<td>user ID number</td>
+</tr>
+<tr>
+<td>u</td>
+<td>user</td>
+<td>user name</td>
+</tr>
+<tr>
+<td>v</td>
+<td>vsize</td>
+<td>total VM size in KiB</td>
+</tr>
+<tr>
+<td>y</td>
+<td>priority</td>
+<td>kernel scheduling priority</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+AIX FORMAT DESCRIPTORS
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>This <strong>ps</strong> supports AIX format descriptors, which work somewhat like the
+formatting codes of /printf/(1) and /printf/(3). For example, the normal
+default output can be produced with this: <strong>ps -eo &#34;%p %y %x %c&#34;.</strong> The
+<strong>NORMAL</strong> codes are described in the next section.</p>
+<table>
+<tbody>
+<tr>
+<td><strong>CODE</strong></td>
+<td>NORMAL</td>
+<td>HEADER</td>
+</tr>
+<tr>
+<td>%C</td>
+<td>pcpu</td>
+<td>%CPU</td>
+</tr>
+<tr>
+<td>%G</td>
+<td>group</td>
+<td>GROUP</td>
+</tr>
+<tr>
+<td>%P</td>
+<td>ppid</td>
+<td>PPID</td>
+</tr>
+<tr>
+<td>%U</td>
+<td>user</td>
+<td>USER</td>
+</tr>
+<tr>
+<td>%a</td>
+<td>args</td>
+<td>COMMAND</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>comm</td>
+<td>COMMAND</td>
+</tr>
+<tr>
+<td>%g</td>
+<td>rgroup</td>
+<td>RGROUP</td>
+</tr>
+<tr>
+<td>%n</td>
+<td>nice</td>
+<td>NI</td>
+</tr>
+<tr>
+<td>%p</td>
+<td>pid</td>
+<td>PID</td>
+</tr>
+<tr>
+<td>%r</td>
+<td>pgid</td>
+<td>PGID</td>
+</tr>
+<tr>
+<td>%t</td>
+<td>etime</td>
+<td>ELAPSED</td>
+</tr>
+<tr>
+<td>%u</td>
+<td>ruser</td>
+<td>RUSER</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>time</td>
+<td>TIME</td>
+</tr>
+<tr>
+<td>%y</td>
+<td>tty</td>
+<td>TTY</td>
+</tr>
+<tr>
+<td>%z</td>
+<td>vsz</td>
+<td>VSZ</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+STANDARD FORMAT SPECIFIERS
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>Here are the different keywords that may be used to control the output
+format (e.g., with option <strong>-o</strong>) or to sort the selected processes with
+the GNU-style <strong>–sort</strong> option.</p>
+<p>
+For example: <strong>ps -eo pid,user,args –sort user</strong></p>
+<p>
+This version of <strong>ps</strong> tries to recognize most of the keywords used in
+other implementations of <strong>ps</strong>.</p>
+<p>
+The following user-defined format specifiers may contain spaces: <strong>args</strong>,
+<strong>cmd</strong>, <strong>comm</strong>, <strong>command</strong>, <strong>fname</strong>, <strong>ucmd</strong>, <strong>ucomm</strong>, <strong>lstart</strong>,
+<strong>bsdstart</strong>, <strong>start</strong>.</p>
+<p>
+Some keywords may not be available for sorting.</p>
+<table>
+<tbody>
+<tr>
+<td>CODE</td>
+<td>HEADER</td>
+<td>DESCRIPTION</td>
+</tr>
+<tr>
+<td>%cpu</td>
+<td>%CPU</td>
+<td>cpu utilization of the process in &#34;##.#&#34; format. Currently, it is the CPU time used divided by the time the process has been running (cputime/realtime ratio), expressed as a percentage. It will not add up to 100% unless you are lucky. (alias <strong>pcpu</strong>).</td>
+</tr>
+<tr>
+<td>%mem</td>
+<td>%MEM</td>
+<td>ratio of the process&#39;s resident set size to the physical memory on the machine, expressed as a percentage. (alias <strong>pmem</strong>).</td>
+</tr>
+<tr>
+<td>args</td>
+<td>COMMAND</td>
+<td>command with all its arguments as a string. Modifications to the arguments may be shown. The output in this column may contain spaces. A process marked &lt;defunct&gt; is partly dead, waiting to be fully destroyed by its parent. Sometimes the process args will be unavailable; when this happens, <strong>ps</strong> will instead print the executable name in brackets. (alias <strong>cmd</strong>, <strong>command</strong>). See also the <strong>comm</strong> format keyword, the <strong>-f</strong> option, and the <strong>c</strong> option.\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>When specified last, this column will extend to the edge of the display. If <strong>ps</strong> can not determine display width, as when output is redirected (piped) into a file or another command, the output width is undefined (it may be 80, unlimited, determined by the <strong>TERM</strong> variable, and so on). The <strong>COLUMNS</strong> environment variable or <strong>–cols</strong> option may be used to exactly determine the width in this case. The <strong>w</strong> or <strong>-w</strong> option may be also be used to adjust width.</td>
+</tr>
+<tr>
+<td>blocked</td>
+<td>BLOCKED</td>
+<td>mask of the blocked signals, see /signal/(7). According to the width of the field, a 32 or 64-bit mask in hexadecimal format is displayed. (alias <strong>sig_block</strong>, <strong>sigmask</strong>).</td>
+</tr>
+<tr>
+<td>bsdstart</td>
+<td>START</td>
+<td>time the command started. If the process was started less than 24 hours ago, the output format is &#34; HH:MM&#34;, else it is &#34; Mmm:SS&#34; (where Mmm is the three letters of the month). See also <strong>lstart</strong>, <strong>start</strong>, <strong>start_time</strong>, and <strong>stime</strong>.</td>
+</tr>
+<tr>
+<td>bsdtime</td>
+<td>TIME</td>
+<td>accumulated cpu time, user + system. The display format is usually &#34;MMM:SS&#34;, but can be shifted to the right if the process used more than 999 minutes of cpu time.</td>
+</tr>
+<tr>
+<td>c</td>
+<td>C</td>
+<td>processor utilization. Currently, this is the integer value of the percent usage over the lifetime of the process. (see <strong>%cpu</strong>).</td>
+</tr>
+<tr>
+<td>caught</td>
+<td>CAUGHT</td>
+<td>mask of the caught signals, see /signal/(7). According to the width of the field, a 32 or 64 bits mask in hexadecimal format is displayed. (alias <strong>sig_catch</strong>, <strong>sigcatch</strong>).</td>
+</tr>
+<tr>
+<td>cgname</td>
+<td>CGNAME</td>
+<td>display name of control groups to which the process belongs.</td>
+</tr>
+<tr>
+<td>cgroup</td>
+<td>CGROUP</td>
+<td>display control groups to which the process belongs.</td>
+</tr>
+<tr>
+<td>class</td>
+<td>CLS</td>
+<td>scheduling class of the process. (alias <strong>policy</strong>, <strong>cls</strong>). Field&#39;s possible values are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- not reported\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>TS SCHED_OTHER\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>FF SCHED_FIFO\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>RR SCHED_RR\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>B SCHED_BATCH\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>ISO SCHED_ISO\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>IDL SCHED_IDLE\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>DLN SCHED_DEADLINE\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>? unknown value</td>
+</tr>
+<tr>
+<td>cls</td>
+<td>CLS</td>
+<td>scheduling class of the process. (alias <strong>policy</strong>, <strong>cls</strong>). Field&#39;s possible values are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- not reported\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>TS SCHED_OTHER\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>FF SCHED_FIFO\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>RR SCHED_RR\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>B SCHED_BATCH\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>ISO SCHED_ISO\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>IDL SCHED_IDLE\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>DLN SCHED_DEADLINE\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>? unknown value</td>
+</tr>
+<tr>
+<td>cmd</td>
+<td>CMD</td>
+<td>see <strong>args</strong>. (alias <strong>args</strong>, <strong>command</strong>).</td>
+</tr>
+<tr>
+<td>comm</td>
+<td>COMMAND</td>
+<td>command name (only the executable name). Modifications to the command name will not be shown. A process marked &lt;defunct&gt; is partly dead, waiting to be fully destroyed by its parent. The output in this column may contain spaces. (alias <strong>ucmd</strong>, <strong>ucomm</strong>). See also the <strong>args</strong> format keyword, the <strong>-f</strong> option, and the <strong>c</strong> option.\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>When specified last, this column will extend to the edge of the display. If <strong>ps</strong> can not determine display width, as when output is redirected (piped) into a file or another command, the output width is undefined (it may be 80, unlimited, determined by the <strong>TERM</strong> variable, and so on). The <strong>COLUMNS</strong> environment variable or <strong>–cols</strong> option may be used to exactly determine the width in this case. The <strong>w</strong> or* -w* option may be also be used to adjust width.</td>
+</tr>
+<tr>
+<td>command</td>
+<td>COMMAND</td>
+<td>See <strong>args</strong>. (alias <strong>args</strong>, <strong>command</strong>).</td>
+</tr>
+<tr>
+<td>cp</td>
+<td>CP</td>
+<td>per-mill (tenths of a percent) CPU usage. (see <strong>%cpu</strong>).</td>
+</tr>
+<tr>
+<td>cputime</td>
+<td>TIME</td>
+<td>cumulative CPU time, &#34;[DD-]hh:mm:ss&#34; format. (alias <strong>time</strong>).</td>
+</tr>
+<tr>
+<td>cputimes</td>
+<td>TIME</td>
+<td>cumulative CPU time in seconds (alias <strong>times</strong>).</td>
+</tr>
+<tr>
+<td>drs</td>
+<td>DRS</td>
+<td>data resident set size, the amount of physical memory devoted to other than executable code.</td>
+</tr>
+<tr>
+<td>egid</td>
+<td>EGID</td>
+<td>effective group ID number of the process as a decimal integer. (alias <strong>gid</strong>).</td>
+</tr>
+<tr>
+<td>egroup</td>
+<td>EGROUP</td>
+<td>effective group ID of the process. This will be the textual group ID, if it can be obtained and the field width permits, or a decimal representation otherwise. (alias <strong>group</strong>).</td>
+</tr>
+<tr>
+<td>eip</td>
+<td>EIP</td>
+<td>instruction pointer.</td>
+</tr>
+<tr>
+<td>esp</td>
+<td>ESP</td>
+<td>stack pointer.</td>
+</tr>
+<tr>
+<td>etime</td>
+<td>ELAPSED</td>
+<td>elapsed time since the process was started, in the form [[DD-]hh:]mm:ss.</td>
+</tr>
+<tr>
+<td>etimes</td>
+<td>ELAPSED</td>
+<td>elapsed time since the process was started, in seconds.</td>
+</tr>
+<tr>
+<td>euid</td>
+<td>EUID</td>
+<td>effective user ID (alias <strong>uid</strong>).</td>
+</tr>
+<tr>
+<td>euser</td>
+<td>EUSER</td>
+<td>effective user name. This will be the textual user ID, if it can be obtained and the field width permits, or a decimal representation otherwise. The <strong>n</strong> option can be used to force the decimal representation. (alias <strong>uname</strong>, <strong>user</strong>).</td>
+</tr>
+<tr>
+<td>exe</td>
+<td>EXE</td>
+<td>path to the executable. Useful if path cannot be printed via <strong>cmd</strong>, <strong>comm</strong> or <strong>args</strong> format options.</td>
+</tr>
+<tr>
+<td>f</td>
+<td>F</td>
+<td>flags associated with the process, see the <strong>PROCESS FLAGS</strong> section. (alias <strong>flag</strong>, <strong>flags</strong>).</td>
+</tr>
+<tr>
+<td>fgid</td>
+<td>FGID</td>
+<td>filesystem access group ID. (alias <strong>fsgid</strong>).</td>
+</tr>
+<tr>
+<td>fgroup</td>
+<td>FGROUP</td>
+<td>filesystem access group ID. This will be the textual group ID, if it can be obtained and the field width permits, or a decimal representation otherwise. (alias <strong>fsgroup</strong>).</td>
+</tr>
+<tr>
+<td>flag</td>
+<td>F</td>
+<td>see <strong>f</strong>. (alias <strong>f</strong>, <strong>flags</strong>).</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>F</td>
+<td>see <strong>f</strong>. (alias <strong>f</strong>, <strong>flag</strong>).</td>
+</tr>
+<tr>
+<td>fname</td>
+<td>COMMAND</td>
+<td>first 8 bytes of the base name of the process&#39;s executable file. The output in this column may contain spaces.</td>
+</tr>
+<tr>
+<td>fuid</td>
+<td>FUID</td>
+<td>filesystem access user ID. (alias <strong>fsuid</strong>).</td>
+</tr>
+<tr>
+<td>fuser</td>
+<td>FUSER</td>
+<td>filesystem access user ID. This will be the textual user ID, if it can be obtained and the field width permits, or a decimal representation otherwise.</td>
+</tr>
+<tr>
+<td>gid</td>
+<td>GID</td>
+<td>see <strong>egid</strong>. (alias <strong>egid</strong>).</td>
+</tr>
+<tr>
+<td>group</td>
+<td>GROUP</td>
+<td>see <strong>egroup</strong>. (alias <strong>egroup</strong>).</td>
+</tr>
+<tr>
+<td>ignored</td>
+<td>IGNORED</td>
+<td>mask of the ignored signals, see /signal/(7). According to the width of the field, a 32 or 64 bits mask in hexadecimal format is displayed. (alias <strong>sig_ignore</strong>, <strong>sigignore</strong>).</td>
+</tr>
+<tr>
+<td>ipcns</td>
+<td>IPCNS</td>
+<td>Unique inode number describing the namespace the process belongs to. See /namespaces/(7).</td>
+</tr>
+<tr>
+<td>label</td>
+<td>LABEL</td>
+<td>security label, most commonly used for SELinux context data. This is for the <em>Mandatory Access Control</em> (&#34;MAC&#34;) found on high-security systems.</td>
+</tr>
+<tr>
+<td>lstart</td>
+<td>STARTED</td>
+<td>time the command started. See also <strong>bsdstart</strong>, <strong>start</strong>, <strong>start_time</strong>, and <strong>stime</strong>.</td>
+</tr>
+<tr>
+<td>lsession</td>
+<td>SESSION</td>
+<td>displays the login session identifier of a process, if systemd support has been included.</td>
+</tr>
+<tr>
+<td>luid</td>
+<td>LUID</td>
+<td>displays Login ID associated with a process.</td>
+</tr>
+<tr>
+<td>lwp</td>
+<td>LWP</td>
+<td>light weight process (thread) ID of the dispatchable entity (alias <strong>spid</strong>, <strong>tid</strong>). See <strong>tid</strong> for additional information.</td>
+</tr>
+<tr>
+<td>lxc</td>
+<td>LXC</td>
+<td>The name of the lxc container within which a task is running. If a process is not running inside a container, a dash (&#39;-&#39;) will be shown.</td>
+</tr>
+<tr>
+<td>machine</td>
+<td>MACHINE</td>
+<td>displays the machine name for processes assigned to VM or container, if systemd support has been included.</td>
+</tr>
+<tr>
+<td>maj_flt</td>
+<td>MAJFLT</td>
+<td>The number of major page faults that have occurred with this process.</td>
+</tr>
+<tr>
+<td>min_flt</td>
+<td>MINFLT</td>
+<td>The number of minor page faults that have occurred with this process.</td>
+</tr>
+<tr>
+<td>mntns</td>
+<td>MNTNS</td>
+<td>Unique inode number describing the namespace the process belongs to. See /namespaces/(7).</td>
+</tr>
+<tr>
+<td>netns</td>
+<td>NETNS</td>
+<td>Unique inode number describing the namespace the process belongs to. See /namespaces/(7).</td>
+</tr>
+<tr>
+<td>ni</td>
+<td>NI</td>
+<td>nice value. This ranges from 19 (nicest) to -20 (not nice to others), see /nice/(1). (alias <strong>nice</strong>).</td>
+</tr>
+<tr>
+<td>nice</td>
+<td>NI</td>
+<td>see <strong>ni</strong>.*(alias* <strong>ni</strong>).</td>
+</tr>
+<tr>
+<td>nlwp</td>
+<td>NLWP</td>
+<td>number of lwps (threads) in the process. (alias <strong>thcount</strong>).</td>
+</tr>
+<tr>
+<td>numa</td>
+<td>NUMA</td>
+<td>The node associated with the most recently used processor. A <em>-1</em> means that NUMA information is unavailable.</td>
+</tr>
+<tr>
+<td>nwchan</td>
+<td>WCHAN</td>
+<td>address of the kernel function where the process is sleeping (use <strong>wchan</strong> if you want the kernel function name). Running tasks will display a dash (&#39;-&#39;) in this column.</td>
+</tr>
+<tr>
+<td>ouid</td>
+<td>OWNER</td>
+<td>displays the Unix user identifier of the owner of the session of a process, if systemd support has been included.</td>
+</tr>
+<tr>
+<td>pcpu</td>
+<td>%CPU</td>
+<td>see <strong>%cpu</strong>. (alias <strong>%cpu</strong>).</td>
+</tr>
+<tr>
+<td>pending</td>
+<td>PENDING</td>
+<td>mask of the pending signals. See /signal/(7). Signals pending on the process are distinct from signals pending on individual threads. Use the <strong>m</strong> option or the <strong>-m</strong> option to see both. According to the width of the field, a 32 or 64 bits mask in hexadecimal format is displayed. (alias <strong>sig</strong>).</td>
+</tr>
+<tr>
+<td>pgid</td>
+<td>PGID</td>
+<td>process group ID or, equivalently, the process ID of the process group leader. (alias <strong>pgrp</strong>).</td>
+</tr>
+<tr>
+<td>pgrp</td>
+<td>PGRP</td>
+<td>see <strong>pgid</strong>. (alias <strong>pgid</strong>).</td>
+</tr>
+<tr>
+<td>pid</td>
+<td>PID</td>
+<td>a number representing the process ID (alias <strong>tgid</strong>).</td>
+</tr>
+<tr>
+<td>pidns</td>
+<td>PIDNS</td>
+<td>Unique inode number describing the namespace the process belongs to. See /namespaces/(7).</td>
+</tr>
+<tr>
+<td>pmem</td>
+<td>%MEM</td>
+<td>see <strong>%mem</strong>. (alias <strong>%mem</strong>).</td>
+</tr>
+<tr>
+<td>policy</td>
+<td>POL</td>
+<td>scheduling class of the process. (alias <strong>class</strong>, <strong>cls</strong>). Possible values are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- not reported\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>TS SCHED_OTHER\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>FF SCHED_FIFO\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>RR SCHED_RR\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>B SCHED_BATCH\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>ISO SCHED_ISO\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>IDL SCHED_IDLE\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>DLN SCHED_DEADLINE\\</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>? unknown value</td>
+</tr>
+<tr>
+<td>ppid</td>
+<td>PPID</td>
+<td>parent process ID.</td>
+</tr>
+<tr>
+<td>pri</td>
+<td>PRI</td>
+<td>priority of the process. Higher number means lower priority.</td>
+</tr>
+<tr>
+<td>psr</td>
+<td>PSR</td>
+<td>processor that process is currently assigned to.</td>
+</tr>
+<tr>
+<td>rgid</td>
+<td>RGID</td>
+<td>real group ID.</td>
+</tr>
+<tr>
+<td>rgroup</td>
+<td>RGROUP</td>
+<td>real group name. This will be the textual group ID, if it can be obtained and the field width permits, or a decimal representation otherwise.</td>
+</tr>
+<tr>
+<td>rss</td>
+<td>RSS</td>
+<td>resident set size, the non-swapped physical memory that a task has used (in kilobytes). (alias <strong>rssize</strong>, <strong>rsz</strong>).</td>
+</tr>
+<tr>
+<td>rssize</td>
+<td>RSS</td>
+<td>see <strong>rss</strong>. (alias <strong>rss</strong>, <strong>rsz</strong>).</td>
+</tr>
+<tr>
+<td>rsz</td>
+<td>RSZ</td>
+<td>see <strong>rss</strong>. (alias <strong>rss</strong>, <strong>rssize</strong>).</td>
+</tr>
+<tr>
+<td>rtprio</td>
+<td>RTPRIO</td>
+<td>realtime priority.</td>
+</tr>
+<tr>
+<td>ruid</td>
+<td>RUID</td>
+<td>real user ID.</td>
+</tr>
+<tr>
+<td>ruser</td>
+<td>RUSER</td>
+<td>real user ID. This will be the textual user ID, if it can be obtained and the field width permits, or a decimal representation otherwise.</td>
+</tr>
+<tr>
+<td>s</td>
+<td>S</td>
+<td>minimal state display (one character). See section <strong>PROCESS STATE CODES</strong> for the different values. See also <strong>stat</strong> if you want additional information displayed. (alias <strong>state</strong>).</td>
+</tr>
+<tr>
+<td>sched</td>
+<td>SCH</td>
+<td>scheduling policy of the process. The policies SCHED_OTHER (SCHED_NORMAL), SCHED_FIFO, SCHED_RR, SCHED_BATCH, SCHED_ISO, SCHED_IDLE and SCHED_DEADLINE are respectively displayed as 0, 1, 2, 3, 4, 5 and 6.</td>
+</tr>
+<tr>
+<td>seat</td>
+<td>SEAT</td>
+<td>displays the identifier associated with all hardware devices assigned to a specific workplace, if systemd support has been included.</td>
+</tr>
+<tr>
+<td>sess</td>
+<td>SESS</td>
+<td>session ID or, equivalently, the process ID of the session leader. (alias <strong>session</strong>, <strong>sid</strong>).</td>
+</tr>
+<tr>
+<td>sgi_p</td>
+<td>P</td>
+<td>processor that the process is currently executing on. Displays &#34;*&#34; if the process is not currently running or runnable.</td>
+</tr>
+<tr>
+<td>sgid</td>
+<td>SGID</td>
+<td>saved group ID. (alias <strong>svgid</strong>).</td>
+</tr>
+<tr>
+<td>sgroup</td>
+<td>SGROUP</td>
+<td>saved group name. This will be the textual group ID, if it can be obtained and the field width permits, or a decimal representation otherwise.</td>
+</tr>
+<tr>
+<td>sid</td>
+<td>SID</td>
+<td>see <strong>sess</strong>. (alias <strong>sess</strong>, <strong>session</strong>).</td>
+</tr>
+<tr>
+<td>sig</td>
+<td>PENDING</td>
+<td>see <strong>pending</strong>. (alias <strong>pending</strong>, <strong>sig_pend</strong>).</td>
+</tr>
+<tr>
+<td>sigcatch</td>
+<td>CAUGHT</td>
+<td>see <strong>caught</strong>. (alias <strong>caught</strong>, <strong>sig_catch</strong>).</td>
+</tr>
+<tr>
+<td>sigignore</td>
+<td>IGNORED</td>
+<td>see <strong>ignored</strong>. (alias <strong>ignored</strong>, <strong>sig_ignore</strong>).</td>
+</tr>
+<tr>
+<td>sigmask</td>
+<td>BLOCKED</td>
+<td>see <strong>blocked</strong>. (alias <strong>blocked</strong>, <strong>sig_block</strong>).</td>
+</tr>
+<tr>
+<td>size</td>
+<td>SIZE</td>
+<td>approximate amount of swap space that would be required if the process were to dirty all writable pages and then be swapped out. This number is very rough!</td>
+</tr>
+<tr>
+<td>slice</td>
+<td>SLICE</td>
+<td>displays the slice unit which a process belongs to, if systemd support has been included.</td>
+</tr>
+<tr>
+<td>spid</td>
+<td>SPID</td>
+<td>see <strong>lwp</strong>. (alias <strong>lwp</strong>, <strong>tid</strong>).</td>
+</tr>
+<tr>
+<td>stackp</td>
+<td>STACKP</td>
+<td>address of the bottom (start) of stack for the process.</td>
+</tr>
+<tr>
+<td>start</td>
+<td>STARTED</td>
+<td>time the command started. If the process was started less than 24 hours ago, the output format is &#34;HH:MM:SS&#34;, else it is &#34; Mmm dd&#34; (where Mmm is a three-letter month name). See also <strong>lstart</strong>, <strong>bsdstart</strong>, <strong>start_time</strong>, and <strong>stime</strong>.</td>
+</tr>
+<tr>
+<td>start_time</td>
+<td>START</td>
+<td>starting time or date of the process. Only the year will be displayed if the process was not started the same year <strong>ps</strong> was invoked, or &#34;MmmDD&#34; if it was not started the same day, or &#34;HH:MM&#34; otherwise. See also <strong>bsdstart</strong>, <strong>start</strong>, <strong>lstart</strong>, and <strong>stime</strong>.</td>
+</tr>
+<tr>
+<td>stat</td>
+<td>STAT</td>
+<td>multi-character process state. See section <strong>PROCESS STATE CODES</strong> for the different values meaning. See also <strong>s</strong> and* state* if you just want the first character displayed.</td>
+</tr>
+<tr>
+<td>state</td>
+<td>S</td>
+<td>see <strong>s</strong>. (alias* s*).</td>
+</tr>
+<tr>
+<td>stime</td>
+<td>STIME</td>
+<td>see <strong>start_time</strong>. (alias <strong>start_time</strong>).</td>
+</tr>
+<tr>
+<td>suid</td>
+<td>SUID</td>
+<td>saved user ID. (alias <strong>svuid</strong>).</td>
+</tr>
+<tr>
+<td>supgid</td>
+<td>SUPGID</td>
+<td>group ids of supplementary groups, if any. See *getgroups*(2).</td>
+</tr>
+<tr>
+<td>supgrp</td>
+<td>SUPGRP</td>
+<td>group names of supplementary groups, if any. See *getgroups*(2).</td>
+</tr>
+<tr>
+<td>suser</td>
+<td>SUSER</td>
+<td>saved user name. This will be the textual user ID, if it can be obtained and the field width permits, or a decimal representation otherwise. (alias <strong>svuser</strong>).</td>
+</tr>
+<tr>
+<td>svgid</td>
+<td>SVGID</td>
+<td>see <strong>sgid</strong>. (alias <strong>sgid</strong>).</td>
+</tr>
+<tr>
+<td>svuid</td>
+<td>SVUID</td>
+<td>see <strong>suid</strong>. (alias <strong>suid</strong>).</td>
+</tr>
+<tr>
+<td>sz</td>
+<td>SZ</td>
+<td>size in physical pages of the core image of the process. This includes text, data, and stack space. Device mappings are currently excluded; this is subject to change. See <strong>vsz</strong> and* rss*.</td>
+</tr>
+<tr>
+<td>tgid</td>
+<td>TGID</td>
+<td>a number representing the thread group to which a task belongs (alias <strong>pid</strong>). It is the process ID of the thread group leader.</td>
+</tr>
+<tr>
+<td>thcount</td>
+<td>THCNT</td>
+<td>see <strong>nlwp</strong>. (alias <strong>nlwp</strong>). number of kernel threads owned by the process.</td>
+</tr>
+<tr>
+<td>tid</td>
+<td>TID</td>
+<td>the unique number representing a dispatchable entity (alias <strong>lwp</strong>, <strong>spid</strong>). This value may also appear as: a process ID (pid); a process group ID (pgrp); a session ID for the session leader (sid); a thread group ID for the thread group leader (tgid); and a tty process group ID for the process group leader (tpgid).</td>
+</tr>
+<tr>
+<td>time</td>
+<td>TIME</td>
+<td>cumulative CPU time, &#34;[DD-]HH:MM:SS&#34; format. (alias <strong>cputime</strong>).</td>
+</tr>
+<tr>
+<td>times</td>
+<td>TIME</td>
+<td>cumulative CPU time in seconds (alias <strong>cputimes</strong>).</td>
+</tr>
+<tr>
+<td>tname</td>
+<td>TTY</td>
+<td>controlling tty (terminal). (alias <strong>tt</strong>, <strong>tty</strong>).</td>
+</tr>
+<tr>
+<td>tpgid</td>
+<td>TPGID</td>
+<td>ID of the foreground process group on the tty (terminal) that the process is connected to, or -1 if the process is not connected to a tty.</td>
+</tr>
+<tr>
+<td>trs</td>
+<td>TRS</td>
+<td>text resident set size, the amount of physical memory devoted to executable code.</td>
+</tr>
+<tr>
+<td>tt</td>
+<td>TT</td>
+<td>controlling tty (terminal). (alias <strong>tname</strong>, <strong>tty</strong>).</td>
+</tr>
+<tr>
+<td>tty</td>
+<td>TT</td>
+<td>controlling tty (terminal). (alias <strong>tname</strong>, <strong>tt</strong>).</td>
+</tr>
+<tr>
+<td>ucmd</td>
+<td>CMD</td>
+<td>see <strong>comm</strong>. (alias <strong>comm</strong>, <strong>ucomm</strong>).</td>
+</tr>
+<tr>
+<td>ucomm</td>
+<td>COMMAND</td>
+<td>see <strong>comm</strong>. (alias <strong>comm</strong>, <strong>ucmd</strong>).</td>
+</tr>
+<tr>
+<td>uid</td>
+<td>UID</td>
+<td>see <strong>euid</strong>. (alias <strong>euid</strong>).</td>
+</tr>
+<tr>
+<td>uname</td>
+<td>USER</td>
+<td>see <strong>euser</strong>. (alias <strong>euser</strong>, <strong>user</strong>).</td>
+</tr>
+<tr>
+<td>unit</td>
+<td>UNIT</td>
+<td>displays unit which a process belongs to, if systemd support has been included.</td>
+</tr>
+<tr>
+<td>user</td>
+<td>USER</td>
+<td>see <strong>euser</strong>. (alias <strong>euser</strong>, <strong>uname</strong>).</td>
+</tr>
+<tr>
+<td>userns</td>
+<td>USERNS</td>
+<td>Unique inode number describing the namespace the process belongs to. See /namespaces/(7).</td>
+</tr>
+<tr>
+<td>utsns</td>
+<td>UTSNS</td>
+<td>Unique inode number describing the namespace the process belongs to. See /namespaces/(7).</td>
+</tr>
+<tr>
+<td>uunit</td>
+<td>UUNIT</td>
+<td>displays user unit which a process belongs to, if systemd support has been included.</td>
+</tr>
+<tr>
+<td>vsize</td>
+<td>VSZ</td>
+<td>see <strong>vsz</strong>. (alias <strong>vsz</strong>).</td>
+</tr>
+<tr>
+<td>vsz</td>
+<td>VSZ</td>
+<td>virtual memory size of the process in KiB (1024-byte units). Device mappings are currently excluded; this is subject to change. (alias <strong>vsize</strong>).</td>
+</tr>
+<tr>
+<td>wchan</td>
+<td>WCHAN</td>
+<td>name of the kernel function in which the process is sleeping, a &#34;-&#34; if the process is running, or a &#34;<strong>&#34; if the process is multi-threaded and *ps</strong> is not displaying threads.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
+<h2 id="headline-17">
+ENVIRONMENT VARIABLES
+</h2>
+<div id="outline-text-headline-17" class="outline-text-2">
+<p>The following environment variables could affect <strong>ps</strong>:</p>
+<dl>
+<dt>
+<strong>COLUMNS</strong>
+</dt>
+<dd>Override default display width.</dd>
+<dt>
+<strong>LINES</strong>
+</dt>
+<dd>Override default display height.</dd>
+<dt>
+<strong>PS_PERSONALITY</strong>
+</dt>
+<dd>Set to one of posix, old, linux, bsd, sun,
+digital… (see section <strong>PERSONALITY</strong> below).</dd>
+<dt>
+<strong>CMD_ENV</strong>
+</dt>
+<dd>Set to one of posix, old, linux, bsd, sun, digital…
+(see section <strong>PERSONALITY</strong> below).</dd>
+<dt>
+<strong>I_WANT_A_BROKEN_PS</strong>
+</dt>
+<dd>Force obsolete command line interpretation.</dd>
+<dt>
+<strong>LC_TIME</strong>
+</dt>
+<dd>Date format.</dd>
+<dt>
+<strong>PS_COLORS</strong>
+</dt>
+<dd>Not currently supported.</dd>
+<dt>
+<strong>PS_FORMAT</strong>
+</dt>
+<dd>Default output format override. You may set this to a
+format string of the type used for the <strong>-o</strong> option. The <strong>DefSysV</strong> and
+<strong>DefBSD</strong> values are particularly useful.</dd>
+<dt>
+<strong>POSIXLY_CORRECT</strong>
+</dt>
+<dd>Don&#39;t find excuses to ignore bad &#34;features&#34;.</dd>
+<dt>
+<strong>POSIX2</strong>
+</dt>
+<dd>When set to &#34;on&#34;, acts as <strong>POSIXLY_CORRECT</strong>.</dd>
+<dt>
+<strong>UNIX95</strong>
+</dt>
+<dd>Don&#39;t find excuses to ignore bad &#34;features&#34;.</dd>
+<dt>
+<strong>_XPG</strong>
+</dt>
+<dd>Cancel *CMD_ENV*= <em>irix</em> non-standard behavior.</dd>
+</dl>
+<p>In general, it is a bad idea to set these variables. The one exception
+is <strong>CMD_ENV</strong> or <strong>PS_PERSONALITY</strong>, which could be set to Linux for normal
+systems. Without that setting, <strong>ps</strong> follows the useless and bad parts of
+the Unix98 standard.</p>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-2">
+<h2 id="headline-18">
+PERSONALITY
+</h2>
+<div id="outline-text-headline-18" class="outline-text-2">
+<table>
+<tbody>
+<tr>
+<td>390</td>
+<td>like the OS/390 OpenEdition <strong>ps</strong></td>
+</tr>
+<tr>
+<td>aix</td>
+<td>like AIX <strong>ps</strong></td>
+</tr>
+<tr>
+<td>bsd</td>
+<td>like FreeBSD <strong>ps</strong> (totally non-standard)</td>
+</tr>
+<tr>
+<td>compaq</td>
+<td>like Digital Unix <strong>ps</strong></td>
+</tr>
+<tr>
+<td>debian</td>
+<td>like the old Debian <strong>ps</strong></td>
+</tr>
+<tr>
+<td>digital</td>
+<td>like Tru64 (was Digital Unix, was OSF/1) <strong>ps</strong></td>
+</tr>
+<tr>
+<td>gnu</td>
+<td>like the old Debian <strong>ps</strong></td>
+</tr>
+<tr>
+<td>hp</td>
+<td>like HP-UX <strong>ps</strong></td>
+</tr>
+<tr>
+<td>hpux</td>
+<td>like HP-UX <strong>ps</strong></td>
+</tr>
+<tr>
+<td>irix</td>
+<td>like Irix <strong>ps</strong></td>
+</tr>
+<tr>
+<td>linux</td>
+<td>​***** <strong>recommended</strong> <strong><strong>*</strong></strong></td>
+</tr>
+<tr>
+<td>old</td>
+<td>like the original Linux <strong>ps</strong> (totally non-standard)</td>
+</tr>
+<tr>
+<td>os390</td>
+<td>like OS/390 Open Edition <strong>ps</strong></td>
+</tr>
+<tr>
+<td>posix</td>
+<td>standard</td>
+</tr>
+<tr>
+<td>s390</td>
+<td>like OS/390 Open Edition <strong>ps</strong></td>
+</tr>
+<tr>
+<td>sco</td>
+<td>like SCO <strong>ps</strong></td>
+</tr>
+<tr>
+<td>sgi</td>
+<td>like Irix <strong>ps</strong></td>
+</tr>
+<tr>
+<td>solaris2</td>
+<td>like Solaris 2+ (SunOS 5) <strong>ps</strong></td>
+</tr>
+<tr>
+<td>sunos4</td>
+<td>like SunOS 4 (Solaris 1) <strong>ps</strong> (totally non-standard)</td>
+</tr>
+<tr>
+<td>svr4</td>
+<td>standard</td>
+</tr>
+<tr>
+<td>sysv</td>
+<td>standard</td>
+</tr>
+<tr>
+<td>tru64</td>
+<td>like Tru64 (was Digital Unix, was OSF/1) <strong>ps</strong></td>
+</tr>
+<tr>
+<td>unix</td>
+<td>standard</td>
+</tr>
+<tr>
+<td>unix95</td>
+<td>standard</td>
+</tr>
+<tr>
+<td>unix98</td>
+<td>standard</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-headline-19" class="outline-2">
+<h2 id="headline-19">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-19" class="outline-text-2">
+<p>*pgrep*(1), *pstree*(1), *top*(1), *proc*(5).</p>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-2">
+<h2 id="headline-20">
+STANDARDS
+</h2>
+<div id="outline-text-headline-20" class="outline-text-2">
+<p>This <strong>ps</strong> conforms to:</p>
+<ol>
+<li>Version 2 of the Single Unix Specification</li>
+<li>The Open Group Technical Standard Base Specifications, Issue 6</li>
+<li>IEEE Std 1003.1, 2004 Edition</li>
+<li>X/Open System Interfaces Extension [UP XSI]</li>
+<li>ISO/IEC 9945:2003</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-headline-21" class="outline-2">
+<h2 id="headline-21">
+AUTHOR
+</h2>
+<div id="outline-text-headline-21" class="outline-text-2">
+<p><strong>ps</strong> was originally written by <a href="mailto:lankeste@fwi.uva.nl">Branko
+Lankester</a>. <a href="mailto:johnsonm@redhat.com">Michael K. Johnson</a> re-wrote
+it significantly to use the proc filesystem, changing a few things in
+the process. <a href="mailto:mjshield@nyx.cs.du.edu">Michael Shields</a> added
+the pid-list feature. <a href="mailto:cblake@bbn.com">Charles Blake</a> added
+multi-level sorting, the dirent-style library, the device name-to-number
+mmaped database, the approximate binary search directly on System.map,
+and many code and documentation cleanups. David Mossberger-Tang wrote
+the generic BFD support for psupdate.
+<a href="mailto:albert@users.sf.net">Albert Cahalan</a> rewrote ps for full
+Unix98 and BSD support, along with some ugly hacks for obsolete and
+foreign syntax.</p>
+<p>
+Please send bug reports to <a href="mailto:procps@freelists.org">mailto:procps@freelists.org</a>. No
+subscription is required or suggested.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

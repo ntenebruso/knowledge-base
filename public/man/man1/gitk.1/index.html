@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - gitk.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - gitk.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>gitk - The Git repository browser</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+gitk [&lt;options&gt;] [&lt;revision-range&gt;] [--] [&lt;path&gt;...]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Displays changes in a repository or a selected set of commits. This
+includes visualizing the commit graph, showing information related to
+each commit, and the files in the trees of each revision.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>To control which revisions to show, gitk supports most options
+applicable to the <em>git rev-list</em> command. It also supports a few options
+applicable to the <em>git diff-*</em> commands to control how the changes each
+commit introduces are shown. Finally, it supports some gitk-specific
+options.</p>
+<p>
+gitk generally only understands options with arguments in the <em>stuck</em>
+form (see *gitcli*(7)) due to limitations in the command-line parser.</p>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+rev-list options and arguments
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>This manual page describes only the most frequently used options. See
+*git-rev-list*(1) for a complete list.</p>
+<p>
+–all</p>
+<blockquote>
+<p>Show all refs (branches, tags, etc.).</p>
+</blockquote>
+<p>
+–branches[=&lt;pattern&gt;], –tags[=&lt;pattern&gt;], –remotes[=&lt;pattern&gt;]</p>
+<blockquote>
+<p>Pretend as if all the branches (tags, remote branches, resp.) are listed
+on the command line as <em>&lt;commit&gt;</em>. If <em>&lt;pattern&gt;</em> is given, limit refs
+to ones matching given shell glob. If pattern lacks <em>?</em>, <em>*</em>, or <em>[</em>,
+<em>/*</em> at the end is implied.</p>
+</blockquote>
+<p>
+–since=&lt;date&gt;</p>
+<blockquote>
+<p>Show commits more recent than a specific date.</p>
+</blockquote>
+<p>
+–until=&lt;date&gt;</p>
+<blockquote>
+<p>Show commits older than a specific date.</p>
+</blockquote>
+<p>
+–date-order</p>
+<blockquote>
+<p>Sort commits by date when possible.</p>
+</blockquote>
+<p>
+–merge</p>
+<blockquote>
+<p>After an attempt to merge stops with conflicts, show the commits on the
+history between two branches (i.e. the HEAD and the MERGE_HEAD) that
+modify the conflicted files and do not exist on all the heads being
+merged.</p>
+</blockquote>
+<p>
+–left-right</p>
+<blockquote>
+<p>Mark which side of a symmetric difference a commit is reachable from.
+Commits from the left side are prefixed with a <strong>&lt;</strong> symbol and those from
+the right with a <strong>&gt;</strong> symbol.</p>
+</blockquote>
+<p>
+–full-history</p>
+<blockquote>
+<p>When filtering history with <em>&lt;path&gt;…</em>, does not prune some history.
+(See &#34;History simplification&#34; in *git-log*(1) for a more detailed
+explanation.)</p>
+</blockquote>
+<p>
+–simplify-merges</p>
+<blockquote>
+<p>Additional option to <strong>–full-history</strong> to remove some needless merges
+from the resulting history, as there are no selected commits
+contributing to this merge. (See &#34;History simplification&#34; in
+*git-log*(1) for a more detailed explanation.)</p>
+</blockquote>
+<p>
+–ancestry-path</p>
+<blockquote>
+<p>When given a range of commits to display (e.g. <em>commit1..commit2</em> or
+<em>commit2 ^commit1</em>), only display commits that exist directly on the
+ancestry chain between the <em>commit1</em> and <em>commit2</em>, i.e. commits that
+are both descendants of <em>commit1</em>, and ancestors of <em>commit2</em>. (See
+&#34;History simplification&#34; in *git-log*(1) for a more detailed
+explanation.)</p>
+</blockquote>
+<p>
+-L&lt;start&gt;,&lt;end&gt;:&lt;file&gt;, -L:&lt;funcname&gt;:&lt;file&gt;</p>
+<blockquote>
+<p>Trace the evolution of the line range given by <em>&lt;start&gt;,&lt;end&gt;</em>, or by
+the function name regex <em>&lt;funcname&gt;</em>, within the <em>&lt;file&gt;</em>. You may not
+give any pathspec limiters. This is currently limited to a walk starting
+from a single revision, i.e., you may only give zero or one positive
+revision arguments, and <em>&lt;start&gt;</em> and <em>&lt;end&gt;</em> (or <em>&lt;funcname&gt;</em>) must
+exist in the starting revision. You can specify this option more than
+once. Implies <strong>–patch</strong>. Patch output can be suppressed using
+<strong>–no-patch</strong>, but other diff formats (namely <strong>–raw</strong>, <strong>–numstat</strong>,
+<strong>–shortstat</strong>, <strong>–dirstat</strong>, <strong>–summary</strong>, <strong>–name-only</strong>, <strong>–name-status</strong>,
+<strong>–check</strong>) are not currently implemented.</p>
+<p>
+<em>&lt;start&gt;</em> and <em>&lt;end&gt;</em> can take one of these forms:</p>
+<blockquote>
+<p>·</p>
+<p>
+number</p>
+<p>
+If <em>&lt;start&gt;</em> or <em>&lt;end&gt;</em> is a number, it specifies an absolute line
+number (lines count from 1).</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong><em>regex</em></strong></p>
+<p>
+This form will use the first line matching the given POSIX regex. If
+<em>&lt;start&gt;</em> is a regex, it will search from the end of the previous <strong>-L</strong>
+range, if any, otherwise from the start of file. If <em>&lt;start&gt;</em> is
+<strong>^/regex/</strong>, it will search from the start of file. If <em>&lt;end&gt;</em> is a
+regex, it will search starting at the line given by <em>&lt;start&gt;</em>.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
++offset or -offset</p>
+<p>
+This is only valid for <em>&lt;end&gt;</em> and will specify a number of lines before
+or after the line given by <em>&lt;start&gt;</em>.</p>
+</blockquote>
+<p>
+If <strong>:&lt;funcname&gt;</strong> is given in place of <em>&lt;start&gt;</em> and <em>&lt;end&gt;</em>, it is a
+regular expression that denotes the range from the first funcname line
+that matches <em>&lt;funcname&gt;</em>, up to the next funcname line. <strong>:&lt;funcname&gt;</strong>
+searches from the end of the previous <strong>-L</strong> range, if any, otherwise from
+the start of file. <strong>^:&lt;funcname&gt;</strong> searches from the start of file. The
+function names are determined in the same way as <strong>git diff</strong> works out
+patch hunk headers (see <em>Defining a custom hunk-header</em> in
+*gitattributes*(5)).</p>
+</blockquote>
+<p>
+&lt;revision range&gt;</p>
+<blockquote>
+<p>Limit the revisions to show. This can be either a single revision
+meaning show from the given revision and back, or it can be a range in
+the form &#34;<em>&lt;from&gt;</em>../&lt;to&gt;/&#34; to show all revisions between <em>&lt;from&gt;</em> and
+back to <em>&lt;to&gt;</em>. Note, more advanced revision selection can be applied.
+For a more complete list of ways to spell object names, see
+*gitrevisions*(7).</p>
+</blockquote>
+<p>
+&lt;path&gt;…</p>
+<blockquote>
+<p>Limit commits to the ones touching files in the given paths. Note, to
+avoid ambiguity with respect to revision names use &#34;–&#34; to separate the
+paths from any preceding options.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+gitk-specific options
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>–argscmd=&lt;command&gt;</p>
+<blockquote>
+<p>Command to be run each time gitk has to determine the revision range to
+show. The command is expected to print on its standard output a list of
+additional revisions to be shown, one per line. Use this instead of
+explicitly specifying a <em>&lt;revision-range&gt;</em> if the set of commits to show
+may vary between refreshes.</p>
+</blockquote>
+<p>
+–select-commit=&lt;ref&gt;</p>
+<blockquote>
+<p>Select the specified commit after loading the graph. Default behavior is
+equivalent to specifying <em>–select-commit=HEAD</em>.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>gitk v2.6.12.. include/scsi drivers/scsi</p>
+<blockquote>
+<p>Show the changes since version <em>v2.6.12</em> that changed any file in the
+include/scsi or drivers/scsi subdirectories</p>
+</blockquote>
+<p>
+gitk –since=&#34;2 weeks ago&#34; – gitk</p>
+<blockquote>
+<p>Show the changes during the last two weeks to the file <em>gitk</em>. The &#34;–&#34;
+is necessary to avoid confusion with the <strong>branch</strong> named <em>gitk</em></p>
+</blockquote>
+<p>
+gitk –max-count=100 –all – Makefile</p>
+<blockquote>
+<p>Show at most 100 changes made to the file <em>Makefile</em>. Instead of only
+looking for changes in the current branch look in all branches.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+FILES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>User configuration and preferences are stored at:</p>
+<blockquote>
+<p>·</p>
+<p>
+<strong>$XDG_CONFIG_HOME/git/gitk</strong> if it exists, otherwise</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>$HOME/.gitk</strong> if it exists</p>
+</blockquote>
+<p>
+If neither of the above exist then <strong>$XDG_CONFIG_HOME/git/gitk</strong> is
+created and used by default. If <em>$XDG_CONFIG_HOME</em> is not set it
+defaults to <strong>$HOME/.config</strong> in all cases.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+HISTORY
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Gitk was the first graphical repository browser. It&#39;s written in tcl/tk.</p>
+<p>
+<em>gitk</em> is actually maintained as an independent project, but stable
+versions are distributed as part of the Git suite for the convenience of
+end users.</p>
+<p>
+gitk-git/ comes from Paul Mackerras&#39;s gitk project:</p>
+<blockquote>
+<pre class="example">
+git://ozlabs.org/~paulus/gitk
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p><em>qgit(1)</em></p>
+<blockquote>
+<p>A repository browser written in C++ using Qt.</p>
+</blockquote>
+<p>
+<em>tig(1)</em></p>
+<blockquote>
+<p>A minimal repository browser and Git tool output highlighter written in
+C using Ncurses.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+GIT
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

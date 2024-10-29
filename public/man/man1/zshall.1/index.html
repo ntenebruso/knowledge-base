@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - zshall.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - zshall.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>zshall - the Z shell meta-man page</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+OVERVIEW
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>Because zsh contains many features, the zsh manual has been split into a
+number of sections. This manual page includes all the separate manual
+pages in the following order:</p>
+<dl>
+<dt>
+<em>zsh</em> Zsh overview
+</dt>
+<dd>
+<ul>
+<li><em>zshroadmap</em> Informal introduction to the
+ manual :: - <em>zshmisc</em> Anything not fitting into the other
+   sections :: - <em>zshexpn</em> Zsh command and parameter expansion :: - <em>zshparam</em>
+       Zsh parameters :: - <em>zshoptions</em> Zsh options :: - <em>zshbuiltins</em>
+           Zsh built-in functions :: - <em>zshzle</em> Zsh command line
+             editing :: - <em>zshcompwid</em> Zsh completion widgets :: - <em>zshcompsys</em>
+                 Zsh completion system :: - <em>zshcompctl</em> Zsh
+                   completion control :: - <em>zshmodules</em> Zsh loadable
+                     modules :: - <em>zshcalsys</em> Zsh built-in calendar
+                       functions :: - <em>zshtcpsys</em> Zsh built-in TCP
+                         functions :: - <em>zshzftpsys</em> Zsh built-in FTP
+                           client :: - <em>zshcontrib</em> Additional zsh
+                             functions and utilities :: </li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Zsh is a UNIX command interpreter (shell) usable as an interactive login
+shell and as a shell script command processor. Of the standard shells,
+zsh most closely resembles <strong>ksh</strong> but includes many enhancements. It does
+not provide compatibility with POSIX or other shells in its default
+operating mode: see the section `Compatibility&#39; below.</p>
+<p>
+Zsh has command line editing, builtin spelling correction, programmable
+command completion, shell functions (with autoloading), a history
+mechanism, and a host of other features.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+AUTHOR
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Zsh was originally written by Paul Falstad. Zsh is now maintained by the
+members of the zsh-workers mailing list <strong>&lt;zsh-workers@zsh.org&gt;</strong>. The
+development is currently coordinated by Peter Stephenson
+<strong>&lt;pws@zsh.org&gt;</strong>. The coordinator can be contacted at
+<strong>&lt;coordinator@zsh.org&gt;</strong>, but matters relating to the code should
+generally go to the mailing list.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Zsh is available from the following HTTP and anonymous FTP site.</p>
+<pre class="example">
+ftp://ftp.zsh.org/pub/
+https://www.zsh.org/pub/
+</pre>
+<p>
+The up-to-date source code is available via Git from Sourceforge. See
+<strong><a href="https://sourceforge.net/projects/zsh/">https://sourceforge.net/projects/zsh/</a></strong> for details. A summary of
+instructions for the archive can be found at
+<strong><a href="https://zsh.sourceforge.io/">https://zsh.sourceforge.io/</a></strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+MAILING LISTS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Zsh has several mailing lists:</p>
+<p>
+<strong>&lt;zsh-announce@zsh.org&gt;</strong> Announcements about releases, major changes in
+the shell and the monthly posting of the Zsh FAQ. (moderated)</p>
+<dl>
+<dt>
+<strong>&lt;zsh-users@zsh.org&gt;</strong>
+</dt>
+<dd>User discussions.</dd>
+<dt>
+<strong>&lt;zsh-workers@zsh.org&gt;</strong>
+</dt>
+<dd>Hacking, development, bug reports and
+patches.</dd>
+<dt>
+<strong>&lt;zsh-security@zsh.org&gt;</strong>
+</dt>
+<dd>Private mailing list (the general public
+cannot subscribe to it) for discussing bug reports with security
+implications, i.e., potential vulnerabilities.
+
+If you find a security problem in zsh itself, please mail this
+address.</dd>
+</dl>
+<p>To subscribe or unsubscribe, send mail to the associated administrative
+address for the mailing list.</p>
+<dl>
+<dt>
+<strong>&lt;zsh-announce-subscribe@zsh.org&gt;</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>&lt;zsh-users-subscribe@zsh.org&gt;</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>&lt;zsh-workers-subscribe@zsh.org&gt;</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>&lt;zsh-announce-unsubscribe@zsh.org&gt;</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>&lt;zsh-users-unsubscribe@zsh.org&gt;</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>&lt;zsh-workers-unsubscribe@zsh.org&gt;</strong>
+</dt>
+<dd></dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>YOU ONLY NEED TO JOIN ONE OF THE MAILING LISTS AS THEY ARE NESTED. All
+submissions to <strong>zsh-announce</strong> are automatically forwarded to
+<strong>zsh-users</strong>. All submissions to <strong>zsh-users</strong> are automatically forwarded
+to <strong>zsh-workers</strong>.</p>
+<p>
+If you have problems subscribing/unsubscribing to any of the mailing
+lists, send mail to <strong>&lt;listmaster@zsh.org&gt;</strong>.</p>
+<p>
+The mailing lists are archived; the archives can be accessed via the
+administrative addresses listed above. There is also a hypertext archive
+available at <strong><a href="https://www.zsh.org/mla/">https://www.zsh.org/mla/</a></strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+THE ZSH FAQ
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Zsh has a list of Frequently Asked Questions (FAQ), maintained by Peter
+Stephenson <strong>&lt;pws@zsh.org&gt;</strong>. It is regularly posted to the newsgroup
+<strong>comp.unix.shell</strong> and the <strong>zsh-announce</strong> mailing list. The latest
+version can be found at any of the Zsh FTP sites, or at
+<strong><a href="https://www.zsh.org/FAQ/">https://www.zsh.org/FAQ/</a></strong>. The contact address for FAQ-related matters
+is <strong>&lt;faqmaster@zsh.org&gt;</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+THE ZSH WEB PAGE
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Zsh has a web page which is located at <strong><a href="https://www.zsh.org/">https://www.zsh.org/</a></strong>. The
+contact address for web-related matters is <strong>&lt;webmaster@zsh.org&gt;</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+THE ZSH USERGUIDE
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>A userguide is currently in preparation. It is intended to complement
+the manual, with explanations and hints on issues where the manual can
+be cabbalistic, hierographic, or downright mystifying (for example, the
+word `hierographic&#39; does not exist). It can be viewed in its current
+state at <strong><a href="https://zsh.sourceforge.io/Guide/">https://zsh.sourceforge.io/Guide/</a></strong>. At the time of writing,
+chapters dealing with startup files and their contents and the new
+completion system were essentially complete.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+INVOCATION
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The following flags are interpreted by the shell when invoked to
+determine where the shell will read commands from:</p>
+<p>
+<strong>-c</strong> Take the first argument as a command to execute, rather than
+reading commands from a script or standard input. If any further
+arguments are given, the first one is assigned to <strong>$0</strong>, rather than
+being used as a positional parameter.</p>
+<dl>
+<dt>
+<strong>-i</strong>
+</dt>
+<dd>Force shell to be interactive. It is still possible to specify
+a script to execute.</dd>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>Force shell to read commands from the standard input. If the
+<strong>-s</strong> flag is not present and an argument is given, the first argument
+is taken to be the pathname of a script to execute.</dd>
+</dl>
+<p>If there are any remaining arguments after option processing, and
+neither of the options <strong>-c</strong> or <strong>-s</strong> was supplied, the first argument is
+taken as the file name of a script containing shell commands to be
+executed. If the option <strong>PATH_SCRIPT</strong> is set, and the file name does not
+contain a directory path (i.e. there is no `*/*&#39; in the name), first the
+current directory and then the command path given by the variable <strong>PATH</strong>
+are searched for the script. If the option is not set or the file name
+contains a `*/*&#39; it is used directly.</p>
+<p>
+After the first one or two arguments have been appropriated as described
+above, the remaining arguments are assigned to the positional
+parameters.</p>
+<p>
+For further options, which are common to invocation and the <strong>set</strong>
+builtin, see /zshoptions/(1).</p>
+<p>
+The long option `*–emulate*&#39; followed (in a separate word) by an
+emulation mode may be passed to the shell. The emulation modes are those
+described for the <strong>emulate</strong> builtin, see /zshbuiltins/(1). The
+`*–emulate*&#39; option must precede any other options (which might
+otherwise be overridden), but following options are honoured, so may be
+used to modify the requested emulation mode. Note that certain extra
+steps are taken to ensure a smooth emulation when this option is used
+compared with the <strong>emulate</strong> command within the shell: for example,
+variables that conflict with POSIX usage such as <strong>path</strong> are not defined
+within the shell.</p>
+<p>
+Options may be specified by name using the <strong>-o</strong> option. <strong>-o</strong> acts like a
+single-letter option, but takes a following string as the option name.
+For example,</p>
+<blockquote>
+<pre class="example">
+zsh -x -o shwordsplit scr
+</pre>
+</blockquote>
+<p>
+runs the script <strong>scr</strong>, setting the <strong>XTRACE</strong> option by the corresponding
+letter `*-x*&#39; and the <strong>SH_WORD_SPLIT</strong> option by name. Options may be
+turned <em>off</em> by name by using <strong>+o</strong> instead of <strong>-o</strong>. <strong>-o</strong> can be stacked
+up with preceding single-letter options, so for example `*-xo
+shwordsplit*&#39; or `*-xoshwordsplit*&#39; is equivalent to `*-x -o
+shwordsplit*&#39;.</p>
+<p>
+Options may also be specified by name in GNU long option style,
+`*–<strong><em>option-name</em>&#39;. When this is done, `</strong>-<strong>&#39; characters in the option
+name are permitted: they are translated into `*_</strong>&#39;, and thus ignored.
+So, for example, `*zsh –sh-word-split*&#39; invokes zsh with the
+<strong>SH_WORD_SPLIT</strong> option turned on. Like other option syntaxes, options
+can be turned off by replacing the initial `*-<strong>&#39; with a `*+</strong>&#39;; thus
+`*+-sh-word-split*&#39; is equivalent to `*–no-sh-word-split*&#39;. Unlike
+other option syntaxes, GNU-style long options cannot be stacked with any
+other options, so for example `*-x-shwordsplit*&#39; is an error, rather
+than being treated like `*-x –shwordsplit*&#39;.</p>
+<p>
+The special GNU-style option `*–version*&#39; is handled; it sends to
+standard output the shell&#39;s version information, then exits
+successfully. `*–help*&#39; is also handled; it sends to standard output a
+list of options that can be used when invoking the shell, then exits
+successfully.</p>
+<p>
+Option processing may be finished, allowing following arguments that
+start with `*-<strong>&#39; or `*+</strong>&#39; to be treated as normal arguments, in two
+ways. Firstly, a lone `*-<strong>&#39; (or `*+</strong>&#39;) as an argument by itself ends
+option processing. Secondly, a special option `*–<strong>&#39; (or `*+-</strong>&#39;), which
+may be specified on its own (which is the standard POSIX usage) or may
+be stacked with preceding options (so `*-x-<strong>&#39; is equivalent to
+`</strong>-x –<strong>&#39;). Options are not permitted to be stacked after `</strong>–<strong>&#39; (so
+`</strong>-x-f*&#39; is an error), but note the GNU-style option form discussed
+above, where `*–shwordsplit*&#39; is permitted and does not end option
+processing.</p>
+<p>
+Except when the <strong>sh*/*ksh</strong> emulation single-letter options are in
+effect, the option `*-b*&#39; (or `*+b*&#39;) ends option processing. `*-b*&#39; is
+like `*–<strong>&#39;, except that further single-letter options can be stacked
+after the `</strong>-b*&#39; and will take effect as normal.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+COMPATIBILITY
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Zsh tries to emulate <strong>sh</strong> or <strong>ksh</strong> when it is invoked as <strong>sh</strong> or <strong>ksh</strong>
+respectively; more precisely, it looks at the first letter of the name
+by which it was invoked, excluding any initial `*r*&#39; (assumed to stand
+for `restricted&#39;), and if that is `*b*&#39;, `*s*&#39; or `*k*&#39; it will emulate
+<strong>sh</strong> or <strong>ksh</strong>. Furthermore, if invoked as <strong>su</strong> (which happens on certain
+systems when the shell is executed by the <strong>su</strong> command), the shell will
+try to find an alternative name from the <strong>SHELL</strong> environment variable
+and perform emulation based on that.</p>
+<p>
+In <strong>sh</strong> and <strong>ksh</strong> compatibility modes the following parameters are not
+special and not initialized by the shell: <strong>ARGC</strong>, <strong>argv</strong>, <strong>cdpath</strong>,
+<strong>fignore</strong>, <strong>fpath</strong>, <strong>HISTCHARS</strong>, <strong>mailpath</strong>, <strong>MANPATH</strong>, <strong>manpath</strong>,
+<strong>path</strong>, <strong>prompt</strong>, <strong>PROMPT</strong>, <strong>PROMPT2</strong>, <strong>PROMPT3</strong>, <strong>PROMPT4</strong>, <strong>psvar</strong>,
+<strong>status</strong>.</p>
+<p>
+The usual zsh startup/shutdown scripts are not executed. Login shells
+source <strong>/etc/profile</strong> followed by <strong>$HOME/.profile</strong>. If the <strong>ENV</strong>
+environment variable is set on invocation, <strong>$ENV</strong> is sourced after the
+profile scripts. The value of <strong>ENV</strong> is subjected to parameter expansion,
+command substitution, and arithmetic expansion before being interpreted
+as a pathname. Note that the <strong>PRIVILEGED</strong> option also affects the
+execution of startup files.</p>
+<p>
+The following options are set if the shell is invoked as <strong>sh</strong> or <strong>ksh</strong>:
+<strong>NO_BAD_PATTERN</strong>, <strong>NO_BANG_HIST</strong>, <strong>NO_BG_NICE</strong>, <strong>NO_EQUALS</strong>,
+<strong>NO_FUNCTION_ARGZERO</strong>, <strong>GLOB_SUBST</strong>, <strong>NO_GLOBAL_EXPORT</strong>, <strong>NO_HUP</strong>,
+<strong>INTERACTIVE_COMMENTS</strong>, <strong>KSH_ARRAYS</strong>, <strong>NO_MULTIOS</strong>, <strong>NO_NOMATCH</strong>,
+<strong>NO_NOTIFY</strong>, <strong>POSIX_BUILTINS</strong>, <strong>NO_PROMPT_PERCENT</strong>, <strong>RM_STAR_SILENT</strong>,
+<strong>SH_FILE_EXPANSION</strong>, <strong>SH_GLOB</strong>, <strong>SH_OPTION_LETTERS</strong>, <strong>SH_WORD_SPLIT</strong>.
+Additionally the <strong>BSD_ECHO</strong> and <strong>IGNORE_BRACES</strong> options are set if zsh
+is invoked as <strong>sh</strong>. Also, the <strong>KSH_OPTION_PRINT</strong>, <strong>LOCAL_OPTIONS</strong>,
+<strong>PROMPT_BANG</strong>, <strong>PROMPT_SUBST</strong> and <strong>SINGLE_LINE_ZLE</strong> options are set if
+zsh is invoked as <strong>ksh</strong>.</p>
+<p>
+Please note that, whilst reasonable efforts are taken to address
+incompatibilities when they arise, zsh does not guarantee complete
+emulation of other shells, nor POSIX compliance. For more information on
+the differences between zsh and other shells, please refer to chapter 2
+of the shell FAQ, <strong><a href="https://www.zsh.org/FAQ/">https://www.zsh.org/FAQ/</a></strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+RESTRICTED SHELL
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>When the basename of the command used to invoke zsh starts with the
+letter `*r*&#39; or the `*-r*&#39; command line option is supplied at
+invocation, the shell becomes restricted. Emulation mode is determined
+after stripping the letter `*r*&#39; from the invocation name. The following
+are disabled in restricted mode:</p>
+<p>
+· changing directories with the <strong>cd</strong> builtin</p>
+<dl>
+<dt>
+·
+</dt>
+<dd>changing or unsetting the <strong>EGID</strong>, <strong>EUID</strong>, <strong>GID</strong>, <strong>HISTFILE</strong>,
+<strong>HISTSIZE</strong>, <strong>IFS</strong>, <strong>LD_AOUT_LIBRARY_PATH</strong>, <strong>LD_AOUT_PRELOAD</strong>,
+<strong>LD_LIBRARY_PATH</strong>, <strong>LD_PRELOAD</strong>, <strong>MODULE_PATH</strong>, <strong>module_path</strong>, <strong>PATH</strong>,
+<strong>path</strong>, <strong>SHELL</strong>, <strong>UID</strong> and <strong>USERNAME</strong> parameters</dd>
+<dt>
+·
+</dt>
+<dd>specifying command names containing <strong>/</strong></dd>
+<dt>
+·
+</dt>
+<dd>specifying command pathnames using <strong>hash</strong></dd>
+<dt>
+·
+</dt>
+<dd>redirecting output to files</dd>
+<dt>
+·
+</dt>
+<dd>using the <strong>exec</strong> builtin command to replace the shell with
+another command</dd>
+<dt>
+·
+</dt>
+<dd>using <strong>jobs -Z</strong> to overwrite the shell process&#39; argument and
+environment space</dd>
+<dt>
+·
+</dt>
+<dd>using the <strong>ARGV0</strong> parameter to override <strong>argv[0]</strong> for external
+commands</dd>
+<dt>
+·
+</dt>
+<dd>turning off restricted mode with <strong>set +r</strong> or <strong>unsetopt</strong>
+RESTRICTED</dd>
+</dl>
+<p>These restrictions are enforced after processing the startup files. The
+startup files should set up <strong>PATH</strong> to point to a directory of commands
+which can be safely invoked in the restricted environment. They may also
+add further restrictions by disabling selected builtins.</p>
+<p>
+Restricted mode can also be activated any time by setting the
+<strong>RESTRICTED</strong> option. This immediately enables all the restrictions
+described above even if the shell still has not processed all startup
+files.</p>
+<p>
+A shell <em>Restricted Mode</em> is an outdated way to restrict what users may
+do: modern systems have better, safer and more reliable ways to confine
+user actions, such as <em>chroot jails</em>, <em>containers</em> and <em>zones</em>.</p>
+<p>
+A restricted shell is very difficult to implement safely. The feature
+may be removed in a future version of zsh.</p>
+<p>
+It is important to realise that the restrictions only apply to the
+shell, not to the commands it runs (except for some shell builtins).
+While a restricted shell can only run the restricted list of commands
+accessible via the predefined `*PATH*&#39; variable, it does not prevent
+those commands from running any other command.</p>
+<p>
+As an example, if `*env*&#39; is among the list of <em>allowed</em> commands, then
+it allows the user to run any command as `*env*&#39; is not a shell builtin
+command and can run arbitrary executables.</p>
+<p>
+So when implementing a restricted shell framework it is important to be
+fully aware of what actions each of the <em>allowed</em> commands or features
+(which may be regarded as <em>modules</em>) can perform.</p>
+<p>
+Many commands can have their behaviour affected by environment
+variables. Except for the few listed above, zsh does not restrict the
+setting of environment variables.</p>
+<p>
+If a `*perl*&#39;, `*python*&#39;, `*bash*&#39;, or other general purpose
+interpreted script it treated as a restricted command, the user can work
+around the restriction by setting specially crafted `*PERL5LIB*&#39;,
+`*PYTHONPATH*&#39;, `*BASHENV*&#39; (etc.) environment variables. On GNU
+systems, any command can be made to run arbitrary code when performing
+character set conversion (including zsh itself) by setting a
+`*GCONV_PATH*&#39; environment variable. Those are only a few examples.</p>
+<p>
+Bear in mind that, contrary to some other shells, `*readonly*&#39; is not a
+security feature in zsh as it can be undone and so cannot be used to
+mitigate the above.</p>
+<p>
+A restricted shell only works if the allowed commands are few and
+carefully written so as not to grant more access to users than intended.
+It is also important to restrict what zsh module the user may load as
+some of them, such as `*zsh/system*&#39;, `*zsh/mapfile*&#39; and `*zsh/files*&#39;,
+allow bypassing most of the restrictions.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+STARTUP/SHUTDOWN FILES
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>Commands are first read from <strong>/etc/zshenv</strong>; this cannot be overridden.
+Subsequent behaviour is modified by the <strong>RCS</strong> and <strong>GLOBAL_RCS</strong> options;
+the former affects all startup files, while the second only affects
+global startup files (those shown here with an path starting with a
+<strong>/</strong>). If one of the options is unset at any point, any subsequent
+startup file(s) of the corresponding type will not be read. It is also
+possible for a file in <strong>$ZDOTDIR</strong> to re-enable <strong>GLOBAL_RCS</strong>. Both <strong>RCS</strong>
+and <strong>GLOBAL_RCS</strong> are set by default.</p>
+<p>
+Commands are then read from <strong>$ZDOTDIR/.zshenv</strong>. If the shell is a login
+shell, commands are read from <strong>/etc/zprofile</strong> and then
+<strong>$ZDOTDIR/.zprofile</strong>. Then, if the shell is interactive, commands are
+read from <strong>/etc/zshrc</strong> and then <strong>$ZDOTDIR/.zshrc</strong>. Finally, if the shell
+is a login shell, <strong>/etc/zlogin</strong> and <strong>$ZDOTDIR/.zlogin</strong> are read.</p>
+<p>
+When a login shell exits, the files <strong>$ZDOTDIR/.zlogout</strong> and then
+<strong>/etc/zlogout</strong> are read. This happens with either an explicit exit via
+the <strong>exit</strong> or <strong>logout</strong> commands, or an implicit exit by reading
+end-of-file from the terminal. However, if the shell terminates due to
+<strong>exec</strong>&#39;ing another process, the logout files are not read. These are
+also affected by the <strong>RCS</strong> and <strong>GLOBAL_RCS</strong> options. Note also that the
+<strong>RCS</strong> option affects the saving of history files, i.e. if <strong>RCS</strong> is unset
+when the shell exits, no history file will be saved.</p>
+<p>
+If <strong>ZDOTDIR</strong> is unset, <strong>HOME</strong> is used instead. Files listed above as
+being in <strong>/etc</strong> may be in another directory, depending on the
+installation.</p>
+<p>
+As <strong>/etc/zshenv</strong> is run for all instances of zsh, it is important that
+it be kept as small as possible. In particular, it is a good idea to put
+code that does not need to be run for every single shell behind a test
+of the form `*if <a href=" -o rcs "> -o rcs </a>; then …*&#39; so that it will not be
+executed when zsh is invoked with the `*-f*&#39; option.</p>
+<p>
+Any of these files may be pre-compiled with the <strong>zcompile</strong> builtin
+command (see /zshbuiltins/(1)). If a compiled file exists (named for the
+original file plus the <strong>.zwc</strong> extension) and it is newer than the
+original file, the compiled file will be used instead.</p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+FILES
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<dl>
+<dt>
+<strong>$ZDOTDIR/.zshenv</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>$ZDOTDIR/.zprofile</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>$ZDOTDIR/.zshrc</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>$ZDOTDIR/.zlogin</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>$ZDOTDIR/.zlogout</strong>
+</dt>
+<dd>
+<ul>
+<li><strong>${TMPPREFIX}*</strong>
+     (default is /tmp/zsh*) :: - <strong>/etc/zshenv</strong> :: - <strong>/etc/zprofile</strong> :: - <strong>/etc/zshrc</strong> :: - <strong>/etc/zlogin</strong> :: - <strong>/etc/zlogout</strong>
+               (installation-specific - <strong>/etc</strong> is the
+               default) :: </li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>/sh/(1), /csh/(1), /tcsh/(1), /rc/(1), /bash/(1), /ksh/(1)</p>
+<p>
+<strong>IEEE Standard for information Technology -</strong> Portable Operating System
+Interface (POSIX) - Part 2: Shell and Utilities, IEEE Inc, 1993, ISBN
+1-55937-255-9.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

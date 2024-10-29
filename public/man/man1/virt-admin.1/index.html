@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - virt-admin.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - virt-admin.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>virt-admin - daemon administration interface</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>virt-admin</strong> [/OPTION/]… [/COMMAND_STRING/]</p>
+<p>
+<strong>virt-admin</strong> [/OPTION/]… <em>COMMAND</em> [/ARG/]…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>virt-admin</strong> program is the main administration interface for
+modifying the libvirt daemon configuration at runtime, changing daemon
+behaviour as well as for monitoring and managing all clients connected
+to the daemon.</p>
+<p>
+The basic structure of most virt-admin usage is:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+virt-admin [OPTION]... &lt;command&gt; [ARG]...
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Where <em>command</em> is one of the commands listed below. Any <em>command</em>
+starting with <strong>#</strong> is treated as a comment and silently ignored, all
+other unrecognized <em>commands</em> are diagnosed.</p>
+<p>
+The <strong>virt-admin</strong> program can be used either to run one <em>COMMAND</em> by
+giving the command and its arguments on the shell command line, or a
+<em>COMMAND_STRING</em> which is a single shell argument consisting of multiple
+<em>COMMAND</em> actions and their arguments joined with whitespace and
+separated by semicolons or newlines between commands, where unquoted
+backslash-newline pairs are elided. Within <em>COMMAND_STRING</em>, virt-admin
+understands the same single, double, and backslash escapes as the shell,
+although you must add another layer of shell escaping in creating the
+single shell argument, and any word starting with unquoted <em>#</em> begins a
+comment that ends at newline. If no command is given in the command
+line, <strong>virt-admin</strong> will then start a minimal interpreter waiting for
+your commands, and the <strong>quit</strong> command will then exit the program.</p>
+<p>
+The <strong>virt-admin</strong> program understands the following <em>OPTIONS</em>.</p>
+<p>
+<strong>-c</strong>, <strong>–connect</strong> <em>URI</em></p>
+<p>
+Connect to the specified <em>URI</em>, as if by the <strong>connect</strong> command, instead
+of the default connection. See NOTES.</p>
+<p>
+<strong>-d</strong>, <strong>–debug</strong> <em>LEVEL</em></p>
+<p>
+Enable debug messages at integer <em>LEVEL</em> and above. <em>LEVEL</em> can range
+from 0 to 4 (default). See the documentation of <strong>VIRT_ADMIN_DEBUG</strong>
+environment variable below for the description of each <em>LEVEL</em>.</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<p>
+Ignore all other arguments, and behave as if the <strong>help</strong> command were
+given instead.</p>
+<p>
+<strong>-l</strong>, <strong>–log</strong> <em>FILE</em></p>
+<p>
+Output logging details to <em>FILE</em>.</p>
+<p>
+<strong>-q</strong>, <strong>–quiet</strong></p>
+<p>
+Avoid extra informational messages.</p>
+<p>
+<strong>-v</strong>, <strong>–version[=short]</strong></p>
+<p>
+Ignore all other arguments, and prints the version of the libvirt
+library virt-admin is coming from</p>
+<p>
+<strong>-V</strong>, <strong>–version=long</strong></p>
+<p>
+Ignore all other arguments, and prints the version of the libvirt
+library virt-admin is coming from.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+NOTES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The <strong>virt-admin</strong> supports both the monolithic <strong>libvirtd</strong> daemon and the
+modular daemons
+&lt;<a href="https://libvirt.org/daemons.html#modular-driver-daemons">https://libvirt.org/daemons.html#modular-driver-daemons</a>&gt;</p>
+<p>
+whichever is in use by your system. The connection <em>URI</em> used with
+<strong>-c/–connect</strong> or the connect command is based on the name of the
+controlled daemon e.g.: <strong>virtqemud:///system</strong>, <strong>libvirtd:///system</strong>.</p>
+<p>
+Running <strong>virt-admin</strong> requires root privileges when communicating with
+the system instance of a daemon (<em>URI</em> ending in <strong>/system</strong>) due to the
+communications channels used to talk to the daemon.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+GENERIC COMMANDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following commands are generic.</p>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+help
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+help [command-or-group]
+</pre>
+</blockquote>
+</blockquote>
+<p>
+This lists each of the virt-admin commands. When used without options,
+all commands are listed, one per line, grouped into related categories,
+displaying the keyword for each group.</p>
+<p>
+To display detailed information for a specific command, use its name as
+the option.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+quit, exit
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+quit
+exit
+</pre>
+</blockquote>
+</blockquote>
+<p>
+quit this interactive terminal</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+version
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+version
+</pre>
+</blockquote>
+</blockquote>
+<p>
+will print out the version info about which libvirt library was this
+client built from. As opposed to <em>virsh</em> client, the output already
+includes the version of the daemon.</p>
+<p>
+<strong>Example:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+$ virt-admin version
+Compiled against library: libvirt 1.2.21
+Using library: libvirt 1.2.21
+Running against daemon: 1.2.20
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+cd
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+cd [directory]
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Will change current directory to <em>directory</em>. The default directory for
+the <strong>cd</strong> command is the home directory or, if there is no <em>HOME</em>
+variable in the environment, the root directory.</p>
+<p>
+This command is only available in interactive mode.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+pwd
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+pwd
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Will print the current directory.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+connect
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+connect [URI]
+</pre>
+</blockquote>
+</blockquote>
+<p>
+(Re)-Connect to a daemon&#39;s administrating server. The <em>URI</em> parameter
+specifies how to connect to the administrating server. If
+<em>LIBVIRT_ADMIN_DEFAULT_URI</em> or <em>uri_default</em> (see below) were set,
+<em>connect</em> is automatically issued every time a command that requires an
+active connection is executed. Note that this only applies if there is
+no connection at all or there is an inactive one.</p>
+<p>
+See NOTES on picking the correct <em>URI</em> corresponding to a libvirt
+daemon.</p>
+<p>
+To find the currently used URI, check the <em>uri</em> command documented
+below.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+uri
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+uri
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Prints the administrating server canonical URI, can be useful in shell
+mode. If no <em>uri</em> was specified, neither <em>LIBVIRT_ADMIN_DEFAULT_URI</em>
+environment variable nor <em>uri_default</em> option (libvirt-admin.conf) were
+set, libvirtd:///system is used.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+DAEMON COMMANDS
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>The following commands allow one to monitor the daemon&#39;s state as well
+as directly change its internal configuration.</p>
+<div id="outline-container-headline-14" class="outline-3">
+<h3 id="headline-14">
+server-list
+</h3>
+<div id="outline-text-headline-14" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+server-list
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Lists all manageable servers contained within the daemon the client is
+currently connected to.</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+daemon-log-filters
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+daemon-log-filters [--filters string]
+</pre>
+</blockquote>
+</blockquote>
+<p>
+When run without arguments, this returns the currently defined set of
+logging filters. Providing an argument will cause the command to define
+a new set of logging filters.</p>
+<blockquote>
+<ul>
+<li><em>–filters</em></li>
+</ul>
+</blockquote>
+<p>
+Define a new set of logging filters where multiple filters are delimited
+by space. Each filter must conform to the form described in detail by
+<em>/etc/libvirt/libvirtd.conf</em> (section &#39;Logging filters&#39;).</p>
+<p>
+<strong>Example:</strong></p>
+<p>
+To define a filter which suppresses all e.g. &#39;virObjectUnref&#39; DEBUG
+messages, use the following:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+$ virt-admin daemon-log-filters &#34;4:util.object&#34;
+</pre>
+</blockquote>
+</blockquote>
+<p>
+(Note the &#39;.&#39; symbol which can be used to more fine-grained filters
+tailored to specific modules, in contrast, to affect the whole directory
+containing several modules this would become &#34;4:util&#34;):</p>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-3">
+<h3 id="headline-16">
+daemon-log-outouts
+</h3>
+<div id="outline-text-headline-16" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+daemon-log-outputs [--outputs string]
+</pre>
+</blockquote>
+</blockquote>
+<p>
+When run without arguments, this returns the currently defined set of
+logging outputs. Providing an argument will cause the command to define
+a new set of logging outputs.</p>
+<blockquote>
+<ul>
+<li><em>–outputs</em></li>
+</ul>
+</blockquote>
+<p>
+Define a new set of logging outputs where multiple outputs are delimited
+by space. Each output must conform to the form described in detail by
+<em>/etc/libvirt/libvirtd.conf</em> (section &#39;Logging outputs&#39;).</p>
+<p>
+<strong>Example:</strong></p>
+<p>
+To replace the current setting for logging outputs with one that writes
+to a file while logging errors only, the following could be used:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+$ virt-admin daemon-log-outputs &#34;4:file:&lt;absolute_path_to_the_file&gt;&#34;
+</pre>
+</blockquote>
+</blockquote>
+<p>
+To define multiple outputs at once they need to be delimited by spaces:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+$ virt-admin daemon-log-outputs &#34;4:stderr 2:syslog:&lt;msg_ident&gt;&#34;
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-3">
+<h3 id="headline-17">
+daemon-timeout
+</h3>
+<div id="outline-text-headline-17" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+daemon-timeout [--timeout] NUM
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Sets the daemon timeout to the value of &#39;–timeout&#39; argument. Use
+<strong>–timeout 0</strong> to disable auto-shutdown of the daemon.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-2">
+<h2 id="headline-18">
+SERVER COMMANDS
+</h2>
+<div id="outline-text-headline-18" class="outline-text-2">
+<p>The following commands manipulate daemon&#39;s server internal
+configuration. The <em>server</em> is specified by its name.</p>
+<div id="outline-container-headline-19" class="outline-3">
+<h3 id="headline-19">
+server-threadpool-info
+</h3>
+<div id="outline-text-headline-19" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+server-threadpool-info server
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Retrieve server&#39;s threadpool attributes. These attributes include:</p>
+<blockquote>
+<ul>
+<li><em>minWorkers</em> as the bottom limit to the number of active workers,</li>
+<li><em>maxWorkers</em> as the top limit to the number of active workers,</li>
+<li><em>nWorkers</em> as the current number of workers in the threadpool,</li>
+<li><em>freeWorkers</em> as the current number of workers available for a task,</li>
+<li><em>prioWorkers</em> as the current number of priority workers in the
+threadpool, and</li>
+<li><em>jobQueueDepth</em> as the current depth of threadpool&#39;s job queue.</li>
+</ul>
+</blockquote>
+<p>
+<strong>Background</strong></p>
+<p>
+Each daemon server utilizes a threadpool to accomplish tasks requested
+by clients connected to it. Every time a client request arrives to the
+server, it checks whether there is a worker available to accomplish the
+given task or it should create a new worker for the job (rather than
+being destroyed, the worker becomes free once the task is finished).
+Creating new workers, however, is only possible when the current number
+of workers is still below the configured upper limit. In addition to
+these &#39;standard&#39; workers, a threadpool also contains a special set of
+workers called <em>priority</em> workers. Their purpose is to perform tasks
+that, unlike tasks carried out by normal workers, are within libvirt&#39;s
+full control and libvirt guarantees that such a task cannot hang, thus
+will always finish. An example of such a task this would be destroying a
+domain:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+$ virsh destroy &lt;domain&gt;.
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-3">
+<h3 id="headline-20">
+server-threadpool-set
+</h3>
+<div id="outline-text-headline-20" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+server-threadpool-set server [--min-workers count] [--max-workers count] [--priority-workers count]
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Change threadpool attributes on a server. Only a fraction of all
+attributes as described in <em>server-threadpool-info</em> is supported for the
+setter.</p>
+<blockquote>
+<ul>
+<li><em>–min-workers</em></li>
+</ul>
+<p>The bottom limit to number of active workers in a threadpool.</p>
+<ul>
+<li><em>–max-workers</em></li>
+</ul>
+<p>The upper limit to number of active workers in a threadpool. If used in
+combination with option <em>–min-workers</em>, the value for the upper limit
+has to be greater than the value for the bottom limit, otherwise the
+command results in an error.</p>
+<ul>
+<li><em>–priority-workers</em></li>
+</ul>
+<p>The current number of active priority workers in a threadpool.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-21" class="outline-3">
+<h3 id="headline-21">
+server-clients-info
+</h3>
+<div id="outline-text-headline-21" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+server-clients-info server
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Get information about the current setting of limits regarding
+connections of new clients. This information comprises of the limits to
+the maximum number of clients connected to <em>server</em>, maximum number of
+clients waiting for authentication, in order to be connected to the
+server, as well as the current runtime values, more specifically, the
+current number of clients connected to <em>server</em> and the current number
+of clients waiting for authentication.</p>
+<p>
+<strong>Example:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+# virt-admin server-clients-info libvirtd
+nclients_max        : 120
+nclients            : 3
+nclients_unauth_max : 20
+nclients_unauth     : 0
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-22" class="outline-3">
+<h3 id="headline-22">
+server-clients-set
+</h3>
+<div id="outline-text-headline-22" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+server-clients-set server [--max-clients count] [--max-unauth-clients count]
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Set new client-related limits on <em>server</em>.</p>
+<blockquote>
+<ul>
+<li><em>–max-clients</em></li>
+</ul>
+<p>Change the upper limit of the maximum overall number of clients
+connected to <em>server</em> to value <strong>count</strong>. The value for this limit has to
+be always greater than the value of <em>–max-unauth-clients</em>.</p>
+<ul>
+<li><em>–max-unauth-clients</em></li>
+</ul>
+<p>Change the upper limit of the maximum number of clients waiting for
+authentication, in order to be connected to <em>server</em>, to value <strong>count</strong>.
+The value for this limit has to be always lower than the value of
+<em>–max-clients</em>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-23" class="outline-3">
+<h3 id="headline-23">
+server-update-tls
+</h3>
+<div id="outline-text-headline-23" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+server-update-tls server
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Update tls context on <em>server</em>.</p>
+<blockquote>
+<ul>
+<li><em>server</em></li>
+</ul>
+<p>Available servers on a daemon. Currently only supports &#39;libvirtd&#39; or
+&#39;virtproxyd&#39;.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-24" class="outline-2">
+<h2 id="headline-24">
+CLIENT COMMANDS
+</h2>
+<div id="outline-text-headline-24" class="outline-text-2">
+<p>The following commands provide management and monitoring of clients
+connected to one of daemon&#39;s available servers. Clients are specified by
+their numeric ID which is obtained by listing all clients connected to a
+specified server (see command <strong>client-list</strong>).</p>
+<div id="outline-container-headline-25" class="outline-3">
+<h3 id="headline-25">
+client-list
+</h3>
+<div id="outline-text-headline-25" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+client-list server
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Print a table showing the list of clients connected to &lt;server&gt;, also
+providing information about transport type used on client&#39;s connection
+(supported transports include <strong>unix</strong>, <strong>tcp</strong>, and <strong>tls</strong>), as well as
+providing information about client&#39;s connection time (system local time
+is used).</p>
+</div>
+</div>
+<div id="outline-container-headline-26" class="outline-3">
+<h3 id="headline-26">
+client-info
+</h3>
+<div id="outline-text-headline-26" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+client-info server client
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Retrieve identity information about <em>client</em> from <em>server</em>. The
+attributes returned may vary depending on the connection transport used.
+Transport-dependent attributes include local client process&#39;s pid, uid,
+user name, and group name, as well as socket address of the remote peer,
+see <strong>Examples</strong> below.</p>
+<p>
+On the other hand, transport-independent attributes include client&#39;s
+SELinux context (if enabled on the host) and SASL username (if SASL
+authentication is enabled within daemon).</p>
+<p>
+<strong>Examples:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+# virt-admin client-info libvirtd 1
+id             : 1
+connection_time: 2016-05-03 13:27:04+0200
+transport      : unix
+readonly       : yes
+unix_user_id   : 0
+unix_user_name : root
+unix_group_id  : 0
+unix_group_name: root
+unix_process_id: 10201
+
+# virt-admin client-info libvirtd 2
+id             : 2
+connection_time: 2016-05-03 13:30:33+0200
+transport      : tcp
+readonly       : no
+sock_addr      : 127.0.0.1:57060
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-27" class="outline-3">
+<h3 id="headline-27">
+client-disconnect
+</h3>
+<div id="outline-text-headline-27" class="outline-text-3">
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<blockquote>
+<pre class="example">
+client-disconnect server client
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Close a connection originating from <em>client</em>. The <em>server</em> argument
+specifies the name of the server <em>client</em> is currently connected to.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-28" class="outline-2">
+<h2 id="headline-28">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-28" class="outline-text-2">
+<p>The following environment variables can be set to alter the behaviour of
+<strong>virt-admin</strong></p>
+<blockquote>
+<ul>
+<li>VIRT_ADMIN_DEBUG=&lt;0 to 4&gt;</li>
+</ul>
+<p>Turn on verbose debugging of virt-admin commands. Valid levels are</p>
+<blockquote>
+<ul>
+<li>VIRT_ADMIN_DEBUG=0</li>
+</ul>
+<p>DEBUG - Messages at ALL levels get logged</p>
+<ul>
+<li>VIRT_ADMIN_DEBUG=1</li>
+</ul>
+<p>INFO - Logs messages at levels INFO, NOTICE, WARNING and ERROR</p>
+<ul>
+<li>VIRT_ADMIN_DEBUG=2</li>
+</ul>
+<p>NOTICE - Logs messages at levels NOTICE, WARNING and ERROR</p>
+<ul>
+<li>VIRT_ADMIN_DEBUG=3</li>
+</ul>
+<p>WARNING - Logs messages at levels WARNING and ERROR</p>
+<ul>
+<li>VIRT_ADMIN_DEBUG=4</li>
+</ul>
+<p>ERROR - Messages at only ERROR level gets logged.</p>
+</blockquote>
+<ul>
+<li>VIRT_ADMIN_LOG_FILE=``LOGFILE``</li>
+</ul>
+<p>The file to log virt-admin debug messages.</p>
+<ul>
+<li>LIBVIRT_ADMIN_DEFAULT_URI</li>
+</ul>
+<p>The daemon whose admin server to connect to by default. Set this to a
+URI, in the same format as accepted by the <strong>connect</strong> option. This
+overrides the default URI set in any client config file.</p>
+<ul>
+<li>VIRT_ADMIN_HISTSIZE</li>
+</ul>
+<p>The number of commands to remember in the command history. The default
+value is 500.</p>
+<ul>
+<li>LIBVIRT_DEBUG=LEVEL</li>
+</ul>
+<p>Turn on verbose debugging of all libvirt API calls. Valid levels are</p>
+<blockquote>
+<ul>
+<li>LIBVIRT_DEBUG=1</li>
+</ul>
+<p>Messages at level DEBUG or above</p>
+<ul>
+<li>LIBVIRT_DEBUG=2</li>
+</ul>
+<p>Messages at level INFO or above</p>
+<ul>
+<li>LIBVIRT_DEBUG=3</li>
+</ul>
+<p>Messages at level WARNING or above</p>
+<ul>
+<li>LIBVIRT_DEBUG=4</li>
+</ul>
+<p>Messages at level ERROR or above</p>
+</blockquote>
+</blockquote>
+<p>
+For further information about debugging options consult
+&lt;<a href="https://libvirt.org/logging.html">https://libvirt.org/logging.html</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-29" class="outline-2">
+<h2 id="headline-29">
+AUTHORS
+</h2>
+<div id="outline-text-headline-29" class="outline-text-2">
+<p>Please refer to the AUTHORS file distributed with libvirt.</p>
+</div>
+</div>
+<div id="outline-container-headline-30" class="outline-2">
+<h2 id="headline-30">
+BUGS
+</h2>
+<div id="outline-text-headline-30" class="outline-text-2">
+<p>Please report all bugs you discover. This should be done via either:</p>
+<blockquote>
+<ol>
+<li>the mailing list</li>
+</ol>
+<p>&lt;https://libvirt.org/contact.html&gt;</p>
+<ol>
+<li value="2">the bug tracker</li>
+</ol>
+<p>&lt;https://libvirt.org/bugs.html&gt;</p>
+</blockquote>
+<p>
+Alternatively, you may report bugs to your software distributor /
+vendor.</p>
+</div>
+</div>
+<div id="outline-container-headline-31" class="outline-2">
+<h2 id="headline-31">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-31" class="outline-text-2">
+<p>Copyright (C) 2015 Red Hat, Inc., and the authors listed in the libvirt
+AUTHORS file.</p>
+</div>
+</div>
+<div id="outline-container-headline-32" class="outline-2">
+<h2 id="headline-32">
+LICENSE
+</h2>
+<div id="outline-text-headline-32" class="outline-text-2">
+<p><strong>virt-admin</strong> is distributed under the terms of the GNU LGPL v2+. This is
+free software; see the source for copying conditions. There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE</p>
+</div>
+</div>
+<div id="outline-container-headline-33" class="outline-2">
+<h2 id="headline-33">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-33" class="outline-text-2">
+<p>virsh(1), virt-xml-validate(1), virt-host-validate(1),
+&lt;<a href="https://libvirt.org/">https://libvirt.org/</a>&gt;</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

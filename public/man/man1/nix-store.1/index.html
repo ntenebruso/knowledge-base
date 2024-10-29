@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nix-store.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nix-store.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Name
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><code class="verbatim">nix-store</code> - manipulate or query the Nix store</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Synopsis
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><code class="verbatim">nix-store</code> <em>operation</em> [/options…/] [/arguments…/] [=–option=
+<em>name</em> /value/] [=–add-root= /path/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Description
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The command <code class="verbatim">nix-store</code> performs primitive operations on the Nix store.
+You generally do not need to run this command manually.</p>
+<p>
+<code class="verbatim">nix-store</code> takes exactly one <em>operation</em> flag which indicates the
+subcommand to be performed. The following operations are available:</p>
+<ul>
+<li><code class="verbatim">--realise</code></li>
+<li><code class="verbatim">--serve</code></li>
+<li><code class="verbatim">--gc</code></li>
+<li><code class="verbatim">--delete</code></li>
+<li><code class="verbatim">--query</code></li>
+<li><code class="verbatim">--add</code></li>
+<li><code class="verbatim">--add-fixed</code></li>
+<li><code class="verbatim">--verify</code></li>
+<li><code class="verbatim">--verify-path</code></li>
+<li><code class="verbatim">--repair-path</code></li>
+<li><code class="verbatim">--dump</code></li>
+<li><code class="verbatim">--restore</code></li>
+<li><code class="verbatim">--export</code></li>
+<li><code class="verbatim">--import</code></li>
+<li><code class="verbatim">--optimise</code></li>
+<li><code class="verbatim">--read-log</code></li>
+<li><code class="verbatim">--dump-db</code></li>
+<li><code class="verbatim">--load-db</code></li>
+<li><code class="verbatim">--print-env</code></li>
+<li><code class="verbatim">--generate-binary-cache-key</code></li>
+</ul>
+<p>These pages can be viewed offline:</p>
+<ul>
+<li><code class="verbatim">man nix-store-&lt;operation&gt;</code>.
+
+Example: <code class="verbatim">man nix-store-realise</code></li>
+<li><code class="verbatim">nix-store --help --&lt;operation&gt;</code>
+
+Example: <code class="verbatim">nix-store --help --realise</code></li>
+</ul>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

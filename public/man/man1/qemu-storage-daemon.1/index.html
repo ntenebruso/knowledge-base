@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - qemu-storage-daemon.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - qemu-storage-daemon.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>qemu-storage-daemon - QEMU storage daemon</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>qemu-storage-daemon</strong> [options]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>qemu-storage-daemon</strong> provides disk image functionality from QEMU,
+<strong>qemu-img</strong>, and <strong>qemu-nbd</strong> in a long-running process controlled via QMP
+commands without running a virtual machine. It can export disk images,
+run block job operations, and perform other disk-related operations. The
+daemon is controlled via a QMP monitor and initial configuration from
+the command-line.</p>
+<p>
+The daemon offers the following subset of QEMU features:</p>
+<blockquote>
+<ul>
+<li>Block nodes</li>
+<li>Block jobs</li>
+<li>Block exports</li>
+<li>Throttle groups</li>
+<li>Character devices</li>
+<li>Crypto and secrets</li>
+<li>QMP</li>
+<li>IOThreads</li>
+</ul>
+</blockquote>
+<p>
+Commands can be sent over a QEMU Monitor Protocol (QMP) connection. See
+the <strong>qemu-storage-daemon-qmp-ref(7)</strong> manual page for a description of
+the commands.</p>
+<p>
+The daemon runs until it is stopped using the <strong>quit</strong> QMP command or
+SIGINT/SIGHUP/SIGTERM.</p>
+<p>
+<strong>Warning:</strong> Never modify images in use by a running virtual machine or
+any other process; this may destroy the image. Also, be aware that
+querying an image that is being modified by another process may
+encounter inconsistent state.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Standard options:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>-h, –help</strong>
+</dt>
+<dd>Display help and exit</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-V, –version</strong>
+</dt>
+<dd>Display version information and exit</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-T, –trace [[enable=]PATTERN][,events=FILE][,file=FILE]</strong>
+</dt>
+<dd>
+<p>Specify
+tracing options.</p>
+<p>
+<strong>[enable=]PATTERN</strong></p>
+<blockquote>
+<p>Immediately enable events matching <em>PATTERN</em> (either event name or a
+globbing pattern). This option is only available if QEMU has been
+compiled with the <strong>simple</strong>, <strong>log</strong> or <strong>ftrace</strong> tracing backend. To
+specify multiple events or patterns, specify the <strong>-trace</strong> option
+multiple times.</p>
+<p>
+Use <strong>-trace help</strong> to print a list of names of trace points.</p>
+</blockquote>
+</dd>
+</dl>
+<p><strong>events=FILE</strong></p>
+<blockquote>
+<blockquote>
+<p>Immediately enable events listed in <em>FILE</em>. The file must contain one
+event name (as listed in the <strong>trace-events-all</strong> file) per line; globbing
+patterns are accepted too. This option is only available if QEMU has
+been compiled with the <strong>simple</strong>, <strong>log</strong> or <strong>ftrace</strong> tracing backend.</p>
+</blockquote>
+</blockquote>
+<p>
+<strong>file=FILE</strong></p>
+<blockquote>
+<blockquote>
+<p>Log output traces to <em>FILE</em>. This option is only available if QEMU has
+been compiled with the <strong>simple</strong> tracing backend.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>–blockdev BLOCKDEVDEF</strong>
+</dt>
+<dd>is a block node definition. See the
+<strong>qemu(1)</strong> manual page for a description of block node properties and
+the <strong>qemu-block-drivers(7)</strong> manual page for a description of
+driver-specific parameters.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>–chardev CHARDEVDEF</strong>
+</dt>
+<dd>
+<p>is a character device definition. See the
+<strong>qemu(1)</strong> manual page for a description of character device
+properties. A common character device definition configures a UNIX
+domain socket:</p>
+<blockquote>
+<pre class="example">
+--chardev socket,id=char1,path=/var/run/qsd-qmp.sock,server=on,wait=off
+</pre>
+</blockquote>
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<ul>
+<li>
+<p><strong>–export
+[type=]nbd,id=&lt;id&gt;,node-name=&lt;node-name&gt;[,name=&lt;export-name&gt;][,writable=on|off][,bitmap=&lt;name&gt;]</strong> :: - <strong>–export
+  [type=]vhost-user-blk,id=&lt;id&gt;,node-name=&lt;node-name&gt;,addr.type=unix,addr.path=&lt;socket-path&gt;[,writable=on|off][,logical-block-size=&lt;block-size&gt;][,num-queues=&lt;num-queues&gt;]</strong> :: - <strong>–export
+    [type=]vhost-user-blk,id=&lt;id&gt;,node-name=&lt;node-name&gt;,addr.type=fd,addr.str=&lt;fd&gt;[,writable=on|off][,logical-block-size=&lt;block-size&gt;][,num-queues=&lt;num-queues&gt;]</strong> :: - <strong>–export
+      [type=]fuse,id=&lt;id&gt;,node-name=&lt;node-name&gt;,mountpoint=&lt;file&gt;[,growable=on|off][,writable=on|off][,allow-other=on|off|auto]</strong> :: - <strong>–export
+        [type=]vduse-blk,id=&lt;id&gt;,node-name=&lt;node-name&gt;,name=&lt;vduse-name&gt;[,writable=on|off][,num-queues=&lt;num-queues&gt;][,queue-size=&lt;queue-size&gt;][,logical-block-size=&lt;block-size&gt;][,serial=&lt;serial-number&gt;]</strong> :: is
+        a block export definition. <strong>node-name</strong> is the block node that
+        should be exported. <strong>writable</strong> determines whether or not the
+        export allows write requests for modifying data (the default
+        is off).</p>
+<p>
+        The <strong>nbd</strong> export type requires <strong>–nbd-server</strong> (see below).
+        <strong>name</strong> is the NBD export name (if not specified, it defaults
+        to the given <strong>node-name</strong>). <strong>bitmap</strong> is the name of a dirty
+        bitmap reachable from the block node, so the NBD client can
+        use NBD_OPT_SET_META_CONTEXT with the metadata context name
+        &#34;qemu:dirty-bitmap:BITMAP&#34; to inspect the bitmap.</p>
+<p>
+        The <strong>vhost-user-blk</strong> export type takes a vhost-user socket
+        address on which it accept incoming connections. Both
+        <strong>addr.type=unix,addr.path=&lt;socket-path&gt;</strong> for UNIX domain
+        sockets and <strong>addr.type=fd,addr.str=&lt;fd&gt;</strong> for file descriptor
+        passing are supported. <strong>logical-block-size</strong> sets the logical
+        block size in bytes (the default is 512). <strong>num-queues</strong> sets
+        the number of virtqueues (the default is 1).</p>
+<p>
+        The <strong>fuse</strong> export type takes a mount point, which must be a
+        regular file, on which to export the given block node. That
+        file will not be changed, it will just appear to have the
+        block node&#39;s content while the export is active (very much
+        like mounting a filesystem on a directory does not change what
+        the directory contains, it only shows a different content
+        while the filesystem is mounted). Consequently, applications
+        that have opened the given file before the export became
+        active will continue to see its original content. If
+        <strong>growable</strong> is set, writes after the end of the exported file
+        will grow the block node to fit. The <strong>allow-other</strong> option
+        controls whether users other than the user running the process
+        will be allowed to access the export. Note that enabling this
+        option as a non-root user requires enabling the
+        user_allow_other option in the global fuse.conf configuration
+        file. Setting <strong>allow-other</strong> to auto (the default) will try
+        enabling this option, and on error fall back to disabling it.</p>
+<p>
+        The <strong>vduse-blk</strong> export type takes a <strong>name</strong> (must be unique
+        across the host) to create the VDUSE device. <strong>num-queues</strong> sets
+        the number of virtqueues (the default is 1). <strong>queue-size</strong> sets
+        the virtqueue descriptor table size (the default is 256).</p>
+<p>
+        The instantiated VDUSE device must then be added to the vDPA
+        bus using the vdpa(8) command from the iproute2 project:</p>
+<blockquote>
+<pre class="example">
+# vdpa dev add name &lt;id&gt; mgmtdev vduse
+</pre>
+</blockquote>
+</li>
+</ul>
+<p>The device can be removed from the vDPA bus later as follows:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+# vdpa dev del &lt;id&gt;
+</pre>
+</blockquote>
+</blockquote>
+<p>
+For more information about attaching vDPA devices to the host with
+virtio_vdpa.ko or attaching them to guests with vhost_vdpa.ko, see
+<em><a href="https://vdpa-dev.gitlab.io/">https://vdpa-dev.gitlab.io/</a></em>.</p>
+<p>
+For more information about VDUSE, see
+<em><a href="https://docs.kernel.org/userspace-api/vduse.html">https://docs.kernel.org/userspace-api/vduse.html</a></em>.</p>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>–monitor MONITORDEF</strong>
+</dt>
+<dd>
+<p>is a QMP monitor definition. See the
+<strong>qemu(1)</strong> manual page for a description of QMP monitor properties. A
+common QMP monitor definition configures a monitor on character device
+<strong>char1</strong>:</p>
+<blockquote>
+<pre class="example">
+--monitor chardev=char1
+</pre>
+</blockquote>
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<ul>
+<li>
+<p><strong>–nbd-server
+addr.type=inet,addr.host=&lt;host&gt;,addr.port=&lt;port&gt;[,tls-creds=&lt;id&gt;][,tls-authz=&lt;id&gt;][,max-connections=&lt;n&gt;]</strong> :: - <strong>–nbd-server
+  addr.type=unix,addr.path=&lt;path&gt;[,tls-creds=&lt;id&gt;][,tls-authz=&lt;id&gt;][,max-connections=&lt;n&gt;]</strong> :: - <strong>–nbd-server
+    addr.type=fd,addr.str=&lt;fd&gt;[,tls-creds=&lt;id&gt;][,tls-authz=&lt;id&gt;][,max-connections=&lt;n&gt;]</strong> :: is
+    a server for NBD exports. Both TCP and UNIX domain sockets are
+    supported. A listen socket can be provided via file descriptor
+    passing (see Examples below). TLS encryption can be configured
+    using <strong>–object</strong> tls-creds-* and authz-* secrets (see below).</p>
+<p>
+    To configure an NBD server on UNIX domain socket path
+    <strong>/var/run/qsd-nbd.sock</strong>:</p>
+<blockquote>
+<pre class="example">
+--nbd-server addr.type=unix,addr.path=/var/run/qsd-nbd.sock
+</pre>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>–object help</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>–object &lt;type&gt;,help</strong>
+</dt>
+<dd>
+<ul>
+<li><strong>–object
+  &lt;type&gt;[,&lt;property&gt;=&lt;value&gt;…]</strong> :: is a QEMU user creatable object
+  definition. List object types with <strong>help</strong>. List object properties
+  with <strong>&lt;type&gt;,help</strong>. See the <strong>qemu(1)</strong> manual page for a
+  description of the object properties.</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>–pidfile PATH</strong>
+</dt>
+<dd>
+<p>is the path to a file where the daemon writes its
+pid. This allows scripts to stop the daemon by sending a signal:</p>
+<blockquote>
+<pre class="example">
+$ kill -SIGTERM $(&lt;path/to/qsd.pid)
+</pre>
+</blockquote>
+</dd>
+</dl>
+<p>A file lock is applied to the file so only one instance of the daemon
+can run with a given pid file path. The daemon unlinks its pid file when
+terminating.</p>
+<p>
+The pid file is written after chardevs, exports, and NBD servers have
+been created but before accepting connections. The daemon has started
+successfully when the pid file is written and clients may begin
+connecting.</p>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>–daemonize</strong>
+</dt>
+<dd>Daemonize the process. The parent process will exit
+once startup is complete (i.e., after the pid file has been or would
+have been written) or failure occurs. Its exit code reflects whether
+the child has started up successfully or failed to do so.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Launch the daemon with QMP monitor socket <strong>qmp.sock</strong> so clients can
+execute QMP commands:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+$ qemu-storage-daemon \
+    --chardev socket,path=qmp.sock,server=on,wait=off,id=char1 \
+    --monitor chardev=char1
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Launch the daemon from Python with a QMP monitor socket using file
+descriptor passing so there is no need to busy wait for the QMP monitor
+to become available:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+#!/usr/bin/env python3
+import subprocess
+import socket
+
+sock_path = &#39;/var/run/qmp.sock&#39;
+
+with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as listen_sock:
+    listen_sock.bind(sock_path)
+    listen_sock.listen()
+
+    fd = listen_sock.fileno()
+
+    subprocess.Popen(
+        [&#39;qemu-storage-daemon&#39;,
+         &#39;--chardev&#39;, f&#39;socket,fd={fd},server=on,id=char1&#39;,
+         &#39;--monitor&#39;, &#39;chardev=char1&#39;],
+        pass_fds=[fd],
+    )
+
+# listen_sock was automatically closed when leaving the &#39;with&#39; statement
+# body. If the daemon process terminated early then the following connect()
+# will fail with &#34;Connection refused&#34; because no process has the listen
+# socket open anymore. Launch errors can be detected this way.
+
+qmp_sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+qmp_sock.connect(sock_path)
+...QMP interaction...
+</pre>
+</blockquote>
+</blockquote>
+<p>
+The same socket spawning approach also works with the <strong>–nbd-server</strong>
+addr.type=fd,addr.str=&lt;fd&gt; and <strong>–export</strong>
+type=vhost-user-blk,addr.type=fd,addr.str=&lt;fd&gt; options.</p>
+<p>
+Export raw image file <strong>disk.img</strong> over NBD UNIX domain socket <strong>nbd.sock</strong>:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+$ qemu-storage-daemon \
+    --blockdev driver=file,node-name=disk,filename=disk.img \
+    --nbd-server addr.type=unix,addr.path=nbd.sock \
+    --export type=nbd,id=export,node-name=disk,writable=on
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Export a qcow2 image file <strong>disk.qcow2</strong> as a vhost-user-blk device over
+UNIX domain socket <strong>vhost-user-blk.sock</strong>:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+$ qemu-storage-daemon \
+    --blockdev driver=file,node-name=file,filename=disk.qcow2 \
+    --blockdev driver=qcow2,node-name=qcow2,file=file \
+    --export type=vhost-user-blk,id=export,addr.type=unix,addr.path=vhost-user-blk.sock,node-name=qcow2
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Export a qcow2 image file <strong>disk.qcow2</strong> via FUSE on itself, so the disk
+image file will then appear as a raw image:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+$ qemu-storage-daemon \
+    --blockdev driver=file,node-name=file,filename=disk.qcow2 \
+    --blockdev driver=qcow2,node-name=qcow2,file=file \
+    --export type=fuse,id=export,node-name=qcow2,mountpoint=disk.qcow2,writable=on
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>qemu(1)</strong>, <strong>qemu-block-drivers(7)</strong>, <strong>qemu-storage-daemon-qmp-ref(7)</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>2024, The QEMU Project Developers</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - named-compilezone.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - named-compilezone.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>named-compilezone - zone file validity checking or converting tool</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>named-compilezone</strong> [*-d*] [*-h*] [*-j*] [*-q*] [*-v*] [*-c* class]
+[*-f* format] [*-F* format] [*-J* filename] [*-i* mode] [*-k* mode]
+[*-m* mode] [*-M* mode] [*-n* mode] [*-l* ttl] [*-L* serial] [*-r* mode]
+[*-s* style] [*-S* mode] [*-t* directory] [*-T* mode] [*-w* directory]
+[*-D*] [*-W* mode] {<strong>-o</strong> filename} {zonename} {filename}</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>named-compilezone</strong> checks the syntax and integrity of a zone file, and
+dumps the zone contents to a specified file in a specified format. It
+applies strict check levels by default, since the dump output is used as
+an actual zone file loaded by <em>named</em>. When manually specified
+otherwise, the check levels must at least be as strict as those
+specified in the <em>named</em> configuration file.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-d</strong>
+</dt>
+<dd>This option enables debugging.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>This option prints the usage summary and exits.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-q</strong>
+</dt>
+<dd>This option sets quiet mode, which only sets an exit code to
+indicate successful or failed completion.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>This option prints the version of the <em>named-checkzone</em>
+program and exits.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-j</strong>
+</dt>
+<dd>When loading a zone file, this option tells <em>named</em> to read
+the journal if it exists. The journal file name is assumed to be the
+zone file name with the string <strong>.jnl</strong> appended.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-J filename</strong>
+</dt>
+<dd>When loading the zone file, this option tells <em>named</em>
+to read the journal from the given file, if it exists. This implies
+<em>-j</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-c class</strong>
+</dt>
+<dd>This option specifies the class of the zone. If not
+specified, <strong>IN</strong> is assumed.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-i mode</strong>
+</dt>
+<dd>This option performs post-load zone integrity checks.
+Possible modes are <strong>full</strong> (the default), <strong>full-sibling</strong>, <strong>local</strong>,
+<strong>local-sibling</strong>, and <strong>none</strong>.
+
+Mode <strong>full</strong> checks that MX records refer to A or AAAA records (both
+in-zone and out-of-zone hostnames). Mode <strong>local</strong> only checks MX
+records which refer to in-zone hostnames.
+
+Mode <strong>full</strong> checks that SRV records refer to A or AAAA records (both
+in-zone and out-of-zone hostnames). Mode <strong>local</strong> only checks SRV
+records which refer to in-zone hostnames.
+
+Mode <strong>full</strong> checks that delegation NS records refer to A or AAAA
+records (both in-zone and out-of-zone hostnames). It also checks that
+glue address records in the zone match those advertised by the child.
+Mode <strong>local</strong> only checks NS records which refer to in-zone hostnames
+or verifies that some required glue exists, i.e., when the name server
+is in a child zone.
+
+Modes <strong>full-sibling</strong> and <strong>local-sibling</strong> disable sibling glue checks,
+but are otherwise the same as <strong>full</strong> and <strong>local</strong>, respectively.
+
+Mode <strong>none</strong> disables the checks.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-f format</strong>
+</dt>
+<dd>This option specifies the format of the zone file.
+Possible formats are <strong>text</strong> (the default), and <strong>raw</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-F format</strong>
+</dt>
+<dd>This option specifies the format of the output file
+specified. For <em>named-checkzone</em>, this does not have any effect unless
+it dumps the zone contents.
+
+Possible formats are <strong>text</strong> (the default), which is the standard
+textual representation of the zone, and <strong>raw</strong> and <strong>raw=N</strong>, which store
+the zone in a binary format for rapid loading by <em>named</em>. <strong>raw=N</strong>
+specifies the format version of the raw zone file: if <strong>N</strong> is 0, the
+raw file can be read by any version of <em>named</em>; if N is 1, the file
+can only be read by release 9.9.0 or higher. The default is 1.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-k mode</strong>
+</dt>
+<dd>This option performs <strong>check-names</strong> checks with the
+specified failure mode. Possible modes are <strong>fail</strong> (the default),
+<strong>warn</strong>, and <strong>ignore</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-l ttl</strong>
+</dt>
+<dd>This option sets a maximum permissible TTL for the input
+file. Any record with a TTL higher than this value causes the zone to
+be rejected. This is similar to using the <strong>max-zone-ttl</strong> option in
+<em>named.conf</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-L serial</strong>
+</dt>
+<dd>When compiling a zone to <strong>raw</strong> format, this option sets
+the &#34;source serial&#34; value in the header to the specified serial
+number. This is expected to be used primarily for testing purposes.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-m mode</strong>
+</dt>
+<dd>This option specifies whether MX records should be
+checked to see if they are addresses. Possible modes are <strong>fail</strong>,
+<strong>warn</strong> (the default), and <strong>ignore</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-M mode</strong>
+</dt>
+<dd>This option checks whether a MX record refers to a CNAME.
+Possible modes are <strong>fail</strong>, <strong>warn</strong> (the default), and <strong>ignore</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-n mode</strong>
+</dt>
+<dd>This option specifies whether NS records should be
+checked to see if they are addresses. Possible modes are <strong>fail</strong> (the
+default), <strong>warn</strong>, and <strong>ignore</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-o filename</strong>
+</dt>
+<dd>This option writes the zone output to <strong>filename</strong>. If
+<strong>filename</strong> is <strong>-</strong>, then the zone output is written to standard output.
+This is mandatory for <strong>named-compilezone</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-r mode</strong>
+</dt>
+<dd>This option checks for records that are treated as
+different by DNSSEC but are semantically equal in plain DNS. Possible
+modes are <strong>fail</strong>, <strong>warn</strong> (the default), and <strong>ignore</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-s style</strong>
+</dt>
+<dd>This option specifies the style of the dumped zone file.
+Possible styles are <strong>full</strong> (the default) and <strong>relative</strong>. The <strong>full</strong>
+format is most suitable for processing automatically by a separate
+script. The relative format is more human-readable and is thus
+suitable for editing by hand.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-S mode</strong>
+</dt>
+<dd>This option checks whether an SRV record refers to a
+CNAME. Possible modes are <strong>fail</strong>, <strong>warn</strong> (the default), and <strong>ignore</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-t directory</strong>
+</dt>
+<dd>This option tells <em>named</em> to chroot to <strong>directory</strong>,
+so that <strong>include</strong> directives in the configuration file are processed
+as if run by a similarly chrooted <em>named</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-T mode</strong>
+</dt>
+<dd>This option checks whether Sender Policy Framework (SPF)
+records exist and issues a warning if an SPF-formatted TXT record is
+not also present. Possible modes are <strong>warn</strong> (the default) and
+<strong>ignore</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-w directory</strong>
+</dt>
+<dd>This option instructs <em>named</em> to chdir to
+<strong>directory</strong>, so that relative filenames in master file <strong>$INCLUDE</strong>
+directives work. This is similar to the directory clause in
+<em>named.conf</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-D</strong>
+</dt>
+<dd>This option dumps the zone file in canonical format. This is
+always enabled for <strong>named-compilezone</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-W mode</strong>
+</dt>
+<dd>This option specifies whether to check for non-terminal
+wildcards. Non-terminal wildcards are almost always the result of a
+failure to understand the wildcard matching algorithm (<em>RFC 4592</em>).
+Possible modes are <strong>warn</strong> (the default) and <strong>ignore</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>zonename</strong>
+</dt>
+<dd>This indicates the domain name of the zone being
+checked.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>filename</strong>
+</dt>
+<dd>This is the name of the zone file.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+RETURN VALUES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>named-compilezone</strong> returns an exit status of 1 if errors were detected
+and 0 otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><em>named(8)</em>, <em>named-checkconf(8)</em>, <em>named-checkzone(8)</em>, <em>RFC 1035</em>, BIND
+9 Administrator Reference Manual.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHOR
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Internet Systems Consortium</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>2024, Internet Systems Consortium</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

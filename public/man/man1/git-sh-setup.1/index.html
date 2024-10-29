@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-sh-setup.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-sh-setup.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-sh-setup - Common Git shell script setup code</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+. &#34;$(git --exec-path)/git-sh-setup&#34;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This is not a command the end user would want to run. Ever. This
+documentation is meant for people who are studying the Porcelain-ish
+scripts and/or are writing new ones.</p>
+<p>
+The <em>git sh-setup</em> scriptlet is designed to be sourced (using <strong>.</strong>) by
+other shell scripts to set up some variables pointing at the normal Git
+directories and a few helper shell functions.</p>
+<p>
+Before sourcing it, your script should set up a few variables; <strong>USAGE</strong>
+(and <strong>LONG_USAGE</strong>, if any) is used to define the message given by
+<strong>usage()</strong> shell function. <strong>SUBDIRECTORY_OK</strong> can be set if the script can
+run from a subdirectory of the working tree (some commands do not).</p>
+<p>
+The scriptlet sets <strong>GIT_DIR</strong> and <strong>GIT_OBJECT_DIRECTORY</strong> shell variables,
+but does <strong>not</strong> export them to the environment.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+FUNCTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>die</p>
+<blockquote>
+<p>exit after emitting the supplied error message to the standard error
+stream.</p>
+</blockquote>
+<p>
+usage</p>
+<blockquote>
+<p>die with the usage message.</p>
+</blockquote>
+<p>
+set_reflog_action</p>
+<blockquote>
+<p>Set <strong>GIT_REFLOG_ACTION</strong> environment to a given string (typically the
+name of the program) unless it is already set. Whenever the script runs
+a <strong>git</strong> command that updates refs, a reflog entry is created using the
+value of this string to leave the record of what command updated the
+ref.</p>
+</blockquote>
+<p>
+git_editor</p>
+<blockquote>
+<p>runs an editor of user&#39;s choice (GIT_EDITOR, core.editor, VISUAL or
+EDITOR) on a given file, but error out if no editor is specified and the
+terminal is dumb.</p>
+</blockquote>
+<p>
+is_bare_repository</p>
+<blockquote>
+<p>outputs <strong>true</strong> or <strong>false</strong> to the standard output stream to indicate if
+the repository is a bare repository (i.e. without an associated working
+tree).</p>
+</blockquote>
+<p>
+cd_to_toplevel</p>
+<blockquote>
+<p>runs chdir to the toplevel of the working tree.</p>
+</blockquote>
+<p>
+require_work_tree</p>
+<blockquote>
+<p>checks if the current directory is within the working tree of the
+repository, and otherwise dies.</p>
+</blockquote>
+<p>
+require_work_tree_exists</p>
+<blockquote>
+<p>checks if the working tree associated with the repository exists, and
+otherwise dies. Often done before calling cd_to_toplevel, which is
+impossible to do if there is no working tree.</p>
+</blockquote>
+<p>
+require_clean_work_tree &lt;action&gt; [&lt;hint&gt;]</p>
+<blockquote>
+<p>checks that the working tree and index associated with the repository
+have no uncommitted changes to tracked files. Otherwise it emits an
+error message of the form <strong>Cannot &lt;action&gt;: &lt;reason&gt;. &lt;hint&gt;</strong>, and dies.
+Example:</p>
+<blockquote>
+<pre class="example">
+require_clean_work_tree rebase &#34;Please commit or stash them.&#34;
+</pre>
+</blockquote>
+</blockquote>
+<p>
+get_author_ident_from_commit</p>
+<blockquote>
+<p>outputs code for use with eval to set the GIT_AUTHOR_NAME,
+GIT_AUTHOR_EMAIL and GIT_AUTHOR_DATE variables for a given commit.</p>
+</blockquote>
+<p>
+create_virtual_base</p>
+<blockquote>
+<p>modifies the first file so only lines in common with the second file
+remain. If there is insufficient common material, then the first file is
+left empty. The result is suitable as a virtual base input for a 3-way
+merge.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+GIT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

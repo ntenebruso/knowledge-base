@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - hcidump.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - hcidump.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>hcidump - Parse HCI data</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>hcidump</strong> -h</p>
+<p>
+<strong>hcidump</strong> [OPTIONS …] [FILTERS]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>hcidump(1)</strong> reads raw HCI data coming from and going to a Bluetooth
+device (which can be specified with the option <strong>-i</strong>, default is the
+first available one) and prints to screen commands, events and data in a
+human-readable form. Optionally, the dump can be written to a file
+rather than parsed, and the dump file can be parsed in a subsequent
+moment.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+*-i*/ &lt;hciX&gt;/
+</dt>
+<dd>Data is read from <em>hciX</em>, which must be the name of
+an installed Bluetooth device. If not specified, and if <strong>-r</strong> option is
+not set, data is read from the first available Bluetooth device.</dd>
+<dt>
+<strong>-l*/ &lt;len&gt;,/</strong> –snap-len*=**/&lt;len&gt;/
+</dt>
+<dd>Sets max length of processed
+packets to /len/*.*</dd>
+<dt>
+<strong>-p*/ &lt;psm&gt;,/</strong> –psm*=**/&lt;psm&gt;/
+</dt>
+<dd>Sets default Protocol Service
+Multiplexer to /psm/*.*</dd>
+<dt>
+<strong>-m*/ &lt;compid&gt;,/</strong> –manufacturer*=**/&lt;compid&gt;/
+</dt>
+<dd>Sets default company
+id for manufacturer to /compid/*.*</dd>
+<dt>
+<strong>-w*/ &lt;file&gt;,/</strong> –save-dump*=**/&lt;file&gt;/
+</dt>
+<dd>Parse output is not printed
+to screen, instead data read from device is saved in /file/*. The
+saved dump file can be subsequently parsed with* option <strong>-r.</strong></dd>
+<dt>
+<strong>-r*/ &lt;file&gt;,/</strong> –read-dump*=**/&lt;file&gt;/
+</dt>
+<dd>Data is not read from a
+Bluetooth device, but from /file/*. <strong><em>file</em></strong> is* created with option
+<strong>-t, –timestamp prepend a time stamp to every</strong> packet.</dd>
+<dt>
+<strong>-a</strong>,* –ascii*
+</dt>
+<dd>For every packet, not only is the packet type
+displayed, but also all data in ASCII.</dd>
+<dt>
+<strong>-x</strong>,* –hex*
+</dt>
+<dd>For every packet, not only is the packet type
+displayed, but also all data in hex.</dd>
+<dt>
+<strong>-X</strong>,* –ext*
+</dt>
+<dd>For every packet, not only is the packet type
+displayed, but also all data in hex and ASCII.</dd>
+<dt>
+<strong>-R</strong>,* –raw*
+</dt>
+<dd>For every packet, only the raw data is displayed.</dd>
+<dt>
+<strong>-C*/ &lt;psm&gt;,/</strong> –cmtp*=**/&lt;psm&gt;/
+</dt>
+<dd>Sets the PSM value for the CAPI
+Message Transport Protocol.</dd>
+<dt>
+<strong>-H*/ &lt;psm&gt;,/</strong> –hcrp*=**/&lt;psm&gt;/
+</dt>
+<dd>Sets the PSM value for the
+Hardcopy Control Channel.</dd>
+<dt>
+<strong>-O*/ &lt;channel&gt;,/</strong> –obex*=**/&lt;channel&gt;/
+</dt>
+<dd>Sets the RFCOMM channel
+value for the Object Exchange Protocol.</dd>
+<dt>
+<strong>-P*/ &lt;channel&gt;,/</strong> –ppp*=**/&lt;channel&gt;/
+</dt>
+<dd>Sets the RFCOMM channel
+value for the Point-to-Point Protocol.</dd>
+<dt>
+<strong>-D*/ &lt;file&gt;,/</strong> –pppdump*=**/&lt;file&gt;/
+</dt>
+<dd>Extract PPP traffic with
+pppdump format.</dd>
+<dt>
+<strong>-A*/ &lt;file&gt;,/</strong> –audio*=**/&lt;file&gt;/
+</dt>
+<dd>Extract SCO audio data.</dd>
+<dt>
+<strong>-Y</strong>,* –novendor*
+</dt>
+<dd>Don&#39;t display any vendor commands or events and
+don&#39;t show any pin code or link key in plain text.</dd>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>Prints usage info and exits</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+FILTERS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>filter is a space-separated list of packet categories: available
+categories are /lmp/*, <strong><em>hci</em></strong>, <strong><em>sco</em></strong>, <strong><em>l2cap</em></strong>, <strong><em>rfcomm</em></strong>, <strong><em>sdp</em></strong>,
+<strong><em>bnep</em></strong>, <strong><em>cmtp</em></strong>, <strong><em>hidp</em></strong>, <strong><em>hcrp</em></strong>,* /avdtp/*, <strong><em>avctp</em></strong>, <strong><em>obex</em></strong>,
+<strong><em>capi</em></strong> and <strong><em>ppp</em></strong>. If filters are used, only packets* belonging to
+the specified categories are dumped. By default, all packets are dumped.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+RESOURCES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Maxim Krasnyansky &lt;maxk@qualcomm.com&gt;, Marcel Holtmann
+&lt;marcel@holtmann.org&gt;, Fabrizio Gennari &lt;fabrizio.gennari@philips.com&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

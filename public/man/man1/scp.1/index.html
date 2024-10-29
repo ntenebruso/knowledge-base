@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - scp.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - scp.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>scp</strong> - OpenSSH secure file copy</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>\\
+<strong>scp</strong> [*-346ABCOpqRrsTv*] [*-c* /cipher/] [*-D* /sftp_server_path/]
+[*-F* /ssh_config/] [*-i* /identity_file/] [*-J* /destination/] [*-l*
+<em>limit/] [*-o* /ssh_option/] [*-P* /port/] [*-S* /program/] [*-X*
+/sftp_option/] /source</em>… target</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>scp</strong> copies files between hosts on a network.</p>
+<p>
+<strong>scp</strong> uses the SFTP protocol over a *ssh*(1) connection for data
+transfer, and uses the same authentication and provides the same
+security as a login session.</p>
+<p>
+<strong>scp</strong> will ask for passwords or passphrases if they are needed for
+authentication.</p>
+<p>
+The <em>source</em> and <em>target</em> may be specified as a local pathname, a remote
+host with optional path in the form [user@]host:[path,] or a URI in the
+form scp://[user@]host[:port][/path.] Local file names can be made
+explicit using absolute or relative pathnames to avoid <strong>scp</strong> treating
+file names containing `:&#39; as host specifiers.</p>
+<p>
+When copying between two remote hosts, if the URI format is used, a
+<em>port</em> cannot be specified on the <em>target</em> if the <strong>-R</strong> option is used.</p>
+<p>
+The options are as follows:</p>
+<dl>
+<dt>
+<strong>-3</strong>
+</dt>
+<dd>Copies between two remote hosts are transferred through the
+local host. Without this option the data is copied directly between
+the two remote hosts. Note that, when using the legacy SCP protocol
+(via the <strong>-O</strong> flag), this option selects batch mode for the second
+host as <strong>scp</strong> cannot ask for passwords or passphrases for both hosts.
+This mode is the default.</dd>
+<dt>
+<strong>-4</strong>
+</dt>
+<dd>Forces <strong>scp</strong> to use IPv4 addresses only.</dd>
+<dt>
+<strong>-6</strong>
+</dt>
+<dd>Forces <strong>scp</strong> to use IPv6 addresses only.</dd>
+<dt>
+<strong>-A</strong>
+</dt>
+<dd>Allows forwarding of *ssh-agent*(1) to the remote system. The
+default is not to forward an authentication agent.</dd>
+<dt>
+<strong>-B</strong>
+</dt>
+<dd>Selects batch mode (prevents asking for passwords or
+passphrases).</dd>
+<dt>
+<strong>-C</strong>
+</dt>
+<dd>Compression enable. Passes the <strong>-C</strong> flag to *ssh*(1) to enable
+compression.</dd>
+<dt>
+<strong>-c</strong> <em>cipher</em>
+</dt>
+<dd>Selects the cipher to use for encrypting the data
+transfer. This option is directly passed to *ssh*(1).</dd>
+<dt>
+<strong>-D</strong> <em>sftp_server_path</em>
+</dt>
+<dd>Connect directly to a local SFTP server
+program rather than a remote one via *ssh*(1). This option may be
+useful in debugging the client and server.</dd>
+<dt>
+<strong>-F</strong> <em>ssh_config</em>
+</dt>
+<dd>Specifies an alternative per-user configuration
+file for <strong>ssh</strong>. This option is directly passed to *ssh*(1).</dd>
+<dt>
+<strong>-i</strong> <em>identity_file</em>
+</dt>
+<dd>Selects the file from which the identity
+(private key) for public key authentication is read. This option is
+directly passed to *ssh*(1).</dd>
+<dt>
+<strong>-J</strong> <em>destination</em>
+</dt>
+<dd>Connect to the target host by first making an
+<strong>scp</strong> connection to the jump host described by <em>destination</em> and then
+establishing a TCP forwarding to the ultimate destination from there.
+Multiple jump hops may be specified separated by comma characters.
+This is a shortcut to specify a <strong>ProxyJump</strong> configuration directive.
+This option is directly passed to *ssh*(1).</dd>
+<dt>
+<strong>-l</strong> <em>limit</em>
+</dt>
+<dd>Limits the used bandwidth, specified in Kbit/s.</dd>
+<dt>
+<strong>-O</strong>
+</dt>
+<dd>Use the legacy SCP protocol for file transfers instead of the
+SFTP protocol. Forcing the use of the SCP protocol may be necessary
+for servers that do not implement SFTP, for backwards-compatibility
+for particular filename wildcard patterns and for expanding paths with
+a `~&#39; prefix for older SFTP servers.</dd>
+<dt>
+<strong>-o</strong> <em>ssh_option</em>
+</dt>
+<dd>Can be used to pass options to <strong>ssh</strong> in the
+format used in <strong>ssh_config*(5). This is useful for specifying options
+for which there is no separate *scp</strong> command-line flag. For full
+details of the options listed below, and their possible values, see
+*ssh_config*(5).</dd>
+<dt>
+AddressFamily
+</dt>
+<dd>
+<dl>
+<dt>
+BatchMode
+</dt>
+<dd>
+<dl>
+<dt>
+BindAddress
+</dt>
+<dd>
+<dl>
+<dt>
+BindInterface
+</dt>
+<dd>
+<dl>
+<dt>
+CanonicalDomains
+</dt>
+<dd>
+<dl>
+<dt>
+CanonicalizeFallbackLocal
+</dt>
+<dd>
+<dl>
+<dt>
+CanonicalizeHostname
+</dt>
+<dd>
+<dl>
+<dt>
+CanonicalizeMaxDots
+</dt>
+<dd>
+<dl>
+<dt>
+CanonicalizePermittedCNAMEs
+</dt>
+<dd>
+<dl>
+<dt>
+CASignatureAlgorithms
+</dt>
+<dd>
+<dl>
+<dt>
+CertificateFile
+</dt>
+<dd>
+<dl>
+<dt>
+CheckHostIP
+</dt>
+<dd>
+<dl>
+<dt>
+Ciphers
+</dt>
+<dd>
+<dl>
+<dt>
+Compression
+</dt>
+<dd>
+<dl>
+<dt>
+ConnectionAttempts
+</dt>
+<dd>
+<dl>
+<dt>
+ConnectTimeout
+</dt>
+<dd>
+<dl>
+<dt>
+ControlMaster
+</dt>
+<dd>
+<dl>
+<dt>
+ControlPath
+</dt>
+<dd>
+<dl>
+<dt>
+ControlPersist
+</dt>
+<dd>
+<dl>
+<dt>
+GlobalKnownHostsFile
+</dt>
+<dd>
+<dl>
+<dt>
+GSSAPIAuthentication
+</dt>
+<dd>
+<dl>
+<dt>
+GSSAPIDelegateCredentials
+</dt>
+<dd>
+<dl>
+<dt>
+HashKnownHosts
+</dt>
+<dd>
+<dl>
+<dt>
+Host
+</dt>
+<dd>
+<dl>
+<dt>
+HostbasedAcceptedAlgorithms
+</dt>
+<dd>
+<dl>
+<dt>
+HostbasedAuthentication
+</dt>
+<dd>
+<dl>
+<dt>
+HostKeyAlgorithms
+</dt>
+<dd>
+<dl>
+<dt>
+HostKeyAlias
+</dt>
+<dd>
+<dl>
+<dt>
+Hostname
+</dt>
+<dd>
+<dl>
+<dt>
+IdentitiesOnly
+</dt>
+<dd>
+<dl>
+<dt>
+IdentityAgent
+</dt>
+<dd>
+<dl>
+<dt>
+IdentityFile
+</dt>
+<dd>
+<dl>
+<dt>
+IPQoS
+</dt>
+<dd>
+<dl>
+<dt>
+KbdInteractiveAuthentication
+</dt>
+<dd>
+<dl>
+<dt>
+KbdInteractiveDevices
+</dt>
+<dd>
+<dl>
+<dt>
+KexAlgorithms
+</dt>
+<dd>
+<dl>
+<dt>
+KnownHostsCommand
+</dt>
+<dd>
+<dl>
+<dt>
+LogLevel
+</dt>
+<dd>
+<dl>
+<dt>
+MACs
+</dt>
+<dd>
+<dl>
+<dt>
+NoHostAuthenticationForLocalhost
+</dt>
+<dd>
+<dl>
+<dt>
+NumberOfPasswordPrompts
+</dt>
+<dd>
+<dl>
+<dt>
+PasswordAuthentication
+</dt>
+<dd>
+<dl>
+<dt>
+PKCS11Provider
+</dt>
+<dd>
+<dl>
+<dt>
+Port
+</dt>
+<dd>
+<dl>
+<dt>
+PreferredAuthentications
+</dt>
+<dd>
+<dl>
+<dt>
+ProxyCommand
+</dt>
+<dd>
+<dl>
+<dt>
+ProxyJump
+</dt>
+<dd>
+<dl>
+<dt>
+PubkeyAcceptedAlgorithms
+</dt>
+<dd>
+<dl>
+<dt>
+PubkeyAuthentication
+</dt>
+<dd>
+<dl>
+<dt>
+RekeyLimit
+</dt>
+<dd>
+<dl>
+<dt>
+RequiredRSASize
+</dt>
+<dd>
+<dl>
+<dt>
+SendEnv
+</dt>
+<dd>
+<dl>
+<dt>
+ServerAliveInterval
+</dt>
+<dd>
+<dl>
+<dt>
+ServerAliveCountMax
+</dt>
+<dd>
+<dl>
+<dt>
+SetEnv
+</dt>
+<dd>
+<dl>
+<dt>
+StrictHostKeyChecking
+</dt>
+<dd>
+<dl>
+<dt>
+TCPKeepAlive
+</dt>
+<dd>
+<dl>
+<dt>
+UpdateHostKeys
+</dt>
+<dd>
+<dl>
+<dt>
+User
+</dt>
+<dd>
+<dl>
+<dt>
+UserKnownHostsFile
+</dt>
+<dd>
+<dl>
+<dt>
+VerifyHostKeyDNS
+</dt>
+<dd>
+<ul>
+<li>
+<p><strong>-P</strong>
+                                                             <em>port</em> :: Specifies
+                                                             the
+                                                             port
+                                                             to
+                                                             connect
+                                                             to
+                                                             on
+                                                             the
+                                                             remote
+                                                             host.
+                                                             Note
+                                                             that
+                                                             this
+                                                             option
+                                                             is
+                                                             written
+                                                             with
+                                                             a
+                                                             capital
+                                                             `P&#39;,
+                                                             because
+                                                             <strong>-p</strong>
+                                                             is
+                                                             already
+                                                             reserved
+                                                             for
+                                                             preserving
+                                                             the
+                                                             times
+                                                             and
+                                                             mode
+                                                             bits
+                                                             of
+                                                             the
+                                                             file.</p>
+<dl>
+<dt>
+<strong>-p</strong>
+</dt>
+<dd>Preserves
+modification
+times,
+access
+times,
+and
+file
+mode
+bits
+from
+the
+source
+file.</dd>
+<dt>
+<strong>-q</strong>
+</dt>
+<dd>Quiet
+mode:
+disables
+the
+progress
+meter
+as
+well
+as
+warning
+and
+diagnostic
+messages
+from
+*ssh*(1).</dd>
+<dt>
+<strong>-R</strong>
+</dt>
+<dd>Copies
+between
+two
+remote
+hosts
+are
+performed
+by
+connecting
+to
+the
+origin
+host
+and
+executing
+<strong>scp</strong>
+there.
+This
+requires
+that
+<strong>scp</strong>
+running
+on
+the
+origin
+host
+can
+authenticate
+to
+the
+destination
+host
+without
+requiring
+a
+password.</dd>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>Recursively
+copy
+entire
+directories.
+Note
+that
+<strong>scp</strong>
+follows
+symbolic
+links
+encountered
+in
+the
+tree
+traversal.</dd>
+<dt>
+?
+</dt>
+<dd><strong>-S</strong>
+<em>program</em> :: Name
+of
+<em>program</em>
+to
+use
+for
+the
+encrypted
+connection.
+The
+program
+must
+understand
+*ssh*(1)
+options.</dd>
+<dt>
+<strong>-T</strong>
+</dt>
+<dd>Disable
+strict
+filename
+checking.
+By
+default
+when
+copying
+files
+from
+a
+remote
+host
+to
+a
+local
+directory
+<strong>scp</strong>
+checks
+that
+the
+received
+filenames
+match
+those
+requested
+on
+the
+command-line
+to
+prevent
+the
+remote
+end
+from
+sending
+unexpected
+or
+unwanted
+files.
+Because
+of
+differences
+in
+how
+various
+operating
+systems
+and
+shells
+interpret
+filename
+wildcards,
+these
+checks
+may
+cause
+wanted
+files
+to
+be
+rejected.
+This
+option
+disables
+these
+checks
+at
+the
+expense
+of
+fully
+trusting
+that
+the
+server
+will
+not
+send
+unexpected
+filenames.</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>Verbose
+mode.
+Causes
+<strong>scp</strong>
+and
+*ssh*(1)
+to
+print
+debugging
+messages
+about
+their
+progress.
+This
+is
+helpful
+in
+debugging
+connection,
+authentication,
+and
+configuration
+problems.</dd>
+<dt>
+?
+</dt>
+<dd><strong>-X</strong>
+<em>sftp_option</em> :: Specify
+an
+option
+that
+controls
+aspects
+of
+SFTP
+protocol
+behaviour.
+The
+valid
+options
+are:</dd>
+<dt>
+*nrequests*=/value/
+</dt>
+<dd>Controls
+how
+many
+concurrent
+SFTP
+read
+or
+write
+requests
+may
+be
+in
+progress
+at
+any
+point
+in
+time
+during
+a
+download
+or
+upload.
+By
+default
+64
+requests
+may
+be
+active
+concurrently.</dd>
+<dt>
+*buffer*=/value/
+</dt>
+<dd>Controls
+the
+maximum
+buffer
+size
+for
+a
+single
+SFTP
+read/write
+operation
+used
+during
+download
+or
+upload.
+By
+default
+a
+32KB
+buffer
+is
+used.</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Ex -std scp</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>*sftp*(1), *ssh*(1), *ssh-add*(1), *ssh-agent*(1), *ssh-keygen*(1),
+*ssh_config*(5), *sftp-server*(8), *sshd*(8)</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+HISTORY
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>scp</strong> is based on the rcp program in Bx source code from the Regents of
+the University of California.</p>
+<p>
+Since OpenSSH 9.0, <strong>scp</strong> has used the SFTP protocol for transfers by
+default.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHORS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Timo Rinne &lt;Mt tri@iki.fi&gt;</p>
+<p>
+Tatu Ylonen &lt;Mt ylo@cs.hut.fi&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+CAVEATS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The legacy SCP protocol (selected by the <strong>-O</strong> flag) requires execution
+of the remote user&#39;s shell to perform *glob*(3) pattern matching. This
+requires careful quoting of any characters that have special meaning to
+the remote shell, such as quote characters.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

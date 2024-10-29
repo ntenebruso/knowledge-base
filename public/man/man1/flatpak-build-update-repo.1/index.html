@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - flatpak-build-update-repo.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - flatpak-build-update-repo.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>flatpak-build-update-repo - Create a repository from a build directory</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>flatpak build-update-repo</strong> [OPTION…] LOCATION</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Updates repository metadata for the repository at LOCATION. This command
+generates an OSTree summary file that lists the contents of the
+repository. The summary is used by flatpak remote-ls and other commands
+to display the contents of remote repositories.</p>
+<p>
+After this command, LOCATION can be used as the repository location for
+flatpak remote-add, either by exporting it over http, or directly with a
+file: url.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Show help options and exit.</p>
+</blockquote>
+<p>
+<strong>–redirect-url=URL</strong></p>
+<blockquote>
+<p>Redirect this repo to a new URL.</p>
+</blockquote>
+<p>
+<strong>–title=TITLE</strong></p>
+<blockquote>
+<p>A title for the repository, e.g. for display in a UI. The title is
+stored in the repository summary.</p>
+</blockquote>
+<p>
+<strong>–comment=COMMENT</strong></p>
+<blockquote>
+<p>A single-line comment for the remote, e.g. for display in a UI. The
+comment is stored in the repository summary.</p>
+</blockquote>
+<p>
+<strong>–description=DESCRIPTION</strong></p>
+<blockquote>
+<p>A full-paragraph description for the remote, e.g. for display in a UI.
+The description is stored in the repository summary.</p>
+</blockquote>
+<p>
+<strong>–homepage=URL</strong></p>
+<blockquote>
+<p>URL for a website for the remote, e.g. for display in a UI. The url is
+stored in the repository summary.</p>
+</blockquote>
+<p>
+<strong>–icon=URL</strong></p>
+<blockquote>
+<p>URL for an icon for the remote, e.g. for display in a UI. The url is
+stored in the repository summary.</p>
+</blockquote>
+<p>
+<strong>–default-branch=BRANCH</strong></p>
+<blockquote>
+<p>A default branch for the repository, mainly for use in a UI.</p>
+</blockquote>
+<p>
+<strong>–gpg-import=FILE</strong></p>
+<blockquote>
+<p>Import a new default GPG public key from the given file.</p>
+</blockquote>
+<p>
+<strong>–collection-id=COLLECTION-ID</strong></p>
+<blockquote>
+<p>The globally unique identifier of the remote repository, to allow
+mirrors to be grouped. This must be set to a globally unique reverse DNS
+string if the repository is to be made publicly available. If a
+collection ID is already set on an existing repository, this will update
+it. If not specified, the existing collection ID will be left unchanged.</p>
+</blockquote>
+<p>
+<strong>–deploy-collection-id</strong></p>
+<blockquote>
+<p>Deploy the collection ID (set using <strong>–collection-id</strong>) in the static
+remote configuration for all clients. This is irrevocable once published
+in a repository. Use it to decide when to roll out a collection ID to
+users of an existing repository. If constructing a new repository which
+has a collection ID, you should typically always pass this option.</p>
+</blockquote>
+<p>
+<strong>–deploy-sideload-collection-id</strong></p>
+<blockquote>
+<p>This is similar to –deploy-collection-id, but it only applies the
+deploy to clients newer than flatpak 1.7 which supports the new form of
+sideloads.</p>
+</blockquote>
+<p>
+<strong>–gpg-sign=KEYID</strong></p>
+<blockquote>
+<p>Sign the commit with this GPG key. This option can be used multiple
+times.</p>
+</blockquote>
+<p>
+<strong>–gpg-homedir=PATH</strong></p>
+<blockquote>
+<p>GPG Homedir to use when looking for keyrings</p>
+</blockquote>
+<p>
+<strong>–generate-static-deltas</strong></p>
+<blockquote>
+<p>Generate static deltas for all references. This generates from-empty and
+delta static files that allow for faster download.</p>
+</blockquote>
+<p>
+<strong>–static-delta-jobs=NUM-JOBS</strong></p>
+<blockquote>
+<p>Limit the number of parallel jobs creating static deltas. The default is
+the number of cpus.</p>
+</blockquote>
+<p>
+<strong>–static-delta-ignore-ref=PATTERN</strong></p>
+<blockquote>
+<p>Dont generate deltas for runtime or application id matching this
+pattern. For instance, –static-delta-ignore-ref=*.Sources means there
+will not be any deltas for source refs.</p>
+</blockquote>
+<p>
+<strong>–prune</strong></p>
+<blockquote>
+<p>Remove unreferenced objects in repo.</p>
+</blockquote>
+<p>
+<strong>–prune-depth</strong></p>
+<blockquote>
+<p>Only keep at most this number of old versions for any particular ref.
+Default is -1 which means infinite.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Print debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–ostree-verbose</strong></p>
+<blockquote>
+<p>Print OSTree debug information during command processing.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>*ostree*(1), *flatpak*(1), *flatpak-remote-ls*(1),
+*flatpak-build-export*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - host.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - host.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>host - DNS lookup utility</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>host</strong> [*-aACdlnrsTUwv*] [*-c* class] [*-N* ndots] [*-p* port] [*-R*
+number] [*-t* type] [*-W* wait] [*-m* flag] [ [*-4*] | [*-6*] ] [*-v*]
+[*-V*] {name} [server]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>host</strong> is a simple utility for performing DNS lookups. It is normally
+used to convert names to IP addresses and vice versa. When no arguments
+or options are given, <strong>host</strong> prints a short summary of its command-line
+arguments and options.</p>
+<p>
+<strong>name</strong> is the domain name that is to be looked up. It can also be a
+dotted-decimal IPv4 address or a colon-delimited IPv6 address, in which
+case <strong>host</strong> by default performs a reverse lookup for that address.
+<strong>server</strong> is an optional argument which is either the name or IP address
+of the name server that <strong>host</strong> should query instead of the server or
+servers listed in <strong>/etc/resolv.conf</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-4</strong>
+</dt>
+<dd>This option specifies that only IPv4 should be used for query
+transport. See also the <em>-6</em> option.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-6</strong>
+</dt>
+<dd>This option specifies that only IPv6 should be used for query
+transport. See also the <em>-4</em> option.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>The <em>-a</em> (&#34;all&#34;) option is normally equivalent to <em>-v</em> <em>-t
+ANY</em>. It also affects the behavior of the <em>-l</em> list zone option.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-A</strong>
+</dt>
+<dd>The <em>-A</em> (&#34;almost all&#34;) option is equivalent to <em>-a</em>, except
+that RRSIG, NSEC, and NSEC3 records are omitted from the output.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-c class</strong>
+</dt>
+<dd>This option specifies the query class, which can be used
+to lookup HS (Hesiod) or CH (Chaosnet) class resource records. The
+default class is IN (Internet).</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-C</strong>
+</dt>
+<dd>This option indicates that <em>named</em> should check consistency,
+meaning that <strong>host</strong> queries the SOA records for zone <strong>name</strong> from all
+the listed authoritative name servers for that zone. The list of name
+servers is defined by the NS records that are found for the zone.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-d</strong>
+</dt>
+<dd>This option prints debugging traces, and is equivalent to the
+<em>-v</em> verbose option.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>This option tells <em>named</em> to list the zone, meaning the <strong>host</strong>
+command performs a zone transfer of zone <strong>name</strong> and prints out the NS,
+PTR, and address records (A/AAAA).
+
+Together, the <em>-l</em> <em>-a</em> options print all records in the zone.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-N ndots</strong>
+</dt>
+<dd>This option specifies the number of dots (<strong>ndots</strong>) that
+have to be in <strong>name</strong> for it to be considered absolute. The default
+value is that defined using the <strong>ndots</strong> statement in
+<strong>/etc/resolv.conf</strong>, or 1 if no <strong>ndots</strong> statement is present. Names
+with fewer dots are interpreted as relative names, and are searched
+for in the domains listed in the <strong>search</strong> or <strong>domain</strong> directive in
+<strong>/etc/resolv.conf</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-p port</strong>
+</dt>
+<dd>This option specifies the port to query on the server.
+The default is 53.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>This option specifies a non-recursive query; setting this
+option clears the RD (recursion desired) bit in the query. This means
+that the name server receiving the query does not attempt to resolve
+<strong>name</strong>. The <em>-r</em> option enables <strong>host</strong> to mimic the behavior of a name
+server by making non-recursive queries, and expecting to receive
+answers to those queries that can be referrals to other name servers.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-R number</strong>
+</dt>
+<dd>This option specifies the number of retries for UDP
+queries. If <strong>number</strong> is negative or zero, the number of retries is
+silently set to 1. The default value is 1, or the value of the
+<strong>attempts</strong> option in <strong>/etc/resolv.conf</strong>, if set.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>This option tells <em>named</em> <em>not</em> to send the query to the next
+nameserver if any server responds with a SERVFAIL response, which is
+the reverse of normal stub resolver behavior.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-t type</strong>
+</dt>
+<dd>This option specifies the query type. The <strong>type</strong> argument
+can be any recognized query type: CNAME, NS, SOA, TXT, DNSKEY, AXFR,
+etc.
+
+When no query type is specified, <strong>host</strong> automatically selects an
+appropriate query type. By default, it looks for A, AAAA, and MX
+records. If the <em>-C</em> option is given, queries are made for SOA
+records. If <strong>name</strong> is a dotted-decimal IPv4 address or colon-delimited
+IPv6 address, <strong>host</strong> queries for PTR records.
+
+If a query type of IXFR is chosen, the starting serial number can be
+specified by appending an equals sign (=), followed by the starting
+serial number, e.g., <em>-t IXFR=12345678</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-T, -U</strong>
+</dt>
+<dd>This option specifies TCP or UDP. By default, <strong>host</strong> uses
+UDP when making queries; the <em>-T</em> option makes it use a TCP connection
+when querying the name server. TCP is automatically selected for
+queries that require it, such as zone transfer (AXFR) requests. Type
+<strong>ANY</strong> queries default to TCP, but can be forced to use UDP initially
+via <em>-U</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-m flag</strong>
+</dt>
+<dd>This option sets memory usage debugging: the flag can be
+<strong>record</strong>, <strong>usage</strong>, or <strong>trace</strong>. The <em>-m</em> option can be specified more
+than once to set multiple flags.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>This option sets verbose output, and is equivalent to the <em>-d</em>
+debug option. Verbose output can also be enabled by setting the
+<strong>debug</strong> option in <strong>/etc/resolv.conf</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>This option prints the version number and exits.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-w</strong>
+</dt>
+<dd>This option sets &#34;wait forever&#34;: the query timeout is set to
+the maximum possible. See also the <em>-W</em> option.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-W wait</strong>
+</dt>
+<dd>This options sets the length of the wait timeout,
+indicating that <em>named</em> should wait for up to <strong>wait</strong> seconds for a
+reply. If <strong>wait</strong> is less than 1, the wait interval is set to 1 second.
+
+By default, <strong>host</strong> waits for 5 seconds for UDP responses and 10
+seconds for TCP connections. These defaults can be overridden by the
+<strong>timeout</strong> option in <strong>/etc/resolv.conf</strong>.
+
+See also the <em>-w</em> option.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+IDN SUPPORT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>If <strong>host</strong> has been built with IDN (internationalized domain name)
+support, it can accept and display non-ASCII domain names. <strong>host</strong>
+appropriately converts character encoding of a domain name before
+sending a request to a DNS server or displaying a reply from the server.
+To turn off IDN support, define the <strong>IDN_DISABLE</strong> environment variable.
+IDN support is disabled if the variable is set when <strong>host</strong> runs.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+FILES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>/etc/resolv.conf</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><em>dig(1)</em>, <em>named(8)</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Internet Systems Consortium</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>2024, Internet Systems Consortium</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

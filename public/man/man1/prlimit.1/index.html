@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - prlimit.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - prlimit.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>prlimit - get and set process resource limits</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>prlimit</strong> [options] [*–resource*[=/limits/]] [*–pid* /PID/]</p>
+<p>
+<strong>prlimit</strong> [options] [*–resource*[=/limits/]] <em>command</em> [/argument/…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Given a process ID and one or more resources, <strong>prlimit</strong> tries to
+retrieve and/or modify the limits.</p>
+<p>
+When <em>command</em> is given, <strong>prlimit</strong> will run this command with the given
+arguments.</p>
+<p>
+The <em>limits</em> parameter is composed of a soft and a hard value, separated
+by a colon (:), in order to modify the existing values. If no <em>limits</em>
+are given, <strong>prlimit</strong> will display the current values. If one of the
+values is not given, then the existing one will be used. To specify the
+unlimited or infinity limit (<strong>RLIM_INFINITY</strong>), the -1 or unlimited
+string can be passed.</p>
+<p>
+Because of the nature of limits, the soft limit must be lower or equal
+to the high limit (also called the ceiling). To see all available
+resource limits, refer to the <strong>RESOURCE OPTIONS</strong> section.</p>
+<blockquote>
+<p>·</p>
+<p>
+<em>soft</em>:_hard_ Specify both limits.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>soft</em>: Specify only the soft limit.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+:/hard/ Specify only the hard limit.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>value</em> Specify both limits to the same value.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+GENERAL OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>–noheadings</strong></p>
+<blockquote>
+<p>Do not print a header line.</p>
+</blockquote>
+<p>
+<strong>-o, –output</strong> <em>list</em></p>
+<blockquote>
+<p>Define the output columns to use. If no output arrangement is specified,
+then a default set is used. Use <strong>–help</strong> to get a list of all supported
+columns.</p>
+</blockquote>
+<p>
+<strong>-p, –pid</strong></p>
+<blockquote>
+<p>Specify the process id; if none is given, the running process will be
+used.</p>
+</blockquote>
+<p>
+<strong>–raw</strong></p>
+<blockquote>
+<p>Use the raw output format.</p>
+</blockquote>
+<p>
+<strong>–verbose</strong></p>
+<blockquote>
+<p>Verbose mode.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+RESOURCE OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>-c, –core</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum size of a core file.</p>
+</blockquote>
+<p>
+<strong>-d, –data</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum data size.</p>
+</blockquote>
+<p>
+<strong>-e, –nice</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum nice priority allowed to raise.</p>
+</blockquote>
+<p>
+<strong>-f, –fsize</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum file size.</p>
+</blockquote>
+<p>
+<strong>-i, –sigpending</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum number of pending signals.</p>
+</blockquote>
+<p>
+<strong>-l, –memlock</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum locked-in-memory address space.</p>
+</blockquote>
+<p>
+<strong>-m, –rss</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum Resident Set Size (RSS).</p>
+</blockquote>
+<p>
+<strong>-n, –nofile</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum number of open files.</p>
+</blockquote>
+<p>
+<strong>-q, –msgqueue</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum number of bytes in POSIX message queues.</p>
+</blockquote>
+<p>
+<strong>-r, –rtprio</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum real-time priority.</p>
+</blockquote>
+<p>
+<strong>-s, –stack</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum size of the stack.</p>
+</blockquote>
+<p>
+<strong>-t, –cpu</strong>[=/limits/]</p>
+<blockquote>
+<p>CPU time, in seconds.</p>
+</blockquote>
+<p>
+<strong>-u, –nproc</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum number of processes.</p>
+</blockquote>
+<p>
+<strong>-v, –as</strong>[=/limits/]</p>
+<blockquote>
+<p>Address space limit.</p>
+</blockquote>
+<p>
+<strong>-x, –locks</strong>[=/limits/]</p>
+<blockquote>
+<p>Maximum number of file locks held.</p>
+</blockquote>
+<p>
+<strong>-y, –rttime</strong>[=/limits/]</p>
+<blockquote>
+<p>Timeout for real-time tasks.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+NOTES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The *prlimit*(2) system call is supported since Linux 2.6.36, older
+kernels will break this program.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><strong>prlimit –pid 13134</strong></p>
+<blockquote>
+<p>Display limit values for all current resources.</p>
+</blockquote>
+<p>
+<strong>prlimit –pid 13134 –rss –nofile=1024:4095</strong></p>
+<blockquote>
+<p>Display the limits of the RSS, and set the soft and hard limits for the
+number of open files to 1024 and 4095, respectively.</p>
+</blockquote>
+<p>
+<strong>prlimit –pid 13134 –nproc=512:</strong></p>
+<blockquote>
+<p>Modify only the soft limit for the number of processes.</p>
+</blockquote>
+<p>
+<strong>prlimit –pid $$ –nproc=unlimited</strong></p>
+<blockquote>
+<p>Set for the current process both the soft and ceiling values for the
+number of processes to unlimited.</p>
+</blockquote>
+<p>
+<strong>prlimit –cpu=10 sort -u hugefile</strong></p>
+<blockquote>
+<p>Set both the soft and hard CPU time limit to ten seconds and run
+*sort*(1).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHORS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<ul>
+<li>In memory of Dennis M. Ritchie.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*ulimit*(1p), *prlimit*(2)</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The <strong>prlimit</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

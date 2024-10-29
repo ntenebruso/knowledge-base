@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - flatpak-uninstall.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - flatpak-uninstall.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>flatpak-uninstall - Uninstall an application or runtime</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>flatpak uninstall</strong> [OPTION…] [REF…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Uninstalls an application or runtime. REF is a reference to the
+application or runtime to uninstall.</p>
+<p>
+Each REF argument is a full or partial identifier in the flatpak ref
+format, which looks like &#34;(app|runtime)/ID/ARCH/BRANCH&#34;. All elements
+except ID are optional and can be left out, including the slashes, so
+most of the time you need only specify ID. Any part left out will be
+matched against what is installed, and if there are multiple matches you
+will be prompted to choose between them. You will also be prompted if
+REF doesnt match any installed ref exactly but is similar (e.g. &#34;gedit&#34;
+is similar to &#34;org.gnome.gedit&#34;), but this fuzzy matching behavior is
+disabled if REF contains any slashes or periods.</p>
+<p>
+By default this looks for both installed apps and runtimes with the
+given REF, but you can limit this by using the <strong>–app</strong> or <strong>–runtime</strong>
+option, or by supplying the initial element in the REF.</p>
+<p>
+Normally, this command removes the ref for this application/runtime from
+the local OSTree repository and purges any objects that are no longer
+needed to free up disk space. If the same application is later
+reinstalled, the objects will be pulled from the remote repository
+again. The <strong>–keep-ref</strong> option can be used to prevent this.</p>
+<p>
+When <strong>–delete-data</strong> is specified while removing an app, its data
+directory in ~/.var/app and any permissions it might have are removed.
+When <strong>–delete-data</strong> is used without a REF, all unowned app data is
+removed.</p>
+<p>
+Unless overridden with the <strong>–system</strong>, <strong>–user</strong>, or <strong>–installation</strong>
+options, this command searches both the system-wide installation and the
+per-user one for REF and errors out if it exists in more than one.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Show help options and exit.</p>
+</blockquote>
+<p>
+<strong>–keep-ref</strong></p>
+<blockquote>
+<p>Keep the ref for the application and the objects belonging to it in the
+local repository.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–user</strong></p>
+<blockquote>
+<p>Uninstalls from a per-user installation.</p>
+</blockquote>
+<p>
+<strong>–system</strong></p>
+<blockquote>
+<p>Uninstalls from the default system-wide installation.</p>
+</blockquote>
+<p>
+<strong>–installation=NAME</strong></p>
+<blockquote>
+<p>Uninstalls from a system-wide installation specified by NAME among those
+defined in <em>etc/flatpak/installations.d</em>. Using <strong>–installation=default</strong>
+is equivalent to using <strong>–system</strong>.</p>
+</blockquote>
+<p>
+<strong>–arch=ARCH</strong></p>
+<blockquote>
+<p>The architecture to uninstall, instead of the architecture of the host
+system. See <strong>flatpak –supported-arches</strong> for architectures supported by
+the host.</p>
+</blockquote>
+<p>
+<strong>–all</strong></p>
+<blockquote>
+<p>Remove all refs on the system.</p>
+</blockquote>
+<p>
+<strong>–unused</strong></p>
+<blockquote>
+<p>Remove unused refs on the system.</p>
+</blockquote>
+<p>
+<strong>-y</strong>, <strong>–assumeyes</strong></p>
+<blockquote>
+<p>Automatically answer yes to all questions. This is useful for
+automation.</p>
+</blockquote>
+<p>
+<strong>–noninteractive</strong></p>
+<blockquote>
+<p>Produce minimal output and avoid most questions. This is suitable for
+use in non-interactive situations, e.g. in a build script.</p>
+</blockquote>
+<p>
+<strong>–app</strong></p>
+<blockquote>
+<p>Only look for an app with the given name.</p>
+</blockquote>
+<p>
+<strong>–runtime</strong></p>
+<blockquote>
+<p>Only look for a runtime with the given name.</p>
+</blockquote>
+<p>
+<strong>–no-related</strong></p>
+<blockquote>
+<p>Dont uninstall related extensions, such as the locale data.</p>
+</blockquote>
+<p>
+<strong>–force-remove</strong></p>
+<blockquote>
+<p>Remove files even if theyre in use by a running application.</p>
+</blockquote>
+<p>
+<strong>–delete-data</strong></p>
+<blockquote>
+<p>Remove app data in ~/.var/app and in the permission store.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Print debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–ostree-verbose</strong></p>
+<blockquote>
+<p>Print OSTree debug information during command processing.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>$ flatpak –user uninstall org.gnome.gedit</strong></p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - more.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - more.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>more - display the contents of a file in a terminal</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>more</strong> [options] <em>file</em> …</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>more</strong> is a filter for paging through text one screenful at a time. This
+version is especially primitive. Users should realize that *less*(1)
+provides *more*(1) emulation plus extensive enhancements.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Options are also taken from the environment variable <strong>MORE</strong> (make sure
+to precede them with a dash (<strong>-</strong>)) but command-line options will
+override those.</p>
+<p>
+<strong>-d</strong>, <strong>–silent</strong></p>
+<blockquote>
+<p>Prompt with &#34;[Press space to continue, q to quit.]&#34;, and display &#34;[Press
+h for instructions.]&#34; instead of ringing the bell when an illegal key is
+pressed.</p>
+</blockquote>
+<p>
+<strong>-l</strong>, <strong>–logical</strong></p>
+<blockquote>
+<p>Do not pause after any line containing a <strong>^L</strong> (form feed).</p>
+</blockquote>
+<p>
+<strong>-e</strong>, <strong>–exit-on-eof</strong></p>
+<blockquote>
+<p>Exit on End-Of-File, enabled by default if POSIXLY_CORRECT environment
+variable is not set or if not executed on terminal.</p>
+</blockquote>
+<p>
+<strong>-f</strong>, <strong>–no-pause</strong></p>
+<blockquote>
+<p>Count logical lines, rather than screen lines (i.e., long lines are not
+folded).</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–print-over</strong></p>
+<blockquote>
+<p>Do not scroll. Instead, clear the whole screen and then display the
+text. Notice that this option is switched on automatically if the
+executable is named <strong>page</strong>.</p>
+</blockquote>
+<p>
+<strong>-c</strong>, <strong>–clean-print</strong></p>
+<blockquote>
+<p>Do not scroll. Instead, paint each screen from the top, clearing the
+remainder of each line as it is displayed.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–squeeze</strong></p>
+<blockquote>
+<p>Squeeze multiple blank lines into one.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–plain</strong></p>
+<blockquote>
+<p>Suppress underlining. This option is silently ignored as backwards
+compatibility.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–lines</strong> <em>number</em></p>
+<blockquote>
+<p>Specify the <em>number</em> of lines per screenful. The <em>number</em> argument is a
+positive decimal integer. The <strong>–lines</strong> option shall override any values
+obtained from any other source, such as number of lines reported by
+terminal.</p>
+</blockquote>
+<p>
+*-*/number/</p>
+<blockquote>
+<p>A numeric option means the same as <strong>–lines</strong> option argument.</p>
+</blockquote>
+<p>
+*+*/number/</p>
+<blockquote>
+<p>Start displaying each file at line <em>number</em>.</p>
+</blockquote>
+<p>
+*+*//string/</p>
+<blockquote>
+<p>The <em>string</em> to be searched in each file before starting to display it.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+COMMANDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Interactive commands for <strong>more</strong> are based on *vi*(1). Some commands may
+be preceded by a decimal number, called k in the descriptions below. In
+the following descriptions, <strong>^X</strong> means <strong>control-X</strong>.</p>
+<p>
+<strong>h</strong> or <strong>?</strong></p>
+<blockquote>
+<p>Help; display a summary of these commands. If you forget all other
+commands, remember this one.</p>
+</blockquote>
+<p>
+<strong>SPACE</strong></p>
+<blockquote>
+<p>Display next k lines of text. Defaults to current screen size.</p>
+</blockquote>
+<p>
+<strong>z</strong></p>
+<blockquote>
+<p>Display next k lines of text. Defaults to current screen size. Argument
+becomes new default.</p>
+</blockquote>
+<p>
+<strong>RETURN</strong></p>
+<blockquote>
+<p>Display next k lines of text. Defaults to 1. Argument becomes new
+default.</p>
+</blockquote>
+<p>
+<strong>d</strong> or <strong>^D</strong></p>
+<blockquote>
+<p>Scroll k lines. Default is current scroll size, initially 11. Argument
+becomes new default.</p>
+</blockquote>
+<p>
+<strong>q</strong> or <strong>Q</strong> or <strong>INTERRUPT</strong></p>
+<blockquote>
+<p>Exit.</p>
+</blockquote>
+<p>
+<strong>s</strong></p>
+<blockquote>
+<p>Skip forward k lines of text. Defaults to 1.</p>
+</blockquote>
+<p>
+<strong>f</strong></p>
+<blockquote>
+<p>Skip forward k screenfuls of text. Defaults to 1.</p>
+</blockquote>
+<p>
+<strong>b</strong> or <strong>^B</strong></p>
+<blockquote>
+<p>Skip backwards k screenfuls of text. Defaults to 1. Only works with
+files, not pipes.</p>
+</blockquote>
+<blockquote>
+<p>Go to the place where the last search started.</p>
+</blockquote>
+<p>
+<strong>=</strong></p>
+<blockquote>
+<p>Display current line number.</p>
+</blockquote>
+<p>
+<strong>/pattern</strong></p>
+<blockquote>
+<p>Search for kth occurrence of regular expression. Defaults to 1.</p>
+</blockquote>
+<p>
+<strong>n</strong></p>
+<blockquote>
+<p>Search for kth occurrence of last regular expression. Defaults to 1.</p>
+</blockquote>
+<p>
+<strong>!command</strong> or <strong>:!command</strong></p>
+<blockquote>
+<p>Execute <em>command</em> in a subshell.</p>
+</blockquote>
+<p>
+<strong>v</strong></p>
+<blockquote>
+<p>Start up an editor at current line. The editor is taken from the
+environment variable <strong>VISUAL</strong> if defined, or <strong>EDITOR</strong> if <strong>VISUAL</strong> is not
+defined, or defaults to <strong>vi*(1) if neither *VISUAL</strong> nor <strong>EDITOR</strong> is
+defined.</p>
+</blockquote>
+<p>
+<strong>^L</strong></p>
+<blockquote>
+<p>Redraw screen.</p>
+</blockquote>
+<p>
+<strong>:n</strong></p>
+<blockquote>
+<p>Go to kth next file. Defaults to 1.</p>
+</blockquote>
+<p>
+<strong>:p</strong></p>
+<blockquote>
+<p>Go to kth previous file. Defaults to 1.</p>
+</blockquote>
+<p>
+<strong>:f</strong></p>
+<blockquote>
+<p>Display current file name and line number.</p>
+</blockquote>
+<p>
+<strong>.</strong></p>
+<blockquote>
+<p>Repeat previous command.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The <strong>more</strong> command respects the following environment variables, if they
+exist:</p>
+<p>
+<strong>MORE</strong></p>
+<blockquote>
+<p>This variable may be set with favored options to <strong>more</strong>.</p>
+</blockquote>
+<p>
+<strong>SHELL</strong></p>
+<blockquote>
+<p>Current shell in use (normally set by the shell at login time).</p>
+</blockquote>
+<p>
+<strong>TERM</strong></p>
+<blockquote>
+<p>The terminal type used by <strong>more</strong> to get the terminal characteristics
+necessary to manipulate the screen.</p>
+</blockquote>
+<p>
+<strong>VISUAL</strong></p>
+<blockquote>
+<p>The editor the user prefers. Invoked when command key <em>v</em> is pressed.</p>
+</blockquote>
+<p>
+<strong>EDITOR</strong></p>
+<blockquote>
+<p>The editor of choice when <strong>VISUAL</strong> is not specified.</p>
+</blockquote>
+<p>
+<strong>POSIXLY_CORRECT</strong></p>
+<blockquote>
+<p>Disable exit-on-eof (see option <strong>-e</strong> for more details).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+HISTORY
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The <strong>more</strong> command appeared in 3.0BSD. This man page documents <strong>more</strong>
+version 5.19 (Berkeley 6/29/88), which is currently in use in the Linux
+community. Documentation was produced using several other versions of
+the man page, and extensive inspection of the source code.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHORS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Eric Shienbrood, UC Berkeley.</p>
+<p>
+Modified by Geoff Peck, UCB to add underlining, single spacing.</p>
+<p>
+Modified by John Foderaro, UCB to add -c and MORE environment variable.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*less*(1), *vi*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The <strong>more</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

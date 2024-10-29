@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-refs.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-refs.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-refs - Low-level access to refs</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git refs migrate --ref-format=&lt;format&gt; [--dry-run]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This command provides low-level access to refs.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>migrate</p>
+<blockquote>
+<p>Migrate ref store between different formats.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following options are specific to <em>git refs migrate</em>:</p>
+<p>
+–ref-format=&lt;format&gt;</p>
+<blockquote>
+<p>The ref format to migrate the ref store to. Can be one of:</p>
+<blockquote>
+<p>·</p>
+<p>
+<strong>files</strong> for loose files with packed-refs. This is the default.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>reftable</strong> for the reftable format. This format is experimental and its
+internals are subject to change.</p>
+</blockquote>
+</blockquote>
+<p>
+–dry-run</p>
+<blockquote>
+<p>Perform the migration, but do not modify the repository. The migrated
+refs will be written into a separate directory that can be inspected
+separately. The name of the directory will be reported on stdout. This
+can be used to double check that the migration works as expected before
+performing the actual migration.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+KNOWN LIMITATIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The ref format migration has several known limitations in its current
+form:</p>
+<blockquote>
+<p>·</p>
+<p>
+It is not possible to migrate repositories that have reflogs.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+It is not possible to migrate repositories that have worktrees.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+There is no way to block concurrent writes to the repository during an
+ongoing migration. Concurrent writes can lead to an inconsistent
+migrated state. Users are expected to block writes on a higher level. If
+your repository is registered for scheduled maintenance, it is
+recommended to unregister it first with git-maintenance(1).</p>
+</blockquote>
+<p>
+These limitations may eventually be lifted.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+GIT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

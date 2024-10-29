@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - bluetoothctl.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - bluetoothctl.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>bluetoothctl - Bluetooth Control Command Line Tool</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>bluetoothctl</strong> [*-a* /capability/] [*-e*] [*-m*] [*-t* /seconds/] [*-v*]
+[*-h*]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>bluetoothctl(1)</strong> interactive bluetooth control tool. The tool works
+with Bluetooth Classic (BR/EDR) and Bluetooth Low Energy (LE)
+controllers.</p>
+<p>
+The tool is menu driven but can be automated from the command line.
+Examples are given in the automation section.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-a*/ capability,/</strong> –agent*/ capability/
+</dt>
+<dd>Register agent handler:
+&lt;capability&gt;</dd>
+<dt>
+<strong>-e, –endpoints</strong>
+</dt>
+<dd>Register Media endpoints</dd>
+<dt>
+<strong>-m, –monitor</strong>
+</dt>
+<dd>Enable monitor output</dd>
+<dt>
+<strong>-t*/ seconds,/</strong> –timeout*/ seconds/
+</dt>
+<dd>Timeout in seconds for
+non-interactive mode</dd>
+<dt>
+<strong>-v, –version</strong>
+</dt>
+<dd>Display version</dd>
+<dt>
+<strong>-h, –help</strong>
+</dt>
+<dd>Display help</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+COMMANDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+list
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>List available controllers.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># list</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+show
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Controller information.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># show [ctrl]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+select
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Select default controller.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># select &lt;ctrl&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+devices
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>List available devices, with an optional property as the filter.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># devices [Paired/Bonded/Trusted/Connected]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+system-alias
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>Set controller alias.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># system-alias &lt;name&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+reset-alias
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>Reset controller alias.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># reset-alias</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+power
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>Set controller power.</p>
+<p>
+When the controller is powered off, the USB port the controller is
+attached to is put into a suspend state.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># power &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+advertise
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<p>Enable/disable advertising with given type.</p>
+<p>
+If you exit the program advertising will be disabled.</p>
+<p>
+When advertising the controller should advertise with random address but
+may use its public address if it does not support the feature (address
+of the device).</p>
+<p>
+A device can advertise if it initiated the connection to another
+advertising device.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># advertise &lt;on/off/type&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-3">
+<h3 id="headline-14">
+set-alias
+</h3>
+<div id="outline-text-headline-14" class="outline-text-3">
+<p>Set device alias.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># set-alias &lt;alias&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+scan
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<p>Scan for devices.</p>
+<p>
+For LE, scanning is an important requirement before connecting or
+pairing.</p>
+<p>
+The purpose of scanning is to find devices that are advertising with
+their discoverable flag set (either limited or general). Once you have
+found the address then you can connect or pair.</p>
+<p>
+Note the following when scanning:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>When scanning the controller will use a random address that is not
+resolvable so the public address is not leaked. A new random address
+is created every time scan on is used.</li>
+<li>When turning on scanning the device will start receiving advertising
+reports of what devices are advertising.</li>
+<li>The filtering of duplicate advertising reports may be enabled
+depending on the filtering settings.</li>
+<li>Device objects found during a scan session will only be persisted if
+they are connected/paired otherwise they are removed after some time.</li>
+</ul>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># scan &lt;on/off/bredr/le&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-3">
+<h3 id="headline-16">
+pair
+</h3>
+<div id="outline-text-headline-16" class="outline-text-3">
+<p>Pair with device.</p>
+<p>
+This will pair with a device and then trust and connect to it. If the
+device is already paired this will first remove the pairing.</p>
+<p>
+The command can either be used while the controller is in the connected
+or not connected state.</p>
+<p>
+If the controller is already connected then the pair command can be used
+without an arguments. If the controller is not connected, the pair
+command can be given the address of a device with an active scan report
+and it will initiate the connection before pairing.</p>
+<p>
+Before pairing the agent must be selected to choose the authentication
+mechanism.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># pair &lt;dev&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-3">
+<h3 id="headline-17">
+pairable
+</h3>
+<div id="outline-text-headline-17" class="outline-text-3">
+<p>Set controller pairable mode.</p>
+<p>
+This enables/disables pairing. If pairing is disabled then the
+controller will not accept any pairing requests.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># pairable &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-3">
+<h3 id="headline-18">
+discoverable
+</h3>
+<div id="outline-text-headline-18" class="outline-text-3">
+<p>Set discoverable mode.</p>
+<p>
+This enables/disables discoverable mode. If discoverable is disabled
+then the controller will not respond to any scan requests.</p>
+<p>
+In LE if discoverable if off the controller will just passively scan and
+not make scan requests to advertising devices. If on it will make the
+advertising requests.</p>
+<p>
+It will use a random address if supported by the controller. The length
+of time &#34;discoverable on&#34; is valid is determined by discoverable-timeout
+command.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># discoverable &lt;on/off&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-19" class="outline-3">
+<h3 id="headline-19">
+discoverable-timeout
+</h3>
+<div id="outline-text-headline-19" class="outline-text-3">
+<p>Set discoverable timeout.</p>
+<p>
+The time in seconds that &#34;discoverable on&#34; is valid.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># discoverable-timeout [value]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-3">
+<h3 id="headline-20">
+agent
+</h3>
+<div id="outline-text-headline-20" class="outline-text-3">
+<p>Enable/disable agent with given capability.</p>
+<p>
+This chooses the local authentication mechanism of the controller. It is
+needed for pairing and allows you to choose the IO capabilities of the
+controller.</p>
+<p>
+The valid agent capabilities are: DisplayOnly, DisplayYesNo,
+KeyboardDisplay, KeyboardOnly, NoInputNoOutput.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># agent &lt;on/off/capability&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-21" class="outline-3">
+<h3 id="headline-21">
+default-agent
+</h3>
+<div id="outline-text-headline-21" class="outline-text-3">
+<p>Set current agent as the default one.</p>
+<p>
+After selecting the agent this will make it the default agent.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># default-agent</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-22" class="outline-3">
+<h3 id="headline-22">
+trust
+</h3>
+<div id="outline-text-headline-22" class="outline-text-3">
+<p>Trust device.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># trust &lt;dev&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-23" class="outline-3">
+<h3 id="headline-23">
+untrust
+</h3>
+<div id="outline-text-headline-23" class="outline-text-3">
+<p>Untrust device.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># untrust &lt;dev&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-24" class="outline-3">
+<h3 id="headline-24">
+block
+</h3>
+<div id="outline-text-headline-24" class="outline-text-3">
+<p>Block device.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># block &lt;dev&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-25" class="outline-3">
+<h3 id="headline-25">
+unblock
+</h3>
+<div id="outline-text-headline-25" class="outline-text-3">
+<p>Unblock device</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># unblock &lt;dev&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-26" class="outline-3">
+<h3 id="headline-26">
+remove
+</h3>
+<div id="outline-text-headline-26" class="outline-text-3">
+<p>Remove device.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># remove &lt;dev&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-27" class="outline-3">
+<h3 id="headline-27">
+connect
+</h3>
+<div id="outline-text-headline-27" class="outline-text-3">
+<p>Connect device.</p>
+<p>
+This will initiate a connection to a device.</p>
+<p>
+To connect with an LE device the controller must have an active scan
+report of the device it wants to connect to.</p>
+<p>
+If no advertising report is received before the timeout a
+le-connection-abort-by-local error will be issued. In that case either
+try again to connect assuming the device is advertising.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># connect &lt;dev&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-28" class="outline-3">
+<h3 id="headline-28">
+disconnect
+</h3>
+<div id="outline-text-headline-28" class="outline-text-3">
+<p>Disconnect device.</p>
+<p>
+For LE when disconnecting from an active connection the device address
+is not needed.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># disconnect &lt;dev&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-29" class="outline-3">
+<h3 id="headline-29">
+info
+</h3>
+<div id="outline-text-headline-29" class="outline-text-3">
+<p>Device information.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># info &lt;dev&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-30" class="outline-2">
+<h2 id="headline-30">
+ADVERTISE SUBMENU
+</h2>
+<div id="outline-text-headline-30" class="outline-text-2">
+<p>See <strong>bluetoothctl-advertise(1).</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-31" class="outline-2">
+<h2 id="headline-31">
+MONITOR SUBMENU
+</h2>
+<div id="outline-text-headline-31" class="outline-text-2">
+<p>See <strong>bluetoothctl-monitor(1)</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-32" class="outline-2">
+<h2 id="headline-32">
+SCAN SUBMENU
+</h2>
+<div id="outline-text-headline-32" class="outline-text-2">
+<p>See <strong>bluetoothctl-scan(1)</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-33" class="outline-2">
+<h2 id="headline-33">
+GATT SUBMENU
+</h2>
+<div id="outline-text-headline-33" class="outline-text-2">
+<p>See <strong>bluetoothctl-gatt(1)</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-34" class="outline-2">
+<h2 id="headline-34">
+ADMIN SUBMENU
+</h2>
+<div id="outline-text-headline-34" class="outline-text-2">
+<p>See <strong>bluetoothctl-admin(1)</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-35" class="outline-2">
+<h2 id="headline-35">
+PLAYER SUBMENU
+</h2>
+<div id="outline-text-headline-35" class="outline-text-2">
+<p>See <strong>bluetoothctl-player(1)</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-36" class="outline-2">
+<h2 id="headline-36">
+ENDPOINT SUBMENU
+</h2>
+<div id="outline-text-headline-36" class="outline-text-2">
+<p>See <strong>bluetoothctl-endpoint(1)</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-37" class="outline-2">
+<h2 id="headline-37">
+TRANSPORT SUBMENU
+</h2>
+<div id="outline-text-headline-37" class="outline-text-2">
+<p>See <strong>bluetoothctl-transport(1)</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-38" class="outline-2">
+<h2 id="headline-38">
+MANAGEMENT SUBMENU
+</h2>
+<div id="outline-text-headline-38" class="outline-text-2">
+<p>See <strong>bluetoothctl-mgmt(1)</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-39" class="outline-2">
+<h2 id="headline-39">
+ASSISTANT SUBMENU
+</h2>
+<div id="outline-text-headline-39" class="outline-text-2">
+<p>See <strong>bluetoothctl-assistant(1)</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-40" class="outline-2">
+<h2 id="headline-40">
+AUTOMATION
+</h2>
+<div id="outline-text-headline-40" class="outline-text-2">
+<p>Two common ways to automate the tool are to use Here Docs or the program
+expect. Using Here Docs to show information about the Bluetooth
+controller.</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+bluetoothctl &lt;&lt;EOF
+list
+show
+EOF
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-41" class="outline-2">
+<h2 id="headline-41">
+RESOURCES
+</h2>
+<div id="outline-text-headline-41" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-42" class="outline-2">
+<h2 id="headline-42">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-42" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-43" class="outline-2">
+<h2 id="headline-43">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-43" class="outline-text-2">
+<p>Free use of this software is granted under the terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

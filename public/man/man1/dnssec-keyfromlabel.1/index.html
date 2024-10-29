@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - dnssec-keyfromlabel.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - dnssec-keyfromlabel.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>dnssec-keyfromlabel - DNSSEC key generation tool</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>dnssec-keyfromlabel</strong> {<strong>-l</strong> label} [*-3*] [*-a* algorithm] [*-A*
+date/offset] [*-c* class] [*-D* date/offset] [*-D* sync date/offset]
+[*-E* engine] [*-f* flag] [*-G*] [*-I* date/offset] [*-i* interval]
+[*-k*] [*-K* directory] [*-L* ttl] [*-n* nametype] [*-P* date/offset]
+[*-P* sync date/offset] [*-p* protocol] [*-R* date/offset] [*-S* key]
+[*-t* type] [*-v* level] [*-V*] [*-y*] {name}</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>dnssec-keyfromlabel</strong> generates a pair of key files that reference a key
+object stored in a cryptographic hardware service module (HSM). The
+private key file can be used for DNSSEC signing of zone data as if it
+were a conventional signing key created by <em>dnssec-keygen</em>, but the key
+material is stored within the HSM and the actual signing takes place
+there.</p>
+<p>
+The <strong>name</strong> of the key is specified on the command line. This must match
+the name of the zone for which the key is being generated.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-a algorithm</strong>
+</dt>
+<dd>This option selects the cryptographic algorithm. The
+value of <strong>algorithm</strong> must be one of RSASHA1, NSEC3RSASHA1, RSASHA256,
+RSASHA512, ECDSAP256SHA256, ECDSAP384SHA384, ED25519, or ED448.
+
+These values are case-insensitive. In some cases, abbreviations are
+supported, such as ECDSA256 for ECDSAP256SHA256 and ECDSA384 for
+ECDSAP384SHA384. If RSASHA1 is specified along with the <em>-3</em> option,
+then NSEC3RSASHA1 is used instead.
+
+This option is mandatory except when using the <em>-S</em> option, which
+copies the algorithm from the predecessory key.
+
+Changed in version 9.12.0: The default value RSASHA1 for newly
+generated keys was removed.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-3</strong>
+</dt>
+<dd>This option uses an NSEC3-capable algorithm to generate a
+DNSSEC key. If this option is used with an algorithm that has both
+NSEC and NSEC3 versions, then the NSEC3 version is used; for example,
+<strong>dnssec-keygen -3a RSASHA1</strong> specifies the NSEC3RSASHA1 algorithm.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-E engine</strong>
+</dt>
+<dd>This option specifies the cryptographic hardware to
+use.
+
+When BIND 9 is built with OpenSSL, this needs to be set to the OpenSSL
+engine identifier that drives the cryptographic accelerator or
+hardware service module (usually <strong>pkcs11</strong>).</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-l label</strong>
+</dt>
+<dd>This option specifies the label for a key pair in the
+crypto hardware.
+
+When BIND 9 is built with OpenSSL-based PKCS#11 support, the label is
+an arbitrary string that identifies a particular key. It may be
+preceded by an optional OpenSSL engine name, followed by a colon, as
+in <strong>pkcs11:keylabel</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-n nametype</strong>
+</dt>
+<dd>This option specifies the owner type of the key. The
+value of <strong>nametype</strong> must either be ZONE (for a DNSSEC zone key
+(KEY/DNSKEY)), HOST or ENTITY (for a key associated with a host
+(KEY)), USER (for a key associated with a user (KEY)), or OTHER
+(DNSKEY). These values are case-insensitive.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-C</strong>
+</dt>
+<dd>This option enables compatibility mode, which generates an
+old-style key, without any metadata. By default, <strong>dnssec-keyfromlabel</strong>
+includes the key&#39;s creation date in the metadata stored with the
+private key; other dates may be set there as well, including
+publication date, activation date, etc. Keys that include this data
+may be incompatible with older versions of BIND; the <em>-C</em> option
+suppresses them.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-c class</strong>
+</dt>
+<dd>This option indicates that the DNS record containing the
+key should have the specified class. If not specified, class IN is
+used.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-f flag</strong>
+</dt>
+<dd>This option sets the specified flag in the <strong>flag</strong> field
+of the KEY/DNSKEY record. The only recognized flags are KSK
+(Key-Signing Key) and REVOKE.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-G</strong>
+</dt>
+<dd>This option generates a key, but does not publish it or sign
+with it. This option is incompatible with <em>-P</em> and <em>-A</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>This option prints a short summary of the options and
+arguments to <strong>dnssec-keyfromlabel</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-K directory</strong>
+</dt>
+<dd>This option sets the directory in which the key
+files are to be written.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-k</strong>
+</dt>
+<dd>This option generates KEY records rather than DNSKEY records.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-L ttl</strong>
+</dt>
+<dd>This option sets the default TTL to use for this key when
+it is converted into a DNSKEY RR. This is the TTL used when the key is
+imported into a zone, unless there was already a DNSKEY RRset in
+place, in which case the existing TTL would take precedence. Setting
+the default TTL to <strong>0</strong> or <strong>none</strong> removes it.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-p protocol</strong>
+</dt>
+<dd>This option sets the protocol value for the key. The
+protocol is a number between 0 and 255. The default is 3 (DNSSEC).
+Other possible values for this argument are listed in <em>RFC 2535</em> and
+its successors.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-S key</strong>
+</dt>
+<dd>This option generates a key as an explicit successor to an
+existing key. The name, algorithm, size, and type of the key are set
+to match the predecessor. The activation date of the new key is set to
+the inactivation date of the existing one. The publication date is set
+to the activation date minus the prepublication interval, which
+defaults to 30 days.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-t type</strong>
+</dt>
+<dd>This option indicates the type of the key. <strong>type</strong> must be
+one of AUTHCONF, NOAUTHCONF, NOAUTH, or NOCONF. The default is
+AUTHCONF. AUTH refers to the ability to authenticate data, and CONF to
+the ability to encrypt data.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-v level</strong>
+</dt>
+<dd>This option sets the debugging level.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>This option prints version information.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-y</strong>
+</dt>
+<dd>This option allows DNSSEC key files to be generated even if
+the key ID would collide with that of an existing key, in the event of
+either key being revoked. (This is only safe to enable if <em>RFC 5011</em>
+trust anchor maintenance is not used with either of the keys
+involved.)</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+TIMING OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Dates can be expressed in the format YYYYMMDD or YYYYMMDDHHMMSS (which
+is the format used inside key files), or &#39;Day Mon DD HH:MM:SS YYYY&#39; (as
+printed by <strong>dnssec-settime -p</strong>), or UNIX epoch time (as printed by
+<strong>dnssec-settime -up</strong>), or the literal <strong>now</strong>.</p>
+<p>
+The argument can be followed by <strong>+</strong> or <strong>-</strong> and an offset from the given
+time. The literal <strong>now</strong> can be omitted before an offset. The offset can
+be followed by one of the suffixes <strong>y</strong>, <strong>mo</strong>, <strong>w</strong>, <strong>d</strong>, <strong>h</strong>, or <strong>mi</strong>, so
+that it is computed in years (defined as 365 24-hour days, ignoring leap
+years), months (defined as 30 24-hour days), weeks, days, hours, or
+minutes, respectively. Without a suffix, the offset is computed in
+seconds.</p>
+<p>
+To explicitly prevent a date from being set, use <strong>none</strong>, <strong>never</strong>, or
+<strong>unset</strong>.</p>
+<p>
+All these formats are case-insensitive.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>-P date/offset</strong>
+</dt>
+<dd>
+<p>This option sets the date on which a key is to be
+published to the zone. After that date, the key is included in the
+zone but is not used to sign it. If not set, and if the <em>-G</em> option
+has not been used, the default is the current date.</p>
+<dl>
+<dt>
+<strong>sync date/offset</strong>
+</dt>
+<dd>This option sets the date on which CDS and
+CDNSKEY records that match this key are to be published to the zone.</dd>
+</dl>
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-A date/offset</strong>
+</dt>
+<dd>This option sets the date on which the key is to
+be activated. After that date, the key is included in the zone and
+used to sign it. If not set, and if the <em>-G</em> option has not been used,
+the default is the current date.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-R date/offset</strong>
+</dt>
+<dd>This option sets the date on which the key is to
+be revoked. After that date, the key is flagged as revoked. It is
+included in the zone and is used to sign it.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-I date/offset</strong>
+</dt>
+<dd>This option sets the date on which the key is to
+be retired. After that date, the key is still included in the zone,
+but it is not used to sign it.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-D date/offset</strong>
+</dt>
+<dd>
+<p>This option sets the date on which the key is to
+be deleted. After that date, the key is no longer included in the
+zone. (However, it may remain in the key repository.)</p>
+<dl>
+<dt>
+<strong>sync date/offset</strong>
+</dt>
+<dd>This option sets the date on which the CDS and
+CDNSKEY records that match this key are to be deleted.</dd>
+</dl>
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-i interval</strong>
+</dt>
+<dd>This option sets the prepublication interval for a
+key. If set, then the publication and activation dates must be
+separated by at least this much time. If the activation date is
+specified but the publication date is not, the publication date
+defaults to this much time before the activation date; conversely, if
+the publication date is specified but not the activation date,
+activation is set to this much time after publication.
+
+If the key is being created as an explicit successor to another key,
+then the default prepublication interval is 30 days; otherwise it is
+zero.
+
+As with date offsets, if the argument is followed by one of the
+suffixes <strong>y</strong>, <strong>mo</strong>, <strong>w</strong>, <strong>d</strong>, <strong>h</strong>, or <strong>mi</strong>, the interval is measured
+in years, months, weeks, days, hours, or minutes, respectively.
+Without a suffix, the interval is measured in seconds.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+GENERATED KEY FILES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>When <strong>dnssec-keyfromlabel</strong> completes successfully, it prints a string of
+the form <strong>Knnnn.+aaa+iiiii</strong> to the standard output. This is an
+identification string for the key files it has generated.</p>
+<blockquote>
+<ul>
+<li><strong>nnnn</strong> is the key name.</li>
+<li><strong>aaa</strong> is the numeric representation of the algorithm.</li>
+<li><strong>iiiii</strong> is the key identifier (or footprint).</li>
+</ul>
+</blockquote>
+<p>
+<strong>dnssec-keyfromlabel</strong> creates two files, with names based on the printed
+string. <strong>Knnnn.+aaa+iiiii.key</strong> contains the public key, and
+<strong>Knnnn.+aaa+iiiii.private</strong> contains the private key.</p>
+<p>
+The <strong>.key</strong> file contains a DNS KEY record that can be inserted into a
+zone file (directly or with an $INCLUDE statement).</p>
+<p>
+The <strong>.private</strong> file contains algorithm-specific fields. For obvious
+security reasons, this file does not have general read permission.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><em>dnssec-keygen(8)</em>, <em>dnssec-signzone(8)</em>, BIND 9 Administrator Reference
+Manual, <em>RFC 4034</em>, <em>RFC 7512</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Internet Systems Consortium</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>2024, Internet Systems Consortium</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

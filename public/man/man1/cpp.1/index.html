@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - cpp.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - cpp.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>cpp - The C Preprocessor</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>cpp [*-D*/macro/[=/defn/]…] [*-U*/macro/] [*-I*/dir/…]
+[*-iquote*/dir/…] [*-M*|*-MM*] [*-MG*] [*-MF* <em>filename/] [*-MP*]
+[*-MQ* /target</em>…] [*-MT* <em>target</em>…] <em>infile</em> [[*-o*] /outfile/]</p>
+<p>
+Only the most useful options are given above; see below for a more
+complete list of preprocessor-specific options. In addition, <strong>cpp</strong>
+accepts most <strong>gcc</strong> driver options, which are not listed here. Refer to
+the GCC documentation for details.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The C preprocessor, often known as <em>cpp</em>, is a <em>macro processor</em> that is
+used automatically by the C compiler to transform your program before
+compilation. It is called a macro processor because it allows you to
+define <em>macros</em>, which are brief abbreviations for longer constructs.</p>
+<p>
+The C preprocessor is intended to be used only with C, C++, and
+Objective-C source code. In the past, it has been abused as a general
+text processor. It will choke on input which does not obey C&#39;s lexical
+rules. For example, apostrophes will be interpreted as the beginning of
+character constants, and cause errors. Also, you cannot rely on it
+preserving characteristics of the input which are not significant to
+C-family languages. If a Makefile is preprocessed, all the hard tabs
+will be removed, and the Makefile will not work.</p>
+<p>
+Having said that, you can often get away with using cpp on things which
+are not C. Other Algol-ish programming languages are often safe (Ada,
+etc.) So is assembly, with caution. <strong>-traditional-cpp</strong> mode preserves
+more white space, and is otherwise more permissive. Many of the problems
+can be avoided by writing C or C++ style comments instead of native
+language comments, and keeping macros simple.</p>
+<p>
+Wherever possible, you should use a preprocessor geared to the language
+you are writing in. Modern versions of the GNU assembler have macro
+facilities. Most high level programming languages have their own
+conditional compilation and inclusion mechanism. If all else fails, try
+a true general text processor, such as GNU M4.</p>
+<p>
+C preprocessors vary in some details. This manual discusses the GNU C
+preprocessor, which provides a small superset of the features of ISO
+Standard C. In its default mode, the GNU C preprocessor does not do a
+few things required by the standard. These are features which are
+rarely, if ever, used, and may cause surprising changes to the meaning
+of a program which does not expect them. To get strict ISO Standard C,
+you should use the <strong>-std=c90</strong>, <strong>-std=c99</strong>, <strong>-std=c11</strong> or <strong>-std=c17</strong>
+options, depending on which version of the standard you want. To get all
+the mandatory diagnostics, you must also use <strong>-pedantic</strong>.</p>
+<p>
+This manual describes the behavior of the ISO preprocessor. To minimize
+gratuitous differences, where the ISO preprocessor&#39;s behavior does not
+conflict with traditional semantics, the traditional preprocessor should
+behave the same way. The various differences that do exist are detailed
+in the section <strong>Traditional</strong> Mode.</p>
+<p>
+For clarity, unless noted otherwise, references to <strong>CPP</strong> in this manual
+refer to GNU CPP.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The <strong>cpp</strong> command expects two file names as arguments, <em>infile</em> and
+<em>outfile</em>. The preprocessor reads <em>infile</em> together with any other files
+it specifies with <strong>#include</strong>. All the output generated by the combined
+input files is written in <em>outfile</em>.</p>
+<p>
+Either <em>infile</em> or <em>outfile</em> may be <strong>-</strong>, which as <em>infile</em> means to read
+from standard input and as <em>outfile</em> means to write to standard output.
+If either file is omitted, it means the same as if <strong>-</strong> had been
+specified for that file. You can also use the <strong>-o</strong> <em>outfile</em> option to
+specify the output file.</p>
+<p>
+Unless otherwise noted, or the option ends in <strong>=</strong>, all options which
+take an argument may have that argument appear either immediately after
+the option, or with a space between option and argument: <strong>-Ifoo</strong> and <strong>-I
+foo</strong> have the same effect.</p>
+<p>
+Many options have multi-letter names; therefore multiple single-letter
+options may <em>not</em> be grouped: <strong>-dM</strong> is very different from <strong>-d -M</strong>.</p>
+<dl>
+<dt>
+-D name
+</dt>
+<dd>Predefine <em>name</em> as a macro, with definition <code class="verbatim">1</code>.</dd>
+<dt>
+-D name=definition
+</dt>
+<dd>The contents of <em>definition</em> are tokenized and
+processed as if they appeared during translation phase three in a
+<strong>#define</strong> directive. In particular, the definition is truncated by
+embedded newline characters. If you are invoking the preprocessor from
+a shell or shell-like program you may need to use the shell&#39;s quoting
+syntax to protect characters such as spaces that have a meaning in the
+shell syntax. If you wish to define a function-like macro on the
+command line, write its argument list with surrounding parentheses
+before the equals sign (if any). Parentheses are meaningful to most
+shells, so you should quote the option. With <strong>sh</strong> and <strong>csh</strong>,
+<strong>-D&#39;*/name/*(*/args…/</strong>)=*/definition/*&#39;* works. <strong>-D</strong> and <strong>-U</strong>
+options are processed in the order they are given on the command line.
+All <strong>-imacros</strong> <em>file</em> and <strong>-include</strong> <em>file</em> options are processed
+after all <strong>-D</strong> and <strong>-U</strong> options.</dd>
+<dt>
+-U name
+</dt>
+<dd>Cancel any previous definition of <em>name</em>, either built in
+or provided with a <strong>-D</strong> option.</dd>
+<dt>
+-include file
+</dt>
+<dd>Process <em>file</em> as if <code class="verbatim">#include &#34;file&#34;</code> appeared as
+the first line of the primary source file. However, the first
+directory searched for <em>file</em> is the preprocessor&#39;s working directory
+<em>instead of</em> the directory containing the main source file. If not
+found there, it is searched for in the remainder of the
+<code class="verbatim">#include &#34;...&#34;</code> search chain as normal. If multiple <strong>-include</strong>
+options are given, the files are included in the order they appear on
+the command line.</dd>
+<dt>
+-imacros file
+</dt>
+<dd>Exactly like <strong>-include</strong>, except that any output
+produced by scanning <em>file</em> is thrown away. Macros it defines remain
+defined. This allows you to acquire all the macros from a header
+without also processing its declarations. All files specified by
+<strong>-imacros</strong> are processed before all files specified by <strong>-include</strong>.</dd>
+<dt>
+-undef
+</dt>
+<dd>Do not predefine any system-specific or GCC-specific macros.
+The standard predefined macros remain defined.</dd>
+<dt>
+-pthread
+</dt>
+<dd>Define additional macros required for using the POSIX
+threads library. You should use this option consistently for both
+compilation and linking. This option is supported on GNU/Linux
+targets, most other Unix derivatives, and also on x86 Cygwin and MinGW
+targets.</dd>
+<dt>
+-M
+</dt>
+<dd>Instead of outputting the result of preprocessing, output a rule
+suitable for <strong>make</strong> describing the dependencies of the main source
+file. The preprocessor outputs one <strong>make</strong> rule containing the object
+file name for that source file, a colon, and the names of all the
+included files, including those coming from <strong>-include</strong> or <strong>-imacros</strong>
+command-line options. Unless specified explicitly (with <strong>-MT</strong> or
+<strong>-MQ</strong>), the object file name consists of the name of the source file
+with any suffix replaced with object file suffix and with any leading
+directory parts removed. If there are many included files then the
+rule is split into several lines using <strong>\</strong>-newline. The rule has no
+commands. This option does not suppress the preprocessor&#39;s debug
+output, such as <strong>-dM</strong>. To avoid mixing such debug output with the
+dependency rules you should explicitly specify the dependency output
+file with <strong>-MF</strong>, or use an environment variable like
+<strong>DEPENDENCIES_OUTPUT</strong>. Debug output is still sent to the regular
+output stream as normal. Passing <strong>-M</strong> to the driver implies <strong>-E</strong>, and
+suppresses warnings with an implicit <strong>-w</strong>.</dd>
+<dt>
+-MM
+</dt>
+<dd>Like <strong>-M</strong> but do not mention header files that are found in
+system header directories, nor header files that are included,
+directly or indirectly, from such a header. This implies that the
+choice of angle brackets or double quotes in an <strong>#include</strong> directive
+does not in itself determine whether that header appears in <strong>-MM</strong>
+dependency output.</dd>
+<dt>
+-MF file
+</dt>
+<dd>When used with <strong>-M</strong> or <strong>-MM</strong>, specifies a file to write
+the dependencies to. If no <strong>-MF</strong> switch is given the preprocessor
+sends the rules to the same place it would send preprocessed output.
+When used with the driver options <strong>-MD</strong> or <strong>-MMD</strong>, <strong>-MF</strong> overrides the
+default dependency output file. If <em>file</em> is <em>-</em>, then the
+dependencies are written to <em>stdout</em>.</dd>
+<dt>
+-MG
+</dt>
+<dd>In conjunction with an option such as <strong>-M</strong> requesting
+dependency generation, <strong>-MG</strong> assumes missing header files are
+generated files and adds them to the dependency list without raising
+an error. The dependency filename is taken directly from the
+<code class="verbatim">#include</code> directive without prepending any path. <strong>-MG</strong> also
+suppresses preprocessed output, as a missing header file renders this
+useless. This feature is used in automatic updating of makefiles.</dd>
+<dt>
+-Mno-modules
+</dt>
+<dd>Disable dependency generation for compiled module
+interfaces.</dd>
+<dt>
+-MP
+</dt>
+<dd>This option instructs CPP to add a phony target for each
+dependency other than the main file, causing each to depend on
+nothing. These dummy rules work around errors <strong>make</strong> gives if you
+remove header files without updating the <em>Makefile</em> to match. This is
+typical output: test.o: test.c test.h test.h:</dd>
+<dt>
+-MT target
+</dt>
+<dd>Change the target of the rule emitted by dependency
+generation. By default CPP takes the name of the main input file,
+deletes any directory components and any file suffix such as <strong>.c</strong>, and
+appends the platform&#39;s usual object suffix. The result is the target.
+An <strong>-MT</strong> option sets the target to be exactly the string you specify.
+If you want multiple targets, you can specify them as a single
+argument to <strong>-MT</strong>, or use multiple <strong>-MT</strong> options. For example, <strong>-MT
+&#39;$(objpfx)foo.o&#39;</strong> might give $(objpfx)foo.o: foo.c</dd>
+<dt>
+-MQ target
+</dt>
+<dd>Same as <strong>-MT</strong>, but it quotes any characters which are
+special to Make. <strong>-MQ &#39;$(objpfx)foo.o&#39;</strong> gives $$(objpfx)foo.o: foo.c
+The default target is automatically quoted, as if it were given with
+<strong>-MQ</strong>.</dd>
+<dt>
+-MD
+</dt>
+<dd><strong>-MD</strong> is equivalent to <strong>-M -MF</strong> <em>file</em>, except that <strong>-E</strong> is not
+implied. The driver determines <em>file</em> based on whether an <strong>-o</strong> option
+is given. If it is, the driver uses its argument but with a suffix of
+<em>.d</em>, otherwise it takes the name of the input file, removes any
+directory components and suffix, and applies a <em>.d</em> suffix. If <strong>-MD</strong>
+is used in conjunction with <strong>-E</strong>, any <strong>-o</strong> switch is understood to
+specify the dependency output file, but if used without <strong>-E</strong>, each
+<strong>-o</strong> is understood to specify a target object file. Since <strong>-E</strong> is not
+implied, <strong>-MD</strong> can be used to generate a dependency output file as a
+side effect of the compilation process.</dd>
+<dt>
+-MMD
+</dt>
+<dd>Like <strong>-MD</strong> except mention only user header files, not system
+header files.</dd>
+<dt>
+-fpreprocessed
+</dt>
+<dd>Indicate to the preprocessor that the input file has
+already been preprocessed. This suppresses things like macro
+expansion, trigraph conversion, escaped newline splicing, and
+processing of most directives. The preprocessor still recognizes and
+removes comments, so that you can pass a file preprocessed with <strong>-C</strong>
+to the compiler without problems. In this mode the integrated
+preprocessor is little more than a tokenizer for the front ends.
+<strong>-fpreprocessed</strong> is implicit if the input file has one of the
+extensions <strong>.i</strong>, <strong>.ii</strong> or <strong>.mi</strong>. These are the extensions that GCC
+uses for preprocessed files created by <strong>-save-temps</strong>.</dd>
+<dt>
+-fdirectives-only
+</dt>
+<dd>When preprocessing, handle directives, but do not
+expand macros. The option&#39;s behavior depends on the <strong>-E</strong> and
+<strong>-fpreprocessed</strong> options. With <strong>-E</strong>, preprocessing is limited to the
+handling of directives such as <code class="verbatim">#define</code>, <code class="verbatim">#ifdef</code>, and <code class="verbatim">#error</code>.
+Other preprocessor operations, such as macro expansion and trigraph
+conversion are not performed. In addition, the <strong>-dD</strong> option is
+implicitly enabled. With <strong>-fpreprocessed</strong>, predefinition of command
+line and most builtin macros is disabled. Macros such as <code class="verbatim">_ _LINE_ _</code>,
+which are contextually dependent, are handled normally. This enables
+compilation of files previously preprocessed with
+<code class="verbatim">-E -fdirectives-only</code>. With both <strong>-E</strong> and <strong>-fpreprocessed</strong>, the rules
+for <strong>-fpreprocessed</strong> take precedence. This enables full preprocessing
+of files previously preprocessed with <code class="verbatim">-E -fdirectives-only</code>.</dd>
+<dt>
+-fdollars-in-identifiers
+</dt>
+<dd>Accept <strong>$</strong> in identifiers.</dd>
+<dt>
+-fextended-identifiers
+</dt>
+<dd>Accept universal character names and
+extended characters in identifiers. This option is enabled by default
+for C99 (and later C standard versions) and C++.</dd>
+<dt>
+-fno-canonical-system-headers
+</dt>
+<dd>When preprocessing, do not shorten
+system header paths with canonicalization.</dd>
+<dt>
+-fmax-include-depth=depth
+</dt>
+<dd>Set the maximum depth of the nested
+​#include. The default is 200.</dd>
+<dt>
+-ftabstop=width
+</dt>
+<dd>Set the distance between tab stops. This helps the
+preprocessor report correct column numbers in warnings or errors, even
+if tabs appear on the line. If the value is less than 1 or greater
+than 100, the option is ignored. The default is 8.</dd>
+<dt>
+-ftrack-macro-expansion[=level]
+</dt>
+<dd>Track locations of tokens across
+macro expansions. This allows the compiler to emit diagnostic about
+the current macro expansion stack when a compilation error occurs in a
+macro expansion. Using this option makes the preprocessor and the
+compiler consume more memory. The <em>level</em> parameter can be used to
+choose the level of precision of token location tracking thus
+decreasing the memory consumption if necessary. Value <strong>0</strong> of <em>level</em>
+de-activates this option. Value <strong>1</strong> tracks tokens locations in a
+degraded mode for the sake of minimal memory overhead. In this mode
+all tokens resulting from the expansion of an argument of a
+function-like macro have the same location. Value <strong>2</strong> tracks tokens
+locations completely. This value is the most memory hungry. When this
+option is given no argument, the default parameter value is <strong>2</strong>. Note
+that <code class="verbatim">-ftrack-macro-expansion=2</code> is activated by default.</dd>
+<dt>
+-fmacro-prefix-map=old=new
+</dt>
+<dd>When preprocessing files residing in
+directory <em>old</em>, expand the <code class="verbatim">_ _FILE_ _</code> and <code class="verbatim">_ _BASE_FILE_ _</code> macros
+as if the files resided in directory <em>new</em> instead. This can be used
+to change an absolute path to a relative path by using <em>.</em> for <em>new</em>
+which can result in more reproducible builds that are location
+independent. This option also affects <code class="verbatim">_ _builtin_FILE()</code> during
+compilation. See also <strong>-ffile-prefix-map</strong> and <strong>-fcanon-prefix-map</strong>.</dd>
+<dt>
+-fexec-charset=charset
+</dt>
+<dd>Set the execution character set, used for
+string and character constants. The default is UTF-8. <em>charset</em> can be
+any encoding supported by the system&#39;s <code class="verbatim">iconv</code> library routine.</dd>
+<dt>
+-fwide-exec-charset=charset
+</dt>
+<dd>Set the wide execution character set,
+used for wide string and character constants. The default is one of
+UTF-32BE, UTF-32LE, UTF-16BE, or UTF-16LE, whichever corresponds to
+the width of <code class="verbatim">wchar_t</code> and the big-endian or little-endian byte order
+being used for code generation. As with <strong>-fexec-charset</strong>, <em>charset</em>
+can be any encoding supported by the system&#39;s <code class="verbatim">iconv</code> library routine;
+however, you will have problems with encodings that do not fit exactly
+in <code class="verbatim">wchar_t</code>.</dd>
+<dt>
+-finput-charset=charset
+</dt>
+<dd>Set the input character set, used for
+translation from the character set of the input file to the source
+character set used by GCC. If the locale does not specify, or GCC
+cannot get this information from the locale, the default is UTF-8.
+This can be overridden by either the locale or this command-line
+option. Currently the command-line option takes precedence if there&#39;s
+a conflict. <em>charset</em> can be any encoding supported by the system&#39;s
+<code class="verbatim">iconv</code> library routine.</dd>
+<dt>
+-fworking-directory
+</dt>
+<dd>Enable generation of linemarkers in the
+preprocessor output that let the compiler know the current working
+directory at the time of preprocessing. When this option is enabled,
+the preprocessor emits, after the initial linemarker, a second
+linemarker with the current working directory followed by two slashes.
+GCC uses this directory, when it&#39;s present in the preprocessed input,
+as the directory emitted as the current working directory in some
+debugging information formats. This option is implicitly enabled if
+debugging information is enabled, but this can be inhibited with the
+negated form <strong>-fno-working-directory</strong>. If the <strong>-P</strong> flag is present in
+the command line, this option has no effect, since no <code class="verbatim">#line</code>
+directives are emitted whatsoever.</dd>
+<dt>
+-A predicate=answer
+</dt>
+<dd>Make an assertion with the predicate
+<em>predicate</em> and answer <em>answer</em>. This form is preferred to the older
+form <strong>-A</strong> /predicate/*(<strong><em>answer</em></strong>)*, which is still supported, because
+it does not use shell special characters.</dd>
+<dt>
+-A -predicate=answer
+</dt>
+<dd>Cancel an assertion with the predicate
+<em>predicate</em> and answer <em>answer</em>.</dd>
+<dt>
+-C
+</dt>
+<dd>Do not discard comments. All comments are passed through to the
+output file, except for comments in processed directives, which are
+deleted along with the directive. You should be prepared for side
+effects when using <strong>-C</strong>; it causes the preprocessor to treat comments
+as tokens in their own right. For example, comments appearing at the
+start of what would be a directive line have the effect of turning
+that line into an ordinary source line, since the first token on the
+line is no longer a <strong>#</strong>.</dd>
+<dt>
+-CC
+</dt>
+<dd>Do not discard comments, including during macro expansion. This
+is like <strong>-C</strong>, except that comments contained within macros are also
+passed through to the output file where the macro is expanded. In
+addition to the side effects of the <strong>-C</strong> option, the <strong>-CC</strong> option
+causes all C++-style comments inside a macro to be converted to
+C-style comments. This is to prevent later use of that macro from
+inadvertently commenting out the remainder of the source line. The
+<strong>-CC</strong> option is generally used to support lint comments.</dd>
+<dt>
+-P
+</dt>
+<dd>Inhibit generation of linemarkers in the output from the
+preprocessor. This might be useful when running the preprocessor on
+something that is not C code, and will be sent to a program which
+might be confused by the linemarkers.</dd>
+<dt>
+-traditional
+</dt>
+<dd></dd>
+<dt>
+-traditional-cpp
+</dt>
+<dd></dd>
+</dl>
+<p>Try to imitate the behavior of pre-standard C preprocessors, as opposed
+to ISO C preprocessors. Note that GCC does not otherwise attempt to
+emulate a pre-standard C compiler, and these options are only supported
+with the <strong>-E</strong> switch, or when invoking CPP explicitly.</p>
+<dl>
+<dt>
+-trigraphs
+</dt>
+<dd>Support ISO C trigraphs. These are three-character
+sequences, all starting with <strong>??</strong>, that are defined by ISO C to stand
+for single characters. For example, <strong>??/</strong> stands for <strong>\</strong>, so <strong>&#39;??/n&#39;</strong>
+is a character constant for a newline. By default, GCC ignores
+trigraphs, but in standard-conforming modes it converts them. See the
+<strong>-std</strong> and <strong>-ansi</strong> options.</dd>
+<dt>
+-remap
+</dt>
+<dd>Enable special code to work around file systems which only
+permit very short file names, such as MS-DOS.</dd>
+<dt>
+-H
+</dt>
+<dd>Print the name of each header file used, in addition to other
+normal activities. Each name is indented to show how deep in the
+<strong>#include</strong> stack it is. Precompiled header files are also printed,
+even if they are found to be invalid; an invalid precompiled header
+file is printed with <strong>…x</strong> and a valid one with <strong>…!</strong> .</dd>
+<dt>
+-dletters
+</dt>
+<dd>
+<p>Says to make debugging dumps during compilation as
+specified by <em>letters</em>. The flags documented here are those relevant
+to the preprocessor. Other <em>letters</em> are interpreted by the compiler
+proper, or reserved for future versions of GCC, and so are silently
+ignored. If you specify <em>letters</em> whose behavior conflicts, the result
+is undefined.</p>
+<dl>
+<dt>
+-dM
+</dt>
+<dd>Instead of the normal output, generate a list of <strong>#define</strong>
+directives for all the macros defined during the execution of the
+preprocessor, including predefined macros. This gives you a way of
+finding out what is predefined in your version of the preprocessor.
+Assuming you have no file <em>foo.h</em>, the command touch foo.h; cpp -dM
+foo.h shows all the predefined macros.</dd>
+<dt>
+-dD
+</dt>
+<dd>Like <strong>-dM</strong> except in two respects: it does <em>not</em> include the
+predefined macros, and it outputs <em>both</em> the <strong>#define</strong> directives
+and the result of preprocessing. Both kinds of output go to the
+standard output file.</dd>
+<dt>
+-dN
+</dt>
+<dd>Like <strong>-dD</strong>, but emit only the macro names, not their
+expansions.</dd>
+<dt>
+-dI
+</dt>
+<dd>Output <strong>#include</strong> directives in addition to the result of
+preprocessing.</dd>
+<dt>
+-dU
+</dt>
+<dd>Like <strong>-dD</strong> except that only macros that are expanded, or
+whose definedness is tested in preprocessor directives, are output;
+the output is delayed until the use or test of the macro; and
+<strong>#undef</strong> directives are also output for macros tested but undefined
+at the time.</dd>
+</dl>
+</dd>
+<dt>
+-fdebug-cpp
+</dt>
+<dd>This option is only useful for debugging GCC. When used
+from CPP or with <strong>-E</strong>, it dumps debugging information about location
+maps. Every token in the output is preceded by the dump of the map its
+location belongs to. When used from GCC without <strong>-E</strong>, this option has
+no effect.</dd>
+<dt>
+-I dir
+</dt>
+<dd></dd>
+<dt>
+-iquote dir
+</dt>
+<dd></dd>
+<dt>
+-isystem dir
+</dt>
+<dd></dd>
+<dt>
+-idirafter dir
+</dt>
+<dd></dd>
+</dl>
+<p>Add the directory <em>dir</em> to the list of directories to be searched for
+header files during preprocessing. If <em>dir</em> begins with <strong>=</strong> or
+<code class="verbatim">$SYSROOT</code>, then the <strong>=</strong> or <code class="verbatim">$SYSROOT</code> is replaced by the sysroot
+prefix; see <strong>–sysroot</strong> and <strong>-isysroot</strong>. Directories specified with
+<strong>-iquote</strong> apply only to the quote form of the directive,
+<code class="verbatim">#include &#34;=/=file=/</code>&#34;<code class="verbatim">. Directories specified with *-I*, *-isystem*, or
+*-idirafter* apply to lookup for both the =#include &#34;=/=file=/</code>&#34;= and
+<code class="verbatim">#include &lt;=/=file=/=&gt;</code> directives. You can specify any number or
+combination of these options on the command line to search for header
+files in several directories. The lookup order is as follows:</p>
+<blockquote>
+<ol>
+<li>For the quote form of the include directive, the directory of the
+current file is searched first.</li>
+<li>For the quote form of the include directive, the directories
+specified by <strong>-iquote</strong> options are searched in left-to-right order,
+as they appear on the command line.</li>
+<li>Directories specified with <strong>-I</strong> options are scanned in left-to-right
+order.</li>
+<li>Directories specified with <strong>-isystem</strong> options are scanned in
+left-to-right order.</li>
+<li>Standard system directories are scanned.</li>
+<li>Directories specified with <strong>-idirafter</strong> options are scanned in
+left-to-right order.</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>You can use <strong>-I</strong> to override a system header file, substituting your own
+version, since these directories are searched before the standard system
+header file directories. However, you should not use this option to add
+directories that contain vendor-supplied system header files; use
+<strong>-isystem</strong> for that. The <strong>-isystem</strong> and <strong>-idirafter</strong> options also mark
+the directory as a system directory, so that it gets the same special
+treatment that is applied to the standard system directories. If a
+standard system include directory, or a directory specified with
+<strong>-isystem</strong>, is also specified with <strong>-I</strong>, the <strong>-I</strong> option is ignored. The
+directory is still searched but as a system directory at its normal
+position in the system include chain. This is to ensure that GCC&#39;s
+procedure to fix buggy system headers and the ordering for the
+<code class="verbatim">#include_next</code> directive are not inadvertently changed. If you really
+need to change the search order for system directories, use the
+<strong>-nostdinc</strong> and/or <strong>-isystem</strong> options.</p>
+</blockquote>
+<dl>
+<dt>
+-I-
+</dt>
+<dd>Split the include path. This option has been deprecated. Please
+use <strong>-iquote</strong> instead for <strong>-I</strong> directories before the <strong>-I-</strong> and remove
+the <strong>-I-</strong> option. Any directories specified with <strong>-I</strong> options before
+<strong>-I-</strong> are searched only for headers requested with
+<code class="verbatim">#include &#34;=/=file=/</code>&#34;<code class="verbatim">; they are not searched for
+=#include &lt;=/=file=/=&gt;</code>. If additional directories are specified with
+<strong>-I</strong> options after the <strong>-I-</strong>, those directories are searched for all
+<strong>#include</strong> directives. In addition, <strong>-I-</strong> inhibits the use of the
+directory of the current file directory as the first search directory
+for <code class="verbatim">#include &#34;=/=file=/</code>&#34;=. There is no way to override this effect
+of <strong>-I-</strong>.</dd>
+<dt>
+-iprefix prefix
+</dt>
+<dd>Specify <em>prefix</em> as the prefix for subsequent
+<strong>-iwithprefix</strong> options. If the prefix represents a directory, you
+should include the final <strong>/</strong>.</dd>
+<dt>
+-iwithprefix dir
+</dt>
+<dd></dd>
+<dt>
+-iwithprefixbefore dir
+</dt>
+<dd></dd>
+</dl>
+<p>Append <em>dir</em> to the prefix specified previously with <strong>-iprefix</strong>, and add
+the resulting directory to the include search path. <strong>-iwithprefixbefore</strong>
+puts it in the same place <strong>-I</strong> would; <strong>-iwithprefix</strong> puts it where
+<strong>-idirafter</strong> would.</p>
+<dl>
+<dt>
+-isysroot dir
+</dt>
+<dd>This option is like the <strong>–sysroot</strong> option, but
+applies only to header files (except for Darwin targets, where it
+applies to both header files and libraries). See the <strong>–sysroot</strong>
+option for more information.</dd>
+<dt>
+-imultilib dir
+</dt>
+<dd>Use <em>dir</em> as a subdirectory of the directory
+containing target-specific C++ headers.</dd>
+<dt>
+-nostdinc
+</dt>
+<dd>Do not search the standard system directories for header
+files. Only the directories explicitly specified with <strong>-I</strong>, <strong>-iquote</strong>,
+<strong>-isystem</strong>, and/or <strong>-idirafter</strong> options (and the directory of the
+current file, if appropriate) are searched.</dd>
+<dt>
+-nostdinc++
+</dt>
+<dd>Do not search for header files in the C++-specific
+standard directories, but do still search the other standard
+directories. (This option is used when building the C++ library.)</dd>
+<dt>
+-Wcomment
+</dt>
+<dd></dd>
+<dt>
+-Wcomments
+</dt>
+<dd></dd>
+</dl>
+<p>Warn whenever a comment-start sequence <strong>/*</strong> appears in a <strong>/*</strong> comment,
+or whenever a backslash-newline appears in a <strong>//</strong> comment. This warning
+is enabled by <strong>-Wall</strong>.</p>
+<dl>
+<dt>
+-Wtrigraphs
+</dt>
+<dd>Warn if any trigraphs are encountered that might change
+the meaning of the program. Trigraphs within comments are not warned
+about, except those that would form escaped newlines. This option is
+implied by <strong>-Wall</strong>. If <strong>-Wall</strong> is not given, this option is still
+enabled unless trigraphs are enabled. To get trigraph conversion
+without warnings, but get the other <strong>-Wall</strong> warnings, use <strong>-trigraphs
+-Wall -Wno-trigraphs</strong>.</dd>
+<dt>
+-Wundef
+</dt>
+<dd>Warn if an undefined identifier is evaluated in an <code class="verbatim">#if</code>
+directive. Such identifiers are replaced with zero.</dd>
+<dt>
+-Wexpansion-to-defined
+</dt>
+<dd>Warn whenever <strong>defined</strong> is encountered in
+the expansion of a macro (including the case where the macro is
+expanded by an <strong>#if</strong> directive). Such usage is not portable. This
+warning is also enabled by <strong>-Wpedantic</strong> and <strong>-Wextra</strong>.</dd>
+<dt>
+-Wunused-macros
+</dt>
+<dd>Warn about macros defined in the main file that are
+unused. A macro is <em>used</em> if it is expanded or tested for existence at
+least once. The preprocessor also warns if the macro has not been used
+at the time it is redefined or undefined. Built-in macros, macros
+defined on the command line, and macros defined in include files are
+not warned about. <em>Note:</em> If a macro is actually used, but only used
+in skipped conditional blocks, then the preprocessor reports it as
+unused. To avoid the warning in such a case, you might improve the
+scope of the macro&#39;s definition by, for example, moving it into the
+first skipped block. Alternatively, you could provide a dummy use with
+something like: #if defined the_macro_causing_the_warning #endif</dd>
+<dt>
+-Wno-endif-labels
+</dt>
+<dd>Do not warn whenever an <code class="verbatim">#else</code> or an <code class="verbatim">#endif</code>
+are followed by text. This sometimes happens in older programs with
+code of the form #if FOO … #else FOO … #endif FOO The second and
+third <code class="verbatim">FOO</code> should be in comments. This warning is on by default.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>This section describes the environment variables that affect how CPP
+operates. You can use them to specify directories or prefixes to use
+when searching for include files, or to control dependency output.</p>
+<p>
+Note that you can also specify places to search using options such as
+<strong>-I</strong>, and control dependency output with options like <strong>-M</strong>. These take
+precedence over environment variables, which in turn take precedence
+over the configuration of GCC.</p>
+<dl>
+<dt>
+CPATH
+</dt>
+<dd></dd>
+<dt>
+C_INCLUDE_PATH
+</dt>
+<dd></dd>
+<dt>
+CPLUS_INCLUDE_PATH
+</dt>
+<dd></dd>
+<dt>
+OBJC_INCLUDE_PATH
+</dt>
+<dd></dd>
+</dl>
+<p>Each variable&#39;s value is a list of directories separated by a special
+character, much like <strong>PATH</strong>, in which to look for header files. The
+special character, <code class="verbatim">PATH_SEPARATOR</code>, is target-dependent and determined
+at GCC build time. For Microsoft Windows-based targets it is a
+semicolon, and for almost all other targets it is a colon. <strong>CPATH</strong>
+specifies a list of directories to be searched as if specified with
+<strong>-I</strong>, but after any paths given with <strong>-I</strong> options on the command line.
+This environment variable is used regardless of which language is being
+preprocessed. The remaining environment variables apply only when
+preprocessing the particular language indicated. Each specifies a list
+of directories to be searched as if specified with <strong>-isystem</strong>, but after
+any paths given with <strong>-isystem</strong> options on the command line. In all
+these variables, an empty element instructs the compiler to search its
+current working directory. Empty elements can appear at the beginning or
+end of a path. For instance, if the value of <strong>CPATH</strong> is
+<code class="verbatim">:/special/include</code>, that has the same effect as <strong>-I.
+-I/special/include</strong>.</p>
+<dl>
+<dt>
+DEPENDENCIES_OUTPUT
+</dt>
+<dd>If this variable is set, its value specifies
+how to output dependencies for Make based on the non-system header
+files processed by the compiler. System header files are ignored in
+the dependency output. The value of <strong>DEPENDENCIES_OUTPUT</strong> can be just
+a file name, in which case the Make rules are written to that file,
+guessing the target name from the source file name. Or the value can
+have the form <em>file/* */target</em>, in which case the rules are written
+to file <em>file</em> using <em>target</em> as the target name. In other words, this
+environment variable is equivalent to combining the options <strong>-MM</strong> and
+<strong>-MF</strong>, with an optional <strong>-MT</strong> switch too.</dd>
+<dt>
+SUNPRO_DEPENDENCIES
+</dt>
+<dd>This variable is the same as
+<strong>DEPENDENCIES_OUTPUT</strong> (see above), except that system header files are
+not ignored, so it implies <strong>-M</strong> rather than <strong>-MM</strong>. However, the
+dependence on the main input file is omitted.</dd>
+<dt>
+SOURCE_DATE_EPOCH
+</dt>
+<dd>If this variable is set, its value specifies a
+UNIX timestamp to be used in replacement of the current date and time
+in the <code class="verbatim">_ _DATE_ _</code> and <code class="verbatim">_ _TIME_ _</code> macros, so that the embedded
+timestamps become reproducible. The value of <strong>SOURCE_DATE_EPOCH</strong> must
+be a UNIX timestamp, defined as the number of seconds (excluding leap
+seconds) since 01 Jan 1970 00:00:00 represented in ASCII; identical to
+the output of <code class="verbatim">date +%s</code> on GNU/Linux and other systems that support
+the <code class="verbatim">%s</code> extension in the <code class="verbatim">date</code> command. The value should be a known
+timestamp such as the last modification time of the source or package
+and it should be set by the build process.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>gpl</strong> (7), <strong>gfdl</strong> (7), <strong>fsf-funding</strong> (7), <strong>gcc</strong> (1), and the Info
+entries for <em>cpp</em> and <em>gcc</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Copyright (c) 1987-2023 Free Software Foundation, Inc.</p>
+<p>
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation. A copy of
+the license is included in the man page <strong>gfdl</strong> (7). This manual contains
+no Invariant Sections. The Front-Cover Texts are (a) (see below), and
+the Back-Cover Texts are (b) (see below).</p>
+<p>
+(a) The FSF&#39;s Front-Cover Text is:</p>
+<p>
+A GNU Manual</p>
+<p>
+(b) The FSF&#39;s Back-Cover Text is:</p>
+<p>
+You have freedom to copy and modify this GNU Manual, like GNU software.
+Copies published by the Free Software Foundation raise funds for GNU
+development.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

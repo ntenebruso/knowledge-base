@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - flatpak-update.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - flatpak-update.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>flatpak-update - Update an application or runtime</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>flatpak update</strong> [OPTION…] [REF…]</p>
+<p>
+<strong>flatpak update</strong> [OPTION…] –appstream [REMOTE]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Updates applications and runtimes. REF is a reference to the application
+or runtime to update. If no REF is given, everything is updated, as well
+as appstream info for all remotes.</p>
+<p>
+Each REF argument is a full or partial identifier in the flatpak ref
+format, which looks like &#34;(app|runtime)/ID/ARCH/BRANCH&#34;. All elements
+except ID are optional and can be left out, including the slashes, so
+most of the time you need only specify ID. Any part left out will be
+matched against what is installed, and if there are multiple matches an
+error message will list the alternatives.</p>
+<p>
+By default this looks for both apps and runtimes with the given REF, but
+you can limit this by using the <strong>–app</strong> or <strong>–runtime</strong> option, or by
+supplying the initial element in the REF.</p>
+<p>
+Normally, this command updates the application to the tip of its branch.
+But it is possible to check out another commit, with the <strong>–commit</strong>
+option.</p>
+<p>
+If the configured remote for a ref being updated has a collection ID
+configured on it, Flatpak will search the sideload-repos directories
+configured either with the <strong>–sideload-repo</strong> option, or on a
+per-installation or system-wide basis (see *flatpak*(1)).</p>
+<p>
+Note that updating a runtime is different from installing a different
+branch, and runtime updates are expected to keep strict compatibility.
+If an application update does cause a problem, it is possible to go back
+to the previous version, with the <strong>–commit</strong> option.</p>
+<p>
+In addition to updates, this command will offer to uninstall any unused
+end-of-life runtimes. Runtimes that were explicitly installed (not as a
+dependency) or explicitly pinned (see *flatpak-pin*(1)) are left
+installed even if unused and end-of-life.</p>
+<p>
+Unless overridden with the <strong>–user</strong>, <strong>–system</strong> or <strong>–installation</strong>
+option, this command updates any matching refs in the standard
+system-wide installation and the per-user one.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Show help options and exit.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–user</strong></p>
+<blockquote>
+<p>Update a per-user installation.</p>
+</blockquote>
+<p>
+<strong>–system</strong></p>
+<blockquote>
+<p>Update the default system-wide installation.</p>
+</blockquote>
+<p>
+<strong>–installation=NAME</strong></p>
+<blockquote>
+<p>Updates a system-wide installation specified by NAME among those defined
+in <em>etc/flatpak/installations.d</em>. Using <strong>–installation=default</strong> is
+equivalent to using <strong>–system</strong>.</p>
+</blockquote>
+<p>
+<strong>–arch=ARCH</strong></p>
+<blockquote>
+<p>The architecture to update for. See <strong>flatpak –supported-arches</strong> for
+architectures supported by the host.</p>
+</blockquote>
+<p>
+<strong>–subpath=PATH</strong></p>
+<blockquote>
+<p>Install only a subpath of the ref. This is mainly used to install a
+subset of locales. This can be added multiple times to install multiple
+subpaths. If this is not specified the subpaths specified at install
+time are reused.</p>
+</blockquote>
+<p>
+<strong>–commit=COMMIT</strong></p>
+<blockquote>
+<p>Update to this commit, instead of the tip of the branch. You can find
+commits using <strong>flatpak remote-info –log REMOTE REF</strong>.</p>
+</blockquote>
+<p>
+<strong>–no-deploy</strong></p>
+<blockquote>
+<p>Download the latest version, but dont deploy it.</p>
+</blockquote>
+<p>
+<strong>–no-pull</strong></p>
+<blockquote>
+<p>Dont download the latest version, deploy whatever is locally available.</p>
+</blockquote>
+<p>
+<strong>–no-related</strong></p>
+<blockquote>
+<p>Dont download related extensions, such as the locale data.</p>
+</blockquote>
+<p>
+<strong>–no-deps</strong></p>
+<blockquote>
+<p>Dont update or install runtime dependencies when installing.</p>
+</blockquote>
+<p>
+<strong>–app</strong></p>
+<blockquote>
+<p>Only look for an app with the given name.</p>
+</blockquote>
+<p>
+<strong>–appstream</strong></p>
+<blockquote>
+<p>Update appstream for REMOTE, or all remotes if no remote is specified.</p>
+</blockquote>
+<p>
+<strong>–runtime</strong></p>
+<blockquote>
+<p>Only look for a runtime with the given name.</p>
+</blockquote>
+<p>
+<strong>–sideload-repo=PATH</strong></p>
+<blockquote>
+<p>Adds an extra local ostree repo as a source for installation. This is
+equivalent to using the sideload-repos directories (see *flatpak*(1)),
+but can be done on a per-command basis. Any path added here is used in
+addition to ones in those directories.</p>
+</blockquote>
+<p>
+<strong>-y</strong>, <strong>–assumeyes</strong></p>
+<blockquote>
+<p>Automatically answer yes to all questions (or pick the most prioritized
+answer). This is useful for automation.</p>
+</blockquote>
+<p>
+<strong>–noninteractive</strong></p>
+<blockquote>
+<p>Produce minimal output and avoid most questions. This is suitable for
+use in non-interactive situations, e.g. in a build script.</p>
+</blockquote>
+<p>
+<strong>–force-remove</strong></p>
+<blockquote>
+<p>Remove old files even if theyre in use by a running application.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Print debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–ostree-verbose</strong></p>
+<blockquote>
+<p>Print OSTree debug information during command processing.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>$ flatpak –user update org.gnome.gedit</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*flatpak*(1), *flatpak-install*(1), *flatpak-list*(1),
+*ostree-find-remotes*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

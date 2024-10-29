@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-fetch-pack.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-fetch-pack.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-fetch-pack - Receive missing objects from another repository</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git fetch-pack [--all] [--quiet|-q] [--keep|-k] [--thin] [--include-tag]
+        [--upload-pack=&lt;git-upload-pack&gt;]
+        [--depth=&lt;n&gt;] [--no-progress]
+        [-v] &lt;repository&gt; [&lt;refs&gt;...]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Usually you would want to use <em>git fetch</em>, which is a higher level
+wrapper of this command, instead.</p>
+<p>
+Invokes <em>git-upload-pack</em> on a possibly remote repository and asks it to
+send objects missing from this repository, to update the named heads.
+The list of commits available locally is found out by scanning the local
+refs/ hierarchy and sent to <em>git-upload-pack</em> running on the other end.</p>
+<p>
+This command degenerates to download everything to complete the asked
+refs from the remote side when the local side does not have a common
+ancestor commit.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–all</p>
+<blockquote>
+<p>Fetch all remote refs.</p>
+</blockquote>
+<p>
+–stdin</p>
+<blockquote>
+<p>Take the list of refs from stdin, one per line. If there are refs
+specified on the command line in addition to this option, then the refs
+from stdin are processed after those on the command line.</p>
+<p>
+If <strong>–stateless-rpc</strong> is specified together with this option then the
+list of refs must be in packet format (pkt-line). Each ref must be in a
+separate packet, and the list must end with a flush packet.</p>
+</blockquote>
+<p>
+-q, –quiet</p>
+<blockquote>
+<p>Pass <strong>-q</strong> flag to <em>git unpack-objects</em>; this makes the cloning process
+less verbose.</p>
+</blockquote>
+<p>
+-k, –keep</p>
+<blockquote>
+<p>Do not invoke <em>git unpack-objects</em> on received data, but create a single
+packfile out of it instead, and store it in the object database. If
+provided twice then the pack is locked against repacking.</p>
+</blockquote>
+<p>
+–thin</p>
+<blockquote>
+<p>Fetch a &#34;thin&#34; pack, which records objects in deltified form based on
+objects not included in the pack to reduce network traffic.</p>
+</blockquote>
+<p>
+–include-tag</p>
+<blockquote>
+<p>If the remote side supports it, annotated tags objects will be
+downloaded on the same connection as the other objects if the object the
+tag references is downloaded. The caller must otherwise determine the
+tags this option made available.</p>
+</blockquote>
+<p>
+–upload-pack=&lt;git-upload-pack&gt;</p>
+<blockquote>
+<p>Use this to specify the path to <em>git-upload-pack</em> on the remote side, if
+it is not found on your $PATH. Installations of sshd ignores the user&#39;s
+environment setup scripts for login shells (e.g. .bash_profile) and your
+privately installed git may not be found on the system default $PATH.
+Another workaround suggested is to set up your $PATH in &#34;.bashrc&#34;, but
+this flag is for people who do not want to pay the overhead for
+non-interactive shells by having a lean .bashrc file (they set most of
+the things up in .bash_profile).</p>
+</blockquote>
+<p>
+–exec=&lt;git-upload-pack&gt;</p>
+<blockquote>
+<p>Same as –upload-pack=&lt;git-upload-pack&gt;.</p>
+</blockquote>
+<p>
+–depth=&lt;n&gt;</p>
+<blockquote>
+<p>Limit fetching to ancestor-chains not longer than n. <em>git-upload-pack</em>
+treats the special depth 2147483647 as infinite even if there is an
+ancestor-chain that long.</p>
+</blockquote>
+<p>
+–shallow-since=&lt;date&gt;</p>
+<blockquote>
+<p>Deepen or shorten the history of a shallow repository to include all
+reachable commits after &lt;date&gt;.</p>
+</blockquote>
+<p>
+–shallow-exclude=&lt;revision&gt;</p>
+<blockquote>
+<p>Deepen or shorten the history of a shallow repository to exclude commits
+reachable from a specified remote branch or tag. This option can be
+specified multiple times.</p>
+</blockquote>
+<p>
+–deepen-relative</p>
+<blockquote>
+<p>Argument –depth specifies the number of commits from the current
+shallow boundary instead of from the tip of each remote branch history.</p>
+</blockquote>
+<p>
+–refetch</p>
+<blockquote>
+<p>Skips negotiating commits with the server in order to fetch all matching
+objects. Use to reapply a new partial clone blob/tree filter.</p>
+</blockquote>
+<p>
+–no-progress</p>
+<blockquote>
+<p>Do not show the progress.</p>
+</blockquote>
+<p>
+–check-self-contained-and-connected</p>
+<blockquote>
+<p>Output &#34;connectivity-ok&#34; if the received pack is self-contained and
+connected.</p>
+</blockquote>
+<p>
+-v</p>
+<blockquote>
+<p>Run verbosely.</p>
+</blockquote>
+<p>
+&lt;repository&gt;</p>
+<blockquote>
+<p>The URL to the remote repository.</p>
+</blockquote>
+<p>
+&lt;refs&gt;…</p>
+<blockquote>
+<p>The remote heads to update from. This is relative to $GIT_DIR (e.g.
+&#34;HEAD&#34;, &#34;refs/heads/master&#34;). When unspecified, update from all heads
+the remote side has.</p>
+<p>
+If the remote has enabled the options <strong>uploadpack.allowTipSHA1InWant</strong>,
+<strong>uploadpack.allowReachableSHA1InWant</strong>, or
+<strong>uploadpack.allowAnySHA1InWant</strong>, they may alternatively be 40-hex sha1s
+present on the remote.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>*git-fetch*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+GIT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

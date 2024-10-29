@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - systemd-id128.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - systemd-id128.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>systemd-id128 - Generate and print sd-128 identifiers</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>systemd-id128</strong> [OPTIONS…] new</p>
+<p>
+<strong>systemd-id128</strong> [OPTIONS…] machine-id</p>
+<p>
+<strong>systemd-id128</strong> [OPTIONS…] boot-id</p>
+<p>
+<strong>systemd-id128</strong> [OPTIONS…] invocation-id</p>
+<p>
+<strong>systemd-id128</strong> [OPTIONS…] show [NAME|UUID…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>id128</strong> may be used to conveniently print *sd-id128*(3) UUIDs. What
+identifier is printed depends on the specific verb.</p>
+<p>
+With <strong>new</strong>, a new random identifier will be generated.</p>
+<p>
+With <strong>machine-id</strong>, the identifier of the current machine will be
+printed. See *machine-id*(5).</p>
+<p>
+With <strong>boot-id</strong>, the identifier of the current boot will be printed.</p>
+<p>
+With <strong>invocation-id</strong>, the identifier of the current service invocation
+will be printed. This is available in systemd services. See
+*systemd.exec*(5).</p>
+<p>
+With <strong>show</strong>, well-known IDs are printed (for now, only GPT partition
+type UUIDs), along with brief identifier strings. When no arguments are
+specified, all known IDs are shown. When arguments are specified, they
+may be the identifiers or ID values of one or more known IDs, which are
+then printed with their name, or arbitrary IDs, which are then printed
+with a placeholder name. Combine with <strong>–uuid</strong> to list the IDs in UUID
+style, i.e. the way GPT partition type UUIDs are usually shown.</p>
+<p>
+<strong>machine-id</strong>, <strong>boot-id</strong>, and <strong>show</strong> may be combined with the
+*–app-specific=*/app-id/ switch to generate application-specific IDs.
+See <strong>sd_id128_get_machine*(3) for the discussion when this is useful.
+Support for *show –app-specific=</strong> was added in version 255.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-p</strong>, <strong>–pretty</strong></p>
+<blockquote>
+<p>Generate output as programming language snippets.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+<strong>-P</strong>, <strong>–value</strong></p>
+<blockquote>
+<p>Only print the value. May be combined with <strong>-u*/</strong>–uuid*.</p>
+<p>
+Added in version 255.</p>
+</blockquote>
+<p>
+*-a */app-id/, *–app-specific=*/app-id/</p>
+<blockquote>
+<p>With this option, identifiers will be printed that are the result of
+hashing the application identifier <em>app-id</em> and another ID. The <em>app-id</em>
+argument must be a valid sd-id128 string identifying the application.
+When used with <strong>machine-id</strong>, the other ID will be the machine ID as
+described in <strong>machine-id*(5), when used with *boot-id</strong>, the other ID
+will be the boot ID, and when used with <strong>show</strong>, the other ID or IDs
+should be specified via the positional arguments.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–uuid</strong></p>
+<blockquote>
+<p>Generate output as a UUID formatted in the &#34;canonical representation&#34;,
+with five groups of digits separated by hyphens. See the Wikipedia entry
+for <strong>Universally Unique Identifiers</strong>[1] for more discussion.</p>
+<p>
+Added in version 244.</p>
+</blockquote>
+<p>
+<strong>–no-pager</strong></p>
+<blockquote>
+<p>Do not pipe output into a pager.</p>
+</blockquote>
+<p>
+<strong>–no-legend</strong></p>
+<blockquote>
+<p>Do not print the legend, i.e. column headers and the footer with hints.</p>
+</blockquote>
+<p>
+*–json=*/MODE/</p>
+<blockquote>
+<p>Shows output formatted as JSON. Expects one of &#34;short&#34; (for the shortest
+possible output without any redundant whitespace or line breaks),
+&#34;pretty&#34; (for a pretty version of the same, with indentation and line
+breaks) or &#34;off&#34; (to turn off JSON output, the default).</p>
+</blockquote>
+<p>
+<strong>-j</strong></p>
+<blockquote>
+<p>Equivalent to <strong>–json=pretty</strong> if running on a terminal, and
+<strong>–json=short</strong> otherwise.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Print a short help text and exit.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Print a short version string and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>On success 0 is returned, and a non-zero failure code otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>Example 1. Show a well-known UUID</strong></p>
+<blockquote>
+<pre class="example">
+$ systemd-id128 show --value user-home
+773f91ef66d449b5bd83d683bf40ad16
+
+$ systemd-id128 show --value --uuid user-home
+773f91ef-66d4-49b5-bd83-d683bf40ad16
+
+$ systemd-id128 show 773f91ef-66d4-49b5-bd83-d683bf40ad16
+NAME      ID
+user-home 773f91ef66d449b5bd83d683bf40ad16
+</pre>
+</blockquote>
+<p>
+<strong>Example 2. Generate an application-specific UUID</strong></p>
+<blockquote>
+<pre class="example">
+$ systemd-id128 machine-id -u
+3a9d668b-4db7-4939-8a4a-5e78a03bffb7
+
+$ systemd-id128 new -u
+1fb8f24b-02df-458d-9659-cc8ace68e28a
+
+$ systemd-id128 machine-id -u -a 1fb8f24b-02df-458d-9659-cc8ace68e28a
+47b82cb1-5339-43da-b2a6-1c350aef1bd1
+
+$ systemd-id128 -Pu show 3a9d668b-4db7-4939-8a4a-5e78a03bffb7 \
+    -a 1fb8f24b-02df-458d-9659-cc8ace68e28a
+47b82cb1-5339-43da-b2a6-1c350aef1bd1
+</pre>
+</blockquote>
+<p>
+On a given machine with the ID 3a9d668b-4db7-4939-8a4a-5e78a03bffb7, for
+the application 1fb8f24b-02df-458d-9659-cc8ace68e28a, we generate an
+application-specific machine ID (47b82cb1-5339-43da-b2a6-1c350aef1bd1).
+If we want to later recreate the same calculation on a different
+machine, we need to specify both IDs explicitly as parameters to <strong>show</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*systemd*(1), *sd-id128*(3), *sd_id128_get_machine*(3)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+NOTES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>Universally Unique Identifiers
+
+https://en.wikipedia.org/wiki/Universally_unique_identifier#Format</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

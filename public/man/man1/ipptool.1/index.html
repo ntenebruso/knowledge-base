@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - ipptool.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - ipptool.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>ipptool - perform internet printing protocol requests</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>ipptool</strong> [ <strong>–help</strong> ] [ <strong>–ippserver</strong> <em>filename</em> ] [
+<strong>–stop-after-include-error</strong> ] [ <strong>–version</strong> ] [ <strong>-4</strong> ] [ <strong>-6</strong> ] [ <strong>-C</strong>
+] [ <strong>-E</strong> ] [ <strong>-I</strong> ] [ <strong>-L</strong> ] [ <strong>-P</strong> <em>filename.plist</em> ] [ <strong>-S</strong> ] [ <strong>-T</strong>
+<em>seconds</em> ] [ <strong>-V</strong> <em>version</em> ] [ <strong>-X</strong> ] [ <strong>-c</strong> ] [ <strong>-d</strong> <em>name=value</em> ] [
+<strong>-f</strong> <em>filename</em> ] [ <strong>-h</strong> ] [ <strong>-i</strong> <em>seconds</em> ] [ <strong>-j</strong> ] [ <strong>-n</strong>
+<em>repeat-count</em> ] [ <strong>-q</strong> ] [ <strong>-t</strong> ] [ <strong>-v ]</strong> <em>printer-uri</em> <em>testfile</em> [
+… <em>testfile</em> ]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>ipptool</strong> sends IPP requests to the specified <em>printer-uri</em> and tests
+and/or displays the results. Each named <em>testfile</em> defines one or more
+requests, including the expected response status, attributes, and
+values. Output is either a plain text, formatted text, CSV, or XML
+report on the standard output, with a non-zero exit status indicating
+that one or more tests have failed. The <em>testfile</em> format is described
+in *ipptoolfile*(5).</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are recognized by <strong>ipptool:</strong></p>
+<dl>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>Shows program help.</dd>
+<dt>
+*–ippserver */filename/
+</dt>
+<dd>Specifies that the test results should be
+written to the named <strong>ippserver</strong> attributes file.</dd>
+<dt>
+<strong>–stop-after-include-error</strong>
+</dt>
+<dd>Tells <strong>ipptool</strong> to stop if an error
+occurs in an included file. Normally <strong>ipptool</strong> will continue with
+subsequent tests after the INCLUDE directive.</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>Shows the version of <strong>ipptool</strong> being used.</dd>
+<dt>
+<strong>-4</strong>
+</dt>
+<dd>Specifies that <strong>ipptool</strong> must connect to the printer or server
+using IPv4.</dd>
+<dt>
+<strong>-6</strong>
+</dt>
+<dd>Specifies that <strong>ipptool</strong> must connect to the printer or server
+using IPv6.</dd>
+<dt>
+<strong>-C</strong>
+</dt>
+<dd>Specifies that requests should be sent using the HTTP/1.1
+&#34;Transfer-Encoding: chunked&#34; header, which is required for conformance
+by all versions of IPP. The default is to use &#34;Transfer-Encoding:
+chunked&#34; for requests with attached files and &#34;Content-Length:&#34; for
+requests without attached files.</dd>
+<dt>
+<strong>-E</strong>
+</dt>
+<dd>Forces TLS encryption when connecting to the server using the
+HTTP &#34;Upgrade&#34; header.</dd>
+<dt>
+<strong>-I</strong>
+</dt>
+<dd>Specifies that <strong>ipptool</strong> will continue past errors.</dd>
+<dt>
+<strong>-L</strong>
+</dt>
+<dd>Specifies that requests should be sent using the HTTP/1.0
+&#34;Content-Length:&#34; header, which is required for conformance by all
+versions of IPP. The default is to use &#34;Transfer-Encoding: chunked&#34;
+for requests with attached files and &#34;Content-Length:&#34; for requests
+without attached files.</dd>
+<dt>
+*-P*/ filename.plist/
+</dt>
+<dd>Specifies that the test results should be
+written to the named XML (Apple plist) file in addition to the regular
+test report (<strong>-t</strong>). This option is incompatible with the <strong>-i</strong>
+(interval) and <strong>-n</strong> (repeat-count) options.</dd>
+<dt>
+<strong>-S</strong>
+</dt>
+<dd>Forces (dedicated) TLS encryption when connecting to the
+server.</dd>
+<dt>
+*-T*/ seconds/
+</dt>
+<dd>Specifies a timeout for IPP requests in seconds.</dd>
+<dt>
+*-V*/ version/
+</dt>
+<dd>Specifies the default IPP version to use: 1.0, 1.1,
+2.0, 2.1, or 2.2. If not specified, version 1.1 is used.</dd>
+<dt>
+<strong>-X</strong>
+</dt>
+<dd>Specifies that XML (Apple plist) output is desired instead of
+the plain text report. This option is incompatible with the <strong>-i</strong>
+(interval) and <strong>-n</strong> (repeat-count) options.</dd>
+<dt>
+<strong>-c</strong>
+</dt>
+<dd>Specifies that CSV (comma-separated values) output is desired
+instead of the plain text output.</dd>
+<dt>
+*-d*/ name=value/
+</dt>
+<dd>Defines the named variable.</dd>
+<dt>
+*-f*/ filename/
+</dt>
+<dd>Defines the default request filename for tests.</dd>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>Validate HTTP response headers.</dd>
+<dt>
+*-i*/ seconds/
+</dt>
+<dd>Specifies that the (last) <em>testfile</em> should be
+repeated at the specified interval. This option is incompatible with
+the <strong>-X</strong> (XML plist output) option.</dd>
+<dt>
+<strong>-j</strong>
+</dt>
+<dd>Specifies that <strong>ipptool</strong> will produce JSON output.</dd>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>Specifies that plain text output is desired.</dd>
+<dt>
+*-n*/ repeat-count/
+</dt>
+<dd>Specifies that the (last) <em>testfile</em> should be
+repeated the specified number of times. This option is incompatible
+with the <em>-X</em> (XML plist output) option.</dd>
+<dt>
+<strong>-q</strong>
+</dt>
+<dd>Be quiet and produce no output.</dd>
+<dt>
+<strong>-t</strong>
+</dt>
+<dd>Specifies that CUPS test report output is desired instead of
+the plain text output.</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>Specifies that all request and response attributes should be
+output in CUPS test mode (<strong>-t</strong>). This is the default for XML output.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The <strong>ipptool</strong> program returns 0 if all tests were successful and 1
+otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+FILES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The following standard files are available:</p>
+<pre class="example">
+    color.jpg
+    create-printer-subscription.test
+    document-a4.pdf
+    document-a4.ps
+    document-letter.pdf
+    document-letter.ps
+    get-completed-jobs.test
+    get-jobs.test
+    get-notifications.test
+    get-printer-attributes.test
+    get-subscriptions.test
+    gray.jpg
+    ipp-1.1.test
+    ipp-2.0.test
+    ipp-2.1.test
+    ipp-2.2.test
+    ipp-everywhere.test
+    onepage-a4.pdf
+    onepage-a4.ps
+    onepage-letter.pdf
+    onepage-letter.ps
+    print-job.test
+    print-job-deflate.test
+    print-job-gzip.test
+    testfile.jpg
+    testfile.pcl
+    testfile.pdf
+    testfile.ps
+    testfile.txt
+    validate-job.test
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+CONFORMING TO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The <strong>ipptool</strong> program is unique to CUPS and conforms to the Internet
+Printing Protocol up to version 2.2.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Get a list of completed jobs for &#34;myprinter&#34;:</p>
+<pre class="example">
+    ipptool ipp://localhost/printers/myprinter get-completed-jobs.test
+</pre>
+<p>
+Send email notifications to &#34;user@example.com&#34; when &#34;myprinter&#34; changes:</p>
+<pre class="example">
+    ipptool -d recipient=mailto:user@example.com \
+        ipp://localhost/printers/myprinter create-printer-subscription.test
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*ipptoolfile*(5), IANA IPP Registry
+(<a href="https://www.iana.org/assignments/ipp-registrations),">https://www.iana.org/assignments/ipp-registrations),</a> PWG Internet
+Printing Protocol Workgroup (<a href="https://www.pwg.org/ipp)">https://www.pwg.org/ipp)</a> RFC 8011
+(<a href="https://datatracker.ietf.org/doc/html/rfc8011),">https://datatracker.ietf.org/doc/html/rfc8011),</a></p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Copyright © 2020-2024 by OpenPrinting.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

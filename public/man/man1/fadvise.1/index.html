@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - fadvise.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - fadvise.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>fadvise - utility to use the posix_fadvise system call</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>fadvise</strong> [*-a* <em>advice/] [*-o* /offset/] [*-l* /length/] /filename</em></p>
+<p>
+<strong>fadvise</strong> [*-a* <em>advice/] [*-o* /offset/] [*-l* /length/] -d
+/file-descriptor</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>fadvise</strong> is a simple command wrapping posix_fadvise system call that is
+for predeclaring an access pattern for file data.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-d</strong>, <strong>–fd</strong> <em>file-descriptor</em></p>
+<blockquote>
+<p>Apply the advice to the file specified with the file descriptor instead
+of open a file specified with a file name.</p>
+</blockquote>
+<p>
+<strong>-a</strong>, <strong>–advice</strong> <em>advice</em></p>
+<blockquote>
+<p>See the command output with <strong>–help</strong> option for available values for
+advice. If this option is omitted, &#34;dontneed&#34; is used as default advice.</p>
+</blockquote>
+<p>
+<strong>-o</strong>, <strong>–offset</strong> <em>offset</em></p>
+<blockquote>
+<p>Specifies the beginning offset of the range, in bytes. If this option is
+omitted, 0 is used as default advice.</p>
+</blockquote>
+<p>
+<strong>-l</strong>, <strong>–length</strong> <em>length</em></p>
+<blockquote>
+<p>Specifies the length of the range, in bytes. If this option is omitted,
+0 is used as default advice.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>fadvise</strong> has the following exit status values:</p>
+<p>
+<strong>0</strong></p>
+<blockquote>
+<p>success</p>
+</blockquote>
+<p>
+<strong>1</strong></p>
+<blockquote>
+<p>unspecified failure</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*posix_fadvise*(2)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The <strong>fadvise</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

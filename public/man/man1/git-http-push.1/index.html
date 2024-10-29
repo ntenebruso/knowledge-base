@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-http-push.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-http-push.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-http-push - Push objects over HTTP/DAV to another repository</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git http-push [--all] [--dry-run] [--force] [--verbose] &lt;URL&gt; &lt;ref&gt; [&lt;ref&gt;...]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Sends missing objects to the remote repository, and updates the remote
+branch.</p>
+<p>
+<strong>NOTE</strong>: This command is temporarily disabled if your libcurl is older
+than 7.16, as the combination has been reported not to work and
+sometimes corrupts the repository.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–all</p>
+<blockquote>
+<p>Do not assume that the remote repository is complete in its current
+state, and verify all objects in the entire local ref&#39;s history exist in
+the remote repository.</p>
+</blockquote>
+<p>
+–force</p>
+<blockquote>
+<p>Usually, the command refuses to update a remote ref that is not an
+ancestor of the local ref used to overwrite it. This flag disables the
+check. What this means is that the remote repository can lose commits;
+use it with care.</p>
+</blockquote>
+<p>
+–dry-run</p>
+<blockquote>
+<p>Do everything except actually send the updates.</p>
+</blockquote>
+<p>
+–verbose</p>
+<blockquote>
+<p>Report the list of objects being walked locally and the list of objects
+successfully sent to the remote repository.</p>
+</blockquote>
+<p>
+-d, -D</p>
+<blockquote>
+<p>Remove &lt;ref&gt; from remote repository. The specified branch cannot be the
+remote HEAD. If -d is specified, the following other conditions must
+also be met:</p>
+<blockquote>
+<p>·</p>
+<p>
+Remote HEAD must resolve to an object that exists locally</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Specified branch resolves to an object that exists locally</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Specified branch is an ancestor of the remote HEAD</p>
+</blockquote>
+</blockquote>
+<p>
+&lt;ref&gt;…</p>
+<blockquote>
+<p>The remote refs to update.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SPECIFYING THE REFS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>A <em>&lt;ref&gt;</em> specification can be either a single pattern, or a pair of
+such patterns separated by a colon &#34;:&#34; (this means that a ref name
+cannot have a colon in it). A single pattern <em>&lt;name&gt;</em> is just a
+shorthand for <em>&lt;name&gt;:&lt;name&gt;</em>.</p>
+<p>
+Each pattern pair <em>&lt;src&gt;:&lt;dst&gt;</em> consists of the source side (before the
+colon) and the destination side (after the colon). The ref to be pushed
+is determined by finding a match that matches the source side, and where
+it is pushed is determined by using the destination side.</p>
+<blockquote>
+<p>·</p>
+<p>
+It is an error if <em>&lt;src&gt;</em> does not match exactly one of the local refs.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+If <em>&lt;dst&gt;</em> does not match any remote ref, either</p>
+<blockquote>
+<p>·</p>
+<p>
+it has to start with &#34;refs/&#34;; &lt;dst&gt; is used as the destination literally
+in this case.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+&lt;src&gt; == &lt;dst&gt; and the ref that matched the &lt;src&gt; must not exist in the
+set of remote refs; the ref matched &lt;src&gt; locally is used as the name of
+the destination.</p>
+</blockquote>
+</blockquote>
+<p>
+Without ‘–force`, the &lt;src&gt; ref is stored at the remote only if &lt;dst&gt;
+does not exist, or &lt;dst&gt; is a proper subset (i.e. an ancestor) of &lt;src&gt;.
+This check, known as &#34;fast-forward check&#34;, is performed to avoid
+accidentally overwriting the remote ref and losing other peoples&#39;
+commits from there.</p>
+<p>
+With <strong>–force</strong>, the fast-forward check is disabled for all refs.</p>
+<p>
+Optionally, a &lt;ref&gt; parameter can be prefixed with a plus <em>+</em> sign to
+disable the fast-forward check only on that ref.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+GIT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

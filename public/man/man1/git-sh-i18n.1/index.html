@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-sh-i18n.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-sh-i18n.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-sh-i18n - Gits i18n setup code for shell scripts</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+. &#34;$(git --exec-path)/git-sh-i18n&#34;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This is not a command the end user would want to run. Ever. This
+documentation is meant for people who are studying the Porcelain-ish
+scripts and/or are writing new ones.</p>
+<p>
+The git sh-i18n scriptlet is designed to be sourced (using <strong>.</strong>) by Git&#39;s
+porcelain programs implemented in shell script. It provides wrappers for
+the GNU <strong>gettext</strong> and <strong>eval_gettext</strong> functions accessible through the
+<strong>gettext.sh</strong> script, and provides pass-through fallbacks on systems
+without GNU gettext.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+FUNCTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>gettext</p>
+<blockquote>
+<p>Currently a dummy fall-through function implemented as a wrapper around
+<strong>printf(1)</strong>. Will be replaced by a real gettext implementation in a
+later version.</p>
+</blockquote>
+<p>
+eval_gettext</p>
+<blockquote>
+<p>Currently a dummy fall-through function implemented as a wrapper around
+<strong>printf(1)</strong> with variables expanded by the *git-sh-i18n–envsubst*(1)
+helper. Will be replaced by a real gettext implementation in a later
+version.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+GIT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

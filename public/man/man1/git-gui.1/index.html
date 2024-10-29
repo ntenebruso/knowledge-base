@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-gui.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-gui.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-gui - A portable graphical interface to Git</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git gui [&lt;command&gt;] [&lt;arguments&gt;]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>A Tcl/Tk based graphical user interface to Git. <em>git gui</em> focuses on
+allowing users to make changes to their repository by making new
+commits, amending existing ones, creating branches, performing local
+merges, and fetching/pushing to remote repositories.</p>
+<p>
+Unlike <em>gitk</em>, <em>git gui</em> focuses on commit generation and single file
+annotation and does not show project history. It does however supply
+menu actions to start a <em>gitk</em> session from within <em>git gui</em>.</p>
+<p>
+<em>git gui</em> is known to work on all popular UNIX systems, Mac OS X, and
+Windows (under both Cygwin and MSYS). To the extent possible OS specific
+user interface guidelines are followed, making <em>git gui</em> a fairly native
+interface for users.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>blame</p>
+<blockquote>
+<p>Start a blame viewer on the specified file on the given version (or
+working directory if not specified).</p>
+</blockquote>
+<p>
+browser</p>
+<blockquote>
+<p>Start a tree browser showing all files in the specified commit. Files
+selected through the browser are opened in the blame viewer.</p>
+</blockquote>
+<p>
+citool</p>
+<blockquote>
+<p>Start <em>git gui</em> and arrange to make exactly one commit before exiting
+and returning to the shell. The interface is limited to only commit
+actions, slightly reducing the application&#39;s startup time and
+simplifying the menubar.</p>
+</blockquote>
+<p>
+version</p>
+<blockquote>
+<p>Display the currently running version of <em>git gui</em>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>git gui blame Makefile</strong></p>
+<blockquote>
+<p>Show the contents of the file <em>Makefile</em> in the current working
+directory, and provide annotations for both the original author of each
+line, and who moved the line to its current location. The uncommitted
+file is annotated, and uncommitted changes (if any) are explicitly
+attributed to <em>Not Yet Committed</em>.</p>
+</blockquote>
+<p>
+<strong>git gui blame v0.99.8 Makefile</strong></p>
+<blockquote>
+<p>Show the contents of <em>Makefile</em> in revision <em>v0.99.8</em> and provide
+annotations for each line. Unlike the above example the file is read
+from the object database and not the working directory.</p>
+</blockquote>
+<p>
+<strong>git gui blame –line=100 Makefile</strong></p>
+<blockquote>
+<p>Loads annotations as described above and automatically scrolls the view
+to center on line <em>100</em>.</p>
+</blockquote>
+<p>
+<strong>git gui citool</strong></p>
+<blockquote>
+<p>Make one commit and return to the shell when it is complete. This
+command returns a non-zero exit code if the window was closed in any way
+other than by making a commit.</p>
+</blockquote>
+<p>
+<strong>git gui citool –amend</strong></p>
+<blockquote>
+<p>Automatically enter the <em>Amend Last Commit</em> mode of the interface.</p>
+</blockquote>
+<p>
+<strong>git gui citool –nocommit</strong></p>
+<blockquote>
+<p>Behave as normal citool, but instead of making a commit simply terminate
+with a zero exit code. It still checks that the index does not contain
+any unmerged entries, so you can use it as a GUI version of
+*git-mergetool*(1)</p>
+</blockquote>
+<p>
+<strong>git citool</strong></p>
+<blockquote>
+<p>Same as <strong>git gui citool</strong> (above).</p>
+</blockquote>
+<p>
+<strong>git gui browser maint</strong></p>
+<blockquote>
+<p>Show a browser for the tree of the <em>maint</em> branch. Files selected in the
+browser can be viewed with the internal blame viewer.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*gitk*(1)</p>
+<blockquote>
+<p>The Git repository browser. Shows branches, commit history and file
+differences. gitk is the utility started by /git gui/s Repository
+Visualize actions.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+OTHER
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><em>git gui</em> is actually maintained as an independent project, but stable
+versions are distributed as part of the Git suite for the convenience of
+end users.</p>
+<p>
+The official repository of the <em>git gui</em> project can be found at:</p>
+<blockquote>
+<pre class="example">
+https://github.com/j6t/git-gui
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

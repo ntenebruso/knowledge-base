@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - cmp.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - cmp.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>cmp - compare two files byte by byte</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>cmp</strong> [/OPTION/]… /FILE1 /[/FILE2 /[/SKIP1 /[/SKIP2/]]]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Compare two files byte by byte.</p>
+<p>
+The optional SKIP1 and SKIP2 specify the number of bytes to skip at the
+beginning of each file (zero by default).</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<dl>
+<dt>
+<strong>-b</strong>, <strong>–print-bytes</strong>
+</dt>
+<dd>print differing bytes</dd>
+<dt>
+<strong>-i</strong>, *–ignore-initial*=/SKIP/
+</dt>
+<dd>skip first SKIP bytes of both
+inputs</dd>
+<dt>
+<strong>-i</strong>, *–ignore-initial*=/SKIP1/:SKIP2
+</dt>
+<dd>skip first SKIP1 bytes of
+FILE1 and first SKIP2 bytes of FILE2</dd>
+<dt>
+<strong>-l</strong>, <strong>–verbose</strong>
+</dt>
+<dd>output byte numbers and differing byte values</dd>
+<dt>
+<strong>-n</strong>, *–bytes*=/LIMIT/
+</dt>
+<dd>compare at most LIMIT bytes</dd>
+<dt>
+<strong>-s</strong>, <strong>–quiet</strong>, <strong>–silent</strong>
+</dt>
+<dd>suppress all normal output</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>-v</strong>, <strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>SKIP values may be followed by the following multiplicative suffixes: kB
+1000, K 1024, MB 1,000,000, M 1,048,576, GB 1,000,000,000, G
+1,073,741,824, and so on for T, P, E, Z, Y.</p>
+<p>
+If a FILE is &#39;-&#39; or missing, read standard input. Exit status is 0 if
+inputs are the same, 1 if different, 2 if trouble.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+AUTHOR
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Written by Torbjorn Granlund and David MacKenzie.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Report bugs to: bug-diffutils@gnu.org<br>
+GNU diffutils home page: &lt;<a href="https://www.gnu.org/software/diffutils/">https://www.gnu.org/software/diffutils/</a>&gt;<br>
+General help using GNU software: &lt;<a href="https://www.gnu.org/gethelp/">https://www.gnu.org/gethelp/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Copyright © 2023 Free Software Foundation, Inc. License GPLv3+: GNU GPL
+version 3 or later &lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it. There
+is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*diff*(1), *diff3*(1), *sdiff*(1)</p>
+<p>
+The full documentation for <strong>cmp</strong> is maintained as a Texinfo manual. If
+the <strong>info</strong> and <strong>cmp</strong> programs are properly installed at your site, the
+command</p>
+<blockquote>
+<p><strong>info cmp</strong></p>
+</blockquote>
+<p>
+should give you access to the complete manual.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - make.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - make.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>make - GNU Make utility to maintain groups of programs</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>make</strong> [/OPTION/]… [/TARGET/]…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <em>make</em> utility will determine automatically which pieces of a large
+program need to be recompiled, and issue the commands to recompile them.
+The manual describes the GNU implementation of <strong>make</strong>, which was written
+by Richard Stallman and Roland McGrath, and is currently maintained by
+Paul Smith. Our examples show C programs, since they are very common,
+but you can use <strong>make</strong> with any programming language whose compiler can
+be run with a shell command. In fact, <strong>make</strong> is not limited to programs.
+You can use it to describe any task where some files must be updated
+automatically from others whenever the others change.</p>
+<p>
+To prepare to use <strong>make</strong>, you must write a file called the <em>makefile</em>
+that describes the relationships among files in your program, and
+provides commands for updating each file. In a program, typically the
+executable file is updated from object files, which are in turn made by
+compiling source files.</p>
+<p>
+Once a suitable makefile exists, each time you change some source files,
+this simple shell command:</p>
+<blockquote>
+<p><strong>make</strong></p>
+</blockquote>
+<p>
+suffices to perform all necessary recompilations. The <strong>make</strong> program
+uses the makefile description and the last-modification times of the
+files to decide which of the files need to be updated. For each of those
+files, it issues the commands recorded in the makefile.</p>
+<p>
+<strong>make</strong> executes commands in the <em>makefile</em> to update one or more
+<em>targets</em>, where <em>target</em> is typically a program. If no <strong>-f</strong> option is
+present, <strong>make</strong> will look for the makefiles <em>GNUmakefile</em>, <em>makefile</em>,
+and <em>Makefile</em>, in that order.</p>
+<p>
+Normally you should call your makefile either <em>makefile</em> or <em>Makefile</em>.
+(We recommend <em>Makefile</em> because it appears prominently near the
+beginning of a directory listing, right near other important files such
+as <em>README</em>.) The first name checked, <em>GNUmakefile</em>, is not recommended
+for most makefiles. You should use this name if you have a makefile that
+is specific to GNU Make, and will not be understood by other versions of
+<strong>make</strong>. If <em>makefile</em> is &#39;-&#39;, the standard input is read.</p>
+<p>
+<strong>make</strong> updates a target if it depends on prerequisite files that have
+been modified since the target was last modified, or if the target does
+not exist.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-b</strong>, <strong>-m</strong>
+</dt>
+<dd>These options are ignored for compatibility with other
+versions of <strong>make</strong>.</dd>
+<dt>
+<strong>-B</strong>, <strong>–always-make</strong>
+</dt>
+<dd>Unconditionally make all targets.</dd>
+<dt>
+<strong>-C</strong> <em>dir</em>, *–directory*=/dir/
+</dt>
+<dd>Change to directory <em>dir</em> before
+reading the makefiles or doing anything else. If multiple <strong>-C</strong> options
+are specified, each is interpreted relative to the previous one: *-C
+<strong>/ *-C *etc is equivalent to *-C */etc. This is typically used with
+recursive invocations of *make</strong>.</dd>
+<dt>
+<strong>-d</strong>
+</dt>
+<dd>Print debugging information in addition to normal processing.
+The debugging information says which files are being considered for
+remaking, which file-times are being compared and with what results,
+which files actually need to be remade, which implicit rules are
+considered and which are applied—everything interesting about how
+<strong>make</strong> decides what to do.</dd>
+<dt>
+*–debug*/[=FLAGS]/
+</dt>
+<dd>Print debugging information in addition to
+normal processing. If the <em>FLAGS</em> are omitted, then the behavior is
+the same as if <strong>-d</strong> was specified. <em>FLAGS</em> may be any or all of the
+following names, comma- or space-separated. Only the first character
+is significant: the rest may be omitted: <em>all</em> for all debugging
+output (same as using <strong>-d</strong>), <em>basic</em> for basic debugging, <em>verbose</em>
+for more verbose basic debugging, <em>implicit</em> for showing implicit rule
+search operations, <em>jobs</em> for details on invocation of commands,
+<em>makefile</em> for debugging while remaking makefiles, <em>print</em> shows all
+recipes that are run even if they are silent, and <em>why</em> shows the
+reason <strong>make</strong> decided to rebuild each target. Use <em>none</em> to disable
+all previous debugging flags.</dd>
+<dt>
+<strong>-e</strong>, <strong>–environment-overrides</strong>
+</dt>
+<dd>Give variables taken from the
+environment precedence over variables from makefiles.</dd>
+<dt>
+<strong>-E</strong> <em>string</em>, <strong>–eval</strong> <em>string</em>
+</dt>
+<dd>Interpret <em>string</em> using the
+<strong>eval</strong> function, before parsing any makefiles.</dd>
+<dt>
+<strong>-f</strong> <em>file</em>, *–file*=/file/, *–makefile*=/FILE/
+</dt>
+<dd>Use <em>file</em> as a
+makefile.</dd>
+<dt>
+<strong>-i</strong>, <strong>–ignore-errors</strong>
+</dt>
+<dd>Ignore all errors in commands executed to
+remake files.</dd>
+<dt>
+<strong>-I</strong> <em>dir</em>, *–include-dir*=/dir/
+</dt>
+<dd>Specifies a directory <em>dir</em> to
+search for included makefiles. If several <strong>-I</strong> options are used to
+specify several directories, the directories are searched in the order
+specified. Unlike the arguments to other flags of <strong>make</strong>, directories
+given with <strong>-I</strong> flags may come directly after the flag: <strong>-I*/dir/ is
+allowed, as well as *-I</strong> <em>dir</em>. This syntax is allowed for
+compatibility with the C preprocessor&#39;s <strong>-I</strong> flag.</dd>
+<dt>
+<strong>-j</strong> [/jobs/], <strong>–jobs</strong>[=/jobs/]
+</dt>
+<dd>Specifies the number of <em>jobs</em>
+(commands) to run simultaneously. If there is more than one <strong>-j</strong>
+option, the last one is effective. If the <strong>-j</strong> option is given without
+an argument, <strong>make</strong> will not limit the number of jobs that can run
+simultaneously.</dd>
+<dt>
+*–jobserver-style=*/style/
+</dt>
+<dd>The style of jobserver to use. The
+<em>style</em> may be one of <strong>fifo</strong>, <strong>pipe</strong>, or <strong>sem</strong> (Windows only).</dd>
+<dt>
+<strong>-k</strong>, <strong>–keep-going</strong>
+</dt>
+<dd>Continue as much as possible after an error.
+While the target that failed, and those that depend on it, cannot be
+remade, the other dependencies of these targets can be processed all
+the same.</dd>
+<dt>
+<strong>-l</strong> [/load/], <strong>–load-average</strong>[=/load/]
+</dt>
+<dd>Specifies that no new jobs
+(commands) should be started if there are others jobs running and the
+load average is at least <em>load</em> (a floating-point number). With no
+argument, removes a previous load limit.</dd>
+<dt>
+<strong>-L</strong>, <strong>–check-symlink-times</strong>
+</dt>
+<dd>Use the latest mtime between symlinks
+and target.</dd>
+<dt>
+<strong>-n</strong>, <strong>–just-print</strong>, <strong>–dry-run</strong>, <strong>–recon</strong>
+</dt>
+<dd>Print the commands
+that would be executed, but do not execute them (except in certain
+circumstances).</dd>
+<dt>
+<strong>-o</strong> <em>file</em>, *–old-file*=/file/, *–assume-old*=/file/
+</dt>
+<dd>Do not
+remake the file <em>file</em> even if it is older than its dependencies, and
+do not remake anything on account of changes in <em>file</em>. Essentially
+the file is treated as very old and its rules are ignored.</dd>
+<dt>
+<strong>-O</strong>[/type/], <strong>–output-sync</strong>[=/type/]
+</dt>
+<dd>When running multiple jobs
+in parallel with <strong>-j</strong>, ensure the output of each job is collected
+together rather than interspersed with output from other jobs. If
+<em>type</em> is not specified or is <strong>target</strong> the output from the entire
+recipe for each target is grouped together. If <em>type</em> is <strong>line</strong> the
+output from each command line within a recipe is grouped together. If
+<em>type</em> is <strong>recurse</strong> output from an entire recursive make is grouped
+together. If <em>type</em> is <strong>none</strong> output synchronization is disabled.</dd>
+<dt>
+<strong>-p</strong>, <strong>–print-data-base</strong>
+</dt>
+<dd>Print the data base (rules and variable
+values) that results from reading the makefiles; then execute as usual
+or as otherwise specified. This also prints the version information
+given by the <strong>-v</strong> switch (see below). To print the data base without
+trying to remake any files, use <em>make -p -f/dev/null</em>.</dd>
+<dt>
+<strong>-q</strong>, <strong>–question</strong>
+</dt>
+<dd>``Question mode&#39;&#39;. Do not run any commands, or
+print anything; just return an exit status that is zero if the
+specified targets are already up to date, nonzero otherwise.</dd>
+<dt>
+<strong>-r</strong>, <strong>–no-builtin-rules</strong>
+</dt>
+<dd>Eliminate use of the built-in implicit
+rules. Also clear out the default list of suffixes for suffix rules.</dd>
+<dt>
+<strong>-R</strong>, <strong>–no-builtin-variables</strong>
+</dt>
+<dd>Don&#39;t define any built-in variables.</dd>
+<dt>
+<strong>-s</strong>, <strong>–silent</strong>, <strong>–quiet</strong>
+</dt>
+<dd>Silent operation; do not print the
+commands as they are executed.</dd>
+<dt>
+<strong>–no-silent</strong>
+</dt>
+<dd>Cancel the effect of the <strong>-s</strong> option.</dd>
+<dt>
+<strong>-S</strong>, <strong>–no-keep-going</strong>, <strong>–stop</strong>
+</dt>
+<dd>Cancel the effect of the <strong>-k</strong>
+option.</dd>
+<dt>
+<strong>-t</strong>, <strong>–touch</strong>
+</dt>
+<dd>Touch files (mark them up to date without really
+changing them) instead of running their commands. This is used to
+pretend that the commands were done, in order to fool future
+invocations of <strong>make</strong>.</dd>
+<dt>
+<strong>–trace</strong>
+</dt>
+<dd>Information about the disposition of each target is
+printed (why the target is being rebuilt and what commands are run to
+rebuild it).</dd>
+<dt>
+<strong>-v</strong>, <strong>–version</strong>
+</dt>
+<dd>Print the version of the <strong>make</strong> program plus a
+copyright, a list of authors and a notice that there is no warranty.</dd>
+<dt>
+<strong>-w</strong>, <strong>–print-directory</strong>
+</dt>
+<dd>Print a message containing the working
+directory before and after other processing. This may be useful for
+tracking down errors from complicated nests of recursive <strong>make</strong>
+commands.</dd>
+<dt>
+<strong>–no-print-directory</strong>
+</dt>
+<dd>Turn off <strong>-w</strong>, even if it was turned on
+implicitly.</dd>
+<dt>
+*–shuffle*/[=MODE]/
+</dt>
+<dd>Enable shuffling of goal and prerequisite
+ordering. <em>MODE</em> is one of <em>none</em> to disable shuffle mode, <em>random</em> to
+shuffle prerequisites in random order, <em>reverse</em> to consider
+prerequisites in reverse order, or an integer <em>&lt;seed&gt;</em> which enables
+<em>random</em> mode with a specific <em>seed</em> value. If <em>MODE</em> is omitted the
+default is <em>random</em>.</dd>
+<dt>
+?
+</dt>
+<dd><strong>-W</strong> <em>file</em>, *–what-if*=/file/, *–new-file*=/file/,
+<strong>–assume-new*=/file/ :: Pretend that the target <em>file</em> has just been
+modified. When used with the *-n</strong> flag, this shows you what would
+happen if you were to modify that file. Without <strong>-n</strong>, it is almost the
+same as running a <em>touch</em> command on the given file before running
+<strong>make</strong>, except that the modification time is changed only in the
+imagination of <strong>make</strong>.</dd>
+<dt>
+<strong>–warn-undefined-variables</strong>
+</dt>
+<dd>Warn when an undefined variable is
+referenced.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>GNU Make exits with a status of zero if all makefiles were successfully
+parsed and no targets that were built failed. A status of one will be
+returned if the <strong>-q</strong> flag was used and <strong>make</strong> determines that a target
+needs to be rebuilt. A status of two will be returned if any errors were
+encountered.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The full documentation for <strong>make</strong> is maintained as a Texinfo manual. If
+the <strong>info</strong> and <strong>make</strong> programs are properly installed at your site, the
+command</p>
+<blockquote>
+<p><strong>info make</strong></p>
+</blockquote>
+<p>
+should give you access to the complete manual.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>See the chapter ``Problems and Bugs&#39;&#39; in <em>The GNU Make Manual</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>This manual page contributed by Dennis Morse of Stanford University.
+Further updates contributed by Mike Frysinger. It has been reworked by
+Roland McGrath. Maintained by Paul Smith.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Copyright © 1992-1993, 1996-2023 Free Software Foundation, Inc. This
+file is part of <em>GNU Make</em>.</p>
+<p>
+GNU Make is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 3 of the License, or (at your
+option) any later version.</p>
+<p>
+GNU Make is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+more details.</p>
+<p>
+You should have received a copy of the GNU General Public License along
+with this program. If not, see <em><a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a></em>.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

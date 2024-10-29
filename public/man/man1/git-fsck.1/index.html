@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-fsck.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-fsck.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-fsck - Verifies the connectivity and validity of the objects in the
+database</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git fsck [--tags] [--root] [--unreachable] [--cache] [--no-reflogs]
+         [--[no-]full] [--strict] [--verbose] [--lost-found]
+         [--[no-]dangling] [--[no-]progress] [--connectivity-only]
+         [--[no-]name-objects] [&lt;object&gt;...]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Verifies the connectivity and validity of the objects in the database.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>&lt;object&gt;</p>
+<blockquote>
+<p>An object to treat as the head of an unreachability trace.</p>
+<p>
+If no objects are given, <em>git fsck</em> defaults to using the index file,
+all SHA-1 references in the <strong>refs</strong> namespace, and all reflogs (unless
+–no-reflogs is given) as heads.</p>
+</blockquote>
+<p>
+–unreachable</p>
+<blockquote>
+<p>Print out objects that exist but that aren&#39;t reachable from any of the
+reference nodes.</p>
+</blockquote>
+<p>
+–[no-]dangling</p>
+<blockquote>
+<p>Print objects that exist but that are never <em>directly</em> used (default).
+<strong>–no-dangling</strong> can be used to omit this information from the output.</p>
+</blockquote>
+<p>
+–root</p>
+<blockquote>
+<p>Report root nodes.</p>
+</blockquote>
+<p>
+–tags</p>
+<blockquote>
+<p>Report tags.</p>
+</blockquote>
+<p>
+–cache</p>
+<blockquote>
+<p>Consider any object recorded in the index also as a head node for an
+unreachability trace.</p>
+</blockquote>
+<p>
+–no-reflogs</p>
+<blockquote>
+<p>Do not consider commits that are referenced only by an entry in a reflog
+to be reachable. This option is meant only to search for commits that
+used to be in a ref, but now aren&#39;t, but are still in that corresponding
+reflog.</p>
+</blockquote>
+<p>
+–full</p>
+<blockquote>
+<p>Check not just objects in GIT_OBJECT_DIRECTORY ($GIT_DIR/objects), but
+also the ones found in alternate object pools listed in
+GIT_ALTERNATE_OBJECT_DIRECTORIES or $GIT_DIR/objects/info/alternates,
+and in packed Git archives found in $GIT_DIR/objects/pack and
+corresponding pack subdirectories in alternate object pools. This is now
+default; you can turn it off with –no-full.</p>
+</blockquote>
+<p>
+–connectivity-only</p>
+<blockquote>
+<p>Check only the connectivity of reachable objects, making sure that any
+objects referenced by a reachable tag, commit, or tree are present. This
+speeds up the operation by avoiding reading blobs entirely (though it
+does still check that referenced blobs exist). This will detect
+corruption in commits and trees, but not do any semantic checks (e.g.,
+for format errors). Corruption in blob objects will not be detected at
+all.</p>
+<p>
+Unreachable tags, commits, and trees will also be accessed to find the
+tips of dangling segments of history. Use <strong>–no-dangling</strong> if you don&#39;t
+care about this output and want to speed it up further.</p>
+</blockquote>
+<p>
+–strict</p>
+<blockquote>
+<p>Enable more strict checking, namely to catch a file mode recorded with
+g+w bit set, which was created by older versions of Git. Existing
+repositories, including the Linux kernel, Git itself, and sparse
+repository have old objects that trigger this check, but it is
+recommended to check new projects with this flag.</p>
+</blockquote>
+<p>
+–verbose</p>
+<blockquote>
+<p>Be chatty.</p>
+</blockquote>
+<p>
+–lost-found</p>
+<blockquote>
+<p>Write dangling objects into .git/lost-found/commit/ or
+.git/lost-found/other/, depending on type. If the object is a blob, the
+contents are written into the file, rather than its object name.</p>
+</blockquote>
+<p>
+–name-objects</p>
+<blockquote>
+<p>When displaying names of reachable objects, in addition to the SHA-1
+also display a name that describes <strong>how</strong> they are reachable, compatible
+with <strong>git-rev-parse*(1), e.g. *HEAD@{1234567890}~25^2:src/</strong>.</p>
+</blockquote>
+<p>
+–[no-]progress</p>
+<blockquote>
+<p>Progress status is reported on the standard error stream by default when
+it is attached to a terminal, unless –no-progress or –verbose is
+specified. –progress forces progress status even if the standard error
+stream is not directed to a terminal.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+fsck.&lt;msg-id&gt;</p>
+<blockquote>
+<p>During fsck git may find issues with legacy data which wouldn&#39;t be
+generated by current versions of git, and which wouldn&#39;t be sent over
+the wire if <strong>transfer.fsckObjects</strong> was set. This feature is intended to
+support working with legacy repositories containing such data.</p>
+<p>
+Setting <strong>fsck.&lt;msg-id&gt;</strong> will be picked up by <strong>git-fsck*(1), but to
+accept pushes of such data set *receive.fsck.&lt;msg-id&gt;</strong> instead, or to
+clone or fetch it set <strong>fetch.fsck.&lt;msg-id&gt;</strong>.</p>
+<p>
+The rest of the documentation discusses <strong>fsck.*</strong> for brevity, but the
+same applies for the corresponding <strong>receive.fsck.*</strong> and <strong>fetch.fsck.*</strong>.
+variables.</p>
+<p>
+Unlike variables like <strong>color.ui</strong> and <strong>core.editor</strong>, the
+<strong>receive.fsck.&lt;msg-id&gt;</strong> and <strong>fetch.fsck.&lt;msg-id&gt;</strong> variables will not
+fall back on the <strong>fsck.&lt;msg-id&gt;</strong> configuration if they aren&#39;t set. To
+uniformly configure the same fsck settings in different circumstances,
+all three of them must be set to the same values.</p>
+<p>
+When <strong>fsck.&lt;msg-id&gt;</strong> is set, errors can be switched to warnings and vice
+versa by configuring the <strong>fsck.&lt;msg-id&gt;</strong> setting where the <strong>&lt;msg-id&gt;</strong> is
+the fsck message ID and the value is one of <strong>error</strong>, <strong>warn</strong> or <strong>ignore</strong>.
+For convenience, fsck prefixes the error/warning with the message ID,
+e.g. &#34;missingEmail: invalid author/committer line - missing email&#34; means
+that setting <strong>fsck.missingEmail = ignore</strong> will hide that issue.</p>
+<p>
+In general, it is better to enumerate existing objects with problems
+with <strong>fsck.skipList</strong>, instead of listing the kind of breakages these
+problematic objects share to be ignored, as doing the latter will allow
+new instances of the same breakages go unnoticed.</p>
+<p>
+Setting an unknown <strong>fsck.&lt;msg-id&gt;</strong> value will cause fsck to die, but
+doing the same for <strong>receive.fsck.&lt;msg-id&gt;</strong> and <strong>fetch.fsck.&lt;msg-id&gt;</strong>
+will only cause git to warn.</p>
+<p>
+See the <strong>Fsck Messages</strong> section of <strong>git-fsck*(1) for supported values of
+*&lt;msg-id&gt;</strong>.</p>
+</blockquote>
+<p>
+fsck.skipList</p>
+<blockquote>
+<p>The path to a list of object names (i.e. one unabbreviated SHA-1 per
+line) that are known to be broken in a non-fatal way and should be
+ignored. On versions of Git 2.20 and later, comments (<em>#</em>), empty lines,
+and any leading and trailing whitespace are ignored. Everything but a
+SHA-1 per line will error out on older versions.</p>
+<p>
+This feature is useful when an established project should be accepted
+despite early commits containing errors that can be safely ignored, such
+as invalid committer email addresses. Note: corrupt objects cannot be
+skipped with this setting.</p>
+<p>
+Like <strong>fsck.&lt;msg-id&gt;</strong> this variable has corresponding
+<strong>receive.fsck.skipList</strong> and <strong>fetch.fsck.skipList</strong> variants.</p>
+<p>
+Unlike variables like <strong>color.ui</strong> and <strong>core.editor</strong> the
+<strong>receive.fsck.skipList</strong> and <strong>fetch.fsck.skipList</strong> variables will not
+fall back on the <strong>fsck.skipList</strong> configuration if they aren&#39;t set. To
+uniformly configure the same fsck settings in different circumstances,
+all three of them must be set to the same values.</p>
+<p>
+Older versions of Git (before 2.20) documented that the object names
+list should be sorted. This was never a requirement; the object names
+could appear in any order, but when reading the list we tracked whether
+the list was sorted for the purposes of an internal binary search
+implementation, which could save itself some work with an already sorted
+list. Unless you had a humongous list there was no reason to go out of
+your way to pre-sort the list. After Git version 2.20 a hash
+implementation is used instead, so there&#39;s now no reason to pre-sort the
+list.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+DISCUSSION
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>git-fsck tests SHA-1 and general object sanity, and it does full
+tracking of the resulting reachability and everything else. It prints
+out any corruption it finds (missing or bad objects), and if you use the
+<strong>–unreachable</strong> flag it will also print out objects that exist but that
+aren&#39;t reachable from any of the specified head nodes (or the default
+set, as mentioned above).</p>
+<p>
+Any corrupt objects you will have to find in backups or other archives
+(i.e., you can just remove them and do an <em>rsync</em> with some other site
+in the hopes that somebody else has the object you have corrupted).</p>
+<p>
+If core.commitGraph is true, the commit-graph file will also be
+inspected using <em>git commit-graph verify</em>. See *git-commit-graph*(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+EXTRACTED DIAGNOSTICS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>unreachable &lt;type&gt; &lt;object&gt;</p>
+<blockquote>
+<p>The &lt;type&gt; object &lt;object&gt;, isn&#39;t actually referred to directly or
+indirectly in any of the trees or commits seen. This can mean that
+there&#39;s another root node that you&#39;re not specifying or that the tree is
+corrupt. If you haven&#39;t missed a root node then you might as well delete
+unreachable nodes since they can&#39;t be used.</p>
+</blockquote>
+<p>
+missing &lt;type&gt; &lt;object&gt;</p>
+<blockquote>
+<p>The &lt;type&gt; object &lt;object&gt;, is referred to but isn&#39;t present in the
+database.</p>
+</blockquote>
+<p>
+dangling &lt;type&gt; &lt;object&gt;</p>
+<blockquote>
+<p>The &lt;type&gt; object &lt;object&gt;, is present in the database but never
+<em>directly</em> used. A dangling commit could be a root node.</p>
+</blockquote>
+<p>
+hash mismatch &lt;object&gt;</p>
+<blockquote>
+<p>The database has an object whose hash doesn&#39;t match the object database
+value. This indicates a serious data integrity problem.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+FSCK MESSAGES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The following lists the types of errors <strong>git fsck</strong> detects and what each
+error means, with their default severity. The severity of the error,
+other than those that are marked as &#34;(FATAL)&#34;, can be tweaked by setting
+the corresponding <strong>fsck.&lt;msg-id&gt;</strong> configuration variable.</p>
+<p>
+<strong>badDate</strong></p>
+<blockquote>
+<p>(ERROR) Invalid date format in an author/committer line.</p>
+</blockquote>
+<p>
+<strong>badDateOverflow</strong></p>
+<blockquote>
+<p>(ERROR) Invalid date value in an author/committer line.</p>
+</blockquote>
+<p>
+<strong>badEmail</strong></p>
+<blockquote>
+<p>(ERROR) Invalid email format in an author/committer line.</p>
+</blockquote>
+<p>
+<strong>badFilemode</strong></p>
+<blockquote>
+<p>(INFO) A tree contains a bad filemode entry.</p>
+</blockquote>
+<p>
+<strong>badName</strong></p>
+<blockquote>
+<p>(ERROR) An author/committer name is empty.</p>
+</blockquote>
+<p>
+<strong>badObjectSha1</strong></p>
+<blockquote>
+<p>(ERROR) An object has a bad sha1.</p>
+</blockquote>
+<p>
+<strong>badParentSha1</strong></p>
+<blockquote>
+<p>(ERROR) A commit object has a bad parent sha1.</p>
+</blockquote>
+<p>
+<strong>badTagName</strong></p>
+<blockquote>
+<p>(INFO) A tag has an invalid format.</p>
+</blockquote>
+<p>
+<strong>badTimezone</strong></p>
+<blockquote>
+<p>(ERROR) Found an invalid time zone in an author/committer line.</p>
+</blockquote>
+<p>
+<strong>badTree</strong></p>
+<blockquote>
+<p>(ERROR) A tree cannot be parsed.</p>
+</blockquote>
+<p>
+<strong>badTreeSha1</strong></p>
+<blockquote>
+<p>(ERROR) A tree has an invalid format.</p>
+</blockquote>
+<p>
+<strong>badType</strong></p>
+<blockquote>
+<p>(ERROR) Found an invalid object type.</p>
+</blockquote>
+<p>
+<strong>duplicateEntries</strong></p>
+<blockquote>
+<p>(ERROR) A tree contains duplicate file entries.</p>
+</blockquote>
+<p>
+<strong>emptyName</strong></p>
+<blockquote>
+<p>(WARN) A path contains an empty name.</p>
+</blockquote>
+<p>
+<strong>extraHeaderEntry</strong></p>
+<blockquote>
+<p>(IGNORE) Extra headers found after <strong>tagger</strong>.</p>
+</blockquote>
+<p>
+<strong>fullPathname</strong></p>
+<blockquote>
+<p>(WARN) A path contains the full path starting with &#34;/&#34;.</p>
+</blockquote>
+<p>
+<strong>gitattributesBlob</strong></p>
+<blockquote>
+<p>(ERROR) A non-blob found at <strong>.gitattributes</strong>.</p>
+</blockquote>
+<p>
+<strong>gitattributesLarge</strong></p>
+<blockquote>
+<p>(ERROR) The <strong>.gitattributes</strong> blob is too large.</p>
+</blockquote>
+<p>
+<strong>gitattributesLineLength</strong></p>
+<blockquote>
+<p>(ERROR) The <strong>.gitattributes</strong> blob contains too long lines.</p>
+</blockquote>
+<p>
+<strong>gitattributesMissing</strong></p>
+<blockquote>
+<p>(ERROR) Unable to read <strong>.gitattributes</strong> blob.</p>
+</blockquote>
+<p>
+<strong>gitattributesSymlink</strong></p>
+<blockquote>
+<p>(INFO) <strong>.gitattributes</strong> is a symlink.</p>
+</blockquote>
+<p>
+<strong>gitignoreSymlink</strong></p>
+<blockquote>
+<p>(INFO) <strong>.gitignore</strong> is a symlink.</p>
+</blockquote>
+<p>
+<strong>gitmodulesBlob</strong></p>
+<blockquote>
+<p>(ERROR) A non-blob found at <strong>.gitmodules</strong>.</p>
+</blockquote>
+<p>
+<strong>gitmodulesLarge</strong></p>
+<blockquote>
+<p>(ERROR) The <strong>.gitmodules</strong> file is too large to parse.</p>
+</blockquote>
+<p>
+<strong>gitmodulesMissing</strong></p>
+<blockquote>
+<p>(ERROR) Unable to read <strong>.gitmodules</strong> blob.</p>
+</blockquote>
+<p>
+<strong>gitmodulesName</strong></p>
+<blockquote>
+<p>(ERROR) A submodule name is invalid.</p>
+</blockquote>
+<p>
+<strong>gitmodulesParse</strong></p>
+<blockquote>
+<p>(INFO) Could not parse <strong>.gitmodules</strong> blob.</p>
+</blockquote>
+<p>
+<strong>gitmodulesLarge</strong>; (ERROR) <strong>.gitmodules</strong> blob is too large to parse.</p>
+<p>
+<strong>gitmodulesPath</strong></p>
+<blockquote>
+<p>(ERROR) <strong>.gitmodules</strong> path is invalid.</p>
+</blockquote>
+<p>
+<strong>gitmodulesSymlink</strong></p>
+<blockquote>
+<p>(ERROR) <strong>.gitmodules</strong> is a symlink.</p>
+</blockquote>
+<p>
+<strong>gitmodulesUpdate</strong></p>
+<blockquote>
+<p>(ERROR) Found an invalid submodule update setting.</p>
+</blockquote>
+<p>
+<strong>gitmodulesUrl</strong></p>
+<blockquote>
+<p>(ERROR) Found an invalid submodule url.</p>
+</blockquote>
+<p>
+<strong>hasDot</strong></p>
+<blockquote>
+<p>(WARN) A tree contains an entry named <strong>.</strong>.</p>
+</blockquote>
+<p>
+<strong>hasDotdot</strong></p>
+<blockquote>
+<p>(WARN) A tree contains an entry named <strong>..</strong>.</p>
+</blockquote>
+<p>
+<strong>hasDotgit</strong></p>
+<blockquote>
+<p>(WARN) A tree contains an entry named <strong>.git</strong>.</p>
+</blockquote>
+<p>
+<strong>largePathname</strong></p>
+<blockquote>
+<p>(WARN) A tree contains an entry with a very long path name. If the value
+of <strong>fsck.largePathname</strong> contains a colon, that value is used as the
+maximum allowable length (e.g., &#34;warn:10&#34; would complain about any path
+component of 11 or more bytes). The default value is 4096.</p>
+</blockquote>
+<p>
+<strong>mailmapSymlink</strong></p>
+<blockquote>
+<p>(INFO) <strong>.mailmap</strong> is a symlink.</p>
+</blockquote>
+<p>
+<strong>missingAuthor</strong></p>
+<blockquote>
+<p>(ERROR) Author is missing.</p>
+</blockquote>
+<p>
+<strong>missingCommitter</strong></p>
+<blockquote>
+<p>(ERROR) Committer is missing.</p>
+</blockquote>
+<p>
+<strong>missingEmail</strong></p>
+<blockquote>
+<p>(ERROR) Email is missing in an author/committer line.</p>
+</blockquote>
+<p>
+<strong>missingNameBeforeEmail</strong></p>
+<blockquote>
+<p>(ERROR) Missing name before an email in an author/committer line.</p>
+</blockquote>
+<p>
+<strong>missingObject</strong></p>
+<blockquote>
+<p>(ERROR) Missing <strong>object</strong> line in tag object.</p>
+</blockquote>
+<p>
+<strong>missingSpaceBeforeDate</strong></p>
+<blockquote>
+<p>(ERROR) Missing space before date in an author/committer line.</p>
+</blockquote>
+<p>
+<strong>missingSpaceBeforeEmail</strong></p>
+<blockquote>
+<p>(ERROR) Missing space before the email in an author/committer line.</p>
+</blockquote>
+<p>
+<strong>missingTag</strong></p>
+<blockquote>
+<p>(ERROR) Unexpected end after <strong>type</strong> line in a tag object.</p>
+</blockquote>
+<p>
+<strong>missingTagEntry</strong></p>
+<blockquote>
+<p>(ERROR) Missing <strong>tag</strong> line in a tag object.</p>
+</blockquote>
+<p>
+<strong>missingTaggerEntry</strong></p>
+<blockquote>
+<p>(INFO) Missing <strong>tagger</strong> line in a tag object.</p>
+</blockquote>
+<p>
+<strong>missingTree</strong></p>
+<blockquote>
+<p>(ERROR) Missing <strong>tree</strong> line in a commit object.</p>
+</blockquote>
+<p>
+<strong>missingType</strong></p>
+<blockquote>
+<p>(ERROR) Invalid type value on the <strong>type</strong> line in a tag object.</p>
+</blockquote>
+<p>
+<strong>missingTypeEntry</strong></p>
+<blockquote>
+<p>(ERROR) Missing <strong>type</strong> line in a tag object.</p>
+</blockquote>
+<p>
+<strong>multipleAuthors</strong></p>
+<blockquote>
+<p>(ERROR) Multiple author lines found in a commit.</p>
+</blockquote>
+<p>
+<strong>nulInCommit</strong></p>
+<blockquote>
+<p>(WARN) Found a NUL byte in the commit object body.</p>
+</blockquote>
+<p>
+<strong>nulInHeader</strong></p>
+<blockquote>
+<p>(FATAL) NUL byte exists in the object header.</p>
+</blockquote>
+<p>
+<strong>nullSha1</strong></p>
+<blockquote>
+<p>(WARN) Tree contains entries pointing to a null sha1.</p>
+</blockquote>
+<p>
+<strong>treeNotSorted</strong></p>
+<blockquote>
+<p>(ERROR) A tree is not properly sorted.</p>
+</blockquote>
+<p>
+<strong>unknownType</strong></p>
+<blockquote>
+<p>(ERROR) Found an unknown object type.</p>
+</blockquote>
+<p>
+<strong>unterminatedHeader</strong></p>
+<blockquote>
+<p>(FATAL) Missing end-of-line in the object header.</p>
+</blockquote>
+<p>
+<strong>zeroPaddedDate</strong></p>
+<blockquote>
+<p>(ERROR) Found a zero padded date in an author/committer line.</p>
+</blockquote>
+<p>
+<strong>zeroPaddedFilemode</strong></p>
+<blockquote>
+<p>(WARN) Found a zero padded filemode in a tree.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+ENVIRONMENT VARIABLES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>GIT_OBJECT_DIRECTORY</p>
+<blockquote>
+<p>used to specify the object database root (usually $GIT_DIR/objects)</p>
+</blockquote>
+<p>
+GIT_INDEX_FILE</p>
+<blockquote>
+<p>used to specify the index file of the index</p>
+</blockquote>
+<p>
+GIT_ALTERNATE_OBJECT_DIRECTORIES</p>
+<blockquote>
+<p>used to specify additional object database roots (usually unset)</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+GIT
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

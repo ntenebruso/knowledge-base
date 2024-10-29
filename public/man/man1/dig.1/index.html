@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - dig.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - dig.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>dig - DNS lookup utility</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>dig</strong> [@server] [*-b* address] [*-c* class] [*-f* filename] [*-k*
+filename] [*-m*] [*-p* port#] [*-q* name] [*-t* type] [*-v*] [*-x* addr]
+[*-y* [hmac:]name:key] [ [*-4*] | [*-6*] ] [name] [type] [class]
+[queryopt…]</p>
+<p>
+<strong>dig</strong> [*-h*]</p>
+<p>
+<strong>dig</strong> [global-queryopt…] [query…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>dig</strong> is a flexible tool for interrogating DNS name servers. It performs
+DNS lookups and displays the answers that are returned from the name
+server(s) that were queried. Most DNS administrators use <strong>dig</strong> to
+troubleshoot DNS problems because of its flexibility, ease of use, and
+clarity of output. Other lookup tools tend to have less functionality
+than <strong>dig</strong>.</p>
+<p>
+Although <strong>dig</strong> is normally used with command-line arguments, it also has
+a batch mode of operation for reading lookup requests from a file. A
+brief summary of its command-line arguments and options is printed when
+the <em>-h</em> option is given. The BIND 9 implementation of <strong>dig</strong> allows
+multiple lookups to be issued from the command line.</p>
+<p>
+Unless it is told to query a specific name server, <strong>dig</strong> tries each of
+the servers listed in <strong>/etc/resolv.conf</strong>. If no usable server addresses
+are found, <strong>dig</strong> sends the query to the local host.</p>
+<p>
+When no command-line arguments or options are given, <strong>dig</strong> performs an
+NS query for &#34;.&#34; (the root).</p>
+<p>
+It is possible to set per-user defaults for <strong>dig</strong> via <strong>${HOME}/.digrc</strong>.
+This file is read and any options in it are applied before the
+command-line arguments. The <em>-r</em> option disables this feature, for
+scripts that need predictable behavior.</p>
+<p>
+The IN and CH class names overlap with the IN and CH top-level domain
+names. Either use the <em>-t</em> and <em>-c</em> options to specify the type and
+class, use the <em>-q</em> to specify the domain name, or use &#34;IN.&#34; and &#34;CH.&#34;
+when looking up these top-level domains.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+SIMPLE USAGE
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>A typical invocation of <strong>dig</strong> looks like:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+dig @server name type
+</pre>
+</blockquote>
+</blockquote>
+<p>
+where:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>server</strong>
+</dt>
+<dd>is the name or IP address of the name server to query.
+This can be an IPv4 address in dotted-decimal notation or an IPv6
+address in colon-delimited notation. When the supplied <strong>server</strong>
+argument is a hostname, <strong>dig</strong> resolves that name before querying that
+name server.
+
+If no <strong>server</strong> argument is provided, <strong>dig</strong> consults
+<strong>/etc/resolv.conf</strong>; if an address is found there, it queries the name
+server at that address. If either of the <em>-4</em> or <em>-6</em> options are in
+use, then only addresses for the corresponding transport are tried. If
+no usable addresses are found, <strong>dig</strong> sends the query to the local
+host. The reply from the name server that responds is displayed.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>name</strong>
+</dt>
+<dd>is the name of the resource record that is to be looked up.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>type</strong>
+</dt>
+<dd>indicates what type of query is required - ANY, A, MX, SIG,
+etc. <strong>type</strong> can be any valid query type. If no <strong>type</strong> argument is
+supplied, <strong>dig</strong> performs a lookup for an A record.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-4</strong>
+</dt>
+<dd>This option indicates that only IPv4 should be used.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-6</strong>
+</dt>
+<dd>This option indicates that only IPv6 should be used.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-b address[#port]</strong>
+</dt>
+<dd>This option sets the source IP address of the
+query. The <strong>address</strong> must be a valid address on one of the host&#39;s
+network interfaces, or &#34;0.0.0.0&#34; or &#34;::&#34;. An optional port may be
+specified by appending <strong>#port</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-c class</strong>
+</dt>
+<dd>This option sets the query class. The default <strong>class</strong> is
+IN; other classes are HS for Hesiod records or CH for Chaosnet
+records.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-f file</strong>
+</dt>
+<dd>This option sets batch mode, in which <strong>dig</strong> reads a list
+of lookup requests to process from the given <strong>file</strong>. Each line in the
+file should be organized in the same way it would be presented as a
+query to <strong>dig</strong> using the command-line interface.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>Print a usage summary.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-k keyfile</strong>
+</dt>
+<dd>This option tells <strong>dig</strong> to sign queries using TSIG or
+SIG(0) using a key read from the given file. Key files can be
+generated using <em>tsig-keygen</em>. When using TSIG authentication with
+<strong>dig</strong>, the name server that is queried needs to know the key and
+algorithm that is being used. In BIND, this is done by providing
+appropriate <strong>key</strong> and <strong>server</strong> statements in <em>named.conf</em> for TSIG and
+by looking up the KEY record in zone data for SIG(0).</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-m</strong>
+</dt>
+<dd>This option enables memory usage debugging.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-p port</strong>
+</dt>
+<dd>This option sends the query to a non-standard port on the
+server, instead of the default port 53. This option is used to test a
+name server that has been configured to listen for queries on a
+non-standard port number.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-q name</strong>
+</dt>
+<dd>This option specifies the domain name to query. This is
+useful to distinguish the <strong>name</strong> from other arguments.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>This option indicates that options from <strong>${HOME}/.digrc</strong>
+should not be read. This is useful for scripts that need predictable
+behavior.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-t type</strong>
+</dt>
+<dd>This option indicates the resource record type to query,
+which can be any valid query type. If it is a resource record type
+supported in BIND 9, it can be given by the type mnemonic (such as
+<strong>NS</strong> or <strong>AAAA</strong>). The default query type is <strong>A</strong>, unless the <em>-x</em> option
+is supplied to indicate a reverse lookup. A zone transfer can be
+requested by specifying a type of AXFR. When an incremental zone
+transfer (IXFR) is required, set the <strong>type</strong> to <strong>ixfr=N</strong>. The
+incremental zone transfer contains all changes made to the zone since
+the serial number in the zone&#39;s SOA record was <strong>N</strong>.
+
+All resource record types can be expressed as <strong>TYPEnn</strong>, where <strong>nn</strong> is
+the number of the type. If the resource record type is not supported
+in BIND 9, the result is displayed as described in <em>RFC 3597</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-u</strong>
+</dt>
+<dd>This option indicates that print query times should be
+provided in microseconds instead of milliseconds.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>This option prints the version number and exits.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-x addr</strong>
+</dt>
+<dd>This option sets simplified reverse lookups, for mapping
+addresses to names. The <strong>addr</strong> is an IPv4 address in dotted-decimal
+notation, or a colon-delimited IPv6 address. When the <em>-x</em> option is
+used, there is no need to provide the <strong>name</strong>, <strong>class</strong>, and <strong>type</strong>
+arguments. <strong>dig</strong> automatically performs a lookup for a name like
+<strong>94.2.0.192.in-addr.arpa</strong> and sets the query type and class to PTR and
+IN respectively. IPv6 addresses are looked up using nibble format
+under the IP6.ARPA domain.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-y [hmac:]keyname:secret</strong>
+</dt>
+<dd>This option signs queries using TSIG
+with the given authentication key. <strong>keyname</strong> is the name of the key,
+and <strong>secret</strong> is the base64-encoded shared secret. <strong>hmac</strong> is the name
+of the key algorithm; valid choices are <strong>hmac-md5</strong>, <strong>hmac-sha1</strong>,
+<strong>hmac-sha224</strong>, <strong>hmac-sha256</strong>, <strong>hmac-sha384</strong>, or <strong>hmac-sha512</strong>. If
+<strong>hmac</strong> is not specified, the default is <strong>hmac-md5</strong>; if MD5 was
+disabled, the default is <strong>hmac-sha256</strong>.</dd>
+</dl>
+</blockquote>
+<p>
+<strong>NOTE:</strong></p>
+<blockquote>
+<blockquote>
+<p>Only the <em>-k</em> option should be used, rather than the <em>-y</em> option,
+because with <em>-y</em> the shared secret is supplied as a command-line
+argument in clear text. This may be visible in the output from <strong>ps1</strong> or
+in a history file maintained by the user&#39;s shell.</p>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+QUERY OPTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>dig</strong> provides a number of query options which affect the way in which
+lookups are made and the results displayed. Some of these set or reset
+flag bits in the query header, some determine which sections of the
+answer get printed, and others determine the timeout and retry
+strategies.</p>
+<p>
+Each query option is identified by a keyword preceded by a plus sign
+(<strong>+</strong>). Some keywords set or reset an option; these may be preceded by
+the string <strong>no</strong> to negate the meaning of that keyword. Other keywords
+assign values to options, like the timeout interval. They have the form
+<strong>+keyword=value</strong>. Keywords may be abbreviated, provided the abbreviation
+is unambiguous; for example, <em>+cd</em> is equivalent to <em>+cdflag</em>. The query
+options are:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>+aaflag, +noaaflag</strong>
+</dt>
+<dd>This option is a synonym for <em>+aaonly</em>,
+<em>+noaaonly</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+aaonly, +noaaonly</strong>
+</dt>
+<dd>This option sets the <strong>aa</strong> flag in the query.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+additional, +noadditional</strong>
+</dt>
+<dd>This option displays [or does not
+display] the additional section of a reply. The default is to display
+it.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+adflag, +noadflag</strong>
+</dt>
+<dd>This option sets [or does not set] the AD
+(authentic data) bit in the query. This requests the server to return
+whether all of the answer and authority sections have been validated
+as secure, according to the security policy of the server. <strong>AD=1</strong>
+indicates that all records have been validated as secure and the
+answer is not from a OPT-OUT range. <strong>AD=0</strong> indicates that some part of
+the answer was insecure or not validated. This bit is set by default.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+all, +noall</strong>
+</dt>
+<dd>This option sets or clears all display flags.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+answer, +noanswer</strong>
+</dt>
+<dd>This option displays [or does not display] the
+answer section of a reply. The default is to display it.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+authority, +noauthority</strong>
+</dt>
+<dd>This option displays [or does not
+display] the authority section of a reply. The default is to display
+it.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+badcookie, +nobadcookie</strong>
+</dt>
+<dd>This option retries the lookup with a
+new server cookie if a BADCOOKIE response is received.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+besteffort, +nobesteffort</strong>
+</dt>
+<dd>This option attempts to display the
+contents of messages which are malformed. The default is to not
+display malformed answers.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+bufsize[=B]</strong>
+</dt>
+<dd>This option sets the UDP message buffer size
+advertised using EDNS0 to <strong>B</strong> bytes. The maximum and minimum sizes of
+this buffer are 65535 and 0, respectively. <strong>+bufsize</strong> restores the
+default buffer size.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+cd, +cdflag, +nocdflag</strong>
+</dt>
+<dd>This option sets [or does not set] the CD
+(checking disabled) bit in the query. This requests the server to not
+perform DNSSEC validation of responses.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+class, +noclass</strong>
+</dt>
+<dd>This option displays [or does not display] the
+CLASS when printing the record.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+cmd, +nocmd</strong>
+</dt>
+<dd>This option toggles the printing of the initial
+comment in the output, identifying the version of <strong>dig</strong> and the query
+options that have been applied. This option always has a global
+effect; it cannot be set globally and then overridden on a per-lookup
+basis. The default is to print this comment.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+comments, +nocomments</strong>
+</dt>
+<dd>This option toggles the display of some
+comment lines in the output, with information about the packet header
+and OPT pseudosection, and the names of the response section. The
+default is to print these comments.
+
+Other types of comments in the output are not affected by this option,
+but can be controlled using other command-line switches. These include
+<em>+cmd</em>, <em>+question</em>, <em>+stats</em>, and <em>+rrcomments</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+cookie=####, +nocookie</strong>
+</dt>
+<dd>This option sends [or does not send] a
+COOKIE EDNS option, with an optional value. Replaying a COOKIE from a
+previous response allows the server to identify a previous client. The
+default is <strong>+cookie</strong>.
+
+<strong>+cookie</strong> is also set when <em>+trace</em> is set to better emulate the
+default queries from a nameserver.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+crypto, +nocrypto</strong>
+</dt>
+<dd>This option toggles the display of
+cryptographic fields in DNSSEC records. The contents of these fields
+are unnecessary for debugging most DNSSEC validation failures and
+removing them makes it easier to see the common failures. The default
+is to display the fields. When omitted, they are replaced by the
+string <strong>[omitted]</strong> or, in the DNSKEY case, the key ID is displayed as
+the replacement, e.g. <strong>[ key id = value ]</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+defname, +nodefname</strong>
+</dt>
+<dd>This option, which is deprecated, is treated
+as a synonym for <em>+search</em>, <em>+nosearch</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+dns64prefix, +nodns64prefix</strong>
+</dt>
+<dd>Lookup IPV4ONLY.ARPA AAAA and print
+any DNS64 prefixes found.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+dnssec, +do, +nodnssec, +nodo</strong>
+</dt>
+<dd>This option requests that DNSSEC
+records be sent by setting the DNSSEC OK (DO) bit in the OPT record in
+the additional section of the query.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+domain=somename</strong>
+</dt>
+<dd>This option sets the search list to contain the
+single domain <strong>somename</strong>, as if specified in a <strong>domain</strong> directive in
+<strong>/etc/resolv.conf</strong>, and enables search list processing as if the
+<em>+search</em> option were given.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+dscp=value</strong>
+</dt>
+<dd>This option formerly set the DSCP value used when
+sending a query. It is now obsolete, and has no effect.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+edns[=#], +noedns</strong>
+</dt>
+<dd>This option specifies the EDNS version to
+query with. Valid values are 0 to 255. Setting the EDNS version causes
+an EDNS query to be sent. <strong>+noedns</strong> clears the remembered EDNS
+version. EDNS is set to 0 by default.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+ednsflags[=#], +noednsflags</strong>
+</dt>
+<dd>This option sets the must-be-zero
+EDNS flags bits (Z bits) to the specified value. Decimal, hex, and
+octal encodings are accepted. Setting a named flag (e.g., DO) is
+silently ignored. By default, no Z bits are set.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+ednsnegotiation, +noednsnegotiation</strong>
+</dt>
+<dd>This option enables/disables
+EDNS version negotiation. By default, EDNS version negotiation is
+enabled.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+ednsopt[=code[:value]], +noednsopt</strong>
+</dt>
+<dd>This option specifies the
+EDNS option with code point <strong>code</strong> and an optional payload of <strong>value</strong>
+as a hexadecimal string. <strong>code</strong> can be either an EDNS option name (for
+example, <strong>NSID</strong> or <strong>ECS</strong>) or an arbitrary numeric value. <strong>+noednsopt</strong>
+clears the EDNS options to be sent.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+expire, +noexpire</strong>
+</dt>
+<dd>This option sends an EDNS Expire option.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+fail, +nofail</strong>
+</dt>
+<dd>This option indicates that <em>named</em> should try [or
+not try] the next server if a SERVFAIL is received. The default is to
+not try the next server, which is the reverse of normal stub resolver
+behavior.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+fuzztime[=value], +nofuzztime</strong>
+</dt>
+<dd>This option allows the signing
+time to be specified when generating signed messages. If a value is
+specified it is the seconds since 00:00:00 January 1, 1970 UTC
+ignoring leap seconds. If no value is specified 1646972129 (Fri 11 Mar
+2022 04:15:29 UTC) is used. The default is <strong>+nofuzztime</strong> and the
+current time is used.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+header-only, +noheader-only</strong>
+</dt>
+<dd>This option sends a query with a DNS
+header without a question section. The default is to add a question
+section. The query type and query name are ignored when this is set.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+https[=value], +nohttps</strong>
+</dt>
+<dd>This option indicates whether to use DNS
+over HTTPS (DoH) when querying name servers. When this option is in
+use, the port number defaults to 443. The HTTP POST request mode is
+used when sending the query.
+
+If <strong>value</strong> is specified, it will be used as the HTTP endpoint in the
+query URI; the default is <strong>/dns-query</strong>. So, for example, <strong>dig</strong>
+@example.com +https will use the URI <strong><a href="https://example.com/dns-query">https://example.com/dns-query</a></strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+https-get[=value], +nohttps-get</strong>
+</dt>
+<dd>Similar to <em>+https</em>, except that
+the HTTP GET request mode is used when sending the query.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+https-post[=value], +nohttps-post</strong>
+</dt>
+<dd>Same as <em>+https</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+http-plain[=value], +nohttp-plain</strong>
+</dt>
+<dd>Similar to <em>+https</em>, except
+that HTTP queries will be sent over a non-encrypted channel. When this
+option is in use, the port number defaults to 80 and the HTTP request
+mode is POST.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+http-plain-get[=value], +nohttp-plain-get</strong>
+</dt>
+<dd>Similar to
+<em>+http-plain</em>, except that the HTTP request mode is GET.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+http-plain-post[=value], +nohttp-plain-post</strong>
+</dt>
+<dd>Same as
+<em>+http-plain</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+identify, +noidentify</strong>
+</dt>
+<dd>This option shows [or does not show] the
+IP address and port number that supplied the answer, when the <em>+short</em>
+option is enabled. If short form answers are requested, the default is
+not to show the source address and port number of the server that
+provided the answer.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+idnin, +noidnin</strong>
+</dt>
+<dd>This option processes [or does not process] IDN
+domain names on input. This requires <strong>IDN SUPPORT</strong> to have been
+enabled at compile time.
+
+The default is to process IDN input when standard output is a tty. The
+IDN processing on input is disabled when <strong>dig</strong> output is redirected to
+files, pipes, and other non-tty file descriptors.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+idnout, +noidnout</strong>
+</dt>
+<dd>This option converts [or does not convert]
+puny code on output. This requires <strong>IDN SUPPORT</strong> to have been enabled
+at compile time.
+
+The default is to process puny code on output when standard output is
+a tty. The puny code processing on output is disabled when <strong>dig</strong>
+output is redirected to files, pipes, and other non-tty file
+descriptors.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+ignore, +noignore</strong>
+</dt>
+<dd>This option ignores [or does not ignore]
+truncation in UDP responses instead of retrying with TCP. By default,
+TCP retries are performed.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+keepalive, +nokeepalive</strong>
+</dt>
+<dd>This option sends [or does not send] an
+EDNS Keepalive option.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+keepopen, +nokeepopen</strong>
+</dt>
+<dd>This option keeps [or does not keep] the
+TCP socket open between queries, and reuses it rather than creating a
+new TCP socket for each lookup. The default is <strong>+nokeepopen</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+multiline, +nomultiline</strong>
+</dt>
+<dd>This option prints [or does not print]
+records, like the SOA records, in a verbose multi-line format with
+human-readable comments. The default is to print each record on a
+single line to facilitate machine parsing of the <strong>dig</strong> output.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+ndots=D</strong>
+</dt>
+<dd>This option sets the number of dots (<strong>D</strong>) that must
+appear in <strong>name</strong> for it to be considered absolute. The default value
+is that defined using the <strong>ndots</strong> statement in <strong>/etc/resolv.conf</strong>, or
+1 if no <strong>ndots</strong> statement is present. Names with fewer dots are
+interpreted as relative names, and are searched for in the domains
+listed in the <strong>search</strong> or <strong>domain</strong> directive in <strong>/etc/resolv.conf</strong> if
+<em>+search</em> is set.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+nsid, +nonsid</strong>
+</dt>
+<dd>When enabled, this option includes an EDNS name
+server ID request when sending a query.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+nssearch, +nonssearch</strong>
+</dt>
+<dd>When this option is set, <strong>dig</strong> attempts to
+find the authoritative name servers for the zone containing the name
+being looked up, and display the SOA record that each name server has
+for the zone. Addresses of servers that did not respond are also
+printed.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+onesoa, +noonesoa</strong>
+</dt>
+<dd>When enabled, this option prints only one
+(starting) SOA record when performing an AXFR. The default is to print
+both the starting and ending SOA records.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+opcode=value, +noopcode</strong>
+</dt>
+<dd>When enabled, this option sets
+(restores) the DNS message opcode to the specified value. The default
+value is QUERY (0).</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+padding=value</strong>
+</dt>
+<dd>This option pads the size of the query packet
+using the EDNS Padding option to blocks of <strong>value</strong> bytes. For example,
+<strong>+padding=32</strong> causes a 48-byte query to be padded to 64 bytes. The
+default block size is 0, which disables padding; the maximum is 512.
+Values are ordinarily expected to be powers of two, such as 128;
+however, this is not mandatory. Responses to padded queries may also
+be padded, but only if the query uses TCP or DNS COOKIE.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+qid=value</strong>
+</dt>
+<dd>This option specifies the query ID to use when sending
+queries.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+qr, +noqr</strong>
+</dt>
+<dd>This option toggles the display of the query message
+as it is sent. By default, the query is not printed.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+question, +noquestion</strong>
+</dt>
+<dd>This option toggles the display of the
+question section of a query when an answer is returned. The default is
+to print the question section as a comment.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+raflag, +noraflag</strong>
+</dt>
+<dd>This option sets [or does not set] the RA
+(Recursion Available) bit in the query. The default is <strong>+noraflag</strong>.
+This bit is ignored by the server for QUERY.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+rdflag, +nordflag</strong>
+</dt>
+<dd>This option is a synonym for <em>+recurse</em>,
+<em>+norecurse</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+recurse, +norecurse</strong>
+</dt>
+<dd>This option toggles the setting of the RD
+(recursion desired) bit in the query. This bit is set by default,
+which means <strong>dig</strong> normally sends recursive queries. Recursion is
+automatically disabled when the <em>+nssearch</em> or <em>+trace</em> query option
+is used.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+retry=T</strong>
+</dt>
+<dd>This option sets the number of times to retry UDP and
+TCP queries to server to <strong>T</strong> instead of the default, 2. Unlike
+<em>+tries</em>, this does not include the initial query.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+rrcomments, +norrcomments</strong>
+</dt>
+<dd>This option toggles the display of
+per-record comments in the output (for example, human-readable key
+information about DNSKEY records). The default is not to print record
+comments unless multiline mode is active.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+search, +nosearch</strong>
+</dt>
+<dd>This option uses [or does not use] the search
+list defined by the searchlist or domain directive in <strong>resolv.conf</strong>,
+if any. The search list is not used by default.
+
+<strong>ndots</strong> from <strong>resolv.conf</strong> (default 1), which may be overridden by
+<em>+ndots</em>, determines whether the name is treated as relative and hence
+whether a search is eventually performed.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+short, +noshort</strong>
+</dt>
+<dd>This option toggles whether a terse answer is
+provided. The default is to print the answer in a verbose form. This
+option always has a global effect; it cannot be set globally and then
+overridden on a per-lookup basis.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+showbadcookie, +noshowbadcookie</strong>
+</dt>
+<dd>This option toggles whether to
+show the message containing the BADCOOKIE rcode before retrying the
+request or not. The default is to not show the messages.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+showsearch, +noshowsearch</strong>
+</dt>
+<dd>This option performs [or does not
+perform] a search showing intermediate results.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+sigchase, +nosigchase</strong>
+</dt>
+<dd>This feature is now obsolete and has been
+removed; use <em>delv</em> instead.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+split=W</strong>
+</dt>
+<dd>This option splits long hex- or base64-formatted fields
+in resource records into chunks of <strong>W</strong> characters (where <strong>W</strong> is
+rounded up to the nearest multiple of 4). <strong>+nosplit</strong> or <strong>+split=0</strong>
+causes fields not to be split at all. The default is 56 characters, or
+44 characters when multiline mode is active.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+stats, +nostats</strong>
+</dt>
+<dd>This option toggles the printing of statistics:
+when the query was made, the size of the reply, etc. The default
+behavior is to print the query statistics as a comment after each
+lookup.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+subnet=addr[/prefix-length], +nosubnet</strong>
+</dt>
+<dd>This option sends [or
+does not send] an EDNS CLIENT-SUBNET option with the specified IP
+address or network prefix.
+
+<strong>dig +subnet=0.0.0.0/0</strong>, or simply <strong>dig +subnet=0</strong> for short, sends an
+EDNS CLIENT-SUBNET option with an empty address and a source
+prefix-length of zero, which signals a resolver that the client&#39;s
+address information must <em>not</em> be used when resolving this query.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+tcflag, +notcflag</strong>
+</dt>
+<dd>This option sets [or does not set] the TC
+(TrunCation) bit in the query. The default is <strong>+notcflag</strong>. This bit is
+ignored by the server for QUERY.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+tcp, +notcp</strong>
+</dt>
+<dd>This option indicates whether to use TCP when
+querying name servers. The default behavior is to use UDP unless a
+type <strong>any</strong> or <strong>ixfr=N</strong> query is requested, in which case the default
+is TCP. AXFR queries always use TCP. To prevent retry over TCP when
+TC=1 is returned from a UDP query, use <strong>+ignore</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+timeout=T</strong>
+</dt>
+<dd>This option sets the timeout for a query to <strong>T</strong>
+seconds. The default timeout is 5 seconds. An attempt to set <strong>T</strong> to
+less than 1 is silently set to 1.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+tls, +notls</strong>
+</dt>
+<dd>This option indicates whether to use DNS over TLS
+(DoT) when querying name servers. When this option is in use, the port
+number defaults to 853.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+tls-ca[=file-name], +notls-ca</strong>
+</dt>
+<dd>This option enables remote server
+TLS certificate validation for DNS transports, relying on TLS.
+Certificate authorities certificates are loaded from the specified PEM
+file (<strong>file-name</strong>). If the file is not specified, the default
+certificates from the global certificates store are used.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>+tls-certfile=file-name, +tls-keyfile=file-name, +notls-certfile,
++notls-keyfile</strong> :: These options set the state of certificate-based
+client authentication for DNS transports, relying on TLS. Both
+certificate chain file and private key file are expected to be in PEM
+format. Both options must be specified at the same time.</li>
+</ul>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+tls-hostname=hostname, +notls-hostname</strong>
+</dt>
+<dd>This option makes <strong>dig</strong>
+use the provided hostname during remote server TLS certificate
+verification. Otherwise, the DNS server name is used. This option has
+no effect if <em>+tls-ca</em> is not specified.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+topdown, +notopdown</strong>
+</dt>
+<dd>This feature is related to <em>dig +sigchase</em>,
+which is obsolete and has been removed. Use <em>delv</em> instead.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+trace, +notrace</strong>
+</dt>
+<dd>This option toggles tracing of the delegation
+path from the root name servers for the name being looked up. Tracing
+is disabled by default. When tracing is enabled, <strong>dig</strong> makes iterative
+queries to resolve the name being looked up. It follows referrals from
+the root servers, showing the answer from each server that was used to
+resolve the lookup.
+
+If <strong>@server</strong> is also specified, it affects only the initial query for
+the root zone name servers.
+
+<em>+dnssec</em> is also set when <em>+trace</em> is set, to better emulate the
+default queries from a name server.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+tries=T</strong>
+</dt>
+<dd>This option sets the number of times to try UDP and TCP
+queries to server to <strong>T</strong> instead of the default, 3. If <strong>T</strong> is less
+than or equal to zero, the number of tries is silently rounded up
+to 1.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+trusted-key=####</strong>
+</dt>
+<dd>This option formerly specified trusted keys for
+use with <em>dig +sigchase</em>. This feature is now obsolete and has been
+removed; use <em>delv</em> instead.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+ttlid, +nottlid</strong>
+</dt>
+<dd>This option displays [or does not display] the
+TTL when printing the record.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+ttlunits, +nottlunits</strong>
+</dt>
+<dd>This option displays [or does not display]
+the TTL in friendly human-readable time units of <strong>s</strong>, <strong>m</strong>, <strong>h</strong>, <strong>d</strong>,
+and <strong>w</strong>, representing seconds, minutes, hours, days, and weeks. This
+implies <em>+ttlid</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+unknownformat, +nounknownformat</strong>
+</dt>
+<dd>This option prints all RDATA in
+unknown RR type presentation format (<em>RFC 3597</em>). The default is to
+print RDATA for known types in the type&#39;s presentation format.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+vc, +novc</strong>
+</dt>
+<dd>This option uses [or does not use] TCP when querying
+name servers. This alternate syntax to <em>+tcp</em> is provided for
+backwards compatibility. The <strong>vc</strong> stands for &#34;virtual circuit.&#34;</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+yaml, +noyaml</strong>
+</dt>
+<dd>When enabled, this option prints the responses
+(and, if <em>+qr</em> is in use, also the outgoing queries) in a detailed
+YAML format.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>+zflag, +nozflag</strong>
+</dt>
+<dd>This option sets [or does not set] the last
+unassigned DNS header flag in a DNS query. This flag is off by
+default.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+MULTIPLE QUERIES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The BIND 9 implementation of <strong>dig</strong> supports specifying multiple queries
+on the command line (in addition to supporting the <em>-f</em> batch file
+option). Each of those queries can be supplied with its own set of
+flags, options, and query options.</p>
+<p>
+In this case, each <strong>query</strong> argument represents an individual query in
+the command-line syntax described above. Each consists of any of the
+standard options and flags, the name to be looked up, an optional query
+type and class, and any query options that should be applied to that
+query.</p>
+<p>
+A global set of query options, which should be applied to all queries,
+can also be supplied. These global query options must precede the first
+tuple of name, class, type, options, flags, and query options supplied
+on the command line. Any global query options (except <em>+cmd</em> and
+<em>+short</em> options) can be overridden by a query-specific set of query
+options. For example:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+dig +qr www.isc.org any -x 127.0.0.1 isc.org ns +noqr
+</pre>
+</blockquote>
+</blockquote>
+<p>
+shows how <strong>dig</strong> can be used from the command line to make three lookups:
+an ANY query for <strong>www.isc.org</strong>, a reverse lookup of 127.0.0.1, and a
+query for the NS records of <strong>isc.org</strong>. A global query option of <em>+qr</em> is
+applied, so that <strong>dig</strong> shows the initial query it made for each lookup.
+The final query has a local query option of <em>+noqr</em> which means that
+<strong>dig</strong> does not print the initial query when it looks up the NS records
+for <strong>isc.org</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+IDN SUPPORT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>If <strong>dig</strong> has been built with IDN (internationalized domain name)
+support, it can accept and display non-ASCII domain names. <strong>dig</strong>
+appropriately converts character encoding of a domain name before
+sending a request to a DNS server or displaying a reply from the server.
+To turn off IDN support, use the parameters <em>+idnin</em> and <em>+idnout</em>, or
+define the <strong>IDN_DISABLE</strong> environment variable.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+RETURN CODES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p><strong>dig</strong> return codes are:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>0</strong></strong>
+</dt>
+<dd>DNS response received, including NXDOMAIN status</dd>
+<dt>
+<strong><strong>1</strong></strong>
+</dt>
+<dd>Usage error</dd>
+<dt>
+<strong><strong>8</strong></strong>
+</dt>
+<dd>Couldn&#39;t open batch file</dd>
+<dt>
+<strong><strong>9</strong></strong>
+</dt>
+<dd>No reply from server</dd>
+<dt>
+<strong><strong>10</strong></strong>
+</dt>
+<dd>Internal error</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+FILES
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p><strong>/etc/resolv.conf</strong></p>
+<p>
+<strong>${HOME}/.digrc</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p><em>delv(1)</em>, <em>host(1)</em>, <em>named(8)</em>, <em>dnssec-keygen(8)</em>, <em>RFC 1035</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+BUGS
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>There are probably too many query options.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+AUTHOR
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>Internet Systems Consortium</p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>2024, Internet Systems Consortium</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

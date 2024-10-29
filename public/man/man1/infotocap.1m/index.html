@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - infotocap.1m | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - infotocap.1m</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>infotocap</strong> - convert a <em>terminfo</em> description into a <em>termcap</em>
+description</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>infotocap</strong> [*-v*/n/ <em>width/] [*-V*] [*-1*] [*-w* /width/] /file</em> …</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>infotocap</strong> looks in each given text <em>file</em> for <strong>terminfo</strong> descriptions.
+For each terminfo description found, an equivalent <strong>termcap</strong> description
+is written to standard output. Terminfo <strong>use</strong> capabilities are
+translated directly to termcap <strong>tc</strong> capabilities.</p>
+<dl>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>print out tracing information on standard error as the program
+runs.</dd>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>print out the version of the program in use on standard error
+and exit.</dd>
+<dt>
+<strong>-1</strong>
+</dt>
+<dd>cause the fields to print out one to a line. Otherwise, the
+fields will be printed several to a line to a maximum width of 60
+characters.</dd>
+<dt>
+<strong>-w</strong>
+</dt>
+<dd>change the output to <em>width</em> characters.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+FILES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+/nix/store/53iigsmf32bwkfdhhihq2rppgk23k2rg-ncurses-6.4.20221231/share/terminfo
+</dt>
+<dd>Compiled
+terminal description database.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+NOTES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>This utility is actually a link to <strong>tic</strong>, running in <em>-C</em> mode. You can
+use other <strong>tic</strong> options such as <strong>-f</strong> and <strong>-x</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+PORTABILITY
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>None of X/Open Curses, Issue 7 (2009), SVr4 or NetBSD document this
+application.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*infocmp*(1M), *tic*(1M), *curses*(3X), *terminfo*(5)</p>
+<p>
+This describes <strong>ncurses</strong> version 6.4 (patch 20221231).</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Eric S. Raymond &lt;esr@snark.thyrsus.com&gt; and<br>
+Thomas E. Dickey &lt;dickey@invisible-island.net&gt;</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

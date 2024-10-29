@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - utmpdump.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - utmpdump.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>utmpdump - dump UTMP and WTMP files in raw format</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>utmpdump</strong> [options] <em>filename</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>utmpdump</strong> is a simple program to dump UTMP and WTMP files in raw
+format, so they can be examined. <strong>utmpdump</strong> reads from stdin unless a
+<em>filename</em> is passed.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-f</strong>, <strong>–follow</strong></p>
+<blockquote>
+<p>Output appended data as the file grows.</p>
+</blockquote>
+<p>
+<strong>-o</strong>, <strong>–output</strong> <em>file</em></p>
+<blockquote>
+<p>Write command output to <em>file</em> instead of standard output.</p>
+</blockquote>
+<p>
+<strong>-r</strong>, <strong>–reverse</strong></p>
+<blockquote>
+<p>Undump, write back edited login information into the utmp or wtmp files.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+NOTES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>utmpdump</strong> can be useful in cases of corrupted utmp or wtmp entries. It
+can dump out utmp/wtmp to an ASCII file, which can then be edited to
+remove bogus entries, and reintegrated using:</p>
+<blockquote>
+<p><strong>utmpdump -r &lt; ascii_file &gt; wtmp</strong>\\</p>
+</blockquote>
+<p>
+But be warned, <strong>utmpdump</strong> was written for debugging purposes only.</p>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+File formats
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Only the binary version of the *utmp*(5) is standardised. Textual dumps
+may become incompatible in future.</p>
+<p>
+The version 2.28 was the last one that printed text output using
+*ctime*(3) timestamp format. Newer dumps use millisecond precision
+ISO-8601 timestamp format in UTC-0 timezone. Conversion from former
+timestamp format can be made to binary, although attempt to do so can
+lead the timestamps to drift amount of timezone offset.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>You may <strong>not</strong> use the <strong>-r</strong> option, as the format for the utmp/wtmp files
+strongly depends on the input format. This tool was <strong>not</strong> written for
+normal use, but for debugging only.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHORS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Michael Krapp</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*last*(1), *w*(1), *who*(1), *utmp*(5)</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The <strong>utmpdump</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

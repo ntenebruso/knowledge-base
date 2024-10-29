@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - busctl.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - busctl.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>busctl - Introspect the bus</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>busctl</strong> [OPTIONS…] [COMMAND] [/NAME/…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>busctl</strong> may be used to introspect and monitor the D-Bus bus.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following commands are understood:</p>
+<p>
+<strong>list</strong></p>
+<blockquote>
+<p>Show all peers on the bus, by their service names. By default, shows
+both unique and well-known names, but this may be changed with the
+<strong>–unique</strong> and <strong>–acquired</strong> switches. This is the default operation if
+no command is specified.</p>
+<p>
+Added in version 209.</p>
+</blockquote>
+<p>
+<strong>status</strong> [/SERVICE/]</p>
+<blockquote>
+<p>Show process information and credentials of a bus service (if one is
+specified by its unique or well-known name), a process (if one is
+specified by its numeric PID), or the owner of the bus (if no parameter
+is specified).</p>
+<p>
+Added in version 209.</p>
+</blockquote>
+<p>
+<strong>monitor</strong> [/SERVICE/…]</p>
+<blockquote>
+<p>Dump messages being exchanged. If <em>SERVICE</em> is specified, show messages
+to or from this peer, identified by its well-known or unique name.
+Otherwise, show all messages on the bus. Use Ctrl+C to terminate the
+dump.</p>
+<p>
+Added in version 209.</p>
+</blockquote>
+<p>
+<strong>capture</strong> [/SERVICE/…]</p>
+<blockquote>
+<p>Similar to <strong>monitor</strong> but writes the output in pcapng format (for
+details, see <strong>PCAP Next Generation (pcapng) Capture File Format</strong>[1]).
+Make sure to redirect standard output to a file or pipe. Tools like
+*wireshark*(1) may be used to dissect and view the resulting files.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+<strong>tree</strong> [/SERVICE/…]</p>
+<blockquote>
+<p>Shows an object tree of one or more services. If <em>SERVICE</em> is specified,
+show object tree of the specified services only. Otherwise, show all
+object trees of all services on the bus that acquired at least one
+well-known name.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+<strong>introspect</strong> <em>SERVICE</em> <em>OBJECT</em> [/INTERFACE/]</p>
+<blockquote>
+<p>Show interfaces, methods, properties and signals of the specified object
+(identified by its path) on the specified service. If the interface
+argument is passed, the output is limited to members of the specified
+interface.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+<strong>call</strong> <em>SERVICE</em> <em>OBJECT</em> <em>INTERFACE</em> <em>METHOD</em> [/SIGNATURE/
+[/ARGUMENT/…]]</p>
+<blockquote>
+<p>Invoke a method and show the response. Takes a service name, object
+path, interface name and method name. If parameters shall be passed to
+the method call, a signature string is required, followed by the
+arguments, individually formatted as strings. For details on the
+formatting used, see below. To suppress output of the returned data, use
+the <strong>–quiet</strong> option.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+<strong>emit</strong> <em>OBJECT</em> <em>INTERFACE</em> <em>SIGNAL</em> [/SIGNATURE/ [/ARGUMENT/…]]</p>
+<blockquote>
+<p>Emit a signal. Takes an object path, interface name and method name. If
+parameters shall be passed, a signature string is required, followed by
+the arguments, individually formatted as strings. For details on the
+formatting used, see below. To specify the destination of the signal,
+use the <strong>–destination=</strong> option.</p>
+<p>
+Added in version 242.</p>
+</blockquote>
+<p>
+<strong>get-property</strong> <em>SERVICE</em> <em>OBJECT</em> <em>INTERFACE</em> <em>PROPERTY</em>…</p>
+<blockquote>
+<p>Retrieve the current value of one or more object properties. Takes a
+service name, object path, interface name and property name. Multiple
+properties may be specified at once, in which case their values will be
+shown one after the other, separated by newlines. The output is, by
+default, in terse format. Use <strong>–verbose</strong> for a more elaborate output
+format.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+<strong>set-property</strong> <em>SERVICE</em> <em>OBJECT</em> <em>INTERFACE</em> <em>PROPERTY</em> <em>SIGNATURE</em>
+<em>ARGUMENT</em>…</p>
+<blockquote>
+<p>Set the current value of an object property. Takes a service name,
+object path, interface name, property name, property signature, followed
+by a list of parameters formatted as strings.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+<strong>help</strong></p>
+<blockquote>
+<p>Show command syntax help.</p>
+<p>
+Added in version 209.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+*–address=*/ADDRESS/</p>
+<blockquote>
+<p>Connect to the bus specified by <em>ADDRESS</em> instead of using suitable
+defaults for either the system or user bus (see <strong>–system</strong> and <strong>–user</strong>
+options).</p>
+<p>
+Added in version 209.</p>
+</blockquote>
+<p>
+<strong>–show-machine</strong></p>
+<blockquote>
+<p>When showing the list of peers, show a column containing the names of
+containers they belong to. See *systemd-machined.service*(8).</p>
+<p>
+Added in version 209.</p>
+</blockquote>
+<p>
+<strong>–unique</strong></p>
+<blockquote>
+<p>When showing the list of peers, show only &#34;unique&#34; names (of the form
+&#34;:/number/./number/&#34;).</p>
+<p>
+Added in version 209.</p>
+</blockquote>
+<p>
+<strong>–acquired</strong></p>
+<blockquote>
+<p>The opposite of <strong>–unique</strong> — only &#34;well-known&#34; names will be shown.</p>
+<p>
+Added in version 209.</p>
+</blockquote>
+<p>
+<strong>–activatable</strong></p>
+<blockquote>
+<p>When showing the list of peers, show only peers which have actually not
+been activated yet, but may be started automatically if accessed.</p>
+<p>
+Added in version 209.</p>
+</blockquote>
+<p>
+*–match=*/MATCH/</p>
+<blockquote>
+<p>When showing messages being exchanged, show only the subset matching
+<em>MATCH</em>. See *sd_bus_add_match*(3).</p>
+<p>
+Added in version 209.</p>
+</blockquote>
+<p>
+<strong>–size=</strong></p>
+<blockquote>
+<p>When used with the <strong>capture</strong> command, specifies the maximum bus message
+size to capture (&#34;snaplen&#34;). Defaults to 4096 bytes.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+<strong>–list</strong></p>
+<blockquote>
+<p>When used with the <strong>tree</strong> command, shows a flat list of object paths
+instead of a tree.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+<strong>-q</strong>, <strong>–quiet</strong></p>
+<blockquote>
+<p>When used with the <strong>call</strong> command, suppresses display of the response
+message payload. Note that even if this option is specified, errors
+returned will still be printed and the tool will indicate success or
+failure with the process exit code.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+<strong>–verbose</strong></p>
+<blockquote>
+<p>When used with the <strong>call</strong> or <strong>get-property</strong> command, shows output in a
+more verbose format.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+<strong>–xml-interface</strong></p>
+<blockquote>
+<p>When used with the <strong>introspect</strong> call, dump the XML description received
+from the D-Bus <strong>org.freedesktop.DBus.Introspectable.Introspect</strong> call
+instead of the normal output.</p>
+<p>
+Added in version 243.</p>
+</blockquote>
+<p>
+*–json=*/MODE/</p>
+<blockquote>
+<p>When used with the <strong>call</strong> or <strong>get-property</strong> command, shows output
+formatted as JSON. Expects one of &#34;short&#34; (for the shortest possible
+output without any redundant whitespace or line breaks) or &#34;pretty&#34; (for
+a pretty version of the same, with indentation and line breaks). Note
+that transformation from D-Bus marshalling to JSON is done in a
+loss-less way, which means type information is embedded into the JSON
+object tree.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+<strong>-j</strong></p>
+<blockquote>
+<p>Equivalent to <strong>–json=pretty</strong> when invoked interactively from a
+terminal. Otherwise equivalent to <strong>–json=short</strong>, in particular when the
+output is piped to some other program.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+*–expect-reply=*/BOOL/</p>
+<blockquote>
+<p>When used with the <strong>call</strong> command, specifies whether <strong>busctl</strong> shall wait
+for completion of the method call, output the returned method response
+data, and return success or failure via the process exit code. If this
+is set to &#34;no&#34;, the method call will be issued but no response is
+expected, the tool terminates immediately, and thus no response can be
+shown, and no success or failure is returned via the exit code. To only
+suppress output of the reply message payload, use <strong>–quiet</strong> above.
+Defaults to &#34;yes&#34;.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+*–auto-start=*/BOOL/</p>
+<blockquote>
+<p>When used with the <strong>call</strong> or <strong>emit</strong> command, specifies whether the
+method call should implicitly activate the called service, should it not
+be running yet but is configured to be auto-started. Defaults to &#34;yes&#34;.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+*–allow-interactive-authorization=*/BOOL/</p>
+<blockquote>
+<p>When used with the <strong>call</strong> command, specifies whether the services may
+enforce interactive authorization while executing the operation, if the
+security policy is configured for this. Defaults to &#34;yes&#34;.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+*–timeout=*/SECS/</p>
+<blockquote>
+<p>When used with the <strong>call</strong> command, specifies the maximum time to wait
+for method call completion. If no time unit is specified, assumes
+seconds. The usual other units are understood, too (ms, us, s, min, h,
+d, w, month, y). Note that this timeout does not apply if
+<strong>–expect-reply=no</strong> is used, as the tool does not wait for any reply
+message then. When not specified or when set to 0, the default of &#34;25s&#34;
+is assumed.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+*–augment-creds=*/BOOL/</p>
+<blockquote>
+<p>Controls whether credential data reported by <strong>list</strong> or <strong>status</strong> shall be
+augmented with data from <em>proc</em>. When this is turned on, the data shown
+is possibly inconsistent, as the data read from <em>proc</em> might be more
+recent than the rest of the credential information. Defaults to &#34;yes&#34;.</p>
+<p>
+Added in version 218.</p>
+</blockquote>
+<p>
+*–watch-bind=*/BOOL/</p>
+<blockquote>
+<p>Controls whether to wait for the specified <strong>AF_UNIX</strong> bus socket to
+appear in the file system before connecting to it. Defaults to off. When
+enabled, the tool will watch the file system until the socket is created
+and then connect to it.</p>
+<p>
+Added in version 237.</p>
+</blockquote>
+<p>
+*–destination=*/SERVICE/</p>
+<blockquote>
+<p>Takes a service name. When used with the <strong>emit</strong> command, a signal is
+emitted to the specified service.</p>
+<p>
+Added in version 242.</p>
+</blockquote>
+<p>
+<strong>–user</strong></p>
+<blockquote>
+<p>Talk to the service manager of the calling user, rather than the service
+manager of the system.</p>
+</blockquote>
+<p>
+<strong>–system</strong></p>
+<blockquote>
+<p>Talk to the service manager of the system. This is the implied default.</p>
+</blockquote>
+<p>
+<strong>-H</strong>, <strong>–host=</strong></p>
+<blockquote>
+<p>Execute the operation remotely. Specify a hostname, or a username and
+hostname separated by &#34;@&#34;, to connect to. The hostname may optionally be
+suffixed by a port ssh is listening on, separated by &#34;:&#34;, and then a
+container name, separated by &#34;/&#34;, which connects directly to a specific
+container on the specified host. This will use SSH to talk to the remote
+machine manager instance. Container names may be enumerated with
+*machinectl -H */HOST/. Put IPv6 addresses in brackets.</p>
+</blockquote>
+<p>
+<strong>-M</strong>, <strong>–machine=</strong></p>
+<blockquote>
+<p>Execute operation on a local container. Specify a container name to
+connect to, optionally prefixed by a user name to connect as and a
+separating &#34;@&#34; character. If the special string &#34;.host&#34; is used in place
+of the container name, a connection to the local system is made (which
+is useful to connect to a specific users user bus: &#34;–user
+–machine=lennart@.host&#34;). If the &#34;@&#34; syntax is not used, the connection
+is made as root user. If the &#34;@&#34; syntax is used either the left hand
+side or the right hand side may be omitted (but not both) in which case
+the local user name and &#34;.host&#34; are implied.</p>
+</blockquote>
+<p>
+<strong>-C</strong>, <strong>–capsule=</strong></p>
+<blockquote>
+<p>Execute operation on a capsule. Specify a capsule name to connect to.
+See *capsule@.service*(5) for details about capsules.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>-l</strong>, <strong>–full</strong></p>
+<blockquote>
+<p>Do not ellipsize the output in <strong>list</strong> command.</p>
+<p>
+Added in version 245.</p>
+</blockquote>
+<p>
+<strong>–no-pager</strong></p>
+<blockquote>
+<p>Do not pipe output into a pager.</p>
+</blockquote>
+<p>
+<strong>–no-legend</strong></p>
+<blockquote>
+<p>Do not print the legend, i.e. column headers and the footer with hints.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Print a short help text and exit.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Print a short version string and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+PARAMETER FORMATTING
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The <strong>call</strong> and <strong>set-property</strong> commands take a signature string followed
+by a list of parameters formatted as string (for details on D-Bus
+signature strings, see the <strong>Type system chapter of the D-Bus
+specification</strong>[2]). For simple types, each parameter following the
+signature should simply be the parameters value formatted as string.
+Positive boolean values may be formatted as &#34;true&#34;, &#34;yes&#34;, &#34;on&#34;, or &#34;1&#34;;
+negative boolean values may be specified as &#34;false&#34;, &#34;no&#34;, &#34;off&#34;, or
+&#34;0&#34;. For arrays, a numeric argument for the number of entries followed
+by the entries shall be specified. For variants, the signature of the
+contents shall be specified, followed by the contents. For dictionaries
+and structs, the contents of them shall be directly specified.</p>
+<p>
+For example,</p>
+<blockquote>
+<pre class="example">
+s jawoll
+</pre>
+</blockquote>
+<p>
+is the formatting of a single string &#34;jawoll&#34;.</p>
+<blockquote>
+<pre class="example">
+as 3 hello world foobar
+</pre>
+</blockquote>
+<p>
+is the formatting of a string array with three entries, &#34;hello&#34;, &#34;world&#34;
+and &#34;foobar&#34;.</p>
+<blockquote>
+<pre class="example">
+a{sv} 3 One s Eins Two u 2 Yes b true
+</pre>
+</blockquote>
+<p>
+is the formatting of a dictionary array that maps strings to variants,
+consisting of three entries. The string &#34;One&#34; is assigned the string
+&#34;Eins&#34;. The string &#34;Two&#34; is assigned the 32-bit unsigned integer 2. The
+string &#34;Yes&#34; is assigned a positive boolean.</p>
+<p>
+Note that the <strong>call</strong>, <strong>get-property</strong>, <strong>introspect</strong> commands will also
+generate output in this format for the returned data. Since this format
+is sometimes too terse to be easily understood, the <strong>call</strong> and
+<strong>get-property</strong> commands may generate a more verbose, multi-line output
+when passed the <strong>–verbose</strong> option.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><strong>Example 1. Write and Read a Property</strong></p>
+<p>
+The following two commands first write a property and then read it back.
+The property is found on the &#34;/org/freedesktop/systemd1&#34; object of the
+&#34;org.freedesktop.systemd1&#34; service. The name of the property is
+&#34;LogLevel&#34; on the &#34;org.freedesktop.systemd1.Manager&#34; interface. The
+property contains a single string:</p>
+<blockquote>
+<pre class="example">
+# busctl set-property org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager LogLevel s debug
+# busctl get-property org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager LogLevel
+s &#34;debug&#34;
+</pre>
+</blockquote>
+<p>
+<strong>Example 2. Terse and Verbose Output</strong></p>
+<p>
+The following two commands read a property that contains an array of
+strings, and first show it in terse format, followed by verbose format:</p>
+<blockquote>
+<pre class="example">
+$ busctl get-property org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager Environment
+as 2 &#34;LANG=en_US.UTF-8&#34; &#34;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin&#34;
+$ busctl get-property --verbose org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager Environment
+ARRAY &#34;s&#34; {
+        STRING &#34;LANG=en_US.UTF-8&#34;;
+        STRING &#34;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin&#34;;
+};
+</pre>
+</blockquote>
+<p>
+<strong>Example 3. Invoking a Method</strong></p>
+<p>
+The following command invokes the &#34;StartUnit&#34; method on the
+&#34;org.freedesktop.systemd1.Manager&#34; interface of the
+&#34;/org/freedesktop/systemd1&#34; object of the &#34;org.freedesktop.systemd1&#34;
+service, and passes it two strings &#34;cups.service&#34; and &#34;replace&#34;. As a
+result of the method call, a single object path parameter is received
+and shown:</p>
+<blockquote>
+<pre class="example">
+# busctl call org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager StartUnit ss &#34;cups.service&#34; &#34;replace&#34;
+o &#34;/org/freedesktop/systemd1/job/42684&#34;
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>dbus-daemon*(1), *D-Bus</strong>[3], *sd-bus*(3), *varlinkctl*(1),
+*systemd*(1), *machinectl*(1), *wireshark*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+NOTES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>PCAP Next Generation (pcapng) Capture File Format
+
+https://github.com/pcapng/pcapng/</dd>
+<dt>
+2.
+</dt>
+<dd>Type system chapter of the D-Bus specification
+
+https://dbus.freedesktop.org/doc/dbus-specification.html#type-system</dd>
+<dt>
+3.
+</dt>
+<dd>D-Bus
+
+https://www.freedesktop.org/wiki/Software/dbus</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

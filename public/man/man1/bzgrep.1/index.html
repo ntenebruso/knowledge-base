@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - bzgrep.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - bzgrep.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>bzgrep, bzfgrep, bzegrep - search possibly bzip2 compressed files for a
+regular expression</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>bzgrep</strong> [ grep_options ] <strong>[ -e ]*/ pattern/ <em>filename</em>. . .<br>
+*bzegrep</strong> [ egrep_options ] <strong>[ -e ]*/ pattern/ <em>filename</em>. . .<br>
+*bzfgrep</strong> [ fgrep_options ] *[ -e ]*/ pattern/ <em>filename</em>. . .</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><em>Bzgrep</em> is used to invoke the <em>grep</em> on bzip2-compressed files. All
+options specified are passed directly to <em>grep.</em> If no file is
+specified, then the standard input is decompressed if necessary and fed
+to grep. Otherwise the given files are uncompressed if necessary and fed
+to <em>grep.</em></p>
+<p>
+If <em>bzgrep</em> is invoked as <em>bzegrep</em> or <em>bzfgrep</em> then <em>egrep</em> or <em>fgrep</em>
+is used instead of <em>grep.</em> If the GREP environment variable is set,
+<em>bzgrep</em> uses it as the <em>grep</em> program to be invoked. For example:</p>
+<p>
+for sh: GREP=fgrep bzgrep string files for csh: (setenv GREP fgrep;
+bzgrep string files)</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+AUTHOR
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Charles Levert (charles@comm.polymtl.ca). Adapted to bzip2 by Philippe
+Troin &lt;phil@fifi.org&gt; for Debian GNU/Linux.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>grep(1), egrep(1), fgrep(1), bzdiff(1), bzmore(1), bzless(1), bzip2(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

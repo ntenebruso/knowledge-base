@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-merge.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-merge.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-merge - Join two or more development histories together</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git merge [-n] [--stat] [--no-commit] [--squash] [--[no-]edit]
+        [--no-verify] [-s &lt;strategy&gt;] [-X &lt;strategy-option&gt;] [-S[&lt;keyid&gt;]]
+        [--[no-]allow-unrelated-histories]
+        [--[no-]rerere-autoupdate] [-m &lt;msg&gt;] [-F &lt;file&gt;]
+        [--into-name &lt;branch&gt;] [&lt;commit&gt;...]
+git merge (--continue | --abort | --quit)
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Incorporates changes from the named commits (since the time their
+histories diverged from the current branch) into the current branch.
+This command is used by <strong>git pull</strong> to incorporate changes from another
+repository and can be used by hand to merge changes from one branch into
+another.</p>
+<p>
+Assume the following history exists and the current branch is <strong>master</strong>:</p>
+<blockquote>
+<pre class="example">
+          A---B---C topic
+         /
+    D---E---F---G master
+</pre>
+</blockquote>
+<p>
+Then <strong>git merge topic</strong> will replay the changes made on the <strong>topic</strong>
+branch since it diverged from <strong>master</strong> (i.e., <strong>E</strong>) until its current
+commit (<strong>C</strong>) on top of <strong>master</strong>, and record the result in a new commit
+along with the names of the two parent commits and a log message from
+the user describing the changes. Before the operation, <strong>ORIG_HEAD</strong> is
+set to the tip of the current branch (<strong>C</strong>).</p>
+<blockquote>
+<pre class="example">
+          A---B---C topic
+         /         \
+    D---E---F---G---H master
+</pre>
+</blockquote>
+<p>
+A merge stops if there&#39;s a conflict that cannot be resolved
+automatically or if <strong>–no-commit</strong> was provided when initiating the
+merge. At that point you can run <strong>git merge –abort</strong> or <strong>git merge
+–continue</strong>.</p>
+<p>
+<strong>git merge –abort</strong> will abort the merge process and try to reconstruct
+the pre-merge state. However, if there were uncommitted changes when the
+merge started (and especially if those changes were further modified
+after the merge was started), <strong>git merge –abort</strong> will in some cases be
+unable to reconstruct the original (pre-merge) changes. Therefore:</p>
+<p>
+<strong>Warning</strong>: Running <strong>git merge</strong> with non-trivial uncommitted changes is
+discouraged: while possible, it may leave you in a state that is hard to
+back out of in the case of a conflict.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–commit, –no-commit</p>
+<blockquote>
+<p>Perform the merge and commit the result. This option can be used to
+override –no-commit.</p>
+<p>
+With –no-commit perform the merge and stop just before creating a merge
+commit, to give the user a chance to inspect and further tweak the merge
+result before committing.</p>
+<p>
+Note that fast-forward updates do not create a merge commit and
+therefore there is no way to stop those merges with –no-commit. Thus,
+if you want to ensure your branch is not changed or updated by the merge
+command, use –no-ff with –no-commit.</p>
+</blockquote>
+<p>
+–edit, -e, –no-edit</p>
+<blockquote>
+<p>Invoke an editor before committing successful mechanical merge to
+further edit the auto-generated merge message, so that the user can
+explain and justify the merge. The <strong>–no-edit</strong> option can be used to
+accept the auto-generated message (this is generally discouraged). The
+<strong>–edit</strong> (or <strong>-e</strong>) option is still useful if you are giving a draft
+message with the <strong>-m</strong> option from the command line and want to edit it
+in the editor.</p>
+<p>
+Older scripts may depend on the historical behaviour of not allowing the
+user to edit the merge log message. They will see an editor opened when
+they run <strong>git merge</strong>. To make it easier to adjust such scripts to the
+updated behaviour, the environment variable <strong>GIT_MERGE_AUTOEDIT</strong> can be
+set to <strong>no</strong> at the beginning of them.</p>
+</blockquote>
+<p>
+–cleanup=&lt;mode&gt;</p>
+<blockquote>
+<p>This option determines how the merge message will be cleaned up before
+committing. See <strong>git-commit*(1) for more details. In addition, if the
+<em>&lt;mode&gt;</em> is given a value of *scissors</strong>, scissors will be appended to
+<strong>MERGE_MSG</strong> before being passed on to the commit machinery in the case
+of a merge conflict.</p>
+</blockquote>
+<p>
+–ff, –no-ff, –ff-only</p>
+<blockquote>
+<p>Specifies how a merge is handled when the merged-in history is already a
+descendant of the current history. <strong>–ff</strong> is the default unless merging
+an annotated (and possibly signed) tag that is not stored in its natural
+place in the <strong>refs/tags/</strong> hierarchy, in which case <strong>–no-ff</strong> is assumed.</p>
+<p>
+With <strong>–ff</strong>, when possible resolve the merge as a fast-forward (only
+update the branch pointer to match the merged branch; do not create a
+merge commit). When not possible (when the merged-in history is not a
+descendant of the current history), create a merge commit.</p>
+<p>
+With <strong>–no-ff</strong>, create a merge commit in all cases, even when the merge
+could instead be resolved as a fast-forward.</p>
+<p>
+With <strong>–ff-only</strong>, resolve the merge as a fast-forward when possible.
+When not possible, refuse to merge and exit with a non-zero status.</p>
+</blockquote>
+<p>
+-S[&lt;keyid&gt;], –gpg-sign[=&lt;keyid&gt;], –no-gpg-sign</p>
+<blockquote>
+<p>GPG-sign the resulting merge commit. The <strong>keyid</strong> argument is optional
+and defaults to the committer identity; if specified, it must be stuck
+to the option without a space. <strong>–no-gpg-sign</strong> is useful to countermand
+both <strong>commit.gpgSign</strong> configuration variable, and earlier <strong>–gpg-sign</strong>.</p>
+</blockquote>
+<p>
+–log[=&lt;n&gt;], –no-log</p>
+<blockquote>
+<p>In addition to branch names, populate the log message with one-line
+descriptions from at most &lt;n&gt; actual commits that are being merged. See
+also *git-fmt-merge-msg*(1).</p>
+<p>
+With –no-log do not list one-line descriptions from the actual commits
+being merged.</p>
+</blockquote>
+<p>
+–signoff, –no-signoff</p>
+<blockquote>
+<p>Add a <strong>Signed-off-by</strong> trailer by the committer at the end of the commit
+log message. The meaning of a signoff depends on the project to which
+you&#39;re committing. For example, it may certify that the committer has
+the rights to submit the work under the project&#39;s license or agrees to
+some contributor representation, such as a Developer Certificate of
+Origin. (See <strong><a href="https://developercertificate.org">https://developercertificate.org</a></strong> for the one used by the
+Linux kernel and Git projects.) Consult the documentation or leadership
+of the project to which you&#39;re contributing to understand how the
+signoffs are used in that project.</p>
+<p>
+The –no-signoff option can be used to countermand an earlier –signoff
+option on the command line.</p>
+</blockquote>
+<p>
+–stat, -n, –no-stat</p>
+<blockquote>
+<p>Show a diffstat at the end of the merge. The diffstat is also controlled
+by the configuration option merge.stat.</p>
+<p>
+With -n or –no-stat do not show a diffstat at the end of the merge.</p>
+</blockquote>
+<p>
+–squash, –no-squash</p>
+<blockquote>
+<p>Produce the working tree and index state as if a real merge happened
+(except for the merge information), but do not actually make a commit,
+move the <strong>HEAD</strong>, or record <strong>$GIT_DIR/MERGE_HEAD</strong> (to cause the next <strong>git
+commit</strong> command to create a merge commit). This allows you to create a
+single commit on top of the current branch whose effect is the same as
+merging another branch (or more in case of an octopus).</p>
+<p>
+With –no-squash perform the merge and commit the result. This option
+can be used to override –squash.</p>
+<p>
+With –squash, –commit is not allowed, and will fail.</p>
+</blockquote>
+<p>
+–[no-]verify</p>
+<blockquote>
+<p>By default, the pre-merge and commit-msg hooks are run. When
+<strong>–no-verify</strong> is given, these are bypassed. See also *githooks*(5).</p>
+</blockquote>
+<p>
+-s &lt;strategy&gt;, –strategy=&lt;strategy&gt;</p>
+<blockquote>
+<p>Use the given merge strategy; can be supplied more than once to specify
+them in the order they should be tried. If there is no <strong>-s</strong> option, a
+built-in list of strategies is used instead (<strong>ort</strong> when merging a single
+head, <strong>octopus</strong> otherwise).</p>
+</blockquote>
+<p>
+-X &lt;option&gt;, –strategy-option=&lt;option&gt;</p>
+<blockquote>
+<p>Pass merge strategy specific option through to the merge strategy.</p>
+</blockquote>
+<p>
+–verify-signatures, –no-verify-signatures</p>
+<blockquote>
+<p>Verify that the tip commit of the side branch being merged is signed
+with a valid key, i.e. a key that has a valid uid: in the default trust
+model, this means the signing key has been signed by a trusted key. If
+the tip commit of the side branch is not signed with a valid key, the
+merge is aborted.</p>
+</blockquote>
+<p>
+–summary, –no-summary</p>
+<blockquote>
+<p>Synonyms to –stat and –no-stat; these are deprecated and will be
+removed in the future.</p>
+</blockquote>
+<p>
+-q, –quiet</p>
+<blockquote>
+<p>Operate quietly. Implies –no-progress.</p>
+</blockquote>
+<p>
+-v, –verbose</p>
+<blockquote>
+<p>Be verbose.</p>
+</blockquote>
+<p>
+–progress, –no-progress</p>
+<blockquote>
+<p>Turn progress on/off explicitly. If neither is specified, progress is
+shown if standard error is connected to a terminal. Note that not all
+merge strategies may support progress reporting.</p>
+</blockquote>
+<p>
+–autostash, –no-autostash</p>
+<blockquote>
+<p>Automatically create a temporary stash entry before the operation
+begins, record it in the ref <strong>MERGE_AUTOSTASH</strong> and apply it after the
+operation ends. This means that you can run the operation on a dirty
+worktree. However, use with care: the final stash application after a
+successful merge might result in non-trivial conflicts.</p>
+</blockquote>
+<p>
+–allow-unrelated-histories</p>
+<blockquote>
+<p>By default, <strong>git merge</strong> command refuses to merge histories that do not
+share a common ancestor. This option can be used to override this safety
+when merging histories of two projects that started their lives
+independently. As that is a very rare occasion, no configuration
+variable to enable this by default exists and will not be added.</p>
+</blockquote>
+<p>
+-m &lt;msg&gt;</p>
+<blockquote>
+<p>Set the commit message to be used for the merge commit (in case one is
+created).</p>
+<p>
+If <strong>–log</strong> is specified, a shortlog of the commits being merged will be
+appended to the specified message.</p>
+<p>
+The <strong>git fmt-merge-msg</strong> command can be used to give a good default for
+automated <strong>git merge</strong> invocations. The automated message can include the
+branch description.</p>
+</blockquote>
+<p>
+–into-name &lt;branch&gt;</p>
+<blockquote>
+<p>Prepare the default merge message as if merging to the branch
+<strong>&lt;branch&gt;</strong>, instead of the name of the real branch to which the merge is
+made.</p>
+</blockquote>
+<p>
+-F &lt;file&gt;, –file=&lt;file&gt;</p>
+<blockquote>
+<p>Read the commit message to be used for the merge commit (in case one is
+created).</p>
+<p>
+If <strong>–log</strong> is specified, a shortlog of the commits being merged will be
+appended to the specified message.</p>
+</blockquote>
+<p>
+–rerere-autoupdate, –no-rerere-autoupdate</p>
+<blockquote>
+<p>After the rerere mechanism reuses a recorded resolution on the current
+conflict to update the files in the working tree, allow it to also
+update the index with the result of resolution. <strong>–no-rerere-autoupdate</strong>
+is a good way to double-check what <strong>rerere</strong> did and catch potential
+mismerges, before committing the result to the index with a separate
+<strong>git add</strong>.</p>
+</blockquote>
+<p>
+–overwrite-ignore, –no-overwrite-ignore</p>
+<blockquote>
+<p>Silently overwrite ignored files from the merge result. This is the
+default behavior. Use <strong>–no-overwrite-ignore</strong> to abort.</p>
+</blockquote>
+<p>
+–abort</p>
+<blockquote>
+<p>Abort the current conflict resolution process, and try to reconstruct
+the pre-merge state. If an autostash entry is present, apply it to the
+worktree.</p>
+<p>
+If there were uncommitted worktree changes present when the merge
+started, <strong>git merge –abort</strong> will in some cases be unable to reconstruct
+these changes. It is therefore recommended to always commit or stash
+your changes before running <strong>git merge</strong>.</p>
+<p>
+<strong>git merge –abort</strong> is equivalent to <strong>git reset –merge</strong> when
+<strong>MERGE_HEAD</strong> is present unless <strong>MERGE_AUTOSTASH</strong> is also present in
+which case <strong>git merge –abort</strong> applies the stash entry to the worktree
+whereas <strong>git reset –merge</strong> will save the stashed changes in the stash
+list.</p>
+</blockquote>
+<p>
+–quit</p>
+<blockquote>
+<p>Forget about the current merge in progress. Leave the index and the
+working tree as-is. If <strong>MERGE_AUTOSTASH</strong> is present, the stash entry
+will be saved to the stash list.</p>
+</blockquote>
+<p>
+–continue</p>
+<blockquote>
+<p>After a <strong>git merge</strong> stops due to conflicts you can conclude the merge by
+running <strong>git merge –continue</strong> (see &#34;HOW TO RESOLVE CONFLICTS&#34; section
+below).</p>
+</blockquote>
+<p>
+&lt;commit&gt;…</p>
+<blockquote>
+<p>Commits, usually other branch heads, to merge into our branch.
+Specifying more than one commit will create a merge with more than two
+parents (affectionately called an Octopus merge).</p>
+<p>
+If no commit is given from the command line, merge the remote-tracking
+branches that the current branch is configured to use as its upstream.
+See also the configuration section of this manual page.</p>
+<p>
+When <strong>FETCH_HEAD</strong> (and no other commit) is specified, the branches
+recorded in the <strong>.git/FETCH_HEAD</strong> file by the previous invocation of
+<strong>git fetch</strong> for merging are merged to the current branch.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+PRE-MERGE CHECKS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Before applying outside changes, you should get your own work in good
+shape and committed locally, so it will not be clobbered if there are
+conflicts. See also <strong>git-stash*(1). *git pull</strong> and <strong>git merge</strong> will stop
+without doing anything when local uncommitted changes overlap with files
+that <strong>git pull*/*git merge</strong> may need to update.</p>
+<p>
+To avoid recording unrelated changes in the merge commit, <strong>git pull</strong> and
+<strong>git merge</strong> will also abort if there are any changes registered in the
+index relative to the <strong>HEAD</strong> commit. (Special narrow exceptions to this
+rule may exist depending on which merge strategy is in use, but
+generally, the index must match HEAD.)</p>
+<p>
+If all named commits are already ancestors of <strong>HEAD</strong>, <strong>git merge</strong> will
+exit early with the message &#34;Already up to date.&#34;</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+FAST-FORWARD MERGE
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Often the current branch head is an ancestor of the named commit. This
+is the most common case especially when invoked from <strong>git pull</strong>: you are
+tracking an upstream repository, you have committed no local changes,
+and now you want to update to a newer upstream revision. In this case, a
+new commit is not needed to store the combined history; instead, the
+<strong>HEAD</strong> (along with the index) is updated to point at the named commit,
+without creating an extra merge commit.</p>
+<p>
+This behavior can be suppressed with the <strong>–no-ff</strong> option.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+TRUE MERGE
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Except in a fast-forward merge (see above), the branches to be merged
+must be tied together by a merge commit that has both of them as its
+parents.</p>
+<p>
+A merged version reconciling the changes from all branches to be merged
+is committed, and your <strong>HEAD</strong>, index, and working tree are updated to
+it. It is possible to have modifications in the working tree as long as
+they do not overlap; the update will preserve them.</p>
+<p>
+When it is not obvious how to reconcile the changes, the following
+happens:</p>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>The <strong>HEAD</strong> pointer stays the same.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>The <strong>MERGE_HEAD</strong> ref is set to point to the other branch head.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>Paths that merged cleanly are updated both in the index file and in your
+working tree.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>For conflicting paths, the index file records up to three versions:
+stage 1 stores the version from the common ancestor, stage 2 from
+<strong>HEAD</strong>, and stage 3 from <strong>MERGE_HEAD</strong> (you can inspect the stages with
+<strong>git ls-files -u</strong>). The working tree files contain the result of the
+merge operation; i.e. 3-way merge results with familiar conflict markers
+<strong>&lt;&lt;&lt;</strong> <strong><code class="verbatim">=</code></strong> <strong>&gt;&gt;&gt;</strong>.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>A ref named <strong>AUTO_MERGE</strong> is written, pointing to a tree corresponding to
+the current content of the working tree (including conflict markers for
+textual conflicts). Note that this ref is only written when the <em>ort</em>
+merge strategy is used (the default).</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>No other changes are made. In particular, the local modifications you
+had before you started merge will stay the same and the index entries
+for them stay as they were, i.e. matching <strong>HEAD</strong>.</p>
+</blockquote>
+<p>
+If you tried a merge which resulted in complex conflicts and want to
+start over, you can recover with <strong>git merge –abort</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+MERGING TAG
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>When merging an annotated (and possibly signed) tag, Git always creates
+a merge commit even if a fast-forward merge is possible, and the commit
+message template is prepared with the tag message. Additionally, if the
+tag is signed, the signature check is reported as a comment in the
+message template. See also *git-tag*(1).</p>
+<p>
+When you want to just integrate with the work leading to the commit that
+happens to be tagged, e.g. synchronizing with an upstream release point,
+you may not want to make an unnecessary merge commit.</p>
+<p>
+In such a case, you can &#34;unwrap&#34; the tag yourself before feeding it to
+<strong>git merge</strong>, or pass <strong>–ff-only</strong> when you do not have any work on your
+own. e.g.</p>
+<blockquote>
+<pre class="example">
+git fetch origin
+git merge v1.2.3^0
+git merge --ff-only v1.2.3
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+HOW CONFLICTS ARE PRESENTED
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>During a merge, the working tree files are updated to reflect the result
+of the merge. Among the changes made to the common ancestor&#39;s version,
+non-overlapping ones (that is, you changed an area of the file while the
+other side left that area intact, or vice versa) are incorporated in the
+final result verbatim. When both sides made changes to the same area,
+however, Git cannot randomly pick one side over the other, and asks you
+to resolve it by leaving what both sides did to that area.</p>
+<p>
+By default, Git uses the same style as the one used by the &#34;merge&#34;
+program from the RCS suite to present such a conflicted hunk, like this:</p>
+<blockquote>
+<pre class="example">
+Here are lines that are either unchanged from the common
+ancestor, or cleanly resolved because only one side changed,
+or cleanly resolved because both sides changed the same way.
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; yours:sample.txt
+Conflict resolution is hard;
+lets go shopping.
+=======
+Git makes conflict resolution easy.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; theirs:sample.txt
+And here is another line that is cleanly resolved or unmodified.
+</pre>
+</blockquote>
+<p>
+The area where a pair of conflicting changes happened is marked with
+markers <strong>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</strong>, <strong><code class="verbatim">=====</code></strong>, and <strong>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</strong>. The part before the
+<strong><code class="verbatim">=====</code></strong> is typically your side, and the part afterwards is typically
+their side.</p>
+<p>
+The default format does not show what the original said in the
+conflicting area. You cannot tell how many lines are deleted and
+replaced with Barbie&#39;s remark on your side. The only thing you can tell
+is that your side wants to say it is hard and you&#39;d prefer to go
+shopping, while the other side wants to claim it is easy.</p>
+<p>
+An alternative style can be used by setting the <strong>merge.conflictStyle</strong>
+configuration variable to either &#34;diff3&#34; or &#34;zdiff3&#34;. In &#34;diff3&#34; style,
+the above conflict may look like this:</p>
+<blockquote>
+<pre class="example">
+Here are lines that are either unchanged from the common
+ancestor, or cleanly resolved because only one side changed,
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; yours:sample.txt
+or cleanly resolved because both sides changed the same way.
+Conflict resolution is hard;
+lets go shopping.
+||||||| base:sample.txt
+or cleanly resolved because both sides changed identically.
+Conflict resolution is hard.
+=======
+or cleanly resolved because both sides changed the same way.
+Git makes conflict resolution easy.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; theirs:sample.txt
+And here is another line that is cleanly resolved or unmodified.
+</pre>
+</blockquote>
+<p>
+while in &#34;zdiff3&#34; style, it may look like this:</p>
+<blockquote>
+<pre class="example">
+Here are lines that are either unchanged from the common
+ancestor, or cleanly resolved because only one side changed,
+or cleanly resolved because both sides changed the same way.
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; yours:sample.txt
+Conflict resolution is hard;
+lets go shopping.
+||||||| base:sample.txt
+or cleanly resolved because both sides changed identically.
+Conflict resolution is hard.
+=======
+Git makes conflict resolution easy.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; theirs:sample.txt
+And here is another line that is cleanly resolved or unmodified.
+</pre>
+</blockquote>
+<p>
+In addition to the <strong>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</strong>, <strong><code class="verbatim">=====</code></strong>, and <strong>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</strong> markers, it uses
+another <strong>|||||||</strong> marker that is followed by the original text. You can
+tell that the original just stated a fact, and your side simply gave in
+to that statement and gave up, while the other side tried to have a more
+positive attitude. You can sometimes come up with a better resolution by
+viewing the original.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+HOW TO RESOLVE CONFLICTS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>After seeing a conflict, you can do two things:</p>
+<blockquote>
+<p>·</p>
+<p>
+Decide not to merge. The only clean-ups you need are to reset the index
+file to the <strong>HEAD</strong> commit to reverse 2. and to clean up working tree
+changes made by 2. and 3.; <strong>git merge –abort</strong> can be used for this.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Resolve the conflicts. Git will mark the conflicts in the working tree.
+Edit the files into shape and <strong>git add</strong> them to the index. Use <strong>git
+commit</strong> or <strong>git merge –continue</strong> to seal the deal. The latter command
+checks whether there is a (interrupted) merge in progress before calling
+<strong>git commit</strong>.</p>
+</blockquote>
+<p>
+You can work through the conflict with a number of tools:</p>
+<blockquote>
+<p>·</p>
+<p>
+Use a mergetool. <strong>git mergetool</strong> to launch a graphical mergetool which
+will work through the merge with you.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Look at the diffs. <strong>git diff</strong> will show a three-way diff, highlighting
+changes from both the <strong>HEAD</strong> and <strong>MERGE_HEAD</strong> versions. <strong>git diff
+AUTO_MERGE</strong> will show what changes you&#39;ve made so far to resolve textual
+conflicts.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Look at the diffs from each branch. <strong>git log –merge -p &lt;path&gt;</strong> will
+show diffs first for the <strong>HEAD</strong> version and then the <strong>MERGE_HEAD</strong>
+version.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Look at the originals. <strong>git show :1:filename</strong> shows the common ancestor,
+<strong>git show :2:filename</strong> shows the <strong>HEAD</strong> version, and <strong>git show
+:3:filename</strong> shows the <strong>MERGE_HEAD</strong> version.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<blockquote>
+<p>·</p>
+<p>
+Merge branches <strong>fixes</strong> and <strong>enhancements</strong> on top of the current branch,
+making an octopus merge:</p>
+<blockquote>
+<pre class="example">
+$ git merge fixes enhancements
+</pre>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Merge branch <strong>obsolete</strong> into the current branch, using <strong>ours</strong> merge
+strategy:</p>
+<blockquote>
+<pre class="example">
+$ git merge -s ours obsolete
+</pre>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Merge branch <strong>maint</strong> into the current branch, but do not make a new
+commit automatically:</p>
+<blockquote>
+<pre class="example">
+$ git merge --no-commit maint
+</pre>
+</blockquote>
+<p>
+This can be used when you want to include further changes to the merge,
+or want to write your own merge commit message.</p>
+<p>
+You should refrain from abusing this option to sneak substantial changes
+into a merge commit. Small fixups like bumping release/version name
+would be acceptable.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+MERGE STRATEGIES
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>The merge mechanism (<strong>git merge</strong> and <strong>git pull</strong> commands) allows the
+backend <em>merge strategies</em> to be chosen with <strong>-s</strong> option. Some
+strategies can also take their own options, which can be passed by
+giving <strong>-X&lt;option&gt;</strong> arguments to <strong>git merge</strong> and/or <strong>git pull</strong>.</p>
+<p>
+ort</p>
+<blockquote>
+<p>This is the default merge strategy when pulling or merging one branch.
+This strategy can only resolve two heads using a 3-way merge algorithm.
+When there is more than one common ancestor that can be used for 3-way
+merge, it creates a merged tree of the common ancestors and uses that as
+the reference tree for the 3-way merge. This has been reported to result
+in fewer merge conflicts without causing mismerges by tests done on
+actual merge commits taken from Linux 2.6 kernel development history.
+Additionally this strategy can detect and handle merges involving
+renames. It does not make use of detected copies. The name for this
+algorithm is an acronym (&#34;Ostensibly Recursive&#39;s Twin&#34;) and came from
+the fact that it was written as a replacement for the previous default
+algorithm, <strong>recursive</strong>.</p>
+<p>
+The <em>ort</em> strategy can take the following options:</p>
+<p>
+ours</p>
+<blockquote>
+<p>This option forces conflicting hunks to be auto-resolved cleanly by
+favoring <em>our</em> version. Changes from the other tree that do not conflict
+with our side are reflected in the merge result. For a binary file, the
+entire contents are taken from our side.</p>
+<p>
+This should not be confused with the <em>ours</em> merge strategy, which does
+not even look at what the other tree contains at all. It discards
+everything the other tree did, declaring <em>our</em> history contains all that
+happened in it.</p>
+</blockquote>
+<p>
+theirs</p>
+<blockquote>
+<p>This is the opposite of <em>ours</em>; note that, unlike <em>ours</em>, there is no
+<em>theirs</em> merge strategy to confuse this merge option with.</p>
+</blockquote>
+<p>
+ignore-space-change, ignore-all-space, ignore-space-at-eol,
+ignore-cr-at-eol</p>
+<blockquote>
+<p>Treats lines with the indicated type of whitespace change as unchanged
+for the sake of a three-way merge. Whitespace changes mixed with other
+changes to a line are not ignored. See also <strong>git-diff*(1) *-b</strong>, <strong>-w</strong>,
+<strong>–ignore-space-at-eol</strong>, and <strong>–ignore-cr-at-eol</strong>.</p>
+<blockquote>
+<p>·</p>
+<p>
+If <em>their</em> version only introduces whitespace changes to a line, <em>our</em>
+version is used;</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+If <em>our</em> version introduces whitespace changes but <em>their</em> version
+includes a substantial change, <em>their</em> version is used;</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Otherwise, the merge proceeds in the usual way.</p>
+</blockquote>
+</blockquote>
+<p>
+renormalize</p>
+<blockquote>
+<p>This runs a virtual check-out and check-in of all three stages of a file
+when resolving a three-way merge. This option is meant to be used when
+merging branches with different clean filters or end-of-line
+normalization rules. See &#34;Merging branches with differing
+checkin/checkout attributes&#34; in *gitattributes*(5) for details.</p>
+</blockquote>
+<p>
+no-renormalize</p>
+<blockquote>
+<p>Disables the <strong>renormalize</strong> option. This overrides the
+<strong>merge.renormalize</strong> configuration variable.</p>
+</blockquote>
+<p>
+find-renames[=&lt;n&gt;]</p>
+<blockquote>
+<p>Turn on rename detection, optionally setting the similarity threshold.
+This is the default. This overrides the <em>merge.renames</em> configuration
+variable. See also <strong>git-diff*(1) *–find-renames</strong>.</p>
+</blockquote>
+<p>
+rename-threshold=&lt;n&gt;</p>
+<blockquote>
+<p>Deprecated synonym for <strong>find-renames=&lt;n&gt;</strong>.</p>
+</blockquote>
+<p>
+subtree[=&lt;path&gt;]</p>
+<blockquote>
+<p>This option is a more advanced form of <em>subtree</em> strategy, where the
+strategy makes a guess on how two trees must be shifted to match with
+each other when merging. Instead, the specified path is prefixed (or
+stripped from the beginning) to make the shape of two trees to match.</p>
+</blockquote>
+</blockquote>
+<p>
+recursive</p>
+<blockquote>
+<p>This can only resolve two heads using a 3-way merge algorithm. When
+there is more than one common ancestor that can be used for 3-way merge,
+it creates a merged tree of the common ancestors and uses that as the
+reference tree for the 3-way merge. This has been reported to result in
+fewer merge conflicts without causing mismerges by tests done on actual
+merge commits taken from Linux 2.6 kernel development history.
+Additionally this can detect and handle merges involving renames. It
+does not make use of detected copies. This was the default strategy for
+resolving two heads from Git v0.99.9k until v2.33.0.</p>
+<p>
+The <em>recursive</em> strategy takes the same options as <em>ort</em>. However, there
+are three additional options that <em>ort</em> ignores (not documented above)
+that are potentially useful with the <em>recursive</em> strategy:</p>
+<p>
+patience</p>
+<blockquote>
+<p>Deprecated synonym for <strong>diff-algorithm=patience</strong>.</p>
+</blockquote>
+<p>
+diff-algorithm=[patience|minimal|histogram|myers]</p>
+<blockquote>
+<p>Use a different diff algorithm while merging, which can help avoid
+mismerges that occur due to unimportant matching lines (such as braces
+from distinct functions). See also <strong>git-diff*(1) *–diff-algorithm</strong>.
+Note that <strong>ort</strong> specifically uses <strong>diff-algorithm=histogram</strong>, while
+<strong>recursive</strong> defaults to the <strong>diff.algorithm</strong> config setting.</p>
+</blockquote>
+<p>
+no-renames</p>
+<blockquote>
+<p>Turn off rename detection. This overrides the <strong>merge.renames</strong>
+configuration variable. See also <strong>git-diff*(1) *–no-renames</strong>.</p>
+</blockquote>
+</blockquote>
+<p>
+resolve</p>
+<blockquote>
+<p>This can only resolve two heads (i.e. the current branch and another
+branch you pulled from) using a 3-way merge algorithm. It tries to
+carefully detect criss-cross merge ambiguities. It does not handle
+renames.</p>
+</blockquote>
+<p>
+octopus</p>
+<blockquote>
+<p>This resolves cases with more than two heads, but refuses to do a
+complex merge that needs manual resolution. It is primarily meant to be
+used for bundling topic branch heads together. This is the default merge
+strategy when pulling or merging more than one branch.</p>
+</blockquote>
+<p>
+ours</p>
+<blockquote>
+<p>This resolves any number of heads, but the resulting tree of the merge
+is always that of the current branch head, effectively ignoring all
+changes from all other branches. It is meant to be used to supersede old
+development history of side branches. Note that this is different from
+the -Xours option to the <em>recursive</em> merge strategy.</p>
+</blockquote>
+<p>
+subtree</p>
+<blockquote>
+<p>This is a modified <strong>ort</strong> strategy. When merging trees A and B, if B
+corresponds to a subtree of A, B is first adjusted to match the tree
+structure of A, instead of reading the trees at the same level. This
+adjustment is also done to the common ancestor tree.</p>
+</blockquote>
+<p>
+With the strategies that use 3-way merge (including the default, <em>ort</em>),
+if a change is made on both branches, but later reverted on one of the
+branches, that change will be present in the merged result; some people
+find this behavior confusing. It occurs because only the heads and the
+merge base are considered when performing a merge, not the individual
+commits. The merge algorithm therefore considers the reverted change as
+no change at all, and substitutes the changed version instead.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>branch.&lt;name&gt;.mergeOptions</p>
+<blockquote>
+<p>Sets default options for merging into branch &lt;name&gt;. The syntax and
+supported options are the same as those of <strong>git merge</strong>, but option
+values containing whitespace characters are currently not supported.</p>
+</blockquote>
+<p>
+Everything above this line in this section isn&#39;t included from the
+*git-config*(1) documentation. The content that follows is the same as
+what&#39;s found there:</p>
+<p>
+merge.conflictStyle</p>
+<blockquote>
+<p>Specify the style in which conflicted hunks are written out to working
+tree files upon merge. The default is &#34;merge&#34;, which shows a <strong>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</strong>
+conflict marker, changes made by one side, a <strong><code class="verbatim">=====</code></strong> marker, changes
+made by the other side, and then a <strong>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</strong> marker. An alternate style,
+&#34;diff3&#34;, adds a <strong>|||||||</strong> marker and the original text before the
+<strong><code class="verbatim">=====</code></strong> marker. The &#34;merge&#34; style tends to produce smaller conflict
+regions than diff3, both because of the exclusion of the original text,
+and because when a subset of lines match on the two sides, they are just
+pulled out of the conflict region. Another alternate style, &#34;zdiff3&#34;, is
+similar to diff3 but removes matching lines on the two sides from the
+conflict region when those matching lines appear near either the
+beginning or end of a conflict region.</p>
+</blockquote>
+<p>
+merge.defaultToUpstream</p>
+<blockquote>
+<p>If merge is called without any commit argument, merge the upstream
+branches configured for the current branch by using their last observed
+values stored in their remote-tracking branches. The values of the
+<strong>branch.&lt;current branch&gt;.merge</strong> that name the branches at the remote
+named by <strong>branch.&lt;current branch&gt;.remote</strong> are consulted, and then they
+are mapped via <strong>remote.&lt;remote&gt;.fetch</strong> to their corresponding
+remote-tracking branches, and the tips of these tracking branches are
+merged. Defaults to true.</p>
+</blockquote>
+<p>
+merge.ff</p>
+<blockquote>
+<p>By default, Git does not create an extra merge commit when merging a
+commit that is a descendant of the current commit. Instead, the tip of
+the current branch is fast-forwarded. When set to <strong>false</strong>, this variable
+tells Git to create an extra merge commit in such a case (equivalent to
+giving the <strong>–no-ff</strong> option from the command line). When set to <strong>only</strong>,
+only such fast-forward merges are allowed (equivalent to giving the
+<strong>–ff-only</strong> option from the command line).</p>
+</blockquote>
+<p>
+merge.verifySignatures</p>
+<blockquote>
+<p>If true, this is equivalent to the –verify-signatures command line
+option. See *git-merge*(1) for details.</p>
+</blockquote>
+<p>
+merge.branchdesc</p>
+<blockquote>
+<p>In addition to branch names, populate the log message with the branch
+description text associated with them. Defaults to false.</p>
+</blockquote>
+<p>
+merge.log</p>
+<blockquote>
+<p>In addition to branch names, populate the log message with at most the
+specified number of one-line descriptions from the actual commits that
+are being merged. Defaults to false, and true is a synonym for 20.</p>
+</blockquote>
+<p>
+merge.suppressDest</p>
+<blockquote>
+<p>By adding a glob that matches the names of integration branches to this
+multi-valued configuration variable, the default merge message computed
+for merges into these integration branches will omit &#34;into &lt;branch
+name&gt;&#34; from its title.</p>
+<p>
+An element with an empty value can be used to clear the list of globs
+accumulated from previous configuration entries. When there is no
+<strong>merge.suppressDest</strong> variable defined, the default value of <strong>master</strong> is
+used for backward compatibility.</p>
+</blockquote>
+<p>
+merge.renameLimit</p>
+<blockquote>
+<p>The number of files to consider in the exhaustive portion of rename
+detection during a merge. If not specified, defaults to the value of
+diff.renameLimit. If neither merge.renameLimit nor diff.renameLimit are
+specified, currently defaults to 7000. This setting has no effect if
+rename detection is turned off.</p>
+</blockquote>
+<p>
+merge.renames</p>
+<blockquote>
+<p>Whether Git detects renames. If set to &#34;false&#34;, rename detection is
+disabled. If set to &#34;true&#34;, basic rename detection is enabled. Defaults
+to the value of diff.renames.</p>
+</blockquote>
+<p>
+merge.directoryRenames</p>
+<blockquote>
+<p>Whether Git detects directory renames, affecting what happens at merge
+time to new files added to a directory on one side of history when that
+directory was renamed on the other side of history. If
+merge.directoryRenames is set to &#34;false&#34;, directory rename detection is
+disabled, meaning that such new files will be left behind in the old
+directory. If set to &#34;true&#34;, directory rename detection is enabled,
+meaning that such new files will be moved into the new directory. If set
+to &#34;conflict&#34;, a conflict will be reported for such paths. If
+merge.renames is false, merge.directoryRenames is ignored and treated as
+false. Defaults to &#34;conflict&#34;.</p>
+</blockquote>
+<p>
+merge.renormalize</p>
+<blockquote>
+<p>Tell Git that canonical representation of files in the repository has
+changed over time (e.g. earlier commits record text files with CRLF line
+endings, but recent ones use LF line endings). In such a repository, Git
+can convert the data recorded in commits to a canonical form before
+performing a merge to reduce unnecessary conflicts. For more
+information, see section &#34;Merging branches with differing
+checkin/checkout attributes&#34; in *gitattributes*(5).</p>
+</blockquote>
+<p>
+merge.stat</p>
+<blockquote>
+<p>Whether to print the diffstat between ORIG_HEAD and the merge result at
+the end of the merge. True by default.</p>
+</blockquote>
+<p>
+merge.autoStash</p>
+<blockquote>
+<p>When set to true, automatically create a temporary stash entry before
+the operation begins, and apply it after the operation ends. This means
+that you can run merge on a dirty worktree. However, use with care: the
+final stash application after a successful merge might result in
+non-trivial conflicts. This option can be overridden by the
+<strong>–no-autostash</strong> and <strong>–autostash</strong> options of *git-merge*(1). Defaults
+to false.</p>
+</blockquote>
+<p>
+merge.tool</p>
+<blockquote>
+<p>Controls which merge tool is used by *git-mergetool*(1). The list below
+shows the valid built-in values. Any other value is treated as a custom
+merge tool and requires that a corresponding mergetool.&lt;tool&gt;.cmd
+variable is defined.</p>
+</blockquote>
+<p>
+merge.guitool</p>
+<blockquote>
+<p>Controls which merge tool is used by *git-mergetool*(1) when the
+-g/–gui flag is specified. The list below shows the valid built-in
+values. Any other value is treated as a custom merge tool and requires
+that a corresponding mergetool.&lt;guitool&gt;.cmd variable is defined.</p>
+<p>
+<strong>araxis</strong></p>
+<blockquote>
+<p>Use Araxis Merge (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>bc</strong></p>
+<blockquote>
+<p>Use Beyond Compare (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>bc3</strong></p>
+<blockquote>
+<p>Use Beyond Compare (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>bc4</strong></p>
+<blockquote>
+<p>Use Beyond Compare (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>codecompare</strong></p>
+<blockquote>
+<p>Use Code Compare (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>deltawalker</strong></p>
+<blockquote>
+<p>Use DeltaWalker (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>diffmerge</strong></p>
+<blockquote>
+<p>Use DiffMerge (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>diffuse</strong></p>
+<blockquote>
+<p>Use Diffuse (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>ecmerge</strong></p>
+<blockquote>
+<p>Use ECMerge (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>emerge</strong></p>
+<blockquote>
+<p>Use Emacs Emerge</p>
+</blockquote>
+<p>
+<strong>examdiff</strong></p>
+<blockquote>
+<p>Use ExamDiff Pro (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>guiffy</strong></p>
+<blockquote>
+<p>Use Guiffy&#39;s Diff Tool (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>gvimdiff</strong></p>
+<blockquote>
+<p>Use gVim (requires a graphical session) with a custom layout (see <strong>git
+help mergetool*s *BACKEND SPECIFIC HINTS</strong> section)</p>
+</blockquote>
+<p>
+<strong>gvimdiff1</strong></p>
+<blockquote>
+<p>Use gVim (requires a graphical session) with a 2 panes layout (LOCAL and
+REMOTE)</p>
+</blockquote>
+<p>
+<strong>gvimdiff2</strong></p>
+<blockquote>
+<p>Use gVim (requires a graphical session) with a 3 panes layout (LOCAL,
+MERGED and REMOTE)</p>
+</blockquote>
+<p>
+<strong>gvimdiff3</strong></p>
+<blockquote>
+<p>Use gVim (requires a graphical session) where only the MERGED file is
+shown</p>
+</blockquote>
+<p>
+<strong>kdiff3</strong></p>
+<blockquote>
+<p>Use KDiff3 (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>meld</strong></p>
+<blockquote>
+<p>Use Meld (requires a graphical session) with optional <strong>auto merge</strong> (see
+<strong>git help mergetool*s *CONFIGURATION</strong> section)</p>
+</blockquote>
+<p>
+<strong>nvimdiff</strong></p>
+<blockquote>
+<p>Use Neovim with a custom layout (see <strong>git help mergetool*s *BACKEND
+SPECIFIC HINTS</strong> section)</p>
+</blockquote>
+<p>
+<strong>nvimdiff1</strong></p>
+<blockquote>
+<p>Use Neovim with a 2 panes layout (LOCAL and REMOTE)</p>
+</blockquote>
+<p>
+<strong>nvimdiff2</strong></p>
+<blockquote>
+<p>Use Neovim with a 3 panes layout (LOCAL, MERGED and REMOTE)</p>
+</blockquote>
+<p>
+<strong>nvimdiff3</strong></p>
+<blockquote>
+<p>Use Neovim where only the MERGED file is shown</p>
+</blockquote>
+<p>
+<strong>opendiff</strong></p>
+<blockquote>
+<p>Use FileMerge (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>p4merge</strong></p>
+<blockquote>
+<p>Use HelixCore P4Merge (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>smerge</strong></p>
+<blockquote>
+<p>Use Sublime Merge (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>tkdiff</strong></p>
+<blockquote>
+<p>Use TkDiff (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>tortoisemerge</strong></p>
+<blockquote>
+<p>Use TortoiseMerge (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>vimdiff</strong></p>
+<blockquote>
+<p>Use Vim with a custom layout (see <strong>git help mergetool*s *BACKEND
+SPECIFIC HINTS</strong> section)</p>
+</blockquote>
+<p>
+<strong>vimdiff1</strong></p>
+<blockquote>
+<p>Use Vim with a 2 panes layout (LOCAL and REMOTE)</p>
+</blockquote>
+<p>
+<strong>vimdiff2</strong></p>
+<blockquote>
+<p>Use Vim with a 3 panes layout (LOCAL, MERGED and REMOTE)</p>
+</blockquote>
+<p>
+<strong>vimdiff3</strong></p>
+<blockquote>
+<p>Use Vim where only the MERGED file is shown</p>
+</blockquote>
+<p>
+<strong>winmerge</strong></p>
+<blockquote>
+<p>Use WinMerge (requires a graphical session)</p>
+</blockquote>
+<p>
+<strong>xxdiff</strong></p>
+<blockquote>
+<p>Use xxdiff (requires a graphical session)</p>
+</blockquote>
+</blockquote>
+<p>
+merge.verbosity</p>
+<blockquote>
+<p>Controls the amount of output shown by the recursive merge strategy.
+Level 0 outputs nothing except a final error message if conflicts were
+detected. Level 1 outputs only conflicts, 2 outputs conflicts and file
+changes. Level 5 and above outputs debugging information. The default is
+level 2. Can be overridden by the <strong>GIT_MERGE_VERBOSITY</strong> environment
+variable.</p>
+</blockquote>
+<p>
+merge.&lt;driver&gt;.name</p>
+<blockquote>
+<p>Defines a human-readable name for a custom low-level merge driver. See
+*gitattributes*(5) for details.</p>
+</blockquote>
+<p>
+merge.&lt;driver&gt;.driver</p>
+<blockquote>
+<p>Defines the command that implements a custom low-level merge driver. See
+*gitattributes*(5) for details.</p>
+</blockquote>
+<p>
+merge.&lt;driver&gt;.recursive</p>
+<blockquote>
+<p>Names a low-level merge driver to be used when performing an internal
+merge between common ancestors. See *gitattributes*(5) for details.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>*git-fmt-merge-msg*(1), *git-pull*(1), *gitattributes*(5),
+*git-reset*(1), *git-diff*(1), *git-ls-files*(1), *git-add*(1),
+*git-rm*(1), *git-mergetool*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+GIT
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

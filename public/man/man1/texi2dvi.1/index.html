@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - texi2dvi.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - texi2dvi.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>texi2dvi - convert Texinfo documents to DVI or PDF</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>texi2dvi</strong> [/OPTION/]… <em>FILE</em>…<br>
+<strong>texi2pdf</strong> [/OPTION/]… <em>FILE</em>…<br>
+<strong>pdftexi2dvi</strong> [/OPTION/]… <em>FILE</em>…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Run each Texinfo or (La)TeX FILE through TeX in turn until all
+cross-references are resolved, building all indices. The directory
+containing each FILE is searched for included files. The suffix of FILE
+is used to determine its language ((La)TeX or Texinfo). To process
+(e)plain TeX files, set the environment variable LATEX=tex.</p>
+<p>
+When invoked as `texi2pdf&#39; or given the option <strong>–pdf</strong> generate PDF
+output. Otherwise, generate DVI.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+General options:
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<dl>
+<dt>
+<strong>-D</strong>, <strong>–debug</strong>
+</dt>
+<dd>turn on shell debugging (set <strong>-x</strong>)</dd>
+<dt>
+<strong>-h</strong>, <strong>–help</strong>
+</dt>
+<dd>display this help and exit successfully</dd>
+<dt>
+<strong>-o</strong>, *–output*=/OFILE/
+</dt>
+<dd>leave output in OFILE; only one input FILE
+is allowed</dd>
+<dt>
+<strong>-q</strong>, <strong>–quiet</strong>
+</dt>
+<dd>no output unless errors</dd>
+<dt>
+<strong>-v</strong>, <strong>–version</strong>
+</dt>
+<dd>display version information and exit successfully</dd>
+<dt>
+<strong>-V</strong>, <strong>–verbose</strong>
+</dt>
+<dd>report on what is done</dd>
+<dt>
+*–max-iterations*=/N/
+</dt>
+<dd>don&#39;t process files more than N times [7]</dd>
+<dt>
+<strong>–mostly-clean</strong>
+</dt>
+<dd>remove auxiliary files or directories from
+previous runs (but not the output)</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Output format:
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<dl>
+<dt>
+<strong>–dvi</strong>
+</dt>
+<dd>output a DVI file [default]</dd>
+<dt>
+<strong>–dvipdf</strong>
+</dt>
+<dd>output a PDF file via DVI (using a dvi-to-pdf program)</dd>
+<dt>
+<strong>–html</strong>
+</dt>
+<dd>output an HTML file from LaTeX, using HeVeA</dd>
+<dt>
+<strong>–info</strong>
+</dt>
+<dd>output an Info file from LaTeX, using HeVeA</dd>
+<dt>
+<strong>-p</strong>, <strong>–pdf</strong>
+</dt>
+<dd>use pdftex or pdflatex for processing</dd>
+<dt>
+<strong>–ps</strong>
+</dt>
+<dd>output a PostScript file via DVI (using dvips)</dd>
+<dt>
+<strong>–text</strong>
+</dt>
+<dd>output a plain text file from LaTeX, using HeVeA</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+TeX tuning:
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<dl>
+<dt>
+<strong>-E</strong>, <strong>–expand</strong>
+</dt>
+<dd>macro expansion using makeinfo</dd>
+<dt>
+<strong>-I</strong> DIR
+</dt>
+<dd>search DIR for Texinfo files</dd>
+<dt>
+<strong>-l</strong>, *–language*=/LANG/
+</dt>
+<dd>specify LANG for FILE, either latex or
+texinfo</dd>
+<dt>
+<strong>–no-line-error</strong>
+</dt>
+<dd>do not pass <strong>–file-line-error</strong> to TeX</dd>
+<dt>
+<strong>–shell-escape</strong>
+</dt>
+<dd>pass <strong>–shell-escape</strong> to TeX</dd>
+<dt>
+<strong>–src-specials</strong>
+</dt>
+<dd>pass <strong>–src-specials</strong> to TeX</dd>
+<dt>
+*–translate-file*=/FILE/
+</dt>
+<dd>use given charset translation file for
+TeX</dd>
+<dt>
+<strong>-t</strong>, *–command*=/CMD/
+</dt>
+<dd>insert CMD in copy of input file</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Build modes:
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<dl>
+<dt>
+*–build*=/MODE/
+</dt>
+<dd>specify the treatment of auxiliary files [local]</dd>
+<dt>
+<strong>–tidy</strong>
+</dt>
+<dd>same as *–build*=/tidy/</dd>
+<dt>
+<strong>-c</strong>, <strong>–clean</strong>
+</dt>
+<dd>same as *–build*=/clean/</dd>
+<dt>
+*–build-dir*=/DIR/
+</dt>
+<dd>specify where the tidy compilation is
+performed; implies <strong>–tidy</strong></dd>
+</dl>
+<p>The MODE specifies where the TeX compilation takes place, and, as a
+consequence, how auxiliary files are treated.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Valid values of MODE are:
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<dl>
+<dt>
+`local&#39;
+</dt>
+<dd>compile in the current directory, leaving all the auxiliary
+files around. This is the traditional TeX use.</dd>
+<dt>
+`tidy&#39;
+</dt>
+<dd>compile in a local *.t2d directory, where the auxiliary
+files are left. Output files are copied back to the original file.</dd>
+<dt>
+`clean&#39;
+</dt>
+<dd>same as `tidy&#39;, but remove the auxiliary directory
+afterwards. Every compilation therefore requires the full cycle.</dd>
+</dl>
+<p>The build mode can also be set using the environment variable
+TEXI2DVI_BUILD_MODE. The tidy build directory can also be set using the
+environment variable TEXI2DVI_BUILD_DIRECTORY.</p>
+<p>
+The values of these environment variables are used to run the
+corresponding commands, if they are set:</p>
+<blockquote>
+<p>BIBER BIBTEX DVIPDF DVIPS EGREP HEVEA LATEX MAKEINDEX MAKEINFO PDFLATEX
+PDFTEX SED T4HT TEX TEX4HT TEXINDEX TEXINDY THUMBPDF_CMD</p>
+</blockquote>
+<p>
+Regarding <strong>–dvipdf</strong>, if DVIPDF is not set in the environment, the
+following programs are looked for (in this order): dvipdfmx dvipdfm
+dvipdf dvi2pdf dvitopdf.</p>
+<p>
+If Texinfo is installed on your site, then the command</p>
+<blockquote>
+<p>info texi2dvi</p>
+</blockquote>
+<p>
+should give you access to more documentation.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Report bugs to bug-texinfo@gnu.org, general questions and discussion to
+help-texinfo@gnu.org.<br>
+GNU Texinfo home page: &lt;<a href="http://www.gnu.org/software/texinfo/">http://www.gnu.org/software/texinfo/</a>&gt;<br>
+General help using GNU software: &lt;<a href="http://www.gnu.org/gethelp/">http://www.gnu.org/gethelp/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Copyright © 2023 Free Software Foundation, Inc. License GPLv3+: GNU GPL
+version 3 or later &lt;<a href="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</a>&gt;<br>
+This is free software: you are free to change and redistribute it. There
+is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The full documentation for <strong>texi2dvi</strong> is maintained as a Texinfo manual.
+If the <strong>info</strong> and <strong>texi2dvi</strong> programs are properly installed at your
+site, the command</p>
+<blockquote>
+<p><strong>info texi2dvi</strong></p>
+</blockquote>
+<p>
+should give you access to the complete manual.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

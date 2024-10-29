@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-credential-store.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-credential-store.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-credential-store - Helper to store credentials on disk</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git config credential.helper store [&lt;options&gt;]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<blockquote>
+<p>\\</p>
+<p>
+<strong>Note</strong></p>
+<p>
+\\</p>
+<p>
+Using this helper will store your passwords unencrypted on disk,
+protected only by filesystem permissions. If this is not an acceptable
+security tradeoff, try *git-credential-cache*(1), or find a helper that
+integrates with secure storage provided by your operating system.</p>
+</blockquote>
+<p>
+This command stores credentials indefinitely on disk for use by future
+Git programs.</p>
+<p>
+You probably don&#39;t want to invoke this command directly; it is meant to
+be used as a credential helper by other parts of git. See
+<strong>gitcredentials*(7) or *EXAMPLES</strong> below.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–file=&lt;path&gt;</p>
+<blockquote>
+<p>Use <strong>&lt;path&gt;</strong> to lookup and store credentials. The file will have its
+filesystem permissions set to prevent other users on the system from
+reading it, but it will not be encrypted or otherwise protected. If not
+specified, credentials will be searched for from <strong>~/.git-credentials</strong>
+and <strong>$XDG_CONFIG_HOME/git/credentials</strong>, and credentials will be written
+to <strong>~/.git-credentials</strong> if it exists, or
+<strong>$XDG_CONFIG_HOME/git/credentials</strong> if it exists and the former does not.
+See also the section called “FILES”.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+FILES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>If not set explicitly with <strong>–file</strong>, there are two files where
+git-credential-store will search for credentials in order of precedence:</p>
+<p>
+~/.git-credentials</p>
+<blockquote>
+<p>User-specific credentials file.</p>
+</blockquote>
+<p>
+$XDG_CONFIG_HOME/git/credentials</p>
+<blockquote>
+<p>Second user-specific credentials file. If <em>$XDG_CONFIG_HOME</em> is not set
+or empty, <strong>$HOME/.config/git/credentials</strong> will be used. Any credentials
+stored in this file will not be used if <strong>~/.git-credentials</strong> has a
+matching credential as well. It is a good idea not to create this file
+if you sometimes use older versions of Git that do not support it.</p>
+</blockquote>
+<p>
+For credential lookups, the files are read in the order given above,
+with the first matching credential found taking precedence over
+credentials found in files further down the list.</p>
+<p>
+Credential storage will by default write to the first existing file in
+the list. If none of these files exist, <strong>~/.git-credentials</strong> will be
+created and written to.</p>
+<p>
+When erasing credentials, matching credentials will be erased from all
+files.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The point of this helper is to reduce the number of times you must type
+your username or password. For example:</p>
+<blockquote>
+<pre class="example">
+$ git config credential.helper store
+$ git push http://example.com/repo.git
+Username: &lt;type your username&gt;
+Password: &lt;type your password&gt;
+
+[several days later]
+$ git push http://example.com/repo.git
+[your credentials are used automatically]
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+STORAGE FORMAT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The <strong>.git-credentials</strong> file is stored in plaintext. Each credential is
+stored on its own line as a URL like:</p>
+<blockquote>
+<pre class="example">
+https://user:pass@example.com
+</pre>
+</blockquote>
+<p>
+No other kinds of lines (e.g. empty lines or comment lines) are allowed
+in the file, even though some may be silently ignored. Do not view or
+edit the file with editors.</p>
+<p>
+When Git needs authentication for a particular URL context,
+credential-store will consider that context a pattern to match against
+each entry in the credentials file. If the protocol, hostname, and
+username (if we already have one) match, then the password is returned
+to Git. See the discussion of configuration in *gitcredentials*(7) for
+more information.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

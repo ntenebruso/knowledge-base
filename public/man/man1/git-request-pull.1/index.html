@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-request-pull.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-request-pull.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-request-pull - Generates a summary of pending changes</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git request-pull [-p] &lt;start&gt; &lt;URL&gt; [&lt;end&gt;]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Generate a request asking your upstream project to pull changes into
+their tree. The request, printed to the standard output, begins with the
+branch description, summarizes the changes, and indicates from where
+they can be pulled.</p>
+<p>
+The upstream project is expected to have the commit named by <strong>&lt;start&gt;</strong>
+and the output asks it to integrate the changes you made since that
+commit, up to the commit named by <strong>&lt;end&gt;</strong>, by visiting the repository
+named by <strong>&lt;URL&gt;</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-p</p>
+<blockquote>
+<p>Include patch text in the output.</p>
+</blockquote>
+<p>
+&lt;start&gt;</p>
+<blockquote>
+<p>Commit to start at. This names a commit that is already in the upstream
+history.</p>
+</blockquote>
+<p>
+&lt;URL&gt;</p>
+<blockquote>
+<p>The repository URL to be pulled from.</p>
+</blockquote>
+<p>
+&lt;end&gt;</p>
+<blockquote>
+<p>Commit to end at (defaults to HEAD). This names the commit at the tip of
+the history you are asking to be pulled.</p>
+<p>
+When the repository named by <strong>&lt;URL&gt;</strong> has the commit at a tip of a ref
+that is different from the ref you have locally, you can use the
+<strong>&lt;local&gt;:&lt;remote&gt;</strong> syntax, to have its local name, a colon <strong>:</strong>, and its
+remote name.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Imagine that you built your work on your <strong>master</strong> branch on top of the
+<strong>v1.0</strong> release, and want it to be integrated into the project. First you
+push that change to your public repository for others to see:</p>
+<blockquote>
+<pre class="example">
+git push https://git.ko.xz/project master
+</pre>
+</blockquote>
+<p>
+Then, you run this command:</p>
+<blockquote>
+<pre class="example">
+git request-pull v1.0 https://git.ko.xz/project master
+</pre>
+</blockquote>
+<p>
+which will produce a request to the upstream, summarizing the changes
+between the <strong>v1.0</strong> release and your <strong>master</strong>, to pull it from your
+public repository.</p>
+<p>
+If you pushed your change to a branch whose name is different from the
+one you have locally, e.g.</p>
+<blockquote>
+<pre class="example">
+git push https://git.ko.xz/project master:for-linus
+</pre>
+</blockquote>
+<p>
+then you can ask that to be pulled with</p>
+<blockquote>
+<pre class="example">
+git request-pull v1.0 https://git.ko.xz/project master:for-linus
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+GIT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

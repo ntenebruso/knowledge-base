@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pmap.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pmap.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pmap - report memory map of a process</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>pmap</strong> [/options/] <em>pid</em> […]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>pmap</strong> command reports the memory map of a process or processes.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-x</strong>, <strong>–extended</strong>
+</dt>
+<dd>Show the extended format.</dd>
+<dt>
+<strong>-d</strong>, <strong>–device</strong>
+</dt>
+<dd>Show the device format.</dd>
+<dt>
+<strong>-q</strong>, <strong>–quiet</strong>
+</dt>
+<dd>Do not display some header or footer lines.</dd>
+<dt>
+<strong>-A</strong>, <strong>–range</strong> <em>low</em>,/high/
+</dt>
+<dd>Limit results to the given range to
+<em>low</em> and <em>high</em> address range. Notice that the low and high arguments
+are single string separated with comma.</dd>
+<dt>
+<strong>-X</strong>
+</dt>
+<dd>Show even more details than the <strong>-x</strong> option. WARNING: format
+changes according to <em>/proc/PID/smaps</em></dd>
+<dt>
+<strong>-XX</strong>
+</dt>
+<dd>Show everything the kernel provides</dd>
+<dt>
+<strong>-p</strong>, <strong>–show-path</strong>
+</dt>
+<dd>Show full path to files in the mapping column</dd>
+<dt>
+<strong>-c</strong>, <strong>–read-rc</strong>
+</dt>
+<dd>Read the default configuration</dd>
+<dt>
+<strong>-C</strong>, <strong>–read-rc-from</strong> <em>file</em>
+</dt>
+<dd>Read the configuration from <em>file</em></dd>
+<dt>
+<strong>-n</strong>, <strong>–create-rc</strong>
+</dt>
+<dd>Create new default configuration</dd>
+<dt>
+<strong>-N</strong>, <strong>–create-rc-to</strong> <em>file</em>
+</dt>
+<dd>Create new configuration to <em>file</em></dd>
+<dt>
+<strong>-h</strong>, <strong>–help</strong>
+</dt>
+<dd>Display help text and exit.</dd>
+<dt>
+<strong>-V</strong>, <strong>–version</strong>
+</dt>
+<dd>Display version information and exit.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>0</strong>
+</dt>
+<dd>Success.</dd>
+<dt>
+<strong>1</strong>
+</dt>
+<dd>Failure.</dd>
+<dt>
+<strong>42</strong>
+</dt>
+<dd>Did not find all processes asked for.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*ps*(1), *pgrep*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+STANDARDS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>No standards apply, but <strong>pmap</strong> looks an awful lot like a SunOS command.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Please send bug reports to <a href="procps@freelists.html">procps@freelists.html</a></p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - xdg-screensaver.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - xdg-screensaver.1</h1>
+    
+<p>.SH &#34;NAME&#34; xdg-screensaver - command line tool for controlling the
+screensaver</p>
+<p>
+.SH &#34;SYNOPSIS&#34;</p>
+<p>
+.HP u</p>
+<p>
+<strong>xdg-screensaver</strong> *suspend */WindowID/</p>
+<p>
+.HP u</p>
+<p>
+<strong>xdg-screensaver</strong> *resume */WindowID/</p>
+<p>
+.HP u</p>
+<p>
+<strong>xdg-screensaver</strong> { | <strong>activate</strong> | <strong>lock</strong> | <strong>reset</strong> | <strong>status</strong> }</p>
+<p>
+.HP u</p>
+<p>
+<strong>xdg-screensaver</strong> { | <strong>–help</strong> | <strong>–manual</strong> | <strong>–version</strong> }</p>
+<p>
+.SH &#34;DESCRIPTION&#34;</p>
+<p>
+.PP xdg-screensaver provides commands to control the screensaver.</p>
+<p>
+.PP xdg-screensaver is for use inside a desktop session only. It is not
+recommended to use xdg-screensaver as root.</p>
+<p>
+.SH &#34;COMMANDS&#34;</p>
+<p>
+.PP *suspend */WindowID/</p>
+<blockquote>
+<p>Suspends the screensaver and monitor power management. <em>WindowID</em> must
+be the X Window ID of an existing window of the calling application. The
+window must remain in existence for the duration of the suspension.</p>
+<p>
+WindowID can be represented as either a decimal number or as a
+hexadecimal number consisting of the prefix <em>0x</em> followed by one or more
+hexadecimal digits.</p>
+<p>
+The screensaver can be suspended in relation to multiple windows at the
+same time. In that case screensaver operation is only restored once the
+screensaver has been resumed in relation to each of the windows</p>
+<p>
+.RE</p>
+<p>
+.PP *resume */WindowID/</p>
+<blockquote>
+<p>Resume the screensaver and monitor power management after being
+suspended. <em>WindowID</em> must be the same X Window ID that was passed to a
+previous call of <strong>xdg-screensaver suspend</strong></p>
+<p>
+.RE</p>
+<p>
+.PP <strong>activate</strong></p>
+<blockquote>
+<p>Turns the screensaver on immediately. This may result in the screen
+getting locked, depending on existing system policies.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>lock</strong></p>
+<blockquote>
+<p>Lock the screen immediately.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>reset</strong></p>
+<blockquote>
+<p>Turns the screensaver off immediately. If the screen was locked the user
+may be asked to authenticate first.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>status</strong></p>
+<blockquote>
+<p>Prints <em>enabled</em> to stdout if the screensaver is enabled to turn on
+after a period of inactivity and prints <em>disabled</em> if the screensaver is
+not enabled.</p>
+<p>
+.RE .SH &#34;OPTIONS&#34;</p>
+<p>
+.PP <strong>–help</strong></p>
+<blockquote>
+<p>Show command synopsis.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>–manual</strong></p>
+<blockquote>
+<p>Show this manual page.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>–version</strong></p>
+<blockquote>
+<p>Show the xdg-utils version information.</p>
+<p>
+.RE .SH &#34;EXIT CODES&#34;</p>
+<p>
+.PP An exit code of 0 indicates success while a non-zero exit code
+indicates failure. The following failure codes can be returned:</p>
+<p>
+.PP <strong>1</strong></p>
+<blockquote>
+<p>Error in command line syntax.</p>
+<p>
+.RE .PP <strong>3</strong></p>
+<blockquote>
+<p>A required tool could not be found.</p>
+<p>
+.RE .PP <strong>4</strong></p>
+<blockquote>
+<p>The action failed.</p>
+<p>
+.RE .SH &#34;EXAMPLES&#34;</p>
+<p>
+.PP</p>
+<blockquote>
+<pre class="example">
+xdg-screensaver suspend 0x1c00007
+</pre>
+</blockquote>
+<p>
+Causes the screensaver to be disabled till <strong>xdg-screensaver resume
+0x1c00007</strong> is called. <em>0x1c00007</em> must be the X Window ID of an existing
+window.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+AUTHOR
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>Bryce Harrington</strong></p>
+<blockquote>
+<p>Author.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>\\
+Copyright © 2006\\</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

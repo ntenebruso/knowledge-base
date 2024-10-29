@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - systemd-detect-virt.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - systemd-detect-virt.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>systemd-detect-virt - Detect execution in a virtualized environment</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>systemd-detect-virt</strong> [OPTIONS…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>systemd-detect-virt</strong> detects execution in a virtualized environment. It
+identifies the virtualization technology and can distinguish full
+machine virtualization from container virtualization.
+systemd-detect-virt exits with a return value of 0 (success) if a
+virtualization technology is detected, and non-zero (error) otherwise.
+By default, any type of virtualization is detected, and the options
+<strong>–container</strong> and <strong>–vm</strong> can be used to limit what types of
+virtualization are detected.</p>
+<p>
+When executed without <strong>–quiet</strong> will print a short identifier for the
+detected virtualization technology. The following technologies are
+currently identified:</p>
+<p>
+\\
+<strong>Table 1. Known virtualization technologies (both VM, i.e. full hardware
+virtualization, and container, i.e. shared kernel virtualization)</strong></p>
+<table>
+<tbody>
+<tr>
+<td>Type</td>
+<td>ID</td>
+<td>Product</td>
+</tr>
+<tr>
+<td>VM</td>
+<td><em>qemu</em></td>
+<td>QEMU software virtualization, without KVM</td>
+</tr>
+<tr>
+<td></td>
+<td><em>kvm</em></td>
+<td>Linux KVM kernel virtual machine, in combination with QEMU. Not used for other virtualizers using the KVM interfaces, such as Oracle VirtualBox or Amazon EC2 Nitro, see below.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>amazon</em></td>
+<td>Amazon EC2 Nitro using Linux KVM</td>
+</tr>
+<tr>
+<td></td>
+<td><em>zvm</em></td>
+<td>s390 z/VM</td>
+</tr>
+<tr>
+<td></td>
+<td><em>vmware</em></td>
+<td>VMware Workstation or Server, and related products</td>
+</tr>
+<tr>
+<td></td>
+<td><em>microsoft</em></td>
+<td>Hyper-V, also known as Viridian or Windows Server Virtualization</td>
+</tr>
+<tr>
+<td></td>
+<td><em>oracle</em></td>
+<td>Oracle VM VirtualBox (historically marketed by innotek and Sun Microsystems), for legacy and KVM hypervisor</td>
+</tr>
+<tr>
+<td></td>
+<td><em>powervm</em></td>
+<td>IBM PowerVM hypervisor — comes as firmware with some IBM POWER servers</td>
+</tr>
+<tr>
+<td></td>
+<td><em>xen</em></td>
+<td>Xen hypervisor (only domU, not dom0)</td>
+</tr>
+<tr>
+<td></td>
+<td><em>bochs</em></td>
+<td>Bochs Emulator</td>
+</tr>
+<tr>
+<td></td>
+<td><em>uml</em></td>
+<td>User-mode Linux</td>
+</tr>
+<tr>
+<td></td>
+<td><em>parallels</em></td>
+<td>Parallels Desktop, Parallels Server</td>
+</tr>
+<tr>
+<td></td>
+<td><em>bhyve</em></td>
+<td>bhyve, FreeBSD hypervisor</td>
+</tr>
+<tr>
+<td></td>
+<td><em>qnx</em></td>
+<td>QNX hypervisor</td>
+</tr>
+<tr>
+<td></td>
+<td><em>acrn</em></td>
+<td><strong>ACRN hypervisor</strong>[1]</td>
+</tr>
+<tr>
+<td></td>
+<td><em>apple</em></td>
+<td><strong>Apple virtualization framework</strong>[2]</td>
+</tr>
+<tr>
+<td></td>
+<td><em>sre</em></td>
+<td><strong>LMHS SRE hypervisor</strong>[3]</td>
+</tr>
+<tr>
+<td></td>
+<td><em>google</em></td>
+<td><strong>Google Compute Engine</strong>[4]</td>
+</tr>
+<tr>
+<td>Container</td>
+<td><em>openvz</em></td>
+<td>OpenVZ/Virtuozzo</td>
+</tr>
+<tr>
+<td></td>
+<td><em>lxc</em></td>
+<td>Linux container implementation by LXC</td>
+</tr>
+<tr>
+<td></td>
+<td><em>lxc-libvirt</em></td>
+<td>Linux container implementation by libvirt</td>
+</tr>
+<tr>
+<td></td>
+<td><em>systemd-nspawn</em></td>
+<td>systemds minimal container implementation, see *systemd-nspawn*(1)</td>
+</tr>
+<tr>
+<td></td>
+<td><em>docker</em></td>
+<td>Docker container manager</td>
+</tr>
+<tr>
+<td></td>
+<td><em>podman</em></td>
+<td><strong>Podman</strong>[5] container manager</td>
+</tr>
+<tr>
+<td></td>
+<td><em>rkt</em></td>
+<td>rkt app container runtime</td>
+</tr>
+<tr>
+<td></td>
+<td><em>wsl</em></td>
+<td><strong>Windows Subsystem for Linux</strong>[6]</td>
+</tr>
+<tr>
+<td></td>
+<td><em>proot</em></td>
+<td><strong>proot</strong>[7] userspace chroot/bind mount emulation</td>
+</tr>
+<tr>
+<td></td>
+<td><em>pouch</em></td>
+<td><strong>Pouch</strong>[8] Container Engine</td>
+</tr>
+</tbody>
+</table>
+<p>
+If multiple virtualization solutions are used, only the &#34;innermost&#34; is
+detected and identified. That means if both machine and container
+virtualization are used in conjunction, only the latter will be
+identified (unless <strong>–vm</strong> is passed).</p>
+<p>
+Windows Subsystem for Linux is not a Linux container, but an environment
+for running Linux userspace applications on top of the Windows kernel
+using a Linux-compatible interface. WSL is categorized as a container
+for practical purposes. Multiple WSL environments share the same kernel
+and services should generally behave like when being run in a container.</p>
+<p>
+When executed with <strong>–cvm</strong>, instead of printing the virtualization
+technology, it will display the confidential virtual machine technology,
+if any. The following technologies are currently identified:</p>
+<p>
+\\
+<strong>Table 2. Known confidential virtualization technologies</strong></p>
+<table>
+<tbody>
+<tr>
+<td>Arch</td>
+<td>ID</td>
+<td>Technology</td>
+</tr>
+<tr>
+<td>x86_64</td>
+<td><em>sev</em></td>
+<td>AMD Secure Encrypted Virtualization</td>
+</tr>
+<tr>
+<td></td>
+<td><em>sev-es</em></td>
+<td>AMD Secure Encrypted Virtualization - Encrypted State</td>
+</tr>
+<tr>
+<td></td>
+<td><em>sev-snp</em></td>
+<td>AMD Secure Encrypted Virtualization - Secure Nested Paging</td>
+</tr>
+<tr>
+<td></td>
+<td><em>tdx</em></td>
+<td>Intel Trust Domain Extensions</td>
+</tr>
+<tr>
+<td>s390x</td>
+<td><em>protvirt</em></td>
+<td>IBM Protected Virtualization (Secure Execution)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-c</strong>, <strong>–container</strong></p>
+<blockquote>
+<p>Only detects container virtualization (i.e. shared kernel
+virtualization).</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–vm</strong></p>
+<blockquote>
+<p>Only detects hardware virtualization.</p>
+</blockquote>
+<p>
+<strong>-r</strong>, <strong>–chroot</strong></p>
+<blockquote>
+<p>Detect whether invoked in a *chroot*(2) environment. In this mode, no
+output is written, but the return value indicates whether the process
+was invoked in a <strong>chroot()</strong> environment or not.</p>
+<p>
+Added in version 228.</p>
+</blockquote>
+<p>
+<strong>–private-users</strong></p>
+<blockquote>
+<p>Detect whether invoked in a user namespace. In this mode, no output is
+written, but the return value indicates whether the process was invoked
+inside of a user namespace or not. See *user_namespaces*(7) for more
+information.</p>
+<p>
+Added in version 232.</p>
+</blockquote>
+<p>
+<strong>–cvm</strong></p>
+<blockquote>
+<p>Detect whether invoked in a confidential virtual machine. The result of
+this detection may be used to disable features that should not be used
+in confidential VMs. It must not be used to release security sensitive
+information. The latter must only be released after attestation of the
+confidential environment.</p>
+<p>
+Added in version 254.</p>
+</blockquote>
+<p>
+<strong>-q</strong>, <strong>–quiet</strong></p>
+<blockquote>
+<p>Suppress output of the virtualization technology identifier.</p>
+</blockquote>
+<p>
+<strong>–list</strong></p>
+<blockquote>
+<p>Output all currently known and detectable container and VM environments.</p>
+<p>
+Added in version 239.</p>
+</blockquote>
+<p>
+<strong>–list-cvm</strong></p>
+<blockquote>
+<p>Output all currently known and detectable confidential virtualization
+technologies.</p>
+<p>
+Added in version 254.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Print a short help text and exit.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Print a short version string and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>If a virtualization technology is detected, 0 is returned, a non-zero
+code otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*systemd*(1), *systemd-nspawn*(1), *chroot*(2), *namespaces*(7)</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+NOTES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>ACRN hypervisor
+
+https://projectacrn.org</dd>
+<dt>
+2.
+</dt>
+<dd>Apple virtualization framework
+
+https://developer.apple.com/documentation/virtualization</dd>
+<dt>
+3.
+</dt>
+<dd>LMHS SRE hypervisor
+
+https://www.lockheedmartin.com/en-us/products/Hardened-Security-for-Intel-Processors.html</dd>
+<dt>
+4.
+</dt>
+<dd>Google Compute Engine
+
+https://cloud.google.com/compute</dd>
+<dt>
+5.
+</dt>
+<dd>Podman
+
+https://podman.io</dd>
+<dt>
+6.
+</dt>
+<dd>Windows Subsystem for Linux
+
+https://docs.microsoft.com/en-us/windows/wsl/about</dd>
+<dt>
+7.
+</dt>
+<dd>proot
+
+https://proot-me.github.io/</dd>
+<dt>
+8.
+</dt>
+<dd>Pouch
+
+https://github.com/alibaba/pouch</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

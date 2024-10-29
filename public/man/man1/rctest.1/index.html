@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - rctest.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - rctest.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>rctest - RFCOMM testing</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>rctest</strong> &lt;/MODE/&gt; [/OPTIONS/] [/bdaddr/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>rctest(1)</strong> is used to test RFCOMM communications on the BlueZ stack</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+MODES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>listen and receive</dd>
+<dt>
+<strong>-w</strong>
+</dt>
+<dd>listen and send</dd>
+<dt>
+<strong>-d</strong>
+</dt>
+<dd>listen and dump incoming data</dd>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>connect and send</dd>
+<dt>
+<strong>-u</strong>
+</dt>
+<dd>connect and receive</dd>
+<dt>
+<strong>-n</strong>
+</dt>
+<dd>connect and be silent</dd>
+<dt>
+<strong>-c</strong>
+</dt>
+<dd>connect, disconnect, connect, …</dd>
+<dt>
+<strong>-m</strong>
+</dt>
+<dd>multiple connects</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+*-b*/ bytes/
+</dt>
+<dd>send/receive bytes</dd>
+<dt>
+*-i*/ device/
+</dt>
+<dd>select the specified device</dd>
+<dt>
+*-P*/ channel/
+</dt>
+<dd>select the specified channel</dd>
+<dt>
+*-U*/ uuid/
+</dt>
+<dd>select the specified uuid</dd>
+<dt>
+*-L*/ seconds/
+</dt>
+<dd>enable SO_LINGER options for seconds</dd>
+<dt>
+*-W*/ seconds/
+</dt>
+<dd>enable deferred setup for seconds</dd>
+<dt>
+*-B*/ filename/
+</dt>
+<dd>use data packets from filename</dd>
+<dt>
+*-N*/ num/
+</dt>
+<dd>send num frames</dd>
+<dt>
+*-C*/ num/
+</dt>
+<dd>send num frames before delay (default: 1)</dd>
+<dt>
+*-D*/ milliseconds/
+</dt>
+<dd>delay milliseconds after sending num frames
+(default: 0)</dd>
+<dt>
+<strong>-A</strong>
+</dt>
+<dd>request authentication</dd>
+<dt>
+<strong>-E</strong>
+</dt>
+<dd>request encryption</dd>
+<dt>
+<strong>-S</strong>
+</dt>
+<dd>secure connection</dd>
+<dt>
+<strong>-M</strong>
+</dt>
+<dd>become central</dd>
+<dt>
+<strong>-T</strong>
+</dt>
+<dd>enable timestamps</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+RESOURCES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Maxim Krasnyansky &lt;maxk@qualcomm.com&gt;, Marcel Holtmann
+&lt;marcel@holtmann.org&gt;, Filippo Giunchedi &lt;filippo@debian.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - flatpak-remote-ls.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - flatpak-remote-ls.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>flatpak-remote-ls - Show available runtimes and applications</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>flatpak remote-ls</strong> [OPTION…] [REMOTE]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Shows runtimes and applications that are available in the remote
+repository with the name REMOTE, or all remotes if one isnt specified.
+You can find all configured remote repositories with <strong>flatpak remotes</strong>.</p>
+<p>
+REMOTE can be a file:// URI pointing to a local repository instead of a
+remote name.</p>
+<p>
+Unless overridden with the <strong>–system</strong>, <strong>–user</strong>, or <strong>–installation</strong>
+options, this command uses either the default system-wide installation
+or the per-user one, depending on which has the specified REMOTE.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Show help options and exit.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–user</strong></p>
+<blockquote>
+<p>Use the per-user configuration.</p>
+</blockquote>
+<p>
+<strong>–system</strong></p>
+<blockquote>
+<p>Use the default system-wide configuration.</p>
+</blockquote>
+<p>
+<strong>–installation=NAME</strong></p>
+<blockquote>
+<p>Use a system-wide installation specified by NAME among those defined in
+<em>etc/flatpak/installations.d</em>. Using <strong>–installation=default</strong> is
+equivalent to using <strong>–system</strong>.</p>
+</blockquote>
+<p>
+<strong>–cached</strong></p>
+<blockquote>
+<p>Prefer to use locally cached information if possible, even though it may
+be out of date. This is faster, but risks returning stale information.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–show-details</strong></p>
+<blockquote>
+<p>Show arches, branches and commit ids, in addition to the names.
+Equivalent to <strong>–columns=all</strong>.</p>
+</blockquote>
+<p>
+<strong>–runtime</strong></p>
+<blockquote>
+<p>Show only runtimes, omit applications.</p>
+</blockquote>
+<p>
+<strong>–app</strong></p>
+<blockquote>
+<p>Show only applications, omit runtimes.</p>
+</blockquote>
+<p>
+<strong>–all</strong>, <strong>-a</strong></p>
+<blockquote>
+<p>Show everything. By default locale and debug extensions as well as
+secondary arches when the primary arch is available are hidden.</p>
+</blockquote>
+<p>
+<strong>–updates</strong></p>
+<blockquote>
+<p>Show only those which have updates available.</p>
+</blockquote>
+<p>
+<strong>–arch=ARCH</strong></p>
+<blockquote>
+<p>Show only those matching the specified architecture. By default, only
+supported architectures are shown. Use <strong>–arch=*</strong> to show all
+architectures. See <strong>flatpak –supported-arches</strong> for architectures
+supported by the host.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Print debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–ostree-verbose</strong></p>
+<blockquote>
+<p>Print OSTree debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–app-runtime=RUNTIME</strong></p>
+<blockquote>
+<p>List applications that use the given runtime</p>
+</blockquote>
+<p>
+<strong>–columns=FIELD,…</strong></p>
+<blockquote>
+<p>Specify what information to show about each ref. You can list multiple
+fields, or use this option multiple times.</p>
+<p>
+Append :s[tart], :m[iddle], :e[nd] or :f[ull] to column names to change
+ellipsization.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+FIELDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following fields are understood by the <strong>–columns</strong> option:</p>
+<p>
+name</p>
+<blockquote>
+<p>Show the name</p>
+</blockquote>
+<p>
+description</p>
+<blockquote>
+<p>Show the application description</p>
+</blockquote>
+<p>
+application</p>
+<blockquote>
+<p>Show the application or runtime ID</p>
+</blockquote>
+<p>
+arch</p>
+<blockquote>
+<p>Show the arch</p>
+</blockquote>
+<p>
+branch</p>
+<blockquote>
+<p>Show the branch</p>
+</blockquote>
+<p>
+version</p>
+<blockquote>
+<p>Show the version</p>
+</blockquote>
+<p>
+ref</p>
+<blockquote>
+<p>Show the ref</p>
+</blockquote>
+<p>
+origin</p>
+<blockquote>
+<p>Show the origin remote</p>
+</blockquote>
+<p>
+commit</p>
+<blockquote>
+<p>Show the active commit</p>
+</blockquote>
+<p>
+runtime</p>
+<blockquote>
+<p>Show the used runtime</p>
+</blockquote>
+<p>
+installed-size</p>
+<blockquote>
+<p>Show the installed size</p>
+</blockquote>
+<p>
+download-size</p>
+<blockquote>
+<p>Show the download size</p>
+</blockquote>
+<p>
+options</p>
+<blockquote>
+<p>Show options</p>
+</blockquote>
+<p>
+all</p>
+<blockquote>
+<p>Show all columns</p>
+</blockquote>
+<p>
+help</p>
+<blockquote>
+<p>Show the list of available columns</p>
+</blockquote>
+<p>
+Note that field names can be abbreviated to a unique prefix.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>$ flatpak –user remote-ls –app testrepo</strong></p>
+<blockquote>
+<pre class="example">
+Ref
+org.gnome.Builder
+org.freedesktop.glxgears
+</pre>
+</blockquote>
+<p>
+<strong>$ flatpak remote-ls
+<a href="///run/media/mwleeds/d4d37026-cde2-4e5e-8bcc-d23ebbf231f9/.ostree/repo">///run/media/mwleeds/d4d37026-cde2-4e5e-8bcc-d23ebbf231f9/.ostree/repo</a></strong></p>
+<blockquote>
+<pre class="example">
+Ref
+org.kde.Khangman
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*flatpak*(1), *flatpak-remotes*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

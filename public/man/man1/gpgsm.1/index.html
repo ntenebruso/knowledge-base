@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - gpgsm.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - gpgsm.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>gpgsm</strong> - CMS encryption and signing tool</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>gpgsm</strong> [*–homedir* <em>dir/] [*–options* /file/] [/options/] /command</em>
+[/args/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>gpgsm</strong> is a tool similar to <strong>gpg</strong> to provide digital encryption and
+signing services on X.509 certificates and the CMS protocol. It is
+mainly used as a backend for S/MIME mail processing. <strong>gpgsm</strong> includes a
+full featured certificate management and complies with all rules defined
+for the German Sphinx project.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Commands are not distinguished from options except for the fact that
+only one command is allowed.</p>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Commands not specific to the function
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<dl>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>Print the program version and licensing information.
+Note that you cannot abbreviate this command.</dd>
+<dt>
+<strong>–help, -h</strong>
+</dt>
+<dd>Print a usage message summarizing the most useful
+command-line options. Note that you cannot abbreviate this command.</dd>
+<dt>
+<strong>–warranty</strong>
+</dt>
+<dd>Print warranty information. Note that you cannot
+abbreviate this command.</dd>
+<dt>
+<strong>–dump-options</strong>
+</dt>
+<dd>Print a list of all available options and
+commands. Note that you cannot abbreviate this command.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Commands to select the type of operation
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<dl>
+<dt>
+<strong>–encrypt</strong>
+</dt>
+<dd>Perform an encryption. The keys the data is encrypted
+to must be set using the option <strong>–recipient</strong>.</dd>
+<dt>
+<strong>–decrypt</strong>
+</dt>
+<dd>Perform a decryption; the type of input is
+automatically determined. It may either be in binary form or PEM
+encoded; automatic determination of base-64 encoding is not done.</dd>
+<dt>
+<strong>–sign</strong>
+</dt>
+<dd>Create a digital signature. The key used is either the
+fist one found in the keybox or those set with the <strong>–local-user</strong>
+option.</dd>
+<dt>
+<strong>–verify</strong>
+</dt>
+<dd>Check a signature file for validity. Depending on the
+arguments a detached signature may also be checked.</dd>
+<dt>
+<strong>–server</strong>
+</dt>
+<dd>Run in server mode and wait for commands on the <strong>stdin</strong>.</dd>
+<dt>
+<strong>–call-dirmngr <em>command</em> [/args/]</strong>
+</dt>
+<dd>Behave as a Dirmngr client
+issuing the request <em>command</em> with the optional list of <em>args</em>. The
+output of the Dirmngr is printed stdout. Please note that file names
+given as arguments should have an absolute file name (i.e. commencing
+with <strong>/</strong>) because they are passed verbatim to the Dirmngr and the
+working directory of the Dirmngr might not be the same as the one of
+this client. Currently it is not possible to pass data via stdin to
+the Dirmngr. <em>command</em> should not contain spaces.
+
+This is command is required for certain maintaining tasks of the
+dirmngr where a dirmngr must be able to call back to <strong>gpgsm</strong>. See the
+Dirmngr manual for details.</dd>
+<dt>
+<strong>–call-protect-tool <em>arguments</em></strong>
+</dt>
+<dd>Certain maintenance operations
+are done by an external program call <strong>gpg-protect-tool</strong>; this is
+usually not installed in a directory listed in the PATH variable. This
+command provides a simple wrapper to access this tool. <em>arguments</em> are
+passed verbatim to this command; use ‘–help&#39; to get a list of
+supported operations.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+How to manage the certificates and keys
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<ul>
+<li><strong>–generate-key</strong><br>
+<strong>–gen-key</strong> :: This command allows the creation of a certificate
+signing request or a self-signed certificate. It is commonly used
+along with the <strong>–output</strong> option to save the created CSR or
+certificate into a file. If used with the <strong>–batch</strong> a parameter file
+is used to create the CSR or certificate and it is further possible to
+create non-self-signed certificates.</li>
+<li><strong>–list-keys</strong><br>
+<strong>-k</strong> :: List all available certificates stored in the local key
+database. Note that the displayed data might be reformatted for better
+human readability and illegal characters are replaced by safe
+substitutes.</li>
+<li><strong>–list-secret-keys</strong><br>
+<strong>-K</strong> :: List all available certificates for which a corresponding a
+secret key is available.</li>
+<li><strong>–list-external-keys <em>pattern</em></strong> :: List certificates matching
+<em>pattern</em> using an external server. This utilizes the <strong>dirmngr</strong>
+service.</li>
+<li><strong>–list-chain</strong> :: Same as <strong>–list-keys</strong> but also prints all keys
+making up the chain.</li>
+<li><strong>–dump-cert</strong><br>
+<strong>–dump-keys</strong> :: List all available certificates stored in the local
+key database using a format useful mainly for debugging.</li>
+<li><strong>–dump-chain</strong> :: Same as <strong>–dump-keys</strong> but also prints all keys
+making up the chain.</li>
+<li><strong>–dump-secret-keys</strong> :: List all available certificates for which a
+corresponding a secret key is available using a format useful mainly
+for debugging.</li>
+<li><strong>–dump-external-keys <em>pattern</em></strong> :: List certificates matching
+<em>pattern</em> using an external server. This utilizes the <strong>dirmngr</strong>
+service. It uses a format useful mainly for debugging.</li>
+<li><strong>–show-certs [/files/]</strong> :: This command takes certificate files as
+input and prints information about them in the same format as
+<strong>–dump-cert</strong> does. Each file may either contain a single binary
+certificate or several PEM encoded certificates. If no files are
+given, the input is taken from stdin.
+
+Please note that the listing format may be changed in future releases
+and that the option <strong>–with-colons</strong> has currently no effect.</li>
+<li><strong>–keydb-clear-some-cert-flags</strong> :: This is a debugging aid to reset
+certain flags in the key database which are used to cache certain
+certificate statuses. It is especially useful if a bad CRL or a weird
+running OCSP responder did accidentally revoke certificate. There is
+no security issue with this command because <strong>gpgsm</strong> always make sure
+that the validity of a certificate is checked right before it is used.</li>
+<li><strong>–delete-keys <em>pattern</em></strong> :: Delete the keys matching <em>pattern</em>. Note
+that there is no command to delete the secret part of the key
+directly. In case you need to do this, you should run the command
+<strong>gpgsm –dump-secret-keys KEYID</strong> before you delete the key, copy the
+string of hex-digits in the ``keygrip&#39;&#39; line and delete the file
+consisting of these hex-digits and the suffix <strong>.key</strong> from the
+‘/private-keys-v1.d/&#39; directory below our GnuPG home directory
+(usually ‘/~/.gnupg/&#39;).</li>
+<li><strong>–export [/pattern/]</strong> :: Export all certificates stored in the Keybox
+or those specified by the optional <em>pattern</em>. Those pattern consist of
+a list of user ids (see: [how-to-specify-a-user-id]). When used along
+with the <strong>–armor</strong> option a few informational lines are prepended
+before each block. There is one limitation: As there is no commonly
+agreed upon way to pack more than one certificate into an ASN.1
+structure, the binary export (i.e. without using <strong>armor</strong>) works only
+for the export of one certificate. Thus it is required to specify a
+<em>pattern</em> which yields exactly one certificate. Ephemeral certificate
+are only exported if all <em>pattern</em> are given as fingerprints or
+keygrips.</li>
+<li><strong>–export-secret-key-p12 <em>key-id</em></strong> :: Export the private key and the
+certificate identified by <em>key-id</em> using the PKCS#12 format. When used
+with the <strong>–armor</strong> option a few informational lines are prepended to
+the output. Note, that the PKCS#12 format is not very secure and
+proper transport security should be used to convey the exported key.
+(See: [option –p12-charset].)</li>
+<li><strong>–export-secret-key-p8 <em>key-id</em></strong><br>
+<strong>–export-secret-key-raw <em>key-id</em></strong> :: Export the private key of the
+certificate identified by <em>key-id</em> with any encryption stripped. The
+<strong>…-raw</strong> command exports in PKCS#1 format; the <strong>…-p8</strong> command
+exports in PKCS#8 format. When used with the <strong>–armor</strong> option a few
+informational lines are prepended to the output. These commands are
+useful to prepare a key for use on a TLS server.</li>
+<li><strong>–import [/files/]</strong> :: Import the certificates from the PEM or binary
+encoded files as well as from signed-only messages. This command may
+also be used to import a secret key from a PKCS#12 file.</li>
+<li><strong>–learn-card</strong> :: Read information about the private keys from the
+smartcard and import the certificates from there. This command
+utilizes the <strong>gpg-agent</strong> and in turn the <strong>scdaemon</strong>.</li>
+<li><strong>–change-passphrase <em>user_id</em></strong><br>
+<strong>–passwd <em>user_id</em></strong> :: Change the passphrase of the private key
+belonging to the certificate specified as <em>user_id</em>. Note, that
+changing the passphrase/PIN of a smartcard is not yet supported.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+OPTIONS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>GPGSM</strong> features a bunch of options to control the exact behaviour and
+to change the default configuration.</p>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+How to change the configuration
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>
+These options are used to change the configuration and are usually found
+in the option file.</p>
+<dl>
+<dt>
+<strong>–options <em>file</em></strong>
+</dt>
+<dd>Reads configuration from <em>file</em> instead of from
+the default per-user configuration file. The default configuration
+file is named ‘/gpgsm.conf/&#39; and expected in the ‘/.gnupg/&#39; directory
+directly below the home directory of the user.</dd>
+<dt>
+<strong>–homedir <em>dir</em></strong>
+</dt>
+<dd>Set the name of the home directory to <em>dir</em>. If
+this option is not used, the home directory defaults to ‘/~/.gnupg/&#39;.
+It is only recognized when given on the command line. It also
+overrides any home directory stated through the environment variable
+‘/GNUPGHOME/&#39; or (on Windows systems) by means of the Registry entry
+<em>HKCU§oftware\GNU\GnuPG:HomeDir</em>.
+
+On Windows systems it is possible to install GnuPG as a portable
+application. In this case only this command line option is considered,
+all other ways to set a home directory are ignored.</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>–verbose</strong>
+</dt>
+<dd>Outputs additional information while running.
+You can increase the verbosity by giving several verbose commands to
+<strong>gpgsm</strong>, such as ‘-vv&#39;.</dd>
+</dl>
+</dd>
+<dt>
+<strong>–keyserver <em>string</em></strong>
+</dt>
+<dd>This is a deprecated option. It was used to
+add an LDAP server to use for X.509 certificate and CRL lookup. The
+alias <strong>–ldapserver</strong> existed from version 2.2.28 to 2.2.33 and 2.3.2
+to 2.3.4 but is now entirely ignored.
+
+LDAP servers must be given in the configuration for <strong>dirmngr</strong>.</dd>
+<dt>
+<strong>–policy-file <em>filename</em></strong>
+</dt>
+<dd>Change the default name of the policy
+file to <em>filename</em>. The default name is ‘/policies.txt/&#39;.</dd>
+<dt>
+<strong>–agent-program <em>file</em></strong>
+</dt>
+<dd>Specify an agent program to be used for
+secret key operations. The default value is determined by running the
+command <strong>gpgconf</strong>. Note that the pipe symbol (<strong>|</strong>) is used for a
+regression test suite hack and may thus not be used in the file name.</dd>
+<dt>
+<strong>–dirmngr-program <em>file</em></strong>
+</dt>
+<dd>Specify a dirmngr program to be used for
+CRL checks. The default value is
+‘//nix/store/3740w49c73r712d94hl2wx7q3a39b3b0-gnupg-2.4.5/bin/dirmngr/&#39;.</dd>
+<dt>
+<strong>–prefer-system-dirmngr</strong>
+</dt>
+<dd>This option is obsolete and ignored.</dd>
+<dt>
+<strong>–disable-dirmngr</strong>
+</dt>
+<dd>Entirely disable the use of the Dirmngr.</dd>
+<dt>
+<strong>–no-autostart</strong>
+</dt>
+<dd>Do not start the gpg-agent or the dirmngr if it
+has not yet been started and its service is required. This option is
+mostly useful on machines where the connection to gpg-agent has been
+redirected to another machines. If dirmngr is required on the remote
+machine, it may be started manually using <strong>gpgconf –launch dirmngr</strong>.</dd>
+<dt>
+<strong>–no-secmem-warning</strong>
+</dt>
+<dd>Do not print a warning when the so called
+&#34;secure memory&#34; cannot be used.</dd>
+<dt>
+<strong>–log-file <em>file</em></strong>
+</dt>
+<dd>When running in server mode, append all logging
+output to <em>file</em>. Use ‘/socket:///&#39; to log to socket.</dd>
+<dt>
+<strong>–log-time</strong>
+</dt>
+<dd>Prefix all log output with a timestamp even if no log
+file is used.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Certificate related options
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<ul>
+<li><strong>–enable-policy-checks</strong><br>
+<strong>–disable-policy-checks</strong> :: By default policy checks are enabled.
+These options may be used to change it.</li>
+<li><strong>–enable-crl-checks</strong><br>
+<strong>–disable-crl-checks</strong> :: By default the CRL checks are enabled and
+the DirMngr is used to check for revoked certificates. The disable
+option is most useful with an off-line network connection to suppress
+this check and also to avoid that new certificates introduce a web bug
+by including a certificate specific CRL DP. The disable option also
+disables an issuer certificate lookup via the authorityInfoAccess
+property of the certificate; the <strong>–enable-issuer-key-retrieve</strong> can be
+used to make use of that property anyway.</li>
+<li><strong>–enable-trusted-cert-crl-check</strong><br>
+<strong>–disable-trusted-cert-crl-check</strong> :: By default the CRL for trusted
+root certificates are checked like for any other certificates. This
+allows a CA to revoke its own certificates voluntary without the need
+of putting all ever issued certificates into a CRL. The disable option
+may be used to switch this extra check off. Due to the caching done by
+the Dirmngr, there will not be any noticeable performance gain. Note,
+that this also disables possible OCSP checks for trusted root
+certificates. A more specific way of disabling this check is by adding
+the ``relax&#39;&#39; keyword to the root CA line of the ‘/trustlist.txt/&#39;</li>
+<li><strong>–force-crl-refresh</strong> :: Tell the dirmngr to reload the CRL for each
+request. For better performance, the dirmngr will actually optimize
+this by suppressing the loading for short time intervals (e.g. 30
+minutes). This option is useful to make sure that a fresh CRL is
+available for certificates hold in the keybox. The suggested way of
+doing this is by using it along with the option <strong>–with-validation</strong>
+for a key listing command. This option should not be used in a
+configuration file.</li>
+<li><strong>–enable-issuer-based-crl-check</strong> :: Run a CRL check even for
+certificates which do not have any CRL distribution point. This
+requires that a suitable LDAP server has been configured in Dirmngr
+and that the CRL can be found using the issuer. This option reverts to
+what GnuPG did up to version 2.2.20. This option is in general not
+useful.</li>
+<li><strong>–enable-ocsp</strong><br>
+<strong>–disable-ocsp</strong> :: By default OCSP checks are disabled. The enable
+option may be used to enable OCSP checks via Dirmngr. If CRL checks
+are also enabled, CRLs will be used as a fallback if for some reason
+an OCSP request will not succeed. Note, that you have to allow OCSP
+requests in Dirmngr&#39;s configuration too (option <strong>–allow-ocsp</strong>) and
+configure Dirmngr properly. If you do not do so you will get the error
+code ‘Not supported&#39;.</li>
+<li><strong>–auto-issuer-key-retrieve</strong> :: If a required certificate is missing
+while validating the chain of certificates, try to load that
+certificate from an external location. This usually means that Dirmngr
+is employed to search for the certificate. Note that this option makes
+a &#34;web bug&#34; like behavior possible. LDAP server operators can see
+which keys you request, so by sending you a message signed by a brand
+new key (which you naturally will not have on your local keybox), the
+operator can tell both your IP address and the time when you verified
+the signature. Note that if CRL checking is not disabled issuer
+certificates are retrieved in any case using the caIssuers
+authorityInfoAccess method.</li>
+<li><strong>–validation-model <em>name</em></strong> :: This option changes the default
+validation model. The only possible values are &#34;shell&#34; (which is the
+default), &#34;chain&#34; which forces the use of the chain model and &#34;steed&#34;
+for a new simplified model. The chain model is also used if an option
+in the ‘/trustlist.txt/&#39; or an attribute of the certificate requests
+it. However the standard model (shell) is in that case always tried
+first.</li>
+<li><strong>–ignore-cert-extension <em>oid</em></strong> :: Add <em>oid</em> to the list of ignored
+certificate extensions. The <em>oid</em> is expected to be in dotted decimal
+form, like <strong>2.5.29.3</strong>. This option may be used more than once.
+Critical flagged certificate extensions matching one of the OIDs in
+the list are treated as if they are actually handled and thus the
+certificate will not be rejected due to an unknown critical extension.
+Use this option with care because extensions are usually flagged as
+critical for a reason.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Input and Output
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<ul>
+<li><strong>–armor</strong><br>
+<strong>-a</strong> :: Create PEM encoded output. Default is binary output.</li>
+<li><strong>–base64</strong> :: Create Base-64 encoded output; i.e. PEM without the
+header lines.</li>
+<li><strong>–assume-armor</strong> :: Assume the input data is PEM encoded. Default is
+to autodetect the encoding but this is may fail.</li>
+<li><strong>–assume-base64</strong> :: Assume the input data is plain base-64 encoded.</li>
+<li><strong>–assume-binary</strong> :: Assume the input data is binary encoded.</li>
+<li><strong>–input-size-hint <em>n</em></strong> :: This option can be used to tell GPGSM the
+size of the input data in bytes. <em>n</em> must be a positive base-10
+number. It is used by the <strong>–status-fd</strong> line ``PROGRESS&#39;&#39; to provide a
+value for ``total&#39;&#39; if that is not available by other means.</li>
+<li><strong>–p12-charset <em>name</em></strong> :: <strong>gpgsm</strong> uses the UTF-8 encoding when
+encoding passphrases for PKCS#12 files. This option may be used to
+force the passphrase to be encoded in the specified encoding <em>name</em>.
+This is useful if the application used to import the key uses a
+different encoding and thus will not be able to import a file
+generated by <strong>gpgsm</strong>. Commonly used values for <em>name</em> are <strong>Latin1</strong> and
+<strong>CP850</strong>. Note that <strong>gpgsm</strong> itself automagically imports any file with
+a passphrase encoded to the most commonly used encodings.</li>
+<li><strong>–default-key <em>user_id</em></strong> :: Use <em>user_id</em> as the standard key for
+signing. This key is used if no other key has been defined as a
+signing key. Note, that the first <strong>–local-users</strong> option also sets
+this key if it has not yet been set; however <strong>–default-key</strong> always
+overrides this.</li>
+<li><strong>–local-user <em>user_id</em></strong> :: - <strong>-u <em>user_id</em></strong> :: Set the user(s) to be
+  used for signing. The default is the first secret key found in the
+  database.</li>
+<li><strong>–recipient <em>name</em></strong><br>
+<strong>-r</strong> :: Encrypt to the user id <em>name</em>. There are several ways a user
+id may be given (see: [how-to-specify-a-user-id]).</li>
+<li><strong>–output <em>file</em></strong><br>
+<strong>-o <em>file</em></strong> :: Write output to <em>file</em>. The default is to write it to
+stdout.</li>
+<li><strong>–with-key-data</strong> :: Displays extra information with the <strong>–list-keys</strong>
+commands. Especially a line tagged <strong>grp</strong> is printed which tells you
+the keygrip of a key. This string is for example used as the file name
+of the secret key. Implies <strong>–with-colons</strong>.</li>
+<li><strong>–with-validation</strong> :: When doing a key listing, do a full validation
+check for each key and print the result. This is usually a slow
+operation because it requires a CRL lookup and other operations.
+
+When used along with <strong>–import</strong>, a validation of the certificate to
+import is done and only imported if it succeeds the test. Note that
+this does not affect an already available certificate in the DB. This
+option is therefore useful to simply verify a certificate.</li>
+<li><strong>–with-md5-fingerprint</strong> :: For standard key listings, also print the
+MD5 fingerprint of the certificate.</li>
+<li><strong>–with-keygrip</strong> :: Include the keygrip in standard key listings. Note
+that the keygrip is always listed in <strong>–with-colons</strong> mode.</li>
+<li><strong>–with-secret</strong> :: Include info about the presence of a secret key in
+public key listings done with <strong>–with-colons</strong>.</li>
+<li><strong>–no-pretty-dn</strong> :: By default gpgsm prints distinguished names (DNs)
+like the Issuer or Subject in a more readable format (e.g. using a
+well defined order of the parts). However, this format can&#39;t be used
+as input strings. This option reverts printing to standard RFC-2253
+format and thus avoids the need to use –dump-cert or –with-colons to
+get the ``real&#39;&#39; name.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+How to change how the CMS is created
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<dl>
+<dt>
+<strong>–include-certs <em>n</em></strong>
+</dt>
+<dd>Using <em>n</em> of -2 includes all certificate
+except for the root cert, -1 includes all certs, 0 does not include
+any certs, 1 includes only the signers cert and all other positive
+values include up to <em>n</em> certificates starting with the signer cert.
+The default is -2.</dd>
+<dt>
+<strong>–cipher-algo <em>oid</em></strong>
+</dt>
+<dd>Use the cipher algorithm with the ASN.1
+object identifier <em>oid</em> for encryption. For convenience the strings
+<strong>3DES</strong>, <strong>AES</strong> and <strong>AES256</strong> may be used instead of their OIDs. The
+default is <strong>AES</strong> (2.16.840.1.101.3.4.1.2).</dd>
+<dt>
+<strong>–digest-algo <strong>name</strong></strong>
+</dt>
+<dd>Use <strong>name</strong> as the message digest algorithm.
+Usually this algorithm is deduced from the respective signing
+certificate. This option forces the use of the given algorithm and may
+lead to severe interoperability problems.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+Doing things one usually do not want to do
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<dl>
+<dt>
+<strong>–chuid <em>uid</em></strong>
+</dt>
+<dd>Change the current user to <em>uid</em> which may either
+be a number or a name. This can be used from the root account to run
+gpgsm for another user. If <em>uid</em> is not the current UID a standard
+PATH is set and the envvar GNUPGHOME is unset. To override the latter
+the option <strong>–homedir</strong> can be used. This option has only an effect
+when used on the command line. This option has currently no effect at
+all on Windows.</dd>
+<dt>
+<strong>–extra-digest-algo <em>name</em></strong>
+</dt>
+<dd>Sometimes signatures are broken in
+that they announce a different digest algorithm than actually used.
+<strong>gpgsm</strong> uses a one-pass data processing model and thus needs to rely
+on the announced digest algorithms to properly hash the data. As a
+workaround this option may be used to tell <strong>gpgsm</strong> to also hash the
+data using the algorithm <em>name</em>; this slows processing down a little
+bit but allows verification of such broken signatures. If <strong>gpgsm</strong>
+prints an error like ``digest algo 8 has not been enabled&#39;&#39; you may
+want to try this option, with ‘SHA256&#39; for <em>name</em>.</dd>
+<dt>
+<strong>–compliance <em>string</em></strong>
+</dt>
+<dd>Set the compliance mode. Valid values are
+shown when using &#34;help&#34; for <em>string</em>.</dd>
+<dt>
+<strong>–min-rsa-length <em>n</em></strong>
+</dt>
+<dd>This option adjusts the compliance mode
+&#34;de-vs&#34; for stricter key size requirements. For example, a value of
+3000 turns rsa2048 and dsa2048 keys into non-VS-NfD compliant keys.</dd>
+<dt>
+<strong>–require-compliance</strong>
+</dt>
+<dd>To check that data has been encrypted
+according to the rules of the current compliance mode, a gpgsm user
+needs to evaluate the status lines. This is allows frontends to handle
+compliance check in a more flexible way. However, for scripted use the
+required evaluation of the status-line requires quite some effort;
+this option can be used instead to make sure that the gpgsm process
+exits with a failure if the compliance rules are not fulfilled. Note
+that this option has currently an effect only in &#34;de-vs&#34; mode.</dd>
+<dt>
+<strong>–always-trust</strong>
+</dt>
+<dd>Force encryption to the specified certificates
+without any validation of the certificate chain. The only requirement
+is that the certificate is capable of encryption. Note that this
+option is ineffective if <strong>–require-compliance</strong> is used.</dd>
+<dt>
+<strong>–ignore-cert-with-oid <em>oid</em></strong>
+</dt>
+<dd>Add <em>oid</em> to the list of OIDs to be
+checked while reading certificates from smartcards. The <em>oid</em> is
+expected to be in dotted decimal form, like <strong>2.5.29.3</strong>. This option
+may be used more than once. As of now certificates with an extended
+key usage matching one of those OIDs are ignored during a
+<strong>–learn-card</strong> operation and not imported. This option can help to
+keep the local key database clear of unneeded certificates stored on
+smartcards.</dd>
+<dt>
+<strong>–faked-system-time <em>epoch</em></strong>
+</dt>
+<dd>This option is only useful for
+testing; it sets the system time back or forth to <em>epoch</em> which is the
+number of seconds elapsed since the year 1970. Alternatively <em>epoch</em>
+may be given as a full ISO time string (e.g. &#34;20070924T154812&#34;).</dd>
+<dt>
+<strong>–with-ephemeral-keys</strong>
+</dt>
+<dd>Include ephemeral flagged keys in the
+output of key listings. Note that they are included anyway if the key
+specification for a listing is given as fingerprint or keygrip.</dd>
+<dt>
+<strong>–compatibility-flags <em>flags</em></strong>
+</dt>
+<dd>Set compatibility flags to work
+around problems due to non-compliant certificates or data. The <em>flags</em>
+are given as a comma separated list of flag names and are OR-ed
+together. The special flag &#34;none&#34; clears the list and allows one to
+start over with an empty list. To get a list of available flags the
+sole word &#34;help&#34; can be used.</dd>
+<dt>
+<strong>–debug-level <em>level</em></strong>
+</dt>
+<dd>Select the debug level for investigating
+problems. <em>level</em> may be a numeric value or by a keyword:</dd>
+</dl>
+<blockquote>
+<dl>
+<dt>
+<strong>none</strong>
+</dt>
+<dd>No debugging at all. A value of less than 1 may be used
+instead of the keyword.</dd>
+<dt>
+<strong>basic</strong>
+</dt>
+<dd>Some basic debug messages. A value between 1 and 2 may be
+used instead of the keyword.</dd>
+<dt>
+<strong>advanced</strong>
+</dt>
+<dd>More verbose debug messages. A value between 3 and 5 may
+be used instead of the keyword.</dd>
+<dt>
+<strong>expert</strong>
+</dt>
+<dd>Even more detailed messages. A value between 6 and 8 may
+be used instead of the keyword.</dd>
+<dt>
+<strong>guru</strong>
+</dt>
+<dd>All of the debug messages you can get. A value greater than
+8 may be used instead of the keyword. The creation of hash tracing
+files is only enabled if the keyword is used.</dd>
+</dl>
+</blockquote>
+<p>
+How these messages are mapped to the actual debugging flags is not
+specified and may change with newer releases of this program. They are
+however carefully selected to best aid in debugging.</p>
+<dl>
+<dt>
+<strong>–debug <em>flags</em></strong>
+</dt>
+<dd>Set debug flags. All flags are or-ed and <em>flags</em>
+may be given in C syntax (e.g. 0x0042) or as a comma separated list of
+flag names. To get a list of all supported flags the single word
+&#34;help&#34; can be used. This option is only useful for debugging and the
+behavior may change at any time without notice.
+
+Note, that all flags set using this option may get overridden by
+<strong>–debug-level</strong>.</dd>
+<dt>
+<strong>–debug-all</strong>
+</dt>
+<dd>Same as <strong>–debug=0xffffffff</strong></dd>
+<dt>
+<strong>–debug-allow-core-dump</strong>
+</dt>
+<dd>Usually <strong>gpgsm</strong> tries to avoid dumping
+core by well written code and by disabling core dumps for security
+reasons. However, bugs are pretty durable beasts and to squash them it
+is sometimes useful to have a core dump. This option enables core
+dumps unless the Bad Thing happened before the option parsing.</dd>
+<dt>
+<strong>–debug-no-chain-validation</strong>
+</dt>
+<dd>This is actually not a debugging
+option but only useful as such. It lets <strong>gpgsm</strong> bypass all certificate
+chain validation checks.</dd>
+<dt>
+<strong>–debug-ignore-expiration</strong>
+</dt>
+<dd>This is actually not a debugging option
+but only useful as such. It lets <strong>gpgsm</strong> ignore all notAfter dates,
+this is used by the regression tests.</dd>
+<dt>
+<strong>–passphrase-fd <strong>n</strong></strong>
+</dt>
+<dd>Read the passphrase from file descriptor <strong>n</strong>.
+Only the first line will be read from file descriptor <strong>n</strong>. If you use
+0 for <strong>n</strong>, the passphrase will be read from STDIN. This can only be
+used if only one passphrase is supplied.
+
+Note that this passphrase is only used if the option <strong>–batch</strong> has
+also been given.</dd>
+<dt>
+<strong>–pinentry-mode <strong>mode</strong></strong>
+</dt>
+<dd>
+<p>Set the pinentry mode to <strong>mode</strong>. Allowed
+values for <strong>mode</strong> are:</p>
+<dl>
+<dt>
+<strong>default</strong>
+</dt>
+<dd>Use the default of the agent, which is <strong>ask</strong>.</dd>
+<dt>
+<strong>ask</strong>
+</dt>
+<dd>Force the use of the Pinentry.</dd>
+<dt>
+<strong>cancel</strong>
+</dt>
+<dd>Emulate use of Pinentry&#39;s cancel button.</dd>
+<dt>
+<strong>error</strong>
+</dt>
+<dd>Return a Pinentry error (``No Pinentry&#39;&#39;).</dd>
+<dt>
+<strong>loopback</strong>
+</dt>
+<dd>Redirect Pinentry queries to the caller. Note that in
+contrast to Pinentry the user is not prompted again if he enters a
+bad password.</dd>
+</dl>
+</dd>
+<dt>
+<strong>–request-origin <em>origin</em></strong>
+</dt>
+<dd>Tell gpgsm to assume that the operation
+ultimately originated at <em>origin</em>. Depending on the origin certain
+restrictions are applied and the Pinentry may include an extra note on
+the origin. Supported values for <em>origin</em> are: <strong>local</strong> which is the
+default, <strong>remote</strong> to indicate a remote origin or <strong>browser</strong> for an
+operation requested by a web browser.</dd>
+<dt>
+<strong>–no-common-certs-import</strong>
+</dt>
+<dd>Suppress the import of common
+certificates on keybox creation.</dd>
+</dl>
+<p>All the long options may also be given in the configuration file after
+stripping off the two leading dashes.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+HOW TO SPECIFY A USER ID
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>There are different ways to specify a user ID to GnuPG. Some of them are
+only valid for <strong>gpg</strong> others are only good for <strong>gpgsm</strong>. Here is the
+entire list of ways to specify a key:</p>
+<dl>
+<dt>
+<strong>By key Id.</strong>
+</dt>
+<dd>This format is deduced from the length of the string
+and its content or <strong>0x</strong> prefix. The key Id of an X.509 certificate are
+the low 64 bits of its SHA-1 fingerprint. The use of key Ids is just a
+shortcut, for all automated processing the fingerprint should be used.
+
+When using <strong>gpg</strong> an exclamation mark (!) may be appended to force
+using the specified primary or secondary key and not to try and
+calculate which primary or secondary key to use.
+
+The last four lines of the example give the key ID in their long form
+as internally used by the OpenPGP protocol. You can see the long key
+ID using the option <strong>–with-colons</strong>.</dd>
+</dl>
+<blockquote>
+<pre class="example">
+234567C4
+0F34E556E
+01347A56A
+0xAB123456
+
+234AABBCC34567C4
+0F323456784E56EAB
+01AB3FED1347A5612
+0x234AABBCC34567C4
+</pre>
+</blockquote>
+<dl>
+<dt>
+<strong>By fingerprint.</strong>
+</dt>
+<dd>This format is deduced from the length of the
+string and its content or the <strong>0x</strong> prefix. Note, that only the 20 byte
+version fingerprint is available with <strong>gpgsm</strong> (i.e. the SHA-1 hash of
+the certificate).
+
+When using <strong>gpg</strong> an exclamation mark (!) may be appended to force
+using the specified primary or secondary key and not to try and
+calculate which primary or secondary key to use.
+
+The best way to specify a key Id is by using the fingerprint. This
+avoids any ambiguities in case that there are duplicated key IDs.</dd>
+</dl>
+<blockquote>
+<pre class="example">
+1234343434343434C434343434343434
+123434343434343C3434343434343734349A3434
+0E12343434343434343434EAB3484343434343434
+0xE12343434343434343434EAB3484343434343434
+</pre>
+</blockquote>
+<p>
+<strong>gpgsm</strong> also accepts colons between each pair of hexadecimal digits
+because this is the de-facto standard on how to present X.509
+fingerprints. <strong>gpg</strong> also allows the use of the space separated SHA-1
+fingerprint as printed by the key listing commands.</p>
+<dl>
+<dt>
+<strong>By exact match on OpenPGP user ID.</strong>
+</dt>
+<dd>This is denoted by a leading
+equal sign. It does not make sense for X.509 certificates.</dd>
+</dl>
+<blockquote>
+<pre class="example">
+=Heinrich Heine &lt;heinrichh@uni-duesseldorf.de&gt;
+</pre>
+</blockquote>
+<dl>
+<dt>
+<strong>By exact match on an email address.</strong>
+</dt>
+<dd>This is indicated by
+enclosing the email address in the usual way with left and right
+angles.</dd>
+</dl>
+<blockquote>
+<pre class="example">
+&lt;heinrichh@uni-duesseldorf.de&gt;
+</pre>
+</blockquote>
+<dl>
+<dt>
+<strong>By partial match on an email address.</strong>
+</dt>
+<dd>This is indicated by
+prefixing the search string with an <strong>@</strong>. This uses a substring search
+but considers only the mail address (i.e. inside the angle brackets).</dd>
+</dl>
+<blockquote>
+<pre class="example">
+@heinrichh
+</pre>
+</blockquote>
+<dl>
+<dt>
+<strong>By exact match on the subject&#39;s DN.</strong>
+</dt>
+<dd>This is indicated by a
+leading slash, directly followed by the RFC-2253 encoded DN of the
+subject. Note that you can&#39;t use the string printed by <strong>gpgsm
+–list-keys</strong> because that one has been reordered and modified for
+better readability; use <strong>–with-colons</strong> to print the raw (but standard
+escaped) RFC-2253 string.</dd>
+</dl>
+<blockquote>
+<pre class="example">
+/CN=Heinrich Heine,O=Poets,L=Paris,C=FR
+</pre>
+</blockquote>
+<dl>
+<dt>
+<strong>By exact match on the issuer&#39;s DN.</strong>
+</dt>
+<dd>This is indicated by a leading
+hash mark, directly followed by a slash and then directly followed by
+the RFC-2253 encoded DN of the issuer. This should return the Root
+cert of the issuer. See note above.</dd>
+</dl>
+<blockquote>
+<pre class="example">
+#/CN=Root Cert,O=Poets,L=Paris,C=FR
+</pre>
+</blockquote>
+<dl>
+<dt>
+<strong>By exact match on serial number and issuer&#39;s DN.</strong>
+</dt>
+<dd>This is
+indicated by a hash mark, followed by the hexadecimal representation
+of the serial number, then followed by a slash and the RFC-2253
+encoded DN of the issuer. See note above.</dd>
+</dl>
+<blockquote>
+<pre class="example">
+#4F03/CN=Root Cert,O=Poets,L=Paris,C=FR
+</pre>
+</blockquote>
+<dl>
+<dt>
+<strong>By keygrip.</strong>
+</dt>
+<dd>This is indicated by an ampersand followed by the 40
+hex digits of a keygrip. <strong>gpgsm</strong> prints the keygrip when using the
+command <strong>–dump-cert</strong>.</dd>
+</dl>
+<blockquote>
+<pre class="example">
+&amp;D75F22C3F86E355877348498CDC92BD21010A480
+</pre>
+</blockquote>
+<dl>
+<dt>
+<strong>By substring match.</strong>
+</dt>
+<dd>This is the default mode but applications may
+want to explicitly indicate this by putting the asterisk in front.
+Match is not case sensitive.</dd>
+</dl>
+<blockquote>
+<pre class="example">
+Heine
+*Heine
+</pre>
+</blockquote>
+<dl>
+<dt>
+<strong>. and + prefixes</strong>
+</dt>
+<dd>These prefixes are reserved for looking up mails
+anchored at the end and for a word search mode. They are not yet
+implemented and using them is undefined.</dd>
+</dl>
+<p>Please note that we have reused the hash mark identifier which was used
+in old GnuPG versions to indicate the so called local-id. It is not
+anymore used and there should be no conflict when used with X.509 stuff.</p>
+<p>
+Using the RFC-2253 format of DNs has the drawback that it is not
+possible to map them back to the original encoding, however we don&#39;t
+have to do this because our key database stores this encoding as meta
+data.</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<blockquote>
+<pre class="example">
+$ gpgsm -er goo@bar.net &lt;plaintext &gt;ciphertext
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+FILES
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>There are a few configuration files to control certain aspects of
+<strong>gpgsm</strong>&#39;s operation. Unless noted, they are expected in the current home
+directory (see: [option –homedir]).</p>
+<dl>
+<dt>
+<strong>gpgsm.conf</strong>
+</dt>
+<dd>This is the standard configuration file read by
+<strong>gpgsm</strong> on startup. It may contain any valid long option; the leading
+two dashes may not be entered and the option may not be abbreviated.
+This default name may be changed on the command line (see:
+[gpgsm-option –options]). You should backup this file.</dd>
+<dt>
+<strong>common.conf</strong>
+</dt>
+<dd>This is an optional configuration file read by
+<strong>gpgsm</strong> on startup. It may contain options pertaining to all
+components of GnuPG. Its current main use is for the &#34;use-keyboxd&#34;
+option.</dd>
+<dt>
+<strong>policies.txt</strong>
+</dt>
+<dd>This is a list of allowed CA policies. This file
+should list the object identifiers of the policies line by line. Empty
+lines and lines starting with a hash mark are ignored. Policies
+missing in this file and not marked as critical in the certificate
+will print only a warning; certificates with policies marked as
+critical and not listed in this file will fail the signature
+verification. You should backup this file.
+
+For example, to allow only the policy 2.289.9.9, the file should look
+like this:</dd>
+</dl>
+<blockquote>
+<blockquote>
+<pre class="example">
+# Allowed policies
+2.289.9.9
+</pre>
+</blockquote>
+</blockquote>
+<dl>
+<dt>
+<strong>qualified.txt</strong>
+</dt>
+<dd>This is the list of root certificates used for
+qualified certificates. They are defined as certificates capable of
+creating legally binding signatures in the same way as handwritten
+signatures are. Comments start with a hash mark and empty lines are
+ignored. Lines do have a length limit but this is not a serious
+limitation as the format of the entries is fixed and checked by
+<strong>gpgsm</strong>: A non-comment line starts with optional whitespace, followed
+by exactly 40 hex characters, white space and a lowercased 2 letter
+country code. Additional data delimited with by a white space is
+current ignored but might late be used for other purposes.
+
+Note that even if a certificate is listed in this file, this does not
+mean that the certificate is trusted; in general the certificates
+listed in this file need to be listed also in ‘/trustlist.txt/&#39;. This
+is a global file an installed in the sysconf directory (e.g.
+‘//etc/gnupg/qualified.txt/&#39;).
+
+Every time <strong>gpgsm</strong> uses a certificate for signing or verification this
+file will be consulted to check whether the certificate under question
+has ultimately been issued by one of these CAs. If this is the case
+the user will be informed that the verified signature represents a
+legally binding (``qualified&#39;&#39;) signature. When creating a signature
+using such a certificate an extra prompt will be issued to let the
+user confirm that such a legally binding signature shall really be
+created.
+
+Because this software has not yet been approved for use with such
+certificates, appropriate notices will be shown to indicate this fact.</dd>
+<dt>
+<strong>help.txt</strong>
+</dt>
+<dd>This is plain text file with a few help entries used
+with <strong>pinentry</strong> as well as a large list of help items for <strong>gpg</strong> and
+<strong>gpgsm</strong>. The standard file has English help texts; to install
+localized versions use filenames like ‘/help.LL.txt/&#39; with LL denoting
+the locale. GnuPG comes with a set of predefined help files in the
+data directory (e.g.
+‘//nix/store/3740w49c73r712d94hl2wx7q3a39b3b0-gnupg-2.4.5/share/gnupg/gnupg/help.de.txt/&#39;)
+and allows overriding of any help item by help files stored in the
+system configuration directory (e.g. ‘//etc/gnupg/help.de.txt/&#39;). For
+a reference of the help file&#39;s syntax, please see the installed
+‘/help.txt/&#39; file.</dd>
+<dt>
+<strong>com-certs.pem</strong>
+</dt>
+<dd>This file is a collection of common certificates
+used to populated a newly created ‘/pubring.kbx/&#39;. An administrator
+may replace this file with a custom one. The format is a concatenation
+of PEM encoded X.509 certificates. This global file is installed in
+the data directory (e.g.
+‘//nix/store/3740w49c73r712d94hl2wx7q3a39b3b0-gnupg-2.4.5/share/gnupg/com-certs.pem/&#39;).</dd>
+</dl>
+<p>Note that on larger installations, it is useful to put predefined files
+into the directory ‘//etc/skel/.gnupg//&#39; so that newly created users
+start up with a working configuration. For existing users a small helper
+script is provided to create these files (see: [addgnupghome]).</p>
+<p>
+For internal purposes <strong>gpgsm</strong> creates and maintains a few other files;
+they all live in the current home directory (see: [option –homedir]).
+Only <strong>gpgsm</strong> may modify these files.</p>
+<dl>
+<dt>
+<strong>pubring.kbx</strong>
+</dt>
+<dd>This a database file storing the certificates as well
+as meta information. For debugging purposes the tool <strong>kbxutil</strong> may be
+used to show the internal structure of this file. You should backup
+this file.</dd>
+<dt>
+<strong>random_seed</strong>
+</dt>
+<dd>This content of this file is used to maintain the
+internal state of the random number generator across invocations. The
+same file is used by other programs of this software too.</dd>
+<dt>
+<strong>S.gpg-agent</strong>
+</dt>
+<dd>If this file exists <strong>gpgsm</strong> will first try to connect
+to this socket for accessing <strong>gpg-agent</strong> before starting a new
+<strong>gpg-agent</strong> instance. Under Windows this socket (which in reality be a
+plain file describing a regular TCP listening port) is the standard
+way of connecting the <strong>gpg-agent</strong>.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
+<h2 id="headline-17">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-17" class="outline-text-2">
+<p>*gpg*(1), *gpg-agent*(1)</p>
+<p>
+The full documentation for this tool is maintained as a Texinfo manual.
+If GnuPG and the info program are properly installed at your site, the
+command</p>
+<blockquote>
+<pre class="example">
+info gnupg
+</pre>
+</blockquote>
+<p>
+should give you access to the complete manual including a menu structure
+and an index.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - bashbug.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - bashbug.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>bashbug - report a bug in bash</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>bashbug</strong> [/–version/] [/–help/] [/email-address/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>bashbug</strong> is a shell script to help the user compose and mail bug
+reports concerning bash in a standard format. <strong>bashbug</strong> invokes the
+editor specified by the environment variable</p>
+<p>
+<strong>EDITOR</strong> on a temporary copy of the bug report format outline. The user
+must fill in the appropriate fields and exit the editor. <strong>bashbug</strong> then
+mails the completed report to <em>bug-bash@gnu.org</em>, or <em>email-address</em>. If
+the report cannot be mailed, it is saved in the file <em>dead.bashbug</em> in
+the invoking user&#39;s home directory.</p>
+<p>
+The bug report format outline consists of several sections. The first
+section provides information about the machine, operating system, the
+bash version, and the compilation environment. The second section should
+be filled in with a description of the bug. The third section should be
+a description of how to reproduce the bug. The optional fourth section
+is for a proposed fix. Fixes are encouraged.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>bashbug</strong> will utilize the following environment variables if they
+exist:</p>
+<dl>
+<dt>
+<strong>EDITOR</strong>
+</dt>
+<dd>Specifies the preferred editor. If</dd>
+</dl>
+<p><strong>EDITOR</strong> is not set, <strong>bashbug</strong> attempts to locate a number of
+alternative editors, including <strong>emacs</strong>. If <strong>bashbug</strong> cannot locate any
+of the alternative editors, it attempts to execute <strong>vi</strong>.</p>
+<dl>
+<dt>
+<strong>HOME</strong>
+</dt>
+<dd>Directory in which the failed bug report is saved if the
+mail fails.</dd>
+<dt>
+<strong>TMPDIR</strong>
+</dt>
+<dd>Directory in which to create temporary files and
+directories.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+/bash/(1)
+</dt>
+<dd>
+<ul>
+<li>AUTHORS</li>
+</ul>
+</dd>
+</dl>
+<p>Brian Fox, Free Software Foundation<br>
+bfox@gnu.org</p>
+<p>
+Chet Ramey, Case Western Reserve University<br>
+chet@po.cwru.edu</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

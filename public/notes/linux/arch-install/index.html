@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arch Linux Installation Guide | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <article class="post">
+        <header>
+            <h1 class="post__title">Arch Linux Installation Guide</h1>
+            <time datetime="2024-10-26 00:00:00 &#43;0000 UTC" class="meta">October 26, 2024</time>
+        </header>
+
+        <div class="post__content">
+            <aside class="toc">
+                <div class="toc__wrapper">
+                    <span>Contents:</span>
+                    <nav id="TableOfContents">
+<ul>
+<li><a href="#headline-1">Pre-install</a>
+</li>
+<li><a href="#headline-2">Set Up Disks</a>
+<ul>
+<li><a href="#headline-3">Partition the Drive</a>
+</li>
+<li><a href="#headline-4">Format the Partitions</a>
+</li>
+<li><a href="#headline-5">Mount the Filesystems</a>
+</li>
+</ul>
+</li>
+<li><a href="#headline-6">Install the System</a>
+<ul>
+<li><a href="#headline-7">Install required packages</a>
+</li>
+</ul>
+</li>
+<li><a href="#headline-8">Configure the System</a>
+<ul>
+<li><a href="#headline-9">Fstab</a>
+</li>
+<li><a href="#headline-10">Chroot</a>
+</li>
+<li><a href="#headline-11">Time</a>
+</li>
+<li><a href="#headline-12">Localization</a>
+</li>
+<li><a href="#headline-13">Network Configuration</a>
+</li>
+<li><a href="#headline-14">Bootloader</a>
+</li>
+<li><a href="#headline-15">Root password</a>
+</li>
+<li><a href="#headline-16">Install Extra Packages</a>
+</li>
+</ul>
+</li>
+<li><a href="#headline-17">Post-Installation Steps</a>
+<ul>
+<li><a href="#headline-18">Setting Up Your Users</a>
+<ul>
+<li><a href="#headline-19">Setting up Sudo</a>
+</li>
+</ul>
+</li>
+<li><a href="#headline-20">Installing a Desktop Environment</a>
+</li>
+</ul>
+</li>
+<li><a href="#headline-21">Conclusion</a>
+<ul>
+<li><a href="#headline-22">What&#39;s Next???</a>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+                </div>
+            </aside>
+            <main class="post__body">
+                
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Pre-install
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<ol>
+<li>Download an Arch ISO using the <a href="https://archlinux.org/download/">official download site</a></li>
+<li>
+<p>Connect to the internet:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">iwctl station wlan0 get-networks
+</span></span><span class="line"><span class="cl">iwctl station wlan0 connect <span class="s2">&#34;SSID&#34;</span></span></span></code></pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Set Up Disks
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+Partition the Drive
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>This guide will go over a <strong>non-encrypted</strong> disk setup.</p>
+<p>
+Use <code class="verbatim">fdisk -l</code> to see which disk to format. Once you have found the disk, let&#39;s set it up by using the following command:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">fdisk /dev/sda <span class="c1"># Replace /dev/sda with your disk!</span></span></span></code></pre></div>
+</div>
+<p>
+In fdisk, you can create your partition layout. If you don&#39;t know where to start, here&#39;s a good reference table from the <a href="https://wiki.archlinux.org/title/Installation_guide#Example_layouts">Arch Wiki</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Mountpoint</th>
+<th>Partition</th>
+<th>Partition type</th>
+<th>Suggested size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="verbatim">/boot</code></td>
+<td><code class="verbatim">/dev/efi_system_partition</code></td>
+<td>EFI System Partition</td>
+<td>1 GiB</td>
+</tr>
+<tr>
+<td><code class="verbatim">[SWAP]</code></td>
+<td><code class="verbatim">/dev/swap_partition</code></td>
+<td>Linux Swap</td>
+<td>At least 4 GiB</td>
+</tr>
+<tr>
+<td><code class="verbatim">/</code></td>
+<td><code class="verbatim">/dev/root_partition</code></td>
+<td>Linux x86-64 root</td>
+<td>Remainder of the device</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Format the Partitions
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>Create an ext4 filesystem on the root partition:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkfs.ext4 /dev/root_partition</span></span></code></pre></div>
+</div>
+<p>
+Initialize swap, if you made a swap partition:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkswap /dev/swap_partition</span></span></code></pre></div>
+</div>
+<p>
+If you created an EFI partition, create a FAT32 filesystem:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkfs.fat -F <span class="m">32</span> /dev/efi_system_partition</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Mount the Filesystems
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Lastly, before installing the system, mount the filesystems that you just created.</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mount /dev/root_partition /mnt
+</span></span><span class="line"><span class="cl">mount --mkdir /dev/efi_system_partition /mnt/boot
+</span></span><span class="line"><span class="cl">swapon /dev/swap_partition</span></span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Install the System
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Install required packages
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Use <code class="verbatim">pacstrap</code> to setup a base system on <code class="verbatim">/mnt</code>:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pacstrap -K /mnt base linux linux-firmware</span></span></code></pre></div>
+</div>
+<p>
+Note that the pacstrap command <strong>DOES NOT</strong> contain all of the tools from the live image! We&#39;ll get to installing some extra tools in a bit.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+Configure the System
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Fstab
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>An fstab file defines how and where filesystems should be mounted on boot. It is located in <code class="verbatim">/etc/fstab</code> on Arch Linux. To generate the fstab file:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">genfstab -U /mnt &gt; /mnt/etc/fstab</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Chroot
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>Now that the base system has been installed, we can chroot into it:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">arch-chroot /mnt</span></span></code></pre></div>
+</div>
+<p>
+From here on out, this manual will assume that you are chrooted into the system.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Time
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>Set the time zone with the below commands:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ln -sf /usr/share/zoneinfo/&lt;REGION&gt;/&lt;CITY&gt; /etc/localtime
+</span></span><span class="line"><span class="cl">hwclock --systohc</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+Localization
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>Uncomment <code class="verbatim">en_US.UTF-8 UTF-8</code> and other necessary locales from <code class="verbatim">/etc/locale.gen</code>. Generate the locales by running:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">locale-gen</span></span></code></pre></div>
+</div>
+<p>
+Next, create the file <code class="verbatim">/etc/locale.conf</code> and set the LANG variable:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+Network Configuration
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<p>Edit the <code class="verbatim">/etc/hostname</code> file to set your hostname.</p>
+<figure>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">yourhostname</span></span></code></pre></div>
+</div>
+<figcaption>
+/etc/hostname
+</figcaption>
+</figure>
+<p>
+Next, we&#39;ll set up a network manager, as one is not installed by default on Arch. Based on personal experience, if you forget to install a network manager, you&#39;ll have to re-chroot into the system! I usually use NetworkManager (probably the most popular choice), so I&#39;ll show you how to set that up here. Feel free to <a href="https://wiki.archlinux.org/title/Network_configuration#Network_managers">choose your own</a>, though.</p>
+<p>
+To set up NetworkManager, use <code class="verbatim">pacman</code> to install it then enable it with <code class="verbatim">systemctl</code>.</p>
+<div class="src src-text">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">pacman -S networkmanager
+</span></span><span class="line"><span class="cl">sudo systemctl enable NetworkManager.service</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-3">
+<h3 id="headline-14">
+Bootloader
+</h3>
+<div id="outline-text-headline-14" class="outline-text-3">
+<p>The last &#34;official&#34; step of installation is to install a bootloader. My personal choice is GRUB, but again, feel free to <a href="https://wiki.archlinux.org/title/Arch_boot_process#Boot_loader">choose your own</a>.</p>
+<p>
+To install GRUB, first install the package with <code class="verbatim">pacman</code>:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pacman -S grub</span></span></code></pre></div>
+</div>
+<p>
+Then, use the following commands to install GRUB to your EFI partition:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">grub-install --target<span class="o">=</span>x86_64-efi --efi-directory<span class="o">=</span>/boot
+</span></span><span class="line"><span class="cl">grub-mkconfig -o /boot/grub/grub.cfg</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+Root password
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<p>To set the root password, run the following command:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">passwd &lt;YOUR PASSWORD&gt;</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-3">
+<h3 id="headline-16">
+Install Extra Packages
+</h3>
+<div id="outline-text-headline-16" class="outline-text-3">
+<p>At this point, your base installation is finished and you&#39;re now ready to use your system! Before booting into your system, though, I would recommend installing a couple basic utilities such as a text editor and Git. For instance:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pacman -S git vim wget <span class="c1"># add whatever packages you want here</span></span></span></code></pre></div>
+</div>
+<p>
+To reboot into your new system, simply leave the chroot environment with the <code class="verbatim">exit</code> command, then type the <code class="verbatim">reboot</code> command. Congratulations!</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
+<h2 id="headline-17">
+Post-Installation Steps
+</h2>
+<div id="outline-text-headline-17" class="outline-text-2">
+<p>Now, I&#39;ll walk you through some common post-installation steps. From here on out, these steps will assume you&#39;re booted into your live system.</p>
+<div id="outline-container-headline-18" class="outline-3">
+<h3 id="headline-18">
+Setting Up Your Users
+</h3>
+<div id="outline-text-headline-18" class="outline-text-3">
+<p>To create your user, then set its password:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">useradd -m &lt;USERNAME&gt;
+</span></span><span class="line"><span class="cl">passwd &lt;USERNAME&gt;</span></span></code></pre></div>
+</div>
+<p>
+After creating your user, it&#39;s a good idea to add it to some common groups using <code class="verbatim">usermod</code>, for example:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">usermod -aG wheel,networkmanager &lt;USERNAME&gt;</span></span></code></pre></div>
+</div>
+<div id="outline-container-headline-19" class="outline-4">
+<h4 id="headline-19">
+Setting up Sudo
+</h4>
+<div id="outline-text-headline-19" class="outline-text-4">
+<p>Setting up <code class="verbatim">sudo</code> will give your user the ability to run commands as root. First, install the <code class="verbatim">sudo</code> package:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pacman -S sudo</span></span></code></pre></div>
+</div>
+<p>
+Then, to configure sudo to grant members of group <code class="verbatim">wheel</code> root access, run the <code class="verbatim">visudo</code> command and uncomment the line:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">%wheel      <span class="nv">ALL</span><span class="o">=(</span>ALL:ALL<span class="o">)</span> ALL</span></span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-3">
+<h3 id="headline-20">
+Installing a Desktop Environment
+</h3>
+<div id="outline-text-headline-20" class="outline-text-3">
+<p>Picking a desktop environment is a decision that is entirely up to you, but for the purposes of this example, I&#39;ll show you how to install KDE Plasma. However, this process should be relatively the same for any DE you decide to install.</p>
+<p>
+First, install the <code class="verbatim">plasma</code> package:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pacman -S plasma</span></span></code></pre></div>
+</div>
+<p>
+Then, enable <code class="verbatim">SDDM</code> to run on startup:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">systemctl <span class="nb">enable</span> sddm.service</span></span></code></pre></div>
+</div>
+<p>
+Here are the installation guides for some other popular desktop environments:</p>
+<ul>
+<li><a href="https://wiki.archlinux.org/title/GNOME#Installation">GNOME</a></li>
+<li><a href="https://wiki.archlinux.org/title/Xfce#Installation">XFCE</a></li>
+<li><a href="https://wiki.archlinux.org/title/Cinnamon#Installation">Cinnamon</a></li>
+<li><a href="https://wiki.archlinux.org/title/LXQt#Installation">LXQt</a></li>
+<li><a href="https://wiki.archlinux.org/title/Pantheon#Installation">Pantheon</a></li>
+<li><a href="https://wiki.archlinux.org/title/Budgie#Installation">Budgie</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-21" class="outline-2">
+<h2 id="headline-21">
+Conclusion
+</h2>
+<div id="outline-text-headline-21" class="outline-text-2">
+<p>
+I hope you found this guide for installing Arch Linux to be helpful. Installing Arch from scratch is, in my opinion, one of the absolute best ways to learn Linux comprehensively.</p>
+<div id="outline-container-headline-22" class="outline-3">
+<h3 id="headline-22">
+What&#39;s Next???
+</h3>
+<div id="outline-text-headline-22" class="outline-text-3">
+<ul>
+<li>To maintain your Arch system, <a href="https://wiki.archlinux.org/title/System_maintenance">follow this article from the Arch Wiki</a>.</li>
+<li>If you ever run into problems after an update, read the <a href="https://archlinux.org/news/">Arch News</a> and see if manual intervention is required.</li>
+<li>In general, the Arch Wiki is going to be your best friend for fixing problems and installing software. Always try to use the Wiki as your first resource.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+            </main>
+        </div>
+
+        <footer>
+            
+
+        </footer>
+    </article>
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+    
+            <script src="/js/note.js"></script>
+
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

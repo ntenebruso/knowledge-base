@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - ul.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - ul.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>ul - do underlining</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>ul</strong> [options] [/file/…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>ul</strong> reads the named files (or standard input if none are given) and
+translates occurrences of underscores to the sequence which indicates
+underlining for the terminal in use, as specified by the environment
+variable <strong>TERM</strong>. The <em>terminfo</em> database is read to determine the
+appropriate sequences for underlining. If the terminal is incapable of
+underlining but is capable of a standout mode, then that is used
+instead. If the terminal can overstrike, or handles underlining
+automatically, <strong>ul</strong> degenerates to *cat*(1). If the terminal cannot
+underline, underlining is ignored.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-i</strong>, <strong>–indicated</strong></p>
+<blockquote>
+<p>Underlining is indicated by a separate line containing appropriate
+dashes `-; this is useful when you want to look at the underlining which
+is present in an <strong>nroff</strong> output stream on a crt-terminal.</p>
+</blockquote>
+<p>
+<strong>-t</strong>, <strong>-T</strong>, <strong>–terminal</strong> <em>terminal</em></p>
+<blockquote>
+<p>Override the environment variable <strong>TERM</strong> with the specified <em>terminal</em>
+type.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following environment variable is used:</p>
+<p>
+<strong>TERM</strong></p>
+<blockquote>
+<p>The <strong>TERM</strong> variable is used to relate a tty device with its device
+capability description (see <strong>terminfo*(5)). *TERM</strong> is set at login time,
+either by the default terminal type specified in <em>/etc/ttys</em> or as set
+during the login process by the user in their <em>login</em> file (see
+*setenv*(3)).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+HISTORY
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The <strong>ul</strong> command appeared in 3.0BSD.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><strong>nroff</strong> usually outputs a series of backspaces and underlines intermixed
+with the text to indicate underlining. No attempt is made to optimize
+the backward motion.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*colcrt*(1), *login*(1), *man*(1), *nroff*(1), *setenv*(3),
+*terminfo*(5)</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The <strong>ul</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

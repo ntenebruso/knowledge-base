@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - ipcs.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - ipcs.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>ipcs - show information on IPC facilities</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>ipcs</strong> [options]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>ipcs</strong> shows information on System V inter-process communication
+facilities. By default it shows information about all three resources:
+shared memory segments, message queues, and semaphore arrays.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-i</strong>, <strong>–id</strong> <em>id</em></p>
+<blockquote>
+<p>Show full details on just the one resource element identified by <em>id</em>.
+This option needs to be combined with one of the three resource options:
+<strong>-m</strong>, <strong>-q</strong> or <strong>-s</strong>.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Resource options
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p><strong>-m</strong>, <strong>–shmems</strong></p>
+<blockquote>
+<p>Write information about active shared memory segments.</p>
+</blockquote>
+<p>
+<strong>-q</strong>, <strong>–queues</strong></p>
+<blockquote>
+<p>Write information about active message queues.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–semaphores</strong></p>
+<blockquote>
+<p>Write information about active semaphore sets.</p>
+</blockquote>
+<p>
+<strong>-a</strong>, <strong>–all</strong></p>
+<blockquote>
+<p>Write information about all three resources (default).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Output formats
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Of these options only one takes effect: the last one specified.</p>
+<p>
+<strong>-c</strong>, <strong>–creator</strong></p>
+<blockquote>
+<p>Show creator and owner.</p>
+</blockquote>
+<p>
+<strong>-l</strong>, <strong>–limits</strong></p>
+<blockquote>
+<p>Show resource limits.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–pid</strong></p>
+<blockquote>
+<p>Show PIDs of creator and last operator.</p>
+</blockquote>
+<p>
+<strong>-t</strong>, <strong>–time</strong></p>
+<blockquote>
+<p>Write time information. The time of the last control operation that
+changed the access permissions for all facilities, the time of the last
+*msgsnd*(2) and *msgrcv*(2) operations on message queues, the time of
+the last *shmat*(2) and *shmdt*(2) operations on shared memory, and the
+time of the last *semop*(2) operation on semaphores.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–summary</strong></p>
+<blockquote>
+<p>Show status summary.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Representation
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>These affect only the <strong>-l</strong> (<strong>–limits</strong>) option.</p>
+<p>
+<strong>-b</strong>, <strong>–bytes</strong></p>
+<blockquote>
+<p>Print the sizes in bytes rather than in a human-readable format.</p>
+<p>
+By default, the unit, sizes are expressed in, is byte, and unit prefixes
+are in power of 2^10 (1024). Abbreviations of symbols are exhibited
+truncated in order to reach a better readability, by exhibiting alone
+the first letter of them; examples: &#34;1 KiB&#34; and &#34;1 MiB&#34; are respectively
+exhibited as &#34;1 K&#34; and &#34;1 M&#34;, then omitting on purpose the mention &#34;iB&#34;,
+which is part of these abbreviations.</p>
+</blockquote>
+<p>
+<strong>–human</strong></p>
+<blockquote>
+<p>Print sizes in human-readable format.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+CONFORMING TO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The Linux <strong>ipcs</strong> utility is not fully compatible to the POSIX <strong>ipcs</strong>
+utility. The Linux version does not support the POSIX <strong>-a</strong>, <strong>-b</strong> and
+<strong>-o</strong> options, but does support the <strong>-l</strong> and <strong>-u</strong> options not defined by
+POSIX. A portable application shall not use the <strong>-a</strong>, <strong>-b</strong>, <strong>-o</strong>, <strong>-l</strong>,
+and <strong>-u</strong> options.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+NOTES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The current implementation of <strong>ipcs</strong> obtains information about available
+IPC resources by parsing the files in <em>/proc/sysvipc</em>. Before util-linux
+version v2.23, an alternate mechanism was used: the <strong>IPC_STAT</strong> command
+of *msgctl*(2), *semctl*(2), and *shmctl*(2). This mechanism is also
+used in later util-linux versions in the case where <em>/proc</em> is
+unavailable. A limitation of the <strong>IPC_STAT</strong> mechanism is that it can
+only be used to retrieve information about IPC resources for which the
+user has read permission.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>*ipcmk*(1), *ipcrm*(1), *msgrcv*(2), *msgsnd*(2), *semget*(2),
+*semop*(2), *shmat*(2), *shmdt*(2), *shmget*(2), *sysvipc*(7)</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>The <strong>ipcs</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

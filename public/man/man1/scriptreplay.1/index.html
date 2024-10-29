@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - scriptreplay.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - scriptreplay.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>scriptreplay - play back typescripts, using timing information</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>scriptreplay</strong> [options] [*-t*] <em>timingfile</em> [/typescript/ [/divisor/]]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This program replays a typescript, using timing information to ensure
+that output happens in the same rhythm as it originally appeared when
+the script was recorded.</p>
+<p>
+The replay simply displays the information again; the programs that were
+run when the typescript was being recorded are <strong>not run again</strong>. Since
+the same information is simply being displayed, <strong>scriptreplay</strong> is only
+guaranteed to work properly if run on the same type of terminal the
+typescript was recorded on. Otherwise, any escape characters in the
+typescript may be interpreted differently by the terminal to which
+<strong>scriptreplay</strong> is sending its output.</p>
+<p>
+The timing information is what <strong>script*(1) outputs to file specified by
+*–log-timing</strong>.</p>
+<p>
+By default, the typescript to display is assumed to be named
+<em>typescript</em>, but other filenames may be specified, as the second
+parameter or with option <strong>–log-out</strong>.</p>
+<p>
+If the third parameter or <strong>–divisor</strong> is specified, it is used as a
+speed-up multiplier. For example, a speed-up of 2 makes <strong>scriptreplay</strong>
+go twice as fast, and a speed-down of 0.1 makes it go ten times slower
+than the original session.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-I</strong>, <strong>–log-in</strong> <em>file</em></p>
+<blockquote>
+<p>File containing *script*s terminal input.</p>
+</blockquote>
+<p>
+<strong>-O</strong>, <strong>–log-out</strong> <em>file</em></p>
+<blockquote>
+<p>File containing *script*s terminal output.</p>
+</blockquote>
+<p>
+<strong>-B</strong>, <strong>–log-io</strong> <em>file</em></p>
+<blockquote>
+<p>File containing *script*s terminal output and input.</p>
+</blockquote>
+<p>
+<strong>-t</strong>, <strong>–timing</strong> <em>file</em></p>
+<blockquote>
+<p>File containing *script*s timing output. This option overrides old-style
+arguments.</p>
+</blockquote>
+<p>
+<strong>-T</strong>, <strong>–log-timing</strong> <em>file</em></p>
+<blockquote>
+<p>This is an alias for <strong>-t</strong>, maintained for compatibility with *script*(1)
+command-line options.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–typescript</strong> <em>file</em></p>
+<blockquote>
+<p>File containing <strong>script*s terminal output. Deprecated alias to
+*–log-out</strong>. This option overrides old-style arguments.</p>
+</blockquote>
+<p>
+<strong>-c</strong>, <strong>–cr-mode</strong> <em>mode</em></p>
+<blockquote>
+<p>Specifies how to use the CR (0x0D, carriage return) character from log
+files. The default mode is <em>auto</em>, in this case CR is replaced with line
+break for stdin log, because otherwise <strong>scriptreplay</strong> would overwrite
+the same line. The other modes are <em>never</em> and <em>always</em>.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–divisor</strong> <em>number</em></p>
+<blockquote>
+<p>Speed up the replay displaying this <em>number</em> of times. The argument is a
+floating-point number. It&#39;s called divisor because it divides the
+timings by this factor. This option overrides old-style arguments.</p>
+</blockquote>
+<p>
+<strong>-m</strong>, <strong>–maxdelay</strong> <em>number</em></p>
+<blockquote>
+<p>Set the maximum delay between updates to <em>number</em> of seconds. The
+argument is a floating-point number. This can be used to avoid long
+pauses in the typescript replay.</p>
+</blockquote>
+<p>
+<strong>–summary</strong></p>
+<blockquote>
+<p>Display details about the session recorded in the specified timing file
+and exit. The session has to be recorded using <em>advanced</em> format (see
+<strong>script*(1) option *–logging-format</strong> for more details).</p>
+</blockquote>
+<p>
+<strong>-x</strong>, <strong>–stream</strong> <em>type</em></p>
+<blockquote>
+<p>Forces <strong>scriptreplay</strong> to print only the specified stream. The supported
+stream types are <em>in</em>, <em>out</em>, <em>signal</em>, or <em>info</em>. This option is
+recommended for multi-stream logs (e.g., <strong>–log-io</strong>) in order to print
+only specified data.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<pre class="example">
+% script --log-timing file.tm --log-out script.out
+Script started, file is script.out
+% ls
+&lt;etc, etc&gt;
+% exit
+Script done, file is script.out
+% scriptreplay --log-timing file.tm --log-out script.out
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHORS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The original <strong>scriptreplay</strong> program was written by</p>
+<p>
+The program was re-written in C by</p>
+<p>
+and</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Copyright © 2008 James Youngman</p>
+<p>
+Copyright © 2008-2019 Karel Zak</p>
+<p>
+This is free software; see the source for copying conditions. There is
+NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE.</p>
+<p>
+Released under the GNU General Public License version 2 or later.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*script*(1), *scriptlive*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The <strong>scriptreplay</strong> command is part of the util-linux package which can
+be downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

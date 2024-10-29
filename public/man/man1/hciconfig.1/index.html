@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - hciconfig.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - hciconfig.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>hciconfig - Configure Bluetooth devices</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>hciconfig</strong> -h</p>
+<p>
+<strong>hciconfig</strong> [-a]</p>
+<p>
+<strong>hciconfig</strong> [-a] <em>hciX</em> [/COMMAND/ [/PARAMETERS/]]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>hciconfig(1)</strong> is used to configure Bluetooth devices. <em>hciX</em> is the
+name of a Bluetooth device installed in the system. If hciX is not
+given, hciconfig prints name and basic information about all the
+Bluetooth devices installed in the system.</p>
+<p>
+If <em>hciX</em> is given but no command is given, it prints basic information
+on device <em>hciX</em> only. Basic information is interface type, BD address,
+ACL MTU, SCO MTU, flags (up, init, running, raw, page scan enabled,
+inquiry scan enabled, inquiry, authentication enabled, encryption
+enabled).</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-a/,/ –all</strong>
+</dt>
+<dd>Print features, packet type, link policy, link mode,
+class, Version other than the basic info.</dd>
+<dt>
+<strong>-h/,/ –help</strong>
+</dt>
+<dd>Show help options</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+COMMANDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>up</strong>
+</dt>
+<dd>Open and initialize HCI device.</dd>
+<dt>
+<strong>down</strong>
+</dt>
+<dd>Close HCI device.</dd>
+<dt>
+<strong>reset</strong>
+</dt>
+<dd>Reset HCI device.</dd>
+<dt>
+<strong>rstat</strong>
+</dt>
+<dd>Reset statistic counters.</dd>
+<dt>
+<strong>auth</strong>
+</dt>
+<dd>Enable authentication (sets device to security mode 3).</dd>
+<dt>
+<strong>noauth</strong>
+</dt>
+<dd>Disable authentication.</dd>
+<dt>
+<strong>encrypt</strong>
+</dt>
+<dd>Enable encryption (sets device to security mode 3).</dd>
+<dt>
+<strong>noencrypt</strong>
+</dt>
+<dd>Disable encryption.</dd>
+<dt>
+<strong>secmgr</strong>
+</dt>
+<dd>Enable security manager (current kernel support is
+limited).</dd>
+<dt>
+<strong>nosecmgr</strong>
+</dt>
+<dd>Disable security manager.</dd>
+<dt>
+<strong>piscan</strong>
+</dt>
+<dd>Enable page and inquiry scan.</dd>
+<dt>
+<strong>noscan</strong>
+</dt>
+<dd>Disable page and inquiry scan.</dd>
+<dt>
+<strong>iscan</strong>
+</dt>
+<dd>Enable inquiry scan, disable page scan.</dd>
+<dt>
+<strong>pscan</strong>
+</dt>
+<dd>Enable page scan, disable inquiry scan.</dd>
+<dt>
+<strong>ptype [/type/*]*</strong>
+</dt>
+<dd>With no /type/* , displays the current packet
+types. Otherwise, all the* packet types specified by /type/* are set.
+<strong><em>type</em></strong> is a comma-separated list* of packet types, where the
+possible packet types are <strong>DM1, DM3,</strong> <strong>DM5, DH1, DH3, DH5, HV1, HV2,
+HV3.</strong></dd>
+<dt>
+<strong>name [/name/*]*</strong>
+</dt>
+<dd>With no /name/*, prints local name. Otherwise,
+sets local name to <strong><em>name</em></strong>.*</dd>
+<dt>
+<strong>class [/class/*]*</strong>
+</dt>
+<dd>With no /class/*, prints class of device.
+Otherwise, sets class of device* to /class/*. <strong><em>class</em></strong> is a 24-bit
+hex number describing the class of device,* as specified in section
+1.2 of the Bluetooth Assigned Numers document.</dd>
+<dt>
+<strong>voice [/voice/*]*</strong>
+</dt>
+<dd>With no /voice/*, prints voice setting.
+Otherwise, sets voice setting to* /voice/*. <strong><em>voice</em></strong> is a 16-bit hex
+number describing the voice setting.*</dd>
+<dt>
+<strong>iac [/iac/*]*</strong>
+</dt>
+<dd>With no /iac/*, prints the current IAC setting.
+Otherwise, sets the IAC to* /iac/*.*</dd>
+<dt>
+<strong>inqtpl [/level/*]*</strong>
+</dt>
+<dd>With no /level/*, prints out the current
+inquiry transmit power level.* Otherwise, sets inquiry transmit power
+level to /level/*.*</dd>
+<dt>
+<strong>inqmode [/mode/*]*</strong>
+</dt>
+<dd>
+<blockquote>
+<blockquote>
+<p>With no /mode/*, prints out the current inquiry mode. Otherwise, sets*
+inquiry mode to /mode/*.*</p>
+</blockquote>
+</blockquote>
+</dd>
+</dl>
+<table>
+<thead>
+<tr>
+<th class="align-right"><em>mode</em></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="align-right">0</td>
+<td>Standard Inquiry</td>
+</tr>
+<tr>
+<td class="align-right">_</td>
+<td></td>
+</tr>
+<tr>
+<td class="align-right">1</td>
+<td>Inquiry with RSSI</td>
+</tr>
+<tr>
+<td class="align-right">_</td>
+<td></td>
+</tr>
+<tr>
+<td class="align-right">2</td>
+<td>Inquiry with RSSI or Extended Inquiry</td>
+</tr>
+</tbody>
+</table>
+<dl>
+<dt>
+<strong>inqdata [/data/*]*</strong>
+</dt>
+<dd>With no /data/*, prints out the current
+inquiry data. Otherwise, sets* inquiry data to /data/*.*</dd>
+<dt>
+<strong>inqtype [/type/*]*</strong>
+</dt>
+<dd>With no /type/*, prints out the current
+inquiry scan type. Otherwise, sets* inquiry scan type to /type/*.*</dd>
+<dt>
+<strong>inqparams [/win:int/*]*</strong>
+</dt>
+<dd>With no /win:int/*, prints inquiry scan
+window and interval. Otherwise,* sets inquiry scan window to /win/*
+slots and inquiry scan interval to* /int/* slots.*</dd>
+<dt>
+<strong>pageparms [/win:int/*]*</strong>
+</dt>
+<dd>With no /win:int/*, prints page scan
+window and interval. Otherwise,* sets page scan window to /win/* slots
+and page scan interval to <strong><em>int</em></strong> slots.*</dd>
+<dt>
+<strong>pageto [/to/*]*</strong>
+</dt>
+<dd>With no /to/*, prints page timeout. Otherwise,
+sets page timeout <strong><em>to</em></strong> to* slots.</dd>
+<dt>
+<strong>afhmode [/mode/*]*</strong>
+</dt>
+<dd>With no /mode/*, prints out the current AFH
+mode. Otherwise, sets AFH mode* to /mode/*.*</dd>
+</dl>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th class="align-right"><em>mode</em></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="align-right">0</td>
+<td>Enable</td>
+</tr>
+<tr>
+<td class="align-right">_</td>
+<td></td>
+</tr>
+<tr>
+<td class="align-right">1</td>
+<td>Disable</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong>sspmode [/mode/*]*</strong>
+</dt>
+<dd>With no /mode/*, prints out the current Simple
+Pairing mode. Otherwise,* sets Simple Pairing mode to /mode/*.*</dd>
+</dl>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th class="align-right"><em>mode</em></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="align-right">0</td>
+<td>Enable</td>
+</tr>
+<tr>
+<td class="align-right">_</td>
+<td></td>
+</tr>
+<tr>
+<td class="align-right">1</td>
+<td>Disable</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong>aclmtu <em>mtu:pkt</em></strong>
+</dt>
+<dd>Sets ACL MTU to /mtu/* bytes and ACL buffer size
+to <strong><em>pkt</em></strong> packets.*</dd>
+<dt>
+<strong>scomtu <em>mtu:pkt</em></strong>
+</dt>
+<dd>Sets SCO MTU to /mtu/* bytes and SCO buffer size
+to <strong><em>pkt</em></strong> packets.*</dd>
+<dt>
+<strong>delkey &lt;/bdaddr/*&gt;*</strong>
+</dt>
+<dd>This command deletes the stored link key for
+/bdaddr/* from the device.*</dd>
+<dt>
+<strong>oobdata</strong>
+</dt>
+<dd>Get local OOB data (invalidates previously read data).</dd>
+<dt>
+<strong>commands</strong>
+</dt>
+<dd>Display supported commands.</dd>
+<dt>
+<strong>features</strong>
+</dt>
+<dd>Display device features.</dd>
+<dt>
+<strong>version</strong>
+</dt>
+<dd>Display version information.</dd>
+<dt>
+<strong>revision</strong>
+</dt>
+<dd>Display revision information.</dd>
+<dt>
+<strong>lm [/mode/*]*</strong>
+</dt>
+<dd>With no /mode/*, prints link mode. CENTRAL or
+PERIPHERAL mean,* respectively, to ask to become central or to remain
+peripheral when a connection request comes in. The additional keyword
+<strong>ACCEPT means that</strong> baseband connections will be accepted even if
+there are no listening /AF_BLUETOOTH/* sockets. <strong><em>mode</em></strong> is NONE or a
+comma-separated list of* keywords, where possible keywords are
+<strong>CENTRAL and ACCEPT. NONE</strong> sets link policy to the default behaviour
+of remaining peripheral and not accepting baseband connections when
+there are no listening <em>AF_BLUETOOTH</em> sockets. If <strong>CENTRAL is present,
+the device will ask to become central</strong> if a connection request comes
+in. If <strong>ACCEPT is present, the device will</strong> accept baseband
+connections even when there are no listening <em>AF_BLUETOOTH</em> sockets.</dd>
+<dt>
+<strong>block &lt;/bdaddr/*&gt;*</strong>
+</dt>
+<dd>Add a device to the reject list</dd>
+<dt>
+<strong>unblock &lt;/bdaddr/*&gt;*</strong>
+</dt>
+<dd>Remove a device from the reject list</dd>
+<dt>
+<strong>lerandaddr &lt;/bdaddr/*&gt;*</strong>
+</dt>
+<dd>Set LE Random Address</dd>
+<dt>
+<strong>leadv [/type/*]*</strong>
+</dt>
+<dd>Enable LE Advertising.</dd>
+</dl>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th class="align-right"><em>type</em></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="align-right">0</td>
+<td>Connectable undirected advertising (default)</td>
+</tr>
+<tr>
+<td class="align-right">_</td>
+<td></td>
+</tr>
+<tr>
+<td class="align-right">3</td>
+<td>Non connectable undirected advertising</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong>noleadv</strong>
+</dt>
+<dd>Disable LE Advertising</dd>
+<dt>
+<strong>lestates</strong>
+</dt>
+<dd>Display the supported LE states</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+RESOURCES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Maxim Krasnyansky &lt;maxk@qualcomm.com&gt;, Marcel Holtmann
+&lt;marcel@holtmann.org&gt;, Fabrizio Gennari &lt;fabrizio.gennari@philips.com&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

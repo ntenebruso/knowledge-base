@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - systemd-cgls.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - systemd-cgls.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>systemd-cgls - Recursively show control group contents</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>systemd-cgls</strong> [OPTIONS…] [CGROUP…]</p>
+<p>
+<strong>systemd-cgls</strong> [OPTIONS…] <strong>–unit*|</strong>–user-unit* [UNIT…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>systemd-cgls</strong> recursively shows the contents of the selected Linux
+control group hierarchy in a tree. If arguments are specified, shows all
+member processes of the specified control groups plus all their
+subgroups and their members. The control groups may either be specified
+by their full file paths or are assumed in the systemd control group
+hierarchy. If no argument is specified and the current working directory
+is beneath the control group mount point <em>sys/fs/cgroup</em>, shows the
+contents of the control group the working directory refers to.
+Otherwise, the full systemd control group hierarchy is shown.</p>
+<p>
+By default, empty control groups are not shown.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>–all</strong></p>
+<blockquote>
+<p>Do not hide empty control groups in the output.</p>
+</blockquote>
+<p>
+<strong>-l</strong>, <strong>–full</strong></p>
+<blockquote>
+<p>Do not ellipsize process tree members.</p>
+<p>
+Added in version 198.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–unit</strong></p>
+<blockquote>
+<p>Show cgroup subtrees for the specified units.</p>
+<p>
+Added in version 233.</p>
+</blockquote>
+<p>
+<strong>–user-unit</strong></p>
+<blockquote>
+<p>Show cgroup subtrees for the specified user units.</p>
+<p>
+Added in version 233.</p>
+</blockquote>
+<p>
+<strong>-k</strong></p>
+<blockquote>
+<p>Include kernel threads in output.</p>
+</blockquote>
+<p>
+*-M */MACHINE/, *–machine=*/MACHINE/</p>
+<blockquote>
+<p>Limit control groups shown to the part corresponding to the container
+<em>MACHINE</em>.</p>
+<p>
+Added in version 203.</p>
+</blockquote>
+<p>
+<strong>-x</strong>, <strong>–xattr=</strong></p>
+<blockquote>
+<p>Controls whether to include information about extended attributes of the
+listed control groups in the output. With the long option, expects a
+boolean value. Defaults to no.</p>
+<p>
+Added in version 250.</p>
+</blockquote>
+<p>
+<strong>-c</strong>, <strong>–cgroup-id=</strong></p>
+<blockquote>
+<p>Controls whether to include the numeric ID of the listed control groups
+in the output. With the long option, expects a boolean value. Defaults
+to no.</p>
+<p>
+Added in version 250.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Print a short help text and exit.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Print a short version string and exit.</p>
+</blockquote>
+<p>
+<strong>–no-pager</strong></p>
+<blockquote>
+<p>Do not pipe output into a pager.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>On success, 0 is returned, a non-zero failure code otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*systemd*(1), *systemctl*(1), *systemd-cgtop*(1), *systemd-nspawn*(1),
+*ps*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - iptables-xml.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - iptables-xml.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>iptables-xml — Convert iptables-save format to XML</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>iptables-xml</strong> [*-c*] [*-v*]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>iptables-xml</strong> is used to convert the output of iptables-save into an
+easily manipulatable XML format to STDOUT. Use I/O-redirection provided
+by your shell to write to a file.</p>
+<dl>
+<dt>
+<strong>-c</strong>, <strong>–combine</strong>
+</dt>
+<dd>combine consecutive rules with the same matches
+but different targets. iptables does not currently support more than
+one target per match, so this simulates that by collecting the targets
+from consecutive iptables rules into one action tag, but only when the
+rule matches are identical. Terminating actions like RETURN, DROP,
+ACCEPT and QUEUE are not combined with subsequent targets.</dd>
+<dt>
+<strong>-v</strong>, <strong>–verbose</strong>
+</dt>
+<dd>Output xml comments containing the iptables line
+from which the XML is derived</dd>
+</dl>
+<p>iptables-xml does a mechanistic conversion to a very expressive xml
+format; the only semantic considerations are for -g and -j targets in
+order to discriminate between &lt;call&gt; &lt;goto&gt; and &lt;nane-of-target&gt; as it
+helps xml processing scripts if they can tell the difference between a
+target like SNAT and another chain.</p>
+<p>
+Some sample output is:</p>
+<p>
+&lt;iptables-rules&gt; &lt;table name=&#34;mangle&#34;&gt; &lt;chain name=&#34;PREROUTING&#34;
+policy=&#34;ACCEPT&#34; packet-count=&#34;63436&#34; byte-count=&#34;7137573&#34;&gt; &lt;rule&gt;
+&lt;conditions&gt; &lt;match&gt; &lt;p&gt;tcp&lt;/p&gt; &lt;/match&gt; &lt;tcp&gt; &lt;sport&gt;8443&lt;/sport&gt;
+&lt;/tcp&gt; &lt;/conditions&gt; &lt;actions&gt; &lt;call&gt; &lt;check_ip/&gt; &lt;/call&gt; &lt;ACCEPT/&gt;
+&lt;/actions&gt; &lt;/rule&gt; &lt;/chain&gt; &lt;/table&gt; &lt;/iptables-rules&gt;</p>
+<p>
+Conversion from XML to iptables-save format may be done using the
+iptables.xslt script and xsltproc, or a custom program using libxsltproc
+or similar; in this fashion:</p>
+<p>
+xsltproc iptables.xslt my-iptables.xml | iptables-restore</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+BUGS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>None known as of iptables-1.3.7 release</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHOR
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Sam Liddicott &lt;azez@ufomechanic.net&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*iptables-save*(8), *iptables-restore*(8), *iptables*(8)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

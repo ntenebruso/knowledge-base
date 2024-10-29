@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - lp.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - lp.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>lp - print files</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>lp</strong> [ <strong>-h */hostname/[</strong>:*/port/] ] [ <strong>-E</strong> ] [ <strong>-U</strong> <em>username</em> ] [ <strong>-c</strong>
+] [ <strong>-d */destination/[*/*/instance/] ] [ *-m</strong> ] [ <strong>-n</strong> <em>num-copies</em> ] [
+<strong>-o */option/[*=*/value/] ] [ *-q</strong> <em>priority</em> ] [ <strong>-s</strong> ] [ <strong>-t</strong> <em>title</em>
+] [ <strong>-H</strong> <em>handling</em> ] [ <strong>-P</strong> <em>page-list</em> ] [ <strong>–</strong> ] [ <em>file(s)</em> ]<br>
+<strong>lp</strong> [ <strong>-h */hostname/[</strong>:*/port/] ] [ <strong>-E</strong> ] [ <strong>-U</strong> <em>username</em> ] [ <strong>-c</strong>
+] [ <strong>-i</strong> <em>job-id</em> ] [ <strong>-n</strong> <em>num-copies</em> ] [ <strong>-o */option/[*=*/value/] ]
+[ *-q</strong> <em>priority</em> ] [ <strong>-t</strong> <em>title</em> ] [ <strong>-H</strong> <em>handling</em> ] [ <strong>-P</strong>
+<em>page-list</em> ]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>lp</strong> submits files for printing or alters a pending job. Use a filename
+of &#34;-&#34; to force printing from the standard input.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+THE DEFAULT DESTINATION
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>CUPS provides many ways to set the default destination. The <strong>LPDEST</strong> and
+<strong>PRINTER</strong> environment variables are consulted first. If neither are set,
+the current default set using the *lpoptions*(1) command is used,
+followed by the default set using the *lpadmin*(8) command.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following options are recognized by <em>lp</em>:</p>
+<dl>
+<dt>
+<strong>–</strong>
+</dt>
+<dd>Marks the end of options; use this to print a file whose name
+begins with a dash (-).</dd>
+<dt>
+<strong>-E</strong>
+</dt>
+<dd>Forces encryption when connecting to the server.</dd>
+<dt>
+*-U */username/
+</dt>
+<dd>Specifies the username to use when connecting to
+the server.</dd>
+<dt>
+<strong>-c</strong>
+</dt>
+<dd>This option is provided for backwards-compatibility only. On
+systems that support it, this option forces the print file to be
+copied to the spool directory before printing. In CUPS, print files
+are always sent to the scheduler via IPP which has the same effect.</dd>
+<dt>
+*-d */destination/
+</dt>
+<dd>Prints files to the named printer.</dd>
+<dt>
+<strong>-h */hostname/[</strong>:*/port/]
+</dt>
+<dd>Chooses an alternate server. Note: This
+option must occur before all others.</dd>
+<dt>
+*-i */job-id/
+</dt>
+<dd>Specifies an existing job to modify.</dd>
+<dt>
+<strong>-m</strong>
+</dt>
+<dd>Sends an email when the job is completed.</dd>
+<dt>
+*-n */copies/
+</dt>
+<dd>Sets the number of copies to print.</dd>
+<dt>
+<strong>-o &#34;*/name/*=*/value /[ … /name/*=*/value /]</strong>&#34;*
+</dt>
+<dd>Sets one or more
+job options. See &#34;COMMON JOB OPTIONS&#34; below.</dd>
+<dt>
+*-q */priority/
+</dt>
+<dd>Sets the job priority from 1 (lowest) to 100
+(highest). The default priority is 50.</dd>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>Do not report the resulting job IDs (silent mode.)</dd>
+<dt>
+<strong>-t &#34;*/name/</strong>&#34;*
+</dt>
+<dd>Sets the job name.</dd>
+<dt>
+*-H */hh:mm/
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>-H hold</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>-H immediate</strong>
+</dt>
+<dd>
+<ul>
+<li>
+<p><strong>-H
+   restart</strong> :: - <strong>-H resume</strong> :: Specifies when the job should be
+     printed. A value of <em>immediate</em> will print the file
+     immediately, a value of <em>hold</em> will hold the job indefinitely,
+     and a UTC time value (HH:MM) will hold the job until the
+     specified UTC (not local) time. Use a value of <em>resume</em> with
+     the <em>-i</em> option to resume a held job. Use a value of <em>restart</em>
+     with the <em>-i</em> option to restart a completed job.</p>
+<dl>
+<dt>
+*-P */page-list/
+</dt>
+<dd>Specifies which pages to print in the
+document. The list can contain a list of numbers and ranges
+(#-#) separated by commas, e.g., &#34;1,3-5,16&#34;. The page numbers
+refer to the output pages and not the document&#39;s original
+pages - options like &#34;number-up&#34; can affect the numbering of
+the pages.</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+COMMON JOB OPTIONS
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Aside from the printer-specific options reported by the *lpoptions*(1)
+command, the following generic options are available:</p>
+<dl>
+<dt>
+*-o job-sheets=*/name/
+</dt>
+<dd>Prints a cover page (banner) with the
+document. The &#34;name&#34; can be &#34;classified&#34;, &#34;confidential&#34;, &#34;secret&#34;,
+&#34;standard&#34;, &#34;topsecret&#34;, or &#34;unclassified&#34;.</dd>
+<dt>
+*-o media=*/size/
+</dt>
+<dd>Sets the page size to <em>size</em>. Most printers
+support at least the size names &#34;a4&#34;, &#34;letter&#34;, and &#34;legal&#34;.</dd>
+<dt>
+*-o number-up=*{<em>2|4|6|9|16</em>}
+</dt>
+<dd>Prints 2, 4, 6, 9, or 16 document
+(input) pages on each output page.</dd>
+<dt>
+<strong>-o orientation-requested=4</strong>
+</dt>
+<dd>Prints the job in landscape (rotated
+90 degrees counter-clockwise).</dd>
+<dt>
+<strong>-o orientation-requested=5</strong>
+</dt>
+<dd>Prints the job in landscape (rotated
+90 degrees clockwise).</dd>
+<dt>
+<strong>-o orientation-requested=6</strong>
+</dt>
+<dd>Prints the job in reverse portrait
+(rotated 180 degrees).</dd>
+<dt>
+<strong>-o print-quality=3</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>-o print-quality=4</strong>
+</dt>
+<dd>
+<ul>
+<li>
+<p><strong>-o
+  print-quality=5</strong> :: Specifies the output quality - draft (3),
+  normal (4), or best (5).</p>
+<dl>
+<dt>
+<strong>-o sides=one-sided</strong>
+</dt>
+<dd>Prints on one side of the paper.</dd>
+<dt>
+<strong>-o sides=two-sided-long-edge</strong>
+</dt>
+<dd>Prints on both sides of the
+paper for portrait output.</dd>
+<dt>
+<strong>-o sides=two-sided-short-edge</strong>
+</dt>
+<dd>Prints on both sides of the
+paper for landscape output.</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+CONFORMING TO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Unlike the System V printing system, CUPS allows printer names to
+contain any printable character except SPACE, TAB, &#34;<em>&#34;, or &#34;#&#34;. Also,
+printer and class names are /not</em> case-sensitive.</p>
+<p>
+The <em>-q</em> option accepts a different range of values than the Solaris lp
+command, matching the IPP job priority values (1-100, 100 is highest
+priority) instead of the Solaris values (0-39, 0 is highest priority).</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Print two copies of a document to the default printer:</p>
+<pre class="example">
+    lp -n 2 filename
+</pre>
+<p>
+Print a double-sided legal document to a printer called &#34;foo&#34;:</p>
+<pre class="example">
+    lp -d foo -o media=legal -o sides=two-sided-long-edge filename
+</pre>
+<p>
+Print a presentation document 2-up to a printer called &#34;bar&#34;:</p>
+<pre class="example">
+    lp -d bar -o number-up=2 filename
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*cancel*(1), *lpadmin*(8), *lpoptions*(1), *lpq*(1), *lpr*(1),
+*lprm*(1), *lpstat*(1), CUPS Online Help (<a href="http://localhost:631/help)">http://localhost:631/help)</a></p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Copyright © 2020-2024 by OpenPrinting.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

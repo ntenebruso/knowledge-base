@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nix.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nix.1</h1>
+    
+<p><strong>Warning</strong><br>
+This program is <strong>experimental</strong> and its interface is subject to change.</p>
+<p>#+end_quote</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Name
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><code class="verbatim">nix</code> - a tool for reproducible and declarative configuration management</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Synopsis
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><code class="verbatim">nix</code> [/option/…] <em>subcommand</em></p>
+<p>
+where <em>subcommand</em> is one of the following:</p>
+<p>
+<strong>Help commands:</strong></p>
+<ul>
+<li><code class="verbatim">nix help</code> - show help about <code class="verbatim">nix</code> or a particular subcommand</li>
+<li><code class="verbatim">nix help-stores</code> - show help about store types and their settings</li>
+</ul>
+<p><strong>Main commands:</strong></p>
+<ul>
+<li><code class="verbatim">nix build</code> - build a derivation or fetch a store path</li>
+<li><code class="verbatim">nix develop</code> - run a bash shell that provides the build environment
+of a derivation</li>
+<li><code class="verbatim">nix flake</code> - manage Nix flakes</li>
+<li><code class="verbatim">nix profile</code> - manage Nix profiles</li>
+<li><code class="verbatim">nix run</code> - run a Nix application</li>
+<li><code class="verbatim">nix search</code> - search for packages</li>
+</ul>
+<p><strong>Main commands:</strong></p>
+<ul>
+<li><code class="verbatim">nix repl</code> - start an interactive environment for evaluating Nix
+expressions</li>
+</ul>
+<p><strong>Infrequently used commands:</strong></p>
+<ul>
+<li><code class="verbatim">nix bundle</code> - bundle an application so that it works outside of the
+Nix store</li>
+<li><code class="verbatim">nix copy</code> - copy paths between Nix stores</li>
+<li><code class="verbatim">nix edit</code> - open the Nix expression of a Nix package in $EDITOR</li>
+<li><code class="verbatim">nix eval</code> - evaluate a Nix expression</li>
+<li><code class="verbatim">nix fmt</code> - reformat your code in the standard style</li>
+<li><code class="verbatim">nix log</code> - show the build log of the specified packages or paths, if
+available</li>
+<li><code class="verbatim">nix path-info</code> - query information about store paths</li>
+<li><code class="verbatim">nix registry</code> - manage the flake registry</li>
+<li><code class="verbatim">nix why-depends</code> - show why a package has another package in its
+closure</li>
+</ul>
+<p><strong>Utility/scripting commands:</strong></p>
+<ul>
+<li><code class="verbatim">nix config</code> - manipulate the Nix configuration</li>
+<li><code class="verbatim">nix daemon</code> - daemon to perform store operations on behalf of
+non-root clients</li>
+<li><code class="verbatim">nix derivation</code> - Work with derivations, Nix&#39;s notion of a build
+plan.</li>
+<li><code class="verbatim">nix env</code> - manipulate the process environment</li>
+<li><code class="verbatim">nix hash</code> - compute and convert cryptographic hashes</li>
+<li><code class="verbatim">nix key</code> - generate and convert Nix signing keys</li>
+<li><code class="verbatim">nix nar</code> - create or inspect NAR files</li>
+<li><code class="verbatim">nix print-dev-env</code> - print shell code that can be sourced by bash to
+reproduce the build environment of a derivation</li>
+<li><code class="verbatim">nix realisation</code> - manipulate a Nix realisation</li>
+<li><code class="verbatim">nix store</code> - manipulate a Nix store</li>
+</ul>
+<p><strong>Commands for upgrading or troubleshooting your Nix installation:</strong></p>
+<ul>
+<li><code class="verbatim">nix upgrade-nix</code> - upgrade Nix to the latest stable version</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Examples
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<ul>
+<li>Create a new flake:</li>
+</ul>
+<pre class="example">
+# nix flake new hello
+# cd hello
+</pre>
+<ul>
+<li>Build the flake in the current directory:</li>
+</ul>
+<pre class="example">
+# nix build
+# ./result/bin/hello
+Hello, world!
+</pre>
+<ul>
+<li>Run the flake in the current directory:</li>
+</ul>
+<pre class="example">
+# nix run
+Hello, world!
+</pre>
+<ul>
+<li>Start a development shell for hacking on this flake:</li>
+</ul>
+<pre class="example">
+# nix develop
+# unpackPhase
+# cd hello-*
+# configurePhase
+# buildPhase
+# ./hello
+Hello, world!
+# installPhase
+# ../outputs/out/bin/hello
+Hello, world!
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Description
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Nix is a tool for building software, configurations and other artifacts
+in a reproducible and declarative way. For more information, see the
+<strong>Nix homepage</strong> or the <strong>Nix</strong> manual.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Installables
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<p><strong>Warning</strong><br>
+Installables are part of the unstable <code class="verbatim">nix-command</code> experimental
+feature, and subject to change without notice.</p>
+</blockquote>
+<p>
+Many <code class="verbatim">nix</code> subcommands operate on one or more <em>installables</em>. These are
+command line arguments that represent something that can be realised in
+the Nix store.</p>
+<p>
+The following types of installable are supported by most commands:</p>
+<ul>
+<li>
+<p><strong>Flake output attribute</strong> (experimental)</p>
+<ul>
+<li>This is the default</li>
+</ul>
+</li>
+<li>
+<p><strong>Store path</strong></p>
+<ul>
+<li>This is assumed if the argument is a Nix store path or a symlink to
+a Nix store path</li>
+</ul>
+</li>
+<li>
+<p><strong>Nix file</strong>, optionally qualified by an attribute path</p>
+<ul>
+<li>Specified with <code class="verbatim">--file=/</code>-f=</li>
+</ul>
+</li>
+<li>
+<p><strong>Nix expression</strong>, optionally qualified by an attribute path</p>
+<ul>
+<li>Specified with <code class="verbatim">--expr=/</code>-E=</li>
+</ul>
+</li>
+</ul>
+<p>For most commands, if no installable is specified, <code class="verbatim">.</code> is assumed. That
+is, Nix will operate on the default flake output attribute of the flake
+in the current directory.</p>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Flake output attribute
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<blockquote>
+<p><strong>Warning</strong><br>
+Flake output attribute installables depend on both the <code class="verbatim">flakes</code> and
+<code class="verbatim">nix-command</code> experimental features, and subject to change without
+notice.</p>
+</blockquote>
+<p>
+Example: <code class="verbatim">nixpkgs#hello</code></p>
+<p>
+These have the form <em>flakeref</em>[=#=/attrpath/], where <em>flakeref</em> is a
+<strong>flake reference</strong> and <em>attrpath</em> is an optional attribute path. For more
+information on flakes, see *the *=nix flake= manual page. Flake
+references are most commonly a flake identifier in the flake registry
+(e.g. <code class="verbatim">nixpkgs</code>), or a raw path (e.g. <code class="verbatim">/path/to/my-flake</code> or <code class="verbatim">.</code> or
+<code class="verbatim">../foo</code>), or a full URL (e.g. <code class="verbatim">github:nixos/nixpkgs</code> or <code class="verbatim">path:.</code>)</p>
+<p>
+When the flake reference is a raw path (a path without any URL scheme),
+it is interpreted as a <code class="verbatim">path:</code> or <code class="verbatim">git+file:</code> url in the following way:</p>
+<ul>
+<li>If the path is within a Git repository, then the url will be of the
+form <code class="verbatim">git+file://[GIT_REPO_ROOT]?dir</code>[RELATIVE_FLAKE_DIR_PATH]= where
+<code class="verbatim">GIT_REPO_ROOT</code> is the path to the root of the git repository, and
+<code class="verbatim">RELATIVE_FLAKE_DIR_PATH</code> is the path (relative to the directory root)
+of the closest parent of the given path that contains a <code class="verbatim">flake.nix</code>
+within the git repository. If no such directory exists, then Nix will
+error-out.
+
+Note that the search will only include files indexed by git. In
+particular, files which are matched by <code class="verbatim">.gitignore</code> or have never been
+<code class="verbatim">git add</code>-ed will not be available in the flake. If this is
+undesirable, specify <code class="verbatim">path:&lt;directory&gt;</code> explicitly;
+
+For example, if <code class="verbatim">/foo/bar</code> is a git repository with the following
+structure:</li>
+</ul>
+<pre class="example">
+.
+└── baz
+  ├── blah
+  │   └── file.txt
+  └── flake.nix
+</pre>
+<blockquote>
+<p>Then <code class="verbatim">/foo/bar/baz/blah</code> will resolve to <code class="verbatim">git+file:///foo/bar?dir=baz</code></p>
+</blockquote>
+<ul>
+<li>If the supplied path is not a git repository, then the url will have
+the form <code class="verbatim">path:FLAKE_DIR_PATH</code> where <code class="verbatim">FLAKE_DIR_PATH</code> is the closest
+parent of the supplied path that contains a <code class="verbatim">flake.nix</code> file (within
+the same file-system). If no such directory exists, then Nix will
+error-out.
+
+For example, if <code class="verbatim">/foo/bar/flake.nix</code> exists, then <code class="verbatim">/foo/bar/baz/</code> will
+resolve to <code class="verbatim">path:/foo/bar</code></li>
+</ul>
+<p>If <em>attrpath</em> is omitted, Nix tries some default values; for most
+subcommands, the default is <code class="verbatim">packages.=/system/</code>.default= (e.g.
+<code class="verbatim">packages.x86_64-linux.default</code>), but some subcommands have other
+defaults. If <em>attrpath</em> <em>is</em> specified, <em>attrpath</em> is interpreted as
+relative to one or more prefixes; for most subcommands, these are
+<code class="verbatim">packages.=/system/, =legacyPackages.*system*</code> and the empty prefix.
+Thus, on <code class="verbatim">x86_64-linux</code> <code class="verbatim">nix build nixpkgs#hello</code> will try to build the
+attributes <code class="verbatim">packages.x86_64-linux.hello</code>,
+<code class="verbatim">legacyPackages.x86_64-linux.hello</code> and <code class="verbatim">hello</code>.</p>
+<p>
+If <em>attrpath</em> begins with <code class="verbatim">.</code> then no prefixes or defaults are
+attempted. This allows the form <em>flakeref</em>[=#.=/attrpath/], such as
+<code class="verbatim">github:NixOS/nixpkgs#.lib.fakeSha256</code> to avoid a search of
+<code class="verbatim">packages.*system*.lib.fakeSha256</code></p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Store path
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Example: <code class="verbatim">/nix/store/v5sv61sszx301i0x6xysaqzla09nksnd-hello-2.10</code></p>
+<p>
+These are paths inside the Nix store, or symlinks that resolve to a path
+in the Nix store.</p>
+<p>
+A <strong>store derivation</strong> is also addressed by store path.</p>
+<p>
+Example: <code class="verbatim">/nix/store/p7gp6lxdg32h4ka1q398wd9r2zkbbz2v-hello-2.10.drv</code></p>
+<p>
+If you want to refer to an output path of that store derivation, add the
+output name preceded by a caret (<code class="verbatim">^</code>).</p>
+<p>
+Example:
+<code class="verbatim">/nix/store/p7gp6lxdg32h4ka1q398wd9r2zkbbz2v-hello-2.10.drv^out</code></p>
+<p>
+All outputs can be referred to at once with the special syntax <code class="verbatim">^*</code>.</p>
+<p>
+Example: <code class="verbatim">/nix/store/p7gp6lxdg32h4ka1q398wd9r2zkbbz2v-hello-2.10.drv^*</code></p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Nix file
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Example: <code class="verbatim">--file /path/to/nixpkgs hello</code></p>
+<p>
+When the option <code class="verbatim">-f</code> / <code class="verbatim">--file</code> <em>path</em> [/attrpath/…] is given,
+installables are interpreted as the value of the expression in the Nix
+file at <em>path</em>. If attribute paths are provided, commands will operate
+on the corresponding values accessible at these paths. The Nix
+expression in that file, or any selected attribute, must evaluate to a
+derivation.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Nix expression
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>Example: <code class="verbatim">--expr &#39;import &lt;nixpkgs&gt; {}&#39; hello</code></p>
+<p>
+When the option <code class="verbatim">--expr</code> <em>expression</em> [/attrpath/…] is given,
+installables are interpreted as the value of the of the Nix expression.
+If attribute paths are provided, commands will operate on the
+corresponding values accessible at these paths. The Nix expression, or
+any selected attribute, must evaluate to a derivation.</p>
+<p>
+You may need to specify <code class="verbatim">--impure</code> if the expression references impure
+inputs (such as <code class="verbatim">&lt;nixpkgs&gt;</code>).</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Derivation output selection
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>Derivations can have multiple outputs, each corresponding to a different
+store path. For instance, a package can have a <code class="verbatim">bin</code> output that
+contains programs, and a <code class="verbatim">dev</code> output that provides development
+artifacts like C/C++ header files. The outputs on which <code class="verbatim">nix</code> commands
+operate are determined as follows:</p>
+<ul>
+<li>You can explicitly specify the desired outputs using the syntax
+<em>installable/=^=/output1/=,=</em>…/=,=/outputN/ — that is, a caret
+followed immediately by a comma-separated list of derivation outputs
+to select. For installables specified as <strong>Flake output attributes</strong> or
+<strong>Store paths</strong>, the output is specified in the same argument:
+
+For example, you can obtain the <code class="verbatim">dev</code> and <code class="verbatim">static</code> outputs of the
+<code class="verbatim">glibc</code> package:</li>
+</ul>
+<pre class="example">
+# nix build &#39;nixpkgs#glibc^dev,static&#39;
+# ls ./result-dev/include/ ./result-static/lib/
+…
+</pre>
+<blockquote>
+<p>and likewise, using a store path to a “drv” file to specify the
+derivation:</p>
+</blockquote>
+<pre class="example">
+# nix build &#39;/nix/store/gzaflydcr6sb3567hap9q6srzx8ggdgg-glibc-2.33-78.drv^dev,static&#39;
+…
+</pre>
+<blockquote>
+<p>For <code class="verbatim">-e=/</code>–expr= and <code class="verbatim">-f=/</code>–file=, the derivation output is specified
+as part of the attribute path:</p>
+</blockquote>
+<pre class="example">
+$ nix build -f &#39;&lt;nixpkgs&gt;&#39; &#39;glibc^dev,static&#39;
+$ nix build --impure -E &#39;import &lt;nixpkgs&gt; { }&#39; &#39;glibc^dev,static&#39;
+</pre>
+<blockquote>
+<p>This syntax is the same even if the actual attribute path is empty:</p>
+</blockquote>
+<pre class="example">
+$ nix build -E &#39;let pkgs = import &lt;nixpkgs&gt; { }; in pkgs.glibc&#39; &#39;^dev,static&#39;
+</pre>
+<ul>
+<li>You can also specify that <em>all</em> outputs should be used using the
+syntax /installable/=^*=. For example, the following shows the size of
+all outputs of the <code class="verbatim">glibc</code> package in the binary cache:</li>
+</ul>
+<pre class="example">
+# nix path-info --closure-size --eval-store auto --store https://cache.nixos.org &#39;nixpkgs#glibc^*&#39;
+/nix/store/g02b1lpbddhymmcjb923kf0l7s9nww58-glibc-2.33-123                 33208200
+/nix/store/851dp95qqiisjifi639r0zzg5l465ny4-glibc-2.33-123-bin             36142896
+/nix/store/kdgs3q6r7xdff1p7a9hnjr43xw2404z7-glibc-2.33-123-debug          155787312
+/nix/store/n4xa8h6pbmqmwnq0mmsz08l38abb06zc-glibc-2.33-123-static          42488328
+/nix/store/q6580lr01jpcsqs4r5arlh4ki2c1m9rv-glibc-2.33-123-dev             44200560
+</pre>
+<blockquote>
+<p>and likewise, using a store path to a “drv” file to specify the
+derivation:</p>
+</blockquote>
+<pre class="example">
+# nix path-info --closure-size &#39;/nix/store/gzaflydcr6sb3567hap9q6srzx8ggdgg-glibc-2.33-78.drv^*&#39;
+…
+</pre>
+<ul>
+<li>If you didn&#39;t specify the desired outputs, but the derivation has an
+attribute <code class="verbatim">meta.outputsToInstall</code>, Nix will use those outputs. For
+example, since the package <code class="verbatim">nixpkgs#libxml2</code> has this attribute:</li>
+</ul>
+<pre class="example">
+# nix eval &#39;nixpkgs#libxml2.meta.outputsToInstall&#39;
+[ &#34;bin&#34; &#34;man&#34; ]
+</pre>
+<blockquote>
+<p>a command like <code class="verbatim">nix shell nixpkgs#libxml2</code> will provide only those two
+outputs by default.</p>
+</blockquote>
+<blockquote>
+<p>Note that a <strong>store derivation</strong> doesn&#39;t have any attributes like <code class="verbatim">meta</code>,
+and thus this case doesn&#39;t apply to it.</p>
+</blockquote>
+<ul>
+<li>Otherwise, Nix will use all outputs of the derivation.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+Nix stores
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Most <code class="verbatim">nix</code> subcommands operate on a <em>Nix store</em>. The various store types
+are documented in the <strong>Store Types</strong> section of the manual.</p>
+<p>
+The same information is also available from the <code class="verbatim">nix help-stores</code>
+command.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+Shebang interpreter
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>The <code class="verbatim">nix</code> command can be used as a <code class="verbatim">#!</code> interpreter. Arguments to Nix
+can be passed on subsequent lines in the script.</p>
+<p>
+Verbatim strings may be passed in double backtick (<code class="verbatim">``</code>) quotes.
+Sequences of <em>n</em> backticks of 3 or longer are parsed as <em>n-1</em> literal
+backticks. A single space before the closing <code class="verbatim">``</code> is ignored if present.</p>
+<p>
+<code class="verbatim">--file</code> and <code class="verbatim">--expr</code> resolve relative paths based on the script
+location.</p>
+<p>
+Examples:</p>
+<pre class="example">
+#!/usr/bin/env nix
+#! nix shell --file ``&lt;nixpkgs&gt;`` hello cowsay --command bash
+
+hello | cowsay
+</pre>
+<p>
+or with <strong>flakes</strong>:</p>
+<pre class="example">
+#!/usr/bin/env nix
+#! nix shell nixpkgs#bash nixpkgs#hello nixpkgs#cowsay --command bash
+
+hello | cowsay
+</pre>
+<p>
+or with an <strong>expression</strong>:</p>
+<pre class="example">
+#! /usr/bin/env nix
+#! nix shell --impure --expr ``
+#! nix with (import (builtins.getFlake &#34;nixpkgs&#34;) {});
+#! nix terraform.withPlugins (plugins: [ plugins.openstack ])
+#! nix ``
+#! nix --command bash
+
+terraform &#34;$@&#34;
+</pre>
+<p>
+or with cascading interpreters. Note that the <code class="verbatim">#! nix</code> lines don&#39;t need
+to follow after the first line, to accomodate other interpreters.</p>
+<pre class="example">
+#!/usr/bin/env nix
+//! ```cargo
+//! [dependencies]
+//! time = &#34;0.1.25&#34;
+//! ```
+/*
+#!nix shell nixpkgs#rustc nixpkgs#rust-script nixpkgs#cargo --command rust-script
+*/
+fn main() {
+    for argument in std::env::args().skip(1) {
+        println!(&#34;{}&#34;, argument);
+    };
+    println!(&#34;{}&#34;, std::env::var(&#34;HOME&#34;).expect(&#34;&#34;));
+    println!(&#34;{}&#34;, time::now().rfc822z());
+}
+// vim: ft=rust
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+Options
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<div id="outline-container-headline-14" class="outline-3">
+<h3 id="headline-14">
+Logging-related options
+</h3>
+<div id="outline-text-headline-14" class="outline-text-3">
+<ul>
+<li><code class="verbatim">--debug</code>
+
+Set the logging verbosity level to ‘debug&#39;.</li>
+<li><code class="verbatim">--log-format</code> <em>format</em>
+
+Set the format of log output; one of <code class="verbatim">raw</code>, <code class="verbatim">internal-json</code>, <code class="verbatim">bar</code> or
+<code class="verbatim">bar-with-logs</code>.</li>
+<li><code class="verbatim">--print-build-logs</code> / <code class="verbatim">-L</code>
+
+Print full build logs on standard error.</li>
+<li><code class="verbatim">--quiet</code>
+
+Decrease the logging verbosity level.</li>
+<li><code class="verbatim">--verbose</code> / <code class="verbatim">-v</code>
+
+Increase the logging verbosity level.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+Miscellaneous global options
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<ul>
+<li><code class="verbatim">--help</code>
+
+Show usage information.</li>
+<li><code class="verbatim">--offline</code>
+
+Disable substituters and consider all previously downloaded files
+up-to-date.</li>
+<li><code class="verbatim">--option</code> <em>name</em> <em>value</em>
+
+Set the Nix configuration setting <em>name</em> to <em>value</em> (overriding
+<code class="verbatim">nix.conf</code>).</li>
+<li><code class="verbatim">--refresh</code>
+
+Consider all previously downloaded files out-of-date.</li>
+<li><code class="verbatim">--version</code>
+
+Show version information.
+
+<strong>Note</strong>
+
+See <code class="verbatim">man nix.conf</code> for overriding configuration settings with command
+line flags.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

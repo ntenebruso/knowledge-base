@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - diff.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - diff.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>diff - compare files line by line</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>diff</strong> [/OPTION/]… <em>FILES</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Compare FILES line by line.</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<dl>
+<dt>
+<strong>–normal</strong>
+</dt>
+<dd>output a normal diff (the default)</dd>
+<dt>
+<strong>-q</strong>, <strong>–brief</strong>
+</dt>
+<dd>report only when files differ</dd>
+<dt>
+<strong>-s</strong>, <strong>–report-identical-files</strong>
+</dt>
+<dd>report when two files are the same</dd>
+<dt>
+<strong>-c</strong>, <strong>-C</strong> NUM, <strong>–context</strong>[=/NUM/]
+</dt>
+<dd>output NUM (default 3) lines of
+copied context</dd>
+<dt>
+<strong>-u</strong>, <strong>-U</strong> NUM, <strong>–unified</strong>[=/NUM/]
+</dt>
+<dd>output NUM (default 3) lines of
+unified context</dd>
+<dt>
+<strong>-e</strong>, <strong>–ed</strong>
+</dt>
+<dd>output an ed script</dd>
+<dt>
+<strong>-n</strong>, <strong>–rcs</strong>
+</dt>
+<dd>output an RCS format diff</dd>
+<dt>
+<strong>-y</strong>, <strong>–side-by-side</strong>
+</dt>
+<dd>output in two columns</dd>
+<dt>
+<strong>-W</strong>, *–width*=/NUM/
+</dt>
+<dd>output at most NUM (default 130) print
+columns</dd>
+<dt>
+<strong>–left-column</strong>
+</dt>
+<dd>output only the left column of common lines</dd>
+<dt>
+<strong>–suppress-common-lines</strong>
+</dt>
+<dd>do not output common lines</dd>
+<dt>
+<strong>-p</strong>, <strong>–show-c-function</strong>
+</dt>
+<dd>show which C function each change is in</dd>
+<dt>
+<strong>-F</strong>, *–show-function-line*=/RE/
+</dt>
+<dd>show the most recent line
+matching RE</dd>
+<dt>
+<strong>–label</strong> LABEL
+</dt>
+<dd>use LABEL instead of file name and timestamp (can
+be repeated)</dd>
+<dt>
+<strong>-t</strong>, <strong>–expand-tabs</strong>
+</dt>
+<dd>expand tabs to spaces in output</dd>
+<dt>
+<strong>-T</strong>, <strong>–initial-tab</strong>
+</dt>
+<dd>make tabs line up by prepending a tab</dd>
+<dt>
+*–tabsize*=/NUM/
+</dt>
+<dd>tab stops every NUM (default 8) print columns</dd>
+<dt>
+<strong>–suppress-blank-empty</strong>
+</dt>
+<dd>suppress space or tab before empty output
+lines</dd>
+<dt>
+<strong>-l</strong>, <strong>–paginate</strong>
+</dt>
+<dd>pass output through &#39;pr&#39; to paginate it</dd>
+<dt>
+<strong>-r</strong>, <strong>–recursive</strong>
+</dt>
+<dd>recursively compare any subdirectories found</dd>
+<dt>
+<strong>–no-dereference</strong>
+</dt>
+<dd>don&#39;t follow symbolic links</dd>
+<dt>
+<strong>-N</strong>, <strong>–new-file</strong>
+</dt>
+<dd>treat absent files as empty</dd>
+<dt>
+<strong>–unidirectional-new-file</strong>
+</dt>
+<dd>treat absent first files as empty</dd>
+<dt>
+<strong>–ignore-file-name-case</strong>
+</dt>
+<dd>ignore case when comparing file names</dd>
+<dt>
+<strong>–no-ignore-file-name-case</strong>
+</dt>
+<dd>consider case when comparing file
+names</dd>
+<dt>
+<strong>-x</strong>, *–exclude*=/PAT/
+</dt>
+<dd>exclude files that match PAT</dd>
+<dt>
+<strong>-X</strong>, *–exclude-from*=/FILE/
+</dt>
+<dd>exclude files that match any pattern
+in FILE</dd>
+<dt>
+<strong>-S</strong>, *–starting-file*=/FILE/
+</dt>
+<dd>start with FILE when comparing
+directories</dd>
+<dt>
+*–from-file*=/FILE1/
+</dt>
+<dd>compare FILE1 to all operands; FILE1 can be a
+directory</dd>
+<dt>
+*–to-file*=/FILE2/
+</dt>
+<dd>compare all operands to FILE2; FILE2 can be a
+directory</dd>
+<dt>
+<strong>-i</strong>, <strong>–ignore-case</strong>
+</dt>
+<dd>ignore case differences in file contents</dd>
+<dt>
+<strong>-E</strong>, <strong>–ignore-tab-expansion</strong>
+</dt>
+<dd>ignore changes due to tab expansion</dd>
+<dt>
+<strong>-Z</strong>, <strong>–ignore-trailing-space</strong>
+</dt>
+<dd>ignore white space at line end</dd>
+<dt>
+<strong>-b</strong>, <strong>–ignore-space-change</strong>
+</dt>
+<dd>ignore changes in the amount of white
+space</dd>
+<dt>
+<strong>-w</strong>, <strong>–ignore-all-space</strong>
+</dt>
+<dd>ignore all white space</dd>
+<dt>
+<strong>-B</strong>, <strong>–ignore-blank-lines</strong>
+</dt>
+<dd>ignore changes where lines are all
+blank</dd>
+<dt>
+<strong>-I</strong>, *–ignore-matching-lines*=/RE/
+</dt>
+<dd>ignore changes where all lines
+match RE</dd>
+<dt>
+<strong>-a</strong>, <strong>–text</strong>
+</dt>
+<dd>treat all files as text</dd>
+<dt>
+<strong>–strip-trailing-cr</strong>
+</dt>
+<dd>strip trailing carriage return on input</dd>
+<dt>
+<strong>-D</strong>, *–ifdef*=/NAME/
+</dt>
+<dd>output merged file with &#39;#ifdef NAME&#39; diffs</dd>
+<dt>
+*–GTYPE-group-format*=/GFMT/
+</dt>
+<dd>format GTYPE input groups with GFMT</dd>
+<dt>
+*–line-format*=/LFMT/
+</dt>
+<dd>format all input lines with LFMT</dd>
+<dt>
+*–LTYPE-line-format*=/LFMT/
+</dt>
+<dd>format LTYPE input lines with LFMT
+
+These format options provide fine-grained control over the output
+
+of diff, generalizing *-D*/–ifdef.</dd>
+<dt>
+LTYPE is &#39;old&#39;, &#39;new&#39;, or &#39;unchanged&#39;.
+</dt>
+<dd>GTYPE is LTYPE or &#39;changed&#39;.
+
+GFMT (only) may contain:</dd>
+<dt>
+%&lt;
+</dt>
+<dd>lines from FILE1</dd>
+<dt>
+%&gt;
+</dt>
+<dd>lines from FILE2</dd>
+<dt>
+%=
+</dt>
+<dd>lines common to FILE1 and FILE2</dd>
+<dt>
+%[-][WIDTH][.[PREC]]{doxX}LETTER
+</dt>
+<dd>printf-style spec for LETTER
+
+LETTERs are as follows for new group, lower case for old group:</dd>
+<dt>
+F
+</dt>
+<dd>first line number</dd>
+<dt>
+L
+</dt>
+<dd>last line number</dd>
+<dt>
+N
+</dt>
+<dd>number of lines = L-F+1</dd>
+<dt>
+E
+</dt>
+<dd>F-1</dd>
+<dt>
+M
+</dt>
+<dd>L+1</dd>
+<dt>
+%(A=B?T:E)
+</dt>
+<dd>if A equals B then T else E
+
+LFMT (only) may contain:</dd>
+<dt>
+%L
+</dt>
+<dd>contents of line</dd>
+<dt>
+%l
+</dt>
+<dd>contents of line, excluding any trailing newline</dd>
+<dt>
+%[-][WIDTH][.[PREC]]{doxX}n
+</dt>
+<dd>printf-style spec for input line number
+
+Both GFMT and LFMT may contain:</dd>
+<dt>
+%%
+</dt>
+<dd>%</dd>
+<dt>
+%c&#39;C&#39;
+</dt>
+<dd>the single character C</dd>
+<dt>
+%c&#39;\OOO&#39;
+</dt>
+<dd>the character with octal code OOO</dd>
+<dt>
+C
+</dt>
+<dd>the character C (other characters represent themselves)</dd>
+<dt>
+<strong>-d</strong>, <strong>–minimal</strong>
+</dt>
+<dd>try hard to find a smaller set of changes</dd>
+<dt>
+*–horizon-lines*=/NUM/
+</dt>
+<dd>keep NUM lines of the common prefix and
+suffix</dd>
+<dt>
+<strong>–speed-large-files</strong>
+</dt>
+<dd>assume large files and many scattered small
+changes</dd>
+<dt>
+<strong>–color</strong>[=/WHEN/]
+</dt>
+<dd>color output; WHEN is &#39;never&#39;, &#39;always&#39;, or
+&#39;auto&#39;; plain <strong>–color</strong> means <strong>–color=</strong>&#39;auto&#39;</dd>
+<dt>
+*–palette*=/PALETTE/
+</dt>
+<dd>the colors to use when <strong>–color</strong> is active;
+PALETTE is a colon-separated list of terminfo capabilities</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>-v</strong>, <strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>FILES are &#39;FILE1 FILE2&#39; or &#39;DIR1 DIR2&#39; or &#39;DIR FILE&#39; or &#39;FILE DIR&#39;. If
+<strong>–from-file</strong> or <strong>–to-file</strong> is given, there are no restrictions on
+FILE(s). If a FILE is &#39;-&#39;, read standard input. Exit status is 0 if
+inputs are the same, 1 if different, 2 if trouble.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+AUTHOR
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Written by Paul Eggert, Mike Haertel, David Hayes, Richard Stallman, and
+Len Tower.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Report bugs to: bug-diffutils@gnu.org<br>
+GNU diffutils home page: &lt;<a href="https://www.gnu.org/software/diffutils/">https://www.gnu.org/software/diffutils/</a>&gt;<br>
+General help using GNU software: &lt;<a href="https://www.gnu.org/gethelp/">https://www.gnu.org/gethelp/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Copyright © 2023 Free Software Foundation, Inc. License GPLv3+: GNU GPL
+version 3 or later &lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it. There
+is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*wdiff*(1), *cmp*(1), *diff3*(1), *sdiff*(1), *patch*(1)</p>
+<p>
+The full documentation for <strong>diff</strong> is maintained as a Texinfo manual. If
+the <strong>info</strong> and <strong>diff</strong> programs are properly installed at your site, the
+command</p>
+<blockquote>
+<p><strong>info diff</strong></p>
+</blockquote>
+<p>
+should give you access to the complete manual.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

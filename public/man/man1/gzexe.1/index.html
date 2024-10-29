@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - gzexe.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - gzexe.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>gzexe - compress executable files in place</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>gzexe</strong> <em>name . . .</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>gzexe</strong> utility allows you to compress executables in place and have
+them automatically uncompress and execute when you run them (at a
+penalty in performance). For example if you execute ``gzexe
+/usr/bin/gdb&#39;&#39; it will create the following two files:</p>
+<pre class="example">
+    -rwxr-xr-x  1 root root 1026675 Jun  7 13:53 /usr/bin/gdb
+    -rwxr-xr-x  1 root root 2304524 May 30 13:02 /usr/bin/gdb~
+</pre>
+<p>
+/usr/bin/gdb~ is the original file and /usr/bin/gdb is the
+self-uncompressing executable file. You can remove /usr/bin/gdb~ once
+you are sure that /usr/bin/gdb works properly.</p>
+<p>
+This utility is most useful on systems with very small disks.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-d</strong>
+</dt>
+<dd>Decompress the given executables instead of compressing them.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>*gzip*(1), *znew*(1), *zmore*(1), *zcmp*(1), *zforce*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+CAVEATS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The compressed executable is a shell script. This may create some
+security holes. In particular, the compressed executable relies on the
+PATH environment variable to find <strong>gzip</strong> and some standard utilities
+(<strong>basename</strong>, <strong>chmod</strong>, <strong>ln</strong>, <strong>mkdir</strong>, <strong>mktemp</strong>, <strong>rm</strong>, <strong>sleep</strong>, and
+<strong>tail</strong>).</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The <strong>gzexe</strong> command attempts to retain the original file attributes on
+the compressed executable, but you may have to fix them manually in some
+cases, using <strong>chmod</strong> or <strong>chown</strong>.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

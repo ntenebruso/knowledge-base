@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - lpr.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - lpr.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>lpr - print files</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>lpr</strong> [ <strong>-H */server/[</strong>:*/port/] ] [ <strong>-E</strong> ] [ <strong>-U</strong> <em>username</em> ] [ <strong>-P
+*/destination/[*/*/instance/] ] [ *-#</strong> <em>num-copies</em> [ <strong>-h</strong> ] [ <strong>-l</strong> ] [
+<strong>-m</strong> ] [ <strong>-o */option/[*=*/value/] ] [ *-p</strong> ] [ <strong>-q</strong> ] [ <strong>-r</strong> ] [ <strong>-C</strong>
+<em>title</em> ] [ <strong>-J</strong> <em>title</em> ] [ <strong>-T</strong> <em>title</em> ] [ <em>file(s)</em> ]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>lpr</strong> submits files for printing. Files named on the command line are
+sent to the named printer or the default destination if no destination
+is specified. If no files are listed on the command-line, <strong>lpr</strong> reads
+the print file from the standard input.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+THE DEFAULT DESTINATION
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>CUPS provides many ways to set the default destination. The <strong>LPDEST</strong> and
+<strong>PRINTER</strong> environment variables are consulted first. If neither are set,
+the current default set using the *lpoptions*(1) command is used,
+followed by the default set using the *lpadmin*(8) command.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following options are recognized by <em>lpr</em>:</p>
+<dl>
+<dt>
+<strong>-E</strong>
+</dt>
+<dd>Forces encryption when connecting to the server.</dd>
+<dt>
+<strong>-H */server/[</strong>:*/port/]
+</dt>
+<dd>Specifies an alternate server. Note: This
+option must occur before all others.</dd>
+<dt>
+<strong>-C &#34;*/name/</strong>&#34;*
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>-J &#34;*/name/</strong>&#34;*
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>-T &#34;*/name/</strong>&#34;*
+</dt>
+<dd>
+<p>Sets the
+job name/title.</p>
+<dl>
+<dt>
+*-P */destination/[*/*/instance/]
+</dt>
+<dd>Prints files to the named
+printer.</dd>
+<dt>
+*-U */username/
+</dt>
+<dd>Specifies an alternate username.</dd>
+<dt>
+*-# */copies/
+</dt>
+<dd>Sets the number of copies to print.</dd>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>Disables banner printing. This option is equivalent to <em>-o
+job-sheets=none</em>.</dd>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>Specifies that the print file is already formatted for the
+destination and should be sent without filtering. This option is
+equivalent to <em>-o raw</em>.</dd>
+<dt>
+<strong>-m</strong>
+</dt>
+<dd>Send an email on job completion.</dd>
+<dt>
+*-o */option/[*=*/value/]
+</dt>
+<dd>Sets a job option. See &#34;COMMON JOB
+OPTIONS&#34; below.</dd>
+<dt>
+<strong>-p</strong>
+</dt>
+<dd>Specifies that the print file should be formatted with a
+shaded header with the date, time, job name, and page number. This
+option is equivalent to <em>-o prettyprint</em> and is only useful when
+printing text files.</dd>
+<dt>
+<strong>-q</strong>
+</dt>
+<dd>Hold job for printing.</dd>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>Specifies that the named print files should be deleted
+after submitting them.</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+COMMON JOB OPTIONS
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Aside from the printer-specific options reported by the *lpoptions*(1)
+command, the following generic options are available:</p>
+<dl>
+<dt>
+*-o job-sheets=*/name/
+</dt>
+<dd>Prints a cover page (banner) with the
+document. The &#34;name&#34; can be &#34;classified&#34;, &#34;confidential&#34;, &#34;secret&#34;,
+&#34;standard&#34;, &#34;topsecret&#34;, or &#34;unclassified&#34;.</dd>
+<dt>
+*-o media=*/size/
+</dt>
+<dd>Sets the page size to <em>size</em>. Most printers
+support at least the size names &#34;a4&#34;, &#34;letter&#34;, and &#34;legal&#34;.</dd>
+<dt>
+*-o number-up=*{<em>2|4|6|9|16</em>}
+</dt>
+<dd>Prints 2, 4, 6, 9, or 16 document
+(input) pages on each output page.</dd>
+<dt>
+<strong>-o orientation-requested=4</strong>
+</dt>
+<dd>Prints the job in landscape (rotated
+90 degrees counter-clockwise).</dd>
+<dt>
+<strong>-o orientation-requested=5</strong>
+</dt>
+<dd>Prints the job in landscape (rotated
+90 degrees clockwise).</dd>
+<dt>
+<strong>-o orientation-requested=6</strong>
+</dt>
+<dd>Prints the job in reverse portrait
+(rotated 180 degrees).</dd>
+<dt>
+<strong>-o print-quality=3</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>-o print-quality=4</strong>
+</dt>
+<dd>
+<ul>
+<li>
+<p><strong>-o
+  print-quality=5</strong> :: Specifies the output quality - draft (3),
+  normal (4), or best (5).</p>
+<dl>
+<dt>
+<strong>-o sides=one-sided</strong>
+</dt>
+<dd>Prints on one side of the paper.</dd>
+<dt>
+<strong>-o sides=two-sided-long-edge</strong>
+</dt>
+<dd>Prints on both sides of the
+paper for portrait output.</dd>
+<dt>
+<strong>-o sides=two-sided-short-edge</strong>
+</dt>
+<dd>Prints on both sides of the
+paper for landscape output.</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+NOTES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The <em>-c</em>, <em>-d</em>, <em>-f</em>, <em>-g</em>, <em>-i</em>, <em>-n</em>, <em>-t</em>, <em>-v</em>, and <em>-w</em> options are
+not supported by CUPS and produce a warning message if used.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Print two copies of a document to the default printer:</p>
+<pre class="example">
+    lpr -# 2 filename
+</pre>
+<p>
+Print a double-sided legal document to a printer called &#34;foo&#34;:</p>
+<pre class="example">
+    lpr -P foo -o media=legal -o sides=two-sided-long-edge filename
+</pre>
+<p>
+Print a presentation document 2-up to a printer called &#34;foo&#34;:</p>
+<pre class="example">
+    lpr -P foo -o number-up=2 filename
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*cancel*(1), *lp*(1), *lpadmin*(8), *lpoptions*(1), *lpq*(1), *lprm*(1),
+*lpstat*(1), CUPS Online Help (<a href="http://localhost:631/help)">http://localhost:631/help)</a></p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Copyright © 2020-2024 by OpenPrinting.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

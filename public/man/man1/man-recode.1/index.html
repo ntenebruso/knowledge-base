@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - man-recode.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - man-recode.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>man-recode - convert manual pages to another encoding</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>man-recode</strong> <strong>-t</strong> <em>to-code</em> { <strong>–suffix=*/suffix/ |  *–in-place</strong> }
+[ <strong>-dqhV</strong> ] [ <em>filename</em> ]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>man-recode</strong> converts multiple manual pages from one encoding to
+another, guessing the appropriate input encoding for each one. It is
+useful when permanently recoding pages written in legacy character sets,
+or in build systems that need to recode a set of pages to a single
+common encoding (usually UTF-8) for installation. When converting many
+manual pages, this program is much faster than running <strong>man –recode</strong> or
+<strong>manconv</strong> on each page.</p>
+<p>
+If an encoding declaration is found on the first line of a manual page,
+then that declaration is used as the input encoding for that page.
+Failing that, the input encoding is guessed based on the file name.</p>
+<p>
+Encoding declarations have the following form:</p>
+<blockquote>
+<pre class="example">
+&#39;\&#34; -*- coding: UTF-8 -*-
+</pre>
+</blockquote>
+<p>
+or (if manual page preprocessors are also to be declared):</p>
+<blockquote>
+<pre class="example">
+&#39;\&#34; t -*- coding: ISO-8859-1 -*-
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-t</strong> <em>encoding</em>, *–to-code=*/encoding/
+</dt>
+<dd>Convert manual pages to
+<em>encoding</em>.</dd>
+<dt>
+*–suffix=*/suffix/
+</dt>
+<dd>Form each output file name by appending
+<em>suffix</em> to the input file name, after removing any compression
+extension.</dd>
+<dt>
+<strong>–in-place</strong>
+</dt>
+<dd>Overwrite each input file with the output, after
+removing any compression extension.</dd>
+<dt>
+<strong>-q</strong>, <strong>–quiet</strong>
+</dt>
+<dd>Do not issue error messages when the page cannot be
+converted.</dd>
+<dt>
+<strong>-d</strong>, <strong>–debug</strong>
+</dt>
+<dd>Print debugging information.</dd>
+<dt>
+<strong>-h</strong>, <strong>–help</strong>
+</dt>
+<dd>Print a help message and exit.</dd>
+<dt>
+<strong>-V</strong>, <strong>–version</strong>
+</dt>
+<dd>Display version information.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>/iconv/(1), /man/(1), /manconv/(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+BUGS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><a href="https://gitlab.com/man-db/man-db/-/issues">https://gitlab.com/man-db/man-db/-/issues</a><br>
+<a href="https://savannah.nongnu.org/bugs/?group=man-db">https://savannah.nongnu.org/bugs/?group=man-db</a></p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHOR
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<pre class="example">
+Colin Watson (cjwatson@debian.org).
+</pre>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

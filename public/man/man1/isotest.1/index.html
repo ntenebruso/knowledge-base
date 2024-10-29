@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - isotest.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - isotest.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>isotest - ISO testing</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>isotest</strong> &lt;/MODE/&gt; [/OPTIONS/] [/bdaddr/] [/bdaddr1/]…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>isotest(1)</strong> is used to test Isochronous (CIS/BIS) communications on the
+BlueZ stack</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+MODES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-d, –dump=[FILE] Listen and dump incoming data</strong>
+</dt>
+<dd>(CIS server/BIS
+broadcaster) and optionally save the contents to <em>FILE</em>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-c/,/ –reconnect</strong>
+</dt>
+<dd>Reconnect (CIS client).</dd>
+<dt>
+<strong>-m/,/ –multiple</strong>
+</dt>
+<dd>Multiple connects (CIS client).</dd>
+</dl>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>-r, –receive=[FILE] Receive (CIS server/BIS broadcast receiver)
+and</strong> :: optionally save the contents to /FILE/*.*</li>
+<li><strong>-s, –send=[FILE] Connect and send (CIS client/BIS broadcaster),
+can</strong> :: optionally use contents from /FILE/*.*</li>
+</ul>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-n/,/ –silent</strong>
+</dt>
+<dd>Connect and be silent (CIS client/BIS
+broadcaster).</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-b/,/*/–bytes*=*/*&lt;SIZE&gt;</strong>
+</dt>
+<dd>Send or Receive packet size</dd>
+<dt>
+<strong>-i</strong>,**/–index*=*/*&lt;NUM&gt;*
+</dt>
+<dd>Select the specified HCI device index.
+/hciNUM/* is* also acceptable.</dd>
+<dt>
+<strong>-j/,/*/–jitter*=*/*&lt;JITTER&gt;</strong>
+</dt>
+<dd>Socket jitter buffer.</dd>
+</dl>
+</blockquote>
+<p>
+-h, –help</p>
+<blockquote>
+<dl>
+<dt>
+<strong>-q</strong>,* –quiet*
+</dt>
+<dd>Disables packet logging.</dd>
+<dt>
+<strong>-t</strong>,**/–timeout*=*/*&lt;USEC&gt;*
+</dt>
+<dd>Socket send timeout.</dd>
+<dt>
+<strong>-C</strong>,* –continue*
+</dt>
+<dd>Continuously send packets starting over in case
+of a file.</dd>
+<dt>
+<strong>-W</strong>,**/–defer*=*/*&lt;SEC&gt;*
+</dt>
+<dd>Enable deferred setup.</dd>
+<dt>
+<strong>-M</strong>,**/–mtu*=*/*&lt;SDU&gt;*
+</dt>
+<dd>Socket QoS SDU.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-S, –sca/adv-interval=&lt;SCA/INTERVAL&gt;</strong>
+</dt>
+<dd>Socket QoS CIS SCA/BIS
+advertising interval.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-P</strong>,**/–packing*=*/*&lt;PACKING&gt;*
+</dt>
+<dd>Socket QoS Packing.</dd>
+</dl>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><em>PACKING</em></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0x00</strong></td>
+<td>Sequential</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>0x01</strong></td>
+<td>Interleaved</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong>-F</strong>,**/–framing*=*/*&lt;FRAMING&gt;*
+</dt>
+<dd>Socket QoS Framing.</dd>
+</dl>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><em>FRAMING</em></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0x00</strong></td>
+<td>Unframed</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>0x01</strong></td>
+<td>Framed</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong>-I</strong>,**/–interval*=*/*&lt;USEC&gt;*
+</dt>
+<dd>Socket QoS Interval.</dd>
+<dt>
+<strong>-L</strong>,**/–latency*=*/*&lt;MSEC&gt;*
+</dt>
+<dd>Socket QoS Latency.</dd>
+<dt>
+<strong>-Y</strong>,**/–phy*=*/*&lt;PHY&gt;*
+</dt>
+<dd>Socket QoS PHY.</dd>
+</dl>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><em>PHY</em></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0x01</strong></td>
+<td>LE 1M</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>0x02</strong></td>
+<td>LE 2M</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>0x03</strong></td>
+<td>LE Coded</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong>-R</strong>,**/–rtn*=*/*&lt;NUM&gt;*
+</dt>
+<dd>Socket QoS retransmissions.</dd>
+<dt>
+<strong>-B</strong>,**/–preset*=*/*&lt;PRESET&gt;*
+</dt>
+<dd>Socket QoS preset.</dd>
+</dl>
+</blockquote>
+<p>
+-G, –CIG/BIG=&lt;ID&gt; Socket QoS CIG/BIG ID.</p>
+<p>
+-T, –CIS/BIS=&lt;ID&gt; Socket QoS CIS/BIS ID.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>-V</strong>,**/–type*=*/*&lt;TYPE&gt;*
+</dt>
+<dd>Socket destination address type:</dd>
+</dl>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><em>TYPE</em></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>le_public</strong></td>
+<td>LE Public Address</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>le_random</strong></td>
+<td>LE Random Address</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong>-e</strong>,**/–enc*=*/*&lt;ENCRYPTION&gt;*
+</dt>
+<dd>Socket QoS BIG Encryption</dd>
+</dl>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><em>ENCRYPTION</em></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0x00</strong></td>
+<td>BIG unencrypted</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>0x01</strong></td>
+<td>BIG encrypted</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong>-k</strong>,**/–bcode*=*/*&lt;BCODE&gt;*
+</dt>
+<dd>Socket QoS Broadcast Code</dd>
+<dt>
+<strong>-N</strong>,**/–nbis*=*/*&lt;NBIS&gt;*
+</dt>
+<dd>Number of BISes to create as part of a
+BIG (BIS broadcaster) or to synchronize to (BIS broadcast receiver)</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Unicast Central
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<blockquote>
+<blockquote>
+<pre class="example">
+$ tools/isotest -s XX:XX:XX:XX:XX:XX
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Unicast Central connecting to 2 peers using CIG 0x01
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<blockquote>
+<blockquote>
+<pre class="example">
+$ tools/isotest -G 0x01 -s XX:XX:XX:XX:XX:XX YY:YY:YY:YY:YY:YY
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Unicast Peripheral
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<blockquote>
+<blockquote>
+<pre class="example">
+$ tools/isotest -d
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Broadcaster
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<blockquote>
+<blockquote>
+<pre class="example">
+$ tools/isotest -s 00:00:00:00:00:00
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Broadcast Receiver using hci1
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<blockquote>
+<blockquote>
+<pre class="example">
+$ tools/isotest -i hci1 -d XX:XX:XX:XX:XX:XX
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+RESOURCES
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+AUTHOR
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>Luiz Augusto Von Dentz &lt;luiz.von.dentz@intel.com&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

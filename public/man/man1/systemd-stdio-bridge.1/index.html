@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - systemd-stdio-bridge.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - systemd-stdio-bridge.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>systemd-stdio-bridge - D-Bus proxy</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>systemd-stdio-bridge</strong> [OPTIONS…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>systemd-stdio-bridge</strong> implements a proxy between STDIN/STDOUT and a
+D-Bus bus. It expects to receive an open connection via STDIN/STDOUT
+when started, and will create a new connection to the specified bus. It
+will then forward messages between the two connections. This program is
+suitable for socket activation: the first connection may be a pipe or a
+socket and must be passed as either standard input, or as an open file
+descriptor according to the protocol described in *sd_listen_fds*(3).
+The second connection will be made by default to the local system bus,
+but this can be influenced by the <strong>–user</strong>, <strong>–system</strong>, <strong>–machine=</strong>,
+and <strong>–bus-path=</strong> options described below.</p>
+<p>
+<strong>sd-bus*(3) uses *systemd-stdio-bridge</strong> to forward D-Bus connections
+over *ssh*(1), or to connect to the bus of a different user, see
+*sd_bus_set_address*(3).</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>–user</strong></p>
+<blockquote>
+<p>Talk to the service manager of the calling user, rather than the service
+manager of the system.</p>
+</blockquote>
+<p>
+<strong>–system</strong></p>
+<blockquote>
+<p>Talk to the service manager of the system. This is the implied default.</p>
+</blockquote>
+<p>
+<strong>-M</strong>, <strong>–machine=</strong></p>
+<blockquote>
+<p>Execute operation on a local container. Specify a container name to
+connect to, optionally prefixed by a user name to connect as and a
+separating &#34;@&#34; character. If the special string &#34;.host&#34; is used in place
+of the container name, a connection to the local system is made (which
+is useful to connect to a specific users user bus: &#34;–user
+–machine=lennart@.host&#34;). If the &#34;@&#34; syntax is not used, the connection
+is made as root user. If the &#34;@&#34; syntax is used either the left hand
+side or the right hand side may be omitted (but not both) in which case
+the local user name and &#34;.host&#34; are implied.</p>
+</blockquote>
+<p>
+*-p */PATH/, *–bus-path=*/PATH/</p>
+<blockquote>
+<p>Path to the bus address. Default:
+&#34;unix:path=/run/dbus/system_bus_socket&#34;</p>
+<p>
+Added in version 251.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Print a short help text and exit.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Print a short version string and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>On success, 0 is returned, a non-zero failure code otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>dbus-daemon*(1), *dbus-broker*(1), *D-Bus</strong>[1], *systemd*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+NOTES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>D-Bus
+
+https://www.freedesktop.org/wiki/Software/dbus</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

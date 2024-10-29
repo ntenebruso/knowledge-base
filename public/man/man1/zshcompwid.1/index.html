@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - zshcompwid.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - zshcompwid.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>zshcompwid - zsh completion widgets</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>The shell&#39;s programmable completion mechanism can be manipulated in two
+ways; here the low-level features supporting the newer, function-based
+mechanism are defined. A complete set of shell functions based on these
+features is described in /zshcompsys/(1), and users with no interest in
+adding to that system (or, potentially, writing their own – see
+dictionary entry for `hubris&#39;) should skip the current section. The
+older system based on the <strong>compctl</strong> builtin command is described in
+/zshcompctl/(1).</p>
+<p>
+Completion widgets are defined by the <strong>-C</strong> option to the <strong>zle</strong> builtin
+command provided by the <strong>zsh/zle</strong> module (see /zshzle/(1)). For example,</p>
+<blockquote>
+<pre class="example">
+zle -C complete expand-or-complete completer
+</pre>
+</blockquote>
+<p>
+defines a widget named `*complete*&#39;. The second argument is the name of
+any of the builtin widgets that handle completions: <strong>complete-word</strong>,
+<strong>expand-or-complete</strong>, <strong>expand-or-complete-prefix</strong>, <strong>menu-complete</strong>,
+<strong>menu-expand-or-complete</strong>, <strong>reverse-menu-complete</strong>, <strong>list-choices</strong>, or
+<strong>delete-char-or-list</strong>. Note that this will still work even if the widget
+in question has been re-bound.</p>
+<p>
+When this newly defined widget is bound to a key using the <strong>bindkey</strong>
+builtin command defined in the <strong>zsh/zle</strong> module (see /zshzle/(1)),
+typing that key will call the shell function `*completer*&#39;. This
+function is responsible for generating completion matches using the
+builtins described below. As with other ZLE widgets, the function is
+called with its standard input closed.</p>
+<p>
+Once the function returns, the completion code takes over control again
+and treats the matches in the same manner as the specified builtin
+widget, in this case <strong>expand-or-complete</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+COMPLETION SPECIAL PARAMETERS
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The parameters <strong>ZLE_REMOVE_SUFFIX_CHARS</strong> and <strong>ZLE_SPACE_SUFFIX_CHARS</strong>
+are used by the completion mechanism, but are not special. See
+<em>Parameters Used By The Shell</em> in /zshparam/(1).</p>
+<p>
+Inside completion widgets, and any functions called from them, some
+parameters have special meaning; outside these functions they are not
+special to the shell in any way. These parameters are used to pass
+information between the completion code and the completion widget. Some
+of the builtin commands and the condition codes use or change the
+current values of these parameters. Any existing values will be hidden
+during execution of completion widgets; except for <strong>compstate</strong>, the
+parameters are reset on each function exit (including nested function
+calls from within the completion widget) to the values they had when the
+function was entered.</p>
+<p>
+<strong>CURRENT</strong> This is the number of the current word, i.e. the word the
+cursor is currently on in the <strong>words</strong> array. Note that this value is
+only correct if the <strong>ksharrays</strong> option is not set.</p>
+<dl>
+<dt>
+<strong>IPREFIX</strong>
+</dt>
+<dd>
+<p>Initially this will be set to the empty string. This
+parameter functions like <strong>PREFIX</strong>; it contains a string which precedes
+the one in <strong>PREFIX</strong> and is not considered part of the list of matches.
+Typically, a string is transferred from the beginning of <strong>PREFIX</strong> to
+the end of <strong>IPREFIX</strong>, for example:</p>
+<blockquote>
+<pre class="example">
+IPREFIX=${PREFIX%%\=*}=
+PREFIX=${PREFIX#*=}
+</pre>
+</blockquote>
+<p>
+causes the part of the prefix up to and including the first equal sign
+not to be treated as part of a matched string. This can be done
+automatically by the <strong>compset</strong> builtin, see below.</p>
+</dd>
+<dt>
+<strong>ISUFFIX</strong>
+</dt>
+<dd>As <strong>IPREFIX</strong>, but for a suffix that should not be
+considered part of the matches; note that the <strong>ISUFFIX</strong> string follows
+the <strong>SUFFIX</strong> string.</dd>
+<dt>
+<strong>PREFIX</strong>
+</dt>
+<dd>Initially this will be set to the part of the current word
+from the beginning of the word up to the position of the cursor; it
+may be altered to give a common prefix for all matches.</dd>
+<dt>
+<strong>QIPREFIX</strong>
+</dt>
+<dd>This parameter is read-only and contains the quoted
+string up to the word being completed. E.g. when completing `*&#34;foo*&#39;,
+this parameter contains the double quote. If the <strong>-q</strong> option of
+<strong>compset</strong> is used (see below), and the original string was `*&#34;foo
+bar*&#39; with the cursor on the `*bar*&#39;, this parameter contains `*&#34;foo
+*&#39;.</dd>
+<dt>
+<strong>QISUFFIX</strong>
+</dt>
+<dd>Like <strong>QIPREFIX</strong>, but containing the suffix.</dd>
+<dt>
+<strong>SUFFIX</strong>
+</dt>
+<dd>Initially this will be set to the part of the current word
+from the cursor position to the end; it may be altered to give a
+common suffix for all matches. It is most useful when the option
+<strong>COMPLETE_IN_WORD</strong> is set, as otherwise the whole word on the command
+line is treated as a prefix.</dd>
+<dt>
+<strong>compstate</strong>
+</dt>
+<dd>
+<p>This is an associative array with various keys and
+values that the completion code uses to exchange information with the
+completion widget. The keys are:</p>
+<p>
+<strong>all_quotes</strong> The <strong>-q</strong> option of the <strong>compset</strong> builtin command (see
+below) allows a quoted string to be broken into separate words; if the
+cursor is on one of those words, that word will be completed, possibly
+invoking `*compset -q*&#39; recursively. With this key it is possible to
+test the types of quoted strings which are currently broken into parts
+in this fashion. Its value contains one character for each quoting
+level. The characters are a single quote or a double quote for strings
+quoted with these characters, a dollars sign for strings quoted with
+<strong>$&#39;*/…/</strong>&#39;* and a backslash for strings not starting with a quote
+character. The first character in the value always corresponds to the
+innermost quoting level.</p>
+<dl>
+<dt>
+<strong>context</strong>
+</dt>
+<dd>
+<p>This will be set by the completion code to the overall
+context in which completion is attempted. Possible values are:</p>
+<p>
+<strong>array_value</strong> when completing inside the value of an array parameter
+assignment; in this case the <strong>words</strong> array contains the words inside
+the parentheses.</p>
+<dl>
+<dt>
+<strong>brace_parameter</strong>
+</dt>
+<dd>when completing the name of a parameter in a
+parameter expansion beginning with <strong>${</strong>. This context will also be
+set when completing parameter flags following <strong>${(</strong>; the full
+command line argument is presented and the handler must test the
+value to be completed to ascertain that this is the case.</dd>
+<dt>
+<strong>assign_parameter</strong>
+</dt>
+<dd>when completing the name of a parameter in a
+parameter assignment.</dd>
+<dt>
+<strong>command</strong>
+</dt>
+<dd>when completing for a normal command (either in
+command position or for an argument of the command).</dd>
+<dt>
+<strong>condition</strong>
+</dt>
+<dd>when completing inside a `*<a href="*...*">*...*</a>*&#39; conditional
+expression; in this case the <strong>words</strong> array contains only the words
+inside the conditional expression.</dd>
+<dt>
+<strong>math</strong>
+</dt>
+<dd>when completing in a mathematical environment such as a
+`*((<strong>…</strong>))*&#39; construct.</dd>
+<dt>
+<strong>parameter</strong>
+</dt>
+<dd>when completing the name of a parameter in a
+parameter expansion beginning with <strong>$</strong> but not <strong>${</strong>.</dd>
+<dt>
+<strong>redirect</strong>
+</dt>
+<dd>when completing after a redirection operator.</dd>
+<dt>
+<strong>subscript</strong>
+</dt>
+<dd>when completing inside a parameter subscript.</dd>
+<dt>
+<strong>value</strong>
+</dt>
+<dd>when completing the value of a parameter assignment.</dd>
+</dl>
+</dd>
+<dt>
+<strong>exact</strong>
+</dt>
+<dd>Controls the behaviour when the <strong>REC_EXACT</strong> option is
+set. It will be set to <strong>accept</strong> if an exact match would be accepted,
+and will be unset otherwise.
+
+If it was set when at least one match equal to the string on the
+line was generated, the match is accepted.</dd>
+<dt>
+<strong>exact_string</strong>
+</dt>
+<dd>The string of an exact match if one was found,
+otherwise unset.</dd>
+<dt>
+<strong>ignored</strong>
+</dt>
+<dd>The number of completions that were ignored because
+they matched one of the patterns given with the <strong>-F</strong> option to the
+<strong>compadd</strong> builtin command.</dd>
+<dt>
+<strong>insert</strong>
+</dt>
+<dd>This controls the manner in which a match is inserted
+into the command line. On entry to the widget function, if it is
+unset the command line is not to be changed; if set to
+<strong>unambiguous</strong>, any prefix common to all matches is to be inserted;
+if set to <strong>automenu-unambiguous</strong>, the common prefix is to be
+inserted and the next invocation of the completion code may start
+menu completion (due to the <strong>AUTO_MENU</strong> option being set); if set to
+<strong>menu</strong> or <strong>automenu</strong> menu completion will be started for the matches
+currently generated (in the latter case this will happen because the
+<strong>AUTO_MENU</strong> is set). The value may also contain the string `*tab*&#39;
+when the completion code would normally not really do completion,
+but only insert the TAB character.
+
+On exit it may be set to any of the values above (where setting it
+to the empty string is the same as unsetting it), or to a number, in
+which case the match whose number is given will be inserted into the
+command line. Negative numbers count backward from the last match
+(with `*-1*&#39; selecting the last match) and out-of-range values are
+wrapped around, so that a value of zero selects the last match and a
+value one more than the maximum selects the first. Unless the value
+of this key ends in a space, the match is inserted as in a menu
+completion, i.e. without automatically appending a space.
+
+Both <strong>menu</strong> and <strong>automenu</strong> may also specify the number of the match
+to insert, given after a colon. For example, `*menu:2*&#39; says to
+start menu completion, beginning with the second match.
+
+Note that a value containing the substring `*tab*&#39; makes the matches
+generated be ignored and only the TAB be inserted.
+
+Finally, it may also be set to <strong>all</strong>, which makes all matches
+generated be inserted into the line.</dd>
+<dt>
+<strong>insert_positions</strong>
+</dt>
+<dd>When the completion system inserts an
+unambiguous string into the line, there may be multiple places where
+characters are missing or where the character inserted differs from
+at least one match. The value of this key contains a colon separated
+list of all these positions, as indexes into the command line.</dd>
+<dt>
+<strong>last_prompt</strong>
+</dt>
+<dd>If this is set to a non-empty string for every
+match added, the completion code will move the cursor back to the
+previous prompt after the list of completions has been displayed.
+Initially this is set or unset according to the <strong>ALWAYS_LAST_PROMPT</strong>
+option.</dd>
+<dt>
+<strong>list</strong>
+</dt>
+<dd>This controls whether or how the list of matches will be
+displayed. If it is unset or empty they will never be listed; if its
+value begins with <strong>list</strong>, they will always be listed; if it begins
+with <strong>autolist</strong> or <strong>ambiguous</strong>, they will be listed when the
+<strong>AUTO_LIST</strong> or <strong>LIST_AMBIGUOUS</strong> options respectively would normally
+cause them to be.
+
+If the substring <strong>force</strong> appears in the value, this makes the list
+be shown even if there is only one match. Normally, the list would
+be shown only if there are at least two matches.
+
+The value contains the substring <strong>packed</strong> if the <strong>LIST_PACKED</strong>
+option is set. If this substring is given for all matches added to a
+group, this group will show the <strong>LIST_PACKED</strong> behavior. The same is
+done for the <strong>LIST_ROWS_FIRST</strong> option with the substring <strong>rows</strong>.
+
+Finally, if the value contains the string <strong>explanations</strong>, only the
+explanation strings, if any, will be listed and if it contains
+<strong>messages</strong>, only the messages (added with the <strong>-x</strong> option of
+<strong>compadd</strong>) will be listed. If it contains both <strong>explanations</strong> and
+<strong>messages</strong> both kinds of explanation strings will be listed. It will
+be set appropriately on entry to a completion widget and may be
+changed there.</dd>
+<dt>
+<strong>list_lines</strong>
+</dt>
+<dd>This gives the number of lines that are needed to
+display the full list of completions. Note that to calculate the
+total number of lines to display you need to add the number of lines
+needed for the command line to this value, this is available as the
+value of the <strong>BUFFERLINES</strong> special parameter.</dd>
+<dt>
+<strong>list_max</strong>
+</dt>
+<dd>Initially this is set to the value of the <strong>LISTMAX</strong>
+parameter. It may be set to any other value; when the widget exits
+this value will be used in the same way as the value of <strong>LISTMAX</strong>.</dd>
+<dt>
+<strong>nmatches</strong>
+</dt>
+<dd>The number of matches added by the completion code so
+far.</dd>
+<dt>
+<strong>old_insert</strong>
+</dt>
+<dd>On entry to the widget this will be set to the
+number of the match of an old list of completions that is currently
+inserted into the command line. If no match has been inserted, this
+is unset.
+
+As with <strong>old_list</strong>, the value of this key will only be used if it is
+the string <strong>keep</strong>. If it was set to this value by the widget and
+there was an old match inserted into the command line, this match
+will be kept and if the value of the <strong>insert</strong> key specifies that
+another match should be inserted, this will be inserted after the
+old one.</dd>
+<dt>
+<strong>old_list</strong>
+</dt>
+<dd>This is set to <strong>yes</strong> if there is still a valid list of
+completions from a previous completion at the time the widget is
+invoked. This will usually be the case if and only if the previous
+editing operation was a completion widget or one of the builtin
+completion functions. If there is a valid list and it is also
+currently shown on the screen, the value of this key is <strong>shown</strong>.
+
+After the widget has exited the value of this key is only used if it
+was set to <strong>keep</strong>. In this case the completion code will continue to
+use this old list. If the widget generated new matches, they will
+not be used.</dd>
+<dt>
+<strong>parameter</strong>
+</dt>
+<dd>The name of the parameter when completing in a
+subscript or in the value of a parameter assignment.</dd>
+<dt>
+<strong>pattern_insert</strong>
+</dt>
+<dd>Normally this is set to <strong>menu</strong>, which specifies
+that menu completion will be used whenever a set of matches was
+generated using <strong>pattern_match</strong> (see below). If it is set to any
+other non-empty string by the user and menu completion is not
+selected by other option settings, the code will instead insert any
+common prefix for the generated matches as with normal completion.</dd>
+<dt>
+<strong>pattern_match</strong>
+</dt>
+<dd>Locally controls the behaviour given by the
+<strong>GLOB_COMPLETE</strong> option. Initially it is set to `***&#39; if and only if
+the option is set. The completion widget may set it to this value,
+to an empty string (which has the same effect as unsetting it), or
+to any other non-empty string. If it is non-empty, unquoted
+metacharacters on the command line will be treated as patterns; if
+it is `***&#39;, then additionally a wildcard `***&#39; is assumed at the
+cursor position; if it is empty or unset, metacharacters will be
+treated literally.
+
+Note that the match specifications given to the <strong>compadd</strong> builtin
+command are not used if this is set to a non-empty string.</dd>
+<dt>
+<strong>quote</strong>
+</dt>
+<dd>When completing inside quotes, this contains the
+quotation character (i.e. either a single quote, a double quote, or
+a backtick). Otherwise it is unset.</dd>
+<dt>
+<strong>quoting</strong>
+</dt>
+<dd>When completing inside single quotes, this is set to
+the string <strong>single</strong>; inside double quotes, the string <strong>double</strong>;
+inside backticks, the string <strong>backtick</strong>. Otherwise it is unset.</dd>
+<dt>
+<strong>redirect</strong>
+</dt>
+<dd>The redirection operator when completing in a
+redirection position, i.e. one of <strong>&lt;</strong>, <strong>&gt;</strong>, etc.</dd>
+<dt>
+<strong>restore</strong>
+</dt>
+<dd>This is set to <strong>auto</strong> before a function is entered,
+which forces the special parameters mentioned above (<strong>words</strong>,
+<strong>CURRENT</strong>, <strong>PREFIX</strong>, <strong>IPREFIX</strong>, <strong>SUFFIX</strong>, and <strong>ISUFFIX</strong>) to be
+restored to their previous values when the function exits. If a
+function unsets it or sets it to any other string, they will not be
+restored.</dd>
+<dt>
+<strong>to_end</strong>
+</dt>
+<dd>Specifies the occasions on which the cursor is moved to
+the end of a string when a match is inserted. On entry to a widget
+function, it may be <strong>single</strong> if this will happen when a single
+unambiguous match was inserted or <strong>match</strong> if it will happen any time
+a match is inserted (for example, by menu completion; this is likely
+to be the effect of the <strong>ALWAYS_TO_END</strong> option).
+
+On exit, it may be set to <strong>single</strong> as above. It may also be set to
+<strong>always</strong>, or to the empty string or unset; in those cases the cursor
+will be moved to the end of the string always or never respectively.
+Any other string is treated as <strong>match</strong>.</dd>
+<dt>
+<strong>unambiguous</strong>
+</dt>
+<dd>This key is read-only and will always be set to the
+common (unambiguous) prefix the completion code has generated for
+all matches added so far.</dd>
+<dt>
+<strong>unambiguous_cursor</strong>
+</dt>
+<dd>This gives the position the cursor would be
+placed at if the common prefix in the <strong>unambiguous</strong> key were
+inserted, relative to the value of that key. The cursor would be
+placed before the character whose index is given by this key.</dd>
+<dt>
+<strong>unambiguous_positions</strong>
+</dt>
+<dd>This contains all positions where
+characters in the unambiguous string are missing or where the
+character inserted differs from at least one of the matches. The
+positions are given as indexes into the string given by the value of
+the <strong>unambiguous</strong> key.</dd>
+<dt>
+<strong>vared</strong>
+</dt>
+<dd>If completion is called while editing a line using the
+<strong>vared</strong> builtin, the value of this key is set to the name of the
+parameter given as an argument to <strong>vared</strong>. This key is only set
+while a <strong>vared</strong> command is active.</dd>
+</dl>
+</dd>
+<dt>
+<strong>words</strong>
+</dt>
+<dd>This array contains the words present on the command line
+currently being edited.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMPLETION BUILTIN COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>compadd *[ *-akqQfenUl12C</strong> ] [ <strong>-F</strong> <em>array</em> ]</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+<strong>[</strong>-P* <em>prefix</em> ] [ <strong>-S</strong> <em>suffix</em> ]
+</h2>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+<strong>[</strong>-p* <em>hidden-prefix</em> ] [ <strong>-s</strong> <em>hidden-suffix</em> ]
+</h2>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+<strong>[</strong>-i* <em>ignored-prefix</em> ] [ <strong>-I</strong> <em>ignored-suffix</em> ]
+</h2>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+<strong>[</strong>-W* <em>file-prefix</em> ] [ <strong>-d</strong> <em>array</em> ]
+</h2>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+<strong>[</strong>-J* <em>group-name</em> ] [ <strong>-X</strong> <em>explanation</em> ] [ <strong>-x</strong> <em>message</em> ]
+</h2>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+<strong>[</strong>-V* <em>group-name</em> ] [ <strong>-o</strong> [ <em>order</em> ] ]
+</h2>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+<strong>[</strong>-r* <em>remove-chars</em> ] [ <strong>-R</strong> <em>remove-func</em> ]
+</h2>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+<strong>[</strong>-D* <em>array</em> ] [ <strong>-O</strong> <em>array</em> ] [ <strong>-A</strong> <em>array</em> ]
+</h2>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+<strong>[</strong>-E* <em>number</em> ]
+</h2>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+<strong>[</strong>-M* <em>match-spec</em> ] [ <strong>–</strong> ] [ <em>completions</em> … ]
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<blockquote>
+<p>This builtin command can be used to add matches directly and control all
+the information the completion code stores with each possible
+completion. The return status is zero if at least one match was added
+and non-zero if no matches were added.</p>
+<p>
+The completion code breaks each match into seven fields in the order:</p>
+<blockquote>
+<pre class="example">
+&lt;ipre&gt;&lt;apre&gt;&lt;hpre&gt;&lt;body&gt;&lt;hsuf&gt;&lt;asuf&gt;&lt;isuf&gt;
+</pre>
+</blockquote>
+<p>
+The first field is an ignored prefix taken from the command line, the
+contents of the <strong>IPREFIX</strong> parameter plus the string given with the <strong>-i</strong>
+option. With the <strong>-U</strong> option, only the string from the <strong>-i</strong> option is
+used. The field <em>&lt;apre&gt;</em> is an optional prefix string given with the
+<strong>-P</strong> option. The <em>&lt;hpre&gt;</em> field is a string that is considered part of
+the match but that should not be shown when listing completions, given
+with the <strong>-p</strong> option; for example, functions that do filename generation
+might specify a common path prefix this way. <em>&lt;body&gt;</em> is the part of the
+match that should appear in the list of matches shown to the user. The
+suffixes <em>&lt;hsuf&gt;</em>, <em>&lt;asuf&gt;</em> and <em>&lt;isuf&gt;</em> correspond to the prefixes
+<em>&lt;hpre&gt;</em>, <em>&lt;apre&gt;</em> and <em>&lt;ipre&gt;</em> and are given by the options <strong>-s</strong>, <strong>-S</strong>
+and <strong>-I</strong>, respectively.</p>
+<p>
+The supported flags are:</p>
+<p>
+<strong>-P</strong> <em>prefix</em> This gives a string to be inserted before each match. The
+string given is not considered as part of the match and any shell
+metacharacters in it will not be quoted when the string is inserted.</p>
+<dl>
+<dt>
+<strong>-S</strong> <em>suffix</em>
+</dt>
+<dd>Like <strong>-P</strong>, but gives a string to be inserted after
+each match.</dd>
+<dt>
+<strong>-p</strong> <em>hidden-prefix</em>
+</dt>
+<dd>This gives a string that should be inserted
+before each match but that should not appear in the list of matches.
+Unless the <strong>-U</strong> option is given, this string must be matched as part
+of the string on the command line.</dd>
+<dt>
+<strong>-s</strong> <em>hidden-suffix</em>
+</dt>
+<dd>Like `*-p*&#39;, but gives a string to insert
+after each match.</dd>
+<dt>
+<strong>-i</strong> <em>ignored-prefix</em>
+</dt>
+<dd>This gives a string to insert just before any
+string given with the `*-P*&#39; option. Without `*-P*&#39; the string is
+inserted before the string given with `*-p*&#39; or directly before each
+match.</dd>
+<dt>
+<strong>-I</strong> <em>ignored-suffix</em>
+</dt>
+<dd>Like <strong>-i</strong>, but gives an ignored suffix.</dd>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>With this flag the <em>completions</em> are taken as names of arrays
+and the actual completions are their values. If only some elements of
+the arrays are needed, the <em>completions</em> may also contain subscripts,
+as in `*foo[2,-1]*&#39;.</dd>
+<dt>
+<strong>-k</strong>
+</dt>
+<dd>With this flag the <em>completions</em> are taken as names of
+associative arrays and the actual completions are their keys. As for
+<strong>-a</strong>, the <em>words</em> may also contain subscripts, as in
+`*foo[(R)*bar*]*&#39;.</dd>
+<dt>
+<strong>-d</strong> <em>array</em>
+</dt>
+<dd>This adds per-completion display strings. The <em>array</em>
+should contain one element per <em>completion</em> given. The completion code
+will then display the first element instead of the first <em>completion</em>,
+and so on. The <em>array</em> may be given as the name of an array parameter
+or directly as a space-separated list of words in parentheses.
+
+If there are fewer display strings than <em>completions</em>, the leftover
+<em>completions</em> will be displayed unchanged and if there are more
+display strings than <em>completions</em>, the leftover display strings will
+be silently ignored.</dd>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>This option only has an effect if used together with the <strong>-d</strong>
+option. If it is given, the display strings are listed one per line,
+not arrayed in columns.</dd>
+<dt>
+<strong>-o</strong> [ <em>order</em> ]
+</dt>
+<dd>
+<p>This controls the order in which matches are
+sorted. <em>order</em> is a comma-separated list comprising the following
+possible values. These values can be abbreviated to their initial two
+or three characters. Note that the order forms part of the group name
+space so matches with different orderings will not be in the same
+group.</p>
+<p>
+<strong>match</strong> If given, the order of the output is determined by the match
+strings; otherwise it is determined by the display strings (i.e. the
+strings given by the <strong>-d</strong> option). This is the default if `*-o*&#39; is
+specified but the <em>order</em> argument is omitted.</p>
+<dl>
+<dt>
+<strong>nosort</strong>
+</dt>
+<dd>This specifies that the <em>completions</em> are pre-sorted and
+their order should be preserved. This value only makes sense alone
+and cannot be combined with any others.</dd>
+<dt>
+<strong>numeric</strong>
+</dt>
+<dd>If the matches include numbers, sort them numerically
+rather than lexicographically.</dd>
+<dt>
+<strong>reverse</strong>
+</dt>
+<dd>Arrange the matches backwards by reversing the sort
+ordering.</dd>
+</dl>
+</dd>
+<dt>
+<strong>-J</strong> <em>group-name</em>
+</dt>
+<dd>Gives the name of the group that the matches
+should be stored in.</dd>
+<dt>
+<strong>-V</strong> <em>group-name</em>
+</dt>
+<dd>Like <strong>-J</strong> but naming an unsorted group. This
+option is identical to the combination of <strong>-J</strong> and <strong>-o nosort</strong>.</dd>
+<dt>
+<strong>-1</strong>
+</dt>
+<dd>If given together with the <strong>-V</strong> option, makes only consecutive
+duplicates in the group be removed. If combined with the <strong>-J</strong> option,
+this has no visible effect. Note that groups with and without this
+flag are in different name spaces.</dd>
+<dt>
+<strong>-2</strong>
+</dt>
+<dd>If given together with the <strong>-J</strong> or <strong>-V</strong> option, makes all
+duplicates be kept. Again, groups with and without this flag are in
+different name spaces.</dd>
+<dt>
+<strong>-X</strong> <em>explanation</em>
+</dt>
+<dd>The <em>explanation</em> string will be printed with
+the list of matches, above the group currently selected.
+
+Within the <em>explanation</em>, the following sequences may be used to
+specify output attributes as described in the section EXPANSION OF
+PROMPT SEQUENCES in /zshmisc/(1): `*%B*&#39;, `*%S*&#39;, `*%U*&#39;, `*%F*&#39;,
+`*%K*&#39; and their lower case counterparts, as well as `*%{<strong>…*%}</strong>&#39;.
+`*%F*&#39;, `*%K*&#39; and `*%{<strong>…*%}</strong>&#39; take arguments in the same form as
+prompt expansion. (Note that the sequence `*%G*&#39; is not available; an
+argument to `*%{<strong>&#39; should be used instead.) The sequence `*%%</strong>&#39;
+produces a literal `*%*&#39;.
+
+These sequences are most often employed by users when customising the
+<strong>format</strong> style (see /zshcompsys/(1)), but they must also be taken into
+account when writing completion functions, as passing descriptions
+with unescaped `*%*&#39; characters to utility functions such as
+<strong>_arguments</strong> and <strong>_message</strong> may produce unexpected results. If
+arbitrary text is to be passed in a description, it can be escaped
+using e.g. <strong>${my_str//\%/%%}</strong>.</dd>
+<dt>
+<strong>-x</strong> <em>message</em>
+</dt>
+<dd>Like <strong>-X</strong>, but the <em>message</em> will be printed even if
+there are no matches in the group.</dd>
+<dt>
+<strong>-q</strong>
+</dt>
+<dd>The suffix given with <strong>-S</strong> will be automatically removed if
+the next character typed is a blank or does not insert anything, or if
+the suffix consists of only one character and the next character typed
+is the same character.</dd>
+<dt>
+<strong>-r</strong> <em>remove-chars</em>
+</dt>
+<dd>This is a more versatile form of the <strong>-q</strong>
+option. The suffix given with <strong>-S</strong> or the slash automatically added
+after completing directories will be automatically removed if the next
+character typed inserts one of the characters given in the
+<em>remove-chars</em>. This string is parsed as a characters class and
+understands the backslash sequences used by the <strong>print</strong> command. For
+example, `*-r &#34;a-z\t&#34;<strong>&#39; removes the suffix if the next character typed
+inserts a lower case character or a TAB, and `</strong>-r &#34;^0-9&#34;*&#39; removes the
+suffix if the next character typed inserts anything but a digit. One
+extra backslash sequence is understood in this string: `*\-<strong>&#39; stands
+for all characters that insert nothing. Thus `</strong>-S &#34;<code class="verbatim">&#34; -q*&#39; is the same
+as `*-S &#34;</code>&#34; -r &#34;= \t\n\-&#34;*&#39;.
+
+This option may also be used without the <strong>-S</strong> option; then any
+automatically added space will be removed when one of the characters
+in the list is typed.</dd>
+<dt>
+<strong>-R</strong> <em>remove-func</em>
+</dt>
+<dd>This is another form of the <strong>-r</strong> option. When a
+match has been accepted and a suffix has been inserted, the function
+<em>remove-func</em> will be called after the next character typed. It is
+passed the length of the suffix as an argument and can use the special
+parameters available in ordinary (non-completion) zle widgets (see
+/zshzle/(1)) to analyse and modify the command line.</dd>
+<dt>
+<strong>-f</strong>
+</dt>
+<dd>If this flag is given, all of the matches built from the
+<em>completions</em> are marked as being the names of files. They are not
+required to be actual filenames, but if they are, and the option
+<strong>LIST_TYPES</strong> is set, the characters describing the types of the files
+in the completion lists will be shown. This also forces a slash to be
+added when the name of a directory is completed.</dd>
+<dt>
+<strong>-e</strong>
+</dt>
+<dd>This flag can be used to tell the completion code that the
+matches added are parameter names for a parameter expansion. This will
+make the <strong>AUTO_PARAM_SLASH</strong> and <strong>AUTO_PARAM_KEYS</strong> options be used for
+the matches.</dd>
+<dt>
+<strong>-W</strong> <em>file-prefix</em>
+</dt>
+<dd>This string is a pathname that will be prepended
+to each match together with any prefix specified by the <strong>-p</strong> option to
+form a complete filename for testing. Hence it is only useful if
+combined with the <strong>-f</strong> flag, as the tests will not otherwise be
+performed.</dd>
+<dt>
+<strong>-F</strong> <em>array</em>
+</dt>
+<dd>Specifies an array containing patterns. <em>completions</em>
+that match one of these patterns are ignored, that is, not considered
+to be matches.
+
+The <em>array</em> may be the name of an array parameter or a list of literal
+patterns enclosed in parentheses and quoted, as in `*-F &#34;(<strong>?.o</strong>
+​*?.h)&#34;&#39;. If the name of an array is given, the elements of the array
+are taken as the patterns.</dd>
+<dt>
+<strong>-Q</strong>
+</dt>
+<dd>This flag instructs the completion code not to quote any
+metacharacters in the matches when inserting them into the command
+line.</dd>
+<dt>
+<strong>-M</strong> <em>match-spec</em>
+</dt>
+<dd>This gives local match specifications as
+described below in the section `Completion Matching Control&#39;. This
+option may be given more than once. In this case all /match-spec/s
+given are concatenated with spaces between them to form the
+specification string to use. Note that they will only be used if the
+<strong>-U</strong> option is not given.</dd>
+<dt>
+<strong>-n</strong>
+</dt>
+<dd>Specifies that matching <em>completions</em> are to be added to the
+set of matches, but are not to be listed to the user.</dd>
+<dt>
+<strong>-U</strong>
+</dt>
+<dd>If this flag is given, all <em>completions</em> are added to the set
+of matches and no matching will be done by the completion code.
+Normally this is used in functions that do the matching themselves.</dd>
+<dt>
+<strong>-O</strong> <em>array</em>
+</dt>
+<dd>If this option is given, the <em>completions</em> are <em>not</em>
+added to the set of matches. Instead, matching is done as usual and
+all of the <em>completions</em> that match will be stored in the array
+parameter whose name is given as <em>array</em>.</dd>
+<dt>
+<strong>-A</strong> <em>array</em>
+</dt>
+<dd>As the <strong>-O</strong> option, except that instead of those of
+the <em>completions</em> which match being stored in <em>array</em>, the strings
+generated internally by the completion code are stored. For example,
+with a match specification of `*-M &#34;L:|no=&#34;<strong>&#39;, a current word of
+`*nof</strong>&#39; and <em>completions</em> of `*foo*&#39;, this option stores the string
+`*nofoo*&#39; in the array, whereas the <strong>-O</strong> option stores the `*foo*&#39;
+originally given.</dd>
+<dt>
+<strong>-D</strong> <em>array</em>
+</dt>
+<dd>As with <strong>-O</strong>, the <em>completions</em> are not added to the
+set of matches. Instead, whenever the <em>n/th /completion</em> does not
+match, the <em>n/th element of the /array</em> is removed. Elements for which
+the corresponding <em>completion</em> matches are retained. This option can
+be used more than once to remove elements from multiple arrays.</dd>
+<dt>
+<strong>-C</strong>
+</dt>
+<dd>This option adds a special match which expands to all other
+matches when inserted into the line, even those that are added after
+this option is used. Together with the <strong>-d</strong> option it is possible to
+specify a string that should be displayed in the list for this special
+match. If no string is given, it will be shown as a string containing
+the strings that would be inserted for the other matches, truncated to
+the width of the screen.</dd>
+<dt>
+<strong>-E</strong> <em>number</em>
+</dt>
+<dd>This option adds <em>number</em> empty matches after
+matching <em>completions</em> have been added. An empty match takes up space
+in completion listings but will never be inserted in the line and
+can&#39;t be selected with menu completion or menu selection. This makes
+empty matches only useful to format completion lists and to make
+explanatory string be shown in completion lists (since empty matches
+can be given display strings with the <strong>-d</strong> option). And because all
+but one empty string would otherwise be removed, this option implies
+the <strong>-V</strong> and <strong>-2</strong> options (even if an explicit <strong>-J</strong> option is given).
+This can be important to note as it affects the name space into which
+matches are added.</dd>
+</dl>
+<p><strong>-</strong></p>
+<p>
+<strong>–</strong> This flag ends the list of flags and options. All arguments after
+it will be taken as the <em>completions</em> even if they begin with hyphens.</p>
+<p>
+Except for the <strong>-M</strong> flag, if any of these flags is given more than once,
+the first one (and its argument) will be used.</p>
+</blockquote>
+<p>
+<strong>compset -p</strong> <em>number</em></p>
+<p>
+<strong>compset -P</strong> [ <em>number</em> ] <em>pattern</em></p>
+<p>
+<strong>compset -s</strong> <em>number</em></p>
+<p>
+<strong>compset -S</strong> [ <em>number</em> ] <em>pattern</em></p>
+<p>
+<strong>compset -n</strong> <em>begin</em> [ <em>end</em> ]</p>
+<p>
+<strong>compset -N</strong> <em>beg-pat</em> [ <em>end-pat</em> ]</p>
+<p>
+<strong>compset -q</strong> This command simplifies modification of the special
+parameters, while its return status allows tests on them to be carried
+out.</p>
+<blockquote>
+<p>The options are:</p>
+<p>
+<strong>-p</strong> <em>number</em> If the value of the <strong>PREFIX</strong> parameter is at least
+<em>number</em> characters long, the first <em>number</em> characters are removed from
+it and appended to the contents of the <strong>IPREFIX</strong> parameter.</p>
+<dl>
+<dt>
+<strong>-P</strong> [ <em>number</em> ] <em>pattern</em>
+</dt>
+<dd>If the value of the <strong>PREFIX</strong> parameter
+begins with anything that matches the <em>pattern</em>, the matched portion
+is removed from <strong>PREFIX</strong> and appended to <strong>IPREFIX</strong>.
+
+Without the optional <em>number</em>, the longest match is taken, but if
+<em>number</em> is given, anything up to the <em>number/th match is moved. If
+the /number</em> is negative, the /number/th longest match is moved. For
+example, if <strong>PREFIX</strong> contains the string `*a=b=c*&#39;, then <strong>compset -P
+&#39;</strong>\=&#39;* will move the string `*a=b=*&#39; into the <strong>IPREFIX</strong> parameter, but
+<strong>compset -P 1 &#39;</strong>\=&#39;* will move only the string `*a=*&#39;.</dd>
+<dt>
+<strong>-s</strong> <em>number</em>
+</dt>
+<dd>As <strong>-p</strong>, but transfer the last <em>number</em> characters
+from the value of <strong>SUFFIX</strong> to the front of the value of <strong>ISUFFIX</strong>.</dd>
+<dt>
+<strong>-S</strong> [ <em>number</em> ] <em>pattern</em>
+</dt>
+<dd>As <strong>-P</strong>, but match the last portion of
+<strong>SUFFIX</strong> and transfer the matched portion to the front of the value of
+<strong>ISUFFIX</strong>.</dd>
+<dt>
+<strong>-n</strong> <em>begin</em> [ <em>end</em> ]
+</dt>
+<dd>If the current word position as specified by
+the parameter <strong>CURRENT</strong> is greater than or equal to <em>begin</em>, anything
+up to the <em>begin/th word is removed from the <strong>words</strong> array and the
+value of the parameter <strong>CURRENT</strong> is decremented by /begin</em>.
+
+If the optional <em>end</em> is given, the modification is done only if the
+current word position is also less than or equal to <em>end</em>. In this
+case, the words from position <em>end</em> onwards are also removed from the
+<strong>words</strong> array.
+
+Both <em>begin</em> and <em>end</em> may be negative to count backwards from the
+last element of the <strong>words</strong> array.</dd>
+<dt>
+<strong>-N</strong> <em>beg-pat</em> [ <em>end-pat</em> ]
+</dt>
+<dd>If one of the elements of the <strong>words</strong>
+array before the one at the index given by the value of the parameter
+<strong>CURRENT</strong> matches the pattern <em>beg-pat</em>, all elements up to and
+including the matching one are removed from the <strong>words</strong> array and the
+value of <strong>CURRENT</strong> is changed to point to the same word in the changed
+array.
+
+If the optional pattern <em>end-pat</em> is also given, and there is an
+element in the <strong>words</strong> array matching this pattern, the parameters are
+modified only if the index of this word is higher than the one given
+by the <strong>CURRENT</strong> parameter (so that the matching word has to be after
+the cursor). In this case, the words starting with the one matching
+<strong>end-pat</strong> are also removed from the <strong>words</strong> array. If <strong>words</strong> contains
+no word matching <em>end-pat</em>, the testing and modification is performed
+as if it were not given.</dd>
+<dt>
+<strong>-q</strong>
+</dt>
+<dd>The word currently being completed is split on spaces into
+separate words, respecting the usual shell quoting conventions. The
+resulting words are stored in the <strong>words</strong> array, and <strong>CURRENT</strong>,
+<strong>PREFIX</strong>, <strong>SUFFIX</strong>, <strong>QIPREFIX</strong>, and <strong>QISUFFIX</strong> are modified to reflect
+the word part that is completed.</dd>
+</dl>
+<p>In all the above cases the return status is zero if the test succeeded
+and the parameters were modified and non-zero otherwise. This allows one
+to use this builtin in tests such as:</p>
+<blockquote>
+<pre class="example">
+if compset -P &#39;*\=&#39;; then ...
+</pre>
+</blockquote>
+<p>
+This forces anything up to and including the last equal sign to be
+ignored by the completion code.</p>
+</blockquote>
+<dl>
+<dt>
+<strong>compcall</strong> [ <strong>-TD</strong> ]
+</dt>
+<dd>This allows the use of completions defined
+with the <strong>compctl</strong> builtin from within completion widgets. The list of
+matches will be generated as if one of the non-widget completion
+functions (<strong>complete-word</strong>, etc.) had been called, except that only
+<strong>compctl*s given for specific commands are used. To force the code to
+try completions defined with the *-T</strong> option of <strong>compctl</strong> and/or the
+default completion (whether defined by <strong>compctl -D</strong> or the builtin
+default) in the appropriate places, the <strong>-T</strong> and/or <strong>-D</strong> flags can be
+passed to <strong>compcall</strong>.
+
+The return status can be used to test if a matching <strong>compctl</strong>
+definition was found. It is non-zero if a <strong>compctl</strong> was found and zero
+otherwise.
+
+Note that this builtin is defined by the <strong>zsh/compctl</strong> module.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+COMPLETION CONDITION CODES
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>The following additional condition codes for use within the <strong>[[</strong> <em>…</em>
+<strong>]]</strong> construct are available in completion widgets. These work on the
+special parameters. All of these tests can also be performed by the
+<strong>compset</strong> builtin, but in the case of the condition codes the contents
+of the special parameters are not modified.</p>
+<p>
+<strong>-prefix</strong> [ <em>number</em> ] <em>pattern</em> true if the test for the <strong>-P</strong> option of
+<strong>compset</strong> would succeed.</p>
+<dl>
+<dt>
+<strong>-suffix</strong> [ <em>number</em> ] <em>pattern</em>
+</dt>
+<dd>true if the test for the <strong>-S</strong>
+option of <strong>compset</strong> would succeed.</dd>
+<dt>
+<strong>-after</strong> <em>beg-pat</em>
+</dt>
+<dd>true if the test of the <strong>-N</strong> option with only
+the <em>beg-pat</em> given would succeed.</dd>
+<dt>
+<strong>-between</strong> <em>beg-pat end-pat</em>
+</dt>
+<dd>true if the test for the <strong>-N</strong> option
+with both patterns would succeed.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+COMPLETION MATCHING CONTROL
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>When the user invokes completion, the current <em>word</em> on the command line
+(that is, the word the cursor is currently on) is used to generate a
+<em>match</em> pattern. Only those <em>completions</em> that match the pattern are
+offered to the user as <em>matches</em>.</p>
+<p>
+The default match pattern is generated from the current word by either</p>
+<p>
+· appending a `***&#39; (matching any number of characters in a completion)
+<em>or,</em></p>
+<dl>
+<dt>
+·
+</dt>
+<dd>if the shell option <strong>COMPLETE_IN_WORD</strong> is set, inserting a `***&#39;
+at the cursor position.</dd>
+</dl>
+<p>This narrow pattern can be broadened selectively by passing a <em>match</em>
+specification to the <strong>compadd</strong> builtin command through its <strong>-M</strong> option
+(see `Completion Builtin Commands&#39; above). A match specification
+consists of one or more <em>matchers</em> separated by whitespace. Matchers in
+a match specification are applied one at a time, from left to right.
+Once all matchers have been applied, completions are compared to the
+final match pattern and non-matching ones are discarded.</p>
+<p>
+· Note that the <strong>-M</strong> option is ignored if the current word contains a
+glob pattern and the shell option <strong>GLOB_COMPLETE</strong> is set or if the
+<strong>pattern_match</strong> key of the special associative array <strong>compstate</strong> is set
+to a non-empty value (see `Completion Special Parameters&#39; above).</p>
+<dl>
+<dt>
+·
+</dt>
+<dd>Users of the completion system (see /zshcompsys/(1)) should
+generally not use the <strong>-M</strong> option directly, but rather use the
+<strong>matcher-list</strong> and <strong>matcher</strong> styles (see the subsection <em>Standard
+Styles</em> in the documentation for COMPLETION SYSTEM CONFIGURATION in
+/zshcompsys/(1)).</dd>
+</dl>
+<p>Each matcher consists of</p>
+<p>
+· a case-sensitive letter</p>
+<dl>
+<dt>
+·
+</dt>
+<dd>a `*:*&#39;,</dd>
+<dt>
+·
+</dt>
+<dd>one or more patterns separated by pipes (`*|*&#39;),</dd>
+<dt>
+·
+</dt>
+<dd>an equals sign (`*=*&#39;), and</dd>
+<dt>
+·
+</dt>
+<dd>another pattern.</dd>
+</dl>
+<p>The patterns before the `*=*&#39; are used to match substrings of the
+current word. For each matched substring, the corresponding part of the
+match pattern is broadened with the pattern after the `*=*&#39;, by means of
+a logical <strong>OR</strong>.</p>
+<p>
+Each pattern in a matcher cosists of either</p>
+<p>
+· the empty string or</p>
+<dl>
+<dt>
+·
+</dt>
+<dd>
+<p>a sequence of</p>
+<p>
+· literal characters (which may be quoted with a `*\*&#39;),</p>
+<dl>
+<dt>
+·
+</dt>
+<dd>question marks (`*?*&#39;),</dd>
+<dt>
+·
+</dt>
+<dd>bracket expressions (`*[…]*&#39;; see the subsection <em>Glob
+Operators</em> in the documentation for GLOB OPERATORS in /zshexpn/(1)),
+and/or</dd>
+<dt>
+·
+</dt>
+<dd>brace expressions (see below).</dd>
+</dl>
+</dd>
+</dl>
+<p>Other shell patterns are not allowed.</p>
+<p>
+A brace expression, like a bracket expression, consists of a list of</p>
+<p>
+· literal characters,</p>
+<dl>
+<dt>
+·
+</dt>
+<dd>ranges (`*0-9*&#39;), and/or</dd>
+<dt>
+·
+</dt>
+<dd>character classes (`*[:*/name/*:]*&#39;).</dd>
+</dl>
+<p>However, they differ from each other as follows:</p>
+<p>
+· A brace expression is delimited by a pair of braces (`*{…}*&#39;).</p>
+<dl>
+<dt>
+·
+</dt>
+<dd>Brace expressions do not support negations. That is, an initial
+`*!*&#39; or `*^*&#39; has no special meaning and will be interpreted as a
+literal character.</dd>
+<dt>
+·
+</dt>
+<dd>When a character in the current word matches the /n/th pattern in
+a brace expression, the corresponding part of the match pattern is
+broadened only with the /n/th pattern of the brace expression on the
+other side of the `*=*&#39;, if there is one; if there is no brace
+expression on the other side, then this pattern is the empty string.
+However, if either brace expression has more elements than the other,
+then the excess entries are simply ignored. When comparing indexes,
+each literal character or character class counts as one element, but
+each range is instead expanded to the full list of literal characters
+it represents. Additionally, if on <em>both</em> sides of the `*=*&#39;, the
+/n/th pattern is `*[:upper:]*&#39; or `*[:lower:]*&#39;, then these are
+expanded as ranges, too.</dd>
+</dl>
+<p>Note that, although the matching system does not yet handle multibyte
+characters, this is likely to be a future extension. Hence, using
+`*[:upper:]*&#39; and `*[:lower:]*&#39; is recommended over `*A-Z*&#39; and `*a-z*&#39;.</p>
+<p>
+Below are the different forms of matchers supported. Each <em>uppercase</em>
+form behaves exactly like its lowercase counterpart, but adds an
+additional step <em>after</em> the match pattern has filtered out non-matching
+completions: Each of a match&#39;s substrings that was matched by a
+subpattern from an uppercase matcher is replaced with the corresponding
+substring of the current word. However, patterns from <em>lowercase</em>
+matchers have higher weight: If a substring of the current word was
+matched by patterns from both a lowercase and an uppercase matcher, then
+the lowercase matcher&#39;s pattern wins and the corresponding part of the
+match is not modified.</p>
+<p>
+Unless indicated otherwise, each example listed assumes
+<strong>COMPLETE_IN_WORD</strong> to be unset (as it is by default).</p>
+<p>
+*m:*/word-pat/*=*/match-pat/</p>
+<p>
+*M:*/word-pat/*=*/match-pat/</p>
+<blockquote>
+<p>For each substring of the current word that matches <em>word-pat</em>, broaden
+the corresponding part of the match pattern to additionally match
+<em>match-pat</em>.</p>
+<p>
+Examples:</p>
+<blockquote>
+<p><strong>m:{[:lower:]}={[:upper:]}</strong> lets any lower case character in the current
+word be completed to itself or its uppercase counterpart. So, the
+completions `*foo*&#39;, `*FOO*&#39; and `*Foo*&#39; will are be considered matches
+for the word `*fo*&#39;.</p>
+<p>
+<strong>M:_=</strong> inserts every underscore from the current word into each match,
+in the same relative position, determined by matching the substrings
+around it. So, given a completion `*foo*&#39;, the word `*f_o*&#39; will be
+completed to the match `*f_oo*&#39;, even though the latter was not present
+as a completion.</p>
+</blockquote>
+</blockquote>
+<p>
+*b:*/word-pat/*=*/match-pat/</p>
+<p>
+*B:*/word-pat/*=*/match-pat/</p>
+<p>
+*e:*/word-pat/*=*/match-pat/</p>
+<p>
+*E:*/word-pat/*=*/match-pat/</p>
+<blockquote>
+<p>For each consecutive substring at the *b:*eginning or *e:*nd of the
+current word that matches <em>word-pat</em>, broaden the corresponding part of
+the match pattern to additionally match <em>match-pat</em>.</p>
+<p>
+Examples:</p>
+<blockquote>
+<p>`*b:-=+*&#39; lets any number of minuses at the start of the current word be
+completed to a minus or a plus.</p>
+<p>
+`*B:0=*&#39; adds all zeroes at the beginning of the current word to the
+beginning of each match.</p>
+</blockquote>
+</blockquote>
+<p>
+*l:|*/word-pat/*=*/match-pat/</p>
+<p>
+*L:|*/word-pat/*=*/match-pat/</p>
+<p>
+*R:*/word-pat/*|=*/match-pat/</p>
+<p>
+*r:*/word-pat/*|=*/match-pat/</p>
+<blockquote>
+<p>If there is a substring at the *l:*eft or *r:*ight edge of the current
+word that matches <em>word-pat</em>, then broaden the corresponding part of the
+match pattern to additionally match <em>match-pat</em>.</p>
+<p>
+For each <strong>l:</strong>, <strong>L:</strong>, <strong>r:</strong> and <strong>R:</strong> matcher (including the ones below),
+the pattern <em>match-pat</em> may also be a `***&#39;. This matches any number of
+characters in a completion.</p>
+<p>
+Examples:</p>
+<blockquote>
+<p>`*r:|=**&#39; appends a `***&#39; to the match pattern, even when
+<strong>COMPLETE_IN_WORD</strong> is set and the cursor is not at the end of the
+current word.</p>
+<p>
+If the current word starts with a minus, then `*L:|-=*&#39; will prepend it
+to each match.</p>
+</blockquote>
+</blockquote>
+<p>
+*l:*/anchor/*|*/word-pat/*=*/match-pat/</p>
+<p>
+*L:*/anchor/*|*/word-pat/*=*/match-pat/</p>
+<p>
+*r:*/word-pat/*|*/anchor/*=*/match-pat/</p>
+<p>
+*R:*/word-pat/*|*/anchor/*=*/match-pat/</p>
+<blockquote>
+<p>For each substring of the current word that matches <em>word-pat</em> and has
+on its *l:*eft or *r:*ight another substring matching <em>anchor</em>, broaden
+the corresponding part of the match pattern to additionally match
+<em>match-pat</em>.</p>
+<p>
+Note that these matchers (and the ones below) modify only what is
+matched by <em>word-pat</em>; they do not change the matching behavior of what
+is matched by <em>anchor</em> (or <em>coanchor</em>; see the matchers below). Thus,
+unless its corresponding part of the match pattern has been modified,
+the anchor in the current word has to match literally in each
+completion, just like any other substring of the current word.</p>
+<p>
+If a matcher includes at least one anchor (which includes the matchers
+with two anchors, below), then <em>match-pat</em> may also be `***&#39; or `****&#39;.
+`***&#39; can match any part of a completion that does not contain any
+substrings matching <em>anchor</em>, whereas a `****&#39; can match any part of a
+completion, period. (Note that this is different from the behavior of
+`***&#39; in the anchorless forms of `*l:*&#39; and `*r:*&#39; and and also
+different from `***&#39; and `****&#39; in glob expressions.)</p>
+<p>
+Examples:</p>
+<blockquote>
+<p>`*r:|.=**&#39; makes the completion `*comp.sources.unix*&#39; a match for the
+word `*..u*&#39; – but <em>not</em> for the word `*.u*&#39;.</p>
+<p>
+Given a completion `*–foo*&#39;, the matcher `*L:–|no-=*&#39; will complete
+the word `*–no-<strong>&#39; to the match `</strong>–no-foo*&#39;.</p>
+</blockquote>
+</blockquote>
+<p>
+*l:*/anchor/*||*/coanchor/*=*/match-pat/</p>
+<p>
+*L:*/anchor/*||*/coanchor/*=*/match-pat/</p>
+<p>
+*r:*/coanchor/*||*/anchor/*=*/match-pat/</p>
+<p>
+*R:*/coanchor/*||*/anchor/*=*/match-pat/</p>
+<blockquote>
+<p>For any two consecutive substrings of the current word that match
+<em>anchor</em> and <em>coanchor</em>, in the order given, insert the pattern
+<em>match-pat</em> between their corresponding parts in the match pattern.</p>
+<p>
+Note that, unlike <em>anchor</em>, the pattern <em>coanchor</em> does not change what
+`***&#39; can match.</p>
+<p>
+Examples:</p>
+<blockquote>
+<p>`*r:?||<a href=":upper:">:upper:</a>=**&#39; will complete the current word `*fB*&#39; to
+`*fooBar*&#39;, but it will not complete it to `*fooHooBar*&#39; (because `***&#39;
+here cannot match anything that includes a match for `*<a href=":upper:">:upper:</a>*),
+nor will it complete `*B*&#39; to `*fooBar*&#39; (because there is no character
+in the current word to match <em>coanchor</em>).</p>
+<p>
+Given the current word `*pass.n*&#39; and a completion `*pass.byname*&#39;, the
+matcher `*L:.||<a href=":alpha:">:alpha:</a>=by*&#39; will produce the match `*pass.name*&#39;.</p>
+</blockquote>
+</blockquote>
+<dl>
+<dt>
+<strong>x:</strong>
+</dt>
+<dd>
+<blockquote>
+<p>Ignore this matcher and all matchers to its right.</p>
+<p>
+This matcher is used to mark the end of a match specification. In a
+single standalone list of matchers, this has no use, but where match
+specifications are concatenated, as is often the case when using the
+completion system (see /zshcompsys/(1)), it can allow one match
+specification to override another.</p>
+</blockquote>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
+<h2 id="headline-17">
+COMPLETION WIDGET EXAMPLE
+</h2>
+<div id="outline-text-headline-17" class="outline-text-2">
+<p>The first step is to define the widget:</p>
+<blockquote>
+<pre class="example">
+zle -C complete complete-word complete-files
+</pre>
+</blockquote>
+<p>
+Then the widget can be bound to a key using the <strong>bindkey</strong> builtin
+command:</p>
+<blockquote>
+<pre class="example">
+bindkey &#39;^X\t&#39; complete
+</pre>
+</blockquote>
+<p>
+After that the shell function <strong>complete-files</strong> will be invoked after
+typing control-X and TAB. The function should then generate the matches,
+e.g.:</p>
+<blockquote>
+<pre class="example">
+complete-files () { compadd - * }
+</pre>
+</blockquote>
+<p>
+This function will complete files in the current directory matching the
+current word.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

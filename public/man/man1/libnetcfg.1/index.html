@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - libnetcfg.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - libnetcfg.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>libnetcfg - configure libnet</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>The libnetcfg utility can be used to configure the libnet. Starting from
+perl 5.8 libnet is part of the standard Perl distribution, but the
+libnetcfg can be used for any libnet installation.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+USAGE
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Without arguments libnetcfg displays the current configuration.</p>
+<p>
+$ libnetcfg # old config ./libnet.cfg daytime_hosts ntp1.none.such
+ftp_int_passive 0 ftp_testhost ftp.funet.fi inet_domain none.such
+nntp_hosts nntp.none.such ph_hosts pop3_hosts pop.none.such smtp_hosts
+smtp.none.such snpp_hosts test_exist 1 test_hosts 1 time_hosts
+ntp.none.such # libnetcfg -h for help $</p>
+<p>
+It tells where the old configuration file was found (if found).</p>
+<p>
+The <code class="verbatim">-h</code> option will show a usage message.</p>
+<p>
+To change the configuration you will need to use either the <code class="verbatim">-c</code> or the
+<code class="verbatim">-d</code> options.</p>
+<p>
+The default name of the old configuration file is by default
+&#34;libnet.cfg&#34;, unless otherwise specified using the -i option,
+<code class="verbatim">-i oldfile</code>, and it is searched first from the current directory, and
+then from your module path.</p>
+<p>
+The default name of the new configuration file is &#34;libnet.cfg&#34;, and by
+default it is written to the current directory, unless otherwise
+specified using the -o option, <code class="verbatim">-o newfile</code>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Net::Config, libnetFAQ</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHORS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Graham Barr, the original Configure script of libnet.</p>
+<p>
+Jarkko Hietaniemi, conversion into libnetcfg for inclusion into Perl
+5.8.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

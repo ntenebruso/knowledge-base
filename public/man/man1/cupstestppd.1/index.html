@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - cupstestppd.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - cupstestppd.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>cupstestppd - test conformance of ppd files (deprecated)</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>cupstestppd</strong> [ <strong>-I</strong> <em>category</em> ] [ <strong>-R</strong> <em>rootdir</em> ] [ <strong>-W</strong> <em>category</em> ]
+[ <strong>-q</strong> ] [ <strong>-r</strong> ] [ <strong>-v</strong>[*v*] ] <em>filename.ppd[.gz]</em> [ …
+<em>filename.ppd[.gz]</em> ]<br>
+<strong>cupstestppd</strong> [ <strong>-R</strong> <em>rootdir</em> ] [ <strong>-W</strong> <em>category</em> ] [ <strong>-q</strong> ] [ <strong>-r</strong> ] [
+<strong>-v</strong>[*v*] ] <strong>-</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>cupstestppd</strong> tests the conformance of PPD files to the Adobe PostScript
+Printer Description file format specification version 4.3. It can also
+be used to list the supported options and available fonts in a PPD file.
+The results of testing and any other output are sent to the standard
+output.</p>
+<p>
+The first form of <strong>cupstestppd</strong> tests one or more PPD files on the
+command-line. The second form tests the PPD file provided on the
+standard input.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>cupstestppd</strong> supports the following options:</p>
+<dl>
+<dt>
+<strong>-I filename</strong>
+</dt>
+<dd>Ignores all PCFileName warnings.</dd>
+<dt>
+<strong>-I filters</strong>
+</dt>
+<dd>Ignores all filter errors.</dd>
+<dt>
+<strong>-I profiles</strong>
+</dt>
+<dd>Ignores all profile errors.</dd>
+<dt>
+*-R */rootdir/
+</dt>
+<dd>Specifies an alternate root directory for the
+filter, pre-filter, and other support file checks.</dd>
+<dt>
+<strong>-W constraints</strong>
+</dt>
+<dd>Report all UIConstraint errors as warnings.</dd>
+<dt>
+<strong>-W defaults</strong>
+</dt>
+<dd>Except for size-related options, report all default
+option errors as warnings.</dd>
+<dt>
+<strong>-W filters</strong>
+</dt>
+<dd>Report all filter errors as warnings.</dd>
+<dt>
+<strong>-W profiles</strong>
+</dt>
+<dd>Report all profile errors as warnings.</dd>
+<dt>
+<strong>-W sizes</strong>
+</dt>
+<dd>Report all media size errors as warnings.</dd>
+<dt>
+<strong>-W translations</strong>
+</dt>
+<dd>Report all translation errors as warnings.</dd>
+<dt>
+<strong>-W all</strong>
+</dt>
+<dd>Report all of the previous errors as warnings.</dd>
+<dt>
+<strong>-W none</strong>
+</dt>
+<dd>Report all of the previous errors as errors.</dd>
+<dt>
+<strong>-q</strong>
+</dt>
+<dd>Specifies that no information should be displayed.</dd>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>Relaxes the PPD conformance requirements so that common
+whitespace, control character, and formatting problems are not treated
+as hard errors.</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>Specifies that detailed conformance testing results should be
+displayed rather than the concise PASS/FAIL/ERROR status.</dd>
+<dt>
+<strong>-vv</strong>
+</dt>
+<dd>Specifies that all information in the PPD file should be
+displayed in addition to the detailed conformance testing results.</dd>
+</dl>
+<p>The <em>-q</em>, <em>-v</em>, and <em>-vv</em> options are mutually exclusive.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>cupstestppd</strong> returns zero on success and non-zero on error. The error
+codes are as follows:</p>
+<dl>
+<dt>
+1
+</dt>
+<dd>Bad command-line arguments or missing PPD filename.</dd>
+<dt>
+2
+</dt>
+<dd>Unable to open or read PPD file.</dd>
+<dt>
+3
+</dt>
+<dd>The PPD file contains format errors that cannot be skipped.</dd>
+<dt>
+4
+</dt>
+<dd>The PPD file does not conform to the Adobe PPD specification.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The following command will test all PPD files under the current
+directory and print the names of each file that does not conform:</p>
+<pre class="example">
+    find . -name \*.ppd \! -exec cupstestppd -q &#39;{}&#39; \; -print
+</pre>
+<p>
+The next command tests all PPD files under the current directory and
+print detailed conformance testing results for the files that do not
+conform:</p>
+<pre class="example">
+    find . -name \*.ppd \! -exec cupstestppd -q &#39;{}&#39; \; \
+        -exec cupstestppd -v &#39;{}&#39; \;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+NOTES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>PPD files are deprecated and will no longer be supported in a future
+feature release of CUPS. Printers that do not support IPP can be
+supported using applications such as *ippeveprinter*(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*lpadmin*(8), CUPS Online Help (<a href="http://localhost:631/help),">http://localhost:631/help),</a> Adobe
+PostScript Printer Description File Format Specification, Version 4.3.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Copyright © 2020-2024 by OpenPrinting.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

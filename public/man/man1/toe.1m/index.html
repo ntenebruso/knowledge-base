@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - toe.1m | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - toe.1m</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>toe</strong> - table of (terminfo) entries</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>toe</strong> [*-v*[/n/]] [*-ahsuUV*] <em>file…</em>\\</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>With no options, <strong>toe</strong> lists all available terminal types by primary
+name with descriptions. File arguments specify the directories to be
+scanned; if no such arguments are given, your default terminfo directory
+is scanned. If you also specify the <strong>-h</strong> option, a directory header will
+be issued as each directory is entered.</p>
+<p>
+There are other options intended for use by terminfo file maintainers:</p>
+<dl>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>report on all of the terminal databases which ncurses would
+search, rather than only the first one that it finds.
+
+If the <strong>-s</strong> is also given, <strong>toe</strong> adds a column to the report, showing
+(like <strong>conflict*(1)) which entries which belong to a given terminal
+database. An &#34;</strong>&#34; marks entries which differ, and &#34;+&#34; marks equivalent
+entries.
+
+Without the <strong>-s</strong> option, <strong>toe</strong> does not attempt to merge duplicates in
+its report</dd>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>sort the output by the entry names.</dd>
+<dt>
+<strong>-u</strong> <em>file</em>
+</dt>
+<dd>says to write a report to the standard output, listing
+dependencies in the given terminfo/termcap source file. The report
+condenses the use relation: each line consists of the primary name of
+a terminal that has use capabilities, followed by a colon, followed by
+the whitespace-separated primary names of all terminals which occur in
+those use capabilities, followed by a newline</dd>
+<dt>
+<strong>-U</strong> <em>file</em>
+</dt>
+<dd>says to write a report to the standard output, listing
+reverse dependencies in the given terminfo/termcap source file. The
+report reverses the use relation: each line consists of the primary
+name of a terminal that occurs in use capabilities, followed by a
+colon, followed by the whitespace-separated primary names of all
+terminals which depend on it, followed by a newline.</dd>
+<dt>
+*-v*/n/
+</dt>
+<dd>specifies that (verbose) output be written to standard
+error, showing <strong>toe</strong>&#39;s progress.
+
+The optional parameter <em>n</em> is a number from 1 to 10, interpreted as
+for *tic*(1M). If ncurses is built without tracing support, the
+optional parameter is ignored.</dd>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>reports the version of ncurses which was used in this program,
+and exits.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Without sorting, the <strong>-a</strong> option reports all of the names found in all
+of the terminal databases found by the <strong>TERMINFO</strong> and <strong>TERMINFO_DIRS</strong>
+environment variables:</p>
+<pre class="example">
+MtxOrb162 	16x2 Matrix Orbital LCD display
+MtxOrb204 	20x4 Matrix Orbital LCD display
+MtxOrb    	Generic Matrix Orbital LCD display
+qvt101+   	qume qvt 101 PLUS product
+qvt119+-25	QVT 119 PLUS with 25 data lines
+qansi-g   	QNX ANSI
+qvt103    	qume qvt 103
+qnxw      	QNX4 windows
+qansi-w   	QNX ansi for windows
+qnxm      	QNX4 with mouse events
+qvt203-25-w	QVT 203 PLUS with 25 by 132 columns
+qansi-t   	QNX ansi without console writes
+. . .
+</pre>
+<p>
+Use the <strong>-a</strong> and <strong>-s</strong> options together to show where each terminal
+description was found:</p>
+<pre class="example">
+--&gt; /usr/local/ncurses/share/terminfo
+----&gt; /usr/share/terminfo
+*-+-:	9term     	Plan9 terminal emulator for X
+*---:	Eterm     	Eterm with xterm-style color support (X Window System)
+*-*-:	Eterm-256color	Eterm with xterm 256-colors
+*-*-:	Eterm-88color	Eterm with 88 colors
+*-+-:	MtxOrb    	Generic Matrix Orbital LCD display
+*-+-:	MtxOrb162 	16x2 Matrix Orbital LCD display
+*-+-:	MtxOrb204 	20x4 Matrix Orbital LCD display
+*-*-:	NCR260VT300WPP	NCR 2900_260 vt300 wide mode pc+  kybd
+*-+-:	aaa       	ann arbor ambassador/30 lines
+*-+-:	aaa+dec   	ann arbor ambassador in dec vt100 mode
+*-+-:	aaa+rv    	ann arbor ambassador in reverse video
+. . .
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+FILES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+<strong><em>nix/store/53iigsmf32bwkfdhhihq2rppgk23k2rg-ncurses-6.4.20221231/share/terminfo</em>?/*</strong>
+</dt>
+<dd>Compiled
+terminal description database.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+HISTORY
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>This utility is not provided by other implementations. There is no
+relevant X/Open or POSIX standard for <strong>toe</strong>.</p>
+<p>
+The program name refers to a developer&#39;s pun:</p>
+<ul>
+<li><strong>tic</strong>,</li>
+<li><strong>tac</strong> (now <strong>tack</strong>),</li>
+<li><strong>toe</strong>.</li>
+</ul>
+<p>It replaced a <strong>-T</strong> option which was briefly supported by the ncurses
+<strong>infocmp</strong> utility in 1995.</p>
+<p>
+The <strong>-a</strong> and <strong>-s</strong> options were added to <strong>toe</strong> several years later (2006
+and 2011, respectively).</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*captoinfo*(1M), *infocmp*(1M), *infotocap*(1M), *tic*(1M),
+*curses*(3X), *terminfo*(5).</p>
+<p>
+This describes <strong>ncurses</strong> version 6.4 (patch 20221231).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

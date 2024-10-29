@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - lslogins.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - lslogins.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>lslogins - display information about known users in the system</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>lslogins</strong> [options] [*-s*|*-u*[=/UID/]] [*-g* /groups/] [*-l* /logins/]
+[/username/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Examine the wtmp and btmp logs, <em>/etc/shadow</em> (if necessary) and
+<em>/passwd</em> and output the desired data.</p>
+<p>
+The optional argument <em>username</em> forces <strong>lslogins</strong> to print all
+available details about the specified user only. In this case the output
+format is different than in case of <strong>-l</strong> or <strong>-g</strong> and unknown is
+<em>username</em> reported as an error.</p>
+<p>
+The default action is to list info about all the users in the system.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Mandatory arguments to long options are mandatory for short options too.</p>
+<p>
+<strong>-a</strong>, <strong>–acc-expiration</strong></p>
+<blockquote>
+<p>Display data about the date of last password change and the account
+expiration date (see *shadow*(5) for more info). (Requires root
+privileges.)</p>
+</blockquote>
+<p>
+<strong>–btmp-file</strong> <em>path</em></p>
+<blockquote>
+<p>Alternate path for btmp.</p>
+</blockquote>
+<p>
+<strong>-c</strong>, <strong>–colon-separate</strong></p>
+<blockquote>
+<p>Separate info about each user with a colon instead of a newline.</p>
+</blockquote>
+<p>
+<strong>-e</strong>, <strong>–export</strong></p>
+<blockquote>
+<p>Output data in the format of NAME=VALUE. See also option <strong>–shell</strong>.</p>
+</blockquote>
+<p>
+<strong>-f</strong>, <strong>–failed</strong></p>
+<blockquote>
+<p>Display data about the users last failed login attempts.</p>
+</blockquote>
+<p>
+<strong>-G</strong>, <strong>–supp-groups</strong></p>
+<blockquote>
+<p>Show information about supplementary groups.</p>
+</blockquote>
+<p>
+<strong>-g</strong>, *–groups*=/groups/</p>
+<blockquote>
+<p>Only show data of users belonging to <em>groups</em>. More than one group may
+be specified; the list has to be comma-separated. Unknown group names
+are ignored.</p>
+<p>
+Note that the relation between user and group may be invisible for the
+primary group if the user is not explicitly specified as group member
+(e.g., in <em>/etc/group</em>). If the command <strong>lslogins</strong> scans for groups then
+it uses the groups database only, and the user database with primary GID
+is not used at all.</p>
+</blockquote>
+<p>
+<strong>-L</strong>, <strong>–last</strong></p>
+<blockquote>
+<p>Display data containing information about the users last login sessions.</p>
+</blockquote>
+<p>
+<strong>-l</strong>, *–logins*=/logins/</p>
+<blockquote>
+<p>Only show data of users with a login specified in <em>logins</em> (user names
+or user IDs). More than one login may be specified; the list has to be
+comma-separated. Unknown login names are ignored.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–newline</strong></p>
+<blockquote>
+<p>Display each piece of information on a separate line.</p>
+</blockquote>
+<p>
+<strong>–noheadings</strong></p>
+<blockquote>
+<p>Do not print a header line.</p>
+</blockquote>
+<p>
+<strong>–notruncate</strong></p>
+<blockquote>
+<p>Don&#39;t truncate output.</p>
+</blockquote>
+<p>
+<strong>-o</strong>, <strong>–output</strong> <em>list</em></p>
+<blockquote>
+<p>Specify which output columns to print. The default list of columns may
+be extended if <em>list</em> is specified in the format <em>+list</em>.</p>
+</blockquote>
+<p>
+<strong>–output-all</strong></p>
+<blockquote>
+<p>Output all available columns. <strong>–help</strong> to get a list of all supported
+columns.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–pwd</strong></p>
+<blockquote>
+<p>Display information related to login by password (see also <strong>-afL</strong>).</p>
+</blockquote>
+<p>
+<strong>-r</strong>, <strong>–raw</strong></p>
+<blockquote>
+<p>Raw output (no columnation).</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–system-accs</strong></p>
+<blockquote>
+<p>Show system accounts. These are by default all accounts with a UID
+between 101 and 999 (inclusive), with the exception of either nobody or
+nfsnobody (UID 65534). This hardcoded default may be overwritten by
+parameters <strong>SYS_UID_MIN</strong> and <strong>SYS_UID_MAX</strong> in the file
+<em>/etc/login.defs</em>.</p>
+</blockquote>
+<p>
+<strong>–time-format</strong> <em>type</em></p>
+<blockquote>
+<p>Display dates in short, full or iso format. The default is short, this
+time format is designed to be space efficient and human readable.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–user-accs</strong></p>
+<blockquote>
+<p>Show user accounts. These are by default all accounts with UID above
+1000 (inclusive), with the exception of either nobody or nfsnobody (UID
+65534). This hardcoded default maybe overwritten by parameters UID_MIN
+and UID_MAX in the file <em>/etc/login.defs</em>.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+<p>
+<strong>–wtmp-file</strong> <em>path</em></p>
+<blockquote>
+<p>Alternate path for wtmp.</p>
+</blockquote>
+<p>
+<strong>–lastlog</strong> <em>path</em></p>
+<blockquote>
+<p>Alternate path for *lastlog*(8).</p>
+</blockquote>
+<p>
+<strong>-y</strong>, <strong>–shell</strong></p>
+<blockquote>
+<p>The column name will be modified to contain only characters allowed for
+shell variable identifiers. This is usable, for example, with
+<strong>–export</strong>. Note that this feature has been automatically enabled for
+<strong>–export</strong> in version 2.37, but due to compatibility issues, now it&#39;s
+necessary to request this behavior by <strong>–shell</strong>.</p>
+</blockquote>
+<p>
+<strong>-Z</strong>, <strong>–context</strong></p>
+<blockquote>
+<p>Display the users security context.</p>
+</blockquote>
+<p>
+<strong>-z</strong>, <strong>–print0</strong></p>
+<blockquote>
+<p>Delimit user entries with a nul character, instead of a newline.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>0</p>
+<blockquote>
+<p>if OK,</p>
+</blockquote>
+<p>
+1</p>
+<blockquote>
+<p>if incorrect arguments specified,</p>
+</blockquote>
+<p>
+2</p>
+<blockquote>
+<p>if a serious error occurs (e.g., a corrupt log).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+NOTES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The default UID thresholds are read from <em>/etc/login.defs</em>.</p>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Password status
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Multiple fields describe password status.</p>
+<p>
+<strong>&#34;Password is locked&#34;</strong></p>
+<blockquote>
+<p>The password is prefixed by !!, and the user cannot login although the
+password is set or empty. This is common for new accounts without a set
+password.</p>
+</blockquote>
+<p>
+<strong>&#34;Password not required (empty)&#34;</strong></p>
+<blockquote>
+<p>The password is not set (hash is missing); this is common for locked
+system accounts. Not requiring a password does not mean the user can
+log-in without a password. It depends on the password &#34;lock&#34; status.</p>
+</blockquote>
+<p>
+<strong>&#34;Login by password disabled&#34;</strong></p>
+<blockquote>
+<p>yes means that there is no valid password. The password hash is missing,
+or the hash method is unknown or contains invalid chars.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+HISTORY
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The <strong>lslogins</strong> utility is inspired by the <strong>logins</strong> utility, which first
+appeared in FreeBSD 4.10.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>*group*(5), *passwd*(5), *shadow*(5), *utmp*(5)</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>The <strong>lslogins</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

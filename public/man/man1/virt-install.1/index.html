@@ -1,0 +1,2924 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - virt-install.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - virt-install.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>virt-install - provision new virtual machines</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>virt-install</strong> [OPTION]…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>virt-install</strong> is a command line tool for creating new KVM, Xen, or
+Linux container guests using the <strong>libvirt</strong> hypervisor management
+library. See the EXAMPLES section at the end of this document to quickly
+get started.</p>
+<p>
+<strong>virt-install</strong> tool supports graphical installations using (for example)
+VNC or SPICE, as well as text mode installs over serial console. The
+guest can be configured to use one or more virtual disks, network
+interfaces, audio devices, physical USB or PCI devices, among others.</p>
+<p>
+The installation media can be local ISO or CDROM media, or a distro
+install tree hosted remotely over HTTP, FTP, or in a local directory. In
+the install tree case <strong>virt-install</strong> will fetch the minimal files
+necessary to kick off the installation process, allowing the guest to
+fetch the rest of the OS distribution as needed. PXE booting, and
+importing an existing disk image (thus skipping the install phase) are
+also supported.</p>
+<p>
+Given suitable command line arguments, <strong>virt-install</strong> is capable of
+running completely unattended, with the guest &#39;kickstarting&#39; itself too.
+This allows for easy automation of guest installs. This can be done
+manually, or more simply with the –unattended option.</p>
+<p>
+Many arguments have sub options, specified like opt1=foo,opt2=bar, etc.
+Try –option=? to see a complete list of sub options associated with
+that argument, example: virt-install –disk=?</p>
+<p>
+Most options are not required. If a suitable –osinfo value is specified
+or detected, all defaults will be filled in and reported in the terminal
+output. Otherwise, minimum required options are –memory, guest storage
+(–disk or –filesystem), and an install method choice.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+CONNECTING TO LIBVIRT
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+<strong>–connect</strong>
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–connect</strong> URI</p>
+<p>
+Connect to a non-default hypervisor. If this isn&#39;t specified, libvirt
+will try and choose the most suitable default.</p>
+<p>
+Some valid options here are:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>qemu:///system</strong>
+</dt>
+<dd>For creating KVM and QEMU guests to be run by the
+system libvirtd instance. This is the default mode that virt-manager
+uses, and what most KVM users want.</dd>
+<dt>
+<strong>qemu:///session</strong>
+</dt>
+<dd>For creating KVM and QEMU guests for libvirtd
+running as the regular user.</dd>
+<dt>
+<strong>xen:///</strong>
+</dt>
+<dd>For connecting to Xen.</dd>
+<dt>
+<strong>lxc:///</strong>
+</dt>
+<dd>For creating linux containers</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+GENERAL OPTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>General configuration parameters that apply to all types of guest
+installs.</p>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+<strong>-n</strong>, <strong>–name</strong>
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>-n</strong>, <strong>–name</strong> NAME</p>
+<p>
+Name of the new guest virtual machine instance. This must be unique
+amongst all guests known to the hypervisor on the connection, including
+those not currently active. To re-define an existing guest, use the
+<strong>virsh(1)</strong> tool to shut it down (&#39;virsh shutdown&#39;) &amp; delete (&#39;virsh
+undefine&#39;) it prior to running <strong>virt-install</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+<strong>–memory</strong>
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–memory</strong> OPTIONS</p>
+<p>
+Memory to allocate for the guest, in MiB. This deprecates the -r/–ram
+option. Sub options are available, like &#39;memory&#39;, &#39;currentMemory&#39;,
+&#39;maxMemory&#39; and &#39;maxMemory.slots&#39;, which all map to the identically
+named XML values.</p>
+<p>
+Back compat values &#39;memory&#39; maps to the &lt;currentMemory&gt; element, and
+maxmemory maps to the &lt;memory&gt; element.</p>
+<p>
+To configure memory modules which can be hotunplugged see <strong>–memdev</strong>
+description.</p>
+<p>
+Use –memory=? to see a list of all available sub options. Complete
+details at
+&lt;<a href="https://libvirt.org/formatdomain.html#elementsMemoryAllocation">https://libvirt.org/formatdomain.html#elementsMemoryAllocation</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+<strong>–memorybacking</strong>
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–memorybacking</strong> OPTIONS</p>
+<p>
+This option will influence how virtual memory pages are backed by host
+pages.</p>
+<p>
+Use –memorybacking=? to see a list of all available sub options.
+Complete details at
+&lt;<a href="https://libvirt.org/formatdomain.html#elementsMemoryBacking">https://libvirt.org/formatdomain.html#elementsMemoryBacking</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+<strong>–arch</strong>
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–arch</strong> ARCH</p>
+<p>
+Request a non-native CPU architecture for the guest virtual machine. If
+omitted, the host CPU architecture will be used in the guest.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+<strong>–machine</strong>
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–machine</strong> MACHINE</p>
+<p>
+The machine type to emulate. This will typically not need to be
+specified for Xen or KVM, but is useful for choosing machine types of
+more exotic architectures.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+<strong>–metadata</strong>
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–metadata</strong> OPT=VAL,[…]</p>
+<p>
+Specify metadata values for the guest. Possible options include name,
+uuid, title, and description. This option deprecates -u/–uuid and
+–description.</p>
+<p>
+Use –metadata=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsMetadata">https://libvirt.org/formatdomain.html#elementsMetadata</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+<strong>–events</strong>
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–events</strong> OPT=VAL,[…]</p>
+<p>
+Specify events values for the guest. Possible options include
+on_poweroff, on_reboot, and on_crash.</p>
+<p>
+Use –events=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsEvents">https://libvirt.org/formatdomain.html#elementsEvents</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-3">
+<h3 id="headline-14">
+<strong>–resource</strong>
+</h3>
+<div id="outline-text-headline-14" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–resource</strong> OPT=VAL,[…]</p>
+<p>
+Specify resource partitioning for the guest.</p>
+<p>
+Use –resource=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#resPartition">https://libvirt.org/formatdomain.html#resPartition</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+<strong>–sysinfo</strong>
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–sysinfo</strong> OPT=VAL,[…]</p>
+<p>
+Configure sysinfo/SMBIOS values exposed to the VM OS. Examples:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–sysinfo</strong> host*
+</dt>
+<dd>Special type that exposes the host&#39;s SMBIOS info
+into the VM.</dd>
+<dt>
+<strong>*–sysinfo</strong> emulate*
+</dt>
+<dd>Special type where hypervisor will generate
+SMBIOS info into the VM.</dd>
+<dt>
+?
+</dt>
+<dd><strong>*–sysinfo</strong> bios.vendor=custom or <strong>–sysinfo</strong>
+smbios,bios.vendor=custom* :: The default type is <strong>smbios</strong> and allows
+users to specify SMBIOS info manually.</dd>
+</dl>
+</blockquote>
+<p>
+Use –sysinfo=? to see a list of all available sub options.</p>
+<p>
+Complete details at
+&lt;<a href="https://libvirt.org/formatdomain.html#elementsSysinfo">https://libvirt.org/formatdomain.html#elementsSysinfo</a>&gt; and
+&lt;<a href="https://libvirt.org/formatdomain.html#elementsOSBIOS">https://libvirt.org/formatdomain.html#elementsOSBIOS</a>&gt; for <strong>smbios</strong> XML
+element.</p>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-3">
+<h3 id="headline-16">
+<strong>–xml</strong>
+</h3>
+<div id="outline-text-headline-16" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–xml</strong> ARGS</p>
+<p>
+Make direct edits to the generated XML using XPath syntax. Take an
+example like</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+virt-install --xml ./@foo=bar --xml ./newelement/subelement=1
+</pre>
+</blockquote>
+</blockquote>
+<p>
+This will alter the generated XML to contain:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+&lt;domain foo=&#39;bar&#39; ...&gt;
+  ...
+  &lt;newelement&gt;
+    &lt;subelement&gt;1&lt;/subelement&gt;
+  &lt;/newelement&gt;
+&lt;/domain&gt;
+</pre>
+</blockquote>
+</blockquote>
+<p>
+The –xml option has 4 sub options:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>–xml xpath.set=XPATH[=VALUE]</strong>
+</dt>
+<dd>The default behavior if no explicit
+suboption is set. Takes the form XPATH=VALUE unless paired with
+<strong>xpath.value</strong> . See below for how value is interpreted.</dd>
+<dt>
+<strong>–xml xpath.value=VALUE</strong>
+</dt>
+<dd><strong>xpath.set</strong> will be interpreted only as
+the XPath string, and <strong>xpath.value</strong> will be used as the value to set.
+May help sidestep problems if the string you need to set contains a
+&#39;=&#39; equals sign.
+
+If value is empty, it&#39;s treated as unsetting that particular node.</dd>
+<dt>
+<strong>–xml xpath.create=XPATH</strong>
+</dt>
+<dd>Create the node as an empty element.
+Needed for boolean elements like &lt;readonly/&gt;</dd>
+<dt>
+<strong>–xml xpath.delete=XPATH</strong>
+</dt>
+<dd>Delete the entire node specified by the
+xpath, and all its children</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-3">
+<h3 id="headline-17">
+<strong>xpath</strong> subarguments
+</h3>
+<div id="outline-text-headline-17" class="outline-text-3">
+<p>Similar to the <strong>–xml</strong> option, most top level options have <strong>xpath.*</strong>
+suboptions. For example, <strong>–disk
+xpath1.set=./@foo=bar,xpath2.create=./newelement</strong> would generate XML
+alterations like</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+&lt;disk foo=&#34;bar&#34;&gt;
+  &lt;newelements/&gt;
+&lt;/disk&gt;
+</pre>
+</blockquote>
+</blockquote>
+<p>
+This is useful for setting XML options per device, when virt-install
+does not support those options yet.</p>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-3">
+<h3 id="headline-18">
+<strong>–qemu-commandline</strong>
+</h3>
+<div id="outline-text-headline-18" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–qemu-commandline</strong> ARGS</p>
+<p>
+Pass options directly to the qemu emulator. Only works for the libvirt
+qemu driver. The option can take a string of arguments, for example:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--qemu-commandline=&#34;-display gtk,gl=on&#34;
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Environment variables are specified with &#39;env&#39;, for example:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--qemu-commandline=env=DISPLAY=:0.1
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Complete details about the libvirt feature:
+&lt;<a href="https://libvirt.org/drvqemu.html#qemucommand">https://libvirt.org/drvqemu.html#qemucommand</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-19" class="outline-3">
+<h3 id="headline-19">
+<strong>–vcpus</strong>
+</h3>
+<div id="outline-text-headline-19" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–vcpus</strong> OPTIONS</p>
+<p>
+Number of virtual cpus to configure for the guest. If &#39;maxvcpus&#39; is
+specified, the guest will be able to hotplug up to MAX vcpus while the
+guest is running, but will startup with VCPUS.</p>
+<p>
+CPU topology can additionally be specified with sockets, dies, cores,
+and threads. If values are omitted, the rest will be autofilled
+preferring cores over sockets over threads. Cores are preferred because
+this matches the characteristics of modern real world silicon and thus a
+better fit for what guest OS will be expecting to deal with.</p>
+<p>
+&#39;cpuset&#39; sets which physical cpus the guest can use. <strong>CPUSET</strong> is a comma
+separated list of numbers, which can also be specified in ranges or cpus
+to exclude. Example:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+0,2,3,5     : Use processors 0,2,3 and 5
+1-5,^3,8    : Use processors 1,2,4,5 and 8
+</pre>
+</blockquote>
+</blockquote>
+<p>
+If the value &#39;auto&#39; is passed, virt-install attempts to automatically
+determine an optimal cpu pinning using NUMA data, if available.</p>
+<p>
+Use –vcpus=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsCPUAllocation">https://libvirt.org/formatdomain.html#elementsCPUAllocation</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-3">
+<h3 id="headline-20">
+<strong>–numatune</strong>
+</h3>
+<div id="outline-text-headline-20" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–numatune</strong> OPTIONS</p>
+<p>
+Tune NUMA policy for the domain process. Example invocations</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--numatune 1,2,3,4-7
+--numatune 1-3,5,memory.mode=preferred
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Specifies the numa nodes to allocate memory from. This has the same
+syntax as <strong>–vcpus cpuset=</strong> option. mode can be one of &#39;interleave&#39;,
+&#39;preferred&#39;, or &#39;strict&#39; (the default). See &#39;man 8 numactl&#39; for
+information about each mode.</p>
+<p>
+Use –numatune=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsNUMATuning">https://libvirt.org/formatdomain.html#elementsNUMATuning</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-21" class="outline-3">
+<h3 id="headline-21">
+<strong>–memtune</strong>
+</h3>
+<div id="outline-text-headline-21" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–memtune</strong> OPTIONS</p>
+<p>
+Tune memory policy for the domain process. Example invocations</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--memtune 1000
+--memtune hard_limit=100,soft_limit=60,swap_hard_limit=150,min_guarantee=80
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Use –memtune=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsMemoryTuning">https://libvirt.org/formatdomain.html#elementsMemoryTuning</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-22" class="outline-3">
+<h3 id="headline-22">
+<strong>–blkiotune</strong>
+</h3>
+<div id="outline-text-headline-22" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–blkiotune</strong> OPTIONS</p>
+<p>
+Tune blkio policy for the domain process. Example invocations</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--blkiotune 100
+--blkiotune weight=100,device.path=/dev/sdc,device.weight=200
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Use –blkiotune=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsBlockTuning">https://libvirt.org/formatdomain.html#elementsBlockTuning</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-23" class="outline-3">
+<h3 id="headline-23">
+<strong>–cpu</strong>
+</h3>
+<div id="outline-text-headline-23" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–cpu</strong>
+MODEL[,+feature][,-feature][,match=MATCH][,vendor=VENDOR],…</p>
+<p>
+Configure the CPU model and CPU features exposed to the guest. The only
+required value is MODEL, which is a valid CPU model as known to libvirt.</p>
+<p>
+Libvirt&#39;s feature policy values force, require, optional, disable, or
+forbid, or with the shorthand &#39;+feature&#39; and &#39;-feature&#39;, which equal
+&#39;force=feature&#39; and &#39;disable=feature&#39; respectively.</p>
+<p>
+If exact CPU model is specified virt-install will automatically copy CPU
+features available on the host to mitigate recent CPU speculative
+execution side channel and Microarchitectural Store Buffer Data security
+vulnerabilities. This however will have some impact on performance and
+will break migration to hosts without security patches. In order to
+control this behavior there is a <strong>secure</strong> parameter. Possible values are
+<strong>on</strong> and <strong>off</strong>, with <strong>on</strong> as the default. It is highly recommended to
+leave this enabled and ensure all virtualization hosts have fully up to
+date microcode, kernel &amp; virtualization software installed.</p>
+<p>
+Some examples:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–cpu</strong> core2duo,+x2apic,disable=vmx*
+</dt>
+<dd>Expose the core2duo CPU
+model, force enable x2apic, but do not expose vmx</dd>
+<dt>
+<strong>*–cpu</strong> host*
+</dt>
+<dd>Expose the host CPUs configuration to the guest.
+This enables the guest to take advantage of many of the host CPUs
+features (better performance), but may cause issues if migrating the
+guest to a host without an identical CPU.</dd>
+<dt>
+?
+</dt>
+<dd>
+<p><strong>*–cpu</strong>
+numa.cell0.memory=1234,numa.cell0.cpus=0-3,numa.cell1.memory=5678,numa.cell1.cpus=4-7* :: Example
+of specifying two NUMA cells. This will generate XML like:</p>
+<blockquote>
+<pre class="example">
+&lt;cpu&gt;
+  &lt;numa&gt;
+    &lt;cell cpus=&#34;0-3&#34; memory=&#34;1234&#34;/&gt;
+    &lt;cell cpus=&#34;4-7&#34; memory=&#34;5678&#34;/&gt;
+  &lt;/numa&gt;
+&lt;/cpu&gt;
+</pre>
+</blockquote>
+</dd>
+<dt>
+<strong>*–cpu</strong> host-passthrough,cache.mode=passthrough*
+</dt>
+<dd>Example of
+passing through the host cpu&#39;s cache information.</dd>
+</dl>
+</blockquote>
+<p>
+Use –cpu=? to see a list of all available sub options. Complete details
+at &lt;<a href="https://libvirt.org/formatdomain.html#elementsCPU">https://libvirt.org/formatdomain.html#elementsCPU</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-24" class="outline-3">
+<h3 id="headline-24">
+<strong>–cputune</strong>
+</h3>
+<div id="outline-text-headline-24" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–cputune</strong> OPTIONS</p>
+<p>
+Tune CPU parameters for the guest.</p>
+<p>
+Configure which of the host&#39;s physical CPUs the domain VCPU will be
+pinned to. Example invocation</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--cputune vcpupin0.vcpu=0,vcpupin0.cpuset=0-3,vcpupin1.vcpu=1,vcpupin1.cpuset=4-7
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Use –cputune=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsCPUTuning">https://libvirt.org/formatdomain.html#elementsCPUTuning</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-25" class="outline-3">
+<h3 id="headline-25">
+<strong>–security</strong>, <strong>–seclabel</strong>
+</h3>
+<div id="outline-text-headline-25" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–security</strong>, <strong>–seclabel</strong>
+type=TYPE[,label=LABEL][,relabel=yes|no],…</p>
+<p>
+Configure domain seclabel domain settings. Type can be either &#39;static&#39;
+or &#39;dynamic&#39;. &#39;static&#39; configuration requires a security LABEL.
+Specifying LABEL without TYPE implies static configuration.</p>
+<p>
+Use –security=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#seclabel">https://libvirt.org/formatdomain.html#seclabel</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-26" class="outline-3">
+<h3 id="headline-26">
+<strong>–keywrap</strong>
+</h3>
+<div id="outline-text-headline-26" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–keywrap</strong> OPTIONS</p>
+<p>
+Specify domain &lt;keywrap&gt; XML, used for S390 cryptographic key management
+operations.</p>
+<p>
+Use –keywrap=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#keywrap">https://libvirt.org/formatdomain.html#keywrap</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-27" class="outline-3">
+<h3 id="headline-27">
+<strong>–iothreads</strong>
+</h3>
+<div id="outline-text-headline-27" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–iothreads</strong> OPTIONS</p>
+<p>
+Specify domain &lt;iothreads&gt; and/or &lt;iothreadids&gt; XML. For example, to
+configure <strong>&lt;iothreads&gt;4&lt;/iothreads&gt;</strong>, use <strong>–iothreads 4</strong></p>
+<p>
+Use –iothreads=? to see a list of all available sub options. Complete
+details at
+&lt;<a href="https://libvirt.org/formatdomain.html#elementsIOThreadsAllocation">https://libvirt.org/formatdomain.html#elementsIOThreadsAllocation</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-28" class="outline-3">
+<h3 id="headline-28">
+<strong>–features</strong>
+</h3>
+<div id="outline-text-headline-28" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–features</strong> FEAT=on|off,…</p>
+<p>
+Set elements in the guests &lt;features&gt; XML on or off. Examples include
+acpi, apic, eoi, privnet, and hyperv features. Some examples:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–features</strong> apic.eoi=on*
+</dt>
+<dd>Enable APIC PV EOI</dd>
+<dt>
+?
+</dt>
+<dd><strong>*–features</strong>
+hyperv.vapic.state=on,hyperv.spinlocks.state=off* :: Enable hyperv
+VAPIC, but disable spinlocks</dd>
+<dt>
+<strong>*–features</strong> kvm.hidden.state=on*
+</dt>
+<dd>Allow the KVM hypervisor
+signature to be hidden from the guest</dd>
+<dt>
+<strong>*–features</strong> pvspinlock=on*
+</dt>
+<dd>Notify the guest that the host
+supports paravirtual spinlocks for example by exposing the
+pvticketlocks mechanism.</dd>
+<dt>
+<strong>*–features</strong> gic.version=2*
+</dt>
+<dd>This is relevant only for ARM
+architectures. Possible values are &#34;host&#34; or version number.</dd>
+<dt>
+<strong>*–features</strong> smm.state=on*
+</dt>
+<dd>This enables System Management Mode of
+hypervisor. Some UEFI firmwares may require this feature to be
+present. (QEMU supports SMM only with q35 machine type.)</dd>
+</dl>
+</blockquote>
+<p>
+Use –features=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsFeatures">https://libvirt.org/formatdomain.html#elementsFeatures</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-29" class="outline-3">
+<h3 id="headline-29">
+<strong>–clock</strong>
+</h3>
+<div id="outline-text-headline-29" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–clock</strong> offset=OFFSET,TIMER_OPT=VAL,…</p>
+<p>
+Configure the guest&#39;s &lt;clock&gt; XML. Some supported options:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–clock</strong> offset=OFFSET*
+</dt>
+<dd>Set the clock offset, ex. &#39;utc&#39; or
+&#39;localtime&#39;</dd>
+<dt>
+<strong>*–clock</strong> TIMER_present=no*
+</dt>
+<dd>Disable a boolean timer. TIMER here
+might be hpet, kvmclock, etc.</dd>
+<dt>
+<strong>*–clock</strong> TIMER_tickpolicy=VAL*
+</dt>
+<dd>Set a timer&#39;s tickpolicy value.
+TIMER here might be rtc, pit, etc. VAL might be catchup, delay, etc.
+Refer to the libvirt docs for all values.</dd>
+</dl>
+</blockquote>
+<p>
+Use –clock=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsTime">https://libvirt.org/formatdomain.html#elementsTime</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-30" class="outline-3">
+<h3 id="headline-30">
+<strong>–pm</strong>
+</h3>
+<div id="outline-text-headline-30" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–pm</strong> OPTIONS</p>
+<p>
+Configure guest power management features. Example:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--pm suspend_to_memi.enabled=on,suspend_to_disk.enabled=off
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Use –pm=? to see a list of all available sub options. Complete details
+at &lt;<a href="https://libvirt.org/formatdomain.html#elementsPowerManagement">https://libvirt.org/formatdomain.html#elementsPowerManagement</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-31" class="outline-3">
+<h3 id="headline-31">
+<strong>–launchSecurity</strong>
+</h3>
+<div id="outline-text-headline-31" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–launchSecurity</strong> TYPE[,OPTS]</p>
+<p>
+Enable launch security for the guest, e.g. AMD SEV. Example invocations:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+# This will use a default policy 0x03
+# No dhCert provided, so no data can be exchanged with the SEV firmware
+--launchSecurity sev
+
+# Explicit policy 0x01 - disables debugging, allows guest key sharing
+--launchSecurity sev,policy=0x01
+
+# Provide the session blob obtained from the SEV firmware
+# Provide dhCert to open a secure communication channel with SEV firmware
+--launchSecurity sev,session=BASE64SESSIONSTRING,dhCert=BASE64DHCERTSTRING
+</pre>
+</blockquote>
+</blockquote>
+<p>
+SEV has further implications on usage of virtio devices, so refer to
+EXAMPLES section to see a full invocation of virt-install with
+–launchSecurity.</p>
+<p>
+Use –launchSecurity=? to see a list of all available sub options.
+Complete details at
+&lt;<a href="https://libvirt.org/formatdomain.html#launchSecurity">https://libvirt.org/formatdomain.html#launchSecurity</a>&gt;</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-32" class="outline-2">
+<h2 id="headline-32">
+INSTALLATION OPTIONS
+</h2>
+<div id="outline-text-headline-32" class="outline-text-2">
+<div id="outline-container-headline-33" class="outline-3">
+<h3 id="headline-33">
+<strong>-c</strong>, <strong>–cdrom</strong>
+</h3>
+<div id="outline-text-headline-33" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–cdrom</strong> PATH</p>
+<p>
+ISO file or CDROM device to use for VM install media. After install, the
+virtual CDROM device will remain attached to the VM, but with the ISO or
+host path media ejected.</p>
+</div>
+</div>
+<div id="outline-container-headline-34" class="outline-3">
+<h3 id="headline-34">
+<strong>-l</strong>, <strong>–location</strong>
+</h3>
+<div id="outline-text-headline-34" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>-l</strong>, <strong>–location</strong> OPTIONS</p>
+<p>
+Distribution tree installation source. virt-install can recognize
+certain distribution trees and fetches a bootable kernel/initrd pair to
+launch the install.</p>
+<p>
+–location allows things like –extra-args for kernel arguments, and
+using –initrd-inject. If you want to use those options with CDROM
+media, you can pass the ISO to –location as well which works for some,
+but not all, CDROM media.</p>
+<p>
+The <strong>LOCATION</strong> can take one of the following forms:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>&lt;https://host/path&gt;</strong>
+</dt>
+<dd>An HTTP server location containing an
+installable distribution image.</dd>
+<dt>
+<strong>&lt;ftp://host/path&gt;</strong>
+</dt>
+<dd>An FTP server location containing an
+installable distribution image.</dd>
+<dt>
+<strong>ISO</strong>
+</dt>
+<dd>Extract files directly from the ISO path</dd>
+<dt>
+<strong>DIRECTORY</strong>
+</dt>
+<dd>Path to a local directory containing an installable
+distribution image. Note that the directory will not be accessible by
+the guest after initial boot, so the OS installer will need another
+way to access the rest of the install media.</dd>
+</dl>
+</blockquote>
+<p>
+Some distro specific url samples:</p>
+<blockquote>
+<ul>
+<li><strong>Fedora/Red Hat
+Based</strong> :: &lt;<a href="https://download.fedoraproject.org/pub/fedora/linux/releases/29/Server/x86_64/os">https://download.fedoraproject.org/pub/fedora/linux/releases/29/Server/x86_64/os</a>&gt;</li>
+<li><strong>Debian</strong> :: &lt;<a href="https://debian.osuosl.org/debian/dists/stable/main/installer-amd64/">https://debian.osuosl.org/debian/dists/stable/main/installer-amd64/</a>&gt;</li>
+<li><strong>Ubuntu</strong> :: &lt;<a href="https://us.archive.ubuntu.com/ubuntu/dists/wily/main/installer-amd64/">https://us.archive.ubuntu.com/ubuntu/dists/wily/main/installer-amd64/</a>&gt;</li>
+<li><strong>Suse</strong> :: &lt;<a href="https://download.opensuse.org/pub/opensuse/distribution/leap/42.3/repo/oss/">https://download.opensuse.org/pub/opensuse/distribution/leap/42.3/repo/oss/</a>&gt;</li>
+</ul>
+</blockquote>
+<p>
+Additionally, –location can take &#39;kernel&#39; and &#39;initrd&#39; sub options.
+These paths relative to the specified location URL/ISO that allow
+selecting specific files for kernel/initrd within the install tree. This
+can be useful if virt-install/ libosinfo doesn&#39;t know where to find the
+kernel in the specified –location.</p>
+<p>
+For example, if you have an ISO that libosinfo doesn&#39;t know about called
+my-unknown.iso, with a kernel at &#39;kernel/fookernel&#39; and initrd at
+&#39;kernel/fooinitrd&#39;, you can make this work with:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--location my-unknown.iso,kernel=kernel/fookernel,initrd=kernel/fooinitrd
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-35" class="outline-3">
+<h3 id="headline-35">
+<strong>–pxe</strong>
+</h3>
+<div id="outline-text-headline-35" class="outline-text-3">
+<p>Install from PXE. This just tells the VM to boot off the network for the
+first boot.</p>
+</div>
+</div>
+<div id="outline-container-headline-36" class="outline-3">
+<h3 id="headline-36">
+<strong>–import</strong>
+</h3>
+<div id="outline-text-headline-36" class="outline-text-3">
+<p>Skip the OS installation process, and build a guest around an existing
+disk image. The device used for booting is the first device specified
+via <strong>–disk</strong> or <strong>–filesystem</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-37" class="outline-3">
+<h3 id="headline-37">
+<strong>-x</strong>, <strong>–extra-args</strong>
+</h3>
+<div id="outline-text-headline-37" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>-x</strong>, <strong>–extra-args</strong> KERNELARGS</p>
+<p>
+Additional kernel command line arguments to pass to the installer when
+performing a guest install from <strong>–location</strong>. One common usage is
+specifying an anaconda kickstart file for automated installs, such as
+–extra-args &#34;ks=<a href="https://myserver/my.ks">https://myserver/my.ks</a>&#34;</p>
+</div>
+</div>
+<div id="outline-container-headline-38" class="outline-3">
+<h3 id="headline-38">
+<strong>–initrd-inject</strong>
+</h3>
+<div id="outline-text-headline-38" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–initrd-inject</strong> PATH</p>
+<p>
+Add PATH to the root of the initrd fetched with <strong>–location</strong>. This can
+be used to run an automated install without requiring a network hosted
+kickstart file: <strong>–initrd-inject=/path/to/my.ks –extra-args
+&#34;ks=file:/my.ks&#34;</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-39" class="outline-3">
+<h3 id="headline-39">
+<strong>–install</strong>
+</h3>
+<div id="outline-text-headline-39" class="outline-text-3">
+<p>This is a larger entry point for various types of install operations.
+The command has multiple subarguments, similar to –disk and friends.
+This option is strictly for VM install operations, essentially
+configuring the first boot.</p>
+<p>
+The simplest usage to ex: install fedora29 is:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--install fedora29
+</pre>
+</blockquote>
+</blockquote>
+<p>
+And virt-install will fetch a –location URL from libosinfo, and
+populate defaults from there.</p>
+<p>
+Available suboptions:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>os=</strong></strong>
+</dt>
+<dd>This is os install option described above. The explicit way
+to specify that would be <strong>–install os=fedora29</strong> . os= is the default
+option if none is specified</dd>
+<dt>
+<strong>*kernel=</strong>, <strong>initrd=*</strong>
+</dt>
+<dd>Specify a kernel and initrd pair to use as
+install media. They are copied into a temporary location before
+booting the VM, so they can be combined with –initrd-inject and your
+source media will not be altered. Media will be uploaded to a remote
+connection if required.
+
+Example case using local filesystem paths: <strong>–install
+kernel=/path/to/kernel,initrd=/path/to/initrd</strong>
+
+Example using network paths. Kernel/initrd will be downloaded locally
+first, then passed to the VM as local filesystem paths: <strong>–install
+kernel=<a href="https://127.0.0.1/tree/kernel,initrd=https://127.0.0.1/tree/initrd">https://127.0.0.1/tree/kernel,initrd=https://127.0.0.1/tree/initrd</a></strong>
+
+Note, these are just for install time booting. If you want to set the
+kernel used for permanent VM booting, use the <strong>–boot</strong> option.</dd>
+<dt>
+<strong>*kernel_args=</strong>, <strong>kernel_args_overwrite=yes|no*</strong>
+</dt>
+<dd>Specify install
+time kernel arguments (libvirt &lt;cmdline&gt; XML). These can be combine
+with ex: kernel/initrd options, or <strong>–location</strong> media. By default,
+kernel_args is just like –extra-args, and will <span style="text-decoration: underline;">append</span> to the
+arguments that virt-install will try to set by default for most
+–location installs. If you want to override the virt-install default,
+additionally specify kernel_args_overwrite=yes</dd>
+<dt>
+<strong><strong>bootdev=</strong></strong>
+</dt>
+<dd>Specify the install bootdev (hd, cdrom, floppy,
+network) to boot off of for the install phase. This maps to libvirt
+&lt;os&gt;&lt;boot dev=X&gt; XML.
+
+If you want to install off a cdrom or network, it&#39;s probably simpler
+and more backwards compatible to just use <strong>–cdrom</strong> or <strong>–pxe</strong> , but
+this options gives fine grained control over the install process if
+needed.</dd>
+<dt>
+<strong><strong>no_install=yes|no</strong></strong>
+</dt>
+<dd>Tell virt-install that there isn&#39;t actually
+any install happening, and you just want to create the VM. <strong>–import</strong>
+is just an alias for this, as is specifying <strong>–boot</strong> without any other
+install options. The deprecated <strong>–live</strong> option is the same as
+&#39;–cdrom $ISO –install no_install=yes&#39;</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-40" class="outline-3">
+<h3 id="headline-40">
+<strong>–reinstall</strong> DOMAIN
+</h3>
+<div id="outline-text-headline-40" class="outline-text-3">
+<p>Reinstall an existing VM. DOMAIN can be a VM name, UUID, or ID number.
+virt-install will fetch the domain XML from libvirt, apply the specified
+install config changes, boot the VM for the install process, and then
+revert to roughly the same starting XML.</p>
+<p>
+Only install related options are processed, all other VM configuration
+options like –name, –disk, etc. are completely ignored.</p>
+<p>
+If –reinstall is used with –cdrom, an existing CDROM attached to the
+VM will be used if one is available, otherwise a permanent CDROM device
+will be added.</p>
+</div>
+</div>
+<div id="outline-container-headline-41" class="outline-3">
+<h3 id="headline-41">
+<strong>–unattended</strong>
+</h3>
+<div id="outline-text-headline-41" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–unattended</strong> [OPTIONS]</p>
+<p>
+Perform an unattended install using libosinfo&#39;s install script support.
+This is essentially a database of auto install scripts for various
+distros: Red Hat kickstarts, Debian installer scripting, Windows
+unattended installs, and potentially others. The simplest invocation is
+to combine it with –install like:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--install fedora29 --unattended
+</pre>
+</blockquote>
+</blockquote>
+<p>
+A Windows install will look like</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--cdrom /path/to/my/windows.iso --unattended
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Sub options are:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>profile=</strong></strong>
+</dt>
+<dd>Choose which libosinfo unattended profile to use. Most
+distros have a &#39;desktop&#39; and a &#39;jeos&#39; profile. virt-install will
+default to &#39;desktop&#39; if this is unspecified.</dd>
+<dt>
+<strong><strong>admin-password-file=</strong></strong>
+</dt>
+<dd>A file used to set the VM OS admin/root
+password from. This option can be used either as
+&#34;admin-password-file=/path/to/password-file&#34; or as
+&#34;admin-password-file=/dev/fd/n&#34;, being n the file descriptor of the
+password-file. Note that only the first line of the file will be
+considered, including any whitespace characters and excluding
+new-line.</dd>
+<dt>
+<strong><strong>user-login=</strong></strong>
+</dt>
+<dd>The user login name to be used in th VM.
+virt-install will default to your current host username if this is
+unspecified. Note that when running virt-install as &#34;root&#34;, this
+option must be specified.</dd>
+<dt>
+<strong><strong>user-password-file=</strong></strong>
+</dt>
+<dd>A file used to set the VM user password.
+This option can be used either as
+&#34;user-password-file=/path/to/password-file&#34; or as
+&#34;user-password-file=/dev/fd/n&#34;, being n the file descriptor of the
+password-file. The username is either the user-login specified or your
+current host username. Note that only the first line of the file will
+be considered, including any whitespace characters and excluding
+new-line.</dd>
+<dt>
+<strong><strong>product-key=</strong></strong>
+</dt>
+<dd>Set a Windows product key</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-42" class="outline-3">
+<h3 id="headline-42">
+<strong>–cloud-init</strong>
+</h3>
+<div id="outline-text-headline-42" class="outline-text-3">
+<p>Pass cloud-init metadata to the VM. A cloud-init NoCloud ISO file is
+generated, and attached to the VM as a CDROM device. The device is only
+attached for the first boot. This option is particularly useful for
+distro cloud images, which have locked login accounts by default;
+–cloud-init provides the means to initialize those login accounts, like
+setting a root password.</p>
+<p>
+The simplest invocation is just plain <strong>–cloud-init</strong> with no suboptions;
+this maps to <strong>–cloud-init root-password-generate=on,disable=on</strong>. See
+those suboptions for explanation of how they work.</p>
+<p>
+Use –cloud-init=? to see a list of all available sub options.</p>
+<p>
+Sub options are:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>root-password-generate=on</strong></strong>
+</dt>
+<dd>Generate a new root password for the
+VM. When used, virt-install will print the generated password to the
+console, and pause for 10 seconds to give the user a chance to notice
+it and copy it.</dd>
+<dt>
+<strong><strong>disable=on</strong></strong>
+</dt>
+<dd>Disable cloud-init in the VM for subsequent boots.
+Without this, cloud-init may reset auth on each boot.</dd>
+<dt>
+<strong><strong>root-password-file=</strong></strong>
+</dt>
+<dd>A file used to set the VM root password
+from. This option can be used either as
+&#34;root-password-file=/path/to/password-file&#34; or as
+&#34;root-password-file=/dev/fd/n&#34;, being n the file descriptor of the
+password-file. Note that only the first line of the file will be
+considered, including any whitespace characters and excluding
+new-line.</dd>
+<dt>
+<strong><strong>meta-data=</strong></strong>
+</dt>
+<dd>Specify a cloud-init meta-data file to add directly
+to the iso. All other meta-data configuration options on the
+–cloud-init command line are ignored.</dd>
+<dt>
+<strong><strong>user-data=</strong></strong>
+</dt>
+<dd>Specify a cloud-init user-data file to add directly
+to the iso. All other user-data configuration options on the
+–cloud-init command line are ignored.</dd>
+<dt>
+<strong><strong>root-ssh-key=</strong></strong>
+</dt>
+<dd>Specify a public key to inject into the guest,
+providing ssh access to the root account. Example:
+root-ssh-key=/home/user/.ssh/id_rsa.pub</dd>
+<dt>
+<strong><strong>clouduser-ssh-key</strong></strong>
+</dt>
+<dd>Specify a public key to inject into the
+guest, providing ssh access to the default cloud-init user account.
+The account name is different per distro cloud image. Some common ones
+are documented here:
+&lt;<a href="https://docs.openstack.org/image-guide/obtain-images.html">https://docs.openstack.org/image-guide/obtain-images.html</a>&gt;</dd>
+<dt>
+<strong><strong>network-config=</strong></strong>
+</dt>
+<dd>Specify a cloud-init network-config file to add
+directly to the iso.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-43" class="outline-3">
+<h3 id="headline-43">
+<strong>–boot</strong>
+</h3>
+<div id="outline-text-headline-43" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–boot</strong> BOOTOPTS</p>
+<p>
+Optionally specify the post-install VM boot configuration. This option
+allows specifying a boot device order, permanently booting off
+kernel/initrd with option kernel arguments, and enabling a BIOS boot
+menu (requires libvirt 0.8.3 or later)</p>
+<p>
+–boot can be specified in addition to other install options (such as
+–location, –cdrom, etc.) or can be specified on its own. In the latter
+case, behavior is similar to the –import install option: there is no
+&#39;install&#39; phase, the guest is just created and launched as specified.</p>
+<p>
+Some examples:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–boot</strong> cdrom,fd,hd,network*
+</dt>
+<dd>Set the boot device priority as
+first cdrom, first floppy, first harddisk, network PXE boot.</dd>
+<dt>
+?
+</dt>
+<dd><strong>*–boot</strong>
+kernel=KERNEL,initrd=INITRD,kernel_args=&#34;console=/dev/ttyS0&#34;* :: Have
+guest permanently boot off a local kernel/initrd pair, with the
+specified kernel options.</dd>
+<dt>
+<strong>*–boot</strong> kernel=KERNEL,initrd=INITRD,dtb=DTB*
+</dt>
+<dd>Have guest
+permanently boot off a local kernel/initrd pair with an external
+device tree binary. DTB can be required for some non-x86
+configurations like ARM or PPC</dd>
+<dt>
+<strong>*–boot</strong> loader=BIOSPATH*
+</dt>
+<dd>Use BIOSPATH as the virtual machine
+BIOS.</dd>
+<dt>
+<strong>*–boot</strong> bootmenu.enable=on,bios.useserial=on*
+</dt>
+<dd>Enable the bios
+boot menu, and enable sending bios text output over serial console.</dd>
+<dt>
+<strong>*–boot</strong> init=INITPATH*
+</dt>
+<dd>Path to a binary that the container guest
+will init. If a root <strong>–filesystem</strong> has been specified, virt-install
+will default to /sbin/init, otherwise will default to /bin/sh.</dd>
+<dt>
+<strong>*–boot</strong> uefi*
+</dt>
+<dd>Configure the VM to boot from UEFI. In order for
+virt-install to know the correct UEFI parameters, libvirt needs to be
+advertising known UEFI binaries via domcapabilities XML, so this will
+likely only work if using properly configured distro packages.</dd>
+<dt>
+?
+</dt>
+<dd><strong>*–boot</strong>
+loader=/…/OVMF_CODE.fd,loader.readonly=yes,loader.type=pflash,nvram.template=/…/OVMF_VARS.fd,loader_secure=no* :: Specify
+that the virtual machine use the custom OVMF binary as boot firmware,
+mapped as a virtual flash chip. In addition, request that libvirt
+instantiate the VM-specific UEFI varstore from the custom
+&#34;/…/OVMF_VARS.fd&#34; varstore template. This is the recommended UEFI
+setup, and should be used if –boot uefi doesn&#39;t know about your UEFI
+binaries. If your UEFI firmware supports Secure boot feature you can
+enable it via loader_secure.</dd>
+</dl>
+</blockquote>
+<p>
+Use –boot=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsOS">https://libvirt.org/formatdomain.html#elementsOS</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-44" class="outline-3">
+<h3 id="headline-44">
+<strong>–idmap</strong>
+</h3>
+<div id="outline-text-headline-44" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–idmap</strong> OPTIONS</p>
+<p>
+If the guest configuration declares a UID or GID mapping, the &#39;user&#39;
+namespace will be enabled to apply these. A suitably configured UID/GID
+mapping is a pre-requisite to make containers secure, in the absence of
+sVirt confinement.</p>
+<p>
+–idmap can be specified to enable user namespace for LXC containers.
+Example:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--idmap uid.start=0,uid.target=1000,uid.count=10,gid.start=0,gid.target=1000,gid.count=10
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Use –idmap=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsOSContainer">https://libvirt.org/formatdomain.html#elementsOSContainer</a>&gt;</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-45" class="outline-2">
+<h2 id="headline-45">
+GUEST OS OPTIONS
+</h2>
+<div id="outline-text-headline-45" class="outline-text-2">
+<div id="outline-container-headline-46" class="outline-3">
+<h3 id="headline-46">
+<strong>–os-variant</strong>, <strong>–osinfo</strong>
+</h3>
+<div id="outline-text-headline-46" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–osinfo</strong> [OSNAME|OPT1=VAL1,…]</p>
+<p>
+Optimize the guest configuration for a specific operating system. For
+most cases, an OS must be specified or detected from the install media
+so performance critical features like virtio can be enabled.</p>
+<p>
+The simplest usage is <strong>–os-variant OSNAME</strong> or <strong>–osinfo OSNAME</strong>, for
+example <strong>–osinfo fedora32</strong>. The supported suboptions are:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*name=</strong>, <strong>short-id=*</strong>
+</dt>
+<dd>The OS name/short-id from libosinfo.
+Examples: <strong>fedora32</strong>, <strong>win10</strong></dd>
+<dt>
+<strong><strong>id=</strong></strong>
+</dt>
+<dd>The full URL style libosinfo ID. For example, <strong>name=win10</strong>
+is the same as <strong>id=<a href="http://microsoft.com/win/10">http://microsoft.com/win/10</a></strong></dd>
+<dt>
+<strong><strong>detect=on|off</strong></strong>
+</dt>
+<dd>Whether virt-install should attempt OS detection
+from the specified install media. Detection is presently only
+attempted for URL and CDROM installs, and is not 100% reliable.</dd>
+<dt>
+<strong><strong>require=on|off</strong></strong>
+</dt>
+<dd>If <strong>on</strong>, virt-install errors if no OS value is
+set or detected.</dd>
+</dl>
+</blockquote>
+<p>
+Some interesting examples:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–osinfo</strong> detect=on,require=on*
+</dt>
+<dd>This tells virt-install to
+attempt detection from install media, but explicitly fail if that does
+not succeed. This will ensure your virt-install invocations don&#39;t
+fallback to a poorly performing config</dd>
+<dt>
+<strong>*–osinfo</strong> detect=on,name=OSNAME*
+</dt>
+<dd>Attempt OS detection from
+install media, but if that fails, use OSNAME as a fallback.</dd>
+</dl>
+</blockquote>
+<p>
+If any manual <strong>–osinfo</strong> value is specified, the default is all other
+settings off or unset.</p>
+<p>
+By default, virt-install will always attempt <strong>–osinfo detect=on</strong> for
+appropriate install media. If no OS is detected, we will fail in most
+common cases. This fatal error was added in 2022. You can work around
+this by using the fallback example above, or disabling the <strong>require</strong>
+option. If you just need to get back to the old non-fatal behavior ASAP,
+set the environment variable VIRTINSTALL_OSINFO_DISABLE_REQUIRE=1.</p>
+<p>
+Use the command <strong>virt-install –osinfo list</strong> to get the list of the
+accepted OS variants. See <strong>osinfo-query os</strong> for even more output.</p>
+<p>
+Note: <strong>–os-variant</strong> and <strong>–osinfo</strong> are aliases for one another.
+<strong>–osinfo</strong> is the preferred new style naming.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-47" class="outline-2">
+<h2 id="headline-47">
+STORAGE OPTIONS
+</h2>
+<div id="outline-text-headline-47" class="outline-text-2">
+<div id="outline-container-headline-48" class="outline-3">
+<h3 id="headline-48">
+<strong>–disk</strong>
+</h3>
+<div id="outline-text-headline-48" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–disk</strong> OPTIONS</p>
+<p>
+Specifies media to use as storage for the guest, with various options.
+The general format of a disk string is</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--disk opt1=val1,opt2=val2,...
+</pre>
+</blockquote>
+</blockquote>
+<p>
+The simplest invocation to create a new 10G disk image and associated
+disk device:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--disk size=10
+</pre>
+</blockquote>
+</blockquote>
+<p>
+virt-install will generate a path name, and place it in the default
+image location for the hypervisor. To specify media, the command can
+either be:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--disk /some/storage/path[,opt1=val1]...
+</pre>
+</blockquote>
+</blockquote>
+<p>
+or explicitly specify one of the following arguments:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>path</strong></strong>
+</dt>
+<dd>A path to some storage media to use, existing or not.
+Existing media can be a file or block device.
+
+Specifying a non-existent path implies attempting to create the new
+storage, and will require specifying a &#39;size&#39; value. Even for remote
+hosts, virt-install will try to use libvirt storage APIs to
+automatically create the given path.
+
+If the hypervisor supports it, <strong>path</strong> can also be a network URL, like
+&lt;<a href="https://example.com/some-disk.img">https://example.com/some-disk.img</a>&gt; . For network paths, they
+hypervisor will directly access the storage, nothing is downloaded
+locally.</dd>
+<dt>
+<strong><strong>pool</strong></strong>
+</dt>
+<dd>An existing libvirt storage pool name to create new
+storage on. Requires specifying a &#39;size&#39; value.</dd>
+<dt>
+<strong><strong>vol</strong></strong>
+</dt>
+<dd>An existing libvirt storage volume to use. This is
+specified as &#39;poolname/volname&#39;.</dd>
+</dl>
+</blockquote>
+<p>
+Options that apply to storage creation:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>size</strong></strong>
+</dt>
+<dd>size (in GiB) to use if creating new storage</dd>
+<dt>
+<strong><strong>sparse</strong></strong>
+</dt>
+<dd>whether to skip fully allocating newly created storage.
+Value is &#39;yes&#39; or &#39;no&#39;. Default is &#39;yes&#39; (do not fully allocate)
+unless it isn&#39;t supported by the underlying storage type.
+
+The initial time taken to fully-allocate the guest virtual disk
+(sparse=no) will be usually balanced by faster install times inside
+the guest. Thus use of this option is recommended to ensure
+consistently high performance and to avoid I/O errors in the guest
+should the host filesystem fill up.</dd>
+<dt>
+<strong><strong>format</strong></strong>
+</dt>
+<dd>Disk image format. For file volumes, this can be &#39;raw&#39;,
+&#39;qcow2&#39;, &#39;vmdk&#39;, etc. See format types in
+&lt;<a href="https://libvirt.org/storage.html">https://libvirt.org/storage.html</a>&gt; for possible values. This is often
+mapped to the <strong>driver_type</strong> value as well.
+
+If not specified when creating file images, this will default to
+&#39;qcow2&#39;.
+
+If creating storage, this will be the format of the new image. If
+using an existing image, this overrides libvirt&#39;s format
+auto-detection.</dd>
+<dt>
+<strong><strong>backing_store</strong></strong>
+</dt>
+<dd>Path to a disk to use as the backing store for
+the newly created image.</dd>
+<dt>
+<strong><strong>backing_format</strong></strong>
+</dt>
+<dd>Disk image format of <strong>backing_store</strong></dd>
+</dl>
+</blockquote>
+<p>
+Some example device configuration suboptions:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>device</strong></strong>
+</dt>
+<dd>Disk device type. Example values are be &#39;cdrom&#39;, &#39;disk&#39;,
+&#39;lun&#39; or &#39;floppy&#39;. The default is &#39;disk&#39;.</dd>
+<dt>
+<strong><strong>boot.order</strong></strong>
+</dt>
+<dd>Guest installation with multiple disks will need
+this parameter to boot correctly after being installed. A boot.order
+parameter will take values 1,2,3,… Devices with lower value has
+higher priority. This option applies to other bootable device types as
+well.</dd>
+<dt>
+<strong><strong>target.bus*</strong></strong> or <strong>bus</strong>
+</dt>
+<dd>Disk bus type. Example values are be
+&#39;ide&#39;, &#39;sata&#39;, &#39;scsi&#39;, &#39;usb&#39;, &#39;virtio&#39; or &#39;xen&#39;. The default is
+hypervisor dependent since not all hypervisors support all bus types.</dd>
+<dt>
+<strong><strong>readonly</strong></strong>
+</dt>
+<dd>Set drive as readonly (takes &#39;on&#39; or &#39;off&#39;)</dd>
+<dt>
+<strong><strong>shareable</strong></strong>
+</dt>
+<dd>Set drive as shareable (takes &#39;on&#39; or &#39;off&#39;)</dd>
+<dt>
+<strong><strong>cache</strong></strong>
+</dt>
+<dd>The cache mode to be used. The host pagecache provides
+cache memory. The cache value can be &#39;none&#39;, &#39;writethrough&#39;,
+&#39;directsync&#39;, &#39;unsafe&#39; or &#39;writeback&#39;. &#39;writethrough&#39; provides read
+caching. &#39;writeback&#39; provides read and write caching. &#39;directsync&#39;
+bypasses the host page cache. &#39;unsafe&#39; may cache all content and
+ignore flush requests from the guest.</dd>
+<dt>
+<strong><strong>driver.discard</strong></strong>
+</dt>
+<dd>Whether discard (also known as &#34;trim&#34; or
+&#34;unmap&#34;) requests are ignored or passed to the filesystem. The value
+can be either &#34;unmap&#34; (allow the discard request to be passed) or
+&#34;ignore&#34; (ignore the discard request). Since 1.0.6 (QEMU and KVM only)</dd>
+<dt>
+<strong><strong>driver.name</strong></strong>
+</dt>
+<dd>Driver name the hypervisor should use when
+accessing the specified storage. Typically does not need to be set by
+the user.</dd>
+<dt>
+<strong><strong>driver.type</strong></strong>
+</dt>
+<dd>Driver format/type the hypervisor should use when
+accessing the specified storage. Typically does not need to be set by
+the user.</dd>
+<dt>
+<strong><strong>driver.io</strong></strong>
+</dt>
+<dd>Disk IO backend. Can be either &#34;threads&#34;, &#34;native&#34; or
+&#34;io_uring&#34;.</dd>
+<dt>
+<strong><strong>driver.error_policy</strong></strong>
+</dt>
+<dd>How guest should react if a write error is
+encountered. Can be one of &#34;stop&#34;, &#34;ignore&#34;, or &#34;enospace&#34;</dd>
+<dt>
+<strong><strong>serial</strong></strong>
+</dt>
+<dd>Serial number of the emulated disk device. This is used
+in linux guests to set /dev/disk/by-id symlinks. An example serial
+number might be: WD-WMAP9A966149</dd>
+<dt>
+<strong><strong>source.startupPolicy</strong></strong>
+</dt>
+<dd>It defines what to do with the disk if the
+source file is not accessible.</dd>
+<dt>
+<strong><strong>snapshot</strong></strong>
+</dt>
+<dd>Defines default behavior of the disk during disk
+snapshots.</dd>
+</dl>
+</blockquote>
+<p>
+See the examples section for some uses. This option deprecates
+-f/–file, -s/–file-size, –nonsparse, and –nodisks.</p>
+<p>
+Use –disk=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsDisks">https://libvirt.org/formatdomain.html#elementsDisks</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-49" class="outline-3">
+<h3 id="headline-49">
+<strong>–filesystem</strong>
+</h3>
+<div id="outline-text-headline-49" class="outline-text-3">
+<p>Specifies a directory on the host to export to the guest. The most
+simple invocation is:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--filesystem /source/on/host,/target/point/in/guest
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Which will work for recent QEMU and linux guest OS or LXC containers.
+For QEMU, the target point is just a mounting hint in sysfs, so will not
+be automatically mounted.</p>
+<p>
+Some example suboptions:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>type</strong></strong>
+</dt>
+<dd>The type or the source directory. Valid values are &#39;mount&#39;
+(the default) or &#39;template&#39; for OpenVZ templates.</dd>
+<dt>
+<strong>*accessmode</strong> or <strong>mode*</strong>
+</dt>
+<dd>The access mode for the source directory
+from the guest OS. Only used with QEMU and type=mount. Valid modes are
+&#39;mapped&#39; (the default), &#39;passthrough&#39;, or &#39;squash&#39;. See libvirt domain
+XML documentation for more info.</dd>
+<dt>
+<strong><strong>source</strong></strong>
+</dt>
+<dd>The directory on the host to share.</dd>
+<dt>
+<strong><strong>target</strong></strong>
+</dt>
+<dd>The mount location to use in the guest.</dd>
+</dl>
+</blockquote>
+<p>
+Use –filesystem=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsFilesystems">https://libvirt.org/formatdomain.html#elementsFilesystems</a>&gt;</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-50" class="outline-2">
+<h2 id="headline-50">
+NETWORKING OPTIONS
+</h2>
+<div id="outline-text-headline-50" class="outline-text-2">
+<div id="outline-container-headline-51" class="outline-3">
+<h3 id="headline-51">
+<strong>-w</strong>, <strong>–network</strong>
+</h3>
+<div id="outline-text-headline-51" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>-w</strong>, <strong>–network</strong> OPTIONS</p>
+<p>
+Connect the guest to the host network. Examples for specifying the
+network type:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>bridge=BRIDGE</strong></strong>
+</dt>
+<dd>Connect to a bridge device in the host called
+<strong>BRIDGE</strong>. Use this option if the host has static networking config &amp;
+the guest requires full outbound and inbound connectivity to/from the
+LAN. Also use this if live migration will be used with this guest.</dd>
+<dt>
+<strong><strong>network=NAME</strong></strong>
+</dt>
+<dd>Connect to a virtual network in the host called
+<strong>NAME</strong>. Virtual networks can be listed, created, deleted using the
+<strong>virsh</strong> command line tool. In an unmodified install of <strong>libvirt</strong> there
+is usually a virtual network with a name of <strong>default</strong>. Use a virtual
+network if the host has dynamic networking (e.g. NetworkManager), or
+using wireless. The guest will be NATed to the LAN by whichever
+connection is active.</dd>
+<dt>
+<strong><strong>type=direct,source=IFACE[,source.mode=MODE]</strong></strong>
+</dt>
+<dd>Direct connect to
+host interface IFACE using macvtap.</dd>
+<dt>
+<strong><strong>user</strong></strong>
+</dt>
+<dd>Connect to the LAN using SLIRP. Only use this if running a
+QEMU guest as an unprivileged user. This provides a very limited form
+of NAT.</dd>
+<dt>
+<strong><strong>none</strong></strong>
+</dt>
+<dd>Tell virt-install not to add any default network
+interface.</dd>
+</dl>
+</blockquote>
+<p>
+If <strong>–network</strong> is omitted a single NIC will be created in the guest. If
+there is a bridge device in the host with a physical interface attached,
+that will be used for connectivity. Failing that, the virtual network
+called <strong>default</strong> will be used. This option can be specified multiple
+times to setup more than one NIC.</p>
+<p>
+Some example suboptions:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*model.type</strong> or <strong>model*</strong>
+</dt>
+<dd>Network device model as seen by the
+guest. Value can be any nic model supported by the hypervisor, e.g.:
+&#39;e1000&#39;, &#39;rtl8139&#39;, &#39;virtio&#39;, …</dd>
+<dt>
+<strong>*mac.address</strong> or <strong>mac*</strong>
+</dt>
+<dd>Fixed MAC address for the guest; If this
+parameter is omitted, or the value <strong>RANDOM</strong> is specified a suitable
+address will be randomly generated. For Xen virtual machines it is
+required that the first 3 pairs in the MAC address be the sequence
+&#39;00:16:3e&#39;, while for QEMU or KVM virtual machines it must be
+&#39;52:54:00&#39;.</dd>
+<dt>
+<strong><strong>filterref.filter</strong></strong>
+</dt>
+<dd>Controlling firewall and network filtering in
+libvirt. Value can be any nwfilter defined by the <strong>virsh</strong> &#39;nwfilter&#39;
+subcommands. Available filters can be listed by running &#39;virsh
+nwfilter-list&#39;, e.g.: &#39;clean-traffic&#39;, &#39;no-mac-spoofing&#39;, …</dd>
+<dt>
+<strong><strong>virtualport.</strong></strong> options*
+</dt>
+<dd>Configure the device virtual port
+profile. This is used for 802.Qbg, 802.Qbh, midonet, and openvswitch
+config.
+
+Use –network=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsNICS">https://libvirt.org/formatdomain.html#elementsNICS</a>&gt;
+
+This option deprecates -m/–mac, -b/–bridge, and –nonetworks</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-52" class="outline-2">
+<h2 id="headline-52">
+GRAPHICS OPTIONS
+</h2>
+<div id="outline-text-headline-52" class="outline-text-2">
+<p>If no graphics option is specified, <strong>virt-install</strong> will try to select
+the appropriate graphics if the DISPLAY environment variable is set,
+otherwise &#39;–graphics none&#39; is used.</p>
+<div id="outline-container-headline-53" class="outline-3">
+<h3 id="headline-53">
+<strong>–graphics</strong>
+</h3>
+<div id="outline-text-headline-53" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–graphics</strong> TYPE,opt1=arg1,opt2=arg2,…</p>
+<p>
+Specifies the graphical display configuration. This does not configure
+any virtual hardware, just how the guest&#39;s graphical display can be
+accessed. Typically the user does not need to specify this option,
+virt-install will try and choose a useful default, and launch a suitable
+connection.</p>
+<p>
+General format of a graphical string is</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--graphics TYPE,opt1=arg1,opt2=arg2,...
+</pre>
+</blockquote>
+</blockquote>
+<p>
+For example:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--graphics vnc,password=foobar
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Some supported TYPE values:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>vnc</strong></strong>
+</dt>
+<dd>Setup a virtual console in the guest and export it as a VNC
+server in the host. Unless the <strong>port</strong> parameter is also provided, the
+VNC server will run on the first free port number at 5900 or above.
+The actual VNC display allocated can be obtained using the
+<strong>vncdisplay</strong> command to <strong>virsh</strong> (or virt-viewer(1) can be used which
+handles this detail for the use).</dd>
+<dt>
+<strong><strong>spice</strong></strong>
+</dt>
+<dd>
+<p>Export the guest&#39;s console using the Spice protocol.
+Spice allows advanced features like audio and USB device streaming, as
+well as improved graphical performance.</p>
+<p>
+Using spice graphic type will work as if those arguments were given:</p>
+<blockquote>
+<pre class="example">
+--video qxl --channel spicevmc
+</pre>
+</blockquote>
+</dd>
+<dt>
+<strong><strong>none</strong></strong>
+</dt>
+<dd>No graphical console will be allocated for the guest.
+Guests will likely need to have a text console configured on the first
+serial port in the guest (this can be done via the –extra-args
+option). The command &#39;virsh console NAME&#39; can be used to connect to
+the serial device.</dd>
+</dl>
+</blockquote>
+<p>
+Some supported suboptions:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>port</strong></strong>
+</dt>
+<dd>Request a permanent, statically assigned port number for
+the guest console. This is used by &#39;vnc&#39; and &#39;spice&#39;</dd>
+<dt>
+<strong><strong>tlsPort</strong></strong>
+</dt>
+<dd>Specify the spice tlsport.</dd>
+<dt>
+<strong><strong>websocket</strong></strong>
+</dt>
+<dd>Request a VNC WebSocket port for the guest console.
+
+If -1 is specified, the WebSocket port is auto-allocated.
+
+This is used by &#39;vnc&#39; and &#39;spice&#39;</dd>
+<dt>
+<strong><strong>listen</strong></strong>
+</dt>
+<dd>Address to listen on for VNC/Spice connections. Default
+is typically 127.0.0.1 (localhost only), but some hypervisors allow
+changing this globally (for example, the qemu driver default can be
+changed in /etc/libvirt/qemu.conf). Use 0.0.0.0 to allow access from
+other machines.
+
+Use &#39;none&#39; to specify that the display server should not listen on any
+port. The display server can be accessed only locally through libvirt
+unix socket (virt-viewer with –attach for instance).
+
+Use &#39;socket&#39; to have the VM listen on a libvirt generated unix socket
+path on the host filesystem.
+
+This is used by &#39;vnc&#39; and &#39;spice&#39;</dd>
+<dt>
+<strong><strong>password</strong></strong>
+</dt>
+<dd>Request a console password, required at connection
+time. Beware, this info may end up in virt-install log files, so don&#39;t
+use an important password. This is used by &#39;vnc&#39; and &#39;spice&#39;</dd>
+<dt>
+<strong><strong>gl.enable</strong></strong>
+</dt>
+<dd>Whether to use OpenGL accelerated rendering. Value is
+&#39;yes&#39; or &#39;no&#39;. This is used by &#39;spice&#39;.</dd>
+<dt>
+<strong><strong>gl.rendernode</strong></strong>
+</dt>
+<dd>DRM render node path to use. This is used when
+&#39;gl&#39; is enabled.</dd>
+</dl>
+</blockquote>
+<p>
+Use –graphics=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsGraphics">https://libvirt.org/formatdomain.html#elementsGraphics</a>&gt;</p>
+<p>
+This deprecates the following options: –vnc, –vncport, –vnclisten,
+-k/–keymap, –sdl, –nographics</p>
+</div>
+</div>
+<div id="outline-container-headline-54" class="outline-3">
+<h3 id="headline-54">
+<strong>–autoconsole</strong>
+</h3>
+<div id="outline-text-headline-54" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–autoconsole</strong> OPTIONS</p>
+<p>
+Configure what interactive console virt-install will launch for the VM.
+This option is not required; the default behavior is adaptive and
+dependent on how the VM is configured. But you can use this option to
+override the default choice.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–autoconsole</strong> graphical*
+</dt>
+<dd>Use the graphical virt-viewer(1) as the
+interactive console</dd>
+<dt>
+<strong>*–autoconsole</strong> text*
+</dt>
+<dd>Use the text mode <strong>virsh console</strong> as the
+interactive console.</dd>
+<dt>
+<strong>*–autoconsole</strong> none*
+</dt>
+<dd>This is the same as <strong>–noautoconsole</strong></dd>
+<dt>
+<strong><strong>–noautoconsole</strong></strong>
+</dt>
+<dd>Don&#39;t automatically try to connect to the guest
+console. Same as <strong>–autoconsole none</strong></dd>
+</dl>
+</blockquote>
+<p>
+Note, virt-install exits quickly when this option is specified. If your
+command requested a multistep install, like –cdrom or –location, after
+the install phase is complete the VM will be shutoff, regardless of
+whether a reboot was requested in the VM. If you want the VM to be
+rebooted, virt-install must remain running. You can use &#39;–wait&#39; to keep
+virt-install alive even if –noautoconsole is specified.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-55" class="outline-2">
+<h2 id="headline-55">
+VIRTUALIZATION OPTIONS
+</h2>
+<div id="outline-text-headline-55" class="outline-text-2">
+<p>Options to override the default virtualization type choices.</p>
+<div id="outline-container-headline-56" class="outline-3">
+<h3 id="headline-56">
+<strong>-v</strong>, <strong>–hvm</strong>
+</h3>
+<div id="outline-text-headline-56" class="outline-text-3">
+<p>Request the use of full virtualization, if both para &amp; full
+virtualization are available on the host. This parameter may not be
+available if connecting to a Xen hypervisor on a machine without
+hardware virtualization support. This parameter is implied if connecting
+to a QEMU based hypervisor.</p>
+</div>
+</div>
+<div id="outline-container-headline-57" class="outline-3">
+<h3 id="headline-57">
+<strong>-p</strong>, <strong>–paravirt</strong>
+</h3>
+<div id="outline-text-headline-57" class="outline-text-3">
+<p>This guest should be a paravirtualized guest. If the host supports both
+para &amp; full virtualization, and neither this parameter nor the <strong>–hvm</strong>
+are specified, this will be assumed.</p>
+</div>
+</div>
+<div id="outline-container-headline-58" class="outline-3">
+<h3 id="headline-58">
+<strong>–container</strong>
+</h3>
+<div id="outline-text-headline-58" class="outline-text-3">
+<p>This guest should be a container type guest. This option is only
+required if the hypervisor supports other guest types as well (so for
+example this option is the default behavior for LXC and OpenVZ, but is
+provided for completeness).</p>
+</div>
+</div>
+<div id="outline-container-headline-59" class="outline-3">
+<h3 id="headline-59">
+<strong>–virt-type</strong>
+</h3>
+<div id="outline-text-headline-59" class="outline-text-3">
+<p>The hypervisor to install on. Example choices are kvm, qemu, or xen.
+Available options are listed via &#39;virsh capabilities&#39; in the &lt;domain&gt;
+tags.</p>
+<p>
+This deprecates the –accelerate option, which is now the default
+behavior. To install a plain QEMU guest, use &#39;–virt-type qemu&#39;</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-60" class="outline-2">
+<h2 id="headline-60">
+DEVICE OPTIONS
+</h2>
+<div id="outline-text-headline-60" class="outline-text-2">
+<p>All devices have a set of <strong>address.*</strong> options for configuring the
+particulars of the device&#39;s address on its parent controller or bus. See
+<strong><a href="https://libvirt.org/formatdomain.html#elementsAddress">https://libvirt.org/formatdomain.html#elementsAddress</a></strong> for details.</p>
+<div id="outline-container-headline-61" class="outline-3">
+<h3 id="headline-61">
+<strong>–controller</strong>
+</h3>
+<div id="outline-text-headline-61" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–controller</strong> OPTIONS</p>
+<p>
+Attach a controller device to the guest.</p>
+<p>
+Some example invocations:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–controller</strong> usb2*
+</dt>
+<dd>Add a full USB2 controller setup</dd>
+<dt>
+<strong>*–controller</strong> usb3*
+</dt>
+<dd>Add a USB3 controller</dd>
+<dt>
+<strong>*–controller</strong> type=usb,model=none*
+</dt>
+<dd>Disable USB entirely</dd>
+<dt>
+<strong>*–controller</strong> type=scsi,model=virtio-scsi*
+</dt>
+<dd>Add a VirtIO SCSI
+controller</dd>
+<dt>
+<strong>*–controller</strong> num_pcie_root_ports=NUM*
+</dt>
+<dd>Control the number of
+default <strong>pcie-root-port</strong> controller devices we add to the new VM by
+default, if the VM will use PCIe by default.</dd>
+</dl>
+</blockquote>
+<p>
+Use –controller=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsControllers">https://libvirt.org/formatdomain.html#elementsControllers</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-62" class="outline-3">
+<h3 id="headline-62">
+<strong>–input</strong>
+</h3>
+<div id="outline-text-headline-62" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–input</strong> OPTIONS</p>
+<p>
+Attach an input device to the guest. Example input device types are
+mouse, tablet, or keyboard.</p>
+<p>
+Use –input=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsInput">https://libvirt.org/formatdomain.html#elementsInput</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-63" class="outline-3">
+<h3 id="headline-63">
+<strong>–hostdev</strong>, <strong>–host-device</strong>
+</h3>
+<div id="outline-text-headline-63" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–hostdev</strong>, <strong>–host-device</strong> OPTIONS</p>
+<p>
+Attach a physical host device to the guest. Some example values for
+HOSTDEV:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–hostdev</strong> pci_0000_00_1b_0*
+</dt>
+<dd>A node device name via libvirt, as
+shown by &#39;virsh nodedev-list&#39;</dd>
+<dt>
+<strong>*–hostdev</strong> 001.003*
+</dt>
+<dd>USB by bus, device (via lsusb).</dd>
+<dt>
+<strong>*–hostdev</strong> 0x1234:0x5678*
+</dt>
+<dd>USB by vendor, product (via lsusb).</dd>
+<dt>
+<strong>*–hostdev</strong> 1f.01.02*
+</dt>
+<dd>PCI device (via lspci).</dd>
+<dt>
+<strong>*–hostdev</strong> wlan0,type=net*
+</dt>
+<dd>Network device (in LXC container).</dd>
+<dt>
+<strong>*–hostdev</strong> /dev/net/tun,type=misc*
+</dt>
+<dd>Character device (in LXC
+container).</dd>
+<dt>
+<strong>*–hostdev</strong> /dev/sdf,type=storage*
+</dt>
+<dd>Block device (in LXC
+container).</dd>
+</dl>
+</blockquote>
+<p>
+Use –hostdev=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsHostDev">https://libvirt.org/formatdomain.html#elementsHostDev</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-64" class="outline-3">
+<h3 id="headline-64">
+<strong>–sound</strong>
+</h3>
+<div id="outline-text-headline-64" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–sound</strong> MODEL</p>
+<p>
+Attach a virtual audio device to the guest. MODEL specifies the emulated
+sound card model. Possible values are ich6, ich9, ac97, es1370, sb16,
+pcspk, or default. &#39;default&#39; will try to pick the best model that the
+specified OS supports.</p>
+<p>
+This deprecates the old –soundhw option. Use –sound=? to see a list of
+all available sub options. Complete details at
+&lt;<a href="https://libvirt.org/formatdomain.html#elementsSound">https://libvirt.org/formatdomain.html#elementsSound</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-65" class="outline-3">
+<h3 id="headline-65">
+<strong>–audio</strong>
+</h3>
+<div id="outline-text-headline-65" class="outline-text-3">
+<p>Configure host audio output for the guest&#39;s <em>–sound</em> hardware.</p>
+<p>
+Use –audio=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#audio-backends">https://libvirt.org/formatdomain.html#audio-backends</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-66" class="outline-3">
+<h3 id="headline-66">
+<strong>–watchdog</strong>
+</h3>
+<div id="outline-text-headline-66" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–watchdog</strong> MODEL[,action=ACTION]</p>
+<p>
+Attach a virtual hardware watchdog device to the guest. This requires a
+daemon and device driver in the guest. The watchdog fires a signal when
+the virtual machine appears to hung. ACTION specifies what libvirt will
+do when the watchdog fires. Values are</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>reset</strong></strong>
+</dt>
+<dd>Forcefully reset the guest (the default)</dd>
+<dt>
+<strong><strong>poweroff</strong></strong>
+</dt>
+<dd>Forcefully power off the guest</dd>
+<dt>
+<strong><strong>pause</strong></strong>
+</dt>
+<dd>Pause the guest</dd>
+<dt>
+<strong><strong>none</strong></strong>
+</dt>
+<dd>Do nothing</dd>
+<dt>
+<strong><strong>shutdown</strong></strong>
+</dt>
+<dd>Gracefully shutdown the guest (not recommended, since
+a hung guest probably won&#39;t respond to a graceful shutdown)</dd>
+</dl>
+</blockquote>
+<p>
+MODEL is the emulated device model: either i6300esb (the default) or
+ib700. Some examples:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–watchdog</strong> default*
+</dt>
+<dd>Use the recommended settings</dd>
+<dt>
+<strong>*–watchdog</strong> i6300esb,action=poweroff*
+</dt>
+<dd>Use the i6300esb with the
+&#39;poweroff&#39; action</dd>
+</dl>
+</blockquote>
+<p>
+Use –watchdog=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsWatchdog">https://libvirt.org/formatdomain.html#elementsWatchdog</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-67" class="outline-3">
+<h3 id="headline-67">
+<strong>–serial</strong>
+</h3>
+<div id="outline-text-headline-67" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–serial</strong> OPTIONS</p>
+<p>
+Specifies a serial device to attach to the guest, with various options.
+The general format of a serial string is</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--serial type,opt1=val1,opt2=val2,...
+</pre>
+</blockquote>
+</blockquote>
+<p>
+–serial and –parallel devices share all the same options, unless
+otherwise noted. Some of the types of character device redirection are:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–serial</strong> pty*
+</dt>
+<dd>Pseudo TTY. The allocated pty will be listed in
+the running guests XML description.</dd>
+<dt>
+<strong>*–serial</strong> dev,path=HOSTPATH*
+</dt>
+<dd>Host device. For serial devices,
+this could be /dev/ttyS0. For parallel devices, this could be
+/dev/parport0.</dd>
+<dt>
+<strong>*–serial</strong> file,path=FILENAME*
+</dt>
+<dd>Write output to FILENAME.</dd>
+<dt>
+?
+</dt>
+<dd><strong>*–serial</strong>
+tcp,host=HOST:PORT,source.mode=MODE,protocol.type=PROTOCOL* :: TCP net
+console. MODE is either &#39;bind&#39; (wait for connections on HOST:PORT) or
+&#39;connect&#39; (send output to HOST:PORT), default is &#39;bind&#39;. HOST defaults
+to &#39;127.0.0.1&#39;, but PORT is required. PROTOCOL can be either &#39;raw&#39; or
+&#39;telnet&#39; (default &#39;raw&#39;). If &#39;telnet&#39;, the port acts like a telnet
+server or client. Some examples:
+
+Wait for connections on any address, port 4567:
+
+–serial tcp,host=0.0.0.0:4567
+
+Connect to localhost, port 1234:
+
+–serial tcp,host=:1234,source.mode=connect
+
+Wait for telnet connection on localhost, port 2222. The user could
+then connect interactively to this console via &#39;telnet localhost
+2222&#39;:
+
+–serial tcp,host=:2222,source.mode=bind,source.protocol=telnet</dd>
+<dt>
+?
+</dt>
+<dd><strong>*–serial</strong>
+udp,host=CONNECT_HOST:PORT,bind_host=BIND_HOST:BIND_PORT* :: UDP net
+console. HOST:PORT is the destination to send output to (default HOST
+is &#39;127.0.0.1&#39;, PORT is required). BIND_HOST:BIND_PORT is the optional
+local address to bind to (default BIND_HOST is 127.0.0.1, but is only
+set if BIND_PORT is specified). Some examples:
+
+Send output to default syslog port (may need to edit /etc/rsyslog.conf
+accordingly):
+
+–serial udp,host=:514
+
+Send output to remote host 192.168.10.20, port 4444 (this output can
+be read on the remote host using &#39;nc -u -l 4444&#39;):
+
+–serial udp,host=192.168.10.20:4444</dd>
+<dt>
+<strong>*–serial</strong> unix,path=UNIXPATH,mode=MODE*
+</dt>
+<dd>Unix socket, see unix(7).
+MODE has similar behavior and defaults as –serial tcp,mode=MODE</dd>
+</dl>
+</blockquote>
+<p>
+Use –serial=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsCharSerial">https://libvirt.org/formatdomain.html#elementsCharSerial</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-68" class="outline-3">
+<h3 id="headline-68">
+<strong>–parallel</strong>
+</h3>
+<div id="outline-text-headline-68" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–parallel</strong> OPTIONS</p>
+<p>
+Specify a parallel device. The format and options are largely identical
+to <strong>serial</strong></p>
+<p>
+Use –parallel=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsCharParallel">https://libvirt.org/formatdomain.html#elementsCharParallel</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-69" class="outline-3">
+<h3 id="headline-69">
+<strong>–channel</strong>
+</h3>
+<div id="outline-text-headline-69" class="outline-text-3">
+<p>Specifies a communication channel device to connect the guest and host
+machine. This option uses the same options as –serial and –parallel
+for specifying the host/source end of the channel. Extra &#39;target&#39;
+options are used to specify how the guest machine sees the channel.</p>
+<p>
+Some of the types of character device redirection are:</p>
+<blockquote>
+<ul>
+<li><strong>*–channel</strong>
+SOURCE,target.type=guestfwd,target.address=HOST:PORT* :: Communication
+channel using QEMU usermode networking stack. The guest can connect to
+the channel using the specified HOST:PORT combination.</li>
+<li><strong>*–channel</strong>
+SOURCE,target.type=virtio[,target.name=NAME]* :: Communication channel
+using virtio serial (requires 2.6.34 or later host and guest). Each
+instance of a virtio –channel line is exposed in the guest as
+/dev/vport0p1, /dev/vport0p2, etc. NAME is optional metadata, and can
+be any string, such as org.linux-kvm.virtioport1. If specified, this
+will be exposed in the guest at /sys/class/virtio-ports/vport0p1/NAME</li>
+<li><strong>*–channel</strong>
+spicevmc,target.type=virtio[,target.name=NAME]* :: Communication
+channel for QEMU spice agent, using virtio serial (requires 2.6.34 or
+later host and guest). NAME is optional metadata, and can be any
+string, such as the default com.redhat.spice.0 that specifies how the
+guest will see the channel.</li>
+<li><strong>*–channel</strong>
+qemu-vdagent,target.type=virtio[,target.name=NAME]* :: Communication
+channel for QEMU vd agent, using virtio serial (requires 2.6.34 or
+later host and guest). This allows copy/paste functionality with VNC
+guests. Note that the guest clipboard integration is implemented via
+spice-vdagent, which must be running even when the guest does not use
+spice graphics. NAME is optional metadata that specifies how the guest
+will see the channel, and should be left as the default
+com.redhat.spice.0 unless you know what you are doing.</li>
+</ul>
+</blockquote>
+<p>
+Use –channel=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsCharChannel">https://libvirt.org/formatdomain.html#elementsCharChannel</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-70" class="outline-3">
+<h3 id="headline-70">
+<strong>–console</strong>
+</h3>
+<div id="outline-text-headline-70" class="outline-text-3">
+<p>Connect a text console between the guest and host. Certain guest and
+hypervisor combinations can automatically set up a getty in the guest,
+so an out of the box text login can be provided (target_type=xen for xen
+paravirt guests, and possibly target_type=virtio in the future).</p>
+<p>
+Example:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–console</strong> pty,target.type=virtio*
+</dt>
+<dd>Connect a virtio console to
+the guest, redirected to a PTY on the host. For supported guests, this
+exposes /dev/hvc0 in the guest. See
+&lt;<a href="https://fedoraproject.org/wiki/Features/VirtioSerial">https://fedoraproject.org/wiki/Features/VirtioSerial</a>&gt; for more info.
+virtio console requires libvirt 0.8.3 or later.</dd>
+</dl>
+</blockquote>
+<p>
+Use –console=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsCharConsole">https://libvirt.org/formatdomain.html#elementsCharConsole</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-71" class="outline-3">
+<h3 id="headline-71">
+<strong>–video</strong>
+</h3>
+<div id="outline-text-headline-71" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–video</strong> OPTIONS</p>
+<p>
+Specify what video device model will be attached to the guest. Valid
+values for VIDEO are hypervisor specific, but some options for recent
+kvm are cirrus, vga, qxl, virtio, or vmvga (vmware). Use –video=? to
+see a list of all available sub options. Complete details at
+&lt;<a href="https://libvirt.org/formatdomain.html#elementsVideo">https://libvirt.org/formatdomain.html#elementsVideo</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-72" class="outline-3">
+<h3 id="headline-72">
+<strong>–smartcard</strong>
+</h3>
+<div id="outline-text-headline-72" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–smartcard</strong> MODE[,OPTIONS]</p>
+<p>
+Configure a virtual smartcard device.</p>
+<p>
+Example MODE values are <strong>host</strong>, <strong>host-certificates</strong>, or <strong>passthrough</strong>.
+Example suboptions include:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>type</strong></strong>
+</dt>
+<dd>Character device type to connect to on the host. This is
+only applicable for <strong>passthrough</strong> mode.</dd>
+</dl>
+</blockquote>
+<p>
+An example invocation:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–smartcard</strong> passthrough,type=spicevmc*
+</dt>
+<dd>Use the smartcard channel
+of a SPICE graphics device to pass smartcard info to the guest</dd>
+</dl>
+</blockquote>
+<p>
+Use –smartcard=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsSmartcard">https://libvirt.org/formatdomain.html#elementsSmartcard</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-73" class="outline-3">
+<h3 id="headline-73">
+<strong>–redirdev</strong>
+</h3>
+<div id="outline-text-headline-73" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–redirdev</strong> BUS[,OPTIONS]</p>
+<p>
+Add a redirected device. Example suboptions:</p>
+<blockquote>
+<dl>
+<dt>
+<strong><strong>type</strong></strong>
+</dt>
+<dd>The redirection type, currently supported is <strong>tcp</strong> or
+<strong>spicevmc</strong> .</dd>
+<dt>
+<strong><strong>server</strong></strong>
+</dt>
+<dd>The TCP server connection details, of the form
+&#39;server:port&#39;.</dd>
+</dl>
+</blockquote>
+<p>
+Examples invocations:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–redirdev</strong> usb,type=tcp,server=localhost:4000*
+</dt>
+<dd>Add a USB
+redirected device provided by the TCP server on &#39;localhost&#39; port 4000.</dd>
+<dt>
+<strong>*–redirdev</strong> usb,type=spicevmc*
+</dt>
+<dd>Add a USB device redirected via a
+dedicated Spice channel.</dd>
+</dl>
+</blockquote>
+<p>
+Use –redirdev=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsRedir">https://libvirt.org/formatdomain.html#elementsRedir</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-74" class="outline-3">
+<h3 id="headline-74">
+<strong>–memballoon</strong>
+</h3>
+<div id="outline-text-headline-74" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–memballoon</strong> MODEL[,OPTIONS]</p>
+<p>
+Attach a virtual memory balloon device to the guest. If the memballoon
+device needs to be explicitly disabled, MODEL=&#39;none&#39; is used.</p>
+<p>
+MODEL is the type of memballoon device provided. The value can be
+&#39;virtio&#39;, &#39;xen&#39; or &#39;none&#39;. Some examples:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–memballoon</strong> virtio*
+</dt>
+<dd>Explicitly create a &#39;virtio&#39; memballoon
+device</dd>
+<dt>
+<strong>*–memballoon</strong> none*
+</dt>
+<dd>Disable the memballoon device</dd>
+</dl>
+</blockquote>
+<p>
+Use –memballoon=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsMemBalloon">https://libvirt.org/formatdomain.html#elementsMemBalloon</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-75" class="outline-3">
+<h3 id="headline-75">
+<strong>–tpm</strong>
+</h3>
+<div id="outline-text-headline-75" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–tpm</strong> TYPE[,OPTIONS]</p>
+<p>
+Configure a virtual TPM device. Examples:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–tpm</strong> /dev/tpm*
+</dt>
+<dd>Convenience option for passing through the hosts
+TPM.</dd>
+<dt>
+<strong>*–tpm</strong> emulator*
+</dt>
+<dd>Request an emulated TPM device.</dd>
+<dt>
+<strong>*–tpm</strong> default*
+</dt>
+<dd>Request virt-install to fill in a modern
+recommended default</dd>
+</dl>
+</blockquote>
+<p>
+Use –tpm=? to see a list of all available sub options. Complete details
+at &lt;<a href="https://libvirt.org/formatdomain.html#elementsTpm">https://libvirt.org/formatdomain.html#elementsTpm</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-76" class="outline-3">
+<h3 id="headline-76">
+<strong>–rng</strong>
+</h3>
+<div id="outline-text-headline-76" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–rng</strong> TYPE[,OPTIONS]</p>
+<p>
+Configure a virtual RNG device.</p>
+<p>
+Example TYPE values include <strong>random</strong>, <strong>egd</strong> or <strong>builtin</strong>.</p>
+<p>
+Example invocations:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>*–rng</strong> /dev/urandom*
+</dt>
+<dd>Use the /dev/urandom device to get entropy
+data, this form implicitly uses the &#34;random&#34; model.</dd>
+<dt>
+<strong>*–rng</strong> builtin*
+</dt>
+<dd>Use the builtin rng device to get entropy data.</dd>
+<dt>
+?
+</dt>
+<dd><strong>*–rng</strong>
+egd,backend.source.host=localhost,backend.source.service=8000,backend.type=tcp* :: Connect
+to localhost to the TCP port 8000 to get entropy data.</dd>
+</dl>
+</blockquote>
+<p>
+Use –rng=? to see a list of all available sub options. Complete details
+at &lt;<a href="https://libvirt.org/formatdomain.html#elementsRng">https://libvirt.org/formatdomain.html#elementsRng</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-77" class="outline-3">
+<h3 id="headline-77">
+<strong>–panic</strong>
+</h3>
+<div id="outline-text-headline-77" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–panic</strong> MODEL[,OPTS]</p>
+<p>
+Attach a panic notifier device to the guest. For the recommended
+settings, use: <strong>–panic default</strong></p>
+<p>
+Use –panic=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsPanic">https://libvirt.org/formatdomain.html#elementsPanic</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-78" class="outline-3">
+<h3 id="headline-78">
+<strong>–shmem</strong>
+</h3>
+<div id="outline-text-headline-78" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–shmem</strong> NAME[,OPTS]</p>
+<p>
+Attach a shared memory device to the guest. The name must not contain
+<strong>/</strong> and must not be directory-specific to <strong>.</strong> or <strong>..</strong></p>
+<p>
+Use –shmem=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#shared-memory-device">https://libvirt.org/formatdomain.html#shared-memory-device</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-79" class="outline-3">
+<h3 id="headline-79">
+<strong>–memdev</strong>
+</h3>
+<div id="outline-text-headline-79" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–memdev</strong> OPTS</p>
+<p>
+Add a memory module to a guest which can be hotunplugged. To add a
+memdev you need to configure hotplugmemory and NUMA for a guest.</p>
+<p>
+Use –memdev=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#elementsMemory">https://libvirt.org/formatdomain.html#elementsMemory</a>&gt; .</p>
+</div>
+</div>
+<div id="outline-container-headline-80" class="outline-3">
+<h3 id="headline-80">
+<strong>–vsock</strong>
+</h3>
+<div id="outline-text-headline-80" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–vsock</strong> OPTS</p>
+<p>
+Configure a vsock host/guest interface. A typical configuration would be</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+--vsock cid.auto=yes
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Use –vsock=? to see a list of all available sub options. Complete
+details at &lt;<a href="https://libvirt.org/formatdomain.html#vsock">https://libvirt.org/formatdomain.html#vsock</a>&gt; .</p>
+</div>
+</div>
+<div id="outline-container-headline-81" class="outline-3">
+<h3 id="headline-81">
+<strong>–iommu</strong>
+</h3>
+<div id="outline-text-headline-81" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–iommu</strong> MODEL[,OPTS]</p>
+<p>
+Add an IOMMU device to the guest.</p>
+<p>
+Use –iommu=? to see a list of all available options. Complete details
+at &lt;<a href="https://libvirt.org/formatdomain.html#elementsIommu">https://libvirt.org/formatdomain.html#elementsIommu</a>&gt; .</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-82" class="outline-2">
+<h2 id="headline-82">
+MISCELLANEOUS OPTIONS
+</h2>
+<div id="outline-text-headline-82" class="outline-text-2">
+<div id="outline-container-headline-83" class="outline-3">
+<h3 id="headline-83">
+<strong>-h</strong>, <strong>–help</strong>
+</h3>
+<div id="outline-text-headline-83" class="outline-text-3">
+<p>Show the help message and exit</p>
+</div>
+</div>
+<div id="outline-container-headline-84" class="outline-3">
+<h3 id="headline-84">
+<strong>–version</strong>
+</h3>
+<div id="outline-text-headline-84" class="outline-text-3">
+<p>Show program&#39;s version number and exit</p>
+</div>
+</div>
+<div id="outline-container-headline-85" class="outline-3">
+<h3 id="headline-85">
+<strong>–autostart</strong>
+</h3>
+<div id="outline-text-headline-85" class="outline-text-3">
+<p>Set the autostart flag for a domain. This causes the domain to be
+started on host boot up.</p>
+</div>
+</div>
+<div id="outline-container-headline-86" class="outline-3">
+<h3 id="headline-86">
+<strong>–transient</strong>
+</h3>
+<div id="outline-text-headline-86" class="outline-text-3">
+<p>Use –import or –boot and –transient if you want a transient libvirt
+VM. These VMs exist only until the domain is shut down or the host
+server is restarted. Libvirt forgets the XML configuration of the VM
+after either of these events. Note that the VM&#39;s disks will not be
+deleted. See:
+&lt;<a href="https://wiki.libvirt.org/page/VM_lifecycle#Transient_guest_domains_vs_Persistent_guest_domains">https://wiki.libvirt.org/page/VM_lifecycle#Transient_guest_domains_vs_Persistent_guest_domains</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-87" class="outline-3">
+<h3 id="headline-87">
+<strong>–destroy-on-exit</strong>
+</h3>
+<div id="outline-text-headline-87" class="outline-text-3">
+<p>When the VM console window is exited, destroy (force poweroff) the VM.
+If you combine this with –transient, this makes the virt-install
+command work similar to qemu, where the VM is shutdown when the console
+window is closed by the user.</p>
+</div>
+</div>
+<div id="outline-container-headline-88" class="outline-3">
+<h3 id="headline-88">
+<strong>–print-xml</strong>
+</h3>
+<div id="outline-text-headline-88" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–print-xml</strong> [STEP]</p>
+<p>
+Print the generated XML of the guest, instead of defining it. By default
+this WILL do storage creation (can be disabled with –dry-run). This
+option implies –quiet.</p>
+<p>
+If the VM install has multiple phases, by default this will print all
+generated XML. If you want to print a particular step, use –print-xml 2
+(for the second phase XML).</p>
+</div>
+</div>
+<div id="outline-container-headline-89" class="outline-3">
+<h3 id="headline-89">
+<strong>–noreboot</strong>
+</h3>
+<div id="outline-text-headline-89" class="outline-text-3">
+<p>Prevent the domain from automatically rebooting after the install has
+completed.</p>
+</div>
+</div>
+<div id="outline-container-headline-90" class="outline-3">
+<h3 id="headline-90">
+<strong>–wait</strong>
+</h3>
+<div id="outline-text-headline-90" class="outline-text-3">
+<p><strong>Syntax:</strong> <strong>–wait</strong> WAIT</p>
+<p>
+Configure how virt-install will wait for the install to complete.
+Without this option, virt-install will wait for the console to close
+(not necessarily indicating the guest has shutdown), or in the case of
+–noautoconsole, simply kick off the install and exit.</p>
+<p>
+Bare &#39;–wait&#39; or any negative value will make virt-install wait
+indefinitely. Any positive number is the number of minutes virt-install
+will wait. If the time limit is exceeded, virt-install simply exits,
+leaving the virtual machine in its current state.</p>
+</div>
+</div>
+<div id="outline-container-headline-91" class="outline-3">
+<h3 id="headline-91">
+<strong>–dry-run</strong>
+</h3>
+<div id="outline-text-headline-91" class="outline-text-3">
+<p>Proceed through the guest creation process, but do NOT create storage
+devices, change host device configuration, or actually teach libvirt
+about the guest. virt-install may still fetch install media, since this
+is required to properly detect the OS to install.</p>
+</div>
+</div>
+<div id="outline-container-headline-92" class="outline-3">
+<h3 id="headline-92">
+<strong>–check</strong>
+</h3>
+<div id="outline-text-headline-92" class="outline-text-3">
+<p>Enable or disable some validation checks. Some examples are warning
+about using a disk that&#39;s already assigned to another VM (–check
+path_in_use=on|off), or warning about potentially running out of space
+during disk allocation (–check disk_size=on|off). Most checks are
+performed by default.</p>
+</div>
+</div>
+<div id="outline-container-headline-93" class="outline-3">
+<h3 id="headline-93">
+<strong>-q</strong>, <strong>–quiet</strong>
+</h3>
+<div id="outline-text-headline-93" class="outline-text-3">
+<p>Only print fatal error messages.</p>
+</div>
+</div>
+<div id="outline-container-headline-94" class="outline-3">
+<h3 id="headline-94">
+<strong>-d</strong>, <strong>–debug</strong>
+</h3>
+<div id="outline-text-headline-94" class="outline-text-3">
+<p>Print debugging information to the terminal when running the install
+process. The debugging information is also stored in
+<strong>~/.cache/virt-manager/virt-install.log</strong> even if this parameter is
+omitted.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-95" class="outline-2">
+<h2 id="headline-95">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-95" class="outline-text-2">
+<p>The simplest invocation to interactively install a Fedora 29 KVM VM with
+recommended defaults. virt-viewer(1) will be launched to graphically
+interact with the VM install</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+# sudo virt-install --install fedora29
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Similar, but use libosinfo&#39;s unattended install support, which will
+perform the fedora29 install automatically without user intervention:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+# sudo virt-install --install fedora29 --unattended
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Install a Windows 10 VM, using 40GiB storage in the default location and
+4096MiB of ram, and ensure we are connecting to the system libvirtd
+instance:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+# virt-install \
+   --connect qemu:///system \
+   --name my-win10-vm \
+   --memory 4096 \
+   --disk size=40 \
+   --osinfo win10 \
+   --cdrom /path/to/my/win10.iso
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Install a CentOS 7 KVM from a URL, with recommended device defaults and
+default required storage, but specifically request VNC graphics instead
+of the default SPICE, and request 8 virtual CPUs and 8192 MiB of memory:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+# virt-install \
+    --connect qemu:///system \
+    --memory 8192 \
+    --vcpus 8 \
+    --graphics vnc \
+    --osinfo centos7.0 \
+    --location http://mirror.centos.org/centos-7/7/os/x86_64/
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Create a VM around an existing debian9 disk image:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+# virt-install \
+    --import \
+    --memory 512 \
+    --disk /home/user/VMs/my-debian9.img \
+    --osinfo debian9
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Start serial QEMU ARM VM, which requires specifying a manual kernel.</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+# virt-install \
+    --name armtest \
+    --memory 1024 \
+    --arch armv7l --machine vexpress-a9 \
+    --disk /home/user/VMs/myarmdisk.img \
+    --boot kernel=/tmp/my-arm-kernel,initrd=/tmp/my-arm-initrd,dtb=/tmp/my-arm-dtb,kernel_args=&#34;console=ttyAMA0 rw root=/dev/mmcblk0p3&#34; \
+    --graphics none
+</pre>
+</blockquote>
+</blockquote>
+<p>
+Start an SEV launch security VM with 4GB RAM, 4GB+256MiB of hard_limit,
+with a couple of virtio devices:</p>
+<p>
+Note: The IOMMU flag needs to be turned on with driver.iommu for virtio
+devices. Usage of –memtune is currently required because of SEV
+limitations, refer to libvirt docs for a detailed explanation.</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+# virt-install \
+    --name foo \
+    --memory 4096 \
+    --boot uefi \
+    --machine q35 \
+    --memtune hard_limit=4563402 \
+    --disk size=15,target.bus=scsi \
+    --import \
+    --controller type=scsi,model=virtio-scsi,driver.iommu=on \
+    --controller type=virtio-serial,driver.iommu=on \
+    --network network=default,model=virtio,driver.iommu=on \
+    --rng /dev/random,driver.iommu=on \
+    --memballoon driver.iommu=on \
+    --launchSecurity sev
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-96" class="outline-2">
+<h2 id="headline-96">
+BUGS
+</h2>
+<div id="outline-text-headline-96" class="outline-text-2">
+<p>Please see &lt;<a href="https://virt-manager.org/bugs">https://virt-manager.org/bugs</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-97" class="outline-2">
+<h2 id="headline-97">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-97" class="outline-text-2">
+<p>Copyright (C) Red Hat, Inc, and various contributors. This is free
+software. You may redistribute copies of it under the terms of the GNU
+General Public License &lt;<a href="https://www.gnu.org/licenses/gpl.html">https://www.gnu.org/licenses/gpl.html</a>&gt; . There
+is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+<div id="outline-container-headline-98" class="outline-2">
+<h2 id="headline-98">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-98" class="outline-text-2">
+<p><strong>virsh(1)</strong>, <strong>virt-clone(1)</strong>, <strong>virt-manager(1)</strong>, the project website
+&lt;<a href="https://virt-manager.org">https://virt-manager.org</a>&gt;</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

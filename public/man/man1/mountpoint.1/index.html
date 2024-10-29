@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - mountpoint.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - mountpoint.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>mountpoint - see if a directory or file is a mountpoint</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>mountpoint</strong> [*-d*|*-q*] <em>directory/|/file</em></p>
+<p>
+<strong>mountpoint</strong> <strong>-x</strong> <em>device</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>mountpoint</strong> checks whether the given <em>directory</em> or <em>file</em> is mentioned
+in the <em>/proc/self/mountinfo</em> file.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-d</strong>, <strong>–fs-devno</strong></p>
+<blockquote>
+<p>Show the major/minor numbers of the device that is mounted on the given
+directory.</p>
+</blockquote>
+<p>
+<strong>-q</strong>, <strong>–quiet</strong></p>
+<blockquote>
+<p>Be quiet - don&#39;t print anything.</p>
+</blockquote>
+<p>
+<strong>–nofollow</strong></p>
+<blockquote>
+<p>Do not follow symbolic link if it the last element of the <em>directory</em>
+path.</p>
+</blockquote>
+<p>
+<strong>-x</strong>, <strong>–devno</strong></p>
+<blockquote>
+<p>Show the major/minor numbers of the given blockdevice on standard
+output.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>mountpoint</strong> has the following exit status values:</p>
+<p>
+<strong>0</strong></p>
+<blockquote>
+<p>success; the directory is a mountpoint, or device is block device on
+<strong>–devno</strong></p>
+</blockquote>
+<p>
+<strong>1</strong></p>
+<blockquote>
+<p>failure; incorrect invocation, permissions or system error</p>
+</blockquote>
+<p>
+<strong>32</strong></p>
+<blockquote>
+<p>failure; the directory is not a mountpoint, or device is not a block
+device on <strong>–devno</strong></p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*LIBMOUNT_DEBUG*=all</p>
+<blockquote>
+<p>enables libmount debug output.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+NOTES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The util-linux <strong>mountpoint</strong> implementation was written from scratch for
+libmount. The original version for sysvinit suite was written by Miquel
+van Smoorenburg.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*mount*(8)</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The <strong>mountpoint</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

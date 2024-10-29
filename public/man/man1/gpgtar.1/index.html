@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - gpgtar.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - gpgtar.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>gpgtar</strong> - Encrypt or sign files into an archive</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>gpgtar</strong> [/options/] <em>filename1</em> <em>[ filename2, … ]</em> <em>directory1</em> <em>[
+directory2, … ]</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>gpgtar</strong> encrypts or signs files into an archive. It is an gpg-ized tar
+using the same format as used by PGP&#39;s PGP Zip.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>gpgtar</strong> understands these options:</p>
+<dl>
+<dt>
+<strong>–create</strong>
+</dt>
+<dd>Put given files and directories into a vanilla ``ustar&#39;&#39;
+archive.</dd>
+<dt>
+<strong>–extract</strong>
+</dt>
+<dd>Extract all files from a vanilla ``ustar&#39;&#39; archive. If
+no file name is given (or it is &#34;-&#34;) the archive is taken from stdin.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–encrypt</strong><br>
+<strong>-e</strong> :: Encrypt given files and directories into an archive. This
+option may be combined with option <strong>–symmetric</strong> for an archive that
+may be decrypted via a secret key or a passphrase.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–decrypt</strong><br>
+<strong>-d</strong> :: Extract all files from an encrypted archive. If no file name
+is given (or it is &#34;-&#34;) the archive is taken from stdin.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–sign</strong><br>
+<strong>-s</strong> :: Make a signed archive from the given files and directories.
+This can be combined with option <strong>–encrypt</strong> to create a signed and
+then encrypted archive.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–list-archive</strong><br>
+<strong>-t</strong> :: List the contents of the specified archive. If no file name is
+given (or it is &#34;-&#34;) the archive is taken from stdin.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–symmetric</strong><br>
+<strong>-c</strong> :: Encrypt with a symmetric cipher using a passphrase. The
+default symmetric cipher used is AES-128, but may be chosen with the
+<strong>–cipher-algo</strong> option to <strong>gpg</strong>.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–recipient <em>user</em></strong><br>
+<strong>-r <em>user</em></strong> :: Encrypt for user id <em>user</em>. For details see <strong>gpg</strong>.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–local-user <em>user</em></strong><br>
+<strong>-u <em>user</em></strong> :: Use <em>user</em> as the key to sign with. For details see
+<strong>gpg</strong>.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–output <em>file</em></strong><br>
+<strong>-o <em>file</em></strong> :: Write the archive to the specified file <em>file</em>.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–verbose</strong><br>
+<strong>-v</strong> :: Enable extra informational output.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–quiet</strong><br>
+<strong>-q</strong> :: Try to be as quiet as possible.</dd>
+<dt>
+<strong>–skip-crypto</strong>
+</dt>
+<dd>Skip all crypto operations and create or extract
+vanilla ``ustar&#39;&#39; archives.</dd>
+<dt>
+<strong>–dry-run</strong>
+</dt>
+<dd>Do not actually output the extracted files.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–directory <em>dir</em></strong><br>
+<strong>-C <em>dir</em></strong> :: Extract the files into the directory <em>dir</em>. The default
+is to take the directory name from the input filename. If no input
+filename is known a directory named ‘/GPGARCH/&#39; is used. For tarball
+creation, switch to directory <em>dir</em> before performing any operations.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–files-from <em>file</em></strong><br>
+<strong>-T <em>file</em></strong> :: Take the file names to work from the file <em>file</em>; one
+file per line.</dd>
+<dt>
+<strong>–null</strong>
+</dt>
+<dd>Modify option <strong>–files-from</strong> to use a binary nul instead
+of a linefeed to separate file names.</dd>
+<dt>
+<strong>–utf8-strings</strong>
+</dt>
+<dd>Assume that the file names read by <strong>–files-from</strong>
+are UTF-8 encoded. This option has an effect only on Windows where the
+active code page is otherwise assumed.</dd>
+<dt>
+<strong>–openpgp</strong>
+</dt>
+<dd>This option has no effect because OpenPGP encryption
+and signing is the default.</dd>
+<dt>
+<strong>–cms</strong>
+</dt>
+<dd>This option is reserved and shall not be used. It will
+eventually be used to encrypt or sign using the CMS protocol; but that
+is not yet implemented.</dd>
+<dt>
+<strong>–batch</strong>
+</dt>
+<dd>Use batch mode. Never ask but use the default action.
+This option is passed directly to <strong>gpg</strong>.</dd>
+<dt>
+<strong>–yes</strong>
+</dt>
+<dd>Assume &#34;yes&#34; on most questions. Often used together with
+<strong>–batch</strong> to overwrite existing files. This option is passed directly
+to <strong>gpg</strong>.</dd>
+<dt>
+<strong>–no</strong>
+</dt>
+<dd>Assume &#34;no&#34; on most questions. This option is passed
+directly to <strong>gpg</strong>.</dd>
+<dt>
+<strong>–require-compliance</strong>
+</dt>
+<dd>This option is passed directly to <strong>gpg</strong>.</dd>
+<dt>
+<strong>–status-fd <em>n</em></strong>
+</dt>
+<dd>Write special status strings to the file
+descriptor <em>n</em>. See the file DETAILS in the documentation for a
+listing of them.</dd>
+<dt>
+<strong>–with-log</strong>
+</dt>
+<dd>When extracting an encrypted tarball also write a log
+file with the gpg output to a file named after the extraction
+directory with the suffix &#34;.log&#34;.</dd>
+<dt>
+<strong>–set-filename <em>file</em></strong>
+</dt>
+<dd>Use the last component of <em>file</em> as the
+output directory. The default is to take the directory name from the
+input filename. If no input filename is known a directory named
+‘/GPGARCH/&#39; is used. This option is deprecated in favor of option
+<strong>–directory</strong>.</dd>
+<dt>
+<strong>–no-compress</strong>
+</dt>
+<dd>This option tells gpg to disable compression (i.e.
+using option -z0). It is useful for archiving only large files which
+are are already compressed (e.g. a set of videos).</dd>
+<dt>
+<strong>–gpg <em>gpgcmd</em></strong>
+</dt>
+<dd>Use the specified command <em>gpgcmd</em> instead of
+<strong>gpg</strong>.</dd>
+<dt>
+<strong>–gpg-args <em>args</em></strong>
+</dt>
+<dd>Pass the specified extra options to <strong>gpg</strong>.</dd>
+<dt>
+<strong>–tar-args <em>args</em></strong>
+</dt>
+<dd>Assume <em>args</em> are standard options of the
+command <strong>tar</strong> and parse them. The only supported tar options are
+&#34;–directory&#34;, &#34;–files-from&#34;, and &#34;–null&#34; This is an obsolete
+options because those supported tar options can also be given
+directly.</dd>
+<dt>
+<strong>–tar <em>command</em></strong>
+</dt>
+<dd>This is a dummy option for backward
+compatibility.</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>Print version of the program and exit.</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>Display a brief help page and exit.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Encrypt the contents of directory ‘/mydocs/&#39; for user Bob to file
+‘/test1/&#39;:</p>
+<blockquote>
+<pre class="example">
+gpgtar --encrypt --output test1 -r Bob mydocs
+</pre>
+</blockquote>
+<p>
+List the contents of archive ‘/test1/&#39;:</p>
+<blockquote>
+<pre class="example">
+gpgtar --list-archive test1
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+DIAGNOSTICS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The program returns 0 if everything was fine, 1 otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*gpg*(1), *tar*(1),</p>
+<p>
+The full documentation for this tool is maintained as a Texinfo manual.
+If GnuPG and the info program are properly installed at your site, the
+command</p>
+<blockquote>
+<pre class="example">
+info gnupg
+</pre>
+</blockquote>
+<p>
+should give you access to the complete manual including a menu structure
+and an index.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

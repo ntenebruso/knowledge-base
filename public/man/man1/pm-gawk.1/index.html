@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pm-gawk.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pm-gawk.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>persistent memory gawk - persistent data and functions</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+truncate -s size heap.pma
+export GAWK_PERSIST_FILE=heap.pma
+gawk . . .
+
+truncate -s size heap.pma
+GAWK_PERSIST_FILE=heap.pma gawk . . .
+
+truncate -s size heap.pma
+alias pm=&#39;GAWK_PERSIST_FILE=heap.pma&#39;
+pm gawk . . .                       # succinct
+
+unset GAWK_PERSIST_FILE   # disable persistence
+
+export GAWK_PERSIST_FILE=other_heap.pma  # change heap
+
+rm heap.pma               # delete heap
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><em>Gawk</em> 5.2 and later supports a persistent memory feature that can store
+script-defined variables and functions in a file for later use. The
+feature, called <em>pm-gawk</em>, is described in <em>GAWK: Effective AWK
+Programming</em> and in <em>Persistent Memory gawk User Manual</em>.</p>
+<p>
+<em>pm-gawk</em> is activated by passing to <em>gawk</em> the name of an initially
+empty (all-zero-bytes) <em>heap file</em>, via the environment variable
+<code class="verbatim">GAWK_PERSIST_FILE</code>. <em>pm-gawk</em> retains script-defined variables and
+functions in the heap file for use in subsequent <em>gawk</em> invocations.</p>
+<p>
+<em>pm-gawk</em> offers at least two advantages compared with the existing
+<code class="verbatim">rwarray</code> extension: it offers constant-time (``O(1) time&#39;&#39;) access to
+individual elements of persistent associative arrays, and it can store
+script-defined functions in addition to variables.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Demonstrate persistent variables:</p>
+<blockquote>
+<pre class="example">
+$ truncate -s 1G heap.pma            # create heap file
+$ export GAWK_PERSIST_FILE=heap.pma  # &#34;ambient&#34; env var
+$ gawk &#39;BEGIN { print ++i }&#39;
+1
+$ gawk &#39;BEGIN { print ++i }&#39;
+2
+$ gawk &#39;BEGIN { print ++i }&#39;
+3
+</pre>
+</blockquote>
+<p>
+To pass the environment variable on per-command basis:</p>
+<blockquote>
+<pre class="example">
+$ unset GAWK_PERSIST_FILE
+$ GAWK_PERSIST_FILE=heap.pma gawk &#39;BEGIN { print ++i }&#39;
+4
+$ GAWK_PERSIST_FILE=heap.pma gawk &#39;BEGIN { print ++i }&#39;
+5
+$ GAWK_PERSIST_FILE=heap.pma gawk &#39;BEGIN { print ++i }&#39;
+6
+</pre>
+</blockquote>
+<p>
+To reduce visual clutter of per-command environment variable passing:</p>
+<blockquote>
+<pre class="example">
+$ alias pm=&#39;GAWK_PERSIST_FILE=heap.pma&#39;
+$ pm gawk &#39;BEGIN { print ++i }&#39;
+7
+$ pm gawk &#39;BEGIN { print ++i }&#39;
+8
+</pre>
+</blockquote>
+<p>
+To refrain from activating persistence:</p>
+<blockquote>
+<pre class="example">
+$ unset GAWK_PERSIST_FILE
+$ gawk &#39;BEGIN { print ++i }&#39;
+1
+$ gawk &#39;BEGIN { print ++i }&#39;
+1
+</pre>
+</blockquote>
+<p>
+To permanently ``forget&#39;&#39; the contents of the heap file:</p>
+<blockquote>
+<pre class="example">
+$ rm heap.pma
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ENVIRONMENT VARIABLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><code class="verbatim">GAWK_PERSIST_FILE</code> contains the name of a heap file where
+script-defined variables and functions are stored. If this environment
+variable is not visible to <em>gawk</em>, the persistence feature is not
+activated and <em>gawk</em> behaves in its traditional manner.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+VERSION INFORMATION
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Persistent memory <em>gawk</em> was first released in <em>gawk</em> 5.2.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHORS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Arnold Robbins, the maintainer of <em>gawk</em>, implemented <em>pm-gawk</em> using a
+persistent memory allocator (pma) provided by Terence Kelly. An earlier
+proof-of-concept prototype of persistent <em>gawk</em> was developed by Haris
+Volos, Zi Fan Tan, and Jianan Li using a fork of the official <em>gawk</em>
+sources.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+CAVEATS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The GNU/Linux CIFS filesystem is known to cause problems for the
+persistent memory allocator. Do not use a backing file on such a
+filesystem with <em>pm-gawk</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+BUG REPORTS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Follow the procedures in <em>GAWK: Effective AWK Programming</em> and in
+<em>Persistent Memory gawk User Manual</em>. For suspected bugs related to
+persistence (as opposed to other non-persistence-related <em>gawk</em> bugs)
+please also send e-mail to Terence Kelly at one or more of these
+addresses: <code class="verbatim">tpkelly@acm.org</code>, <code class="verbatim">tpkelly@eecs.umich.edu</code>, or
+<code class="verbatim">tpkelly@cs.princeton.edu</code>.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p><em>gawk/(1), /GAWK: Effective AWK Programming</em>, and <em>Persistent Memory
+gawk User Manual</em>. The two manuals should be available in the Info
+subsystem if Info installed on your system.</p>
+<p>
+See <code class="verbatim">https://web.eecs.umich.edu/~tpkelly/pma/</code> for the latest source
+code and manual.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+COPYING PERMISSIONS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Copyright © 2022 Terence Kelly.</p>
+<p>
+Permission is granted to make and distribute verbatim copies of this
+manual page provided the copyright notice and this permission notice are
+preserved on all copies.</p>
+<p>
+Permission is granted to process this file through troff and print the
+results, provided the printed document carries copying permission notice
+identical to this one except for the removal of this paragraph (this
+paragraph not being relevant to the printed manual page).</p>
+<p>
+Permission is granted to copy and distribute modified versions of this
+manual page under the conditions for verbatim copying, provided that the
+entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.</p>
+<p>
+Permission is granted to copy and distribute translations of this manual
+page into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by the Foundation.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

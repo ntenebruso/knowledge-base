@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - cups.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - cups.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>cups - a standards-based, open source printing system</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>CUPS</strong> is the software you use to print from applications like word
+processors, email readers, photo editors, and web browsers. It converts
+the page descriptions produced by your application (put a paragraph
+here, draw a line there, and so forth) into something your printer can
+understand and then sends the information to the printer for printing.</p>
+<p>
+Now, since every printer manufacturer does things differently, printing
+can be very complicated. <strong>CUPS</strong> does its best to hide this from you and
+your application so that you can concentrate on printing and less on how
+to print. Generally, the only time you need to know anything about your
+printer is when you use it for the first time, and even then <strong>CUPS</strong> can
+often figure things out on its own.</p>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+HOW DOES IT WORK?
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>The first time you print to a printer, <strong>CUPS</strong> creates a queue to keep
+track of the current status of the printer (everything OK, out of paper,
+etc.) and any pages you have printed. Most of the time the queue points
+to a printer connected directly to your computer via a USB port, however
+it can also point to a printer on your network, a printer on the
+Internet, or multiple printers depending on the configuration.
+Regardless of where the queue points, it will look like any other
+printer to you and your applications.</p>
+<p>
+Every time you print something, <strong>CUPS</strong> creates a job which contains the
+queue you are sending the print to, the name of the document you are
+printing, and the page descriptions. Job are numbered (queue-1, queue-2,
+and so forth) so you can monitor the job as it is printed or cancel it
+if you see a mistake. When <strong>CUPS</strong> gets a job for printing, it determines
+the best programs (filters, printer drivers, port monitors, and
+backends) to convert the pages into a printable format and then runs
+them to actually print the job.</p>
+<p>
+When the print job is completely printed, <strong>CUPS</strong> removes the job from
+the queue and moves on to any other jobs you have submitted. You can
+also be notified when the job is finished, or if there are any errors
+during printing, in several different ways.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+WHERE DO I BEGIN?
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>The easiest way to start is by using the web interface to configure your
+printer. Go to &#34;<a href="http://localhost:631">http://localhost:631</a>&#34; and choose the Administration tab
+at the top of the page. Click/press on the Add Printer button and follow
+the prompts.</p>
+<p>
+When you are asked for a username and password, enter your login
+username and password or the &#34;root&#34; username and password.</p>
+<p>
+After the printer is added you will be asked to set the default printer
+options (paper size, output mode, etc.) for the printer. Make any
+changes as needed and then click/press on the Set Default Options button
+to save them. Some printers also support auto-configuration -
+click/press on the Query Printer for Default Options button to update
+the options automatically.</p>
+<p>
+Once you have added the printer, you can print to it from any
+application. You can also choose Print Test Page from the maintenance
+menu to print a simple test page and verify that everything is working
+properly.</p>
+<p>
+You can also use the <strong>lpadmin*(8) and *lpinfo*(8) commands to add
+printers to *CUPS</strong>. Additionally, your operating system may include
+graphical user interfaces or automatically create printer queues when
+you connect a printer to your computer.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+HOW DO I GET HELP?
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>The <strong>OpenPrinting CUPS</strong> website (<a href="https://openprinting.github.io/cups)">https://openprinting.github.io/cups)</a>
+provides access to the <em>cups</em> and <em>cups-devel</em> mailing lists, additional
+documentation and resources, and a bug report database. Most vendors
+also provide online discussion forums to ask printing questions for your
+operating system of choice.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>CUPS</strong> commands use the following environment variables to override the
+default locations of files and so forth. For security reasons, these
+environment variables are ignored for setuid programs:</p>
+<dl>
+<dt>
+<strong>CUPS_ANYROOT</strong>
+</dt>
+<dd>Whether to allow any X.509 certificate root (Y or
+N).</dd>
+<dt>
+<strong>CUPS_CACHEDIR</strong>
+</dt>
+<dd>The directory where semi-persistent cache files can
+be found.</dd>
+<dt>
+<strong>CUPS_DATADIR</strong>
+</dt>
+<dd>The directory where data files can be found.</dd>
+<dt>
+<strong>CUPS_ENCRYPTION</strong>
+</dt>
+<dd>The default level of encryption (Always,
+IfRequested, Never, Required).</dd>
+<dt>
+<strong>CUPS_EXPIREDCERTS</strong>
+</dt>
+<dd>Whether to allow expired X.509 certificates (Y
+or N).</dd>
+<dt>
+<strong>CUPS_GSSSERVICENAME</strong>
+</dt>
+<dd>The Kerberos service name used for
+authentication.</dd>
+<dt>
+<strong>CUPS_SERVER</strong>
+</dt>
+<dd>The hostname/IP address and port number of the CUPS
+scheduler (hostname:port or ipaddress:port).</dd>
+<dt>
+<strong>CUPS_SERVERBIN</strong>
+</dt>
+<dd>The directory where server helper programs,
+filters, backend, etc. can be found.</dd>
+<dt>
+<strong>CUPS_SERVERROOT</strong>
+</dt>
+<dd>The root directory of the server.</dd>
+<dt>
+<strong>CUPS_STATEDIR</strong>
+</dt>
+<dd>The directory where state files can be found.</dd>
+<dt>
+<strong>CUPS_USER</strong>
+</dt>
+<dd>Specifies the name of the user for print requests.</dd>
+<dt>
+<strong>HOME</strong>
+</dt>
+<dd>Specifies the home directory of the current user.</dd>
+<dt>
+<strong>IPP_PORT</strong>
+</dt>
+<dd>Specifies the default port number for IPP requests.</dd>
+<dt>
+<strong>LOCALEDIR</strong>
+</dt>
+<dd>Specifies the location of localization files.</dd>
+<dt>
+<strong>LPDEST</strong>
+</dt>
+<dd>Specifies the default print queue (System V standard).</dd>
+<dt>
+<strong>PRINTER</strong>
+</dt>
+<dd>Specifies the default print queue (Berkeley standard).</dd>
+<dt>
+<strong>TMPDIR</strong>
+</dt>
+<dd>Specifies the location of temporary files.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+FILES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<pre class="example">
+~/.cups/client.conf
+~/.cups/lpoptions
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+CONFORMING TO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>CUPS</strong> conforms to the Internet Printing Protocol version 2.1 and
+implements the Berkeley and System V UNIX print commands.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+NOTES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>CUPS printer drivers, backends, and PPD files are deprecated and will no
+longer be supported in a future feature release of CUPS. Printers that
+do not support IPP can be supported using applications such as
+*ippeveprinter*(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>*cancel*(1), *client.conf*(5), *cupsctl*(8), *cupsd*(8), *lp*(1),
+*lpadmin*(8), *lpinfo*(8), *lpoptions*(1), *lpr*(1), *lprm*(1),
+*lpq*(1), *lpstat*(1), CUPS Online Help (<a href="http://localhost:631/help),">http://localhost:631/help),</a>
+OpenPrinting CUPS Web Site (<a href="https://openprinting.github.io/cups),">https://openprinting.github.io/cups),</a> PWG
+Internet Printing Protocol Workgroup (<a href="http://www.pwg.org/ipp)">http://www.pwg.org/ipp)</a></p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Copyright © 2020-2024 by OpenPrinting.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

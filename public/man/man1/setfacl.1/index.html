@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - setfacl.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - setfacl.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>setfacl - set file access control lists</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>setfacl</strong> [-bkndRLPvh] [{-m|-x} acl_spec] [{-M|-X} acl_file] file …</p>
+<p>
+<strong>setfacl</strong> –restore={file|-}</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This utility sets Access Control Lists (ACLs) of files and directories.
+On the command line, a sequence of commands is followed by a sequence of
+files (which in turn can be followed by another sequence of commands,
+…).</p>
+<p>
+The <em>-m</em> and <em>-x</em> options expect an ACL on the command line. Multiple
+ACL entries are separated by comma characters (`,&#39;). The <em>-M</em> and <em>-X</em>
+options read an ACL from a file or from standard input. The ACL entry
+format is described in Section ACL ENTRIES.</p>
+<p>
+The <em>–set</em> and <em>–set-file</em> options set the ACL of a file or a
+directory. The previous ACL is replaced. ACL entries for this operation
+must include permissions.</p>
+<p>
+The <em>-m (–modify)</em> and <em>-M (–modify-file)</em> options modify the ACL of a
+file or directory. ACL entries for this operation must include
+permissions.</p>
+<p>
+The <em>-x (–remove)</em> and <em>-X (–remove-file)</em> options remove ACL entries.
+It is not an error to remove an entry which does not exist. Only ACL
+entries without the <em>perms</em> field are accepted as parameters, unless
+POSIXLY_CORRECT is defined.</p>
+<p>
+When reading from files using the <em>-M</em> and <em>-X</em> options, setfacl accepts
+the output getfacl produces. There is at most one ACL entry per line.
+After a Pound sign (`#&#39;), everything up to the end of the line is
+treated as a comment.</p>
+<p>
+If setfacl is used on a file system which does not support ACLs, setfacl
+operates on the file mode permission bits. If the ACL does not fit
+completely in the permission bits, setfacl modifies the file mode
+permission bits to reflect the ACL as closely as possible, writes an
+error message to standard error, and returns with an exit status greater
+than 0.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+PERMISSIONS
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>The file owner and processes capable of CAP_FOWNER are granted the right
+to modify ACLs of a file. This is analogous to the permissions required
+for accessing the file mode. (On current Linux systems, root is the only
+user with the CAP_FOWNER capability.)</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+<em>-b, –remove-all</em>
+</dt>
+<dd>Remove all extended ACL entries. The base ACL
+entries of the owner, group and others are retained.</dd>
+<dt>
+<em>-k, –remove-default</em>
+</dt>
+<dd>Remove the Default ACL. If no Default ACL
+exists, no warnings are issued.</dd>
+<dt>
+<em>-n, –no-mask</em>
+</dt>
+<dd>Do not recalculate the effective rights mask. The
+default behavior of setfacl is to recalculate the ACL mask entry,
+unless a mask entry was explicitly given. The mask entry is set to the
+union of all permissions of the owning group, and all named user and
+group entries. (These are exactly the entries affected by the mask
+entry).</dd>
+<dt>
+<em>–mask</em>
+</dt>
+<dd>Do recalculate the effective rights mask, even if an ACL
+mask entry was explicitly given. (See the /-n /option.)</dd>
+<dt>
+<em>-d, –default</em>
+</dt>
+<dd>All operations apply to the Default ACL. Regular
+ACL entries in the input set are promoted to Default ACL entries.
+Default ACL entries in the input set are discarded. (A warning is
+issued if that happens).</dd>
+<dt>
+<em>–restore={file|-}</em>
+</dt>
+<dd>Restore a permission backup created by
+`getfacl -R&#39; or similar. All permissions of a complete directory
+subtree are restored using this mechanism. If the input contains owner
+comments or group comments, setfacl attempts to restore the owner and
+owning group. If the input contains flags comments (which define the
+setuid, setgid, and sticky bits), setfacl sets those three bits
+accordingly; otherwise, it clears them. This option cannot be mixed
+with other options except `–test&#39;. If the file specified is &#39;<strong>-</strong>&#39;,
+then it will be read from standard input.</dd>
+<dt>
+<em>–test</em>
+</dt>
+<dd>Test mode. Instead of changing the ACLs of any files, the
+resulting ACLs are listed.</dd>
+<dt>
+<em>-R, –recursive</em>
+</dt>
+<dd>Apply operations to all files and directories
+recursively. This option cannot be mixed with `–restore&#39;.</dd>
+<dt>
+<em>-L, –logical</em>
+</dt>
+<dd>Logical walk, follow symbolic links to directories.
+The default behavior is to follow symbolic link arguments, and skip
+symbolic links encountered in subdirectories. Only effective in
+combination with -R. This option cannot be mixed with `–restore&#39;.</dd>
+<dt>
+<em>-P, –physical</em>
+</dt>
+<dd>Physical walk, do not follow symbolic links to
+directories. This also skips symbolic link arguments. Only effective
+in combination with -R. This option cannot be mixed with `–restore&#39;.</dd>
+<dt>
+<em>-v, –version</em>
+</dt>
+<dd>Print the version of setfacl and exit.</dd>
+<dt>
+<em>-h, –help</em>
+</dt>
+<dd>Print help explaining the command line options.</dd>
+<dt>
+<em>–</em>
+</dt>
+<dd>End of command line options. All remaining parameters are
+interpreted as file names, even if they start with a dash.</dd>
+<dt>
+<em>-</em>
+</dt>
+<dd>If the file name parameter is a single dash, setfacl reads a
+list of files from standard input.</dd>
+</dl>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+ACL ENTRIES
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>The setfacl utility recognizes the following ACL entry formats (blanks
+inserted for clarity):</p>
+<dl>
+<dt>
+[d[efault]:] [u[ser]:]/uid /[:/perms/]
+</dt>
+<dd></dd>
+</dl>
+<p>Permissions of a named user. Permissions of the file owner if <em>uid</em> is
+empty.</p>
+<dl>
+<dt>
+[d[efault]:] g[roup]:/gid /[:/perms/]
+</dt>
+<dd></dd>
+</dl>
+<p>Permissions of a named group. Permissions of the owning group if <em>gid</em>
+is empty.</p>
+<dl>
+<dt>
+[d[efault]:] m[ask][:] [:/perms/]
+</dt>
+<dd></dd>
+</dl>
+<p>Effective rights mask</p>
+<dl>
+<dt>
+[d[efault]:] o[ther][:] [:/perms/]
+</dt>
+<dd></dd>
+</dl>
+<p>Permissions of others.</p>
+<p>
+Whitespace between delimiter characters and non-delimiter characters is
+ignored.</p>
+<p>
+Proper ACL entries including permissions are used in modify and set
+operations. (options <em>-m</em>, <em>-M</em>, <em>–set</em> and <em>–set-file</em>). Entries
+without the <em>perms</em> field are used for <em>deletion</em> of entries (options
+<em>-x</em> and <em>-X</em>).</p>
+<p>
+For <em>uid</em> and <em>gid</em> you can specify either a name or a number. Character
+literals may be specified with a backslash followed by the 3-digit octal
+digits corresponding to the ASCII code for the character (e.g., <em>\101</em>
+for &#39;A&#39;). If the name contains a literal backslash followed by 3 digits,
+the backslash must be escaped (i.e., <em>\\</em>).</p>
+<p>
+The <em>perms</em> field is a combination of characters that indicate the read
+<em>(r)</em>, write <em>(w)</em>, execute <em>(x)</em> permissions. Dash characters in the
+<em>perms</em> field <em>(-)</em> are ignored. The character <em>X</em> stands for the
+execute permission if the file is a directory or already has execute
+permission for some user. Alternatively, the <em>perms</em> field can define
+the permissions numerically, as a bit-wise combination of read <em>(4)</em>,
+write <em>(2)</em>, and execute <em>(1)</em>. Zero <em>perms</em> fields or <em>perms</em> fields
+that only consist of dashes indicate no permissions.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+AUTOMATICALLY CREATED ENTRIES
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Initially, files and directories contain only the three base ACL entries
+for the owner, the group, and others. There are some rules that need to
+be satisfied in order for an ACL to be valid:</p>
+<ul>
+<li>The three base entries cannot be removed. There must be exactly one
+entry of each of these base entry types.</li>
+<li>Whenever an ACL contains named user entries or named group objects, it
+must also contain an effective rights mask.</li>
+<li>Whenever an ACL contains any Default ACL entries, the three Default
+ACL base entries (default owner, default group, and default others)
+must also exist.</li>
+<li>Whenever a Default ACL contains named user entries or named group
+objects, it must also contain a default effective rights mask.</li>
+</ul>
+<p>To help the user ensure these rules, setfacl creates entries from
+existing entries under the following conditions:</p>
+<ul>
+<li>If an ACL contains named user or named group entries, and no mask
+entry exists, a mask entry containing the same permissions as the
+group entry is created. Unless the <em>-n</em> option is given, the
+permissions of the mask entry are further adjusted to include the
+union of all permissions affected by the mask entry. (See the <em>-n</em>
+option description).</li>
+<li>If a Default ACL entry is created, and the Default ACL contains no
+owner, owning group, or others entry, a copy of the ACL owner, owning
+group, or others entry is added to the Default ACL.</li>
+<li>If a Default ACL contains named user entries or named group entries,
+and no mask entry exists, a mask entry containing the same permissions
+as the default Default ACL&#39;s group entry is added. Unless the <em>-n</em>
+option is given, the permissions of the mask entry are further
+adjusted to include the union of all permissions affected by the mask
+entry. (See the <em>-n</em> option description).</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Granting an additional user read access</p>
+<blockquote>
+<p>setfacl -m u:lisa:r file</p>
+</blockquote>
+<p>
+Revoking write access from all groups and all named users (using the
+effective rights mask)</p>
+<blockquote>
+<p>setfacl -m m::rx file</p>
+</blockquote>
+<p>
+Removing a named group entry from a file&#39;s ACL</p>
+<blockquote>
+<p>setfacl -x g:staff file</p>
+</blockquote>
+<p>
+Copying the ACL of one file to another</p>
+<blockquote>
+<p>getfacl file1 | setfacl –set-file=- file2</p>
+</blockquote>
+<p>
+Copying the access ACL into the Default ACL</p>
+<blockquote>
+<p>getfacl –access dir | setfacl -d -M- dir</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+CONFORMANCE TO POSIX 1003.1e DRAFT STANDARD 17
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>If the environment variable POSIXLY_CORRECT is defined, the default
+behavior of setfacl changes as follows: All non-standard options are
+disabled. The ``default:&#39;&#39; prefix is disabled. The <em>-x</em> and <em>-X</em> options
+also accept permission fields (and ignore them).</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AUTHOR
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Andreas Gruenbacher, &lt;/andreas.gruenbacher@gmail.com/&gt;.</p>
+<p>
+Please send your bug reports, suggested features and comments to the
+above address.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>*getfacl*(1), *chmod*(1), *umask*(1), *acl*(5)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

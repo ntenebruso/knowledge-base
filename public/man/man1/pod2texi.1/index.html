@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pod2texi.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pod2texi.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pod2texi - convert Pod to Texinfo</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>pod2texi [OPTION]… POD…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Translate Pod file(s) to Texinfo. There are two basic modes of
+operation. First, by default, each Pod is translated to a standalone
+Texinfo manual.</p>
+<p>
+Second, if <code class="verbatim">--base-level</code> is set higher than 0, each Pod is translated
+to a file suitable for <code class="verbatim">@include</code>, and one more file with a main menu
+and all the <code class="verbatim">@include</code> is generated.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+–appendix-sections
+</dt>
+<dd>Use appendix sectioning commands (<code class="verbatim">@appendix</code>,
+…) instead of the default numbered sectioning Texinfo @-commands
+(<code class="verbatim">@chapter</code>, <code class="verbatim">@section</code>, …).</dd>
+<dt>
+–base-level=NUM|NAME
+</dt>
+<dd>Sets the level of the <code class="verbatim">head1</code> commands. It
+may be an integer or a Texinfo sectioning command (without the <code class="verbatim">@</code>): 1
+corresponds to the <code class="verbatim">@chapter=/=@unnumbered</code> level, 2 to the <code class="verbatim">@section</code>
+level, and so on. The default is 0, meaning that <code class="verbatim">head1</code> commands are
+still output as chapters, but the output is arranged as a standalone
+manual. If the level is not 0, the Pod file is rendered as a fragment
+of a Texinfo manual suitable for <code class="verbatim">@include</code>. In this case, each Pod
+file has an additional sectioning command covering the entire file,
+one level above the <code class="verbatim">--base-level</code> value. Therefore, to make each Pod
+file a chapter in a large manual, you should use <code class="verbatim">section</code> as the base
+level. For an example of making Texinfo out of the Perl documentation
+itself, see <code class="verbatim">contrib/perldoc-all</code> in the Texinfo source distribution.</dd>
+<dt>
+–debug=NUM
+</dt>
+<dd>Set debugging level to <em>NUM</em>.</dd>
+<dt>
+–headings-as-sections
+</dt>
+<dd>Use headings commands (<code class="verbatim">@heading</code>, …)
+instead of the default numbered sectioning Texinfo @-commands
+(<code class="verbatim">@chapter</code>, <code class="verbatim">@section</code>, …). The sectioning command covering the
+entire file output for each Pod file if <strong>–base-level</strong> is not 0 is a
+numbered command.</dd>
+<dt>
+–help
+</dt>
+<dd>Display help and exit.</dd>
+<dt>
+–menus
+</dt>
+<dd>Output node menus. If there is a main manual, its Top node
+menu is always output, since a master menu is generated. Other nodes
+menus are not output in the default case.</dd>
+<dt>
+–output=NAME
+</dt>
+<dd>Name for the first manual, or the main manual if
+there is a main manual. Default is to write to standard output.</dd>
+<dt>
+–no-section-nodes
+</dt>
+<dd>Use anchors for sections instead of nodes.</dd>
+<dt>
+–no-fill-section-gaps
+</dt>
+<dd>Do not fill sectioning gaps with empty
+<code class="verbatim">@unnumbered</code> files. Ordinarily, it&#39;s good to keep the sectioning
+hierarchy intact.</dd>
+<dt>
+–preamble=STR
+</dt>
+<dd>Insert <em>STR</em> as top boilerplate before menu and
+includes. If <em>STR</em> is set to <code class="verbatim">-</code>, read the top boilerplate from the
+standard input. The default top boilerplate is a minimal beginning for
+a Texinfo document.</dd>
+<dt>
+–setfilename=STR
+</dt>
+<dd>Use <em>STR</em> in top boilerplate before menu and
+includes for <code class="verbatim">@setfilename</code>. No <code class="verbatim">@setfilename</code> is output in the
+default case.</dd>
+<dt>
+–subdir=NAME
+</dt>
+<dd>If there is a main manual with include files (each
+corresponding to an input Pod file), then those include files are put
+in directory <em>NAME</em>.</dd>
+<dt>
+–unnumbered-sections
+</dt>
+<dd>Use unnumbered sectioning commands
+(<code class="verbatim">@unnumbered</code>, …) instead of the default numbered sectioning
+Texinfo @-commands (<code class="verbatim">@chapter</code>, <code class="verbatim">@section</code>, …).</dd>
+<dt>
+–top=TOP
+</dt>
+<dd>Name of the <code class="verbatim">@top</code> element for the main manual. May
+contain Texinfo code.</dd>
+<dt>
+–version
+</dt>
+<dd>Display version information and exit.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Pod::Simple::Texinfo. perlpod. The Texinfo manual. Texinfo home page:
+&lt;<a href="http://www.gnu.org/software/texinfo/">http://www.gnu.org/software/texinfo/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+COPYRIGHT AND LICENSE
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Copyright 2012-2023 Free Software Foundation, Inc.</p>
+<p>
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 3 of the License, or (at your
+option) any later version.</p>
+<p>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHOR
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Patrice Dumas &lt;bug-texinfo@gnu.org&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

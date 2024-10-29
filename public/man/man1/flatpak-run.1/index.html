@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - flatpak-run.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - flatpak-run.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>flatpak-run - Run an application or open a shell in a runtime</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>flatpak run</strong> [OPTION…] REF [ARG…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>If REF names an installed application, Flatpak runs the application in a
+sandboxed environment. Extra arguments are passed on to the application.
+The current branch and arch of the application is used unless otherwise
+specified with <strong>–branch</strong> or <strong>–arch</strong>. See *flatpak-make-current*(1).</p>
+<p>
+If REF names a runtime, a shell is opened in the runtime. This is useful
+for development and testing. If there is ambiguity about which branch to
+use, you will be prompted to choose. Use <strong>–branch</strong> to avoid this. The
+primary arch is used unless otherwise specified with <strong>–arch</strong>.</p>
+<p>
+By default, Flatpak will look for the application or runtime in the
+per-user installation first, then in all system installations. This can
+be overridden with the <strong>–user</strong>, <strong>–system</strong> and <strong>–installation</strong>
+options.</p>
+<p>
+Flatpak creates a sandboxed environment for the application to run in by
+mounting the right runtime at /usr and a writable directory at /var,
+whose content is preserved between application runs. The application
+itself is mounted at /app.</p>
+<p>
+The details of the sandboxed environment are controlled by the
+application metadata and various options like <strong>–share</strong> and <strong>–socket</strong>
+that are passed to the run command: Access is allowed if it was
+requested either in the application metadata file or with an option and
+the user hasnt overridden it.</p>
+<p>
+The remaining arguments are passed to the command that gets run in the
+sandboxed environment. See the <strong>–file-forwarding</strong> option for handling
+of file arguments.</p>
+<p>
+Environment variables are generally passed on to the sandboxed
+application, with certain exceptions. The application metadata can
+override environment variables, as well as the <strong>–env</strong> option. Apart
+from that, Flatpak always unsets or overrides the following variables,
+since their session values are likely to interfere with the functioning
+of the sandbox:</p>
+<blockquote>
+<p>PATH</p>
+</blockquote>
+<blockquote>
+<p>LD_LIBRARY_PATH</p>
+</blockquote>
+<blockquote>
+<p>LD_PRELOAD</p>
+</blockquote>
+<blockquote>
+<p>LD_AUDIT</p>
+</blockquote>
+<blockquote>
+<p>XDG_CONFIG_DIRS</p>
+</blockquote>
+<blockquote>
+<p>XDG_DATA_DIRS</p>
+</blockquote>
+<blockquote>
+<p>XDG_RUNTIME_DIR</p>
+</blockquote>
+<blockquote>
+<p>SHELL</p>
+</blockquote>
+<blockquote>
+<p>TEMP</p>
+</blockquote>
+<blockquote>
+<p>TEMPDIR</p>
+</blockquote>
+<blockquote>
+<p>TMP</p>
+</blockquote>
+<blockquote>
+<p>TMPDIR</p>
+</blockquote>
+<blockquote>
+<p>PYTHONPATH</p>
+</blockquote>
+<blockquote>
+<p>PERLLIB</p>
+</blockquote>
+<blockquote>
+<p>PERL5LIB</p>
+</blockquote>
+<blockquote>
+<p>XCURSOR_PATH</p>
+</blockquote>
+<blockquote>
+<p>KRB5CCNAME</p>
+</blockquote>
+<blockquote>
+<p>XKB_CONFIG_ROOT</p>
+</blockquote>
+<blockquote>
+<p>GIO_EXTRA_MODULES</p>
+</blockquote>
+<blockquote>
+<p>GDK_BACKEND</p>
+</blockquote>
+<blockquote>
+<p>VK_ADD_DRIVER_FILES</p>
+</blockquote>
+<blockquote>
+<p>VK_ADD_LAYER_PATH</p>
+</blockquote>
+<blockquote>
+<p>VK_DRIVER_FILES</p>
+</blockquote>
+<blockquote>
+<p>VK_ICD_FILENAMES</p>
+</blockquote>
+<blockquote>
+<p>VK_LAYER_PATH</p>
+</blockquote>
+<blockquote>
+<p>__EGL_EXTERNAL_PLATFORM_CONFIG_DIRS</p>
+</blockquote>
+<blockquote>
+<p>__EGL_EXTERNAL_PLATFORM_CONFIG_FILENAMES</p>
+</blockquote>
+<blockquote>
+<p>__EGL_VENDOR_LIBRARY_DIRS</p>
+</blockquote>
+<blockquote>
+<p>__EGL_VENDOR_LIBRARY_FILENAMES</p>
+</blockquote>
+<p>
+Also several environment variables with the prefix &#34;GST_&#34; that are used
+by gstreamer are unset (since Flatpak 1.12.5).</p>
+<p>
+Flatpak also overrides the XDG environment variables to point sandboxed
+applications at their writable filesystem locations below
+~/.var/app/$APPID/:</p>
+<blockquote>
+<p>XDG_DATA_HOME</p>
+</blockquote>
+<blockquote>
+<p>XDG_CONFIG_HOME</p>
+</blockquote>
+<blockquote>
+<p>XDG_CACHE_HOME</p>
+</blockquote>
+<blockquote>
+<p>XDG_STATE_HOME (since Flatpak 1.13)</p>
+</blockquote>
+<p>
+Apps can use the <strong>–persist=.local/state</strong> and
+<strong>–unset-env=XDG_STATE_HOME</strong> options to get a Flatpak 1.13-compatible
+~/.local/state on older versions of Flatpak.</p>
+<p>
+The host values of these variables are made available inside the sandbox
+via these HOST_-prefixed variables:</p>
+<blockquote>
+<p>HOST_XDG_DATA_HOME</p>
+</blockquote>
+<blockquote>
+<p>HOST_XDG_CONFIG_HOME</p>
+</blockquote>
+<blockquote>
+<p>HOST_XDG_CACHE_HOME</p>
+</blockquote>
+<blockquote>
+<p>HOST_XDG_STATE_HOME (since Flatpak 1.13)</p>
+</blockquote>
+<p>
+Flatpak sets the environment variable <strong>FLATPAK_ID</strong> to the application ID
+of the running app.</p>
+<p>
+Flatpak also bind-mounts as read-only the hosts /etc/os-release (if
+available, or /usr/lib/os-release as a fallback) to /run/host/os-release
+in accordance with the <strong>os-release specification</strong>[1].</p>
+<p>
+If parental controls support is enabled, flatpak will check the current
+user&#39;s parental controls settings, and will refuse to run an app if it
+is blocklisted for the current user.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Show help options and exit.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–user</strong></p>
+<blockquote>
+<p>Look for the application and runtime in per-user installations.</p>
+</blockquote>
+<p>
+<strong>–system</strong></p>
+<blockquote>
+<p>Look for the application and runtime in the default system-wide
+installations.</p>
+</blockquote>
+<p>
+<strong>–installation=NAME</strong></p>
+<blockquote>
+<p>Look for the application and runtime in the system-wide installation
+specified by NAME among those defined in <em>etc/flatpak/installations.d</em>.
+Using <strong>–installation=default</strong> is equivalent to using <strong>–system</strong>.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Print debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–ostree-verbose</strong></p>
+<blockquote>
+<p>Print OSTree debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–arch=ARCH</strong></p>
+<blockquote>
+<p>The architecture to run. See <strong>flatpak –supported-arches</strong> for
+architectures supported by the host.</p>
+</blockquote>
+<p>
+<strong>–command=COMMAND</strong></p>
+<blockquote>
+<p>The command to run instead of the one listed in the application
+metadata.</p>
+</blockquote>
+<p>
+<strong>–cwd=DIR</strong></p>
+<blockquote>
+<p>The directory to run the command in. Note that this must be a directory
+inside the sandbox.</p>
+</blockquote>
+<p>
+<strong>–branch=BRANCH</strong></p>
+<blockquote>
+<p>The branch to use.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–devel</strong></p>
+<blockquote>
+<p>Use the devel runtime that is specified in the application metadata
+instead of the regular runtime, and use a seccomp profile that is less
+likely to break development tools.</p>
+</blockquote>
+<p>
+<strong>–runtime=RUNTIME</strong></p>
+<blockquote>
+<p>Use this runtime instead of the one that is specified in the application
+metadata. This is a full tuple, like for example
+org.freedesktop.Sdk/x86_64/1.2, but partial tuples are allowed. Any
+empty or missing parts are filled in with the corresponding values
+specified by the app.</p>
+</blockquote>
+<p>
+<strong>–runtime-version=VERSION</strong></p>
+<blockquote>
+<p>Use this version of the runtime instead of the one that is specified in
+the application metadata. This overrides any version specified with the
+–runtime option.</p>
+</blockquote>
+<p>
+<strong>–share=SUBSYSTEM</strong></p>
+<blockquote>
+<p>Share a subsystem with the host session. This overrides the Context
+section from the application metadata. SUBSYSTEM must be one of:
+network, ipc. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–unshare=SUBSYSTEM</strong></p>
+<blockquote>
+<p>Dont share a subsystem with the host session. This overrides the Context
+section from the application metadata. SUBSYSTEM must be one of:
+network, ipc. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–socket=SOCKET</strong></p>
+<blockquote>
+<p>Expose a well known socket to the application. This overrides to the
+Context section from the application metadata. SOCKET must be one of:
+x11, wayland, fallback-x11, pulseaudio, system-bus, session-bus,
+ssh-auth, pcsc, cups, gpg-agent. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–nosocket=SOCKET</strong></p>
+<blockquote>
+<p>Dont expose a well known socket to the application. This overrides to
+the Context section from the application metadata. SOCKET must be one
+of: x11, wayland, fallback-x11, pulseaudio, system-bus, session-bus,
+ssh-auth, pcsc, cups, gpg-agent. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–device=DEVICE</strong></p>
+<blockquote>
+<p>Expose a device to the application. This overrides to the Context
+section from the application metadata. DEVICE must be one of: dri, kvm,
+shm, all. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–nodevice=DEVICE</strong></p>
+<blockquote>
+<p>Dont expose a device to the application. This overrides to the Context
+section from the application metadata. DEVICE must be one of: dri, kvm,
+shm, all. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–allow=FEATURE</strong></p>
+<blockquote>
+<p>Allow access to a specific feature. This overrides to the Context
+section from the application metadata. FEATURE must be one of: devel,
+multiarch, bluetooth. This option can be used multiple times.</p>
+<p>
+See *flatpak-build-finish*(1) for the meaning of the various features.</p>
+</blockquote>
+<p>
+<strong>–disallow=FEATURE</strong></p>
+<blockquote>
+<p>Disallow access to a specific feature. This overrides to the Context
+section from the application metadata. FEATURE must be one of: devel,
+multiarch, bluetooth. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–filesystem=FILESYSTEM</strong></p>
+<blockquote>
+<p>Allow the application access to a subset of the filesystem. This
+overrides to the Context section from the application metadata.
+FILESYSTEM can be one of: home, host, host-os, host-etc, xdg-desktop,
+xdg-documents, xdg-download, xdg-music, xdg-pictures, xdg-public-share,
+xdg-templates, xdg-videos, xdg-run, xdg-config, xdg-cache, xdg-data, an
+absolute path, or a homedir-relative path like ~/dir or paths relative
+to the xdg dirs, like xdg-download/subdir. The optional :ro suffix
+indicates that the location will be read-only. The optional :create
+suffix indicates that the location will be read-write and created if it
+doesnt exist. This option can be used multiple times. See the &#34;[Context]
+filesystems&#34; list in *flatpak-metadata*(5) for details of the meanings
+of these filesystems.</p>
+</blockquote>
+<p>
+<strong>–nofilesystem=FILESYSTEM</strong></p>
+<blockquote>
+<p>Undo the effect of a previous *–filesystem=*FILESYSTEM in the apps
+manifest and/or the overrides set up with *flatpak-override*(1). This
+overrides the Context section of the application metadata. FILESYSTEM
+can take the same values as for <strong>–filesystem</strong>, but the :ro and :create
+suffixes are not used here. This option can be used multiple times.</p>
+<p>
+This option does not prevent access to a more narrowly-scoped
+<strong>–filesystem</strong>. For example, if an application has the equivalent of
+<strong>–filesystem=xdg-config/MyApp</strong> in its manifest or as a system-wide
+override, and flatpak override –user –nofilesystem=home as a per-user
+override, then it will be prevented from accessing most of the home
+directory, but it will still be allowed to access
+$XDG_CONFIG_HOME/MyApp.</p>
+<p>
+As a special case, <strong>–nofilesystem=host:reset</strong> will ignore all
+<strong>–filesystem</strong> permissions inherited from the app manifest or
+<strong>flatpak-override*(1), in addition to having the behaviour of
+*–nofilesystem=host</strong>.</p>
+</blockquote>
+<p>
+<strong>–add-policy=SUBSYSTEM.KEY=VALUE</strong></p>
+<blockquote>
+<p>Add generic policy option. For example, &#34;–add-policy=subsystem.key=v1
+–add-policy=subsystem.key=v2&#34; would map to this metadata:</p>
+<blockquote>
+<pre class="example">
+[Policy subsystem]
+key=v1;v2;
+</pre>
+</blockquote>
+<p>
+This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–remove-policy=SUBSYSTEM.KEY=VALUE</strong></p>
+<blockquote>
+<p>Remove generic policy option. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–env=VAR=VALUE</strong></p>
+<blockquote>
+<p>Set an environment variable in the application. This overrides to the
+Context section from the application metadata. This option can be used
+multiple times.</p>
+</blockquote>
+<p>
+<strong>–unset-env=VAR</strong></p>
+<blockquote>
+<p>Unset an environment variable in the application. This overrides the
+unset-environment entry in the [Context] group of the metadata, and the
+[Environment] group. This option can be used multiple times.</p>
+</blockquote>
+<p>
+*–env-fd=*/FD/</p>
+<blockquote>
+<p>Read environment variables from the file descriptor <em>FD</em>, and set them
+as if via <strong>–env</strong>. This can be used to avoid environment variables and
+their values becoming visible to other users.</p>
+<p>
+Each environment variable is in the form <em>VAR/=/VALUE</em> followed by a
+zero byte. This is the same format used by env -0 and /proc/*/environ.</p>
+</blockquote>
+<p>
+<strong>–own-name=NAME</strong></p>
+<blockquote>
+<p>Allow the application to own the well known name NAME on the session
+bus. If NAME ends with .*, it allows the application to own all matching
+names. This overrides to the Context section from the application
+metadata. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–talk-name=NAME</strong></p>
+<blockquote>
+<p>Allow the application to talk to the well known name NAME on the session
+bus. If NAME ends with .*, it allows the application to talk to all
+matching names. This overrides to the Context section from the
+application metadata. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–no-talk-name=NAME</strong></p>
+<blockquote>
+<p>Dont allow the application to talk to the well known name NAME on the
+session bus. If NAME ends with .*, it allows the application to talk to
+all matching names. This overrides to the Context section from the
+application metadata. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–system-own-name=NAME</strong></p>
+<blockquote>
+<p>Allow the application to own the well known name NAME on the system bus.
+If NAME ends with .*, it allows the application to own all matching
+names. This overrides to the Context section from the application
+metadata. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–system-talk-name=NAME</strong></p>
+<blockquote>
+<p>Allow the application to talk to the well known name NAME on the system
+bus. If NAME ends with .*, it allows the application to talk to all
+matching names. This overrides to the Context section from the
+application metadata. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–system-no-talk-name=NAME</strong></p>
+<blockquote>
+<p>Dont allow the application to talk to the well known name NAME on the
+system bus. If NAME ends with .*, it allows the application to talk to
+all matching names. This overrides to the Context section from the
+application metadata. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–persist=FILENAME</strong></p>
+<blockquote>
+<p>If the application doesnt have access to the real homedir, make the
+(homedir-relative) path FILENAME a bind mount to the corresponding path
+in the per-application directory, allowing that location to be used for
+persistent data. This overrides to the Context section from the
+application metadata. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–no-session-bus</strong></p>
+<blockquote>
+<p>Run this instance without the filtered access to the session dbus
+connection. Note, this is the default when run with –sandbox.</p>
+</blockquote>
+<p>
+<strong>–session-bus</strong></p>
+<blockquote>
+<p>Allow filtered access to the session dbus connection. This is the
+default, except when run with –sandbox.</p>
+<p>
+In sandbox mode, even if you allow access to the session bus the sandbox
+cannot talk to or own the application ids (org.the.App.*) on the bus
+(unless explicitly added), only names in the .Sandboxed subset
+(org.the.App.Sandboxed.* and
+org.mpris.MediaPlayer2.org.the.App.Sandboxed.*).</p>
+</blockquote>
+<p>
+<strong>–no-a11y-bus</strong></p>
+<blockquote>
+<p>Run this instance without the access to the accessibility bus. Note,
+this is the default when run with –sandbox.</p>
+</blockquote>
+<p>
+<strong>–a11y-bus</strong></p>
+<blockquote>
+<p>Allow access to the accessibility bus. This is the default, except when
+run with –sandbox.</p>
+</blockquote>
+<p>
+<strong>–sandbox</strong></p>
+<blockquote>
+<p>Run the application in sandboxed mode, which means dropping all the
+extra permissions it would otherwise have, as well as access to the
+session/system/a11y busses and document portal.</p>
+</blockquote>
+<p>
+<strong>–log-session-bus</strong></p>
+<blockquote>
+<p>Log session bus traffic. This can be useful to see what access you need
+to allow in your D-Bus policy.</p>
+</blockquote>
+<p>
+<strong>–log-system-bus</strong></p>
+<blockquote>
+<p>Log system bus traffic. This can be useful to see what access you need
+to allow in your D-Bus policy.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–die-with-parent</strong></p>
+<blockquote>
+<p>Kill the entire sandbox when the launching process dies.</p>
+</blockquote>
+<p>
+<strong>–parent-pid=PID</strong></p>
+<blockquote>
+<p>Specifies the pid of the &#34;parent&#34; flatpak, used by –parent-expose-pids
+and –parent-share-pids.</p>
+</blockquote>
+<p>
+<strong>–parent-expose-pids</strong></p>
+<blockquote>
+<p>Make the processes of the new sandbox visible in the sandbox of the
+parent flatpak, as defined by –parent-pid.</p>
+</blockquote>
+<p>
+<strong>–parent-share-pids</strong></p>
+<blockquote>
+<p>Use the same process ID namespace for the processes of the new sandbox
+and the sandbox of the parent flatpak, as defined by –parent-pid.
+Implies –parent-expose-pids.</p>
+</blockquote>
+<p>
+<strong>–instance-id-fd</strong></p>
+<blockquote>
+<p>Write the instance ID string to the given file descriptor.</p>
+</blockquote>
+<p>
+<strong>–file-forwarding</strong></p>
+<blockquote>
+<p>If this option is specified, the remaining arguments are scanned, and
+all arguments that are enclosed between a pair of @@ arguments are
+interpreted as file paths, exported in the document store, and passed to
+the command in the form of the resulting document path. Arguments
+between @@u and @@ are considered uris, and any file: uris are exported.
+The exports are non-persistent and with read and write permissions for
+the application.</p>
+</blockquote>
+<p>
+*–app-path=*/PATH/</p>
+<blockquote>
+<p>Instead of mounting the apps content on <em>app in the sandbox, mount
+/PATH</em> on /app, and the apps content on /run/parent/app. If the app has
+extensions, they will also be redirected into /run/parent/app, and will
+not be included in the <strong>LD_LIBRARY_PATH</strong> inside the sandbox.</p>
+</blockquote>
+<p>
+<strong>–app-path=</strong></p>
+<blockquote>
+<p>As a special case, <strong>–app-path=</strong> (with an empty <em>PATH</em>) results in an
+empty directory being mounted on /app.</p>
+</blockquote>
+<p>
+*–usr-path=*/PATH/</p>
+<blockquote>
+<p>Instead of mounting the runtimes files on <em>usr in the sandbox, mount
+/PATH</em> on /usr, and the runtimes normal files on /run/parent/usr. If the
+runtime has extensions, they will also be redirected into
+/run/parent/usr, and will not be included in the <strong>LD_LIBRARY_PATH</strong>
+inside the sandbox.</p>
+<p>
+This option will usually only be useful if it is combined with
+<strong>–app-path=</strong> and *–env=LD_LIBRARY_PATH=*/…/.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>$ flatpak run org.gnome.gedit</strong></p>
+<p>
+<strong>$ flatpak run –devel –command=bash org.gnome.Builder</strong></p>
+<p>
+<strong>$ flatpak run –command=bash org.gnome.Sdk</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*flatpak*(1), *flatpak-override*(1), *flatpak-enter*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+NOTES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>os-release specification
+
+https://www.freedesktop.org/software/systemd/man/os-release.html</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

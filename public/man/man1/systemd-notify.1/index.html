@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - systemd-notify.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - systemd-notify.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>systemd-notify - Notify service manager about start-up completion and
+other daemon status changes</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>systemd-notify</strong> [OPTIONS…] [VARIABLE=VALUE…]</p>
+<p>
+<strong>systemd-notify</strong> [–exec] [OPTIONS…] [VARIABLE=VALUE…] [;]
+[CMDLINE…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>systemd-notify</strong> may be called by service scripts to notify the invoking
+service manager about status changes. It can be used to send arbitrary
+information, encoded in an environment-block-like list of strings. Most
+importantly, it can be used for start-up completion notification.</p>
+<p>
+This is mostly just a wrapper around <strong>sd_notify()</strong> and makes this
+functionality available to shell scripts. For details see
+*sd_notify*(3).</p>
+<p>
+The command line may carry a list of environment variables to send as
+part of the status update.</p>
+<p>
+Note that systemd will refuse reception of status updates from this
+command unless <em>NotifyAccess=</em> is appropriately set for the service unit
+this command is called from. See *systemd.service*(5) for details.</p>
+<p>
+Note that <strong>sd_notify()</strong> notifications may be attributed to units
+correctly only if either the sending process is still around at the time
+the service manager processes the message, or if the sending process is
+explicitly runtime-tracked by the service manager. The latter is the
+case if the service manager originally forked off the process, i.e. on
+all processes that match /NotifyAccess=/*main* or /NotifyAccess=/*exec*.
+Conversely, if an auxiliary process of the unit sends an <strong>sd_notify()</strong>
+message and immediately exits, the service manager might not be able to
+properly attribute the message to the unit, and thus will ignore it,
+even if /NotifyAccess=/*all* is set for it. To address this
+<strong>systemd-notify</strong> will wait until the notification message has been
+processed by the service manager. When <strong>–no-block</strong> is used, this
+synchronization for reception of notifications is disabled, and hence
+the aforementioned race may occur if the invoking process is not the
+service manager or spawned by the service manager.</p>
+<p>
+<strong>systemd-notify</strong> will first attempt to invoke <strong>sd_notify()</strong> pretending
+to have the PID of the parent process of <strong>systemd-notify</strong> (i.e. the
+invoking process). This will only succeed when invoked with sufficient
+privileges. On failure, it will then fall back to invoking it under its
+own PID. This behaviour is useful in order that when the tool is invoked
+from a shell script the shell process — and not the <strong>systemd-notify</strong>
+process — appears as sender of the message, which in turn is helpful
+if the shell process is the main process of a service, due to the
+limitations of /NotifyAccess=/*all*. Use the <strong>–pid=</strong> switch to tweak
+this behaviour.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>–ready</strong></p>
+<blockquote>
+<p>Inform the invoking service manager about service start-up or
+configuration reload completion. This is equivalent to <strong>systemd-notify
+READY=1</strong>. For details about the semantics of this option see
+*sd_notify*(3).</p>
+</blockquote>
+<p>
+<strong>–reloading</strong></p>
+<blockquote>
+<p>Inform the invoking service manager about the beginning of a
+configuration reload cycle. This is equivalent to <strong>systemd-notify
+RELOADING=1</strong> (but implicitly also sets a <em>MONOTONIC_USEC=</em> field as
+required for <em>Type=notify-reload</em> services, see *systemd.service*(5) for
+details). For details about the semantics of this option see
+*sd_notify*(3).</p>
+<p>
+Added in version 253.</p>
+</blockquote>
+<p>
+<strong>–stopping</strong></p>
+<blockquote>
+<p>Inform the invoking service manager about the beginning of the shutdown
+phase of the service. This is equivalent to <strong>systemd-notify STOPPING=1</strong>.
+For details about the semantics of this option see *sd_notify*(3).</p>
+<p>
+Added in version 253.</p>
+</blockquote>
+<p>
+<strong>–pid=</strong></p>
+<blockquote>
+<p>Inform the service manager about the main PID of the service. Takes a
+PID as argument. If the argument is specified as &#34;auto&#34; or omitted, the
+PID of the process that invoked <strong>systemd-notify</strong> is used, except if
+thats the service manager. If the argument is specified as &#34;self&#34;, the
+PID of the <strong>systemd-notify</strong> command itself is used, and if &#34;parent&#34; is
+specified the calling process PID is used — even if it is the service
+manager. <strong>–pid=auto</strong> is equivalent to <strong>systemd-notify MAINPID=$PID</strong>.
+For details about the semantics of this option see *sd_notify*(3).</p>
+<p>
+If this switch is used in an <strong>systemd-notify</strong> invocation from a process
+that shall become the new main process of a service — and which is not
+the process forked off by the service manager (or the current main
+process) —, then it is essential to set <em>NotifyAccess=all</em> in the
+service unit file, or otherwise the notification will be ignored for
+security reasons. See *systemd.service*(5) for details.</p>
+</blockquote>
+<p>
+*–uid=*/USER/</p>
+<blockquote>
+<p>Set the user ID to send the notification from. Takes a UNIX user name or
+numeric UID. When specified the notification message will be sent with
+the specified UID as sender, in place of the user the command was
+invoked as. This option requires sufficient privileges in order to be
+able manipulate the user identity of the process.</p>
+<p>
+Added in version 237.</p>
+</blockquote>
+<p>
+<strong>–status=</strong></p>
+<blockquote>
+<p>Send a free-form human readable status string for the daemon to the
+service manager. This option takes the status string as argument. This
+is equivalent to <strong>systemd-notify STATUS=…</strong>. For details about the
+semantics of this option see <strong>sd_notify*(3). This information is shown
+in *systemctl*(1)s *status</strong> output, among other places.</p>
+</blockquote>
+<p>
+<strong>–booted</strong></p>
+<blockquote>
+<p>Returns 0 if the system was booted up with systemd, non-zero otherwise.
+If this option is passed, no message is sent. This option is hence
+unrelated to the other options. For details about the semantics of this
+option, see <strong>sd_booted*(3). An alternate way to check for this state is
+to call *systemctl*(1) with the *is-system-running</strong> command. It will
+return &#34;offline&#34; if the system was not booted with systemd.</p>
+</blockquote>
+<p>
+<strong>–no-block</strong></p>
+<blockquote>
+<p>Do not synchronously wait for the requested operation to finish. Use of
+this option is only recommended when <strong>systemd-notify</strong> is spawned by the
+service manager, or when the invoking process is directly spawned by the
+service manager and has enough privileges to allow <strong>systemd-notify</strong> to
+send the notification on its behalf. Sending notifications with this
+option set is prone to race conditions in all other cases.</p>
+<p>
+Added in version 246.</p>
+</blockquote>
+<p>
+<strong>–exec</strong></p>
+<blockquote>
+<p>If specified <strong>systemd-notify</strong> will execute another command line after it
+completed its operation, replacing its own process. If used, the list of
+assignments to include in the message sent must be followed by a &#34;;&#34;
+character (as separate argument), followed by the command line to
+execute. This permits &#34;chaining&#34; of commands, i.e. issuing one
+operation, followed immediately by another, without changing PIDs.</p>
+<p>
+Note that many shells interpret &#34;;&#34; as their own separator for command
+lines, hence when <strong>systemd-notify</strong> is invoked from a shell the semicolon
+must usually be escaped as &#34;\;&#34;.</p>
+<p>
+Added in version 254.</p>
+</blockquote>
+<p>
+<strong>–fd=</strong></p>
+<blockquote>
+<p>Send a file descriptor along with the notification message. This is
+useful when invoked in services that have the <em>FileDescriptorStoreMax=</em>
+setting enabled, see <strong>systemd.service*(5) for details. The specified
+file descriptor must be passed to *systemd-notify</strong> when invoked. This
+option may be used multiple times to pass multiple file descriptors in a
+single notification message.</p>
+<p>
+To use this functionality from a *bash*(1) shell, use an expression like
+the following:</p>
+<blockquote>
+<pre class="example">
+systemd-notify --fd=4 --fd=5 4&lt;/some/file 5&lt;/some/other/file
+</pre>
+</blockquote>
+<p>
+Added in version 254.</p>
+</blockquote>
+<p>
+<strong>–fdname=</strong></p>
+<blockquote>
+<p>Set a name to assign to the file descriptors passed via <strong>–fd=</strong> (see
+above). This controls the &#34;FDNAME=&#34; field. This setting may only be
+specified once, and applies to all file descriptors passed. Invoke this
+tool multiple times in case multiple file descriptors with different
+file descriptor names shall be submitted.</p>
+<p>
+Added in version 254.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Print a short help text and exit.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Print a short version string and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>On success, 0 is returned, a non-zero failure code otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLE
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>Example 1. Start-up Notification and Status Updates</strong></p>
+<p>
+A simple shell daemon that sends start-up notifications after having set
+up its communication channel. During runtime it sends further status
+updates to the init system:</p>
+<blockquote>
+<pre class="example">
+#!/bin/sh
+
+mkfifo /tmp/waldo
+systemd-notify --ready --status=&#34;Waiting for data...&#34;
+
+while : ; do
+        read -r a &lt; /tmp/waldo
+        systemd-notify --status=&#34;Processing $a&#34;
+
+        # Do something with $a ...
+
+        systemd-notify --status=&#34;Waiting for data...&#34;
+done
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*systemd*(1), *systemctl*(1), *systemd.unit*(5), *systemd.service*(5),
+*sd_notify*(3), *sd_booted*(3)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

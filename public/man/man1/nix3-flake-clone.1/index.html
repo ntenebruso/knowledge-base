@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nix3-flake-clone.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nix3-flake-clone.1</h1>
+    
+<p><strong>Warning</strong><br>
+This program is <strong>experimental</strong> and its interface is subject to change.</p>
+<p>#+end_quote</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Name
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><code class="verbatim">nix flake clone</code> - clone flake repository</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Synopsis
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><code class="verbatim">nix flake clone</code> [/option/…] <em>flake-url</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Examples
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<ul>
+<li>Check out the source code of the <code class="verbatim">dwarffs</code> flake and build it:</li>
+</ul>
+<pre class="example">
+# nix flake clone dwarffs --dest dwarffs
+# cd dwarffs
+# nix build
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Description
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>This command performs a Git or Mercurial clone of the repository
+containing the source code of the flake <em>flake-url</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Options
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<ul>
+<li><code class="verbatim">--dest</code> / <code class="verbatim">-f</code> <em>path</em>
+
+Clone the flake to path <em>dest</em>.</li>
+</ul>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Common evaluation options
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<ul>
+<li><code class="verbatim">--arg</code> <em>name</em> <em>expr</em>
+
+Pass the value <em>expr</em> as the argument <em>name</em> to Nix functions.</li>
+<li><code class="verbatim">--arg-from-file</code> <em>name</em> <em>path</em>
+
+Pass the contents of file <em>path</em> as the argument <em>name</em> to Nix
+functions.</li>
+<li><code class="verbatim">--arg-from-stdin</code> <em>name</em>
+
+Pass the contents of stdin as the argument <em>name</em> to Nix functions.</li>
+<li><code class="verbatim">--argstr</code> <em>name</em> <em>string</em>
+
+Pass the string <em>string</em> as the argument <em>name</em> to Nix functions.</li>
+<li><code class="verbatim">--debugger</code>
+
+Start an interactive environment if evaluation fails.</li>
+<li><code class="verbatim">--eval-store</code> <em>store-url</em>
+
+The <strong>URL of the Nix store</strong> to use for evaluation, i.e. to store
+derivations (<code class="verbatim">.drv</code> files) and inputs referenced by them.</li>
+<li><code class="verbatim">--impure</code>
+
+Allow access to mutable paths and repositories.</li>
+<li><code class="verbatim">--include</code> / <code class="verbatim">-I</code> <em>path</em>
+
+Add <em>path</em> to search path entries used to resolve <strong>lookup paths</strong>
+
+This option may be given multiple times.
+
+Paths added through <code class="verbatim">-I</code> take precedence over the <code class="verbatim">nix-path</code>
+configuration setting and the <code class="verbatim">NIX_PATH</code> environment variable.</li>
+<li><code class="verbatim">--override-flake</code> <em>original-ref</em> <em>resolved-ref</em>
+
+Override the flake registries, redirecting <em>original-ref</em> to
+<em>resolved-ref</em>.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Common flake-related options
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<ul>
+<li><code class="verbatim">--commit-lock-file</code>
+
+Commit changes to the flake&#39;s lock file.</li>
+<li><code class="verbatim">--inputs-from</code> <em>flake-url</em>
+
+Use the inputs of the specified flake as registry entries.</li>
+<li>
+<p><code class="verbatim">--no-registries</code></p>
+<p>
+Don&#39;t allow lookups in the flake registries.</p>
+<blockquote>
+<p><strong>DEPRECATED</strong></p>
+</blockquote>
+<blockquote>
+<p>Use <code class="verbatim">--no-use-registries</code> instead.</p>
+</blockquote>
+</li>
+<li><code class="verbatim">--no-update-lock-file</code>
+
+Do not allow any updates to the flake&#39;s lock file.</li>
+<li><code class="verbatim">--no-write-lock-file</code>
+
+Do not write the flake&#39;s newly generated lock file.</li>
+<li><code class="verbatim">--output-lock-file</code> <em>flake-lock-path</em>
+
+Write the given lock file instead of <code class="verbatim">flake.lock</code> within the top-level
+flake.</li>
+<li><code class="verbatim">--override-input</code> <em>input-path</em> <em>flake-url</em>
+
+Override a specific flake input (e.g. <code class="verbatim">dwarffs/nixpkgs</code>). This implies
+<code class="verbatim">--no-write-lock-file</code>.</li>
+<li>
+<p><code class="verbatim">--recreate-lock-file</code></p>
+<p>
+Recreate the flake&#39;s lock file from scratch.</p>
+<blockquote>
+<p><strong>DEPRECATED</strong></p>
+</blockquote>
+<blockquote>
+<p>Use <code class="verbatim">nix flake update</code> instead.</p>
+</blockquote>
+</li>
+<li><code class="verbatim">--reference-lock-file</code> <em>flake-lock-path</em>
+
+Read the given lock file instead of <code class="verbatim">flake.lock</code> within the top-level
+flake.</li>
+<li>
+<p><code class="verbatim">--update-input</code> <em>input-path</em></p>
+<p>
+Update a specific flake input (ignoring its previous entry in the lock
+file).</p>
+<blockquote>
+<p><strong>DEPRECATED</strong></p>
+</blockquote>
+<blockquote>
+<p>Use <code class="verbatim">nix flake update</code> instead.</p>
+</blockquote>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Logging-related options
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<ul>
+<li><code class="verbatim">--debug</code>
+
+Set the logging verbosity level to ‘debug&#39;.</li>
+<li><code class="verbatim">--log-format</code> <em>format</em>
+
+Set the format of log output; one of <code class="verbatim">raw</code>, <code class="verbatim">internal-json</code>, <code class="verbatim">bar</code> or
+<code class="verbatim">bar-with-logs</code>.</li>
+<li><code class="verbatim">--print-build-logs</code> / <code class="verbatim">-L</code>
+
+Print full build logs on standard error.</li>
+<li><code class="verbatim">--quiet</code>
+
+Decrease the logging verbosity level.</li>
+<li><code class="verbatim">--verbose</code> / <code class="verbatim">-v</code>
+
+Increase the logging verbosity level.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Miscellaneous global options
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<ul>
+<li><code class="verbatim">--help</code>
+
+Show usage information.</li>
+<li><code class="verbatim">--offline</code>
+
+Disable substituters and consider all previously downloaded files
+up-to-date.</li>
+<li><code class="verbatim">--option</code> <em>name</em> <em>value</em>
+
+Set the Nix configuration setting <em>name</em> to <em>value</em> (overriding
+<code class="verbatim">nix.conf</code>).</li>
+<li><code class="verbatim">--refresh</code>
+
+Consider all previously downloaded files out-of-date.</li>
+<li><code class="verbatim">--repair</code>
+
+During evaluation, rewrite missing or corrupted files in the Nix
+store. During building, rebuild missing or corrupted store paths.</li>
+<li><code class="verbatim">--version</code>
+
+Show version information.
+
+<strong>Note</strong>
+
+See <code class="verbatim">man nix.conf</code> for overriding configuration settings with command
+line flags.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

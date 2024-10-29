@@ -1,0 +1,2386 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - zshoptions.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - zshoptions.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>zshoptions - zsh options</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SPECIFYING OPTIONS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>Options are primarily referred to by name. These names are case
+insensitive and underscores are ignored. For example, `*allexport*&#39; is
+equivalent to `*A__lleXP_ort*&#39;.</p>
+<p>
+The sense of an option name may be inverted by preceding it with `*no*&#39;,
+so `*setopt No_Beep*&#39; is equivalent to `*unsetopt beep*&#39;. This inversion
+can only be done once, so `*nonobeep*&#39; is <em>not</em> a synonym for `*beep*&#39;.
+Similarly, `*tify*&#39; is not a synonym for `*nonotify*&#39; (the inversion of
+`*notify*&#39;).</p>
+<p>
+Some options also have one or more single letter names. There are two
+sets of single letter options: one used by default, and another used to
+emulate <strong>sh*/*ksh</strong> (used when the <strong>SH_OPTION_LETTERS</strong> option is set).
+The single letter options can be used on the shell command line, or with
+the <strong>set</strong>, <strong>setopt</strong> and <strong>unsetopt</strong> builtins, as normal Unix options
+preceded by `*-*&#39;.</p>
+<p>
+The sense of the single letter options may be inverted by using `*+*&#39;
+instead of `*-*&#39;. Some of the single letter option names refer to an
+option being off, in which case the inversion of that name refers to the
+option being on. For example, `*+n*&#39; is the short name of `*exec*&#39;, and
+`*-n*&#39; is the short name of its inversion, `*noexec*&#39;.</p>
+<p>
+In strings of single letter options supplied to the shell at startup,
+trailing whitespace will be ignored; for example the string `*-f <strong>&#39; will
+be treated just as `</strong>-f*&#39;, but the string `*-f i*&#39; is an error. This is
+because many systems which implement the `*#!*&#39; mechanism for calling
+scripts do not strip trailing whitespace.</p>
+<p>
+It is possible for options to be set within a function scope. See the
+description of the option <strong>LOCAL_OPTIONS</strong> below.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION OF OPTIONS
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>In the following list, options set by default in all emulations are
+marked &lt;D&gt;; those set by default only in csh, ksh, sh, or zsh emulations
+are marked &lt;C&gt;, &lt;K&gt;, &lt;S&gt;, &lt;Z&gt; as appropriate. When listing options (by
+`*setopt*&#39;, `*unsetopt*&#39;, `*set -o*&#39; or `*set +o*&#39;), those turned on by
+default appear in the list prefixed with `*no*&#39;. Hence (unless
+<strong>KSH_OPTION_PRINT</strong> is set), `*setopt*&#39; shows all options whose settings
+are changed from the default.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Changing Directories
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p><strong>AUTO_CD</strong> (<strong>-J</strong>) If a command is issued that can&#39;t be executed as a
+normal command, and the command is the name of a directory, perform the
+<strong>cd</strong> command to that directory. This option is only applicable if the
+option <strong>SHIN_STDIN</strong> is set, i.e. if commands are being read from
+standard input. The option is designed for interactive use; it is
+recommended that <strong>cd</strong> be used explicitly in scripts to avoid ambiguity.</p>
+<dl>
+<dt>
+<strong>AUTO_PUSHD</strong> (<strong>-N</strong>)
+</dt>
+<dd>Make <strong>cd</strong> push the old directory onto the
+directory stack.</dd>
+<dt>
+<strong>CDABLE_VARS</strong> (<strong>-T</strong>)
+</dt>
+<dd>If the argument to a <strong>cd</strong> command (or an
+implied <strong>cd</strong> with the <strong>AUTO_CD</strong> option set) is not a directory, and
+does not begin with a slash, try to expand the expression as if it
+were preceded by a `*~*&#39; (see the section `Filename Expansion&#39;).</dd>
+<dt>
+<strong>CD_SILENT</strong>
+</dt>
+<dd>Never print the working directory after a <strong>cd</strong> (whether
+explicit or implied with the <strong>AUTO_CD</strong> option set). <strong>cd</strong> normally
+prints the working directory when the argument given to it was <strong>-</strong>, a
+stack entry, or the name of a directory found under <strong>CDPATH</strong>. Note
+that this is distinct from <strong>pushd</strong>&#39;s stack-printing behaviour, which
+is controlled by <strong>PUSHD_SILENT</strong>. This option overrides the
+printing-related effects of <strong>POSIX_CD</strong>.</dd>
+<dt>
+<strong>CHASE_DOTS</strong>
+</dt>
+<dd>When changing to a directory containing a path segment
+`*..*&#39; which would otherwise be treated as canceling the previous
+segment in the path (in other words, `*foo/..*&#39; would be removed from
+the path, or if `*..*&#39; is the first part of the path, the last part of
+the current working directory would be removed), instead resolve the
+path to the physical directory. This option is overridden by
+<strong>CHASE_LINKS</strong>.
+
+For example, suppose <strong>/foo/bar</strong> is a link to the directory <strong>/alt/rod</strong>.
+Without this option set, `*cd <em>foo/bar</em>..*&#39; changes to <strong>/foo</strong>; with it
+set, it changes to <strong>/alt</strong>. The same applies if the current directory
+is <strong>/foo/bar</strong> and `*cd ..*&#39; is used. Note that all other symbolic
+links in the path will also be resolved.</dd>
+<dt>
+<strong>CHASE_LINKS</strong> (<strong>-w</strong>)
+</dt>
+<dd>Resolve symbolic links to their true values
+when changing directory. This also has the effect of <strong>CHASE_DOTS</strong>,
+i.e. a `*..*&#39; path segment will be treated as referring to the
+physical parent, even if the preceding path segment is a symbolic
+link.</dd>
+<dt>
+<strong>POSIX_CD</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>Modifies the behaviour of <strong>cd</strong>, <strong>chdir</strong> and
+<strong>pushd</strong> commands to make them more compatible with the POSIX standard.
+The behaviour with the option unset is described in the documentation
+for the <strong>cd</strong> builtin in /zshbuiltins/(1). If the option is set, the
+shell does not test for directories beneath the local directory
+(`*.*&#39;) until after all directories in <strong>cdpath</strong> have been tested, and
+the <strong>cd</strong> and <strong>chdir</strong> commands do not recognise arguments of the form
+`{<strong>+*|</strong>-*}/n/&#39; as directory stack entries.
+
+Also, if the option is set, the conditions under which the shell
+prints the new directory after changing to it are modified. It is no
+longer restricted to interactive shells (although printing of the
+directory stack with <strong>pushd</strong> is still limited to interactive shells);
+and any use of a component of <strong>CDPATH</strong>, including a `*.*&#39; but
+excluding an empty component that is otherwise treated as `*.*&#39;,
+causes the directory to be printed.</dd>
+<dt>
+<strong>PUSHD_IGNORE_DUPS</strong>
+</dt>
+<dd>Don&#39;t push multiple copies of the same
+directory onto the directory stack.</dd>
+<dt>
+<strong>PUSHD_MINUS</strong>
+</dt>
+<dd>Exchanges the meanings of `*+*&#39; and `*-*&#39; when used
+with a number to specify a directory in the stack.</dd>
+<dt>
+<strong>PUSHD_SILENT</strong> (<strong>-E</strong>)
+</dt>
+<dd>Do not print the directory stack after
+<strong>pushd</strong> or <strong>popd</strong>.</dd>
+<dt>
+<strong>PUSHD_TO_HOME</strong> (<strong>-D</strong>)
+</dt>
+<dd>Have <strong>pushd</strong> with no arguments act like
+`*pushd $HOME*&#39;.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Completion
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p><strong>ALWAYS_LAST_PROMPT</strong> &lt;D&gt; If unset, key functions that list completions
+try to return to the last prompt if given a numeric argument. If set
+these functions try to return to the last prompt if given <em>no</em> numeric
+argument.</p>
+<dl>
+<dt>
+<strong>ALWAYS_TO_END</strong>
+</dt>
+<dd>If a completion is performed with the cursor within
+a word, and a full completion is inserted, the cursor is moved to the
+end of the word. That is, the cursor is moved to the end of the word
+if either a single match is inserted or menu completion is performed.</dd>
+<dt>
+<strong>AUTO_LIST</strong> (<strong>-9</strong>) &lt;D&gt;
+</dt>
+<dd>Automatically list choices on an ambiguous
+completion.</dd>
+<dt>
+<strong>AUTO_MENU</strong> &lt;D&gt;
+</dt>
+<dd>Automatically use menu completion after the second
+consecutive request for completion, for example by pressing the tab
+key repeatedly. This option is overridden by <strong>MENU_COMPLETE</strong>.</dd>
+<dt>
+<strong>AUTO_NAME_DIRS</strong>
+</dt>
+<dd>Any parameter that is set to the absolute name of
+a directory immediately becomes a name for that directory, that will
+be used by the `*%~*&#39; and related prompt sequences, and will be
+available when completion is performed on a word starting with `*~*&#39;.
+(Otherwise, the parameter must be used in the form `*~*/param/&#39;
+first.)</dd>
+<dt>
+<strong>AUTO_PARAM_KEYS</strong> &lt;D&gt;
+</dt>
+<dd>If a parameter name was completed and a
+following character (normally a space) automatically inserted, and the
+next character typed is one of those that have to come directly after
+the name (like `*}*&#39;, `*:*&#39;, etc.), the automatically added character
+is deleted, so that the character typed comes immediately after the
+parameter name. Completion in a brace expansion is affected similarly:
+the added character is a `*,*&#39;, which will be removed if `*}*&#39; is
+typed next.</dd>
+<dt>
+<strong>AUTO_PARAM_SLASH</strong> &lt;D&gt;
+</dt>
+<dd>If a parameter is completed whose content is
+the name of a directory, then add a trailing slash instead of a space.</dd>
+<dt>
+<strong>AUTO_REMOVE_SLASH</strong> &lt;D&gt;
+</dt>
+<dd>When the last character resulting from a
+completion is a slash and the next character typed is a word
+delimiter, a slash, or a character that ends a command (such as a
+semicolon or an ampersand), remove the slash.</dd>
+<dt>
+<strong>BASH_AUTO_LIST</strong>
+</dt>
+<dd>On an ambiguous completion, automatically list
+choices when the completion function is called twice in succession.
+This takes precedence over <strong>AUTO_LIST</strong>. The setting of
+<strong>LIST_AMBIGUOUS</strong> is respected. If <strong>AUTO_MENU</strong> is set, the menu
+behaviour will then start with the third press. Note that this will
+not work with <strong>MENU_COMPLETE</strong>, since repeated completion calls
+immediately cycle through the list in that case.</dd>
+<dt>
+<strong>COMPLETE_ALIASES</strong>
+</dt>
+<dd>Prevents aliases on the command line from being
+internally substituted before completion is attempted. The effect is
+to make the alias a distinct command for completion purposes.</dd>
+<dt>
+<strong>COMPLETE_IN_WORD</strong>
+</dt>
+<dd>If unset, the cursor is set to the end of the
+word if completion is started. Otherwise it stays there and completion
+is done from both ends.</dd>
+<dt>
+<strong>GLOB_COMPLETE</strong>
+</dt>
+<dd>When the current word has a glob pattern, do not
+insert all the words resulting from the expansion but generate matches
+as for completion and cycle through them like <strong>MENU_COMPLETE</strong>. The
+matches are generated as if a `***&#39; was added to the end of the word,
+or inserted at the cursor when <strong>COMPLETE_IN_WORD</strong> is set. This
+actually uses pattern matching, not globbing, so it works not only for
+files but for any completion, such as options, user names, etc.
+
+Note that when the pattern matcher is used, matching control (for
+example, case-insensitive or anchored matching) cannot be used. This
+limitation only applies when the current word contains a pattern;
+simply turning on the <strong>GLOB_COMPLETE</strong> option does not have this
+effect.</dd>
+<dt>
+<strong>HASH_LIST_ALL</strong> &lt;D&gt;
+</dt>
+<dd>Whenever a command completion or spelling
+correction is attempted, make sure the entire command path is hashed
+first. This makes the first completion slower but avoids false reports
+of spelling errors.</dd>
+<dt>
+<strong>LIST_AMBIGUOUS</strong> &lt;D&gt;
+</dt>
+<dd>This option works when <strong>AUTO_LIST</strong> or
+<strong>BASH_AUTO_LIST</strong> is also set. If there is an unambiguous prefix to
+insert on the command line, that is done without a completion list
+being displayed; in other words, auto-listing behaviour only takes
+place when nothing would be inserted. In the case of <strong>BASH_AUTO_LIST</strong>,
+this means that the list will be delayed to the third call of the
+function.</dd>
+<dt>
+<strong>LIST_BEEP</strong> &lt;D&gt;
+</dt>
+<dd>Beep on an ambiguous completion. More accurately,
+this forces the completion widgets to return status 1 on an ambiguous
+completion, which causes the shell to beep if the option <strong>BEEP</strong> is
+also set; this may be modified if completion is called from a
+user-defined widget.</dd>
+<dt>
+<strong>LIST_PACKED</strong>
+</dt>
+<dd>Try to make the completion list smaller (occupying
+less lines) by printing the matches in columns with different widths.</dd>
+<dt>
+<strong>LIST_ROWS_FIRST</strong>
+</dt>
+<dd>Lay out the matches in completion lists sorted
+horizontally, that is, the second match is to the right of the first
+one, not under it as usual.</dd>
+<dt>
+<strong>LIST_TYPES</strong> (<strong>-X</strong>) &lt;D&gt;
+</dt>
+<dd>When listing files that are possible
+completions, show the type of each file with a trailing identifying
+mark.</dd>
+<dt>
+<strong>MENU_COMPLETE</strong> (<strong>-Y</strong>)
+</dt>
+<dd>On an ambiguous completion, instead of
+listing possibilities or beeping, insert the first match immediately.
+Then when completion is requested again, remove the first match and
+insert the second match, etc. When there are no more matches, go back
+to the first one again. <strong>reverse-menu-complete</strong> may be used to loop
+through the list in the other direction. This option overrides
+<strong>AUTO_MENU</strong>.</dd>
+<dt>
+<strong>REC_EXACT</strong> (<strong>-S</strong>)
+</dt>
+<dd>If the string on the command line exactly
+matches one of the possible completions, it is accepted, even if there
+is another completion (i.e. that string with something else added)
+that also matches.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Expansion and Globbing
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p><strong>BAD_PATTERN</strong> (<strong>+2</strong>) &lt;C&gt; &lt;Z&gt; If a pattern for filename generation is
+badly formed, print an error message. (If this option is unset, the
+pattern will be left unchanged.)</p>
+<dl>
+<dt>
+<strong>BARE_GLOB_QUAL</strong> &lt;Z&gt;
+</dt>
+<dd>In a glob pattern, treat a trailing set of
+parentheses as a qualifier list, if it contains no `*|*&#39;, `*(<strong>&#39; or (if
+special) `*~</strong>&#39; characters. See the section `Filename Generation&#39;.</dd>
+<dt>
+<strong>BRACE_CCL</strong>
+</dt>
+<dd>Expand expressions in braces which would not otherwise
+undergo brace expansion to a lexically ordered list of all the
+characters. See the section `Brace Expansion&#39;.</dd>
+<dt>
+<strong>CASE_GLOB</strong> &lt;D&gt;
+</dt>
+<dd>Make globbing (filename generation) sensitive to
+case. Note that other uses of patterns are always sensitive to case.
+If the option is unset, the presence of any character which is special
+to filename generation will cause case-insensitive matching. For
+example, <strong>cvs(/)</strong> can match the directory <strong>CVS</strong> owing to the presence
+of the globbing flag (unless the option <strong>BARE_GLOB_QUAL</strong> is unset).</dd>
+<dt>
+<strong>CASE_MATCH</strong> &lt;D&gt;
+</dt>
+<dd>Make regular expressions using the <strong>zsh/regex</strong>
+module (including matches with <strong>=~</strong>) sensitive to case.</dd>
+<dt>
+<strong>CASE_PATHS</strong>
+</dt>
+<dd>If <strong>CASE_PATHS</strong> is not set (the default), <strong>CASE_GLOB</strong>
+affects the interpretation of <em>every</em> path component, whenever a
+special character appears in <em>any</em> component. When <strong>CASE_PATHS</strong> is
+set, file path components that do <em>not</em> contain special filename
+generation characters are always sensitive to case, thus restricting
+<strong>NO_CASE_GLOB</strong> to components that contain globbing characters.
+
+Note that if the filesystem itself is not sensitive to case, then
+<strong>CASE_PATHS</strong> has no effect.</dd>
+<dt>
+<strong>CSH_NULL_GLOB</strong> &lt;C&gt;
+</dt>
+<dd>If a pattern for filename generation has no
+matches, delete the pattern from the argument list; do not report an
+error unless all the patterns in a command have no matches. Overrides
+<strong>NOMATCH</strong>.</dd>
+<dt>
+<strong>EQUALS</strong> &lt;Z&gt;
+</dt>
+<dd>Perform <strong>=</strong> filename expansion. (See the section
+`Filename Expansion&#39;.)</dd>
+<dt>
+<strong>EXTENDED_GLOB</strong>
+</dt>
+<dd>Treat the `*#*&#39;, `*~*&#39; and `*^*&#39; characters as part
+of patterns for filename generation, etc. (An initial unquoted `*~*&#39;
+always produces named directory expansion.)</dd>
+<dt>
+<strong>FORCE_FLOAT</strong>
+</dt>
+<dd>Constants in arithmetic evaluation will be treated as
+floating point even without the use of a decimal point; the values of
+integer variables will be converted to floating point when used in
+arithmetic expressions. Integers in any base will be converted.</dd>
+<dt>
+<strong>GLOB</strong> (<strong>+F</strong>, ksh: <strong>+f</strong>) &lt;D&gt;
+</dt>
+<dd>Perform filename generation
+(globbing). (See the section `Filename Generation&#39;.)</dd>
+<dt>
+<strong>GLOB_ASSIGN</strong> &lt;C&gt;
+</dt>
+<dd>If this option is set, filename generation
+(globbing) is performed on the right hand side of scalar parameter
+assignments of the form `/name/*=*/pattern/ (e.g. `*foo=**&#39;). If the
+result has more than one word the parameter will become an array with
+those words as arguments. This option is provided for backwards
+compatibility only: globbing is always performed on the right hand
+side of array assignments of the form `/name/*=(<strong><em>value</em></strong>)*&#39; (e.g.
+`*foo=(<strong>)</strong>&#39;) and this form is recommended for clarity; with this
+option set, it is not possible to predict whether the result will be
+an array or a scalar.</dd>
+<dt>
+<strong>GLOB_DOTS</strong> (<strong>-4</strong>)
+</dt>
+<dd>Do not require a leading `*.*&#39; in a filename to
+be matched explicitly.</dd>
+<dt>
+<strong>GLOB_STAR_SHORT</strong>
+</dt>
+<dd>When this option is set and the default zsh-style
+globbing is in effect, the pattern `***/**&#39; can be abbreviated to
+`****&#39; and the pattern `****/**&#39; can be abbreviated to <strong><strong>*</strong></strong>. Hence
+`***.c*&#39; finds a file ending in <strong>.c</strong> in any subdirectory, and
+`****.c*&#39; does the same while also following symbolic links. A <strong>/</strong>
+immediately after the `****&#39; or `*****&#39; forces the pattern to be
+treated as the unabbreviated form.</dd>
+<dt>
+<strong>GLOB_SUBST</strong> &lt;C&gt; &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>Treat any characters resulting from
+parameter expansion as being eligible for filename expansion and
+filename generation, and any characters resulting from command
+substitution as being eligible for filename generation. Braces (and
+commas in between) do not become eligible for expansion.</dd>
+<dt>
+<strong>HIST_SUBST_PATTERN</strong>
+</dt>
+<dd>Substitutions using the <strong>:s</strong> and <strong>:&amp;</strong> history
+modifiers are performed with pattern matching instead of string
+matching. This occurs wherever history modifiers are valid, including
+glob qualifiers and parameters. See the section `Modifiers&#39; in
+/zshexpn/(1).</dd>
+<dt>
+<strong>IGNORE_BRACES</strong> (<strong>-I</strong>) &lt;S&gt;
+</dt>
+<dd>Do not perform brace expansion. For
+historical reasons this also includes the effect of the
+<strong>IGNORE_CLOSE_BRACES</strong> option.</dd>
+<dt>
+<strong>IGNORE_CLOSE_BRACES</strong>
+</dt>
+<dd>
+<p>When neither this option nor <strong>IGNORE_BRACES</strong>
+is set, a sole close brace character `*}*&#39; is syntactically
+significant at any point on a command line. This has the effect that
+no semicolon or newline is necessary before the brace terminating a
+function or current shell construct. When either option is set, a
+closing brace is syntactically significant only in command position.
+Unlike <strong>IGNORE_BRACES</strong>, this option does not disable brace expansion.</p>
+<p>
+For example, with both options unset a function may be defined in the
+following fashion:</p>
+<blockquote>
+<pre class="example">
+args() { echo $# }
+</pre>
+</blockquote>
+<p>
+while if either option is set, this does not work and something
+equivalent to the following is required:</p>
+<blockquote>
+<pre class="example">
+args() { echo $#; }
+</pre>
+</blockquote>
+</dd>
+<dt>
+<strong>KSH_GLOB</strong> &lt;K&gt;
+</dt>
+<dd>In pattern matching, the interpretation of
+parentheses is affected by a preceding `*@*&#39;, `***&#39;, `*+*&#39;, `*?*&#39; or
+`*!*&#39;. See the section `Filename Generation&#39;.</dd>
+<dt>
+<strong>MAGIC_EQUAL_SUBST</strong>
+</dt>
+<dd>All unquoted arguments of the form
+`/anything/*=*/expression/&#39; appearing after the command name have
+filename expansion (that is, where <em>expression</em> has a leading `*~*&#39; or
+`*=*&#39;) performed on <em>expression</em> as if it were a parameter assignment.
+The argument is not otherwise treated specially; it is passed to the
+command as a single argument, and not used as an actual parameter
+assignment. For example, in <strong>echo foo=~/bar:~/rod</strong>, both occurrences
+of <strong>~</strong> would be replaced. Note that this happens anyway with <strong>typeset</strong>
+and similar statements.
+
+This option respects the setting of the <strong>KSH_TYPESET</strong> option. In other
+words, if both options are in effect, arguments looking like
+assignments will not undergo word splitting.</dd>
+<dt>
+<strong>MARK_DIRS</strong> (<strong>-8</strong>, ksh: <strong>-X</strong>)
+</dt>
+<dd>Append a trailing `*/*&#39; to all
+directory names resulting from filename generation (globbing).</dd>
+<dt>
+<strong>MULTIBYTE</strong> &lt;D&gt;
+</dt>
+<dd>Respect multibyte characters when found in strings.
+When this option is set, strings are examined using the system library
+to determine how many bytes form a character, depending on the current
+locale. This affects the way characters are counted in pattern
+matching, parameter values and various delimiters.
+
+The option is on by default if the shell was compiled with
+<strong>MULTIBYTE_SUPPORT</strong>; otherwise it is off by default and has no effect
+if turned on.
+
+If the option is off a single byte is always treated as a single
+character. This setting is designed purely for examining strings known
+to contain raw bytes or other values that may not be characters in the
+current locale. It is not necessary to unset the option merely because
+the character set for the current locale does not contain multibyte
+characters.
+
+The option does not affect the shell&#39;s editor, which always uses the
+locale to determine multibyte characters. This is because the
+character set displayed by the terminal emulator is independent of
+shell settings.</dd>
+<dt>
+<strong>NOMATCH</strong> (<strong>+3</strong>) &lt;C&gt; &lt;Z&gt;
+</dt>
+<dd>If a pattern for filename generation has
+no matches, print an error, instead of leaving it unchanged in the
+argument list. This also applies to file expansion of an initial `*~*&#39;
+or `*=*&#39;.</dd>
+<dt>
+<strong>NULL_GLOB</strong> (<strong>-G</strong>)
+</dt>
+<dd>If a pattern for filename generation has no
+matches, delete the pattern from the argument list instead of
+reporting an error. Overrides <strong>NOMATCH</strong>.</dd>
+<dt>
+<strong>NUMERIC_GLOB_SORT</strong>
+</dt>
+<dd>If numeric filenames are matched by a filename
+generation pattern, sort the filenames numerically rather than
+lexicographically.</dd>
+<dt>
+<strong>RC_EXPAND_PARAM</strong> (<strong>-P</strong>)
+</dt>
+<dd>Array expansions of the form
+`/foo/*${<strong><em>xx</em></strong>}*/bar/&#39;, where the parameter <em>xx</em> is set to <strong>(*/a b
+c/</strong>)*, are substituted with `/fooabar foobbar foocbar/&#39; instead of the
+default `/fooa b cbar/&#39;. Note that an empty array will therefore cause
+all arguments to be removed.</dd>
+<dt>
+<strong>REMATCH_PCRE</strong>
+</dt>
+<dd>If set, regular expression matching with the <strong>=~</strong>
+operator will use Perl-Compatible Regular Expressions from the PCRE
+library. (The <strong>zsh/pcre</strong> module must be available.) If not set,
+regular expressions will use the extended regexp syntax provided by
+the system libraries.</dd>
+<dt>
+<strong>SH_GLOB</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>Disables the special meaning of `*(<strong>&#39;, `*|</strong>&#39;,
+`*)*&#39; and &#39;<strong>&lt;</strong>&#39; for globbing the result of parameter and command
+substitutions, and in some other places where the shell accepts
+patterns. If <strong>SH_GLOB</strong> is set but <strong>KSH_GLOB</strong> is not, the shell allows
+the interpretation of subshell expressions enclosed in parentheses in
+some cases where there is no space before the opening parenthesis,
+e.g. <strong>!(true)</strong> is interpreted as if there were a space after the <strong>!</strong>.
+This option is set by default if zsh is invoked as <strong>sh</strong> or <strong>ksh</strong>.</dd>
+<dt>
+<strong>UNSET</strong> (<strong>+u</strong>, ksh: <strong>+u</strong>) &lt;K&gt; &lt;S&gt; &lt;Z&gt;
+</dt>
+<dd>Treat unset parameters as if
+they were empty when substituting, and as if they were zero when
+reading their values in arithmetic expansion and arithmetic commands.
+Otherwise they are treated as an error.</dd>
+<dt>
+<strong>WARN_CREATE_GLOBAL</strong>
+</dt>
+<dd>Print a warning message when a global
+parameter is created in a function by an assignment or in math
+context. This often indicates that a parameter has not been declared
+local when it should have been. Parameters explicitly declared global
+from within a function using <strong>typeset -g</strong> do not cause a warning. Note
+that there is no warning when a local parameter is assigned to in a
+nested function, which may also indicate an error.</dd>
+<dt>
+<strong>WARN_NESTED_VAR</strong>
+</dt>
+<dd>
+<p>Print a warning message when an existing
+parameter from an enclosing function scope, or global, is set in a
+function by an assignment or in math context. Assignment to shell
+special parameters does not cause a warning. This is the companion to
+<strong>WARN_CREATE_GLOBAL</strong> as in this case the warning is only printed when
+a parameter is <em>not</em> created. Where possible, use of <strong>typeset -g</strong> to
+set the parameter suppresses the error, but note that this needs to be
+used every time the parameter is set. To restrict the effect of this
+option to a single function scope, use `*functions -W*&#39;.</p>
+<p>
+For example, the following code produces a warning for the assignment
+inside the function <strong>nested</strong> as that overrides the value within
+<strong>toplevel</strong></p>
+<blockquote>
+<pre class="example">
+toplevel() {
+  local foo=&#34;in fn&#34;
+  nested
+}
+nested() {
+     foo=&#34;in nested&#34;
+}
+setopt warn_nested_var
+toplevel
+</pre>
+</blockquote>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+History
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p><strong>APPEND_HISTORY</strong> &lt;D&gt; If this is set, zsh sessions will append their
+history list to the history file, rather than replace it. Thus, multiple
+parallel zsh sessions will all have the new entries from their history
+lists added to the history file, in the order that they exit. The file
+will still be periodically re-written to trim it when the number of
+lines grows 20% beyond the value specified by <strong>$SAVEHIST</strong> (see also the
+<strong>HIST_SAVE_BY_COPY</strong> option).</p>
+<dl>
+<dt>
+<strong>BANG_HIST</strong> (<strong>+K</strong>) &lt;C&gt; &lt;Z&gt;
+</dt>
+<dd>Perform textual history expansion,
+<strong>csh</strong>-style, treating the character `*!*&#39; specially.</dd>
+<dt>
+<strong>EXTENDED_HISTORY</strong> &lt;C&gt;
+</dt>
+<dd>Save each command&#39;s beginning timestamp (in
+seconds since the epoch) and the duration (in seconds) to the history
+file. The format of this prefixed data is:
+
+`*: <strong><em>&lt;beginning time&gt;</em></strong>:*/&lt;elapsed seconds&gt;/*;*/&lt;command&gt;/&#39;.</dd>
+<dt>
+<strong>HIST_ALLOW_CLOBBER</strong>
+</dt>
+<dd>Add `*|*&#39; to output redirections in the
+history. This allows history references to clobber files even when
+<strong>CLOBBER</strong> is unset.</dd>
+<dt>
+<strong>HIST_BEEP</strong> &lt;D&gt;
+</dt>
+<dd>Beep in ZLE when a widget attempts to access a
+history entry which isn&#39;t there.</dd>
+<dt>
+<strong>HIST_EXPIRE_DUPS_FIRST</strong>
+</dt>
+<dd>If the internal history needs to be
+trimmed to add the current command line, setting this option will
+cause the oldest history event that has a duplicate to be lost before
+losing a unique event from the list. You should be sure to set the
+value of <strong>HISTSIZE</strong> to a larger number than <strong>SAVEHIST</strong> in order to
+give you some room for the duplicated events, otherwise this option
+will behave just like <strong>HIST_IGNORE_ALL_DUPS</strong> once the history fills up
+with unique events.</dd>
+<dt>
+<strong>HIST_FCNTL_LOCK</strong>
+</dt>
+<dd>When writing out the history file, by default zsh
+uses ad-hoc file locking to avoid known problems with locking on some
+operating systems. With this option locking is done by means of the
+system&#39;s <strong>fcntl</strong> call, where this method is available. On recent
+operating systems this may provide better performance, in particular
+avoiding history corruption when files are stored on NFS.</dd>
+<dt>
+<strong>HIST_FIND_NO_DUPS</strong>
+</dt>
+<dd>When searching for history entries in the line
+editor, do not display duplicates of a line previously found, even if
+the duplicates are not contiguous.</dd>
+<dt>
+<strong>HIST_IGNORE_ALL_DUPS</strong>
+</dt>
+<dd>If a new command line being added to the
+history list duplicates an older one, the older command is removed
+from the list (even if it is not the previous event).</dd>
+<dt>
+<strong>HIST_IGNORE_DUPS</strong> (<strong>-h</strong>)
+</dt>
+<dd>Do not enter command lines into the
+history list if they are duplicates of the previous event.</dd>
+<dt>
+<strong>HIST_IGNORE_SPACE</strong> (<strong>-g</strong>)
+</dt>
+<dd>Remove command lines from the history
+list when the first character on the line is a space, or when one of
+the expanded aliases contains a leading space. Only normal aliases
+(not global or suffix aliases) have this behaviour. Note that the
+command lingers in the internal history until the next command is
+entered before it vanishes, allowing you to briefly reuse or edit the
+line. If you want to make it vanish right away without entering
+another command, type a space and press return.</dd>
+<dt>
+<strong>HIST_LEX_WORDS</strong>
+</dt>
+<dd>By default, shell history that is read in from
+files is split into words on all white space. This means that
+arguments with quoted whitespace are not correctly handled, with the
+consequence that references to words in history lines that have been
+read from a file may be inaccurate. When this option is set, words
+read in from a history file are divided up in a similar fashion to
+normal shell command line handling. Although this produces more
+accurately delimited words, if the size of the history file is large
+this can be slow. Trial and error is necessary to decide.</dd>
+<dt>
+<strong>HIST_NO_FUNCTIONS</strong>
+</dt>
+<dd>Remove function definitions from the history
+list. Note that the function lingers in the internal history until the
+next command is entered before it vanishes, allowing you to briefly
+reuse or edit the definition.</dd>
+<dt>
+<strong>HIST_NO_STORE</strong>
+</dt>
+<dd>Remove the <strong>history</strong> (<strong>fc -l</strong>) command from the
+history list when invoked. Note that the command lingers in the
+internal history until the next command is entered before it vanishes,
+allowing you to briefly reuse or edit the line.</dd>
+<dt>
+<strong>HIST_REDUCE_BLANKS</strong>
+</dt>
+<dd>Remove superfluous blanks from each command
+line being added to the history list.</dd>
+<dt>
+<strong>HIST_SAVE_BY_COPY</strong> &lt;D&gt;
+</dt>
+<dd>When the history file is re-written, we
+normally write out a copy of the file named <strong>$HISTFILE.new</strong> and then
+rename it over the old one. However, if this option is unset, we
+instead truncate the old history file and write out the new version
+in-place. If one of the history-appending options is enabled, this
+option only has an effect when the enlarged history file needs to be
+re-written to trim it down to size. Disable this only if you have
+special needs, as doing so makes it possible to lose history entries
+if zsh gets interrupted during the save.
+
+When writing out a copy of the history file, zsh preserves the old
+file&#39;s permissions and group information, but will refuse to write out
+a new file if it would change the history file&#39;s owner.</dd>
+<dt>
+<strong>HIST_SAVE_NO_DUPS</strong>
+</dt>
+<dd>When writing out the history file, older
+commands that duplicate newer ones are omitted.</dd>
+<dt>
+<strong>HIST_VERIFY</strong>
+</dt>
+<dd>Whenever the user enters a line with history
+expansion, don&#39;t execute the line directly; instead, perform history
+expansion and reload the line into the editing buffer.</dd>
+<dt>
+<strong>INC_APPEND_HISTORY</strong>
+</dt>
+<dd>This option works like <strong>APPEND_HISTORY</strong> except
+that new history lines are added to the <strong>$HISTFILE</strong> incrementally (as
+soon as they are entered), rather than waiting until the shell exits.
+The file will still be periodically re-written to trim it when the
+number of lines grows 20% beyond the value specified by <strong>$SAVEHIST</strong>
+(see also the <strong>HIST_SAVE_BY_COPY</strong> option).</dd>
+<dt>
+<strong>INC_APPEND_HISTORY_TIME</strong>
+</dt>
+<dd>This option is a variant of
+<strong>INC_APPEND_HISTORY</strong> in which, where possible, the history entry is
+written out to the file after the command is finished, so that the
+time taken by the command is recorded correctly in the history file in
+<strong>EXTENDED_HISTORY</strong> format. This means that the history entry will not
+be available immediately from other instances of the shell that are
+using the same history file.
+
+This option is only useful if <strong>INC_APPEND_HISTORY</strong> and <strong>SHARE_HISTORY</strong>
+are turned off. The three options should be considered mutually
+exclusive.</dd>
+<dt>
+<strong>SHARE_HISTORY</strong> &lt;K&gt;
+</dt>
+<dd>
+<blockquote>
+<p>This option both imports new commands from the history file, and also
+causes your typed commands to be appended to the history file (the
+latter is like specifying <strong>INC_APPEND_HISTORY</strong>, which should be turned
+off if this option is in effect). The history lines are also output
+with timestamps ala <strong>EXTENDED_HISTORY</strong> (which makes it easier to find
+the spot where we left off reading the file after it gets re-written).</p>
+<p>
+By default, history movement commands visit the imported lines as well
+as the local lines, but you can toggle this on and off with the
+set-local-history zle binding. It is also possible to create a zle
+widget that will make some commands ignore imported commands, and some
+include them.</p>
+<p>
+If you find that you want more control over when commands get
+imported, you may wish to turn <strong>SHARE_HISTORY</strong> off,
+<strong>INC_APPEND_HISTORY</strong> or <strong>INC_APPEND_HISTORY_TIME</strong> (see above) on, and
+then manually import commands whenever you need them using `*fc* -RI&#39;.</p>
+</blockquote>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Initialisation
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p><strong>ALL_EXPORT</strong> (<strong>-a</strong>, ksh: <strong>-a</strong>) All parameters subsequently defined are
+automatically exported.</p>
+<dl>
+<dt>
+<strong>GLOBAL_EXPORT</strong> &lt;Z&gt;
+</dt>
+<dd>If this option is set, passing the <strong>-x</strong> flag to
+the builtins <strong>declare</strong>, <strong>float</strong>, <strong>integer</strong>, <strong>readonly</strong> and <strong>typeset</strong>
+(but not <strong>local</strong>) will also set the <strong>-g</strong> flag; hence parameters
+exported to the environment will not be made local to the enclosing
+function, unless they were already or the flag <strong>+g</strong> is given
+explicitly. If the option is unset, exported parameters will be made
+local in just the same way as any other parameter.
+
+This option is set by default for backward compatibility; it is not
+recommended that its behaviour be relied upon. Note that the builtin
+<strong>export</strong> always sets both the <strong>-x</strong> and <strong>-g</strong> flags, and hence its
+effect extends beyond the scope of the enclosing function; this is the
+most portable way to achieve this behaviour.</dd>
+<dt>
+<strong>GLOBAL_RCS</strong> (<strong>+d</strong>) &lt;D&gt;
+</dt>
+<dd>If this option is unset, the startup files
+<strong>/etc/zprofile</strong>, <strong>/etc/zshrc</strong>, <strong>/etc/zlogin</strong> and <strong>/etc/zlogout</strong> will
+not be run. It can be disabled and re-enabled at any time, including
+inside local startup files (<strong>.zshrc</strong>, etc.).</dd>
+<dt>
+<strong>RCS</strong> (<strong>+f</strong>) &lt;D&gt;
+</dt>
+<dd>After <strong>/etc/zshenv</strong> is sourced on startup, source
+the <strong>.zshenv</strong>, <strong>/etc/zprofile</strong>, <strong>.zprofile</strong>, <strong>/etc/zshrc</strong>, <strong>.zshrc</strong>,
+<strong>/etc/zlogin</strong>, <strong>.zlogin</strong>, and <strong>.zlogout</strong> files, as described in the
+section `Files&#39;. If this option is unset, the <strong>/etc/zshenv</strong> file is
+still sourced, but any of the others will not be; it can be set at any
+time to prevent the remaining startup files after the currently
+executing one from being sourced.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Input/Output
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p><strong>ALIASES</strong> &lt;D&gt; Expand aliases.</p>
+<dl>
+<dt>
+<strong>CLOBBER</strong> (<strong>+C</strong>, ksh: <strong>+C</strong>) &lt;D&gt;
+</dt>
+<dd>Allows `*&gt;*&#39; redirection to
+truncate existing files. Otherwise `*&gt;!*&#39; or `*&gt;|*&#39; must be used to
+truncate a file.
+
+If the option is not set, and the option <strong>APPEND_CREATE</strong> is also not
+set, `*&gt;&gt;!*&#39; or `*&gt;&gt;|*&#39; must be used to create a file. If either
+option is set, `*&gt;&gt;*&#39; may be used.</dd>
+<dt>
+<strong>CLOBBER_EMPTY</strong>
+</dt>
+<dd>This option is only used if the option <strong>CLOBBER</strong> is
+not set: note that it is set by default.
+
+If this option is set, then regular files of zero length may be
+ovewritten (`clobbered&#39;). Note that it is possible another process has
+written to the file between this test and use of the file by the
+current process. This option should therefore not be used in cases
+where files to be clobbered may be written to asynchronously.</dd>
+<dt>
+<strong>CORRECT</strong> (<strong>-0</strong>)
+</dt>
+<dd>Try to correct the spelling of commands. Note
+that, when the <strong>HASH_LIST_ALL</strong> option is not set or when some
+directories in the path are not readable, this may falsely report
+spelling errors the first time some commands are used.
+
+The shell variable <strong>CORRECT_IGNORE</strong> may be set to a pattern to match
+words that will never be offered as corrections.</dd>
+<dt>
+<strong>CORRECT_ALL</strong> (<strong>-O</strong>)
+</dt>
+<dd>Try to correct the spelling of all arguments
+in a line.
+
+The shell variable <strong>CORRECT_IGNORE_FILE</strong> may be set to a pattern to
+match file names that will never be offered as corrections.</dd>
+<dt>
+<strong>DVORAK</strong>
+</dt>
+<dd>Use the Dvorak keyboard instead of the standard qwerty
+keyboard as a basis for examining spelling mistakes for the <strong>CORRECT</strong>
+and <strong>CORRECT_ALL</strong> options and the <strong>spell-word</strong> editor command.</dd>
+<dt>
+<strong>FLOW_CONTROL</strong> &lt;D&gt;
+</dt>
+<dd>If this option is unset, output flow control via
+start/stop characters (usually assigned to ^S/^Q) is disabled in the
+shell&#39;s editor.</dd>
+<dt>
+<strong>IGNORE_EOF</strong> (<strong>-7</strong>)
+</dt>
+<dd>Do not exit on end-of-file. Require the use of
+<strong>exit</strong> or <strong>logout</strong> instead. However, ten consecutive EOFs will cause
+the shell to exit anyway, to avoid the shell hanging if its tty goes
+away.
+
+Also, if this option is set and the Zsh Line Editor is used, widgets
+implemented by shell functions can be bound to EOF (normally
+Control-D) without printing the normal warning message. This works
+only for normal widgets, not for completion widgets.</dd>
+<dt>
+<strong>INTERACTIVE_COMMENTS</strong> (<strong>-k</strong>) &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>Allow comments even in
+interactive shells.</dd>
+<dt>
+<strong>HASH_CMDS</strong> &lt;D&gt;
+</dt>
+<dd>Note the location of each command the first time it
+is executed. Subsequent invocations of the same command will use the
+saved location, avoiding a path search. If this option is unset, no
+path hashing is done at all. However, when <strong>CORRECT</strong> is set, commands
+whose names do not appear in the functions or aliases hash tables are
+hashed in order to avoid reporting them as spelling errors.</dd>
+<dt>
+<strong>HASH_DIRS</strong> &lt;D&gt;
+</dt>
+<dd>Whenever a command name is hashed, hash the
+directory containing it, as well as all directories that occur earlier
+in the path. Has no effect if neither <strong>HASH_CMDS</strong> nor <strong>CORRECT</strong> is
+set.</dd>
+<dt>
+<strong>HASH_EXECUTABLES_ONLY</strong>
+</dt>
+<dd>When hashing commands because of
+<strong>HASH_CMDS</strong>, check that the file to be hashed is actually an
+executable. This option is unset by default as if the path contains a
+large number of commands, or consists of many remote files, the
+additional tests can take a long time. Trial and error is needed to
+show if this option is beneficial.</dd>
+<dt>
+<strong>MAIL_WARNING</strong> (<strong>-U</strong>)
+</dt>
+<dd>Print a warning message if a mail file has
+been accessed since the shell last checked.</dd>
+<dt>
+<strong>PATH_DIRS</strong> (<strong>-Q</strong>)
+</dt>
+<dd>Perform a path search even on command names with
+slashes in them. Thus if `*/usr/local/bin*&#39; is in the user&#39;s path, and
+he or she types `*X11/xinit*&#39;, the command
+`*/usr/local/bin/X11/xinit*&#39; will be executed (assuming it exists).
+Commands explicitly beginning with `*/*&#39;, `*./*&#39; or `*../*&#39; are not
+subject to the path search. This also applies to the `*.*&#39; and
+<strong>source</strong> builtins.
+
+Note that subdirectories of the current directory are always searched
+for executables specified in this form. This takes place before any
+search indicated by this option, and regardless of whether `*.*&#39; or
+the current directory appear in the command search path.</dd>
+<dt>
+<strong>PATH_SCRIPT</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>If this option is not set, a script passed as
+the first non-option argument to the shell must contain the name of
+the file to open. If this option is set, and the script does not
+specify a directory path, the script is looked for first in the
+current directory, then in the command path. See the section
+INVOCATION in /zsh/(1).</dd>
+<dt>
+<strong>PRINT_EIGHT_BIT</strong>
+</dt>
+<dd>Print eight bit characters literally in
+completion lists, etc. This option is not necessary if your system
+correctly returns the printability of eight bit characters (see
+/ctype/(3)).</dd>
+<dt>
+<strong>PRINT_EXIT_VALUE</strong> (<strong>-1</strong>)
+</dt>
+<dd>Print the exit value of programs with
+non-zero exit status. This is only available at the command line in
+interactive shells.</dd>
+<dt>
+<strong>RC_QUOTES</strong>
+</dt>
+<dd>Allow the character sequence `*&#39;&#39;*&#39; to signify a single
+quote within singly quoted strings. Note this does not apply in quoted
+strings using the format <strong>$&#39;*/…/</strong>&#39;*, where a backslashed single
+quote can be used.</dd>
+<dt>
+<strong>RM_STAR_SILENT</strong> (<strong>-H</strong>) &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>Do not query the user before
+executing `*rm <strong><strong>&#39; or `*rm path/</strong></strong>&#39;.</dd>
+<dt>
+<strong>RM_STAR_WAIT</strong>
+</dt>
+<dd>If querying the user before executing `*rm <strong><strong>&#39; or
+`*rm path/</strong></strong>&#39;, first wait ten seconds and ignore anything typed in
+that time. This avoids the problem of reflexively answering `yes&#39; to
+the query when one didn&#39;t really mean it. The wait and query can
+always be avoided by expanding the `***&#39; in ZLE (with tab).</dd>
+<dt>
+<strong>SHORT_LOOPS</strong> &lt;C&gt; &lt;Z&gt;
+</dt>
+<dd>Allow the short forms of <strong>for</strong>, <strong>repeat</strong>,
+<strong>select</strong>, <strong>if</strong>, and <strong>function</strong> constructs.</dd>
+<dt>
+<strong>SHORT_REPEAT</strong>
+</dt>
+<dd>Allow the short form <strong>repeat</strong> as <strong>SHORT_LOOPS</strong> but
+without enabling it for the other constructs.</dd>
+<dt>
+<strong>SUN_KEYBOARD_HACK</strong> (<strong>-L</strong>)
+</dt>
+<dd>If a line ends with a backquote, and
+there are an odd number of backquotes on the line, ignore the trailing
+backquote. This is useful on some keyboards where the return key is
+too small, and the backquote key lies annoyingly close to it. As an
+alternative the variable <strong>KEYBOARD_HACK</strong> lets you choose the character
+to be removed.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Job Control
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p><strong>AUTO_CONTINUE</strong> With this option set, stopped jobs that are removed from
+the job table with the <strong>disown</strong> builtin command are automatically sent a
+<strong>CONT</strong> signal to make them running.</p>
+<dl>
+<dt>
+<strong>AUTO_RESUME</strong> (<strong>-W</strong>)
+</dt>
+<dd>Treat single word simple commands without
+redirection as candidates for resumption of an existing job.</dd>
+<dt>
+<strong>BG_NICE</strong> (<strong>-6</strong>) &lt;C&gt; &lt;Z&gt;
+</dt>
+<dd>Run all background jobs at a lower
+priority. This option is set by default.</dd>
+<dt>
+<strong>CHECK_JOBS</strong> &lt;Z&gt;
+</dt>
+<dd>Report the status of background and suspended jobs
+before exiting a shell with job control; a second attempt to exit the
+shell will succeed. <strong>NO_CHECK_JOBS</strong> is best used only in combination
+with <strong>NO_HUP</strong>, else such jobs will be killed automatically.
+
+The check is omitted if the commands run from the previous command
+line included a `*jobs*&#39; command, since it is assumed the user is
+aware that there are background or suspended jobs. A `*jobs*&#39; command
+run from one of the hook functions defined in the section SPECIAL
+FUNCTIONS in /zshmisc/(1) is not counted for this purpose.</dd>
+<dt>
+<strong>CHECK_RUNNING_JOBS</strong> &lt;Z&gt;
+</dt>
+<dd>Check for both running and suspended jobs
+when <strong>CHECK_JOBS</strong> is enabled. When this option is disabled, zsh checks
+only for suspended jobs, which matches the default behavior of bash.
+
+This option has no effect unless <strong>CHECK_JOBS</strong> is set.</dd>
+<dt>
+<strong>HUP</strong> &lt;Z&gt;
+</dt>
+<dd>Send the <strong>HUP</strong> signal to running jobs when the shell
+exits.</dd>
+<dt>
+<strong>LONG_LIST_JOBS</strong> (<strong>-R</strong>)
+</dt>
+<dd>Print job notifications in the long format
+by default.</dd>
+<dt>
+<strong>MONITOR</strong> (<strong>-m</strong>, ksh: <strong>-m</strong>)
+</dt>
+<dd>Allow job control. Set by default in
+interactive shells.</dd>
+<dt>
+<strong>NOTIFY</strong> (<strong>-5</strong>, ksh: <strong>-b</strong>) &lt;Z&gt;
+</dt>
+<dd>Report the status of background jobs
+immediately, rather than waiting until just before printing a prompt.</dd>
+<dt>
+<strong>POSIX_JOBS</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>This option makes job control more compliant
+with the POSIX standard.
+
+When the option is not set, the <strong>MONITOR</strong> option is unset on entry to
+subshells, so that job control is no longer active. When the option is
+set, the <strong>MONITOR</strong> option and job control remain active in the
+subshell, but note that the subshell has no access to jobs in the
+parent shell.
+
+When the option is not set, jobs put in the background or foreground
+with <strong>bg</strong> or <strong>fg</strong> are displayed with the same information that would
+be reported by <strong>jobs</strong>. When the option is set, only the text is
+printed. The output from <strong>jobs</strong> itself is not affected by the option.
+
+When the option is not set, job information from the parent shell is
+saved for output within a subshell (for example, within a pipeline).
+When the option is set, the output of <strong>jobs</strong> is empty until a job is
+started within the subshell.
+
+In previous versions of the shell, it was necessary to enable
+<strong>POSIX_JOBS</strong> in order for the builtin command <strong>wait</strong> to return the
+status of background jobs that had already exited. This is no longer
+the case.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Prompting
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p><strong>PROMPT_BANG</strong> &lt;K&gt; If set, `*!*&#39; is treated specially in prompt
+expansion. See EXPANSION OF PROMPT SEQUENCES in /zshmisc/(1).</p>
+<dl>
+<dt>
+<strong>PROMPT_CR</strong> (<strong>+V</strong>) &lt;D&gt;
+</dt>
+<dd>Print a carriage return just before printing
+a prompt in the line editor. This is on by default as multi-line
+editing is only possible if the editor knows where the start of the
+line appears.</dd>
+<dt>
+<strong>PROMPT_SP</strong> &lt;D&gt;
+</dt>
+<dd>Attempt to preserve a partial line (i.e. a line
+that did not end with a newline) that would otherwise be covered up by
+the command prompt due to the <strong>PROMPT_CR</strong> option. This works by
+outputting some cursor-control characters, including a series of
+spaces, that should make the terminal wrap to the next line when a
+partial line is present (note that this is only successful if your
+terminal has automatic margins, which is typical).
+
+When a partial line is preserved, by default you will see an
+inverse+bold character at the end of the partial line: a `*%*&#39; for a
+normal user or a `*#*&#39; for root. If set, the shell parameter
+<strong>PROMPT_EOL_MARK</strong> can be used to customize how the end of partial
+lines are shown.
+
+NOTE: if the <strong>PROMPT_CR</strong> option is not set, enabling this option will
+have no effect. This option is on by default.</dd>
+<dt>
+<strong>PROMPT_PERCENT</strong> &lt;C&gt; &lt;Z&gt;
+</dt>
+<dd>If set, `*%*&#39; is treated specially in
+prompt expansion. See EXPANSION OF PROMPT SEQUENCES in /zshmisc/(1).</dd>
+<dt>
+<strong>PROMPT_SUBST</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>If set, <em>parameter expansion</em>, <em>command
+substitution</em> and <em>arithmetic expansion</em> are performed in prompts.
+Substitutions within prompts do not affect the command status.</dd>
+<dt>
+<strong>TRANSIENT_RPROMPT</strong>
+</dt>
+<dd>Remove any right prompt from display when
+accepting a command line. This may be useful with terminals with other
+cut/paste methods.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+Scripts and Functions
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p><strong>ALIAS_FUNC_DEF</strong> &lt;S&gt; By default, zsh does not allow the definition of
+functions using the `/name/ <strong>()</strong>&#39; syntax if <em>name</em> was expanded as an
+alias: this causes an error. This is usually the desired behaviour, as
+otherwise the combination of an alias and a function based on the same
+definition can easily cause problems.</p>
+<blockquote>
+<p>When this option is set, aliases can be used for defining functions.</p>
+<p>
+For example, consider the following definitions as they might occur in a
+startup file.</p>
+<blockquote>
+<pre class="example">
+alias foo=bar
+foo() {
+  print This probably does not do what you expect.
+}
+</pre>
+</blockquote>
+<p>
+Here, <strong>foo</strong> is expanded as an alias to <strong>bar</strong> before the <strong>()</strong> is
+encountered, so the function defined would be named <strong>bar</strong>. By default
+this is instead an error in native mode. Note that quoting any part of
+the function name, or using the keyword <strong>function</strong>, avoids the problem,
+so is recommended when the function name can also be an alias.</p>
+</blockquote>
+<dl>
+<dt>
+<strong>C_BASES</strong>
+</dt>
+<dd>Output hexadecimal numbers in the standard C format, for
+example `*0xFF*&#39; instead of the usual `*16#FF*&#39;. If the option
+<strong>OCTAL_ZEROES</strong> is also set (it is not by default), octal numbers will
+be treated similarly and hence appear as `*077*&#39; instead of `*8#77*&#39;.
+This option has no effect on the choice of the output base, nor on the
+output of bases other than hexadecimal and octal. Note that these
+formats will be understood on input irrespective of the setting of
+<strong>C_BASES</strong>.</dd>
+<dt>
+<strong>C_PRECEDENCES</strong>
+</dt>
+<dd>This alters the precedence of arithmetic operators
+to be more like C and other programming languages; the section
+ARITHMETIC EVALUATION in /zshmisc/(1) has an explicit list.</dd>
+<dt>
+<strong>DEBUG_BEFORE_CMD</strong> &lt;D&gt;
+</dt>
+<dd>Run the <strong>DEBUG</strong> trap before each command;
+otherwise it is run after each command. Setting this option mimics the
+behaviour of ksh 93; with the option unset the behaviour is that of
+ksh 88.</dd>
+<dt>
+<strong>ERR_EXIT</strong> (<strong>-e</strong>, ksh: <strong>-e</strong>)
+</dt>
+<dd>
+<p>If a command has a non-zero exit
+status, execute the <strong>ZERR</strong> trap, if set, and exit. This is disabled
+while running initialization scripts.</p>
+<p>
+The behaviour is also disabled inside <strong>DEBUG</strong> traps. In this case the
+option is handled specially: it is unset on entry to the trap. If the
+option <strong>DEBUG_BEFORE_CMD</strong> is set, as it is by default, and the option
+<strong>ERR_EXIT</strong> is found to have been set on exit, then the command for
+which the <strong>DEBUG</strong> trap is being executed is skipped. The option is
+restored after the trap exits.</p>
+<p>
+Non-zero status in a command list containing <strong>&amp;&amp;</strong> or <strong>||</strong> is ignored
+for commands not at the end of the list. Hence</p>
+<blockquote>
+<pre class="example">
+false &amp;&amp; true
+</pre>
+</blockquote>
+<p>
+does not trigger exit.</p>
+<p>
+Exiting due to <strong>ERR_EXIT</strong> has certain interactions with asynchronous
+jobs noted in the section JOBS in /zshmisc/(1).</p>
+</dd>
+<dt>
+<strong>ERR_RETURN</strong>
+</dt>
+<dd>
+<p>If a command has a non-zero exit status, return
+immediately from the enclosing function. The logic is similar to that
+for <strong>ERR_EXIT</strong>, except that an implicit <strong>return</strong> statement is executed
+instead of an <strong>exit</strong>. This will trigger an exit at the outermost level
+of a non-interactive script.</p>
+<p>
+Normally this option inherits the behaviour of <strong>ERR_EXIT</strong> that code
+followed by `*&amp;&amp;*&#39; `*||*&#39; does not trigger a return. Hence in the
+following:</p>
+<blockquote>
+<pre class="example">
+summit || true
+</pre>
+</blockquote>
+<p>
+no return is forced as the combined effect always has a zero return
+status.</p>
+<p>
+Note. however, that if <strong>summit</strong> in the above example is itself a
+function, code inside it is considered separately: it may force a
+return from <strong>summit</strong> (assuming the option remains set within
+<strong>summit</strong>), but not from the enclosing context. This behaviour is
+different from <strong>ERR_EXIT</strong> which is unaffected by function scope.</p>
+</dd>
+<dt>
+<strong>EVAL_LINENO</strong> &lt;Z&gt;
+</dt>
+<dd>If set, line numbers of expressions evaluated
+using the builtin <strong>eval</strong> are tracked separately of the enclosing
+environment. This applies both to the parameter <strong>LINENO</strong> and the line
+number output by the prompt escape <strong>%i</strong>. If the option is set, the
+prompt escape <strong>%N</strong> will output the string `*(eval)*&#39; instead of the
+script or function name as an indication. (The two prompt escapes are
+typically used in the parameter <strong>PS4</strong> to be output when the option
+<strong>XTRACE</strong> is set.) If <strong>EVAL_LINENO</strong> is unset, the line number of the
+surrounding script or function is retained during the evaluation.</dd>
+<dt>
+<strong>EXEC</strong> (<strong>+n</strong>, ksh: <strong>+n</strong>) &lt;D&gt;
+</dt>
+<dd>Do execute commands. Without this
+option, commands are read and checked for syntax errors, but not
+executed. This option cannot be turned off in an interactive shell,
+except when `*-n*&#39; is supplied to the shell at startup.</dd>
+<dt>
+<strong>FUNCTION_ARGZERO</strong> &lt;C&gt; &lt;Z&gt;
+</dt>
+<dd>When executing a shell function or
+sourcing a script, set <strong>$0</strong> temporarily to the name of the
+function/script. Note that toggling <strong>FUNCTION_ARGZERO</strong> from on to off
+(or off to on) does not change the current value of <strong>$0</strong>. Only the
+state upon entry to the function or script has an effect. Compare
+<strong>POSIX_ARGZERO</strong>.</dd>
+<dt>
+<strong>LOCAL_LOOPS</strong>
+</dt>
+<dd>When this option is not set, the effect of <strong>break</strong>
+and <strong>continue</strong> commands may propagate outside function scope,
+affecting loops in calling functions. When the option is set in a
+calling function, a <strong>break</strong> or a <strong>continue</strong> that is not caught within
+a called function (regardless of the setting of the option within that
+function) produces a warning and the effect is cancelled.</dd>
+<dt>
+<strong>LOCAL_OPTIONS</strong> &lt;K&gt;
+</dt>
+<dd>If this option is set at the point of return
+from a shell function, most options (including this one) which were in
+force upon entry to the function are restored; options that are not
+restored are <strong>PRIVILEGED</strong> and <strong>RESTRICTED</strong>. Otherwise, only this
+option, and the <strong>LOCAL_LOOPS</strong>, <strong>XTRACE</strong> and <strong>PRINT_EXIT_VALUE</strong> options
+are restored. Hence if this is explicitly unset by a shell function
+the other options in force at the point of return will remain so. A
+shell function can also guarantee itself a known shell configuration
+with a formulation like `*emulate -L zsh*&#39;; the <strong>-L</strong> activates
+<strong>LOCAL_OPTIONS</strong>.</dd>
+<dt>
+<strong>LOCAL_PATTERNS</strong>
+</dt>
+<dd>If this option is set at the point of return from
+a shell function, the state of pattern disables, as set with the
+builtin command `*disable -p*&#39;, is restored to what it was when the
+function was entered. The behaviour of this option is similar to the
+effect of <strong>LOCAL_OPTIONS</strong> on options; hence `*emulate -L sh*&#39; (or
+indeed any other emulation with the <strong>-L</strong> option) activates
+<strong>LOCAL_PATTERNS</strong>.</dd>
+<dt>
+<strong>LOCAL_TRAPS</strong> &lt;K&gt;
+</dt>
+<dd>
+<p>If this option is set when a signal trap is set
+inside a function, then the previous status of the trap for that
+signal will be restored when the function exits. Note that this option
+must be set <em>prior</em> to altering the trap behaviour in a function;
+unlike <strong>LOCAL_OPTIONS</strong>, the value on exit from the function is
+irrelevant. However, it does not need to be set before any global trap
+for that to be correctly restored by a function. For example,</p>
+<blockquote>
+<pre class="example">
+unsetopt localtraps
+trap - INT
+fn() { setopt localtraps; trap &#39;&#39; INT; sleep 3; }
+</pre>
+</blockquote>
+<p>
+will restore normal handling of <strong>SIGINT</strong> after the function exits.</p>
+</dd>
+<dt>
+<strong>MULTI_FUNC_DEF</strong> &lt;Z&gt;
+</dt>
+<dd>Allow definitions of multiple functions at
+once in the form `*fn1* fn2/…/*()*&#39;; if the option is not set, this
+causes a parse error. Definition of multiple functions with the
+<strong>function</strong> keyword is always allowed. Multiple function definitions
+are not often used and can cause obscure errors.</dd>
+<dt>
+<strong>MULTIOS</strong> &lt;Z&gt;
+</dt>
+<dd>Perform implicit *tee*s or *cat*s when multiple
+redirections are attempted (see the section `Redirection&#39;).</dd>
+<dt>
+<strong>OCTAL_ZEROES</strong> &lt;S&gt;
+</dt>
+<dd>Interpret any integer constant beginning with a
+0 as octal, per IEEE Std 1003.2-1992 (ISO 9945-2:1993). This is not
+enabled by default as it causes problems with parsing of, for example,
+date and time strings with leading zeroes.
+
+Sequences of digits indicating a numeric base such as the `*08*&#39;
+component in `*08#77*&#39; are always interpreted as decimal, regardless
+of leading zeroes.</dd>
+<dt>
+<strong>PIPE_FAIL</strong>
+</dt>
+<dd>By default, when a pipeline exits the exit status
+recorded by the shell and returned by the shell variable <strong>$?</strong> reflects
+that of the rightmost element of a pipeline. If this option is set,
+the exit status instead reflects the status of the rightmost element
+of the pipeline that was non-zero, or zero if all elements exited with
+zero status.</dd>
+<dt>
+<strong>SOURCE_TRACE</strong>
+</dt>
+<dd>If set, zsh will print an informational message
+announcing the name of each file it loads. The format of the output is
+similar to that for the <strong>XTRACE</strong> option, with the message
+<strong>&lt;sourcetrace&gt;</strong>. A file may be loaded by the shell itself when it
+starts up and shuts down (<strong>Startup/Shutdown Files</strong>) or by the use of
+the `*source*&#39; and `*dot*&#39; builtin commands.</dd>
+<dt>
+<strong>TYPESET_SILENT</strong>
+</dt>
+<dd>If this is unset, executing any of the `*typeset*&#39;
+family of commands with no options and a list of parameters that have
+no values to be assigned but already exist will display the value of
+the parameter. If the option is set, they will only be shown when
+parameters are selected with the `*-m*&#39; option. The option `*-p*&#39; is
+available whether or not the option is set.</dd>
+<dt>
+<strong>TYPESET_TO_UNSET</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>When declaring a new parameter with any
+of the `*typeset*&#39; family of related commands, the parameter remains
+unset unless and until a value is explicity assigned to it, either in
+the `*typeset*&#39; command itself or as a later assignment statement.</dd>
+<dt>
+<strong>VERBOSE</strong> (<strong>-v</strong>, ksh: <strong>-v</strong>)
+</dt>
+<dd>Print shell input lines as they are
+read.</dd>
+<dt>
+<strong>XTRACE</strong> (<strong>-x</strong>, ksh: <strong>-x</strong>)
+</dt>
+<dd>Print commands and their arguments as
+they are executed. The output is preceded by the value of <strong>$PS4</strong>,
+formatted as described in the section EXPANSION OF PROMPT SEQUENCES in
+/zshmisc/(1).</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+Shell Emulation
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<p><strong>APPEND_CREATE</strong> &lt;K&gt; &lt;S&gt; This option only applies when <strong>NO_CLOBBER</strong>
+(-<strong>C</strong>) is in effect.</p>
+<blockquote>
+<p>If this option is not set, the shell will report an error when a append
+redirection (<strong>&gt;&gt;</strong>) is used on a file that does not already exists (the
+traditional zsh behaviour of <strong>NO_CLOBBER</strong>). If the option is set, no
+error is reported (POSIX behaviour).</p>
+</blockquote>
+<dl>
+<dt>
+<strong>BASH_REMATCH</strong>
+</dt>
+<dd>When set, matches performed with the <strong>=~</strong> operator
+will set the <strong>BASH_REMATCH</strong> array variable, instead of the default
+<strong>MATCH</strong> and <strong>match</strong> variables. The first element of the <strong>BASH_REMATCH</strong>
+array will contain the entire matched text and subsequent elements
+will contain extracted substrings. This option makes more sense when
+<strong>KSH_ARRAYS</strong> is also set, so that the entire matched portion is stored
+at index 0 and the first substring is at index 1. Without this option,
+the <strong>MATCH</strong> variable contains the entire matched text and the <strong>match</strong>
+array variable contains substrings.</dd>
+<dt>
+<strong>BSD_ECHO</strong> &lt;S&gt;
+</dt>
+<dd>Make the <strong>echo</strong> builtin compatible with the BSD
+/echo/(1) command. This disables backslashed escape sequences in echo
+strings unless the <strong>-e</strong> option is specified.</dd>
+<dt>
+<strong>CONTINUE_ON_ERROR</strong>
+</dt>
+<dd>If a fatal error is encountered (see the
+section ERRORS in /zshmisc/(1)), and the code is running in a script,
+the shell will resume execution at the next statement in the script at
+the top level, in other words outside all functions or shell
+constructs such as loops and conditions. This mimics the behaviour of
+interactive shells, where the shell returns to the line editor to read
+a new command; it was the normal behaviour in versions of zsh before
+5.0.1.</dd>
+<dt>
+<strong>CSH_JUNKIE_HISTORY</strong> &lt;C&gt;
+</dt>
+<dd>A history reference without an event
+specifier will always refer to the previous command. Without this
+option, such a history reference refers to the same event as the
+previous history reference on the current command line, defaulting to
+the previous command.</dd>
+<dt>
+<strong>CSH_JUNKIE_LOOPS</strong> &lt;C&gt;
+</dt>
+<dd>Allow loop bodies to take the form `/list/*;
+end*&#39; instead of `*do <strong><em>list</em></strong>; done*&#39;.</dd>
+<dt>
+<strong>CSH_JUNKIE_QUOTES</strong> &lt;C&gt;
+</dt>
+<dd>Changes the rules for single- and
+double-quoted text to match that of <strong>csh</strong>. These require that embedded
+newlines be preceded by a backslash; unescaped newlines will cause an
+error message. In double-quoted strings, it is made impossible to
+escape `*$*&#39;, `*`*&#39; or `*&#34;<strong>&#39; (and `</strong>\*&#39; itself no longer needs
+escaping). Command substitutions are only expanded once, and cannot be
+nested.</dd>
+<dt>
+<strong>CSH_NULLCMD</strong> &lt;C&gt;
+</dt>
+<dd>Do not use the values of <strong>NULLCMD</strong> and
+<strong>READNULLCMD</strong> when running redirections with no command. This make
+such redirections fail (see the section `Redirection&#39;).</dd>
+<dt>
+<strong>KSH_ARRAYS</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>Emulate <strong>ksh</strong> array handling as closely as
+possible. If this option is set, array elements are numbered from
+zero, an array parameter without subscript refers to the first element
+instead of the whole array, and braces are required to delimit a
+subscript (`*${path[2]}*&#39; rather than just `*$path[2]*&#39;) or to apply
+modifiers to any parameter (`*${PWD:h}*&#39; rather than `*$PWD:h*&#39;).</dd>
+<dt>
+<strong>KSH_AUTOLOAD</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>Emulate <strong>ksh</strong> function autoloading. This
+means that when a function is autoloaded, the corresponding file is
+merely executed, and must define the function itself. (By default, the
+function is defined to the contents of the file. However, the most
+common <strong>ksh</strong>-style case - of the file containing only a simple
+definition of the function - is always handled in the <strong>ksh</strong>-compatible
+manner.)</dd>
+<dt>
+<strong>KSH_OPTION_PRINT</strong> &lt;K&gt;
+</dt>
+<dd>Alters the way options settings are printed:
+instead of separate lists of set and unset options, all options are
+shown, marked `on&#39; if they are in the non-default state, `off&#39;
+otherwise.</dd>
+<dt>
+<strong>KSH_TYPESET</strong>
+</dt>
+<dd>This option is now obsolete: a better appropximation
+to the behaviour of other shells is obtained with the reserved word
+interface to <strong>declare</strong>, <strong>export</strong>, <strong>float</strong>, <strong>integer</strong>, <strong>local</strong>,
+<strong>readonly</strong> and <strong>typeset</strong>. Note that the option is only applied when
+the reserved word interface is <em>not</em> in use.
+
+Alters the way arguments to the <strong>typeset</strong> family of commands,
+including <strong>declare</strong>, <strong>export</strong>, <strong>float</strong>, <strong>integer</strong>, <strong>local</strong> and
+<strong>readonly</strong>, are processed. Without this option, zsh will perform
+normal word splitting after command and parameter expansion in
+arguments of an assignment; with it, word splitting does not take
+place in those cases.</dd>
+<dt>
+<strong>KSH_ZERO_SUBSCRIPT</strong>
+</dt>
+<dd>
+<p>Treat use of a subscript of value zero in
+array or string expressions as a reference to the first element, i.e.
+the element that usually has the subscript 1. Ignored if <strong>KSH_ARRAYS</strong>
+is also set.</p>
+<p>
+If neither this option nor <strong>KSH_ARRAYS</strong> is set, accesses to an element
+of an array or string with subscript zero return an empty element or
+string, while attempts to set element zero of an array or string are
+treated as an error. However, attempts to set an otherwise valid
+subscript range that includes zero will succeed. For example, if
+<strong>KSH_ZERO_SUBSCRIPT</strong> is not set,</p>
+<blockquote>
+<pre class="example">
+array[0]=(element)
+</pre>
+</blockquote>
+<p>
+is an error, while</p>
+<blockquote>
+<pre class="example">
+array[0,1]=(element)
+</pre>
+</blockquote>
+<p>
+is not and will replace the first element of the array.</p>
+<p>
+This option is for compatibility with older versions of the shell and
+is not recommended in new code.</p>
+</dd>
+<dt>
+<strong>POSIX_ALIASES</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>When this option is set, reserved words are
+not candidates for alias expansion: it is still possible to declare
+any of them as an alias, but the alias will never be expanded.
+Reserved words are described in the section RESERVED WORDS in
+/zshmisc/(1).
+
+Alias expansion takes place while text is being read; hence when this
+option is set it does not take effect until the end of any function or
+other piece of shell code parsed as one unit. Note this may cause
+differences from other shells even when the option is in effect. For
+example, when running a command with `*zsh -c*&#39;, or even `*zsh -o
+posixaliases -c*&#39;, the entire command argument is parsed as one unit,
+so aliases defined within the argument are not available even in later
+lines. If in doubt, avoid use of aliases in non-interactive code.</dd>
+<dt>
+<strong>POSIX_ARGZERO</strong>
+</dt>
+<dd>
+<p>This option may be used to temporarily disable
+<strong>FUNCTION_ARGZERO</strong> and thereby restore the value of <strong>$0</strong> to the name
+used to invoke the shell (or as set by the <strong>-c</strong> command line option).
+For compatibility with previous versions of the shell, emulations use
+<strong>NO_FUNCTION_ARGZERO</strong> instead of <strong>POSIX_ARGZERO</strong>, which may result in
+unexpected scoping of <strong>$0</strong> if the emulation mode is changed inside a
+function or script. To avoid this, explicitly enable <strong>POSIX_ARGZERO</strong>
+in the <strong>emulate</strong> command:</p>
+<blockquote>
+<pre class="example">
+emulate sh -o POSIX_ARGZERO
+</pre>
+</blockquote>
+<p>
+Note that <strong>NO_POSIX_ARGZERO</strong> has no effect unless <strong>FUNCTION_ARGZERO</strong>
+was already enabled upon entry to the function or script.</p>
+</dd>
+<dt>
+<strong>POSIX_BUILTINS</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>When this option is set the <strong>command</strong>
+builtin can be used to execute shell builtin commands. Parameter
+assignments specified before shell functions and special builtins are
+kept after the command completes unless the special builtin is
+prefixed with the <strong>command</strong> builtin. Special builtins are <strong>.</strong>, <strong>:</strong>,
+<strong>break</strong>, <strong>continue</strong>, <strong>declare</strong>, <strong>eval</strong>, <strong>exit</strong>, <strong>export</strong>, <strong>integer</strong>,
+<strong>local</strong>, <strong>readonly</strong>, <strong>return</strong>, <strong>set</strong>, <strong>shift</strong>, <strong>source</strong>, <strong>times</strong>,
+<strong>trap</strong> and <strong>unset</strong>.
+
+In addition, various error conditions associated with the above
+builtins or <strong>exec</strong> cause a non-interactive shell to exit and an
+interactive shell to return to its top-level processing.
+
+Furthermore, functions and shell builtins are not executed after an
+<strong>exec</strong> prefix; the command to be executed must be an external command
+found in the path.
+
+Furthermore, the <strong>getopts</strong> builtin behaves in a POSIX-compatible
+fashion in that the associated variable <strong>OPTIND</strong> is not made local to
+functions, and its value is calculated differently to match other
+shells.
+
+Moreover, the warning and special exit code from <strong>[[ -o
+*/non_existent_option/</strong> ]]* are suppressed.</dd>
+<dt>
+<strong>POSIX_IDENTIFIERS</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>When this option is set, only the ASCII
+characters <strong>a</strong> to <strong>z</strong>, <strong>A</strong> to <strong>Z</strong>, <strong>0</strong> to <strong>9</strong> and <strong>_</strong> may be used in
+identifiers (names of shell parameters and modules).
+
+In addition, setting this option limits the effect of parameter
+substitution with no braces, so that the expression <strong>$#</strong> is treated as
+the parameter <strong>$#</strong> even if followed by a valid parameter name. When it
+is unset, zsh allows expressions of the form *$#*/name/ to refer to
+the length of *$*/name/, even for special variables, for example in
+expressions such as <strong>$#-</strong> and <strong>$#*</strong>.
+
+Another difference is that with the option set assignment to an unset
+variable in arithmetic context causes the variable to be created as a
+scalar rather than a numeric type. So after `*unset t; (( t = 3* ))&#39;.
+without <strong>POSIX_IDENTIFIERS</strong> set <strong>t</strong> has integer type, while with it
+set it has scalar type.
+
+When the option is unset and multibyte character support is enabled
+(i.e. it is compiled in and the option <strong>MULTIBYTE</strong> is set), then
+additionally any alphanumeric characters in the local character set
+may be used in identifiers. Note that scripts and functions written
+with this feature are not portable, and also that both options must be
+set before the script or function is parsed; setting them during
+execution is not sufficient as the syntax <em>variable/*=*/value</em> has
+already been parsed as a command rather than an assignment.
+
+If multibyte character support is not compiled into the shell this
+option is ignored; all octets with the top bit set may be used in
+identifiers. This is non-standard but is the traditional zsh
+behaviour.</dd>
+<dt>
+<strong>POSIX_STRINGS</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>This option affects processing of quoted
+strings. Currently it only affects the behaviour of null characters,
+i.e. character 0 in the portable character set corresponding to US
+ASCII.
+
+When this option is not set, null characters embedded within strings
+of the form <strong>$&#39;*/…/</strong>&#39;* are treated as ordinary characters. The
+entire string is maintained within the shell and output to files where
+necessary, although owing to restrictions of the library interface the
+string is truncated at the null character in file names, environment
+variables, or in arguments to external programs.
+
+When this option is set, the <strong>$&#39;*/…/</strong>&#39;* expression is truncated at
+the null character. Note that remaining parts of the same string
+beyond the termination of the quotes are not truncated.
+
+For example, the command line argument <strong>a$&#39;b\0c&#39;d</strong> is treated with the
+option off as the characters <strong>a</strong>, <strong>b</strong>, null, <strong>c</strong>, <strong>d</strong>, and with the
+option on as the characters <strong>a</strong>, <strong>b</strong>, <strong>d</strong>.</dd>
+<dt>
+<strong>POSIX_TRAPS</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>When this option is set, the usual zsh
+behaviour of executing traps for <strong>EXIT</strong> on exit from shell functions
+is suppressed. In that case, manipulating <strong>EXIT</strong> traps always alters
+the global trap for exiting the shell; the <strong>LOCAL_TRAPS</strong> option is
+ignored for the <strong>EXIT</strong> trap.
+
+Also, a <strong>return</strong> statement executed in a trap with no argument passes
+back from the function the value from the surrounding context, not
+from code executed within the trap.
+
+Furthermore, if a trap is set to be ignored, this state persists when
+a subshell is entered. Without the option, the trap would be reset to
+its default state at this point.</dd>
+<dt>
+<strong>SH_FILE_EXPANSION</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>Perform filename expansion (e.g., <strong>~</strong>
+expansion) <em>before</em> parameter expansion, command substitution,
+arithmetic expansion and brace expansion. If this option is unset, it
+is performed <em>after</em> brace expansion, so things like `*~$USERNAME*&#39;
+and `*~{pfalstad,rc}*&#39; will work.</dd>
+<dt>
+<strong>SH_NULLCMD</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>Do not use the values of <strong>NULLCMD</strong> and
+<strong>READNULLCMD</strong> when doing redirections, use `*:*&#39; instead (see the
+section `Redirection&#39;).</dd>
+<dt>
+<strong>SH_OPTION_LETTERS</strong> &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>If this option is set the shell tries
+to interpret single letter options (which are used with <strong>set</strong> and
+<strong>setopt</strong>) like <strong>ksh</strong> does. This also affects the value of the <strong>-</strong>
+special parameter.</dd>
+<dt>
+<strong>SH_WORD_SPLIT</strong> (<strong>-y</strong>) &lt;K&gt; &lt;S&gt;
+</dt>
+<dd>Causes field splitting to be
+performed on unquoted parameter expansions. Note that this option has
+nothing to do with word splitting. (See /zshexpn/(1).)</dd>
+<dt>
+<strong>TRAPS_ASYNC</strong>
+</dt>
+<dd>While waiting for a program to exit, handle signals
+and run traps immediately. Otherwise the trap is run after a child
+process has exited. Note this does not affect the point at which traps
+are run for any case other than when the shell is waiting for a child
+process.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-3">
+<h3 id="headline-14">
+Shell State
+</h3>
+<div id="outline-text-headline-14" class="outline-text-3">
+<p><strong>INTERACTIVE</strong> (<strong>-i</strong>, ksh: <strong>-i</strong>) This is an interactive shell. This
+option is set upon initialisation if the standard input is a tty and
+commands are being read from standard input. (See the discussion of
+<strong>SHIN_STDIN</strong>.) This heuristic may be overridden by specifying a state
+for this option on the command line. The value of this option can only
+be changed via flags supplied at invocation of the shell. It cannot be
+changed once zsh is running.</p>
+<dl>
+<dt>
+<strong>LOGIN</strong> (<strong>-l</strong>, ksh: <strong>-l</strong>)
+</dt>
+<dd>This is a login shell. If this option is
+not explicitly set, the shell becomes a login shell if the first
+character of the <strong>argv[0]</strong> passed to the shell is a `*-*&#39;.</dd>
+<dt>
+<strong>PRIVILEGED</strong> (<strong>-p</strong>, ksh: <strong>-p</strong>)
+</dt>
+<dd>
+<p>Turn on privileged mode. Typically
+this is used when script is to be run with elevated privileges. This
+should be done as follows directly with the <strong>-p</strong> option to zsh so that
+it takes effect during startup.</p>
+<blockquote>
+<pre class="example">
+#!/bin/zsh -p
+</pre>
+</blockquote>
+<p>
+The option is enabled automatically on startup if the effective user
+(group) ID is not equal to the real user (group) ID. In this case,
+turning the option off causes the effective user and group IDs to be
+set to the real user and group IDs. Be aware that if that fails the
+shell may be running with different IDs than was intended so a script
+should check for failure and act accordingly, for example:</p>
+<blockquote>
+<pre class="example">
+unsetopt privileged || exit
+</pre>
+</blockquote>
+<p>
+The <strong>PRIVILEGED</strong> option disables sourcing user startup files. If zsh
+is invoked as `*sh*&#39; or `*ksh*&#39; with this option set,
+<strong>/etc/suid_profile</strong> is sourced (after <strong>/etc/profile</strong> on interactive
+shells). Sourcing <strong>~/.profile</strong> is disabled and the contents of the
+<strong>ENV</strong> variable is ignored. This option cannot be changed using the
+<strong>-m</strong> option of <strong>setopt</strong> and <strong>unsetopt</strong>, and changing it inside a
+function always changes it globally regardless of the <strong>LOCAL_OPTIONS</strong>
+option.</p>
+</dd>
+<dt>
+<strong>RESTRICTED</strong> (<strong>-r</strong>)
+</dt>
+<dd>Enables restricted mode. This option cannot be
+changed using <strong>unsetopt</strong>, and setting it inside a function always
+changes it globally regardless of the <strong>LOCAL_OPTIONS</strong> option. See the
+section `Restricted Shell&#39;.</dd>
+<dt>
+<strong>SHIN_STDIN</strong> (<strong>-s</strong>, ksh: <strong>-s</strong>)
+</dt>
+<dd>Commands are being read from the
+standard input. Commands are read from standard input if no command is
+specified with <strong>-c</strong> and no file of commands is specified. If
+<strong>SHIN_STDIN</strong> is set explicitly on the command line, any argument that
+would otherwise have been taken as a file to run will instead be
+treated as a normal positional parameter. Note that setting or
+unsetting this option on the command line does not necessarily affect
+the state the option will have while the shell is running - that is
+purely an indicator of whether or not commands are <em>actually</em> being
+read from standard input. The value of this option can only be changed
+via flags supplied at invocation of the shell. It cannot be changed
+once zsh is running.</dd>
+<dt>
+<strong>SINGLE_COMMAND</strong> (<strong>-t</strong>, ksh: <strong>-t</strong>)
+</dt>
+<dd>If the shell is reading from
+standard input, it exits after a single command has been executed.
+This also makes the shell non-interactive, unless the <strong>INTERACTIVE</strong>
+option is explicitly set on the command line. The value of this option
+can only be changed via flags supplied at invocation of the shell. It
+cannot be changed once zsh is running.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+Zle
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<p><strong>BEEP</strong> (<strong>+B</strong>) &lt;D&gt; Beep on error in ZLE.</p>
+<dl>
+<dt>
+<strong>COMBINING_CHARS</strong>
+</dt>
+<dd>Assume that the terminal displays combining
+characters correctly. Specifically, if a base alphanumeric character
+is followed by one or more zero-width punctuation characters, assume
+that the zero-width characters will be displayed as modifications to
+the base character within the same width. Not all terminals handle
+this. If this option is not set, zero-width characters are displayed
+separately with special mark-up.
+
+If this option is set, the pattern test <strong><a href=":WORD:">:WORD:</a></strong> matches a
+zero-width punctuation character on the assumption that it will be
+used as part of a word in combination with a word character. Otherwise
+the base shell does not handle combining characters specially.</dd>
+<dt>
+<strong>EMACS</strong>
+</dt>
+<dd>If ZLE is loaded, turning on this option has the equivalent
+effect of `*bindkey -e*&#39;. In addition, the VI option is unset. Turning
+it off has no effect. The option setting is not guaranteed to reflect
+the current keymap. This option is provided for compatibility;
+<strong>bindkey</strong> is the recommended interface.</dd>
+<dt>
+<strong>OVERSTRIKE</strong>
+</dt>
+<dd>Start up the line editor in overstrike mode.</dd>
+<dt>
+<strong>SINGLE_LINE_ZLE</strong> (<strong>-M</strong>) &lt;K&gt;
+</dt>
+<dd>Use single-line command line editing
+instead of multi-line.
+
+Note that although this is on by default in ksh emulation it only
+provides superficial compatibility with the ksh line editor and
+reduces the effectiveness of the zsh line editor. As it has no effect
+on shell syntax, many users may wish to disable this option when using
+ksh emulation interactively.</dd>
+<dt>
+<strong>VI</strong>
+</dt>
+<dd>If ZLE is loaded, turning on this option has the equivalent
+effect of `*bindkey -v*&#39;. In addition, the EMACS option is unset.
+Turning it off has no effect. The option setting is not guaranteed to
+reflect the current keymap. This option is provided for compatibility;
+<strong>bindkey</strong> is the recommended interface.</dd>
+<dt>
+<strong>ZLE</strong> (<strong>-Z</strong>)
+</dt>
+<dd>Use the zsh line editor. Set by default in interactive
+shells connected to a terminal.</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+OPTION ALIASES
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>Some options have alternative names. These aliases are never used for
+output, but can be used just like normal option names when specifying
+options to the shell.</p>
+<p>
+<strong>BRACE_EXPAND</strong> /NO_/*IGNORE_BRACES* (ksh and bash compatibility)</p>
+<dl>
+<dt>
+<strong>DOT_GLOB</strong>
+</dt>
+<dd><strong>GLOB_DOTS</strong> (bash compatibility)</dd>
+<dt>
+<strong>HASH_ALL</strong>
+</dt>
+<dd><strong>HASH_CMDS</strong> (bash compatibility)</dd>
+<dt>
+<strong>HIST_APPEND</strong>
+</dt>
+<dd><strong>APPEND_HISTORY</strong> (bash compatibility)</dd>
+<dt>
+<strong>HIST_EXPAND</strong>
+</dt>
+<dd><strong>BANG_HIST</strong> (bash compatibility)</dd>
+<dt>
+<strong>LOG</strong>
+</dt>
+<dd>/NO_/*HIST_NO_FUNCTIONS* (ksh compatibility)</dd>
+<dt>
+<strong>MAIL_WARN</strong>
+</dt>
+<dd><strong>MAIL_WARNING</strong> (bash compatibility)</dd>
+<dt>
+<strong>ONE_CMD</strong>
+</dt>
+<dd><strong>SINGLE_COMMAND</strong> (bash compatibility)</dd>
+<dt>
+<strong>PHYSICAL</strong>
+</dt>
+<dd><strong>CHASE_LINKS</strong> (ksh and bash compatibility)</dd>
+<dt>
+<strong>PROMPT_VARS</strong>
+</dt>
+<dd><strong>PROMPT_SUBST</strong> (bash compatibility)</dd>
+<dt>
+<strong>STDIN</strong>
+</dt>
+<dd><strong>SHIN_STDIN</strong> (ksh compatibility)</dd>
+<dt>
+<strong>TRACK_ALL</strong>
+</dt>
+<dd><strong>HASH_CMDS</strong> (ksh compatibility)</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
+<h2 id="headline-17">
+SINGLE LETTER OPTIONS
+</h2>
+<div id="outline-text-headline-17" class="outline-text-2">
+<div id="outline-container-headline-18" class="outline-3">
+<h3 id="headline-18">
+Default set
+</h3>
+<div id="outline-text-headline-18" class="outline-text-3">
+<dl>
+<dt>
+<strong>-0</strong>
+</dt>
+<dd>CORRECT</dd>
+<dt>
+<strong>-1</strong>
+</dt>
+<dd>PRINT_EXIT_VALUE</dd>
+<dt>
+<strong>-2</strong>
+</dt>
+<dd>/NO_/BAD_PATTERN</dd>
+<dt>
+<strong>-3</strong>
+</dt>
+<dd>/NO_/NOMATCH</dd>
+<dt>
+<strong>-4</strong>
+</dt>
+<dd>GLOB_DOTS</dd>
+<dt>
+<strong>-5</strong>
+</dt>
+<dd>NOTIFY</dd>
+<dt>
+<strong>-6</strong>
+</dt>
+<dd>BG_NICE</dd>
+<dt>
+<strong>-7</strong>
+</dt>
+<dd>IGNORE_EOF</dd>
+<dt>
+<strong>-8</strong>
+</dt>
+<dd>MARK_DIRS</dd>
+<dt>
+<strong>-9</strong>
+</dt>
+<dd>AUTO_LIST</dd>
+<dt>
+<strong>-B</strong>
+</dt>
+<dd>/NO_/BEEP</dd>
+<dt>
+<strong>-C</strong>
+</dt>
+<dd>/NO_/CLOBBER</dd>
+<dt>
+<strong>-D</strong>
+</dt>
+<dd>PUSHD_TO_HOME</dd>
+<dt>
+<strong>-E</strong>
+</dt>
+<dd>PUSHD_SILENT</dd>
+<dt>
+<strong>-F</strong>
+</dt>
+<dd>/NO_/GLOB</dd>
+<dt>
+<strong>-G</strong>
+</dt>
+<dd>NULL_GLOB</dd>
+<dt>
+<strong>-H</strong>
+</dt>
+<dd>RM_STAR_SILENT</dd>
+<dt>
+<strong>-I</strong>
+</dt>
+<dd>IGNORE_BRACES</dd>
+<dt>
+<strong>-J</strong>
+</dt>
+<dd>AUTO_CD</dd>
+<dt>
+<strong>-K</strong>
+</dt>
+<dd>/NO_/BANG_HIST</dd>
+<dt>
+<strong>-L</strong>
+</dt>
+<dd>SUN_KEYBOARD_HACK</dd>
+<dt>
+<strong>-M</strong>
+</dt>
+<dd>SINGLE_LINE_ZLE</dd>
+<dt>
+<strong>-N</strong>
+</dt>
+<dd>AUTO_PUSHD</dd>
+<dt>
+<strong>-O</strong>
+</dt>
+<dd>CORRECT_ALL</dd>
+<dt>
+<strong>-P</strong>
+</dt>
+<dd>RC_EXPAND_PARAM</dd>
+<dt>
+<strong>-Q</strong>
+</dt>
+<dd>PATH_DIRS</dd>
+<dt>
+<strong>-R</strong>
+</dt>
+<dd>LONG_LIST_JOBS</dd>
+<dt>
+<strong>-S</strong>
+</dt>
+<dd>REC_EXACT</dd>
+<dt>
+<strong>-T</strong>
+</dt>
+<dd>CDABLE_VARS</dd>
+<dt>
+<strong>-U</strong>
+</dt>
+<dd>MAIL_WARNING</dd>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>/NO_/PROMPT_CR</dd>
+<dt>
+<strong>-W</strong>
+</dt>
+<dd>AUTO_RESUME</dd>
+<dt>
+<strong>-X</strong>
+</dt>
+<dd>LIST_TYPES</dd>
+<dt>
+<strong>-Y</strong>
+</dt>
+<dd>MENU_COMPLETE</dd>
+<dt>
+<strong>-Z</strong>
+</dt>
+<dd>ZLE</dd>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>ALL_EXPORT</dd>
+<dt>
+<strong>-e</strong>
+</dt>
+<dd>ERR_EXIT</dd>
+<dt>
+<strong>-f</strong>
+</dt>
+<dd>/NO_/RCS</dd>
+<dt>
+<strong>-g</strong>
+</dt>
+<dd>HIST_IGNORE_SPACE</dd>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>HIST_IGNORE_DUPS</dd>
+<dt>
+<strong>-i</strong>
+</dt>
+<dd>INTERACTIVE</dd>
+<dt>
+<strong>-k</strong>
+</dt>
+<dd>INTERACTIVE_COMMENTS</dd>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>LOGIN</dd>
+<dt>
+<strong>-m</strong>
+</dt>
+<dd>MONITOR</dd>
+<dt>
+<strong>-n</strong>
+</dt>
+<dd>/NO_/EXEC</dd>
+<dt>
+<strong>-p</strong>
+</dt>
+<dd>PRIVILEGED</dd>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>RESTRICTED</dd>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>SHIN_STDIN</dd>
+<dt>
+<strong>-t</strong>
+</dt>
+<dd>SINGLE_COMMAND</dd>
+<dt>
+<strong>-u</strong>
+</dt>
+<dd>/NO_/UNSET</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>VERBOSE</dd>
+<dt>
+<strong>-w</strong>
+</dt>
+<dd>CHASE_LINKS</dd>
+<dt>
+<strong>-x</strong>
+</dt>
+<dd>XTRACE</dd>
+<dt>
+<strong>-y</strong>
+</dt>
+<dd>SH_WORD_SPLIT</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-19" class="outline-3">
+<h3 id="headline-19">
+sh/ksh emulation set
+</h3>
+<div id="outline-text-headline-19" class="outline-text-3">
+<dl>
+<dt>
+<strong>-C</strong>
+</dt>
+<dd>/NO_/CLOBBER</dd>
+<dt>
+<strong>-T</strong>
+</dt>
+<dd>TRAPS_ASYNC</dd>
+<dt>
+<strong>-X</strong>
+</dt>
+<dd>MARK_DIRS</dd>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>ALL_EXPORT</dd>
+<dt>
+<strong>-b</strong>
+</dt>
+<dd>NOTIFY</dd>
+<dt>
+<strong>-e</strong>
+</dt>
+<dd>ERR_EXIT</dd>
+<dt>
+<strong>-f</strong>
+</dt>
+<dd>/NO_/GLOB</dd>
+<dt>
+<strong>-i</strong>
+</dt>
+<dd>INTERACTIVE</dd>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>LOGIN</dd>
+<dt>
+<strong>-m</strong>
+</dt>
+<dd>MONITOR</dd>
+<dt>
+<strong>-n</strong>
+</dt>
+<dd>/NO_/EXEC</dd>
+<dt>
+<strong>-p</strong>
+</dt>
+<dd>PRIVILEGED</dd>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>RESTRICTED</dd>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>SHIN_STDIN</dd>
+<dt>
+<strong>-t</strong>
+</dt>
+<dd>SINGLE_COMMAND</dd>
+<dt>
+<strong>-u</strong>
+</dt>
+<dd>/NO_/UNSET</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>VERBOSE</dd>
+<dt>
+<strong>-x</strong>
+</dt>
+<dd>XTRACE</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-3">
+<h3 id="headline-20">
+Also note
+</h3>
+<div id="outline-text-headline-20" class="outline-text-3">
+<dl>
+<dt>
+<strong>-A</strong>
+</dt>
+<dd>Used by <strong>set</strong> for setting arrays</dd>
+<dt>
+<strong>-b</strong>
+</dt>
+<dd>Used on the command line to specify end of option processing</dd>
+<dt>
+<strong>-c</strong>
+</dt>
+<dd>Used on the command line to specify a single command</dd>
+<dt>
+<strong>-m</strong>
+</dt>
+<dd>Used by <strong>setopt</strong> for pattern-matching option setting</dd>
+<dt>
+<strong>-o</strong>
+</dt>
+<dd>Used in all places to allow use of long option names</dd>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>Used by <strong>set</strong> to sort positional parameters</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

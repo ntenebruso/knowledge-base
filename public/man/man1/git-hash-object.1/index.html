@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-hash-object.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-hash-object.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-hash-object - Compute object ID and optionally create an object from
+a file</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git hash-object [-t &lt;type&gt;] [-w] [--path=&lt;file&gt; | --no-filters]
+                [--stdin [--literally]] [--] &lt;file&gt;...
+git hash-object [-t &lt;type&gt;] [-w] --stdin-paths [--no-filters]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Computes the object ID value for an object with specified type with the
+contents of the named file (which can be outside of the work tree), and
+optionally writes the resulting object into the object database. Reports
+its object ID to its standard output. When &lt;type&gt; is not specified, it
+defaults to &#34;blob&#34;.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-t &lt;type&gt;</p>
+<blockquote>
+<p>Specify the type of object to be created (default: &#34;blob&#34;). Possible
+values are <strong>commit</strong>, <strong>tree</strong>, <strong>blob</strong>, and <strong>tag</strong>.</p>
+</blockquote>
+<p>
+-w</p>
+<blockquote>
+<p>Actually write the object into the object database.</p>
+</blockquote>
+<p>
+–stdin</p>
+<blockquote>
+<p>Read the object from standard input instead of from a file.</p>
+</blockquote>
+<p>
+–stdin-paths</p>
+<blockquote>
+<p>Read file names from the standard input, one per line, instead of from
+the command-line.</p>
+</blockquote>
+<p>
+–path</p>
+<blockquote>
+<p>Hash object as if it were located at the given path. The location of the
+file does not directly influence the hash value, but the path is used to
+determine which Git filters should be applied to the object before it
+can be placed in the object database. As a result of applying filters,
+the actual blob put into the object database may differ from the given
+file. This option is mainly useful for hashing temporary files located
+outside of the working directory or files read from stdin.</p>
+</blockquote>
+<p>
+–no-filters</p>
+<blockquote>
+<p>Hash the contents as is, ignoring any input filter that would have been
+chosen by the attributes mechanism, including the end-of-line
+conversion. If the file is read from standard input then this is always
+implied, unless the <strong>–path</strong> option is given.</p>
+</blockquote>
+<p>
+–literally</p>
+<blockquote>
+<p>Allow <strong>–stdin</strong> to hash any garbage into a loose object which might not
+otherwise pass standard object parsing or git-fsck checks. Useful for
+stress-testing Git itself or reproducing characteristics of corrupt or
+bogus objects encountered in the wild.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+GIT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

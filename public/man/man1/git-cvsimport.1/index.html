@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-cvsimport.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-cvsimport.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-cvsimport - Salvage your data out of another SCM people love to hate</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git cvsimport [-o &lt;branch-for-HEAD&gt;] [-h] [-v] [-d &lt;CVSROOT&gt;]
+              [-A &lt;author-conv-file&gt;] [-p &lt;options-for-cvsps&gt;] [-P &lt;file&gt;]
+              [-C &lt;git-repository&gt;] [-z &lt;fuzz&gt;] [-i] [-k] [-u] [-s &lt;subst&gt;]
+              [-a] [-m] [-M &lt;regex&gt;] [-S &lt;regex&gt;] [-L &lt;commit-limit&gt;]
+              [-r &lt;remote&gt;] [-R] [&lt;CVS-module&gt;]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>WARNING:</strong> <strong>git cvsimport</strong> uses cvsps version 2, which is considered
+deprecated; it does not work with cvsps version 3 and later. If you are
+performing a one-shot import of a CVS repository consider using
+<strong>cvs2git</strong>[1] or <strong>cvs-fast-export</strong>[2].</p>
+<p>
+Imports a CVS repository into Git. It will either create a new
+repository, or incrementally import into an existing one.</p>
+<p>
+Splitting the CVS log into patch sets is done by <em>cvsps</em>. At least
+version 2.1 is required.</p>
+<p>
+<strong>WARNING:</strong> for certain situations the import leads to incorrect results.
+Please see the section ISSUES for further reference.</p>
+<p>
+You should <strong>never</strong> do any work of your own on the branches that are
+created by <em>git cvsimport</em>. By default initial import will create and
+populate a &#34;master&#34; branch from the CVS repository&#39;s main branch which
+you&#39;re free to work with; after that, you need to <em>git merge</em>
+incremental imports, or any CVS branches, yourself. It is advisable to
+specify a named remote via -r to separate and protect the incoming
+branches.</p>
+<p>
+If you intend to set up a shared public repository that all developers
+can read/write, or if you want to use *git-cvsserver*(1), then you
+probably want to make a bare clone of the imported repository, and use
+the clone as the shared repository. See *gitcvs-migration*(7).</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-v</p>
+<blockquote>
+<p>Verbosity: let <em>cvsimport</em> report what it is doing.</p>
+</blockquote>
+<p>
+-d &lt;CVSROOT&gt;</p>
+<blockquote>
+<p>The root of the CVS archive. May be local (a simple path) or remote;
+currently, only the :local:, :ext: and :pserver: access methods are
+supported. If not given, <em>git cvsimport</em> will try to read it from
+<strong>CVS/Root</strong>. If no such file exists, it checks for the <strong>CVSROOT</strong>
+environment variable.</p>
+</blockquote>
+<p>
+&lt;CVS-module&gt;</p>
+<blockquote>
+<p>The CVS module you want to import. Relative to &lt;CVSROOT&gt;. If not given,
+<em>git cvsimport</em> tries to read it from <strong>CVS/Repository</strong>.</p>
+</blockquote>
+<p>
+-C &lt;target-dir&gt;</p>
+<blockquote>
+<p>The Git repository to import to. If the directory doesn&#39;t exist, it will
+be created. Default is the current directory.</p>
+</blockquote>
+<p>
+-r &lt;remote&gt;</p>
+<blockquote>
+<p>The Git remote to import this CVS repository into. Moves all CVS
+branches into remotes/&lt;remote&gt;/&lt;branch&gt; akin to the way <em>git clone</em> uses
+<em>origin</em> by default.</p>
+</blockquote>
+<p>
+-o &lt;branch-for-HEAD&gt;</p>
+<blockquote>
+<p>When no remote is specified (via -r) the <strong>HEAD</strong> branch from CVS is
+imported to the <em>origin</em> branch within the Git repository, as <strong>HEAD</strong>
+already has a special meaning for Git. When a remote is specified the
+<strong>HEAD</strong> branch is named remotes/&lt;remote&gt;/master mirroring <em>git clone</em>
+behaviour. Use this option if you want to import into a different
+branch.</p>
+<p>
+Use <em>-o master</em> for continuing an import that was initially done by the
+old cvs2git tool.</p>
+</blockquote>
+<p>
+-i</p>
+<blockquote>
+<p>Import-only: don&#39;t perform a checkout after importing. This option
+ensures the working directory and index remain untouched and will not
+create them if they do not exist.</p>
+</blockquote>
+<p>
+-k</p>
+<blockquote>
+<p>Kill keywords: will extract files with <em>-kk</em> from the CVS archive to
+avoid noisy changesets. Highly recommended, but off by default to
+preserve compatibility with early imported trees.</p>
+</blockquote>
+<p>
+-u</p>
+<blockquote>
+<p>Convert underscores in tag and branch names to dots.</p>
+</blockquote>
+<p>
+-s &lt;subst&gt;</p>
+<blockquote>
+<p>Substitute the character &#34;/&#34; in branch names with &lt;subst&gt;</p>
+</blockquote>
+<p>
+-p &lt;options-for-cvsps&gt;</p>
+<blockquote>
+<p>Additional options for cvsps. The options <strong>-u</strong> and <em>-A</em> are implicit and
+should not be used here.</p>
+<p>
+If you need to pass multiple options, separate them with a comma.</p>
+</blockquote>
+<p>
+-z &lt;fuzz&gt;</p>
+<blockquote>
+<p>Pass the timestamp fuzz factor to cvsps, in seconds. If unset, cvsps
+defaults to 300s.</p>
+</blockquote>
+<p>
+-P &lt;cvsps-output-file&gt;</p>
+<blockquote>
+<p>Instead of calling cvsps, read the provided cvsps output file. Useful
+for debugging or when cvsps is being handled outside cvsimport.</p>
+</blockquote>
+<p>
+-m</p>
+<blockquote>
+<p>Attempt to detect merges based on the commit message. This option will
+enable default regexes that try to capture the source branch name from
+the commit message.</p>
+</blockquote>
+<p>
+-M &lt;regex&gt;</p>
+<blockquote>
+<p>Attempt to detect merges based on the commit message with a custom
+regex. It can be used with <strong>-m</strong> to enable the default regexes as well.
+You must escape forward slashes.</p>
+<p>
+The regex must capture the source branch name in $1.</p>
+<p>
+This option can be used several times to provide several detection
+regexes.</p>
+</blockquote>
+<p>
+-S &lt;regex&gt;</p>
+<blockquote>
+<p>Skip paths matching the regex.</p>
+</blockquote>
+<p>
+-a</p>
+<blockquote>
+<p>Import all commits, including recent ones. cvsimport by default skips
+commits that have a timestamp less than 10 minutes ago.</p>
+</blockquote>
+<p>
+-L &lt;limit&gt;</p>
+<blockquote>
+<p>Limit the number of commits imported. Workaround for cases where
+cvsimport leaks memory.</p>
+</blockquote>
+<p>
+-A &lt;author-conv-file&gt;</p>
+<blockquote>
+<p>CVS by default uses the Unix username when writing its commit logs.
+Using this option and an author-conv-file maps the name recorded in CVS
+to author name, e-mail and optional time zone:</p>
+<blockquote>
+<pre class="example">
+        exon=Andreas Ericsson &lt;ae@op5.se&gt;
+        spawn=Simon Pawn &lt;spawn@frog-pond.org&gt; America/Chicago
+</pre>
+</blockquote>
+<p>
+<em>git cvsimport</em> will make it appear as those authors had their
+GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL set properly all along. If a time
+zone is specified, GIT_AUTHOR_DATE will have the corresponding offset
+applied.</p>
+<p>
+For convenience, this data is saved to <strong>$GIT_DIR/cvs-authors</strong> each time
+the <em>-A</em> option is provided and read from that same file each time <em>git
+cvsimport</em> is run.</p>
+<p>
+It is not recommended to use this feature if you intend to export
+changes back to CVS again later with <em>git cvsexportcommit</em>.</p>
+</blockquote>
+<p>
+-R</p>
+<blockquote>
+<p>Generate a <strong>$GIT_DIR/cvs-revisions</strong> file containing a mapping from CVS
+revision numbers to newly-created Git commit IDs. The generated file
+will contain one line for each (filename, revision) pair imported; each
+line will look like</p>
+<blockquote>
+<pre class="example">
+src/widget.c 1.1 1d862f173cdc7325b6fa6d2ae1cfd61fd1b512b7
+</pre>
+</blockquote>
+<p>
+The revision data is appended to the file if it already exists, for use
+when doing incremental imports.</p>
+<p>
+This option may be useful if you have CVS revision numbers stored in
+commit messages, bug-tracking systems, email archives, and the like.</p>
+</blockquote>
+<p>
+-h</p>
+<blockquote>
+<p>Print a short usage message and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OUTPUT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>If <strong>-v</strong> is specified, the script reports what it is doing.</p>
+<p>
+Otherwise, success is indicated the Unix way, i.e. by simply exiting
+with a zero exit status.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+ISSUES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Problems related to timestamps:</p>
+<blockquote>
+<p>·</p>
+<p>
+If timestamps of commits in the CVS repository are not stable enough to
+be used for ordering commits changes may show up in the wrong order.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+If any files were ever &#34;cvs import&#34;ed more than once (e.g., import of
+more than one vendor release) the HEAD contains the wrong content.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+If the timestamp order of different files cross the revision order
+within the commit matching time window the order of commits may be
+wrong.</p>
+</blockquote>
+<p>
+Problems related to branches:</p>
+<blockquote>
+<p>·</p>
+<p>
+Branches on which no commits have been made are not imported.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+All files from the branching point are added to a branch even if never
+added in CVS.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+This applies to files added to the source branch <strong>after</strong> a daughter
+branch was created: if previously no commit was made on the daughter
+branch they will erroneously be added to the daughter branch in git.</p>
+</blockquote>
+<p>
+Problems related to tags:</p>
+<blockquote>
+<p>·</p>
+<p>
+Multiple tags on the same revision are not imported.</p>
+</blockquote>
+<p>
+If you suspect that any of these issues may apply to the repository you
+want to import, consider using cvs2git:</p>
+<blockquote>
+<p>·</p>
+<p>
+cvs2git (part of cvs2svn), <strong><a href="https://subversion.apache.org/">https://subversion.apache.org/</a></strong></p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+GIT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+NOTES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>cvs2git
+
+http://cvs2svn.tigris.org/cvs2git.html</dd>
+<dt>
+2.
+</dt>
+<dd>cvs-fast-export
+
+https://gitlab.com/esr/cvs-fast-export</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

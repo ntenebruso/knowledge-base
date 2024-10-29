@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - lsfd.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - lsfd.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>lsfd - list file descriptors</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>lsfd</strong> [option]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>lsfd</strong> is intended to be a modern replacement for <strong>lsof*(8) on Linux
+systems. Unlike *lsof</strong>, <strong>lsfd</strong> is specialized to Linux kernel; it
+supports Linux specific features like namespaces with simpler code.
+<strong>lsfd</strong> is not a drop-in replacement for <strong>lsof</strong>; they are different in
+the command line interface and output formats.</p>
+<p>
+The default output is subject to change. So whenever possible, you
+should avoid using default outputs in your scripts. Always explicitly
+define expected columns by using <strong>–output</strong> <em>columns-list</em> in
+environments where a stable output is required.</p>
+<p>
+<strong>lsfd</strong> uses Libsmartcols for output formatting and filtering. See the
+description of <strong>–output</strong> option for customizing the output format, and
+<strong>–filter</strong> option for filtering. Use <strong>lsfd –help</strong> to get a list of all
+available columns.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-l</strong>, <strong>–threads</strong></p>
+<blockquote>
+<p>List in threads level.</p>
+</blockquote>
+<p>
+<strong>-J</strong>, <strong>–json</strong></p>
+<blockquote>
+<p>Use JSON output format.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–noheadings</strong></p>
+<blockquote>
+<p>Don&#39;t print headings.</p>
+</blockquote>
+<p>
+<strong>-o</strong>, <strong>–output</strong> <em>list</em></p>
+<blockquote>
+<p>Specify which output columns to print. See the <strong>OUTPUT COLUMNS</strong> section
+for details of available columns.</p>
+<p>
+The default list of columns may be extended if <em>list</em> is specified in
+the format +/list/ (e.g., <strong>lsfd -o +DELETED</strong>).</p>
+</blockquote>
+<p>
+<strong>-r</strong>, <strong>–raw</strong></p>
+<blockquote>
+<p>Use raw output format.</p>
+</blockquote>
+<p>
+<strong>–notruncate</strong></p>
+<blockquote>
+<p>Don&#39;t truncate text in columns.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–pid</strong> <em>pids</em></p>
+<blockquote>
+<p>Collect information only for specified processes. <em>pids</em> is a list of
+pids. A comma or whitespaces can be used as separators. You can use this
+option with <strong>pidof*(1). See *FILTER EXAMPLES</strong>.</p>
+<p>
+Both <strong>-Q</strong> option with an expression including PID, e.g. -Q (PID == 1),
+and <strong>-p</strong> option, e.g. -p 1, may print the same output but using <strong>-p</strong>
+option is much more efficient because <strong>-p</strong> option works at a much
+earlier stage of processing than the <strong>-Q</strong> option.</p>
+</blockquote>
+<p>
+<strong>-i</strong>[4|6], <strong>–inet</strong>[=4|=6]</p>
+<blockquote>
+<p>List only IPv4 sockets and/or IPv6 sockets.</p>
+</blockquote>
+<p>
+<strong>-Q</strong>, <strong>–filter</strong> <em>expr</em></p>
+<blockquote>
+<p>Print only the files matching the condition represented by the <em>expr</em>.
+See also <strong>FILTER EXAMPLES</strong>.</p>
+</blockquote>
+<p>
+<strong>-C</strong>, <strong>–counter</strong> <em>label</em>:/filter_expr/</p>
+<blockquote>
+<p>Define a custom counter used in <strong>–summary</strong> output. <strong>lsfd</strong> makes a
+counter named <em>label</em>. During collect information, <strong>lsfd</strong> counts files
+matching <em>filter_expr</em>, and stores the counted number to the counter
+named <em>label</em>. <strong>lsfd</strong> applies filters defined with <strong>–filter</strong> options
+before counting; files excluded by the filters are not counted.</p>
+<p>
+See <strong>FILTER EXPRESSION</strong> about <em>filter_expr</em>. <em>label</em> should not include
+<code class="verbatim">{</code> nor <code class="verbatim">:</code>. You can define multiple counters by specifying this option
+multiple times.</p>
+<p>
+See also <strong>COUNTER EXAMPLES</strong>.</p>
+</blockquote>
+<p>
+<strong>–summary</strong>[=/when/]</p>
+<blockquote>
+<p>This option controls summary lines output. The optional argument <em>when</em>
+can be <strong>only</strong>, <strong>append</strong> or <strong>never</strong>. If the <em>when</em> argument is omitted,
+it defaults to <strong>only</strong>.</p>
+<p>
+The summary reports counters. A counter consists of a label and an
+integer value. <strong>–counter</strong> is the option for defining a counter. If a
+user defines no counter, <strong>lsfd</strong> uses the definitions of pre-defined
+built-in counters (default counters) to make the summary output.</p>
+<p>
+CAUTION: Using <strong>–summary</strong> and <strong>–json</strong> may make the output broken. Only
+combining <strong>–summary*=*only</strong> and <strong>–json</strong> is valid.</p>
+</blockquote>
+<p>
+<strong>–debug-filter</strong></p>
+<blockquote>
+<p>Dump the internal data structure for the filter and exit. This is useful
+only for <strong>lsfd</strong> developers.</p>
+</blockquote>
+<p>
+<strong>–dump-counters</strong></p>
+<blockquote>
+<p>Dump the definition of counters used in <strong>–summary</strong> output.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OUTPUT COLUMNS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Each column has a type. Types are surround by &lt; and &gt;.</p>
+<p>
+CAUTION: The names and types of columns are not stable yet. They may be
+changed in the future releases.</p>
+<p>
+AINODECLASS &lt;=string=&gt;</p>
+<blockquote>
+<p>Class of anonymous inode.</p>
+</blockquote>
+<p>
+ASSOC &lt;=string=&gt;</p>
+<blockquote>
+<p>Association between file and process.</p>
+</blockquote>
+<p>
+BLKDRV &lt;=string=&gt;</p>
+<blockquote>
+<p>Block device driver name resolved by <code class="verbatim">/proc/devices</code>.</p>
+</blockquote>
+<p>
+CHRDRV &lt;=string=&gt;</p>
+<blockquote>
+<p>Character device driver name resolved by <code class="verbatim">/proc/devices</code>.</p>
+</blockquote>
+<p>
+COMMAND &lt;=string=&gt;</p>
+<blockquote>
+<p>Command of the process opening the file.</p>
+</blockquote>
+<p>
+DELETED &lt;=boolean=&gt;</p>
+<blockquote>
+<p>Reachability from the file system.</p>
+</blockquote>
+<p>
+DEV &lt;=string=&gt;</p>
+<blockquote>
+<p>ID of the device containing the file.</p>
+</blockquote>
+<p>
+DEVTYPE &lt;=string=&gt;</p>
+<blockquote>
+<p>Device type (<code class="verbatim">blk</code>, <code class="verbatim">char</code>, or <code class="verbatim">nodev</code>).</p>
+</blockquote>
+<p>
+ENDPOINT &lt;=string=&gt;</p>
+<blockquote>
+<p>IPC endpoints information communicated with the fd. The format of the
+column depends on the object associated with the fd:</p>
+<p>
+FIFO type</p>
+<blockquote>
+<p><em>PID</em>,/COMMAND/,/ASSOC/[-r][-w]</p>
+<p>
+The last characters ([-r][-w]) represents the read and/or write mode of
+the endpoint.</p>
+</blockquote>
+<p>
+<strong>lsfd</strong> collects endpoints within the processes that <strong>lsfd</strong> scans; <strong>lsfd</strong>
+may miss some endpoints if you limits the processes with <strong>-p</strong> option.</p>
+</blockquote>
+<p>
+FD &lt;=number=&gt;</p>
+<blockquote>
+<p>File descriptor for the file.</p>
+</blockquote>
+<p>
+FLAGS &lt;=string=&gt;</p>
+<blockquote>
+<p>Flags specified when opening the file.</p>
+</blockquote>
+<p>
+FUID &lt;=number=&gt;</p>
+<blockquote>
+<p>User ID number of the file&#39;s owner.</p>
+</blockquote>
+<p>
+INET.LADDR &lt;=string=&gt;</p>
+<blockquote>
+<p>Local IP address.</p>
+</blockquote>
+<p>
+INET.RADDR &lt;=string=&gt;</p>
+<blockquote>
+<p>Remote IP address.</p>
+</blockquote>
+<p>
+INET6.LADDR &lt;=string=&gt;</p>
+<blockquote>
+<p>Local IP6 address.</p>
+</blockquote>
+<p>
+INET6.RADDR &lt;=string=&gt;</p>
+<blockquote>
+<p>Remote IP6 address.</p>
+</blockquote>
+<p>
+INODE &lt;=number=&gt;</p>
+<blockquote>
+<p>Inode number.</p>
+</blockquote>
+<p>
+KNAME &lt;=string=&gt;</p>
+<blockquote>
+<p>Raw file name extracted from from =/proc/=/pid/=/fd/=/fd/ or
+=/proc/=/pid/=/map_files/=/region/.</p>
+</blockquote>
+<p>
+KTHREAD &lt;=boolean=&gt;</p>
+<blockquote>
+<p>Whether the process is a kernel thread or not.</p>
+</blockquote>
+<p>
+MAJ:MIN &lt;=string=&gt;</p>
+<blockquote>
+<p>Device ID for special, or ID of device containing file.</p>
+</blockquote>
+<p>
+MAPLEN &lt;=number=&gt;</p>
+<blockquote>
+<p>Length of file mapping (in page).</p>
+</blockquote>
+<p>
+MISCDEV &lt;=string=&gt;</p>
+<blockquote>
+<p>Misc character device name resolved by <code class="verbatim">/proc/misc</code>.</p>
+</blockquote>
+<p>
+MNTID &lt;=number=&gt;</p>
+<blockquote>
+<p>Mount ID.</p>
+</blockquote>
+<p>
+MODE &lt;=string=&gt;</p>
+<blockquote>
+<p>Access mode (rwx).</p>
+</blockquote>
+<p>
+NAME &lt;=string=&gt;</p>
+<blockquote>
+<p>Cooked version of KNAME. It is mostly same as KNAME.</p>
+<p>
+Some files have special formats and information sources:</p>
+<p>
+NETLINK</p>
+<blockquote>
+<p>protocol=/NETLINK.PROTOCOL/[ lport=/NETLINK.LPORT/[
+group=/NETLINK.GROUPS/]]</p>
+</blockquote>
+<p>
+PACKET</p>
+<blockquote>
+<p>type=/SOCK.TYPE/[ protocol=/PACKET.PROTOCOL/][ iface=/PACKET.IFACE/]</p>
+</blockquote>
+<p>
+pidfd</p>
+<blockquote>
+<p>pid=/TARGET-PID/ comm=/TARGET-COMMAND/ nspid=/TARGET-NSPIDS/</p>
+<p>
+<strong>lsfd</strong> extracts <em>TARGET-PID</em> and <em>TARGET-NSPIDS</em> from
+=/proc/=/pid/=/fdinfo/=/fd/.</p>
+</blockquote>
+<p>
+PING</p>
+<blockquote>
+<p>state=/SOCK.STATE/[ id=/PING.ID/][ laddr=/INET.LADDR/ [
+raddr=/INET.RADDR/]]</p>
+</blockquote>
+<p>
+PINGv6</p>
+<blockquote>
+<p>state=/SOCK.STATE/[ id=/PING.ID/][ laddr=/INET6.LADDR/ [
+raddr=/INET6.RADDR/]]</p>
+</blockquote>
+<p>
+RAW</p>
+<blockquote>
+<p>state=/SOCK.STATE/[ protocol=/RAW.PROTOCOL/ [ laddr=/INET.LADDR/ [
+raddr=/INET.RADDR/]]]</p>
+</blockquote>
+<p>
+RAWv6</p>
+<blockquote>
+<p>state=/SOCK.STATE/[ protocol=/RAW.PROTOCOL/ [ laddr=/INET6.LADDR/ [
+raddr=/INET6.RADDR/]]]</p>
+</blockquote>
+<p>
+TCP, TCPv6</p>
+<blockquote>
+<p>state=/SOCK.STATE/[ laddr=/TCP.LADDR/ [ raddr=/TCP.RADDR/]]</p>
+</blockquote>
+<p>
+UDP, UDPv6</p>
+<blockquote>
+<p>state=/SOCK.STATE/[ laddr=/UDP.LADDR/ [ raddr=/UDP.RADDR/]]</p>
+<p>
+<strong>lsfd</strong> hides <code class="verbatim">raddr=</code> if <em>UDP.RADDR</em> is <code class="verbatim">0.0.0.0</code> and <em>UDP.RPORT</em> is 0.</p>
+</blockquote>
+<p>
+UDP-LITE, UDPLITEv6</p>
+<blockquote>
+<p>state=/SOCK.STATE/[ laddr=/UDPLITE.LADDR/ [ raddr=/UDPLITE.RADDR/]]</p>
+</blockquote>
+<p>
+UNIX-STREAM</p>
+<blockquote>
+<p>state=/SOCK.STATE/[ path=/UNIX.PATH/]</p>
+</blockquote>
+<p>
+UNIX</p>
+<blockquote>
+<p>state=/SOCK.STATE/[ path=/UNIX.PATH/] type=/SOCK.TYPE/</p>
+</blockquote>
+</blockquote>
+<p>
+NETLINK.GROUPS &lt;=number=&gt;&gt;</p>
+<blockquote>
+<p>Netlink multicast groups.</p>
+</blockquote>
+<p>
+NETLINK.LPORT &lt;=number=&gt;&gt;</p>
+<blockquote>
+<p>Netlink local port id.</p>
+</blockquote>
+<p>
+NETLINK.PROTOCOL &lt;=string=&gt;&gt;</p>
+<blockquote>
+<p>Netlink protocol.</p>
+</blockquote>
+<p>
+NLINK &lt;=number=&gt;</p>
+<blockquote>
+<p>Link count.</p>
+</blockquote>
+<p>
+NS.NAME &lt;=string=&gt;</p>
+<blockquote>
+<p>Name (<em>NS.TYPE</em>:[/INODE/]) of the namespace specified with the file.</p>
+</blockquote>
+<p>
+NS.TYPE &lt;=string=&gt;</p>
+<blockquote>
+<p>Type of the namespace specified with the file. The type is <code class="verbatim">mnt</code>,
+<code class="verbatim">cgroup</code>, <code class="verbatim">uts</code>, <code class="verbatim">ipc</code>, <code class="verbatim">user</code>, <code class="verbatim">pid</code>, <code class="verbatim">net</code>, <code class="verbatim">time</code>, or <code class="verbatim">unknown</code>.</p>
+</blockquote>
+<p>
+OWNER &lt;=string=&gt;</p>
+<blockquote>
+<p>Owner of the file.</p>
+</blockquote>
+<p>
+PACKET.IFACE &lt;=string=&gt;</p>
+<blockquote>
+<p>Interface name associated with the packet socket.</p>
+</blockquote>
+<p>
+PACKET.PROTOCOL &lt;=string=&gt;</p>
+<blockquote>
+<p>L3 protocol associated with the packet socket.</p>
+</blockquote>
+<p>
+PARTITION &lt;=string=&gt;</p>
+<blockquote>
+<p>Block device name resolved by <code class="verbatim">/proc/partition</code>.</p>
+</blockquote>
+<p>
+PID &lt;=number=&gt;</p>
+<blockquote>
+<p>PID of the process opening the file.</p>
+</blockquote>
+<p>
+PIDFD.COMM &lt;=string=&gt;</p>
+<blockquote>
+<p>Command of the process targeted by the pidfd.</p>
+</blockquote>
+<p>
+PIDFD.NSPID &lt;=string=&gt;</p>
+<blockquote>
+<p>Value of NSpid field in =/proc/=/pid/=/fdinfo/=/fd/ of the pidfd.</p>
+<p>
+Quoted from kernel/fork.c of Linux source tree:</p>
+<blockquote>
+<p>If pid namespaces are supported then this function will also print the
+pid of a given pidfd refers to for all descendant pid namespaces
+starting from the current pid namespace of the instance, i.e. the Pid
+field and the first entry in the NSpid field will be identical.</p>
+<p>
+Note that this differs from the Pid and NSpid fields in
+/proc/&lt;pid&gt;/status where Pid and NSpid are always shown relative to the
+pid namespace of the procfs instance.\\</p>
+</blockquote>
+</blockquote>
+<p>
+PIDFD.PID &lt;=number=&gt;</p>
+<blockquote>
+<p>PID of the process targeted by the pidfd.</p>
+</blockquote>
+<p>
+PING.ID &lt;`number`&gt;</p>
+<blockquote>
+<p>ICMP echo request id used on the PING socket.</p>
+</blockquote>
+<p>
+POS &lt;=number=&gt;</p>
+<blockquote>
+<p>File position.</p>
+</blockquote>
+<p>
+RAW.PROTOCOL &lt;=number=&gt;</p>
+<blockquote>
+<p>Protocol number of the raw socket.</p>
+</blockquote>
+<p>
+RDEV &lt;=string=&gt;</p>
+<blockquote>
+<p>Device ID (if special file).</p>
+</blockquote>
+<p>
+SIZE &lt;=number=&gt;</p>
+<blockquote>
+<p>File size.</p>
+</blockquote>
+<p>
+SOCK.LISTENING &lt;=boolean=&gt;</p>
+<blockquote>
+<p>Listening socket.</p>
+</blockquote>
+<p>
+SOCK.NETS &lt;=number=&gt;</p>
+<blockquote>
+<p>Inode identifying network namespace where the socket belongs to.</p>
+</blockquote>
+<p>
+SOCK.PROTONAME &lt;=string=&gt;</p>
+<blockquote>
+<p>Protocol name.</p>
+</blockquote>
+<p>
+SOCK.STATE &lt;=string=&gt;</p>
+<blockquote>
+<p>State of socket.</p>
+</blockquote>
+<p>
+SOCK.TYPE &lt;=string=&gt;</p>
+<blockquote>
+<p>Type of socket. Here type means the second parameter of socket system
+call:</p>
+<blockquote>
+<p>·</p>
+<p>
+stream</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+dgram</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+raw</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+rdm</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+seqpacket</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+dccp</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+packet</p>
+</blockquote>
+</blockquote>
+<p>
+SOURCE &lt;=string=&gt;</p>
+<blockquote>
+<p>File system, partition, or device containing the file.</p>
+</blockquote>
+<p>
+STTYPE &lt;=string=&gt;</p>
+<blockquote>
+<p>Raw file types returned from *stat*(2): BLK, CHR, DIR, FIFO, LINK, REG,
+SOCK, or UNKN.</p>
+</blockquote>
+<p>
+TCP.LADDR &lt;=string=&gt;</p>
+<blockquote>
+<p>Local L3 (INET.LADDR or INET6.LADDR) address and local TCP port.</p>
+</blockquote>
+<p>
+TCP.LPORT &lt;=integer=&gt;</p>
+<blockquote>
+<p>Local TCP port.</p>
+</blockquote>
+<p>
+TCP.RADDR &lt;=string=&gt;</p>
+<blockquote>
+<p>Remote L3 (INET.RADDR or INET6.RADDR) address and remote TCP port.</p>
+</blockquote>
+<p>
+TCP.RPORT &lt;=integer=&gt;</p>
+<blockquote>
+<p>Remote TCP port.</p>
+</blockquote>
+<p>
+TID &lt;=number=&gt;</p>
+<blockquote>
+<p>Thread ID of the process opening the file.</p>
+</blockquote>
+<p>
+TYPE &lt;=string=&gt;</p>
+<blockquote>
+<p>Cooked version of STTYPE. It is same as STTYPE with exceptions. For
+SOCK, print the value for SOCK.PROTONAME. For UNKN, print the value for
+AINODECLASS if SOURCE is anon_inodefs.</p>
+</blockquote>
+<p>
+UDP.LADDR &lt;=string=&gt;</p>
+<blockquote>
+<p>Local IP address and local UDP port.</p>
+</blockquote>
+<p>
+UDP.LPORT &lt;=integer=&gt;</p>
+<blockquote>
+<p>Local UDP port.</p>
+</blockquote>
+<p>
+UDP.RADDR &lt;=string=&gt;</p>
+<blockquote>
+<p>Remote IP address and remote UDP port.</p>
+</blockquote>
+<p>
+UDP.RPORT &lt;=integer=&gt;</p>
+<blockquote>
+<p>Remote UDP port.</p>
+</blockquote>
+<p>
+UDPLITE.LADDR &lt;=string=&gt;</p>
+<blockquote>
+<p>Local IP address and local UDPLite port.</p>
+</blockquote>
+<p>
+UDPLITE.LPORT &lt;=integer=&gt;</p>
+<blockquote>
+<p>Local UDP port.</p>
+</blockquote>
+<p>
+UDPLITE.RADDR &lt;=string=&gt;</p>
+<blockquote>
+<p>Remote IP address and remote UDPLite port.</p>
+</blockquote>
+<p>
+UDPLITE.RPORT &lt;=integer=&gt;</p>
+<blockquote>
+<p>Remote UDP port.</p>
+</blockquote>
+<p>
+UID &lt;=number=&gt;</p>
+<blockquote>
+<p>User ID number.</p>
+</blockquote>
+<p>
+UNIX.PATH &lt;=string=&gt;</p>
+<blockquote>
+<p>Filesystem pathname for UNIX domain socket.</p>
+</blockquote>
+<p>
+USER &lt;=string=&gt;</p>
+<blockquote>
+<p>User of the process.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+FILTER EXPRESSION
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>lsfd</strong> evaluates the expression passed to <strong>–filter</strong> option every time
+before printing a file line. <strong>lsfd</strong> prints the line only if the result
+of evaluation is <code class="verbatim">true</code>.</p>
+<p>
+An expression consists of column names, literals and, operators like:
+<code class="verbatim">DELETED</code>, <code class="verbatim">(PID =</code> 1)=, <code class="verbatim">(NAME =</code> &#34;/etc/passwd&#34;)=,
+<code class="verbatim">(PID =</code> 1) &amp;&amp; DELETED=. <code class="verbatim">DELETED</code>, <code class="verbatim">PID</code>, and <code class="verbatim">NAME</code> are column names
+in the example. <code class="verbatim">1</code> and &#34;/etc/passwd&#34; are literals. <code class="verbatim">==</code> and <code class="verbatim">&amp;&amp;</code> are
+operators.</p>
+<p>
+Before evaluation, <strong>lsfd</strong> substitutes column names in the given
+expression with actual column values in the line. There are three
+different data types: <code class="verbatim">boolean</code>, <code class="verbatim">string</code>, and <code class="verbatim">number</code>. For columns
+with a <code class="verbatim">boolean</code> type, the value can be stand-alone. For <code class="verbatim">string</code> and
+<code class="verbatim">number</code> values, the value must be an operand of an operator, for
+example, <code class="verbatim">(PID =</code> 1)=. See <strong>OUTPUT COLUMNS</strong> about the types of columns.</p>
+<p>
+Literal is for representing a value directly. See BOOLLIT, STRLIT, and
+NUMLIT. Different data types have different literal syntax.</p>
+<p>
+An operator works with one or two operand(s). An operator has an
+expectation about the data type(s) of its operands. Giving an unexpected
+data type to an operator causes a syntax error.</p>
+<p>
+Operators taking two operands are <code class="verbatim">and</code>, <code class="verbatim">or</code>, <code class="verbatim">eq</code>, <code class="verbatim">ne</code>, <code class="verbatim">le</code>, <code class="verbatim">lt</code>,
+<code class="verbatim">ge</code>, <code class="verbatim">gt</code>, <code class="verbatim">=~</code>, <code class="verbatim">!~</code>. Alphabetically named operators have C-language
+flavored aliases: <code class="verbatim">&amp;&amp;</code>, <code class="verbatim">||</code>, <code class="verbatim">==</code>, <code class="verbatim">!=</code>, <code class="verbatim">&lt;</code>, <code class="verbatim">⇐</code>, <code class="verbatim">&gt;=</code>, and <code class="verbatim">&gt;</code>.</p>
+<p>
+<code class="verbatim">!</code> is the only operator that takes one operand.</p>
+<p>
+<code class="verbatim">eq</code>, <code class="verbatim">ne</code>, and their aliases expect operands have the same data type.
+Applying these operators return a <code class="verbatim">boolean</code>.</p>
+<p>
+<code class="verbatim">and</code>, <code class="verbatim">or</code>, <code class="verbatim">not</code> and their aliases expect operands have <code class="verbatim">boolean</code> data
+type. Applying these operators return a <code class="verbatim">boolean</code>.</p>
+<p>
+<code class="verbatim">lt</code>, <code class="verbatim">le</code>, <code class="verbatim">gt</code>, <code class="verbatim">ge</code>, and their aliases expect operands have <code class="verbatim">number</code>
+data types. Applying these operators return a <code class="verbatim">boolean</code>.</p>
+<p>
+<code class="verbatim">=~</code> is for regular expression matching; if a string at the right side
+matches a regular expression at the left side, the result is true. The
+right side operand must be a string literal. See STRLIT about the
+syntax.</p>
+<p>
+<code class="verbatim">!~</code> is a short-hand version of <code class="verbatim">not (STR =~ PAT)</code>; it inverts the
+result of <code class="verbatim">=~</code>.</p>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Limitations
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>The current implementation does not define precedences within operators.
+Use <code class="verbatim">(</code> and <code class="verbatim">)</code> explicitly for grouping the sub-expressions if your
+expression uses more than two operators.</p>
+<p>
+About <code class="verbatim">number</code> typed values, the filter engine supports only
+non-negative integers.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Semi-formal syntax
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>EXPR</p>
+<blockquote>
+<p>BOOLEXP</p>
+</blockquote>
+<p>
+BOOLEXP0</p>
+<blockquote>
+<p>COLUMN &lt;=boolean=&gt; | BOOLLIT | <em>(</em> BOOLEXP <em>)</em></p>
+</blockquote>
+<p>
+BOOLEXP</p>
+<blockquote>
+<p>BOOLEXP0 | BOOLOP1 | BOOLOP2 | BOOLOP2BL | BOOLOP2CMP | BOOLOP2REG</p>
+</blockquote>
+<p>
+COLUMN</p>
+<blockquote>
+<p>[_A-Za-z][-_:A-Za-z0-9]*</p>
+</blockquote>
+<p>
+BOOLOP1</p>
+<blockquote>
+<p><em>!</em> BOOLEXP0 | <em>not</em> BOOLEXP0</p>
+</blockquote>
+<p>
+STREXP</p>
+<blockquote>
+<p>COLUMN &lt;=string=&gt; | STRLIT</p>
+</blockquote>
+<p>
+NUMEXP</p>
+<blockquote>
+<p>COLUMN &lt;=number=&gt; | NUMLIT</p>
+</blockquote>
+<p>
+BOOLLIT</p>
+<blockquote>
+<p><em>true</em> | <em>false</em></p>
+</blockquote>
+<p>
+CHARS</p>
+<blockquote>
+<p>( [^\] | <em>\\</em> | <em>\</em> | <em>\&#34;</em> )*</p>
+</blockquote>
+<p>
+STRLIT</p>
+<blockquote>
+<p>CHARS | <em>&#34;</em> CHARS <em>&#34;</em></p>
+</blockquote>
+<p>
+NUMLIT</p>
+<blockquote>
+<p>[1-9][0-9]* | <em>0</em></p>
+</blockquote>
+<p>
+BOOLOP2</p>
+<blockquote>
+<p>STREXP OP2 STREXP | NUMEXP OP2 NUMEXP | BOOLEXP0 OP2 BOOLEXP0</p>
+</blockquote>
+<p>
+OP2</p>
+<blockquote>
+<p><em>==</em> | <em>eq</em> | <em>!=</em> | <em>ne</em></p>
+</blockquote>
+<p>
+BOOLOP2BL</p>
+<blockquote>
+<p>BOOLEXP0 OP2BL BOOLEXP0</p>
+</blockquote>
+<p>
+OP2BL</p>
+<blockquote>
+<p><em>&amp;&amp;</em> | <em>and</em> | <em>||</em> | <em>or</em></p>
+</blockquote>
+<p>
+BOOLOP2CMP</p>
+<blockquote>
+<p>NUMEXP OP2CMP NUMEXP</p>
+</blockquote>
+<p>
+OP2CMP</p>
+<blockquote>
+<p><em>&lt;</em> | <em>lt</em> | <em>&lt;=</em> | <em>le</em> | <em>&gt;</em> | <em>gt</em> | <em>&gt;=</em> | <em>ge</em></p>
+</blockquote>
+<p>
+BOOLOP2REG</p>
+<blockquote>
+<p>STREXP OP2REG STRLIT</p>
+</blockquote>
+<p>
+OP2REG</p>
+<blockquote>
+<p><em>=~</em> | <em>!~</em></p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+FILTER EXAMPLES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p><strong>lsfd</strong> has few options for filtering. In most of cases, what you should
+know is <strong>-Q</strong> (or <strong>–filter</strong>) option. Combined with <strong>-o</strong> (or <strong>–output</strong>)
+option, you can customize the output as you want.</p>
+<p>
+List files associated with PID 1 and PID 2 processes:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q (PID == 1) or (PID == 2)
+</pre>
+</blockquote>
+<p>
+Do the same in an alternative way:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q (PID == 1) || (PID == 2)
+</pre>
+</blockquote>
+<p>
+Do the same in a more efficient way:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd --pid 1,2
+</pre>
+</blockquote>
+<p>
+Whitescapes can be used instead of a comma:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd --pid 1 2
+</pre>
+</blockquote>
+<p>
+Utilize *pidof*(1) for list the files associated with &#34;firefox&#34;:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd --pid &#34;$(pidof firefox)&#34;
+</pre>
+</blockquote>
+<p>
+List the 1st file descriptor opened by PID 1 process:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q (PID == 1) and (FD == 1)
+</pre>
+</blockquote>
+<p>
+Do the same in an alternative way:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q (PID == 1) &amp;&amp; (FD == 1)
+</pre>
+</blockquote>
+<p>
+List all running executables:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q ASSOC == &#34;exe&#34;
+</pre>
+</blockquote>
+<p>
+Do the same in an alternative way:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q ASSOC eq &#34;exe&#34;
+</pre>
+</blockquote>
+<p>
+Do the same but print only file names:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -o NAME -Q ASSOC eq &#34;exe&#34; | sort -u
+</pre>
+</blockquote>
+<p>
+List deleted files associated to processes:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q DELETED
+</pre>
+</blockquote>
+<p>
+List non-regular files:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q TYPE != &#34;REG&#34;
+</pre>
+</blockquote>
+<p>
+List block devices:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q DEVTYPE == &#34;blk&#34;
+</pre>
+</blockquote>
+<p>
+Do the same with TYPE column:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q TYPE == &#34;BLK&#34;
+</pre>
+</blockquote>
+<p>
+List files including &#34;dconf&#34; directory in their names:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q NAME =~ &#34;.\*/dconf/.*&#34;
+</pre>
+</blockquote>
+<p>
+List files opened in a QEMU virtual machine:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q (COMMAND =~ &#34;.\*qemu.*&#34;) and (FD &gt;= 0)
+</pre>
+</blockquote>
+<p>
+Hide files associated to kernel threads:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd -Q !KTHREAD
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+COUNTER EXAMPLES
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Report the numbers of netlink socket descriptors and unix socket
+descriptors:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd --summary=only \
+        -C netlink sockets:(NAME =~ &#34;NETLINK:.*&#34;) \
+        -C unix sockets:(NAME =~ &#34;UNIX:.*&#34;)
+VALUE COUNTER
+   57 netlink sockets
+ 1552 unix sockets
+</pre>
+</blockquote>
+<p>
+Do the same but print in JSON format:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<pre class="example">
+# lsfd --summary=only --json \
+        -C netlink sockets:(NAME =~ &#34;NETLINK:.*&#34;) \
+        -C unix sockets:(NAME =~ &#34;UNIX:.*&#34;)
+{
+   &#34;lsfd-summary&#34;: [
+      {
+         &#34;value&#34;: 15,
+         &#34;counter&#34;: &#34;netlink sockets&#34;
+      },{
+         &#34;value&#34;: 798,
+         &#34;counter&#34;: &#34;unix sockets&#34;
+      }
+   ]
+}
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+HISTORY
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The <strong>lsfd</strong> command is part of the util-linux package since v2.38.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>*lsof*(8) *pidof*(1) *proc*(5) *socket*(2) *stat*(2)</p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>The <strong>lsfd</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nix3-help-stores.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nix3-help-stores.1</h1>
+    
+<p><strong>Warning</strong><br>
+This program is <strong>experimental</strong> and its interface is subject to change.</p>
+<p>#+end_quote</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Name
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><code class="verbatim">nix help-stores</code> - show help about store types and their settings</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Synopsis
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><code class="verbatim">nix help-stores</code> [/option/…]</p>
+<p>
+Nix supports different types of stores:</p>
+<ul>
+<li><strong>Dummy Store</strong></li>
+<li><strong>Experimental Local Overlay Store</strong></li>
+<li><strong>Experimental SSH Store</strong></li>
+<li><strong>Experimental SSH Store with filesystem mounted</strong></li>
+<li><strong>HTTP Binary Cache Store</strong></li>
+<li><strong>Local Binary Cache Store</strong></li>
+<li><strong>Local Daemon Store</strong></li>
+<li><strong>Local Store</strong></li>
+<li><strong>S3 Binary Cache Store</strong></li>
+<li><strong>SSH Store</strong></li>
+</ul>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+Store URL format
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>Stores are specified using a URL-like syntax. For example, the command</p>
+<pre class="example">
+# nix path-info --store https://cache.nixos.org/ --json \
+  /nix/store/a7gvj343m05j2s32xcnwr35v31ynlypr-coreutils-9.1
+</pre>
+<p>
+fetches information about a store path in the HTTP binary cache located
+at <em><a href="https://cache.nixos.org/">https://cache.nixos.org/</a></em>, which is a type of store.</p>
+<p>
+Store URLs can specify <strong>store settings</strong> using URL query strings, i.e. by
+appending <code class="verbatim">?name1=value1&amp;name2=value2&amp;...</code> to the URL. For instance,</p>
+<pre class="example">
+--store ssh://machine.example.org?ssh-key=/path/to/my/key
+</pre>
+<p>
+tells Nix to access the store on a remote machine via the SSH protocol,
+using <code class="verbatim">/path/to/my/key</code> as the SSH private key. The supported settings
+for each store type are documented below.</p>
+<p>
+The special store URL <code class="verbatim">auto</code> causes Nix to automatically select a store
+as follows:</p>
+<ul>
+<li>Use the <strong>local store</strong> <code class="verbatim">/nix/store</code> if <code class="verbatim">/nix/var/nix</code> is writable by
+the current user.</li>
+<li>Otherwise, if <code class="verbatim">/nix/var/nix/daemon-socket/socket</code> exists, <strong>connect</strong> to
+the Nix daemon listening on that socket.</li>
+<li>Otherwise, on Linux only, use the <strong>local chroot store</strong>
+<code class="verbatim">~/.local/share/nix/root</code>, which will be created automatically if it
+does not exist.</li>
+<li>Otherwise, use the <strong>local store</strong> <code class="verbatim">/nix/store</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Dummy Store
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>Store URL format</strong>: <code class="verbatim">dummy://</code></p>
+<p>
+This store type represents a store that contains no store paths and
+cannot be written to. It&#39;s useful when you want to use the Nix evaluator
+when no actual Nix store exists, e.g.</p>
+<pre class="example">
+# nix eval --store dummy:// --expr &#39;1 + 2&#39;
+</pre>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Settings
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<ul>
+<li><code class="verbatim">path-info-cache-size</code>
+
+Size of the in-memory store path metadata cache.
+
+<strong>Default:</strong> <code class="verbatim">65536</code></li>
+<li><code class="verbatim">priority</code>
+
+Priority of this store when used as a <strong>substituter</strong>. A lower value
+means a higher priority.
+
+<strong>Default:</strong> <code class="verbatim">0</code></li>
+<li><code class="verbatim">store</code>
+
+Logical location of the Nix store, usually <code class="verbatim">/nix/store</code>. Note that you
+can only copy store paths between stores if they have the same <code class="verbatim">store</code>
+setting.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">system-features</code>
+
+Optional <strong>system features</strong> available on the system this store uses to
+build derivations.
+
+Example: <code class="verbatim">&#34;kvm&#34;</code>
+
+<strong>Default:</strong> <em>machine-specific</em></li>
+<li><code class="verbatim">trusted</code>
+
+Whether paths from this store can be used as substitutes even if they
+are not signed by a key listed in the <code class="verbatim">trusted-public-keys</code> setting.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">want-mass-query</code>
+
+Whether this store can be queried efficiently for path validity when
+used as a <strong>substituter</strong>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Experimental Local Overlay Store
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<blockquote>
+<p><strong>Warning</strong></p>
+<p>
+This store is part of an <strong>experimental feature</strong>.</p>
+<p>
+To use this store, make sure the <code class="verbatim">local-overlay-store</code> experimental
+feature is enabled. For example, include the following in <code class="verbatim">nix.conf</code>:</p>
+<pre class="example">
+extra-experimental-features = local-overlay-store
+</pre>
+</blockquote>
+<p>
+<strong>Store URL format</strong>: <code class="verbatim">local-overlay</code></p>
+<p>
+This store type is a variation of the [local store] designed to leverage
+Linux&#39;s <strong>Overlay Filesystem</strong> (OverlayFS for short). Just as OverlayFS
+combines a lower and upper filesystem by treating the upper one as a
+patch against the lower, the local overlay store combines a lower store
+with an upper almost-[local store]. (“almost” because while the upper
+fileystems for OverlayFS is valid on its own, the upper almost-store is
+not a valid local store on its own because some references will dangle.)
+To use this store, you will first need to configure an OverlayFS
+mountpoint <strong>appropriately</strong> as Nix will not do this for you (though it
+will verify the mountpoint is configured correctly).</p>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Conceptual parts of a local overlay store
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p><em>This is a more abstract/conceptual description of the parts of a
+layered store, an authoritative reference.</em> For more “practical”
+instructions, see the worked-out example in the next subsection.</p>
+<p>
+The parts of a local overlay store are as follows:</p>
+<ul>
+<li>
+<p><strong>Lower store</strong>:</p>
+<blockquote>
+<p>Specified with the <code class="verbatim">lower-store</code> setting.</p>
+</blockquote>
+<p>
+This is any store implementation that includes a store directory as
+part of the native operating system filesystem. For example, this
+could be a [local store], [local daemon store], or even another local
+overlay store.</p>
+<p>
+The local overlay store never tries to modify the lower store in any
+way. Something else could modify the lower store, but there are
+restrictions on this Nix itself requires that this store only grow,
+and not change in other ways. For example, new store objects can be
+added, but deleting or modifying store objects is not allowed in
+general, because that will confuse and corrupt any local overlay store
+using those objects. (In addition, the underlying filesystem overlay
+mechanism may impose additional restrictions, see below.)</p>
+<p>
+The lower store must not change while it is mounted as part of an
+overlay store. To ensure it does not, you might want to mount the
+store directory read-only (which then requires the [read-only]
+parameter to be set to <code class="verbatim">true</code>).</p>
+<ul>
+<li><strong>Lower store directory</strong>:</li>
+</ul>
+<blockquote>
+<p>Specified with <code class="verbatim">lower-store.real</code> setting.</p>
+</blockquote>
+<p>
+This is the directory used/exposed by the lower store.</p>
+<p>
+As specified above, Nix requires the local store can only grow not
+change in other ways. Linux&#39;s OverlayFS in addition imposes the
+further requirement that this directory cannot change at all. That
+means that, while any local overlay store exists that is using this
+store as a lower store, this directory must not change.</p>
+<ul>
+<li><strong>Lower metadata source</strong>:</li>
+</ul>
+<blockquote>
+<p>Not directly specified. A consequence of the <code class="verbatim">lower-store</code> setting,
+depending on the type of lower store chosen.</p>
+</blockquote>
+<p>
+This is abstract, just some way to read the metadata of lower store
+<strong>store objects</strong>. For example it could be a SQLite database (for the
+[local store]), or a socket connection (for the [local daemon store]).</p>
+<p>
+This need not be writable. As stated above a local overlay store never
+tries to modify its lower store. The lower store&#39;s metadata is
+considered part of the lower store, just as the store&#39;s <strong>file system
+objects</strong> that appear in the store directory are.</p>
+</li>
+<li>
+<p><strong>Upper almost-store</strong>:</p>
+<blockquote>
+<p>Not directly specified. Instead the constituent parts are
+independently specified as described below.</p>
+</blockquote>
+<p>
+This is almost but not quite just a [local store]. That is because
+taken in isolation, not as part of a local overlay store, by itself,
+it would appear corrupted. But combined with everything else as part
+of an overlay local store, it is valid.</p>
+<ul>
+<li><strong>Upper layer directory</strong>:</li>
+</ul>
+<blockquote>
+<p>Specified with <code class="verbatim">upper-layer</code> setting.</p>
+</blockquote>
+<p>
+This contains additional <strong>store objects</strong> (or, strictly speaking, their
+<strong>file system objects</strong> that the local overlay store will extend the
+lower store with).</p>
+<ul>
+<li><strong>Upper store directory</strong>:</li>
+</ul>
+<blockquote>
+<p>Specified with the <code class="verbatim">real</code> setting. This the same as the base local
+store setting, and can also be indirectly specified with the <code class="verbatim">root</code>
+setting.</p>
+</blockquote>
+<p>
+This contains all the store objects from each of the two directories.</p>
+<p>
+The lower store directory and upper layer directory are combined via
+OverlayFS to create this directory. Nix doesn&#39;t do this itself,
+because it typically wouldn&#39;t have the permissions to do so, so it is
+the responsibility of the user to set this up first. Nix can, however,
+optionally check that that the OverlayFS mount settings appear as
+expected, matching Nix&#39;s own settings.</p>
+<ul>
+<li><strong>Upper SQLite database</strong>:</li>
+</ul>
+<blockquote>
+<p>Not directly specified. The location of the database instead depends
+on the <code class="verbatim">state</code> setting. It is is always <code class="verbatim">${state}/db</code>.</p>
+</blockquote>
+<p>
+This contains the metadata of all of the upper layer <strong>store objects</strong>
+(everything beyond their file system objects), and also duplicate
+copies of some lower layer store object&#39;s metadta. The duplication is
+so the metadata for the <strong>closure</strong> of upper layer <strong>store objects</strong> can
+be found entirely within the upper layer. (This allows us to use the
+same SQL Schema as the [local store]&#39;s SQLite database, as foreign
+keys in that schema enforce closure metadata to be self-contained in
+this way.)</p>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Example filesystem layout
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Here is a worked out example of usage, following the concepts in the
+previous section.</p>
+<p>
+Say we have the following paths:</p>
+<ul>
+<li><code class="verbatim">/mnt/example/merged-store/nix/store</code></li>
+<li><code class="verbatim">/mnt/example/store-a/nix/store</code></li>
+<li><code class="verbatim">/mnt/example/store-b</code></li>
+</ul>
+<p>Then the following store URI can be used to access a local-overlay store
+at <code class="verbatim">/mnt/example/merged-store</code>:</p>
+<pre class="example">
+local-overlay://?root=/mnt/example/merged-store&amp;lower-store=/mnt/example/store-a&amp;upper-layer=/mnt/example/store-b
+</pre>
+<p>
+The lower store directory is located at
+<code class="verbatim">/mnt/example/store-a/nix/store</code>, while the upper layer is at
+<code class="verbatim">/mnt/example/store-b</code>.</p>
+<p>
+Before accessing the overlay store you will need to ensure the OverlayFS
+mount is set up correctly:</p>
+<pre class="example">
+mount -t overlay overlay \
+  -o lowerdir=&#34;/mnt/example/store-a/nix/store&#34; \
+  -o upperdir=&#34;/mnt/example/store-b&#34; \
+  -o workdir=&#34;/mnt/example/workdir&#34; \
+  &#34;/mnt/example/merged-store/nix/store&#34;
+</pre>
+<p>
+Note that OverlayFS requires <code class="verbatim">/mnt/example/workdir</code> to be on the same
+volume as the <code class="verbatim">upperdir</code>.</p>
+<p>
+By default, Nix will check that the mountpoint as been set up correctly
+and fail with an error if it has not. You can override this behaviour by
+passing <code class="verbatim">check-mount=false</code> if you need to.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Settings
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<ul>
+<li><code class="verbatim">check-mount</code>
+
+Check that the overlay filesystem is correctly mounted.
+
+Nix does not manage the overlayfs mount point itself, but the correct
+functioning of the overlay store does depend on this mount point being
+set up correctly. Rather than just assume this is the case, check that
+the lowerdir and upperdir options are what we expect them to be. This
+check is on by default, but can be disabled if needed.
+
+<strong>Default:</strong> <code class="verbatim">true</code></li>
+<li><code class="verbatim">log</code>
+
+directory where Nix will store log files.
+
+<strong>Default:</strong> <code class="verbatim">/nix/var/log/nix</code></li>
+<li><code class="verbatim">lower-store</code>
+
+<strong>Store URL</strong> for the lower store. The default is <code class="verbatim">auto</code> (i.e. use the
+Nix daemon or <code class="verbatim">/nix/store</code> directly).
+
+Must be a store with a store dir on the file system. Must be used as
+OverlayFS lower layer for this store&#39;s store dir.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">path-info-cache-size</code>
+
+Size of the in-memory store path metadata cache.
+
+<strong>Default:</strong> <code class="verbatim">65536</code></li>
+<li><code class="verbatim">priority</code>
+
+Priority of this store when used as a <strong>substituter</strong>. A lower value
+means a higher priority.
+
+<strong>Default:</strong> <code class="verbatim">0</code></li>
+<li>
+<p><code class="verbatim">read-only</code></p>
+<p>
+Allow this store to be opened when its <strong>database</strong> is on a read-only
+filesystem.</p>
+<p>
+Normally Nix will attempt to open the store database in read-write
+mode, even for querying (when write access is not needed), causing it
+to fail if the database is on a read-only filesystem.</p>
+<p>
+Enable read-only mode to disable locking and open the SQLite database
+with the <code class="verbatim">immutable</code> parameter set.</p>
+<blockquote>
+<p><strong>Warning</strong> Do not use this unless the filesystem is read-only.</p>
+</blockquote>
+<blockquote>
+<p>Using it when the filesystem is writable can cause incorrect query
+results or corruption errors if the database is changed by another
+process. While the filesystem the database resides on might appear to
+be read-only, consider whether another user or system might have write
+access to it.</p>
+</blockquote>
+<p>
+<strong>Default:</strong> <code class="verbatim">false</code></p>
+</li>
+<li><code class="verbatim">real</code>
+
+Physical path of the Nix store.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">remount-hook</code>
+
+Script or other executable to run when overlay filesystem needs
+remounting.
+
+This is occasionally necessary when deleting a store path that exists
+in both upper and lower layers. In such a situation, bypassing
+OverlayFS and deleting the path in the upper layer directly is the
+only way to perform the deletion without creating a “whiteout”.
+However this causes the OverlayFS kernel data structures to get
+out-of-sync, and can lead to ‘stale file handle&#39; errors; remounting
+solves the problem.
+
+The store directory is passed as an argument to the invoked
+executable.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">require-sigs</code>
+
+Whether store paths copied into this store should have a trusted
+signature.
+
+<strong>Default:</strong> <code class="verbatim">true</code></li>
+<li><code class="verbatim">root</code>
+
+Directory prefixed to all other paths.
+
+<strong>Default:</strong> ``</li>
+<li><code class="verbatim">state</code>
+
+Directory where Nix will store state.
+
+<strong>Default:</strong> <code class="verbatim">/dummy</code></li>
+<li><code class="verbatim">store</code>
+
+Logical location of the Nix store, usually <code class="verbatim">/nix/store</code>. Note that you
+can only copy store paths between stores if they have the same <code class="verbatim">store</code>
+setting.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">system-features</code>
+
+Optional <strong>system features</strong> available on the system this store uses to
+build derivations.
+
+Example: <code class="verbatim">&#34;kvm&#34;</code>
+
+<strong>Default:</strong> <em>machine-specific</em></li>
+<li><code class="verbatim">trusted</code>
+
+Whether paths from this store can be used as substitutes even if they
+are not signed by a key listed in the <code class="verbatim">trusted-public-keys</code> setting.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">upper-layer</code>
+
+Directory containing the OverlayFS upper layer for this store&#39;s store
+dir.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">want-mass-query</code>
+
+Whether this store can be queried efficiently for path validity when
+used as a <strong>substituter</strong>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+Experimental SSH Store with filesystem mounted
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<blockquote>
+<p><strong>Warning</strong></p>
+<p>
+This store is part of an <strong>experimental feature</strong>.</p>
+<p>
+To use this store, make sure the <code class="verbatim">mounted-ssh-store</code> experimental
+feature is enabled. For example, include the following in <code class="verbatim">nix.conf</code>:</p>
+<pre class="example">
+extra-experimental-features = mounted-ssh-store
+</pre>
+</blockquote>
+<p>
+<strong>Store URL format</strong>: <code class="verbatim">mounted-ssh-ng://[username@]hostname</code></p>
+<p>
+Experimental store type that allows full access to a Nix store on a
+remote machine, and additionally requires that store be mounted in the
+local file system.</p>
+<p>
+The mounting of that store is not managed by Nix, and must by managed
+manually. It could be accomplished with SSHFS or NFS, for example.</p>
+<p>
+The local file system is used to optimize certain operations. For
+example, rather than serializing Nix archives and sending over the Nix
+channel, we can directly access the file system data via the
+mount-point.</p>
+<p>
+The local file system is also used to make certain operations possible
+that wouldn&#39;t otherwise be. For example, persistent GC roots can be
+created if they reside on the same file system as the remote store: the
+remote side will create the symlinks necessary to avoid race conditions.</p>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Settings
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<ul>
+<li><code class="verbatim">base64-ssh-public-host-key</code>
+
+The public host key of the remote machine.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">compress</code>
+
+Whether to enable SSH compression.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">log</code>
+
+directory where Nix will store log files.
+
+<strong>Default:</strong> <code class="verbatim">/nix/var/log/nix</code></li>
+<li><code class="verbatim">max-connection-age</code>
+
+Maximum age of a connection before it is closed.
+
+<strong>Default:</strong> <code class="verbatim">4294967295</code></li>
+<li><code class="verbatim">max-connections</code>
+
+Maximum number of concurrent connections to the Nix daemon.
+
+<strong>Default:</strong> <code class="verbatim">1</code></li>
+<li><code class="verbatim">path-info-cache-size</code>
+
+Size of the in-memory store path metadata cache.
+
+<strong>Default:</strong> <code class="verbatim">65536</code></li>
+<li><code class="verbatim">priority</code>
+
+Priority of this store when used as a <strong>substituter</strong>. A lower value
+means a higher priority.
+
+<strong>Default:</strong> <code class="verbatim">0</code></li>
+<li><code class="verbatim">real</code>
+
+Physical path of the Nix store.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">remote-program</code>
+
+Path to the <code class="verbatim">nix-daemon</code> executable on the remote machine.
+
+<strong>Default:</strong> <code class="verbatim">nix-daemon</code></li>
+<li><code class="verbatim">remote-store</code>
+
+<strong>Store URL</strong> to be used on the remote machine. The default is <code class="verbatim">auto</code>
+(i.e. use the Nix daemon or <code class="verbatim">/nix/store</code> directly).
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">root</code>
+
+Directory prefixed to all other paths.
+
+<strong>Default:</strong> ``</li>
+<li><code class="verbatim">ssh-key</code>
+
+Path to the SSH private key used to authenticate to the remote
+machine.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">state</code>
+
+Directory where Nix will store state.
+
+<strong>Default:</strong> <code class="verbatim">/dummy</code></li>
+<li><code class="verbatim">store</code>
+
+Logical location of the Nix store, usually <code class="verbatim">/nix/store</code>. Note that you
+can only copy store paths between stores if they have the same <code class="verbatim">store</code>
+setting.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">system-features</code>
+
+Optional <strong>system features</strong> available on the system this store uses to
+build derivations.
+
+Example: <code class="verbatim">&#34;kvm&#34;</code>
+
+<strong>Default:</strong> <em>machine-specific</em></li>
+<li><code class="verbatim">trusted</code>
+
+Whether paths from this store can be used as substitutes even if they
+are not signed by a key listed in the <code class="verbatim">trusted-public-keys</code> setting.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">want-mass-query</code>
+
+Whether this store can be queried efficiently for path validity when
+used as a <strong>substituter</strong>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+Experimental SSH Store
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p><strong>Store URL format</strong>: <code class="verbatim">ssh-ng://[username@]hostname</code></p>
+<p>
+Experimental store type that allows full access to a Nix store on a
+remote machine.</p>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+Settings
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<ul>
+<li><code class="verbatim">base64-ssh-public-host-key</code>
+
+The public host key of the remote machine.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">compress</code>
+
+Whether to enable SSH compression.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">max-connection-age</code>
+
+Maximum age of a connection before it is closed.
+
+<strong>Default:</strong> <code class="verbatim">4294967295</code></li>
+<li><code class="verbatim">max-connections</code>
+
+Maximum number of concurrent connections to the Nix daemon.
+
+<strong>Default:</strong> <code class="verbatim">1</code></li>
+<li><code class="verbatim">path-info-cache-size</code>
+
+Size of the in-memory store path metadata cache.
+
+<strong>Default:</strong> <code class="verbatim">65536</code></li>
+<li><code class="verbatim">priority</code>
+
+Priority of this store when used as a <strong>substituter</strong>. A lower value
+means a higher priority.
+
+<strong>Default:</strong> <code class="verbatim">0</code></li>
+<li><code class="verbatim">remote-program</code>
+
+Path to the <code class="verbatim">nix-daemon</code> executable on the remote machine.
+
+<strong>Default:</strong> <code class="verbatim">nix-daemon</code></li>
+<li><code class="verbatim">remote-store</code>
+
+<strong>Store URL</strong> to be used on the remote machine. The default is <code class="verbatim">auto</code>
+(i.e. use the Nix daemon or <code class="verbatim">/nix/store</code> directly).
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">ssh-key</code>
+
+Path to the SSH private key used to authenticate to the remote
+machine.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">store</code>
+
+Logical location of the Nix store, usually <code class="verbatim">/nix/store</code>. Note that you
+can only copy store paths between stores if they have the same <code class="verbatim">store</code>
+setting.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">system-features</code>
+
+Optional <strong>system features</strong> available on the system this store uses to
+build derivations.
+
+Example: <code class="verbatim">&#34;kvm&#34;</code>
+
+<strong>Default:</strong> <em>machine-specific</em></li>
+<li><code class="verbatim">trusted</code>
+
+Whether paths from this store can be used as substitutes even if they
+are not signed by a key listed in the <code class="verbatim">trusted-public-keys</code> setting.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">want-mass-query</code>
+
+Whether this store can be queried efficiently for path validity when
+used as a <strong>substituter</strong>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+HTTP Binary Cache Store
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p><strong>Store URL format</strong>: <code class="verbatim">http://...</code>, <code class="verbatim">https://...</code></p>
+<p>
+This store allows a binary cache to be accessed via the HTTP protocol.</p>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+Settings
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<ul>
+<li><code class="verbatim">compression</code>
+
+NAR compression method (<code class="verbatim">xz</code>, <code class="verbatim">bzip2</code>, <code class="verbatim">gzip</code>, <code class="verbatim">zstd</code>, or <code class="verbatim">none</code>).
+
+<strong>Default:</strong> <code class="verbatim">xz</code></li>
+<li><code class="verbatim">compression-level</code>
+
+The <em>preset level</em> to be used when compressing NARs. The meaning and
+accepted values depend on the compression method selected. <code class="verbatim">-1</code>
+specifies that the default compression level should be used.
+
+<strong>Default:</strong> <code class="verbatim">-1</code></li>
+<li><code class="verbatim">index-debug-info</code>
+
+Whether to index DWARF debug info files by build ID. This allows
+<code class="verbatim">dwarffs</code> to fetch debug info on demand
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">local-nar-cache</code>
+
+Path to a local cache of NARs fetched from this binary cache, used by
+commands such as <code class="verbatim">nix store cat</code>.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">parallel-compression</code>
+
+Enable multi-threaded compression of NARs. This is currently only
+available for <code class="verbatim">xz</code> and <code class="verbatim">zstd</code>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">path-info-cache-size</code>
+
+Size of the in-memory store path metadata cache.
+
+<strong>Default:</strong> <code class="verbatim">65536</code></li>
+<li><code class="verbatim">priority</code>
+
+Priority of this store when used as a <strong>substituter</strong>. A lower value
+means a higher priority.
+
+<strong>Default:</strong> <code class="verbatim">0</code></li>
+<li><code class="verbatim">secret-key</code>
+
+Path to the secret key used to sign the binary cache.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">store</code>
+
+Logical location of the Nix store, usually <code class="verbatim">/nix/store</code>. Note that you
+can only copy store paths between stores if they have the same <code class="verbatim">store</code>
+setting.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">system-features</code>
+
+Optional <strong>system features</strong> available on the system this store uses to
+build derivations.
+
+Example: <code class="verbatim">&#34;kvm&#34;</code>
+
+<strong>Default:</strong> <em>machine-specific</em></li>
+<li><code class="verbatim">trusted</code>
+
+Whether paths from this store can be used as substitutes even if they
+are not signed by a key listed in the <code class="verbatim">trusted-public-keys</code> setting.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">want-mass-query</code>
+
+Whether this store can be queried efficiently for path validity when
+used as a <strong>substituter</strong>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">write-nar-listing</code>
+
+Whether to write a JSON file that lists the files in each NAR.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+Local Binary Cache Store
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p><strong>Store URL format</strong>: =<a href="//=/path/">//=/path/</a></p>
+<p>
+This store allows reading and writing a binary cache stored in <em>path</em> in
+the local filesystem. If <em>path</em> does not exist, it will be created.</p>
+<p>
+For example, the following builds or downloads <code class="verbatim">nixpkgs#hello</code> into the
+local store and then copies it to the binary cache in
+<code class="verbatim">/tmp/binary-cache</code>:</p>
+<pre class="example">
+# nix copy --to file:///tmp/binary-cache nixpkgs#hello
+</pre>
+<div id="outline-container-headline-17" class="outline-3">
+<h3 id="headline-17">
+Settings
+</h3>
+<div id="outline-text-headline-17" class="outline-text-3">
+<ul>
+<li><code class="verbatim">compression</code>
+
+NAR compression method (<code class="verbatim">xz</code>, <code class="verbatim">bzip2</code>, <code class="verbatim">gzip</code>, <code class="verbatim">zstd</code>, or <code class="verbatim">none</code>).
+
+<strong>Default:</strong> <code class="verbatim">xz</code></li>
+<li><code class="verbatim">compression-level</code>
+
+The <em>preset level</em> to be used when compressing NARs. The meaning and
+accepted values depend on the compression method selected. <code class="verbatim">-1</code>
+specifies that the default compression level should be used.
+
+<strong>Default:</strong> <code class="verbatim">-1</code></li>
+<li><code class="verbatim">index-debug-info</code>
+
+Whether to index DWARF debug info files by build ID. This allows
+<code class="verbatim">dwarffs</code> to fetch debug info on demand
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">local-nar-cache</code>
+
+Path to a local cache of NARs fetched from this binary cache, used by
+commands such as <code class="verbatim">nix store cat</code>.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">parallel-compression</code>
+
+Enable multi-threaded compression of NARs. This is currently only
+available for <code class="verbatim">xz</code> and <code class="verbatim">zstd</code>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">path-info-cache-size</code>
+
+Size of the in-memory store path metadata cache.
+
+<strong>Default:</strong> <code class="verbatim">65536</code></li>
+<li><code class="verbatim">priority</code>
+
+Priority of this store when used as a <strong>substituter</strong>. A lower value
+means a higher priority.
+
+<strong>Default:</strong> <code class="verbatim">0</code></li>
+<li><code class="verbatim">secret-key</code>
+
+Path to the secret key used to sign the binary cache.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">store</code>
+
+Logical location of the Nix store, usually <code class="verbatim">/nix/store</code>. Note that you
+can only copy store paths between stores if they have the same <code class="verbatim">store</code>
+setting.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">system-features</code>
+
+Optional <strong>system features</strong> available on the system this store uses to
+build derivations.
+
+Example: <code class="verbatim">&#34;kvm&#34;</code>
+
+<strong>Default:</strong> <em>machine-specific</em></li>
+<li><code class="verbatim">trusted</code>
+
+Whether paths from this store can be used as substitutes even if they
+are not signed by a key listed in the <code class="verbatim">trusted-public-keys</code> setting.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">want-mass-query</code>
+
+Whether this store can be queried efficiently for path validity when
+used as a <strong>substituter</strong>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">write-nar-listing</code>
+
+Whether to write a JSON file that lists the files in each NAR.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-2">
+<h2 id="headline-18">
+Local Daemon Store
+</h2>
+<div id="outline-text-headline-18" class="outline-text-2">
+<p><strong>Store URL format</strong>: <code class="verbatim">daemon</code>, =unix://=/path/</p>
+<p>
+This store type accesses a Nix store by talking to a Nix daemon
+listening on the Unix domain socket <em>path</em>. The store pseudo-URL
+<code class="verbatim">daemon</code> is equivalent to <code class="verbatim">unix:///nix/var/nix/daemon-socket/socket</code>.</p>
+<div id="outline-container-headline-19" class="outline-3">
+<h3 id="headline-19">
+Settings
+</h3>
+<div id="outline-text-headline-19" class="outline-text-3">
+<ul>
+<li><code class="verbatim">log</code>
+
+directory where Nix will store log files.
+
+<strong>Default:</strong> <code class="verbatim">/nix/var/log/nix</code></li>
+<li><code class="verbatim">max-connection-age</code>
+
+Maximum age of a connection before it is closed.
+
+<strong>Default:</strong> <code class="verbatim">4294967295</code></li>
+<li><code class="verbatim">max-connections</code>
+
+Maximum number of concurrent connections to the Nix daemon.
+
+<strong>Default:</strong> <code class="verbatim">1</code></li>
+<li><code class="verbatim">path-info-cache-size</code>
+
+Size of the in-memory store path metadata cache.
+
+<strong>Default:</strong> <code class="verbatim">65536</code></li>
+<li><code class="verbatim">priority</code>
+
+Priority of this store when used as a <strong>substituter</strong>. A lower value
+means a higher priority.
+
+<strong>Default:</strong> <code class="verbatim">0</code></li>
+<li><code class="verbatim">real</code>
+
+Physical path of the Nix store.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">root</code>
+
+Directory prefixed to all other paths.
+
+<strong>Default:</strong> ``</li>
+<li><code class="verbatim">state</code>
+
+Directory where Nix will store state.
+
+<strong>Default:</strong> <code class="verbatim">/dummy</code></li>
+<li><code class="verbatim">store</code>
+
+Logical location of the Nix store, usually <code class="verbatim">/nix/store</code>. Note that you
+can only copy store paths between stores if they have the same <code class="verbatim">store</code>
+setting.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">system-features</code>
+
+Optional <strong>system features</strong> available on the system this store uses to
+build derivations.
+
+Example: <code class="verbatim">&#34;kvm&#34;</code>
+
+<strong>Default:</strong> <em>machine-specific</em></li>
+<li><code class="verbatim">trusted</code>
+
+Whether paths from this store can be used as substitutes even if they
+are not signed by a key listed in the <code class="verbatim">trusted-public-keys</code> setting.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">want-mass-query</code>
+
+Whether this store can be queried efficiently for path validity when
+used as a <strong>substituter</strong>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-2">
+<h2 id="headline-20">
+Local Store
+</h2>
+<div id="outline-text-headline-20" class="outline-text-2">
+<p><strong>Store URL format</strong>: <code class="verbatim">local</code>, <em>root</em></p>
+<p>
+This store type accesses a Nix store in the local filesystem directly
+(i.e. not via the Nix daemon). <em>root</em> is an absolute path that is
+prefixed to other directories such as the Nix store directory. The store
+pseudo-URL <code class="verbatim">local</code> denotes a store that uses <code class="verbatim">/</code> as its root directory.</p>
+<p>
+A store that uses a <em>root</em> other than <code class="verbatim">/</code> is called a <em>chroot</em> store.
+With such stores, the store directory is “logically” still <code class="verbatim">/nix/store</code>,
+so programs stored in them can only be built and executed by
+<code class="verbatim">chroot</code>-ing into <em>root</em>. Chroot stores only support building and
+running on Linux when <code class="verbatim">mount namespaces</code> and <code class="verbatim">user namespaces</code> are
+enabled.</p>
+<p>
+For example, the following uses <code class="verbatim">/tmp/root</code> as the chroot environment to
+build or download <code class="verbatim">nixpkgs#hello</code> and then execute it:</p>
+<pre class="example">
+# nix run --store /tmp/root nixpkgs#hello
+Hello, world!
+</pre>
+<p>
+Here, the “physical” store location is <code class="verbatim">/tmp/root/nix/store</code>, and Nix&#39;s
+store metadata is in <code class="verbatim">/tmp/root/nix/var/nix/db</code>.</p>
+<p>
+It is also possible, but not recommended, to change the “logical”
+location of the Nix store from its default of <code class="verbatim">/nix/store</code>. This makes
+it impossible to use default substituters such as
+<code class="verbatim">https://cache.nixos.org/</code>, and thus you may have to build everything
+locally. Here is an example:</p>
+<pre class="example">
+# nix build --store &#39;local?store=/tmp/my-nix/store&amp;state=/tmp/my-nix/state&amp;log=/tmp/my-nix/log&#39; nixpkgs#hello
+</pre>
+<div id="outline-container-headline-21" class="outline-3">
+<h3 id="headline-21">
+Settings
+</h3>
+<div id="outline-text-headline-21" class="outline-text-3">
+<ul>
+<li><code class="verbatim">log</code>
+
+directory where Nix will store log files.
+
+<strong>Default:</strong> <code class="verbatim">/nix/var/log/nix</code></li>
+<li><code class="verbatim">path-info-cache-size</code>
+
+Size of the in-memory store path metadata cache.
+
+<strong>Default:</strong> <code class="verbatim">65536</code></li>
+<li><code class="verbatim">priority</code>
+
+Priority of this store when used as a <strong>substituter</strong>. A lower value
+means a higher priority.
+
+<strong>Default:</strong> <code class="verbatim">0</code></li>
+<li>
+<p><code class="verbatim">read-only</code></p>
+<p>
+Allow this store to be opened when its <strong>database</strong> is on a read-only
+filesystem.</p>
+<p>
+Normally Nix will attempt to open the store database in read-write
+mode, even for querying (when write access is not needed), causing it
+to fail if the database is on a read-only filesystem.</p>
+<p>
+Enable read-only mode to disable locking and open the SQLite database
+with the <code class="verbatim">immutable</code> parameter set.</p>
+<blockquote>
+<p><strong>Warning</strong> Do not use this unless the filesystem is read-only.</p>
+</blockquote>
+<blockquote>
+<p>Using it when the filesystem is writable can cause incorrect query
+results or corruption errors if the database is changed by another
+process. While the filesystem the database resides on might appear to
+be read-only, consider whether another user or system might have write
+access to it.</p>
+</blockquote>
+<p>
+<strong>Default:</strong> <code class="verbatim">false</code></p>
+</li>
+<li><code class="verbatim">real</code>
+
+Physical path of the Nix store.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">require-sigs</code>
+
+Whether store paths copied into this store should have a trusted
+signature.
+
+<strong>Default:</strong> <code class="verbatim">true</code></li>
+<li><code class="verbatim">root</code>
+
+Directory prefixed to all other paths.
+
+<strong>Default:</strong> ``</li>
+<li><code class="verbatim">state</code>
+
+Directory where Nix will store state.
+
+<strong>Default:</strong> <code class="verbatim">/dummy</code></li>
+<li><code class="verbatim">store</code>
+
+Logical location of the Nix store, usually <code class="verbatim">/nix/store</code>. Note that you
+can only copy store paths between stores if they have the same <code class="verbatim">store</code>
+setting.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">system-features</code>
+
+Optional <strong>system features</strong> available on the system this store uses to
+build derivations.
+
+Example: <code class="verbatim">&#34;kvm&#34;</code>
+
+<strong>Default:</strong> <em>machine-specific</em></li>
+<li><code class="verbatim">trusted</code>
+
+Whether paths from this store can be used as substitutes even if they
+are not signed by a key listed in the <code class="verbatim">trusted-public-keys</code> setting.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">want-mass-query</code>
+
+Whether this store can be queried efficiently for path validity when
+used as a <strong>substituter</strong>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-22" class="outline-2">
+<h2 id="headline-22">
+S3 Binary Cache Store
+</h2>
+<div id="outline-text-headline-22" class="outline-text-2">
+<p><strong>Store URL format</strong>: =s3://=/bucket-name/</p>
+<p>
+This store allows reading and writing a binary cache stored in an AWS S3
+(or S3-compatible service) bucket. This store shares many idioms with
+the <strong>HTTP Binary Cache Store</strong>.</p>
+<p>
+For AWS S3, the binary cache URL for a bucket named <code class="verbatim">example-nix-cache</code>
+will be exactly <em>s3://example-nix-cache</em>. For S3 compatible binary
+caches, consult that cache&#39;s documentation.</p>
+<div id="outline-container-headline-23" class="outline-3">
+<h3 id="headline-23">
+Anonymous reads to your S3-compatible binary cache
+</h3>
+<div id="outline-text-headline-23" class="outline-text-3">
+<blockquote>
+<p>If your binary cache is publicly accessible and does not require
+authentication, it is simplest to use the [HTTP Binary Cache Store]
+rather than S3 Binary Cache Store with
+<em><a href="https://example-nix-cache.s3.amazonaws.com">https://example-nix-cache.s3.amazonaws.com</a></em> instead of
+<em>s3://example-nix-cache</em>.</p>
+</blockquote>
+<p>
+Your bucket will need a <strong>bucket policy</strong> like the following to be
+accessible:</p>
+<pre class="example">
+{
+    &#34;Id&#34;: &#34;DirectReads&#34;,
+    &#34;Version&#34;: &#34;2012-10-17&#34;,
+    &#34;Statement&#34;: [
+        {
+            &#34;Sid&#34;: &#34;AllowDirectReads&#34;,
+            &#34;Action&#34;: [
+                &#34;s3:GetObject&#34;,
+                &#34;s3:GetBucketLocation&#34;
+            ],
+            &#34;Effect&#34;: &#34;Allow&#34;,
+            &#34;Resource&#34;: [
+                &#34;arn:aws:s3:::example-nix-cache&#34;,
+                &#34;arn:aws:s3:::example-nix-cache/*&#34;
+            ],
+            &#34;Principal&#34;: &#34;*&#34;
+        }
+    ]
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-24" class="outline-3">
+<h3 id="headline-24">
+Authentication
+</h3>
+<div id="outline-text-headline-24" class="outline-text-3">
+<p>Nix will use the <strong>default credential provider chain</strong> for authenticating
+requests to Amazon S3.</p>
+<p>
+Note that this means Nix will read environment variables and files with
+different idioms than with Nix&#39;s own settings, as implemented by the AWS
+SDK. Consult the documentation linked above for further details.</p>
+</div>
+</div>
+<div id="outline-container-headline-25" class="outline-3">
+<h3 id="headline-25">
+Authenticated reads to your S3 binary cache
+</h3>
+<div id="outline-text-headline-25" class="outline-text-3">
+<p>Your bucket will need a bucket policy allowing the desired users to
+perform the <code class="verbatim">s3:GetObject</code> and <code class="verbatim">s3:GetBucketLocation</code> action on all
+objects in the bucket. The <strong>anonymous policy given above</strong> can be updated
+to have a restricted <code class="verbatim">Principal</code> to support this.</p>
+</div>
+</div>
+<div id="outline-container-headline-26" class="outline-3">
+<h3 id="headline-26">
+Authenticated writes to your S3-compatible binary cache
+</h3>
+<div id="outline-text-headline-26" class="outline-text-3">
+<p>Your account will need an IAM policy to support uploading to the bucket:</p>
+<pre class="example">
+{
+  &#34;Version&#34;: &#34;2012-10-17&#34;,
+  &#34;Statement&#34;: [
+    {
+      &#34;Sid&#34;: &#34;UploadToCache&#34;,
+      &#34;Effect&#34;: &#34;Allow&#34;,
+      &#34;Action&#34;: [
+        &#34;s3:AbortMultipartUpload&#34;,
+        &#34;s3:GetBucketLocation&#34;,
+        &#34;s3:GetObject&#34;,
+        &#34;s3:ListBucket&#34;,
+        &#34;s3:ListBucketMultipartUploads&#34;,
+        &#34;s3:ListMultipartUploadParts&#34;,
+        &#34;s3:PutObject&#34;
+      ],
+      &#34;Resource&#34;: [
+        &#34;arn:aws:s3:::example-nix-cache&#34;,
+        &#34;arn:aws:s3:::example-nix-cache/*&#34;
+      ]
+    }
+  ]
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-27" class="outline-3">
+<h3 id="headline-27">
+Examples
+</h3>
+<div id="outline-text-headline-27" class="outline-text-3">
+<p>With bucket policies and authentication set up as described above,
+uploading works via <code class="verbatim">nix copy</code> (experimental).</p>
+<ul>
+<li>To upload with a specific credential profile for Amazon S3:</li>
+</ul>
+<pre class="example">
+$ nix copy nixpkgs.hello \
+--to &#39;s3://example-nix-cache?profile=cache-upload&amp;region=eu-west-2&#39;
+</pre>
+<ul>
+<li>To upload to an S3-compatible binary cache:</li>
+</ul>
+<pre class="example">
+$ nix copy nixpkgs.hello --to \
+&#39;s3://example-nix-cache?profile=cache-upload&amp;scheme=https&amp;endpoint=minio.example.com&#39;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-28" class="outline-3">
+<h3 id="headline-28">
+Settings
+</h3>
+<div id="outline-text-headline-28" class="outline-text-3">
+<ul>
+<li><code class="verbatim">buffer-size</code>
+
+Size (in bytes) of each part in multi-part uploads.
+
+<strong>Default:</strong> <code class="verbatim">5242880</code></li>
+<li><code class="verbatim">compression</code>
+
+NAR compression method (<code class="verbatim">xz</code>, <code class="verbatim">bzip2</code>, <code class="verbatim">gzip</code>, <code class="verbatim">zstd</code>, or <code class="verbatim">none</code>).
+
+<strong>Default:</strong> <code class="verbatim">xz</code></li>
+<li><code class="verbatim">compression-level</code>
+
+The <em>preset level</em> to be used when compressing NARs. The meaning and
+accepted values depend on the compression method selected. <code class="verbatim">-1</code>
+specifies that the default compression level should be used.
+
+<strong>Default:</strong> <code class="verbatim">-1</code></li>
+<li>
+<p><code class="verbatim">endpoint</code></p>
+<p>
+The URL of the endpoint of an S3-compatible service such as MinIO. Do
+not specify this setting if you&#39;re using Amazon S3.</p>
+<blockquote>
+<p><strong>Note</strong></p>
+</blockquote>
+<blockquote>
+<p>This endpoint must support HTTPS and will use path-based addressing
+instead of virtual host based addressing.</p>
+</blockquote>
+<p>
+<strong>Default:</strong> <em>empty</em></p>
+</li>
+<li><code class="verbatim">index-debug-info</code>
+
+Whether to index DWARF debug info files by build ID. This allows
+<code class="verbatim">dwarffs</code> to fetch debug info on demand
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">local-nar-cache</code>
+
+Path to a local cache of NARs fetched from this binary cache, used by
+commands such as <code class="verbatim">nix store cat</code>.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">log-compression</code>
+
+Compression method for <code class="verbatim">log/*</code> files. It is recommended to use a
+compression method supported by most web browsers (e.g. <code class="verbatim">brotli</code>).
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">ls-compression</code>
+
+Compression method for <code class="verbatim">.ls</code> files.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">multipart-upload</code>
+
+Whether to use multi-part uploads.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">narinfo-compression</code>
+
+Compression method for <code class="verbatim">.narinfo</code> files.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">parallel-compression</code>
+
+Enable multi-threaded compression of NARs. This is currently only
+available for <code class="verbatim">xz</code> and <code class="verbatim">zstd</code>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">path-info-cache-size</code>
+
+Size of the in-memory store path metadata cache.
+
+<strong>Default:</strong> <code class="verbatim">65536</code></li>
+<li><code class="verbatim">priority</code>
+
+Priority of this store when used as a <strong>substituter</strong>. A lower value
+means a higher priority.
+
+<strong>Default:</strong> <code class="verbatim">0</code></li>
+<li><code class="verbatim">profile</code>
+
+The name of the AWS configuration profile to use. By default Nix will
+use the <code class="verbatim">default</code> profile.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">region</code>
+
+The region of the S3 bucket. If your bucket is not in <code class="verbatim">us–east-1</code>, you
+should always explicitly specify the region parameter.
+
+<strong>Default:</strong> <code class="verbatim">us-east-1</code></li>
+<li>
+<p><code class="verbatim">scheme</code></p>
+<p>
+The scheme used for S3 requests, <code class="verbatim">https</code> (default) or <code class="verbatim">http</code>. This
+option allows you to disable HTTPS for binary caches which don&#39;t
+support it.</p>
+<blockquote>
+<p><strong>Note</strong></p>
+</blockquote>
+<blockquote>
+<p>HTTPS should be used if the cache might contain sensitive information.</p>
+</blockquote>
+<p>
+<strong>Default:</strong> <em>empty</em></p>
+</li>
+<li><code class="verbatim">secret-key</code>
+
+Path to the secret key used to sign the binary cache.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">store</code>
+
+Logical location of the Nix store, usually <code class="verbatim">/nix/store</code>. Note that you
+can only copy store paths between stores if they have the same <code class="verbatim">store</code>
+setting.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">system-features</code>
+
+Optional <strong>system features</strong> available on the system this store uses to
+build derivations.
+
+Example: <code class="verbatim">&#34;kvm&#34;</code>
+
+<strong>Default:</strong> <em>machine-specific</em></li>
+<li><code class="verbatim">trusted</code>
+
+Whether paths from this store can be used as substitutes even if they
+are not signed by a key listed in the <code class="verbatim">trusted-public-keys</code> setting.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">want-mass-query</code>
+
+Whether this store can be queried efficiently for path validity when
+used as a <strong>substituter</strong>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">write-nar-listing</code>
+
+Whether to write a JSON file that lists the files in each NAR.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-29" class="outline-2">
+<h2 id="headline-29">
+SSH Store
+</h2>
+<div id="outline-text-headline-29" class="outline-text-2">
+<p><strong>Store URL format</strong>: <code class="verbatim">ssh://[username@]hostname</code></p>
+<p>
+This store type allows limited access to a remote store on another
+machine via SSH.</p>
+<div id="outline-container-headline-30" class="outline-3">
+<h3 id="headline-30">
+Settings
+</h3>
+<div id="outline-text-headline-30" class="outline-text-3">
+<ul>
+<li><code class="verbatim">base64-ssh-public-host-key</code>
+
+The public host key of the remote machine.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">compress</code>
+
+Whether to enable SSH compression.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">max-connections</code>
+
+Maximum number of concurrent SSH connections.
+
+<strong>Default:</strong> <code class="verbatim">1</code></li>
+<li><code class="verbatim">path-info-cache-size</code>
+
+Size of the in-memory store path metadata cache.
+
+<strong>Default:</strong> <code class="verbatim">65536</code></li>
+<li><code class="verbatim">priority</code>
+
+Priority of this store when used as a <strong>substituter</strong>. A lower value
+means a higher priority.
+
+<strong>Default:</strong> <code class="verbatim">0</code></li>
+<li><code class="verbatim">remote-program</code>
+
+Path to the <code class="verbatim">nix-store</code> executable on the remote machine.
+
+<strong>Default:</strong> <code class="verbatim">nix-store</code></li>
+<li><code class="verbatim">remote-store</code>
+
+<strong>Store URL</strong> to be used on the remote machine. The default is <code class="verbatim">auto</code>
+(i.e. use the Nix daemon or <code class="verbatim">/nix/store</code> directly).
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">ssh-key</code>
+
+Path to the SSH private key used to authenticate to the remote
+machine.
+
+<strong>Default:</strong> <em>empty</em></li>
+<li><code class="verbatim">store</code>
+
+Logical location of the Nix store, usually <code class="verbatim">/nix/store</code>. Note that you
+can only copy store paths between stores if they have the same <code class="verbatim">store</code>
+setting.
+
+<strong>Default:</strong> <code class="verbatim">/nix/store</code></li>
+<li><code class="verbatim">system-features</code>
+
+Optional <strong>system features</strong> available on the system this store uses to
+build derivations.
+
+Example: <code class="verbatim">&#34;kvm&#34;</code>
+
+<strong>Default:</strong> <em>machine-specific</em></li>
+<li><code class="verbatim">trusted</code>
+
+Whether paths from this store can be used as substitutes even if they
+are not signed by a key listed in the <code class="verbatim">trusted-public-keys</code> setting.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+<li><code class="verbatim">want-mass-query</code>
+
+Whether this store can be queried efficiently for path validity when
+used as a <strong>substituter</strong>.
+
+<strong>Default:</strong> <code class="verbatim">false</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-31" class="outline-2">
+<h2 id="headline-31">
+Options
+</h2>
+<div id="outline-text-headline-31" class="outline-text-2">
+<div id="outline-container-headline-32" class="outline-3">
+<h3 id="headline-32">
+Logging-related options
+</h3>
+<div id="outline-text-headline-32" class="outline-text-3">
+<ul>
+<li><code class="verbatim">--debug</code>
+
+Set the logging verbosity level to ‘debug&#39;.</li>
+<li><code class="verbatim">--log-format</code> <em>format</em>
+
+Set the format of log output; one of <code class="verbatim">raw</code>, <code class="verbatim">internal-json</code>, <code class="verbatim">bar</code> or
+<code class="verbatim">bar-with-logs</code>.</li>
+<li><code class="verbatim">--print-build-logs</code> / <code class="verbatim">-L</code>
+
+Print full build logs on standard error.</li>
+<li><code class="verbatim">--quiet</code>
+
+Decrease the logging verbosity level.</li>
+<li><code class="verbatim">--verbose</code> / <code class="verbatim">-v</code>
+
+Increase the logging verbosity level.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-33" class="outline-3">
+<h3 id="headline-33">
+Miscellaneous global options
+</h3>
+<div id="outline-text-headline-33" class="outline-text-3">
+<ul>
+<li><code class="verbatim">--help</code>
+
+Show usage information.</li>
+<li><code class="verbatim">--offline</code>
+
+Disable substituters and consider all previously downloaded files
+up-to-date.</li>
+<li><code class="verbatim">--option</code> <em>name</em> <em>value</em>
+
+Set the Nix configuration setting <em>name</em> to <em>value</em> (overriding
+<code class="verbatim">nix.conf</code>).</li>
+<li><code class="verbatim">--refresh</code>
+
+Consider all previously downloaded files out-of-date.</li>
+<li><code class="verbatim">--version</code>
+
+Show version information.
+
+<strong>Note</strong>
+
+See <code class="verbatim">man nix.conf</code> for overriding configuration settings with command
+line flags.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

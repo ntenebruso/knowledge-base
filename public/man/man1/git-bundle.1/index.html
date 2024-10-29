@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-bundle.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-bundle.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-bundle - Move objects and refs by archive</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git bundle create [-q | --quiet | --progress]
+                    [--version=&lt;version&gt;] &lt;file&gt; &lt;git-rev-list-args&gt;
+git bundle verify [-q | --quiet] &lt;file&gt;
+git bundle list-heads &lt;file&gt; [&lt;refname&gt;...]
+git bundle unbundle [--progress] &lt;file&gt; [&lt;refname&gt;...]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Create, unpack, and manipulate &#34;bundle&#34; files. Bundles are used for the
+&#34;offline&#34; transfer of Git objects without an active &#34;server&#34; sitting on
+the other side of the network connection.</p>
+<p>
+They can be used to create both incremental and full backups of a
+repository, and to relay the state of the references in one repository
+to another.</p>
+<p>
+Git commands that fetch or otherwise &#34;read&#34; via protocols such as
+<strong>ssh://</strong> and <strong>https://</strong> can also operate on bundle files. It is possible
+*git-clone*(1) a new repository from a bundle, to use *git-fetch*(1) to
+fetch from one, and to list the references contained within it with
+*git-ls-remote*(1). There&#39;s no corresponding &#34;write&#34; support, i.e.a <em>git
+push</em> into a bundle is not supported.</p>
+<p>
+See the &#34;EXAMPLES&#34; section below for examples of how to use bundles.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+BUNDLE FORMAT
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Bundles are <strong>.pack</strong> files (see *git-pack-objects*(1)) with a header
+indicating what references are contained within the bundle.</p>
+<p>
+Like the packed archive format itself bundles can either be
+self-contained, or be created using exclusions. See the &#34;OBJECT
+PREREQUISITES&#34; section below.</p>
+<p>
+Bundles created using revision exclusions are &#34;thin packs&#34; created using
+the <strong>–thin</strong> option to <strong>git-pack-objects*(1), and unbundled using the
+*–fix-thin</strong> option to *git-index-pack*(1).</p>
+<p>
+There is no option to create a &#34;thick pack&#34; when using revision
+exclusions, and users should not be concerned about the difference. By
+using &#34;thin packs&#34;, bundles created using exclusions are smaller in
+size. That they&#39;re &#34;thin&#34; under the hood is merely noted here as a
+curiosity, and as a reference to other documentation.</p>
+<p>
+See *gitformat-bundle*(5) for more details and the discussion of &#34;thin
+pack&#34; in *gitformat-pack*(5) for further details.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>create [options] &lt;file&gt; &lt;git-rev-list-args&gt;</p>
+<blockquote>
+<p>Used to create a bundle named <em>file</em>. This requires the
+<em>&lt;git-rev-list-args&gt;</em> arguments to define the bundle contents. <em>options</em>
+contains the options specific to the <em>git bundle create</em> subcommand. If
+<em>file</em> is <strong>-</strong>, the bundle is written to stdout.</p>
+</blockquote>
+<p>
+verify &lt;file&gt;</p>
+<blockquote>
+<p>Used to check that a bundle file is valid and will apply cleanly to the
+current repository. This includes checks on the bundle format itself as
+well as checking that the prerequisite commits exist and are fully
+linked in the current repository. Then, <em>git bundle</em> prints a list of
+missing commits, if any. Finally, information about additional
+capabilities, such as &#34;object filter&#34;, is printed. See &#34;Capabilities&#34; in
+*gitformat-bundle*(5) for more information. The exit code is zero for
+success, but will be nonzero if the bundle file is invalid. If <em>file</em> is
+<strong>-</strong>, the bundle is read from stdin.</p>
+</blockquote>
+<p>
+list-heads &lt;file&gt;</p>
+<blockquote>
+<p>Lists the references defined in the bundle. If followed by a list of
+references, only references matching those given are printed out. If
+<em>file</em> is <strong>-</strong>, the bundle is read from stdin.</p>
+</blockquote>
+<p>
+unbundle &lt;file&gt;</p>
+<blockquote>
+<p>Passes the objects in the bundle to <em>git index-pack</em> for storage in the
+repository, then prints the names of all defined references. If a list
+of references is given, only references matching those in the list are
+printed. This command is really plumbing, intended to be called only by
+<em>git fetch</em>. If <em>file</em> is <strong>-</strong>, the bundle is read from stdin.</p>
+</blockquote>
+<p>
+&lt;git-rev-list-args&gt;</p>
+<blockquote>
+<p>A list of arguments, acceptable to <em>git rev-parse</em> and <em>git rev-list</em>
+(and containing a named ref, see SPECIFYING REFERENCES below), that
+specifies the specific objects and references to transport. For example,
+<strong>master~10..master</strong> causes the current master reference to be packaged
+along with all objects added since its 10th ancestor commit. There is no
+explicit limit to the number of references and objects that may be
+packaged.</p>
+</blockquote>
+<p>
+[&lt;refname&gt;…]</p>
+<blockquote>
+<p>A list of references used to limit the references reported as available.
+This is principally of use to <em>git fetch</em>, which expects to receive only
+those references asked for and not necessarily everything in the pack
+(in this case, <em>git bundle</em> acts like <em>git fetch-pack</em>).</p>
+</blockquote>
+<p>
+–progress</p>
+<blockquote>
+<p>Progress status is reported on the standard error stream by default when
+it is attached to a terminal, unless -q is specified. This flag forces
+progress status even if the standard error stream is not directed to a
+terminal.</p>
+</blockquote>
+<p>
+–version=&lt;version&gt;</p>
+<blockquote>
+<p>Specify the bundle version. Version 2 is the older format and can only
+be used with SHA-1 repositories; the newer version 3 contains
+capabilities that permit extensions. The default is the oldest supported
+format, based on the hash algorithm in use.</p>
+</blockquote>
+<p>
+-q, –quiet</p>
+<blockquote>
+<p>This flag makes the command not to report its progress on the standard
+error stream.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SPECIFYING REFERENCES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Revisions must be accompanied by reference names to be packaged in a
+bundle.</p>
+<p>
+More than one reference may be packaged, and more than one set of
+prerequisite objects can be specified. The objects packaged are those
+not contained in the union of the prerequisites.</p>
+<p>
+The <em>git bundle create</em> command resolves the reference names for you
+using the same rules as <strong>git rev-parse –abbrev-ref=loose</strong>. Each
+prerequisite can be specified explicitly (e.g. <strong>^master~10</strong>), or
+implicitly (e.g. <strong>master~10..master</strong>, <strong>–since=10.days.ago master</strong>).</p>
+<p>
+All of these simple cases are OK (assuming we have a &#34;master&#34; and &#34;next&#34;
+branch):</p>
+<blockquote>
+<pre class="example">
+$ git bundle create master.bundle master
+$ echo master | git bundle create master.bundle --stdin
+$ git bundle create master-and-next.bundle master next
+$ (echo master; echo next) | git bundle create master-and-next.bundle --stdin
+</pre>
+</blockquote>
+<p>
+And so are these (and the same but omitted <strong>–stdin</strong> examples):</p>
+<blockquote>
+<pre class="example">
+$ git bundle create recent-master.bundle master~10..master
+$ git bundle create recent-updates.bundle master~10..master next~5..next
+</pre>
+</blockquote>
+<p>
+A revision name or a range whose right-hand-side cannot be resolved to a
+reference is not accepted:</p>
+<blockquote>
+<pre class="example">
+$ git bundle create HEAD.bundle $(git rev-parse HEAD)
+fatal: Refusing to create empty bundle.
+$ git bundle create master-yesterday.bundle master~10..master~5
+fatal: Refusing to create empty bundle.
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+OBJECT PREREQUISITES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>When creating bundles it is possible to create a self-contained bundle
+that can be unbundled in a repository with no common history, as well as
+providing negative revisions to exclude objects needed in the earlier
+parts of the history.</p>
+<p>
+Feeding a revision such as <strong>new</strong> to <strong>git bundle create</strong> will create a
+bundle file that contains all the objects reachable from the revision
+<strong>new</strong>. That bundle can be unbundled in any repository to obtain a full
+history that leads to the revision <strong>new</strong>:</p>
+<blockquote>
+<pre class="example">
+$ git bundle create full.bundle new
+</pre>
+</blockquote>
+<p>
+A revision range such as <strong>old..new</strong> will produce a bundle file that will
+require the revision <strong>old</strong> (and any objects reachable from it) to exist
+for the bundle to be &#34;unbundle&#34;-able:</p>
+<blockquote>
+<pre class="example">
+$ git bundle create full.bundle old..new
+</pre>
+</blockquote>
+<p>
+A self-contained bundle without any prerequisites can be extracted into
+anywhere, even into an empty repository, or be cloned from (i.e., <strong>new</strong>,
+but not <strong>old..new</strong>).</p>
+<p>
+It is okay to err on the side of caution, causing the bundle file to
+contain objects already in the destination, as these are ignored when
+unpacking at the destination.</p>
+<p>
+If you want to match <strong>git clone –mirror</strong>, which would include your refs
+such as <strong>refs/remotes/*</strong>, use <strong>–all</strong>. If you want to provide the same
+set of refs that a clone directly from the source repository would get,
+use <strong>–branches –tags</strong> for the <strong>&lt;git-rev-list-args&gt;</strong>.</p>
+<p>
+The <em>git bundle verify</em> command can be used to check whether your
+recipient repository has the required prerequisite commits for a bundle.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Assume you want to transfer the history from a repository R1 on machine
+A to another repository R2 on machine B. For whatever reason, direct
+connection between A and B is not allowed, but we can move data from A
+to B via some mechanism (CD, email, etc.). We want to update R2 with
+development made on the branch master in R1.</p>
+<p>
+To bootstrap the process, you can first create a bundle that does not
+have any prerequisites. You can use a tag to remember up to what commit
+you last processed, in order to make it easy to later update the other
+repository with an incremental bundle:</p>
+<blockquote>
+<pre class="example">
+machineA$ cd R1
+machineA$ git bundle create file.bundle master
+machineA$ git tag -f lastR2bundle master
+</pre>
+</blockquote>
+<p>
+Then you transfer file.bundle to the target machine B. Because this
+bundle does not require any existing object to be extracted, you can
+create a new repository on machine B by cloning from it:</p>
+<blockquote>
+<pre class="example">
+machineB$ git clone -b master /home/me/tmp/file.bundle R2
+</pre>
+</blockquote>
+<p>
+This will define a remote called &#34;origin&#34; in the resulting repository
+that lets you fetch and pull from the bundle. The $GIT_DIR/config file
+in R2 will have an entry like this:</p>
+<blockquote>
+<pre class="example">
+[remote &#34;origin&#34;]
+    url = /home/me/tmp/file.bundle
+    fetch = refs/heads/*:refs/remotes/origin/*
+</pre>
+</blockquote>
+<p>
+To update the resulting mine.git repository, you can fetch or pull after
+replacing the bundle stored at /home/me/tmp/file.bundle with incremental
+updates.</p>
+<p>
+After working some more in the original repository, you can create an
+incremental bundle to update the other repository:</p>
+<blockquote>
+<pre class="example">
+machineA$ cd R1
+machineA$ git bundle create file.bundle lastR2bundle..master
+machineA$ git tag -f lastR2bundle master
+</pre>
+</blockquote>
+<p>
+You then transfer the bundle to the other machine to replace
+/home/me/tmp/file.bundle, and pull from it.</p>
+<blockquote>
+<pre class="example">
+machineB$ cd R2
+machineB$ git pull
+</pre>
+</blockquote>
+<p>
+If you know up to what commit the intended recipient repository should
+have the necessary objects, you can use that knowledge to specify the
+prerequisites, giving a cut-off point to limit the revisions and objects
+that go in the resulting bundle. The previous example used the
+lastR2bundle tag for this purpose, but you can use any other options
+that you would give to the *git-log*(1) command. Here are more examples:</p>
+<p>
+You can use a tag that is present in both:</p>
+<blockquote>
+<pre class="example">
+$ git bundle create mybundle v1.0.0..master
+</pre>
+</blockquote>
+<p>
+You can use a prerequisite based on time:</p>
+<blockquote>
+<pre class="example">
+$ git bundle create mybundle --since=10.days master
+</pre>
+</blockquote>
+<p>
+You can use the number of commits:</p>
+<blockquote>
+<pre class="example">
+$ git bundle create mybundle -10 master
+</pre>
+</blockquote>
+<p>
+You can run <strong>git-bundle verify</strong> to see if you can extract from a bundle
+that was created with a prerequisite:</p>
+<blockquote>
+<pre class="example">
+$ git bundle verify mybundle
+</pre>
+</blockquote>
+<p>
+This will list what commits you must have in order to extract from the
+bundle and will error out if you do not have them.</p>
+<p>
+A bundle from a recipient repository&#39;s point of view is just like a
+regular repository which it fetches or pulls from. You can, for example,
+map references when fetching:</p>
+<blockquote>
+<pre class="example">
+$ git fetch mybundle master:localRef
+</pre>
+</blockquote>
+<p>
+You can also see what references it offers:</p>
+<blockquote>
+<pre class="example">
+$ git ls-remote mybundle
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+FILE FORMAT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>See *gitformat-bundle*(5).</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+GIT
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

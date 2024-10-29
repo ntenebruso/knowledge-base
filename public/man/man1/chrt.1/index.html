@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - chrt.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - chrt.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>chrt - manipulate the real-time attributes of a process</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>chrt</strong> [options] <em>priority command argument</em> …</p>
+<p>
+<strong>chrt</strong> [options] <strong>-p</strong> [/priority/] <em>PID</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>chrt</strong> sets or retrieves the real-time scheduling attributes of an
+existing <em>PID</em>, or runs <em>command</em> with the given attributes.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+POLICIES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-o</strong>, <strong>–other</strong></p>
+<blockquote>
+<p>Set scheduling policy to <strong>SCHED_OTHER</strong> (time-sharing scheduling). This
+is the default Linux scheduling policy.</p>
+</blockquote>
+<p>
+<strong>-f</strong>, <strong>–fifo</strong></p>
+<blockquote>
+<p>Set scheduling policy to <strong>SCHED_FIFO</strong> (first in-first out).</p>
+</blockquote>
+<p>
+<strong>-r</strong>, <strong>–rr</strong></p>
+<blockquote>
+<p>Set scheduling policy to <strong>SCHED_RR</strong> (round-robin scheduling). When no
+policy is defined, the <strong>SCHED_RR</strong> is used as the default.</p>
+</blockquote>
+<p>
+<strong>-b</strong>, <strong>–batch</strong></p>
+<blockquote>
+<p>Set scheduling policy to <strong>SCHED_BATCH</strong> (scheduling batch processes).
+Linux-specific, supported since 2.6.16. The priority argument has to be
+set to zero.</p>
+</blockquote>
+<p>
+<strong>-i</strong>, <strong>–idle</strong></p>
+<blockquote>
+<p>Set scheduling policy to <strong>SCHED_IDLE</strong> (scheduling very low priority
+jobs). Linux-specific, supported since 2.6.23. The priority argument has
+to be set to zero.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–deadline</strong></p>
+<blockquote>
+<p>Set scheduling policy to <strong>SCHED_DEADLINE</strong> (sporadic task model deadline
+scheduling). Linux-specific, supported since 3.14. The priority argument
+has to be set to zero. See also <strong>–sched-runtime</strong>, <strong>–sched-deadline</strong>
+and <strong>–sched-period</strong>. The relation between the options required by the
+kernel is runtime ⇐ deadline ⇐ period. <strong>chrt</strong> copies <em>period</em> to
+<em>deadline</em> if <strong>–sched-deadline</strong> is not specified and <em>deadline</em> to
+<em>runtime</em> if <strong>–sched-runtime</strong> is not specified. It means that at least
+<strong>–sched-period</strong> has to be specified. See *sched*(7) for more details.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SCHEDULING OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>-T</strong>, <strong>–sched-runtime</strong> <em>nanoseconds</em></p>
+<blockquote>
+<p>Specifies runtime parameter for <strong>SCHED_DEADLINE</strong> policy
+(Linux-specific).</p>
+</blockquote>
+<p>
+<strong>-P</strong>, <strong>–sched-period</strong> <em>nanoseconds</em></p>
+<blockquote>
+<p>Specifies period parameter for <strong>SCHED_DEADLINE</strong> policy (Linux-specific).
+Note that the kernel&#39;s lower limit is 100 milliseconds.</p>
+</blockquote>
+<p>
+<strong>-D</strong>, <strong>–sched-deadline</strong> <em>nanoseconds</em></p>
+<blockquote>
+<p>Specifies deadline parameter for <strong>SCHED_DEADLINE</strong> policy
+(Linux-specific).</p>
+</blockquote>
+<p>
+<strong>-R</strong>, <strong>–reset-on-fork</strong></p>
+<blockquote>
+<p>Use <strong>SCHED_RESET_ON_FORK</strong> or <strong>SCHED_FLAG_RESET_ON_FORK</strong> flag.
+Linux-specific, supported since 2.6.31.</p>
+<p>
+Each thread has a <em>reset-on-fork</em> scheduling flag. When this flag is
+set, children created by *fork*(2) do not inherit privileged scheduling
+policies. After the <em>reset-on-fork</em> flag has been enabled, it can be
+reset only if the thread has the <strong>CAP_SYS_NICE</strong> capability. This flag is
+disabled in child processes created by *fork*(2).</p>
+<p>
+More precisely, if the <em>reset-on-fork</em> flag is set, the following rules
+apply for subsequently created children:</p>
+<blockquote>
+<p>·</p>
+<p>
+If the calling thread has a scheduling policy of <strong>SCHED_FIFO</strong> or
+<strong>SCHED_RR</strong>, the policy is reset to <strong>SCHED_OTHER</strong> in child processes.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+If the calling process has a negative nice value, the nice value is
+reset to zero in child processes.</p>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+OPTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>-a</strong>, <strong>–all-tasks</strong></p>
+<blockquote>
+<p>Set or retrieve the scheduling attributes of all the tasks (threads) for
+a given PID.</p>
+</blockquote>
+<p>
+<strong>-m</strong>, <strong>–max</strong></p>
+<blockquote>
+<p>Show minimum and maximum valid priorities, then exit.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–pid</strong></p>
+<blockquote>
+<p>Operate on an existing PID and do not launch a new task.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Show status information.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The default behavior is to run a new command:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<p><strong>chrt</strong> <em>priority</em> <em>command</em> [/arguments/]\\</p>
+</blockquote>
+<p>
+You can also retrieve the real-time attributes of an existing task:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<p><strong>chrt -p</strong> <em>PID</em>\\</p>
+</blockquote>
+<p>
+Or set them:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<p><strong>chrt -r -p</strong> <em>priority PID</em>\\</p>
+</blockquote>
+<p>
+This, for example, sets real-time scheduling to priority <em>30</em> for the
+process <em>PID</em> with the <strong>SCHED_RR</strong> (round-robin) class:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<p><strong>chrt -r -p 30</strong> <em>PID</em>\\</p>
+</blockquote>
+<p>
+Reset priorities to default for a process:</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<p><strong>chrt -o -p 0</strong> <em>PID</em>\\</p>
+</blockquote>
+<p>
+See *sched*(7) for a detailed discussion of the different scheduler
+classes and how they interact.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+PERMISSIONS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>A user must possess <strong>CAP_SYS_NICE</strong> to change the scheduling attributes
+of a process. Any user can retrieve the scheduling information.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+NOTES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Only <strong>SCHED_FIFO</strong>, <strong>SCHED_OTHER</strong> and <strong>SCHED_RR</strong> are part of POSIX
+1003.1b Process Scheduling. The other scheduling attributes may be
+ignored on some systems.</p>
+<p>
+Linux default scheduling policy is <strong>SCHED_OTHER</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>*nice*(1), *renice*(1), *taskset*(1), *sched*(7)</p>
+<p>
+See *sched_setscheduler*(2) for a description of the Linux scheduling
+scheme.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>The <strong>chrt</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

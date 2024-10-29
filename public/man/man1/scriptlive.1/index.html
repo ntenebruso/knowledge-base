@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - scriptlive.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - scriptlive.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>scriptlive - re-run session typescripts, using timing information</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>scriptlive</strong> [options] [*-t*] <em>timingfile</em> [*-I*|*-B*] <em>typescript</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This program re-runs a typescript, using stdin typescript and timing
+information to ensure that input happens in the same rhythm as it
+originally appeared when the script was recorded.</p>
+<p>
+The <strong>session is executed</strong> in a newly created pseudoterminal with the
+user&#39;s $SHELL (or defaults to <em>/bin/bash</em>).</p>
+<p>
+<strong>Be careful!</strong> Do not forget that the typescript may contains arbitrary
+commands. It is recommended to use <strong>&#34;scriptreplay –stream in –log-in
+typescript&#34;</strong> (or with <strong>–log-io</strong> instead of <strong>–log-in</strong>) to verify the
+typescript before it is executed by <strong>scriptlive</strong>.</p>
+<p>
+The timing information is what <strong>script*(1) outputs to file specified by
+*–log-timing</strong>. The typescript has to contain stdin information and it
+is what script1 outputs to file specified by <strong>–log-in</strong> or <strong>–log-io</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-I</strong>, <strong>–log-in</strong> <em>file</em></p>
+<blockquote>
+<p>File containing *script*s terminal input.</p>
+</blockquote>
+<p>
+<strong>-B</strong>, <strong>–log-io</strong> <em>file</em></p>
+<blockquote>
+<p>File containing *script*s terminal output and input.</p>
+</blockquote>
+<p>
+<strong>-t</strong>, <strong>–timing</strong> <em>file</em></p>
+<blockquote>
+<p>File containing *script*s timing output. This option overrides old-style
+arguments.</p>
+</blockquote>
+<p>
+<strong>-T</strong>, <strong>–log-timing</strong> <em>file</em></p>
+<blockquote>
+<p>Aliased to <strong>-t</strong>, maintained for compatibility with *script*(1)
+command-line options.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–divisor</strong> <em>number</em></p>
+<blockquote>
+<p>Speed up the replay displaying this <em>number</em> of times. The argument is a
+floating-point number. It&#39;s called divisor because it divides the
+timings by this factor. This option overrides old-style arguments.</p>
+</blockquote>
+<p>
+<strong>-m</strong>, <strong>–maxdelay</strong> <em>number</em></p>
+<blockquote>
+<p>Set the maximum delay between updates to <em>number</em> of seconds. The
+argument is a floating-point number. This can be used to avoid long
+pauses in the typescript replay.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<pre class="example">
+% script --log-timing file.tm --log-in script.in
+Script started, file is script.out
+% date
+&lt;etc, etc&gt;
+% exit
+Script done, file is script.out
+% scriptlive --log-timing file.tm --log-in script.in
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Copyright © 2019 Karel Zak</p>
+<p>
+This is free software; see the source for copying conditions. There is
+NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE.</p>
+<p>
+Released under the GNU General Public License version 2 or later.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*script*(1), *scriptreplay*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The <strong>scriptlive</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

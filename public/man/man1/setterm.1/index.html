@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - setterm.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - setterm.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>setterm - set terminal attributes</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>setterm</strong> [options]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>setterm</strong> writes to standard output a character string that will invoke
+the specified terminal capabilities. Where possible <em>terminfo</em> is
+consulted to find the string to use. Some options however (marked
+&#34;virtual consoles only&#34; below) do not correspond to a *terminfo*(5)
+capability. In this case, if the terminal type is &#34;con&#34; or &#34;linux&#34; the
+string that invokes the specified capabilities on the PC Minix virtual
+console driver is output. Options that are not implemented by the
+terminal are ignored.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>For boolean options (<strong>on</strong> or <strong>off</strong>), the default is <strong>on</strong>.</p>
+<p>
+Below, an <em>8-color</em> can be <strong>black</strong>, <strong>red</strong>, <strong>green</strong>, <strong>yellow</strong>, <strong>blue</strong>,
+<strong>magenta</strong>, <strong>cyan</strong>, or <strong>white</strong>.</p>
+<p>
+A <em>16-color</em> can be an <em>8-color</em>, or <strong>grey</strong>, or <strong>bright</strong> followed by
+<strong>red</strong>, <strong>green</strong>, <strong>yellow</strong>, <strong>blue</strong>, <strong>magenta</strong>, <strong>cyan</strong>, or <strong>white</strong>.</p>
+<p>
+The various color options may be set independently, at least on virtual
+consoles, though the results of setting multiple modes (for example,
+<strong>–underline</strong> and <strong>–half-bright</strong>) are hardware-dependent.</p>
+<p>
+The optional arguments are recommended with = (equals sign) and not
+space between the option and the argument. For example
+–option=argument. <strong>setterm</strong> can interpret the next non-option argument
+as an optional argument too.</p>
+<p>
+<strong>–appcursorkeys</strong> on|off</p>
+<blockquote>
+<p>Sets Cursor Key Application Mode on or off. When on, ESC O A, ESC O B,
+etc. will be sent for the cursor keys instead of ESC [ A, ESC [ B, etc.
+See the <em>vi and Cursor-Keys</em> section of the <em>Text-Terminal-HOWTO</em> for
+how this can cause problems for <strong>vi</strong> users. Virtual consoles only.</p>
+</blockquote>
+<p>
+<strong>–append</strong> <em>console_number</em></p>
+<blockquote>
+<p>Like <strong>–dump</strong>, but appends to the snapshot file instead of overwriting
+it. Only works if no <strong>–dump</strong> options are given.</p>
+</blockquote>
+<p>
+<strong>–background</strong> /8-color/|default</p>
+<blockquote>
+<p>Sets the background text color.</p>
+</blockquote>
+<p>
+<strong>–blank</strong>[=0-60|force|poke]</p>
+<blockquote>
+<p>Sets the interval of inactivity, in minutes, after which the screen will
+be automatically blanked (using APM if available). Without an argument,
+it gets the blank status (returns which vt was blanked, or zero for an
+unblanked vt). Virtual consoles only.</p>
+<p>
+The <strong>force</strong> argument keeps the screen blank even if a key is pressed.</p>
+<p>
+The <strong>poke</strong> argument unblanks the screen.</p>
+</blockquote>
+<p>
+<strong>–bfreq</strong>[=/number/]</p>
+<blockquote>
+<p>Sets the bell frequency in Hertz. Without an argument, it defaults to
+<strong>0</strong>. Virtual consoles only.</p>
+</blockquote>
+<p>
+<strong>–blength</strong>[=0-2000]</p>
+<blockquote>
+<p>Sets the bell duration in milliseconds. Without an argument, it defaults
+to <strong>0</strong>. Virtual consoles only.</p>
+</blockquote>
+<p>
+<strong>–blink</strong> on|off</p>
+<blockquote>
+<p>Turns blink mode on or off. Except on a virtual console, <strong>–blink off</strong>
+turns off all attributes (bold, half-brightness, blink, reverse).</p>
+</blockquote>
+<p>
+<strong>–bold</strong> on|off</p>
+<blockquote>
+<p>urns bold (extra bright) mode on or off. Except on a virtual console,
+<strong>–bold off</strong> turns off all attributes (bold, half-brightness, blink,
+reverse).</p>
+</blockquote>
+<p>
+<strong>–clear</strong>[=all|rest]</p>
+<blockquote>
+<p>Without an argument or with the argument <strong>all</strong>, the entire screen is
+cleared and the cursor is set to the home position, just like <strong>clear*(1)
+does. With the argument *rest</strong>, the screen is cleared from the current
+cursor position to the end.</p>
+</blockquote>
+<p>
+<strong>–clrtabs</strong>[=/tab1 tab2 tab3/ …]</p>
+<blockquote>
+<p>Clears tab stops from the given horizontal cursor positions, in the
+range <strong>1-160</strong>. Without arguments, it clears all tab stops. Virtual
+consoles only.</p>
+</blockquote>
+<p>
+<strong>–cursor</strong> on|off</p>
+<blockquote>
+<p>Turns the terminal&#39;s cursor on or off.</p>
+</blockquote>
+<p>
+<strong>–default</strong></p>
+<blockquote>
+<p>Sets the terminal&#39;s rendering options to the default values.</p>
+</blockquote>
+<p>
+<strong>–dump</strong>[=/console_number/]</p>
+<blockquote>
+<p>Writes a snapshot of the virtual console with the given number to the
+file specified with the <strong>–file</strong> option, overwriting its contents; the
+default is <em>screen.dump</em>. Without an argument, it dumps the current
+virtual console. This overrides <strong>–append</strong>.</p>
+</blockquote>
+<p>
+<strong>–file</strong> <em>filename</em></p>
+<blockquote>
+<p>Sets the snapshot file name for any <strong>–dump</strong> or <strong>–append</strong> options on
+the same command line. If this option is not present, the default is
+<em>screen.dump</em> in the current directory. A path name that exceeds the
+system maximum will be truncated, see <strong>PATH_MAX</strong> from <em>linux/limits.h</em>
+for the value.</p>
+</blockquote>
+<p>
+<strong>–foreground</strong> /8-color/|default</p>
+<blockquote>
+<p>Sets the foreground text color.</p>
+</blockquote>
+<p>
+<strong>–half-bright</strong> on|off</p>
+<blockquote>
+<p>Turns dim (half-brightness) mode on or off. Except on a virtual console,
+<strong>–half-bright off</strong> turns off all attributes (bold, half-brightness,
+blink, reverse).</p>
+</blockquote>
+<p>
+<strong>–hbcolor</strong> <em>16-color</em></p>
+<blockquote>
+<p>Sets the color for half-bright characters.</p>
+</blockquote>
+<p>
+<strong>–initialize</strong></p>
+<blockquote>
+<p>Displays the terminal initialization string, which typically sets the
+terminal&#39;s rendering options, and other attributes to the default
+values.</p>
+</blockquote>
+<p>
+<strong>–inversescreen</strong> on|off</p>
+<blockquote>
+<p>Swaps foreground and background colors for the whole screen.</p>
+</blockquote>
+<p>
+<strong>–linewrap</strong> on|off</p>
+<blockquote>
+<p>Makes the terminal continue on a new line when a line is full.</p>
+</blockquote>
+<p>
+<strong>–msg</strong> on|off</p>
+<blockquote>
+<p>Enables or disables the sending of kernel *printk*() messages to the
+console. Virtual consoles only.</p>
+</blockquote>
+<p>
+<strong>–msglevel</strong> 0-8</p>
+<blockquote>
+<p>Sets the console logging level for kernel <strong>printk()</strong> messages. All
+messages strictly more important than this will be printed, so a logging
+level of <strong>0</strong> has the same effect as <strong>–msg on</strong> and a logging level of
+<strong>8</strong> will print all kernel messages. *klogd*(8) may be a more convenient
+interface to the logging of kernel messages.</p>
+<p>
+Virtual consoles only.</p>
+</blockquote>
+<p>
+<strong>–powerdown</strong>[=0-60]</p>
+<blockquote>
+<p>Sets the VESA powerdown interval in minutes. Without an argument, it
+defaults to <strong>0</strong> (disable powerdown). If the console is blanked or the
+monitor is in suspend mode, then the monitor will go into vsync suspend
+mode or powerdown mode respectively after this period of time has
+elapsed.</p>
+</blockquote>
+<p>
+<strong>–powersave</strong> <em>mode</em></p>
+<blockquote>
+<p>Valid values for <em>mode</em> are:</p>
+<p>
+<strong>vsync|on</strong></p>
+<blockquote>
+<p>Puts the monitor into VESA vsync suspend mode.</p>
+</blockquote>
+<p>
+<strong>hsync</strong></p>
+<blockquote>
+<p>Puts the monitor into VESA hsync suspend mode.</p>
+</blockquote>
+<p>
+<strong>powerdown</strong></p>
+<blockquote>
+<p>Puts the monitor into VESA powerdown mode.</p>
+</blockquote>
+<p>
+<strong>off</strong></p>
+<blockquote>
+<p>Turns monitor VESA powersaving features.</p>
+</blockquote>
+</blockquote>
+<p>
+<strong>–regtabs</strong>[=1-160]</p>
+<blockquote>
+<p>Clears all tab stops, then sets a regular tab stop pattern, with one tab
+every specified number of positions. Without an argument, it defaults to
+<strong>8</strong>. Virtual consoles only.</p>
+</blockquote>
+<p>
+<strong>–repeat</strong> on|off</p>
+<blockquote>
+<p>Turns keyboard repeat on or off. Virtual consoles only.</p>
+</blockquote>
+<p>
+<strong>–reset</strong></p>
+<blockquote>
+<p>Displays the terminal reset string, which typically resets the terminal
+to its power-on state.</p>
+</blockquote>
+<p>
+<strong>–resize</strong></p>
+<blockquote>
+<p>Reset terminal size by assessing maximum row and column. This is useful
+when actual geometry and kernel terminal driver are not in sync. Most
+notable use case is with serial consoles, that do not use *ioctl*(2) but
+just byte streams and breaks.</p>
+</blockquote>
+<p>
+<strong>–reverse</strong> on|off</p>
+<blockquote>
+<p>Turns reverse video mode on or off. Except on a virtual console,
+<strong>–reverse off</strong> turns off all attributes (bold, half-brightness, blink,
+reverse).</p>
+</blockquote>
+<p>
+<strong>–store</strong></p>
+<blockquote>
+<p>Stores the terminal&#39;s current rendering options (foreground and
+background colors) as the values to be used at reset-to-default. Virtual
+consoles only.</p>
+</blockquote>
+<p>
+<strong>–tabs</strong>[=/tab1 tab2 tab3/ …]</p>
+<blockquote>
+<p>Sets tab stops at the given horizontal cursor positions, in the range
+<strong>1-160</strong>. Without arguments, it shows the current tab stop settings.</p>
+</blockquote>
+<p>
+<strong>–term</strong> <em>terminal_name</em></p>
+<blockquote>
+<p>Overrides the <strong>TERM</strong> environment variable.</p>
+</blockquote>
+<p>
+<strong>–ulcolor</strong> <em>16-color</em></p>
+<blockquote>
+<p>Sets the color for underlined characters. Virtual consoles only.</p>
+</blockquote>
+<p>
+<strong>–underline</strong> on|off</p>
+<blockquote>
+<p>Turns underline mode on or off.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+COMPATIBILITY
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Since version 2.25 <strong>setterm</strong> has support for long options with two
+hyphens, for example <strong>–help</strong>, beside the historical long options with a
+single hyphen, for example <strong>-help</strong>. In scripts it is better to use the
+backward-compatible single hyphen rather than the double hyphen.
+Currently there are no plans nor good reasons to discontinue
+single-hyphen compatibility.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+BUGS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Differences between the Minix and Linux versions are not documented.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*stty*(1), *tput*(1), *tty*(4), *terminfo*(5)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The <strong>setterm</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

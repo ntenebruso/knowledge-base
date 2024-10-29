@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - streamzip.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - streamzip.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>streamzip - create a zip file from stdin</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>producer | streamzip [opts] | consumer producer | streamzip [opts]
+-zipfile=output.zip</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This program will read data from <code class="verbatim">stdin</code>, compress it into a zip
+container and, by default, write a <em>streamed</em> zip file to <code class="verbatim">stdout</code>. No
+temporary files are created.</p>
+<p>
+The zip container written to <code class="verbatim">stdout</code> is, by necessity, written in
+streaming format. Most programs that read Zip files can cope with a
+streamed zip file, but if interoperability is important, and your
+workflow allows you to write the zip file directly to disk you can
+create a non-streamed zip file using the <code class="verbatim">zipfile</code> option.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+OPTIONS
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<dl>
+<dt>
+-zip64
+</dt>
+<dd>Create a Zip64-compliant zip container. Use this option if
+the input is greater than 4Gig. Default is disabled.</dd>
+<dt>
+-zipfile=F
+</dt>
+<dd>Write zip container to the filename <code class="verbatim">F</code>. Use the
+<code class="verbatim">Stream</code> option to force the creation of a streamed zip file.</dd>
+<dt>
+-member-name=M
+</dt>
+<dd>This option is used to name the &#34;file&#34; in the zip
+container. Default is &#39;-&#39;.</dd>
+<dt>
+-stream
+</dt>
+<dd>Ignored when writing to <code class="verbatim">stdout</code>. If the <code class="verbatim">zipfile</code> option
+is specified, including this option will trigger the creation of a
+streamed zip file. Default: Always enabled when writing to <code class="verbatim">stdout</code>,
+otherwise disabled.</dd>
+<dt>
+-method=M
+</dt>
+<dd>Compress using method <code class="verbatim">M</code>. Valid method names are * store
+Store without compression * deflate Use Deflate compression [Deflault]
+​* bzip2 Use Bzip2 compression * lzma Use LZMA compression * xz Use xz
+compression * zstd Use Zstandard compression Note that Lzma compress
+needs <code class="verbatim">IO::Compress::Lzma</code> to be installed. Note that Zstd compress
+needs <code class="verbatim">IO::Compress::Zstd</code> to be installed. Default is <code class="verbatim">deflate</code>.</dd>
+<dt>
+-0, -1, -2, -3, -4, -5, -6, -7, -8, -9
+</dt>
+<dd>Sets the compression level
+for <code class="verbatim">deflate</code>. Ignored for all other compression methods. <code class="verbatim">-0</code> means
+no compression and <code class="verbatim">-9</code> for maximum compression. Default is 6</dd>
+<dt>
+-version
+</dt>
+<dd>Display version number</dd>
+<dt>
+-help
+</dt>
+<dd>Display help</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Examples
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Create a zip file bt reading daa from stdin</p>
+<p>
+$ echo Lorem ipsum dolor sit | perl ./bin/streamzip &gt;abcd.zip</p>
+<p>
+Check the contents of <code class="verbatim">abcd,zip</code> with the standard <code class="verbatim">unzip</code> utility</p>
+<p>
+Archive: abcd.zip Length Date Time Name ——— ———- —– —-
+22 2021-01-08 19:45 - ——— ——- 22 1 file</p>
+<p>
+Notice how the <code class="verbatim">Name</code> is set to <code class="verbatim">-</code>. That is the default for a few zip
+utilities whwre the member name is not given.</p>
+<p>
+If you want to explicitly name the file, use the <code class="verbatim">-member-name</code> option
+as follows</p>
+<p>
+$ echo Lorem ipsum dolor sit | perl ./bin/streamzip -member-name latin
+&gt;abcd.zip $ unzip -l abcd.zip Archive: abcd.zip Length Date Time Name
+——— ———- —– —- 22 2021-01-08 19:47 latin ———
+——- 22 1 file</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+When to write a Streamed Zip File
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>A Streamed Zip File is useful in situations where you cannot seek
+backwards/forwards in the file.</p>
+<p>
+A good examples is when you are serving dynamic content from a Web
+Server straight into a socket without needing to create a temporary zip
+file in the filesystsm.</p>
+<p>
+Similarly if your workfow uses a Linux pipelined commands.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SUPPORT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>General feedback/questions/bug reports should be sent to
+&lt;<a href="https://github.com/pmqs/IO-Compress/issues">https://github.com/pmqs/IO-Compress/issues</a>&gt; (preferred) or
+&lt;<a href="https://rt.cpan.org/Public/Dist/Display.html?Name=IO-Compress">https://rt.cpan.org/Public/Dist/Display.html?Name=IO-Compress</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Paul Marquess <em>pmqs@cpan.org</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Copyright (c) 2019-2024 Paul Marquess. All rights reserved.</p>
+<p>
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

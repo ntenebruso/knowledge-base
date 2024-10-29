@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - zshroadmap.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - zshroadmap.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>zshroadmap - informal introduction to the zsh manual The Zsh Manual,
+like the shell itself, is large and often complicated. This section of
+the manual provides some pointers to areas of the shell that are likely
+to be of particular interest to new users, and indicates where in the
+rest of the manual the documentation is to be found.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+WHEN THE SHELL STARTS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>When it starts, the shell reads commands from various files. These can
+be created or edited to customize the shell. See the section
+Startup/Shutdown Files in /zsh/(1).</p>
+<p>
+If no personal initialization files exist for the current user, a
+function is run to help you change some of the most common settings. It
+won&#39;t appear if your administrator has disabled the <strong>zsh/newuser</strong>
+module. The function is designed to be self-explanatory. You can run it
+by hand with `*autoload -Uz zsh-newuser-install; zsh-newuser-install
+-f*&#39;. See also the section `User Configuration Functions&#39; in
+/zshcontrib/(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+INTERACTIVE USE
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Interaction with the shell uses the builtin Zsh Line Editor, ZLE. This
+is described in detail in /zshzle/(1).</p>
+<p>
+The first decision a user must make is whether to use the Emacs or Vi
+editing mode as the keys for editing are substantially different. Emacs
+editing mode is probably more natural for beginners and can be selected
+explicitly with the command <strong>bindkey -e</strong>.</p>
+<p>
+A history mechanism for retrieving previously typed lines (most simply
+with the Up or Down arrow keys) is available; note that, unlike other
+shells, zsh will not save these lines when the shell exits unless you
+set appropriate variables, and the number of history lines retained by
+default is quite small (30 lines). See the description of the shell
+variables (referred to in the documentation as parameters) <strong>HISTFILE</strong>,
+<strong>HISTSIZE</strong> and <strong>SAVEHIST</strong> in /zshparam/(1). Note that it&#39;s currently
+only possible to read and write files saving history when the shell is
+interactive, i.e. it does not work from scripts.</p>
+<p>
+The shell now supports the UTF-8 character set (and also others if
+supported by the operating system). This is (mostly) handled
+transparently by the shell, but the degree of support in terminal
+emulators is variable. There is some discussion of this in the shell
+FAQ, <strong><a href="https://www.zsh.org/FAQ/">https://www.zsh.org/FAQ/</a></strong>. Note in particular that for combining
+characters to be handled the option <strong>COMBINING_CHARS</strong> needs to be set.
+Because the shell is now more sensitive to the definition of the
+character set, note that if you are upgrading from an older version of
+the shell you should ensure that the appropriate variable, either <strong>LANG</strong>
+(to affect all aspects of the shell&#39;s operation) or <strong>LC_CTYPE</strong> (to
+affect only the handling of character sets) is set to an appropriate
+value. This is true even if you are using a single-byte character set
+including extensions of ASCII such as <strong>ISO-8859-1</strong> or <strong>ISO-8859-15</strong>. See
+the description of <strong>LC_CTYPE</strong> in /zshparam/(1).</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Completion
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>Completion is a feature present in many shells. It allows the user to
+type only a part (usually the prefix) of a word and have the shell fill
+in the rest. The completion system in zsh is programmable. For example,
+the shell can be set to complete email addresses in arguments to the
+mail command from your <strong>~/.abook/addressbook</strong>; usernames, hostnames, and
+even remote paths in arguments to scp, and so on. Anything that can be
+written in or glued together with zsh can be the source of what the line
+editor offers as possible completions.</p>
+<p>
+Zsh has two completion systems, an old, so called <strong>compctl</strong> completion
+(named after the builtin command that serves as its complete and only
+user interface), and a new one, referred to as <strong>compsys</strong>, organized as
+library of builtin and user-defined functions. The two systems differ in
+their interface for specifying the completion behavior. The new system
+is more customizable and is supplied with completions for many commonly
+used commands; it is therefore to be preferred.</p>
+<p>
+The completion system must be enabled explicitly when the shell starts.
+For more information see /zshcompsys/(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Extending the line editor
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Apart from completion, the line editor is highly extensible by means of
+shell functions. Some useful functions are provided with the shell; they
+provide facilities such as:</p>
+<p>
+<strong>insert-composed-char</strong> composing characters not found on the keyboard</p>
+<dl>
+<dt>
+<strong>match-words-by-style</strong>
+</dt>
+<dd>configuring what the line editor considers a
+word when moving or deleting by word</dd>
+<dt>
+<strong>history-beginning-search-backward-end</strong>, etc.
+</dt>
+<dd>alternative ways of
+searching the shell history</dd>
+<dt>
+<strong>replace-string</strong>, <strong>replace-pattern</strong>
+</dt>
+<dd>functions for replacing strings
+or patterns globally in the command line</dd>
+<dt>
+<strong>edit-command-line</strong>
+</dt>
+<dd>edit the command line with an external editor.</dd>
+</dl>
+<p>See the section `ZLE Functions&#39; in /zshcontrib/(1) for descriptions of
+these.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+OPTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The shell has a large number of options for changing its behaviour.
+These cover all aspects of the shell; browsing the full documentation is
+the only good way to become acquainted with the many possibilities. See
+/zshoptions/(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+PATTERN MATCHING
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The shell has a rich set of patterns which are available for file
+matching (described in the documentation as `filename generation&#39; and
+also known for historical reasons as `globbing&#39;) and for use when
+programming. These are described in the section `Filename Generation&#39; in
+/zshexpn/(1).</p>
+<p>
+Of particular interest are the following patterns that are not commonly
+supported by other systems of pattern matching:</p>
+<div id="outline-container-headline-8" class="outline-5">
+<h5 id="headline-8">
+for matching over multiple directories
+</h5>
+<div id="outline-text-headline-8" class="outline-text-5">
+<dl>
+<dt>
+<strong>|</strong>
+</dt>
+<dd>for matching either of two alternatives</dd>
+<dt>
+<strong>~</strong>, <strong>^</strong>
+</dt>
+<dd>the ability to exclude patterns from matching when the
+<strong>EXTENDED_GLOB</strong> option is set</dd>
+<dt>
+<strong>(*/…/</strong>)*
+</dt>
+<dd>glob qualifiers, included in parentheses at the end of
+the pattern, which select files by type (such as directories) or
+attribute (such as size).</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+GENERAL COMMENTS ON SYNTAX
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Although the syntax of zsh is in ways similar to the Korn shell, and
+therefore more remotely to the original UNIX shell, the Bourne shell,
+its default behaviour does not entirely correspond to those shells.
+General shell syntax is introduced in the section `Shell Grammar&#39; in
+/zshmisc/(1).</p>
+<p>
+One commonly encountered difference is that variables substituted onto
+the command line are not split into words. See the description of the
+shell option <strong>SH_WORD_SPLIT</strong> in the section `Parameter Expansion&#39; in
+/zshexpn/(1). In zsh, you can either explicitly request the splitting
+(e.g. <strong>${=foo}</strong>) or use an array when you want a variable to expand to
+more than one word. See the section `Array Parameters&#39; in /zshparam/(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+PROGRAMMING
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The most convenient way of adding enhancements to the shell is typically
+by writing a shell function and arranging for it to be autoloaded.
+Functions are described in the section `Functions&#39; in /zshmisc/(1).
+Users changing from the C shell and its relatives should notice that
+aliases are less used in zsh as they don&#39;t perform argument
+substitution, only simple text replacement.</p>
+<p>
+A few general functions, other than those for the line editor described
+above, are provided with the shell and are described in /zshcontrib/(1).
+Features include:</p>
+<p>
+<strong>promptinit</strong> a prompt theme system for changing prompts easily, see the
+section `Prompt Themes&#39;</p>
+<dl>
+<dt>
+<strong>zsh-mime-setup</strong>
+</dt>
+<dd>a MIME-handling system which dispatches commands
+according to the suffix of a file as done by graphical file managers</dd>
+<dt>
+<strong>zcalc</strong>
+</dt>
+<dd>a calculator</dd>
+<dt>
+<strong>zargs</strong>
+</dt>
+<dd>a version of <strong>xargs</strong> that makes the <strong>find</strong> command
+redundant</dd>
+<dt>
+<strong>zmv</strong>
+</dt>
+<dd>a command for renaming files by means of shell patterns.</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

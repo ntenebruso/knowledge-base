@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-archimport.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-archimport.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-archimport - Import a GNU Arch repository into Git</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git archimport [-h] [-v] [-o] [-a] [-f] [-T] [-D &lt;depth&gt;] [-t &lt;tempdir&gt;]
+               &lt;archive&gt;/&lt;branch&gt;[:&lt;git-branch&gt;]...
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Imports a project from one or more GNU Arch repositories. It will follow
+branches and repositories within the namespaces defined by the
+&lt;archive&gt;/&lt;branch&gt; parameters supplied. If it cannot find the remote
+branch a merge comes from it will just import it as a regular commit. If
+it can find it, it will mark it as a merge whenever possible (see
+discussion below).</p>
+<p>
+The script expects you to provide the key roots where it can start the
+import from an <em>initial import</em> or <em>tag</em> type of Arch commit. It will
+follow and import new branches within the provided roots.</p>
+<p>
+It expects to be dealing with one project only. If it sees branches that
+have different roots, it will refuse to run. In that case, edit your
+&lt;archive&gt;/&lt;branch&gt; parameters to define clearly the scope of the import.</p>
+<p>
+<em>git archimport</em> uses <strong>tla</strong> extensively in the background to access the
+Arch repository. Make sure you have a recent version of <strong>tla</strong> available
+in the path. <strong>tla</strong> must know about the repositories you pass to <em>git
+archimport</em>.</p>
+<p>
+For the initial import, <em>git archimport</em> expects to find itself in an
+empty directory. To follow the development of a project that uses Arch,
+rerun <em>git archimport</em> with the same parameters as the initial import to
+perform incremental imports.</p>
+<p>
+While <em>git archimport</em> will try to create sensible branch names for the
+archives that it imports, it is also possible to specify Git branch
+names manually. To do so, write a Git branch name after each
+&lt;archive&gt;/&lt;branch&gt; parameter, separated by a colon. This way, you can
+shorten the Arch branch names and convert Arch jargon to Git jargon, for
+example mapping a &#34;PROJECT–devo–VERSION&#34; branch to &#34;master&#34;.</p>
+<p>
+Associating multiple Arch branches to one Git branch is possible; the
+result will make the most sense only if no commits are made to the first
+branch, after the second branch is created. Still, this is useful to
+convert Arch repositories that had been rotated periodically.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+MERGES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Patch merge data from Arch is used to mark merges in Git as well. Git
+does not care much about tracking patches, and only considers a merge
+when a branch incorporates all the commits since the point they forked.
+The end result is that Git will have a good idea of how far branches
+have diverged. So the import process does lose some patch-trading
+metadata.</p>
+<p>
+Fortunately, when you try and merge branches imported from Arch, Git
+will find a good merge base, and it has a good chance of identifying
+patches that have been traded out-of-sequence between the branches.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>-h</p>
+<blockquote>
+<p>Display usage.</p>
+</blockquote>
+<p>
+-v</p>
+<blockquote>
+<p>Verbose output.</p>
+</blockquote>
+<p>
+-T</p>
+<blockquote>
+<p>Many tags. Will create a tag for every commit, reflecting the commit
+name in the Arch repository.</p>
+</blockquote>
+<p>
+-f</p>
+<blockquote>
+<p>Use the fast patchset import strategy. This can be significantly faster
+for large trees, but cannot handle directory renames or permissions
+changes. The default strategy is slow and safe.</p>
+</blockquote>
+<p>
+-o</p>
+<blockquote>
+<p>Use this for compatibility with old-style branch names used by earlier
+versions of <em>git archimport</em>. Old-style branch names were
+category–branch, whereas new-style branch names are
+archive,category–branch–version. In both cases, names given on the
+command-line will override the automatically-generated ones.</p>
+</blockquote>
+<p>
+-D &lt;depth&gt;</p>
+<blockquote>
+<p>Follow merge ancestry and attempt to import trees that have been merged
+from. Specify a depth greater than 1 if patch logs have been pruned.</p>
+</blockquote>
+<p>
+-a</p>
+<blockquote>
+<p>Attempt to auto-register archives at <strong><a href="http://mirrors.sourcecontrol.net">http://mirrors.sourcecontrol.net</a></strong>
+This is particularly useful with the -D option.</p>
+</blockquote>
+<p>
+-t &lt;tmpdir&gt;</p>
+<blockquote>
+<p>Override the default tempdir.</p>
+</blockquote>
+<p>
+&lt;archive&gt;/&lt;branch&gt;</p>
+<blockquote>
+<p>&lt;archive&gt;/&lt;branch&gt; identifier in a format that <strong>tla log</strong> understands.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+GIT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

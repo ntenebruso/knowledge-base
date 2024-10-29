@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - showkey.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - showkey.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>showkey - examine the codes sent by the keyboard</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>showkey [-h|–help] [-a|–ascii] [-s|–scancodes] [-k|–keycodes]
+[-V|–version]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>showkey</strong> prints to standard output either the scan codes or the keycode
+or the `ascii&#39; code of each key pressed. In the first two modes the
+program runs until 10 seconds have elapsed since the last key press or
+release event, or until it receives a suitable signal, like SIGTERM,
+from another process. In `ascii&#39; mode the program terminates when the
+user types ^D.</p>
+<p>
+When in scancode dump mode, <strong>showkey</strong> prints in hexadecimal format each
+byte received from the keyboard to the standard output. A new line is
+printed when an interval of about 0.1 seconds occurs between the bytes
+received, or when the internal receive buffer fills up. This can be used
+to determine roughly, what byte sequences the keyboard sends at once on
+a given key press. The scan code dumping mode is primarily intended for
+debugging the keyboard driver or other low level interfaces. As such it
+shouldn&#39;t be of much interest to the regular end-user. However, some
+modern keyboards have keys or buttons that produce scancodes to which
+the kernel does not associate a keycode, and, after finding out what
+these are, the user can assign keycodes with *setkeycodes*(8).</p>
+<p>
+When in the default keycode dump mode, <strong>showkey</strong> prints to the standard
+output the keycode number or each key pressed or released. The kind of
+the event, press or release, is also reported. Keycodes are numbers
+assigned by the kernel to each individual physical key. Every key has
+always only one associated keycode number, whether the keyboard sends
+single or multiple scan codes when pressing it. Using <strong>showkey</strong> in this
+mode, you can find out what numbers to use in your personalized keymap
+files.</p>
+<p>
+When in `ascii&#39; dump mode, <strong>showkey</strong> prints to the standard output the
+decimal, octal, and hexadecimal value(s) of the key pressed, according
+to he present keymap.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+-h –help
+</dt>
+<dd><strong>showkey</strong> prints to the standard error output its version
+number, a compile option and a short usage message, then exits.</dd>
+<dt>
+-s –scancodes
+</dt>
+<dd>Starts <strong>showkey</strong> in scan code dump mode.</dd>
+<dt>
+-k –keycodes
+</dt>
+<dd>Starts <strong>showkey</strong> in keycode dump mode. This is the
+default, when no command line options are present.</dd>
+<dt>
+-a –ascii
+</dt>
+<dd>Starts <strong>showkey</strong> in `ascii&#39; dump mode.</dd>
+<dt>
+-V –version
+</dt>
+<dd><strong>showkey</strong> prints version number and exits.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+2.6 KERNELS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>In 2.6 kernels key codes lie in the range 1-255, instead of 1-127. Key
+codes larger than 127 are returned as three bytes of which the low order
+7 bits are: zero, bits 13-7, and bits 6-0 of the key code. The high
+order bits are: 0/1 for make/break, 1, 1.</p>
+<p>
+In 2.6 kernels raw mode, or scancode mode, is not very raw at all. Scan
+codes are first translated to key codes, and when scancodes are desired,
+the key codes are translated back. Various transformations are involved,
+and there is no guarantee at all that the final result corresponds to
+what the keyboard hardware did send. So, if you want to know the scan
+codes sent by various keys it is better to boot a 2.4 kernel. Since
+2.6.9 there also is the boot option atkbd.softraw=0 that tells the 2.6
+kernel to return the actual scan codes.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*loadkeys*(1), *dumpkeys*(1), *keymaps*(5), *setkeycodes*(8)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

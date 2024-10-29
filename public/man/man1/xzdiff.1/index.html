@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - xzdiff.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - xzdiff.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>xzcmp, xzdiff, lzcmp, lzdiff - compare compressed files</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>xzcmp</strong> [/option…/] <em>file1</em> [/file2/]<br>
+<strong>xzdiff</strong> …<br>
+<strong>lzcmp</strong> …<br>
+<strong>lzdiff</strong> …</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>xzcmp</strong> and <strong>xzdiff</strong> compare uncompressed contents of two files.
+Uncompressed data and options are passed to <strong>cmp*(1) or *diff*(1) unless
+*–help</strong> or <strong>–version</strong> is specified.</p>
+<p>
+If both <em>file1</em> and <em>file2</em> are specified, they can be uncompressed
+files or files in formats that *xz*(1), *gzip*(1), *bzip2*(1),
+*lzop*(1), *zstd*(1), or *lz4*(1) can decompress. The required
+decompression commands are determined from the filename suffixes of
+<em>file1</em> and <em>file2</em>. A file with an unknown suffix is assumed to be
+either uncompressed or in a format that *xz*(1) can decompress.</p>
+<p>
+If only one filename is provided, <em>file1</em> must have a suffix of a
+supported compression format and the name for <em>file2</em> is assumed to be
+<em>file1</em> with the compression format suffix removed.</p>
+<p>
+The commands <strong>lzcmp</strong> and <strong>lzdiff</strong> are provided for backward
+compatibility with LZMA Utils.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>If a decompression error occurs, the exit status is <strong>2</strong>. Otherwise the
+exit status of *cmp*(1) or *diff*(1) is used.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>*cmp*(1), *diff*(1), *xz*(1), *gzip*(1), *bzip2*(1), *lzop*(1),
+*zstd*(1), *lz4*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

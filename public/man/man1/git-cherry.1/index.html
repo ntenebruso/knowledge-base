@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-cherry.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-cherry.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-cherry - Find commits yet to be applied to upstream</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git cherry [-v] [&lt;upstream&gt; [&lt;head&gt; [&lt;limit&gt;]]]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Determine whether there are commits in <strong>&lt;head&gt;..&lt;upstream&gt;</strong> that are
+equivalent to those in the range <strong>&lt;limit&gt;..&lt;head&gt;</strong>.</p>
+<p>
+The equivalence test is based on the diff, after removing whitespace and
+line numbers. git-cherry therefore detects when commits have been
+&#34;copied&#34; by means of *git-cherry-pick*(1), *git-am*(1) or
+*git-rebase*(1).</p>
+<p>
+Outputs the SHA1 of every commit in <strong>&lt;limit&gt;..&lt;head&gt;</strong>, prefixed with <strong>-</strong>
+for commits that have an equivalent in &lt;upstream&gt;, and <strong>+</strong> for commits
+that do not.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-v</p>
+<blockquote>
+<p>Show the commit subjects next to the SHA1s.</p>
+</blockquote>
+<p>
+&lt;upstream&gt;</p>
+<blockquote>
+<p>Upstream branch to search for equivalent commits. Defaults to the
+upstream branch of HEAD.</p>
+</blockquote>
+<p>
+&lt;head&gt;</p>
+<blockquote>
+<p>Working branch; defaults to HEAD.</p>
+</blockquote>
+<p>
+&lt;limit&gt;</p>
+<blockquote>
+<p>Do not report commits up to (and including) limit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Patch workflows
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>git-cherry is frequently used in patch-based workflows (see
+*gitworkflows*(7)) to determine if a series of patches has been applied
+by the upstream maintainer. In such a workflow you might create and send
+a topic branch like this:</p>
+<blockquote>
+<pre class="example">
+$ git checkout -b topic origin/master
+# work and create some commits
+$ git format-patch origin/master
+$ git send-email ... 00*
+</pre>
+</blockquote>
+<p>
+Later, you can see whether your changes have been applied by saying
+(still on <strong>topic</strong>):</p>
+<blockquote>
+<pre class="example">
+$ git fetch  # update your notion of origin/master
+$ git cherry -v
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Concrete example
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>In a situation where topic consisted of three commits, and the
+maintainer applied two of them, the situation might look like:</p>
+<blockquote>
+<pre class="example">
+$ git log --graph --oneline --decorate --boundary origin/master...topic
+* 7654321 (origin/master) upstream tip commit
+[... snip some other commits ...]
+* cccc111 cherry-pick of C
+* aaaa111 cherry-pick of A
+[... snip a lot more that has happened ...]
+| * cccc000 (topic) commit C
+| * bbbb000 commit B
+| * aaaa000 commit A
+|/
+o 1234567 branch point
+</pre>
+</blockquote>
+<p>
+In such cases, git-cherry shows a concise summary of what has yet to be
+applied:</p>
+<blockquote>
+<pre class="example">
+$ git cherry origin/master topic
+- cccc000... commit C
++ bbbb000... commit B
+- aaaa000... commit A
+</pre>
+</blockquote>
+<p>
+Here, we see that the commits A and C (marked with <strong>-</strong>) can be dropped
+from your <strong>topic</strong> branch when you rebase it on top of <strong>origin/master</strong>,
+while the commit B (marked with <strong>+</strong>) still needs to be kept so that it
+will be sent to be applied to <strong>origin/master</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Using a limit
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>The optional &lt;limit&gt; is useful in cases where your topic is based on
+other work that is not in upstream. Expanding on the previous example,
+this might look like:</p>
+<blockquote>
+<pre class="example">
+$ git log --graph --oneline --decorate --boundary origin/master...topic
+* 7654321 (origin/master) upstream tip commit
+[... snip some other commits ...]
+* cccc111 cherry-pick of C
+* aaaa111 cherry-pick of A
+[... snip a lot more that has happened ...]
+| * cccc000 (topic) commit C
+| * bbbb000 commit B
+| * aaaa000 commit A
+| * 0000fff (base) unpublished stuff F
+[... snip ...]
+| * 0000aaa unpublished stuff A
+|/
+o 1234567 merge-base between upstream and topic
+</pre>
+</blockquote>
+<p>
+By specifying <strong>base</strong> as the limit, you can avoid listing commits between
+<strong>base</strong> and <strong>topic</strong>:</p>
+<blockquote>
+<pre class="example">
+$ git cherry origin/master topic base
+- cccc000... commit C
++ bbbb000... commit B
+- aaaa000... commit A
+</pre>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*git-patch-id*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+GIT
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - virt-xml-validate.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - virt-xml-validate.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>virt-xml-validate - validate libvirt XML files against a schema</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>virt-xml-validate</strong> <em>XML-FILE</em> [/SCHEMA-NAME/]</p>
+<p>
+<strong>virt-xml-validate</strong> <em>OPTION</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Validates a libvirt XML for compliance with the published schema. The
+first compulsory argument is the path to the XML file to be validated.
+The optional second argument is the name of the schema to validate
+against. If omitted, the schema name will be inferred from the name of
+the root element in the XML document.</p>
+<p>
+Valid schema names currently include</p>
+<blockquote>
+<ul>
+<li><strong>cpu</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format of cpu</p>
+<blockquote>
+<ul>
+<li><strong>domainsnapshot</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used by domain snapshot configuration</p>
+<blockquote>
+<ul>
+<li><strong>domaincheckpoint</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used by domain checkpoint configuration</p>
+<blockquote>
+<ul>
+<li><strong>domainbackup</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used by domain backup configuration</p>
+<blockquote>
+<ul>
+<li><strong>domaincaps</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format of domain capabilities</p>
+<blockquote>
+<ul>
+<li><strong>domain</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used by guest domains configuration</p>
+<blockquote>
+<ul>
+<li><strong>networkport</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used by network port configuration</p>
+<blockquote>
+<ul>
+<li><strong>network</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used by virtual network configuration</p>
+<blockquote>
+<ul>
+<li><strong>storagepoolcaps</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format of storage pool capabilities</p>
+<blockquote>
+<ul>
+<li><strong>storagepool</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used by storage pool configuration</p>
+<blockquote>
+<ul>
+<li><strong>storagevol</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used by storage volume descriptions</p>
+<blockquote>
+<ul>
+<li><strong>nodedev</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used by node device descriptions</p>
+<blockquote>
+<ul>
+<li><strong>capability</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used to declare driver capabilities</p>
+<blockquote>
+<ul>
+<li><strong>nwfilter</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used by network traffic filters</p>
+<blockquote>
+<ul>
+<li><strong>nwfilterbinding</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for XML format used by network filter bindings.</p>
+<blockquote>
+<ul>
+<li><strong>secret</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used by secrets descriptions</p>
+<blockquote>
+<ul>
+<li><strong>interface</strong></li>
+</ul>
+</blockquote>
+<p>
+The schema for the XML format used by physical host interfaces</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-h</strong>, <strong>–help</strong></p>
+<p>
+Display command line help usage then exit.</p>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<p>
+Display version information then exit.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Upon successful validation, an exit status of 0 will be set. Upon
+failure a non-zero status will be set.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHOR
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Daniel P. Berrangé</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Please report all bugs you discover. This should be done via either:</p>
+<blockquote>
+<ol>
+<li>the mailing list</li>
+</ol>
+<p>&lt;https://libvirt.org/contact.html&gt;</p>
+<ol>
+<li value="2">the bug tracker</li>
+</ol>
+<p>&lt;https://libvirt.org/bugs.html&gt;</p>
+</blockquote>
+<p>
+Alternatively, you may report bugs to your software distributor /
+vendor.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Copyright (C) 2009-2013 by Red Hat, Inc. Copyright (C) 2009 by Daniel P.
+Berrangé</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+LICENSE
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p><strong>virt-xml-validate</strong> is distributed under the terms of the GNU GPL v2+.
+This is free software; see the source for copying conditions. There is
+NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>virsh(1), online XML format descriptions
+&lt;<a href="https://libvirt.org/format.html">https://libvirt.org/format.html</a>&gt; , &lt;<a href="https://libvirt.org/">https://libvirt.org/</a>&gt;</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - hostnamectl.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - hostnamectl.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>hostnamectl - Control the system hostname</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>hostnamectl</strong> [OPTIONS…] {COMMAND}</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>hostnamectl</strong> may be used to query and change the system hostname and
+related settings.</p>
+<p>
+*systemd-hostnamed.service*(8) and this tool distinguish three different
+hostnames: the high-level &#34;pretty&#34; hostname which might include all
+kinds of special characters (e.g. &#34;Lennarts Laptop&#34;), the &#34;static&#34;
+hostname which is the user-configured hostname (e.g. &#34;lennarts-laptop&#34;),
+and the transient hostname which is a fallback value received from
+network configuration (e.g. &#34;node12345678&#34;). If a static hostname is set
+to a valid value, then the transient hostname is not used.</p>
+<p>
+Note that the pretty hostname has little restrictions on the characters
+and length used, while the static and transient hostnames are limited to
+the usually accepted characters of Internet domain names, and 64
+characters at maximum (the latter being a Linux limitation).</p>
+<p>
+Use *systemd-firstboot*(1) to initialize the system hostname for mounted
+(but not booted) system images.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following commands are understood:</p>
+<p>
+<strong>status</strong></p>
+<blockquote>
+<p>Show system hostname and related information. If no command is
+specified, this is the implied default.</p>
+<p>
+Added in version 195.</p>
+</blockquote>
+<p>
+<strong>hostname</strong> [/NAME/]</p>
+<blockquote>
+<p>If no argument is given, print the system hostname. If an optional
+argument <em>NAME</em> is provided then the command changes the system hostname
+to <em>NAME</em>. By default, this will alter the pretty, the static, and the
+transient hostname alike; however, if one or more of <strong>–static</strong>,
+<strong>–transient</strong>, <strong>–pretty</strong> are used, only the selected hostnames are
+changed. If the pretty hostname is being set, and static or transient
+are being set as well, the specified hostname will be simplified in
+regards to the character set used before the latter are updated. This is
+done by removing special characters and spaces. This ensures that the
+pretty and the static hostname are always closely related while still
+following the validity rules of the specific name. This simplification
+of the hostname string is not done if only the transient and/or static
+hostnames are set, and the pretty hostname is left untouched.</p>
+<p>
+The static and transient hostnames must each be either a single DNS
+label (a string composed of 7-bit ASCII lower-case characters and no
+spaces or dots, limited to the format allowed for DNS domain name
+labels), or a sequence of such labels separated by single dots that
+forms a valid DNS FQDN. The hostname must be at most 64 characters,
+which is a Linux limitation (DNS allows longer names).</p>
+<p>
+Added in version 249.</p>
+</blockquote>
+<p>
+<strong>icon-name</strong> [/NAME/]</p>
+<blockquote>
+<p>If no argument is given, print the icon name of the system. If an
+optional argument <em>NAME</em> is provided then the command changes the icon
+name to <em>NAME</em>. The icon name is used by some graphical applications to
+visualize this host. The icon name should follow the <strong>Icon Naming
+Specification</strong>[1].</p>
+<p>
+Added in version 249.</p>
+</blockquote>
+<p>
+<strong>chassis</strong> [/TYPE/]</p>
+<blockquote>
+<p>If no argument is given, print the chassis type. If an optional argument
+<em>TYPE</em> is provided then the command changes the chassis type to <em>TYPE</em>.
+The chassis type is used by some graphical applications to visualize the
+host or alter user interaction. Currently, the following chassis types
+are defined: &#34;desktop&#34;, &#34;laptop&#34;, &#34;convertible&#34;, &#34;server&#34;, &#34;tablet&#34;,
+&#34;handset&#34;, &#34;watch&#34;, &#34;embedded&#34;, as well as the special chassis types
+&#34;vm&#34; and &#34;container&#34; for virtualized systems that lack an immediate
+physical chassis.</p>
+<p>
+Added in version 249.</p>
+</blockquote>
+<p>
+<strong>deployment</strong> [/ENVIRONMENT/]</p>
+<blockquote>
+<p>If no argument is given, print the deployment environment. If an
+optional argument <em>ENVIRONMENT</em> is provided then the command changes the
+deployment environment to <em>ENVIRONMENT</em>. Argument <em>ENVIRONMENT</em> must be
+a single word without any control characters. One of the following is
+suggested: &#34;development&#34;, &#34;integration&#34;, &#34;staging&#34;, &#34;production&#34;.</p>
+<p>
+Added in version 249.</p>
+</blockquote>
+<p>
+<strong>location</strong> [/LOCATION/]</p>
+<blockquote>
+<p>If no argument is given, print the location string for the system. If an
+optional argument <em>LOCATION</em> is provided then the command changes the
+location string for the system to <em>LOCATION</em>. Argument <em>LOCATION</em> should
+be a human-friendly, free-form string describing the physical location
+of the system, if it is known and applicable. This may be as generic as
+&#34;Berlin, Germany&#34; or as specific as &#34;Left Rack, 2nd Shelf&#34;.</p>
+<p>
+Added in version 249.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>–no-ask-password</strong></p>
+<blockquote>
+<p>Do not query the user for authentication for privileged operations.</p>
+<p>
+Added in version 195.</p>
+</blockquote>
+<p>
+<strong>–static</strong>, <strong>–transient</strong>, <strong>–pretty</strong></p>
+<blockquote>
+<p>If <strong>status</strong> is invoked (or no explicit command is given) and one of
+these switches is specified, <strong>hostnamectl</strong> will print out just this
+selected hostname.</p>
+<p>
+If used with <strong>hostname</strong>, only the selected hostnames will be updated.
+When more than one of these switches are specified, all the specified
+hostnames will be updated.</p>
+<p>
+Added in version 195.</p>
+</blockquote>
+<p>
+<strong>-H</strong>, <strong>–host=</strong></p>
+<blockquote>
+<p>Execute the operation remotely. Specify a hostname, or a username and
+hostname separated by &#34;@&#34;, to connect to. The hostname may optionally be
+suffixed by a port ssh is listening on, separated by &#34;:&#34;, and then a
+container name, separated by &#34;/&#34;, which connects directly to a specific
+container on the specified host. This will use SSH to talk to the remote
+machine manager instance. Container names may be enumerated with
+*machinectl -H */HOST/. Put IPv6 addresses in brackets.</p>
+</blockquote>
+<p>
+<strong>-M</strong>, <strong>–machine=</strong></p>
+<blockquote>
+<p>Execute operation on a local container. Specify a container name to
+connect to, optionally prefixed by a user name to connect as and a
+separating &#34;@&#34; character. If the special string &#34;.host&#34; is used in place
+of the container name, a connection to the local system is made (which
+is useful to connect to a specific users user bus: &#34;–user
+–machine=lennart@.host&#34;). If the &#34;@&#34; syntax is not used, the connection
+is made as root user. If the &#34;@&#34; syntax is used either the left hand
+side or the right hand side may be omitted (but not both) in which case
+the local user name and &#34;.host&#34; are implied.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Print a short help text and exit.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Print a short version string and exit.</p>
+</blockquote>
+<p>
+*–json=*/MODE/</p>
+<blockquote>
+<p>Shows output formatted as JSON. Expects one of &#34;short&#34; (for the shortest
+possible output without any redundant whitespace or line breaks),
+&#34;pretty&#34; (for a pretty version of the same, with indentation and line
+breaks) or &#34;off&#34; (to turn off JSON output, the default).</p>
+</blockquote>
+<p>
+<strong>-j</strong></p>
+<blockquote>
+<p>Equivalent to <strong>–json=pretty</strong> if running on a terminal, and
+<strong>–json=short</strong> otherwise.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>On success, 0 is returned, a non-zero failure code otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*systemd*(1), *hostname*(1), *hostname*(5), *machine-info*(5),
+*systemctl*(1), *systemd-hostnamed.service*(8), *systemd-firstboot*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+NOTES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>Icon Naming Specification
+
+https://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

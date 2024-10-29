@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - splain.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - splain.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>diagnostics, splain - produce verbose warning diagnostics</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>Using the <code class="verbatim">diagnostics</code> pragma:</p>
+<p>
+use diagnostics; use diagnostics -verbose; diagnostics-&gt;enable;
+diagnostics-&gt;disable;</p>
+<p>
+Using the <code class="verbatim">splain</code> standalone filter program:</p>
+<p>
+perl program 2&gt;diag.out splain [-v] [-p] diag.out</p>
+<p>
+Using diagnostics to get stack traces from a misbehaving script:</p>
+<p>
+perl -Mdiagnostics=-traceonly my_script.pl</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+The &#34;diagnostics&#34; Pragma
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>This module extends the terse diagnostics normally emitted by both the
+perl compiler and the perl interpreter (from running perl with a -w
+switch or <code class="verbatim">use warnings</code>), augmenting them with the more explicative and
+endearing descriptions found in perldiag. Like the other pragmata, it
+affects the compilation phase of your program rather than merely the
+execution phase.</p>
+<p>
+To use in your program as a pragma, merely invoke</p>
+<p>
+use diagnostics;</p>
+<p>
+at the start (or near the start) of your program. (Note that this <em>does</em>
+enable perl&#39;s <strong>-w</strong> flag.) Your whole compilation will then be subject(ed
+:-) to the enhanced diagnostics. These still go out <strong>STDERR</strong>.</p>
+<p>
+Due to the interaction between runtime and compiletime issues, and
+because it&#39;s probably not a very good idea anyway, you may not use
+<code class="verbatim">no diagnostics</code> to turn them off at compiletime. However, you may
+control their behaviour at runtime using the <code class="verbatim">disable()</code> and <code class="verbatim">enable()</code>
+methods to turn them off and on respectively.</p>
+<p>
+The <strong>-verbose</strong> flag first prints out the perldiag introduction before
+any other diagnostics. The <code class="verbatim">$diagnostics::PRETTY</code> variable can generate
+nicer escape sequences for pagers.</p>
+<p>
+Warnings dispatched from perl itself (or more accurately, those that
+match descriptions found in perldiag) are only displayed once (no
+duplicate descriptions). User code generated warnings a la <strong>warn()</strong> are
+unaffected, allowing duplicate user messages to be displayed.</p>
+<p>
+This module also adds a stack trace to the error message when perl dies.
+This is useful for pinpointing what caused the death. The <strong>-traceonly</strong>
+(or just <strong>-t</strong>) flag turns off the explanations of warning messages
+leaving just the stack traces. So if your script is dieing, run it again
+with</p>
+<p>
+perl -Mdiagnostics=-traceonly my_bad_script</p>
+<p>
+to see the call stack at the time of death. By supplying the
+<strong>-warntrace</strong> (or just <strong>-w</strong>) flag, any warnings emitted will also come
+with a stack trace.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+The <em>splain</em> Program
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Another program, <em>splain</em> is actually nothing more than a link to the
+(executable) <em>diagnostics.pm</em> module, as well as a link to the
+<em>diagnostics.pod</em> documentation. The <strong>-v</strong> flag is like the
+<code class="verbatim">use diagnostics -verbose</code> directive. The <strong>-p</strong> flag is like the
+<code class="verbatim">$diagnostics::PRETTY</code> variable. Since you&#39;re post-processing with
+<em>splain</em>, there&#39;s no sense in being able to <strong>enable()</strong> or <strong>disable()</strong>
+processing.</p>
+<p>
+Output from <em>splain</em> is directed to <strong>STDOUT</strong>, unlike the pragma.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The following file is certain to trigger a few errors at both runtime
+and compiletime:</p>
+<p>
+use diagnostics; print NOWHERE &#34;nothing\n&#34;; print STDERR &#34;\n\tThis
+message should be unadorned.\n&#34;; warn &#34;\tThis is a user warning&#34;; print
+&#34;\nDIAGNOSTIC TESTER: Please enter a &lt;CR&gt; here: &#34;; my $a, $b = scalar
+&lt;STDIN&gt;; print &#34;\n&#34;; print $x/$y;</p>
+<p>
+If you prefer to run your program first and look at its problem
+afterwards, do this:</p>
+<p>
+perl -w test.pl 2&gt;test.out ./splain &lt; test.out</p>
+<p>
+Note that this is not in general possible in shells of more dubious
+heritage, as the theoretical</p>
+<p>
+(perl -w test.pl &gt;/dev/tty) &gt;&amp; test.out ./splain &lt; test.out</p>
+<p>
+Because you just moved the existing <strong>stdout</strong> to somewhere else.</p>
+<p>
+If you don&#39;t want to modify your source code, but still have on-the-fly
+warnings, do this:</p>
+<p>
+exec 3&gt;&amp;1; perl -w test.pl 2&gt;&amp;1 1&gt;&amp;3 3&gt;&amp;- | splain 1&gt;&amp;2 3&gt;&amp;-</p>
+<p>
+Nifty, eh?</p>
+<p>
+If you want to control warnings on the fly, do something like this. Make
+sure you do the <code class="verbatim">use</code> first, or you won&#39;t be able to get at the
+<strong>enable()</strong> or <strong>disable()</strong> methods.</p>
+<p>
+use diagnostics; # checks entire compilation phase print &#34;\ntime for 1st
+bogus diags: SQUAWKINGS\n&#34;; print BOGUS1 nada; print &#34;done with 1st
+bogus\n&#34;; diagnostics-&gt;disable; # only turns off runtime warnings print
+&#34;\ntime for 2nd bogus: (squelched)\n&#34;; print BOGUS2 nada; print &#34;done
+with 2nd bogus\n&#34;; diagnostics-&gt;enable; # turns back on runtime warnings
+print &#34;\ntime for 3rd bogus: SQUAWKINGS\n&#34;; print BOGUS3 nada; print
+&#34;done with 3rd bogus\n&#34;; diagnostics-&gt;disable; print &#34;\ntime for 4th
+bogus: (squelched)\n&#34;; print BOGUS4 nada; print &#34;done with 4th bogus\n&#34;;</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+INTERNALS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Diagnostic messages derive from the <em>perldiag.pod</em> file when available
+at runtime. Otherwise, they may be embedded in the file itself when the
+splain package is built. See the <em>Makefile</em> for details.</p>
+<p>
+If an extant =$SIG={_ _WARN_ _} handler is discovered, it will continue
+to be honored, but only after the *diagnostics::splainthis()* function
+(the module&#39;s =$SIG={_ <span style="text-decoration: underline;">WARN</span> _} interceptor) has had its way with your
+warnings.</p>
+<p>
+There is a <code class="verbatim">$diagnostics::DEBUG</code> variable you may set if you&#39;re
+desperately curious what sorts of things are being intercepted.</p>
+<p>
+BEGIN { $diagnostics::DEBUG = 1 }</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+BUGS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Not being able to say &#34;no diagnostics&#34; is annoying, but may not be
+insurmountable.</p>
+<p>
+The <code class="verbatim">-pretty</code> directive is called too late to affect matters. You have
+to do this instead, and <em>before</em> you load the module.</p>
+<p>
+BEGIN { $diagnostics::PRETTY = 1 }</p>
+<p>
+I could start up faster by delaying compilation until it should be
+needed, but this gets a &#34;panic: top_level&#34; when using the pragma form in
+Perl 5.001e.</p>
+<p>
+While it&#39;s true that this documentation is somewhat subserious, if you
+use a program named <em>splain</em>, you should expect a bit of whimsy.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+AUTHOR
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Tom Christiansen &lt;/tchrist@mox.perl.com/&gt;, 25 June 1995.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

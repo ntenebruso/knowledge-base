@@ -1,0 +1,4785 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - openssl.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - openssl.1</h1>
+    <p>is a cryptography toolkit implementing the Transport Layer Security</p>
+<p>
+network protocol, as well as related cryptography standards.</p>
+<p>
+The</p>
+<p>
+program is a command line tool for using the various cryptography
+functions of</p>
+<p>
+crypto library from the shell.</p>
+<p>
+The pseudo-commands</p>
+<p>
+and</p>
+<p>
+output a list</p>
+<p>
+of the names of all standard commands, message digest commands, or
+cipher commands, respectively, that are available in the present</p>
+<p>
+utility.</p>
+<p>
+The pseudo-commands</p>
+<p>
+and</p>
+<p>
+list all cipher and message digest names, one entry per line. Aliases
+are listed as:</p>
+<p>
+The pseudo-command</p>
+<p>
+lists all supported public key algorithms.</p>
+<p>
+The pseudo-command</p>
+<p>
+tests whether a command of the specified name is available. If</p>
+<p>
+does not exist, it returns 0 and prints</p>
+<p>
+otherwise it returns 1 and prints</p>
+<p>
+In both cases, the output goes to stdout and nothing is printed to
+stderr. Additional command line arguments are always ignored. Since for
+each cipher there is a command of the same name, this provides an easy
+way for shell scripts to test for the availability of ciphers in the</p>
+<p>
+program.</p>
+<p>
+is not able to detect pseudo-commands such as</p>
+<p>
+or</p>
+<p>
+itself.</p>
+<p>
+The</p>
+<p>
+command is a diagnostic utility that can parse ASN.1 structures. It can
+also be used to extract data from ASN.1 formatted data.</p>
+<p>
+The options are as follows:</p>
+<p>
+Dump the first</p>
+<p>
+bytes of unknown data in hex form.</p>
+<p>
+Dump unknown data in hex form.</p>
+<p>
+Generate encoded data based on string</p>
+<p>
+file</p>
+<p>
+or both, using the format described in</p>
+<p>
+If only</p>
+<p>
+is present then the string is obtained from the default section using
+the name</p>
+<p>
+The encoded data is passed through the ASN.1 parser and printed out as
+though it came from a file; the contents can thus be examined and
+written to a file using the</p>
+<p>
+option.</p>
+<p>
+Indent the output according to the</p>
+<p>
+of the structures.</p>
+<p>
+The input file to read from, or standard input if not specified.</p>
+<p>
+The input format.</p>
+<p>
+Number of bytes to parse; the default is until end of file.</p>
+<p>
+Do not output the parsed version of the input file.</p>
+<p>
+Starting offset to begin parsing; the default is start of file.</p>
+<p>
+A file containing additional object identifiers</p>
+<p>
+If an OID</p>
+<p>
+is not part of</p>
+<p>
+internal table, it will be represented in numerical form</p>
+<p>
+Each line consists of three columns: the first column is the OID in
+numerical format and should be followed by whitespace. The second column
+is the</p>
+<p>
+which is a single word followed by whitespace. The final column is the
+rest of the line and is the</p>
+<p>
+displays the long name.</p>
+<p>
+The DER-encoded output file; the default is no encoded output (useful
+when combined with</p>
+<p>
+Parse the content octets of the ASN.1 object starting at</p>
+<p>
+This option can be used multiple times to</p>
+<p>
+into a nested structure.</p>
+<p>
+The</p>
+<p>
+command is a minimal certificate authority (CA) application. It can be
+used to sign certificate requests in a variety of forms and generate
+certificate revocation lists (CRLs). It also maintains a text database
+of issued certificates and their status.</p>
+<p>
+The options relevant to CAs are as follows:</p>
+<p>
+Batch mode. In this mode no questions will be asked and all certificates
+will be certified automatically.</p>
+<p>
+The CA certificate file.</p>
+<p>
+Specify an alternative configuration file.</p>
+<p>
+If reading the serial from the text file as specified in the
+configuration fails, create a new random serial to be used as the next
+serial number.</p>
+<p>
+The number of days to certify the certificate for.</p>
+<p>
+Set the expiry date. The format of the date is [YY]YYMMDDHHMMSSZ, with
+all four year digits required for dates from 2050 onwards.</p>
+<p>
+The section of the configuration file containing certificate extensions
+to be added when a certificate is issued (defaults to</p>
+<p>
+unless the</p>
+<p>
+option is used). If no extension section is present, a V1 certificate is
+created. If the extension section is present</p>
+<p>
+then a V3 certificate is created. See the</p>
+<p>
+manual page for details of the extension section format.</p>
+<p>
+An additional configuration</p>
+<p>
+to read certificate extensions from (using the default section unless
+the</p>
+<p>
+option is also used).</p>
+<p>
+An input</p>
+<p>
+containing a single certificate request to be signed by the CA.</p>
+<p>
+If present, this should be the last option; all subsequent arguments are
+assumed to be the names of files containing certificate requests.</p>
+<p>
+The</p>
+<p>
+used to encrypt the private key. Since on some systems the command line
+arguments are visible, this option should be used with caution.</p>
+<p>
+The private key to sign requests with.</p>
+<p>
+Private key file format. The default is</p>
+<p>
+The message digest to use. Possible values include</p>
+<p>
+and</p>
+<p>
+This option also applies to CRLs.</p>
+<p>
+This is a legacy option to make</p>
+<p>
+work with very old versions of the IE certificate enrollment control</p>
+<p>
+It used UniversalStrings for almost everything. Since the old control
+has various security bugs, its use is strongly discouraged. The newer
+control</p>
+<p>
+does not need this option.</p>
+<p>
+This option causes the</p>
+<p>
+argument to be interpreted with full support for multivalued RDNs, for
+example</p>
+<p>
+If</p>
+<p>
+is not used, the UID value is set to</p>
+<p>
+Specifies the configuration file</p>
+<p>
+to use (overrides</p>
+<p>
+in the</p>
+<p>
+section).</p>
+<p>
+The DN of a certificate can contain the EMAIL field if present in the
+request DN, however it is good policy just having the email set into the</p>
+<p>
+extension of the certificate. When this option is set, the EMAIL field
+is removed from the certificate&#39;s subject and set only in the,
+eventually present, extensions. The</p>
+<p>
+keyword can be used in the configuration file to enable this behaviour.</p>
+<p>
+Don&#39;t output the text form of a certificate to the output file.</p>
+<p>
+The output file to output certificates to. The default is standard
+output. The certificate details will also be printed out to this file in
+PEM format.</p>
+<p>
+The</p>
+<p>
+to output certificates to. The certificate will be written to a file
+consisting of the serial number in hex with</p>
+<p>
+appended.</p>
+<p>
+The key password source.</p>
+<p>
+Define the CA</p>
+<p>
+to use. The policy section in the configuration file consists of a set
+of variables corresponding to certificate DN fields. The values may be
+one of</p>
+<p>
+(the value must match the same field in the CA certificate),</p>
+<p>
+(the value must be present), or</p>
+<p>
+(the value may be present). Any fields not mentioned in the policy
+section are silently deleted, unless the</p>
+<p>
+option is set, but this can be regarded more of a quirk than intended
+behaviour.</p>
+<p>
+Normally, the DN order of a certificate is the same as the order of the
+fields in the relevant policy section. When this option is set, the
+order is the same as the request. This is largely for compatibility with
+the older IE enrollment control which would only accept certificates if
+their DNs matched the order of the request. This is not needed for
+Xenroll.</p>
+<p>
+Indicates the issued certificates are to be signed with the key the
+certificate requests were signed with, given with</p>
+<p>
+Certificate requests signed with a different key are ignored. If</p>
+<p>
+or</p>
+<p>
+are given,</p>
+<p>
+is ignored.</p>
+<p>
+A consequence of using</p>
+<p>
+is that the self-signed certificate appears among the entries in the
+certificate database (see the configuration option</p>
+<p>
+and uses the same serial number counter as all other certificates signed
+with the self-signed certificate.</p>
+<p>
+Pass options to the signature algorithm during sign or certify
+operations. The names and values of these options are
+algorithm-specific.</p>
+<p>
+A single self-signed certificate to be signed by the CA.</p>
+<p>
+Set the start date. The format of the date is [YY]YYMMDDHHMMSSZ, with
+all four year digits required for dates from 2050 onwards.</p>
+<p>
+Supersedes the subject name given in the request. The</p>
+<p>
+must be formatted as</p>
+<p>
+characters may be escaped by</p>
+<p>
+no spaces are skipped.</p>
+<p>
+Interpret field values read from a terminal or obtained from a
+configuration file as UTF-8 strings. By default, they are interpreted as
+ASCII.</p>
+<p>
+Print extra details about the operations being performed.</p>
+<p>
+The options relevant to CRLs are as follows:</p>
+<p>
+This is the same as</p>
+<p>
+except the revocation reason is set to CACompromise.</p>
+<p>
+Set the revocation reason to keyCompromise and the compromise time to</p>
+<p>
+should be in GeneralizedTime format, i.e. YYYYMMDDHHMMSSZ.</p>
+<p>
+Set the CRL revocation reason code to certificateHold and the hold
+instruction to</p>
+<p>
+which must be an OID. Although any OID can be used, only
+holdInstructionNone (the use of which is discouraged by RFC 2459),
+holdInstructionCallIssuer or holdInstructionReject will normally be
+used.</p>
+<p>
+Revocation reason, where</p>
+<p>
+is one of: unspecified, keyCompromise, CACompromise, affiliationChanged,
+superseded, cessationOfOperation, certificateHold or removeFromCRL. The
+matching of</p>
+<p>
+is case insensitive. Setting any revocation reason will make the CRL v2.
+In practice, removeFromCRL is not particularly useful because it is only
+used in delta CRLs which are not currently implemented.</p>
+<p>
+The number of days before the next CRL is due. This is the days from now
+to place in the CRL</p>
+<p>
+field.</p>
+<p>
+The</p>
+<p>
+of the configuration file containing CRL extensions to include. If no
+CRL extension section is present then a V1 CRL is created; if the CRL
+extension section is present (even if it is empty) then a V2 CRL is
+created. The CRL extensions specified are CRL extensions and not CRL
+entry extensions. It should be noted that some software can&#39;t handle V2
+CRLs. See the</p>
+<p>
+manual page for details of the extension section format.</p>
+<p>
+The number of hours before the next CRL is due.</p>
+<p>
+The number of seconds before the next CRL is due.</p>
+<p>
+Generate a CRL based on information in the index file.</p>
+<p>
+A</p>
+<p>
+containing a certificate to revoke.</p>
+<p>
+Show the status of the certificate with serial number</p>
+<p>
+Update the database index to purge expired certificates.</p>
+<p>
+Many of the options can be set in the</p>
+<p>
+section of the configuration file (or in the default section of the
+configuration file), specified using</p>
+<p>
+or</p>
+<p>
+The options</p>
+<p>
+and</p>
+<p>
+are read directly from the</p>
+<p>
+section.</p>
+<p>
+Many of the configuration file options are identical to command line
+options. Where the option is present in the configuration file and the
+command line, the command line value is used. Where an option is
+described as mandatory, then it must be present in the configuration
+file or the command line equivalent</p>
+<p>
+used.</p>
+<p>
+The same as</p>
+<p>
+It gives the file containing the CA certificate. Mandatory.</p>
+<p>
+Determines how extensions in certificate requests should be handled. If
+set to</p>
+<p>
+or this option is not present, then extensions are ignored and not
+copied to the certificate. If set to</p>
+<p>
+then any extensions present in the request that are not already present
+are copied to the certificate. If set to</p>
+<p>
+then all extensions in the request are copied to the certificate: if the
+extension is already present in the certificate it is deleted first.</p>
+<p>
+The</p>
+<p>
+option should be used with caution. If care is not taken, it can be a
+security risk. For example, if a certificate request contains a</p>
+<p>
+extension with CA:TRUE and the</p>
+<p>
+value is set to</p>
+<p>
+and the user does not spot this when the certificate is displayed, then
+this will hand the requester a valid CA certificate.</p>
+<p>
+This situation can be avoided by setting</p>
+<p>
+to</p>
+<p>
+and including</p>
+<p>
+with CA:FALSE in the configuration file. Then if the request contains a</p>
+<p>
+extension, it will be ignored.</p>
+<p>
+The main use of this option is to allow a certificate request to supply
+values for certain extensions such as</p>
+<p>
+The same as</p>
+<p>
+A text file containing the next CRL number to use in hex. The CRL number
+will be inserted in the CRLs only if this file exists. If this file is
+present, it must contain a valid CRL number.</p>
+<p>
+The text database file to use. Mandatory. This file must be present,
+though initially it will be empty.</p>
+<p>
+The same as the</p>
+<p>
+and</p>
+<p>
+options. These will only be used if neither command line option is
+present. At least one of these must be present to generate a CRL.</p>
+<p>
+The same as the</p>
+<p>
+option. The number of days to certify a certificate for.</p>
+<p>
+The same as the</p>
+<p>
+option. Either this option or</p>
+<p>
+must be present.</p>
+<p>
+The same as the</p>
+<p>
+option. The message digest to use. Mandatory.</p>
+<p>
+The same as the</p>
+<p>
+option. The start date to certify a certificate for. If not set, the
+current time is used.</p>
+<p>
+The same as</p>
+<p>
+If the EMAIL field is to be removed from the DN of the certificate,
+simply set this to</p>
+<p>
+If not present, the default is to allow for the EMAIL field in the
+certificate&#39;s DN.</p>
+<p>
+The same as</p>
+<p>
+These options allow the format used to display the certificate details
+when asking the user to confirm signing. All the options supported by
+the</p>
+<p>
+utilities&#39;</p>
+<p>
+and</p>
+<p>
+switches can be used here, except that</p>
+<p>
+and</p>
+<p>
+are permanently set and cannot be disabled (this is because the
+certificate signature cannot be displayed because the certificate has
+not been signed at this point).</p>
+<p>
+For convenience, the value</p>
+<p>
+is accepted by both to produce a reasonable output.</p>
+<p>
+If neither option is present, the format used in earlier versions of</p>
+<p>
+is used. Use of the old format is strongly discouraged because it only
+displays fields mentioned in the</p>
+<p>
+section, mishandles multicharacter string types and does not display
+extensions.</p>
+<p>
+The same as the</p>
+<p>
+command line option. It specifies the directory where new certificates
+will be placed. Mandatory.</p>
+<p>
+This specifies a file containing additional object identifiers. Each
+line of the file should consist of the numerical form of the object
+identifier followed by whitespace, then the short name followed by
+whitespace and finally the long name.</p>
+<p>
+This specifies a section in the configuration file containing extra
+object identifiers. Each line should consist of the short name of the
+object identifier followed by</p>
+<p>
+and the numerical form. The short and long names are the same when this
+option is used.</p>
+<p>
+The same as</p>
+<p>
+Mandatory.</p>
+<p>
+The same as</p>
+<p>
+Same as the</p>
+<p>
+option. The file containing the CA private key. Mandatory.</p>
+<p>
+A text file containing the next serial number to use in hex. Mandatory.
+This file must be present and contain a valid serial number.</p>
+<p>
+If the value</p>
+<p>
+is given, the valid certificate entries in the database must have unique
+subjects. If the value</p>
+<p>
+is given, several valid certificate entries may have the exact same
+subject. The default value is</p>
+<p>
+Note that it is valid in some circumstances for certificates to be
+created without any subject. In cases where there are multiple
+certificates without subjects this does not count as a duplicate.</p>
+<p>
+The same as</p>
+<p>
+The</p>
+<p>
+command calculates a hash value of</p>
+<p>
+file in the specified directory list and creates symbolic links for each
+file, where the name of the link is the hash value. See the</p>
+<p>
+manual page for how hash links are used.</p>
+<p>
+The links created are of the form</p>
+<p>
+where each</p>
+<p>
+is a hexadecimal character and</p>
+<p>
+is a single decimal digit. The hashes for CRLs look similar, except the
+letter</p>
+<p>
+appears after the period, like this:</p>
+<p>
+When processing a directory,</p>
+<p>
+will first remove all links that have a name in that syntax and invalid
+reference.</p>
+<p>
+Multiple objects may have the same hash; they will be indicated by
+incrementing the</p>
+<p>
+value. Duplicates are found by comparing the full SHA256 fingerprint. A
+warning will be displayed if a duplicate is found.</p>
+<p>
+A warning will also be displayed if there are files that cannot be
+parsed as either a certificate or a CRL.</p>
+<p>
+The options are as follows:</p>
+<p>
+Perform a dry-run, and do not make any changes.</p>
+<p>
+Print extra details about the processing.</p>
+<p>
+Specify the directories to process.</p>
+<p>
+The</p>
+<p>
+command converts the</p>
+<p>
+string from the format documented in</p>
+<p>
+into an ordered SSL cipher suite preference list. If no</p>
+<p>
+string is specified, the</p>
+<p>
+list is printed.</p>
+<p>
+The options are as follows:</p>
+<p>
+Print a brief usage message.</p>
+<p>
+Only list ciphers that are supported by the TLS method.</p>
+<p>
+In combination with the</p>
+<p>
+option, list the ciphers which could be used if the specified protocol
+version were negotiated.</p>
+<p>
+Verbose. List ciphers with cipher suite code in hex format, cipher name,
+and a complete description of protocol version, key exchange,
+authentication, encryption, and mac algorithms.</p>
+<p>
+Like</p>
+<p>
+but without cipher suite codes.</p>
+<p>
+The</p>
+<p>
+command handles S/MIME v3.1 mail. It can encrypt, decrypt, sign and
+verify, compress and uncompress S/MIME messages.</p>
+<p>
+The MIME message must be sent without any blank lines between the
+headers and the output. Some mail programs will automatically add a
+blank line. Piping the mail directly to sendmail is one way to achieve
+the correct format.</p>
+<p>
+The supplied message to be signed or encrypted must include the
+necessary MIME headers or many S/MIME clients won&#39;t display it properly
+(if at all). You can use the</p>
+<p>
+option to automatically add plain text headers.</p>
+<p>
+A &#34;signed and encrypted&#34; message is one where a signed message is then
+encrypted. This can be produced by encrypting an already signed message.</p>
+<p>
+There are various operation options that set the type of operation to be
+performed. The meaning of the other options varies according to the
+operation type.</p>
+<p>
+Encrypt mail for the given recipient certificates. Input file is the
+message to be encrypted. The output file is the encrypted mail in MIME
+format. The actual CMS type is EnvelopedData. Note that no revocation
+check is done for the recipient cert, so if that key has been
+compromised, others may be able to decrypt the text.</p>
+<p>
+Decrypt mail using the supplied certificate and private key. Expects an
+encrypted mail message in MIME format for the input file. The decrypted
+mail is written to the output file.</p>
+<p>
+Sign mail using the supplied certificate and private key. Input file is
+the message to be signed. The signed message in MIME format is written
+to the output file.</p>
+<p>
+Verify signed mail. Expects a signed mail message on input and outputs
+the signed data. Both clear text and opaque signing are supported.</p>
+<p>
+Take an input message and write out a PEM encoded CMS structure.</p>
+<p>
+Resign a message. Take an existing message and one or more new signers.
+This operation uses an existing message digest when adding a new signer.
+This means that attributes must be present in at least one existing
+signer using the same message digest or this operation will fail.</p>
+<p>
+Create a CMS Data type.</p>
+<p>
+Output a content from the input CMS Data type.</p>
+<p>
+Create a CMS DigestedData type.</p>
+<p>
+Verify a CMS DigestedData type and output the content.</p>
+<p>
+Create a CMS CompressedData type. Must be compiled with zlib support for
+this option to work.</p>
+<p>
+Uncompress a CMS CompressedData type and output the content. Must be
+compiled with zlib support for this option to work.</p>
+<p>
+Encrypt a content using supplied symmetric key and algorithm using a CMS
+EncryptedData type.</p>
+<p>
+Decrypt a CMS EncryptedData type using supplied symmetric key.</p>
+<p>
+Generate and output a signed receipt for the supplied message. The input
+message must contain a signed receipt request. Functionality is
+otherwise similar to the</p>
+<p>
+operation.</p>
+<p>
+Verify a signed receipt in file. The input message must contain the
+original receipt request. Functionality is otherwise similar to the</p>
+<p>
+operation.</p>
+<p>
+The remaining options are as follows:</p>
+<p>
+The encryption algorithm to use. 128-, 192-, or 256-bit AES, 128-, 192-,
+or 256-bit CAMELLIA, DES (56 bits), triple DES (168 bits), or 40-, 64-,
+or 128-bit RC2, respectively; if not specified, triple DES is used. Only
+used with</p>
+<p>
+and</p>
+<p>
+commands.</p>
+<p>
+Normally the input message is converted to &#34;canonical&#34; format which is
+effectively using CR/LF as end of line, as required by the S/MIME
+specification. When this option is present, no translation occurs. This
+is useful when handling binary data which may not be in MIME format.</p>
+<p>
+A file containing trusted CA certificates, used with</p>
+<p>
+and</p>
+<p>
+A directory containing trusted CA certificates, used with</p>
+<p>
+and</p>
+<p>
+This directory must be a standard certificate directory: that is a hash
+of each subject name (using</p>
+<p>
+should be linked to each certificate.</p>
+<p>
+Allows additional certificate revocation lists to be specified for
+verification. The CRLs should be in PEM format.</p>
+<p>
+One or more certificates of message recipients: used when encrypting a
+message.</p>
+<p>
+Allows additional certificates to be specified. When signing, these will
+be included with the message. When verifying, these will be searched for
+the signer&#39;s certificates. The certificates should be in PEM format.</p>
+<p>
+A file that any certificates contained in the message are written to.</p>
+<p>
+Set various certificate chain validation options. See the</p>
+<p>
+command for details.</p>
+<p>
+A file containing the detached content. This is only useful with the</p>
+<p>
+command. This is only usable if the CMS structure is using the detached
+signature form where the content is not included. This option will
+override any content if the input format is S/MIME and it uses the
+multipart/signed MIME content type.</p>
+<p>
+Output a S/MIME message with CR/LF end of line.</p>
+<p>
+Set the CMS_DEBUG_DECRYPT flag when decrypting. This option should be
+used with caution, since this can be used to disable the MMA attack
+protection and return an error if no recipient can be found. See the</p>
+<p>
+manual page for details of the flag.</p>
+<p>
+The relevant mail headers. These are included outside the signed portion
+of a message so they may be included manually. If signing then many
+S/MIME mail clients check the signer&#39;s certificate&#39;s email address
+matches that specified in the From: address.</p>
+<p>
+Set the encapsulated content type, used with</p>
+<p>
+If not supplied, the Data type is used. The type argument can be any
+valid OID name in either text or numerical format.</p>
+<p>
+The input message to be encrypted or signed or the message to be
+decrypted or verified.</p>
+<p>
+The input format for the CMS structure. The default is</p>
+<p>
+which reads an S/MIME format message.</p>
+<p>
+and</p>
+<p>
+format change this to expect PEM and DER format CMS structures instead.
+This currently only affects the input format of the CMS structure; if no
+CMS structure is being input (for example with</p>
+<p>
+or</p>
+<p>
+this option has no effect.</p>
+<p>
+The private key to use when signing or decrypting. This must match the
+corresponding certificate. If this option is not specified then the
+private key must be included in the certificate file specified with the</p>
+<p>
+or</p>
+<p>
+file. When signing, this option can be used multiple times to specify
+successive keys.</p>
+<p>
+Input private key format. The default is</p>
+<p>
+Use subject key identifier to identify certificates instead of issuer
+name and serial number. The supplied certificate must include a subject
+key identifier extension. Supported by</p>
+<p>
+and</p>
+<p>
+operations.</p>
+<p>
+Set customised parameters for the preceding key or certificate for
+encryption and signing. It can currently be used to set RSA-PSS for
+signing, RSA-OAEP for encryption or to modify default parameters for
+ECDH. This option can be used multiple times.</p>
+<p>
+The digest algorithm to use when signing or resigning. If not present
+then the default digest algorithm for the signing key will be used
+(usually SHA1).</p>
+<p>
+Do not verify the signer&#39;s attribute of a signature.</p>
+<p>
+Do not verify the content of a signed message.</p>
+<p>
+Do not verify the signer&#39;s certificate of a signed message.</p>
+<p>
+Do not include attributes. Normally when a message is signed a set of
+attributes are included which include the signing time and supported
+symmetric algorithms. With this option they are not included.</p>
+<p>
+Do not include the signer&#39;s certificate. This will reduce the size of
+the signed message but the verifier must have a copy of the signer&#39;s
+certificate available locally (passed using the</p>
+<p>
+option for example).</p>
+<p>
+When signing a message, use opaque signing. This form is more resistant
+to translation by mail relays but it cannot be read by mail agents that
+do not support S/MIME. Without this option cleartext signing with the
+MIME type multipart/signed is used.</p>
+<p>
+Only the certificates specified in the</p>
+<p>
+option are used. When verifying a message, normally certificates (if
+any) included in the message are searched for the signing certificate.
+The supplied certificates can still be used as untrusted CAs however.</p>
+<p>
+Output an old S/MIME content type like &#34;application/x-pkcs7-&#34;.</p>
+<p>
+Do not output the parsed CMS structure for the</p>
+<p>
+operation. This is useful when combined with the</p>
+<p>
+option or if the syntax of the CMS structure is being checked.</p>
+<p>
+Do not try to verify the signatures on the message.</p>
+<p>
+Exclude the list of supported algorithms from signed attributes; other
+options such as signing time and content type are still included.</p>
+<p>
+Do not verify the signer&#39;s certificate of a signed message.</p>
+<p>
+The message text that has been decrypted or verified or the output MIME
+format message that has been signed or verified.</p>
+<p>
+This specifies the output format for the CMS structure. The default is</p>
+<p>
+which writes an S/MIME format message.</p>
+<p>
+and</p>
+<p>
+format change this to write PEM and DER format CMS structures instead.
+This currently only affects the output format of the CMS structure; if
+no CMS structure is being output (for example with</p>
+<p>
+or</p>
+<p>
+this option has no effect.</p>
+<p>
+The private key password source.</p>
+<p>
+Print out all fields of the CMS structure for the</p>
+<p>
+operation. This is mainly useful for testing purposes.</p>
+<p>
+Specify PasswordRecipientInfo (PWRI) password to use. Supported by the</p>
+<p>
+and</p>
+<p>
+operations.</p>
+<p>
+Specify the format for a signed receipt for use with the</p>
+<p>
+operation. The default is</p>
+<p>
+Indicate requests should be provided by all recipient or first tier
+recipients (those mailed directly and not from a mailing list), for the</p>
+<p>
+operation to include a signed receipt request. Ignored if</p>
+<p>
+is included.</p>
+<p>
+Add an explicit email address where receipts should be supplied.</p>
+<p>
+Print out the contents of any signed receipt requests for the</p>
+<p>
+operation.</p>
+<p>
+Add an explicit email address where signed receipts should be sent to.
+This option must be supplied if a signed receipt is requested.</p>
+<p>
+When decrypting a message, this specifies the recipient&#39;s certificate.
+The certificate must match one of the recipients of the message or an
+error occurs. When encrypting a message, this option may be used
+multiple times to specify each recipient. This form must be used if
+customised parameters are required (for example to specify RSA-OAEP).
+Only certificates carrying RSA, Diffie-Hellman or EC keys are supported
+by this option.</p>
+<p>
+Specify symmetric key to use. The key must be supplied in hex format and
+be consistent with the algorithm used. Supported by the</p>
+<p>
+and</p>
+<p>
+operations. When used with</p>
+<p>
+or</p>
+<p>
+the supplied key is used to wrap or unwrap the content encryption key
+using an AES key in the KEKRecipientInfo type.</p>
+<p>
+The key identifier for the supplied symmetric key for KEKRecipientInfo
+type. This option must be present if the</p>
+<p>
+option is used with</p>
+<p>
+With</p>
+<p>
+operations the id is used to locate the relevant key; if it is not
+supplied then an attempt is used to decrypt any KEKRecipientInfo
+structures.</p>
+<p>
+A signing certificate when signing or resigning a message; this option
+can be used multiple times if more than one signer is required. If a
+message is being verified then the signers certificates will be written
+to this file if the verification was successful.</p>
+<p>
+The</p>
+<p>
+and</p>
+<p>
+options are equivalent and enable streaming I/O for encoding operations.
+This permits single pass processing of data without the need to hold the
+entire contents in memory, potentially supporting very large files.
+Streaming is automatically set for S/MIME signing with detached data if
+the output format is</p>
+<p>
+it is currently off by default for all other operations.</p>
+<p>
+disable streaming I/O where it would produce an indefinite length
+constructed encoding. This option currently has no effect.</p>
+<p>
+Add plain text (text/plain) MIME headers to the supplied message if
+encrypting or signing. If decrypting or verifying, it strips off text
+headers: if the decrypted or verified message is not of MIME type
+text/plain then an error occurs.</p>
+<p>
+Set verification error code to exit code to indicate what verification
+error has occurred. Supported by</p>
+<p>
+operation only. Exit code value minus 32 shows verification error code.
+See</p>
+<p>
+command for the list of verification error code.</p>
+<p>
+The exit codes for</p>
+<p>
+are as follows:</p>
+<p>
+The operation was completely successful.</p>
+<p>
+An error occurred parsing the command options.</p>
+<p>
+One of the input files could not be read.</p>
+<p>
+An error occurred creating the CMS file or when reading the MIME
+message.</p>
+<p>
+An error occurred decrypting or verifying the message.</p>
+<p>
+The message was verified correctly but an error occurred writing out the
+signer&#39;s certificates.</p>
+<p>
+An error occurred writing the output file.</p>
+<p>
+A verify error occurred while</p>
+<p>
+is specified.</p>
+<p>
+The</p>
+<p>
+command processes CRL files in DER or PEM format.</p>
+<p>
+The options are as follows:</p>
+<p>
+Verify the signature on a CRL by looking up the issuing certificate in</p>
+<p>
+Verify the signature on a CRL by looking up the issuing certificate in</p>
+<p>
+This directory must be a standard certificate directory, i.e. a hash of
+each subject name (using</p>
+<p>
+should be linked to each certificate.</p>
+<p>
+Print the CRL number.</p>
+<p>
+Print the CRL fingerprint.</p>
+<p>
+Output a hash of the issuer name. This can be used to look up CRLs in a
+directory by issuer name.</p>
+<p>
+Output an old-style (MD5) hash of the issuer name.</p>
+<p>
+The input file to read from, or standard input if not specified.</p>
+<p>
+The input format.</p>
+<p>
+Output the issuer name.</p>
+<p>
+Output the</p>
+<p>
+field. This option is misnamed for historical reasons.</p>
+<p>
+Specify certificate name options.</p>
+<p>
+Output the</p>
+<p>
+field.</p>
+<p>
+Do not output the encoded version of the CRL.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The output format.</p>
+<p>
+Print the CRL in plain text.</p>
+<p>
+Verify the signature on the CRL.</p>
+<p>
+The</p>
+<p>
+command takes an optional CRL and one or more certificates and converts
+them into a PKCS#7 degenerate</p>
+<p>
+structure.</p>
+<p>
+The options are as follows:</p>
+<p>
+Add the certificates in PEM</p>
+<p>
+to the PKCS#7 structure. This option can be used more than once to read
+certificates from multiple files.</p>
+<p>
+Read the CRL from</p>
+<p>
+or standard input if not specified.</p>
+<p>
+The input format.</p>
+<p>
+Normally, a CRL is included in the output file. With this option, no CRL
+is included in the output file and a CRL is not read from the input
+file.</p>
+<p>
+Write the PKCS#7 structure to</p>
+<p>
+or standard output if not specified.</p>
+<p>
+The output format.</p>
+<p>
+The digest functions output the message digest of a supplied</p>
+<p>
+or</p>
+<p>
+in hexadecimal form. They can also be used for digital signing and
+verification.</p>
+<p>
+The options are as follows:</p>
+<p>
+Output the digest or signature in binary form.</p>
+<p>
+Print the digest in two-digit groups separated by colons.</p>
+<p>
+Print BIO debugging information.</p>
+<p>
+Use the specified message</p>
+<p>
+The default is SHA256. The available digests can be displayed using</p>
+<p>
+The following are equivalent:</p>
+<p>
+and</p>
+<p>
+Digest is to be output as a hex dump. This is the default case for a</p>
+<p>
+digest as opposed to a digital signature.</p>
+<p>
+Create a hashed MAC using</p>
+<p>
+Specifies the key format to sign the digest with.</p>
+<p>
+Create a keyed Message Authentication Code (MAC). The most popular MAC
+algorithm is HMAC (hash-based MAC), but there are other MAC algorithms
+which are not based on hash. MAC keys and other options should be set
+via the</p>
+<p>
+parameter.</p>
+<p>
+Passes options to the MAC algorithm, specified by</p>
+<p>
+The following options are supported by HMAC:</p>
+<p>
+Specifies the MAC key as an alphanumeric string (use if the key contain
+printable characters only). String length must conform to any
+restrictions of the MAC algorithm.</p>
+<p>
+Specifies the MAC key in hexadecimal form (two hex digits per byte). Key
+length must conform to any restrictions of the MAC algorithm.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The key password source.</p>
+<p>
+Verify the signature using the private key in</p>
+<p>
+The output is either</p>
+<p>
+or</p>
+<p>
+Print the digest in coreutils format.</p>
+<p>
+Digitally sign the digest using the private key in</p>
+<p>
+The actual signature to verify.</p>
+<p>
+Pass options to the signature algorithm during sign or verify
+operations. The names and values of these options are
+algorithm-specific.</p>
+<p>
+Verify the signature using the public key in</p>
+<p>
+The output is either</p>
+<p>
+or</p>
+<p>
+File or files to digest. If no files are specified then standard input
+is used.</p>
+<p>
+The</p>
+<p>
+command is used to manipulate DH parameter files. Only the older PKCS#3
+DH is supported, not the newer X9.42 DH.</p>
+<p>
+The options are as follows:</p>
+<p>
+The generator to use; 2 is the default. If present, the input file is
+ignored and parameters are generated instead.</p>
+<p>
+Convert the parameters into C code. The parameters can then be loaded by
+calling the</p>
+<p>
+function.</p>
+<p>
+Check the DH parameters.</p>
+<p>
+Read or create DSA parameters, converted to DH format on output.
+Otherwise,</p>
+<p>
+primes</p>
+<p>
+will be used for DH parameter generation.</p>
+<p>
+DH parameter generation with the</p>
+<p>
+option is much faster, and the recommended exponent length is shorter,
+which makes DH key exchange more efficient. Beware that with such
+DSA-style DH parameters, a fresh DH key should be created for each use
+to avoid small-subgroup attacks that may be possible otherwise.</p>
+<p>
+The input file to read from, or standard input if not specified.</p>
+<p>
+The input format.</p>
+<p>
+Do not output the encoded version of the parameters.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The output format.</p>
+<p>
+Print the DH parameters in plain text.</p>
+<p>
+Generate a parameter set of size</p>
+<p>
+It must be the last option. If not present, a value of 2048 is used. If
+this value is present, the input file is ignored and parameters are
+generated instead.</p>
+<p>
+The</p>
+<p>
+command processes DSA keys. They can be converted between various forms
+and their components printed out.</p>
+<p>
+This command uses the traditional</p>
+<p>
+compatible format for private key encryption: newer applications should
+use the more secure PKCS#8 format using the</p>
+<p>
+command.</p>
+<p>
+The options are as follows:</p>
+<p>
+Encrypt the private key with the AES, DES, or the triple DES ciphers,
+respectively, before outputting it. A pass phrase is prompted for. If
+none of these options are specified, the key is written in plain text.
+This means that using the</p>
+<p>
+utility to read an encrypted key with no encryption option can be used
+to remove the pass phrase from a key, or by setting the encryption
+options it can be used to add or change the pass phrase. These options
+can only be used with PEM format output files.</p>
+<p>
+The input file to read from, or standard input if not specified. If the
+key is encrypted, a pass phrase will be prompted for.</p>
+<p>
+The input format.</p>
+<p>
+Print the value of the public key component of the key.</p>
+<p>
+Do not output the encoded version of the key.</p>
+<p>
+The output file to write to, or standard output if not specified. If any
+encryption options are set then a pass phrase will be prompted for.</p>
+<p>
+The output format.</p>
+<p>
+The key password source.</p>
+<p>
+The output file password source.</p>
+<p>
+Read in a public key, not a private key.</p>
+<p>
+Output a public key, not a private key. Automatically set if the input
+is a public key.</p>
+<p>
+Enable or disable PVK encoding. The default is</p>
+<p>
+Print the public/private key in plain text.</p>
+<p>
+The</p>
+<p>
+command is used to manipulate or generate DSA parameter files.</p>
+<p>
+The options are as follows:</p>
+<p>
+Convert the parameters into C code. The parameters can then be loaded by
+calling the</p>
+<p>
+function.</p>
+<p>
+Generate a DSA key either using the specified or generated parameters.</p>
+<p>
+The input file to read from, or standard input if not specified. If the</p>
+<p>
+parameter is included, then this option is ignored.</p>
+<p>
+The input format.</p>
+<p>
+Do not output the encoded version of the parameters.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The output format.</p>
+<p>
+Print the DSA parameters in plain text.</p>
+<p>
+Generate a parameter set of size</p>
+<p>
+If this option is included, the input file is ignored.</p>
+<p>
+The</p>
+<p>
+command processes EC keys. They can be converted between various forms
+and their components printed out.</p>
+<p>
+uses the private key format specified in</p>
+<p>
+To convert an EC private key into the PKCS#8 private key format use the</p>
+<p>
+command.</p>
+<p>
+The options are as follows:</p>
+<p>
+Specify how the points on the elliptic curve are converted into octet
+strings. Possible values are:</p>
+<p>
+(the default), and</p>
+<p>
+For more information regarding the point conversion forms see the X9.62
+standard. Note: Due to patent issues the</p>
+<p>
+option is disabled by default for binary curves and can be enabled by
+defining the preprocessor macro</p>
+<p>
+at compile time.</p>
+<p>
+Encrypt the private key with DES, triple DES, or any other cipher
+supported by</p>
+<p>
+A pass phrase is prompted for. If none of these options are specified,
+the key is written in plain text. This means that using the</p>
+<p>
+utility to read in an encrypted key with no encryption option can be
+used to remove the pass phrase from a key, or by setting the encryption
+options it can be used to add or change the pass phrase. These options
+can only be used with PEM format output files.</p>
+<p>
+The input file to read a key from, or standard input if not specified.
+If the key is encrypted, a pass phrase will be prompted for.</p>
+<p>
+The input format.</p>
+<p>
+Do not output the encoded version of the key.</p>
+<p>
+The output filename to write to, or standard output if not specified. If
+any encryption options are set then a pass phrase will be prompted for.</p>
+<p>
+The output format.</p>
+<p>
+Specify how the elliptic curve parameters are encoded. Possible value
+are:</p>
+<p>
+i.e. the EC parameters are specified by an OID; or</p>
+<p>
+where the EC parameters are explicitly given (see RFC 3279 for the
+definition of the EC parameter structures). The default value is</p>
+<p>
+Note: the</p>
+<p>
+alternative, as specified in RFC 3279, is currently not implemented.</p>
+<p>
+Print the elliptic curve parameters.</p>
+<p>
+The key password source.</p>
+<p>
+The output file password source.</p>
+<p>
+Read in a public key, not a private key.</p>
+<p>
+Output a public key, not a private key. Automatically set if the input
+is a public key.</p>
+<p>
+Print the public/private key in plain text.</p>
+<p>
+The</p>
+<p>
+command is used to manipulate or generate EC parameter files.</p>
+<p>
+is not able to generate new groups so</p>
+<p>
+can only create EC parameters from known (named) curves.</p>
+<p>
+The options are as follows:</p>
+<p>
+Convert the EC parameters into C code. The parameters can then be loaded
+by calling the</p>
+<p>
+function.</p>
+<p>
+Validate the elliptic curve parameters.</p>
+<p>
+Specify how the points on the elliptic curve are converted into octet
+strings. Possible values are:</p>
+<p>
+(the default), and</p>
+<p>
+For more information regarding the point conversion forms see the X9.62
+standard. Note: Due to patent issues the</p>
+<p>
+option is disabled by default for binary curves and can be enabled by
+defining the preprocessor macro</p>
+<p>
+at compile time.</p>
+<p>
+Generate an EC private key using the specified parameters.</p>
+<p>
+The input file to read from, or standard input if not specified.</p>
+<p>
+The input format.</p>
+<p>
+Print a list of all currently implemented EC parameter names and exit.</p>
+<p>
+Use the EC parameters with the specified &#34;short&#34; name.</p>
+<p>
+Do not include the seed for the parameter generation in the ECParameters
+structure (see RFC 3279).</p>
+<p>
+Do not output the encoded version of the parameters.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The output format.</p>
+<p>
+Specify how the elliptic curve parameters are encoded. Possible value
+are:</p>
+<p>
+i.e. the EC parameters are specified by an OID, or</p>
+<p>
+where the EC parameters are explicitly given (see RFC 3279 for the
+definition of the EC parameter structures). The default value is</p>
+<p>
+Note: the</p>
+<p>
+alternative, as specified in RFC 3279, is currently not implemented.</p>
+<p>
+Print the EC parameters in plain text.</p>
+<p>
+The symmetric cipher commands allow data to be encrypted or decrypted
+using various block and stream ciphers using keys based on passwords or
+explicitly provided. Base64 encoding or decoding can also be performed
+either by itself or in addition to the encryption or decryption. The
+program can be called either as</p>
+<p>
+or</p>
+<p>
+Some of the ciphers do not have large keys and others have security
+implications if not used correctly. All the block ciphers normally use
+PKCS#5 padding, also known as standard block padding. If padding is
+disabled, the input data must be a multiple of the cipher block length.</p>
+<p>
+The options are as follows:</p>
+<p>
+If the</p>
+<p>
+option is set, then base64 process the data on one line.</p>
+<p>
+Base64 process the data. This means that if encryption is taking place,
+the data is base64-encoded after encryption. If decryption is set, the
+input data is base64-decoded before being decrypted.</p>
+<p>
+Set the buffer size for I/O.</p>
+<p>
+Decrypt the input data.</p>
+<p>
+Debug the BIOs used for I/O.</p>
+<p>
+Encrypt the input data. This is the default.</p>
+<p>
+The input file to read from, or standard input if not specified.</p>
+<p>
+Use the pbkdf2 key derivation function, with</p>
+<p>
+as the number of iterations.</p>
+<p>
+The actual</p>
+<p>
+to use: this must be represented as a string comprised only of hex
+digits. When only the</p>
+<p>
+is specified using the</p>
+<p>
+option, the IV must explicitly be defined. When a password is being
+specified using one of the other options, the IV is generated from this
+password.</p>
+<p>
+The actual</p>
+<p>
+to use: this must be represented as a string comprised only of hex
+digits. If only the key is specified, the IV must also be specified
+using the</p>
+<p>
+option. When both a</p>
+<p>
+and a</p>
+<p>
+are specified, the</p>
+<p>
+given with the</p>
+<p>
+option will be used and the IV generated from the password will be
+taken. It probably does not make much sense to specify both</p>
+<p>
+and</p>
+<p>
+The</p>
+<p>
+to derive the key from. Superseded by the</p>
+<p>
+option.</p>
+<p>
+Read the password to derive the key from the first line of</p>
+<p>
+Superseded by the</p>
+<p>
+option.</p>
+<p>
+Use</p>
+<p>
+to create a key from a pass phrase. Currently, the default value is</p>
+<p>
+Use NULL cipher (no encryption or decryption of input).</p>
+<p>
+Disable standard block padding.</p>
+<p>
+Don&#39;t use a salt in the key derivation routines. This option should
+never be used since it makes it possible to perform efficient dictionary
+attacks on the password and to attack stream cipher encrypted data.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+Print out the salt, key, and IV used, then immediately exit; don&#39;t do
+any encryption or decryption.</p>
+<p>
+Print out the salt, key, and IV used.</p>
+<p>
+The password source.</p>
+<p>
+Use the pbkdf2 key derivation function, with the default of 10000
+iterations.</p>
+<p>
+The actual</p>
+<p>
+to use: this must be represented as a string comprised only of hex
+digits.</p>
+<p>
+Use a salt in the key derivation routines (the default). When the salt
+is being used, the first eight bytes of the encrypted data are reserved
+for the salt: it is randomly generated when encrypting a file and read
+from the encrypted file when it is decrypted.</p>
+<p>
+Print extra details about the processing.</p>
+<p>
+The</p>
+<p>
+command performs error number to error string conversion, generating a
+human-readable string representing the error code</p>
+<p>
+The string is obtained through the</p>
+<p>
+function and has the following format:</p>
+<p>
+is an 8-digit hexadecimal number. The remaining fields</p>
+<p>
+and</p>
+<p>
+are all ASCII text.</p>
+<p>
+The</p>
+<p>
+command generates a DSA private key from a DSA parameter file (typically
+generated by the</p>
+<p>
+command). DSA key generation is little more than random number
+generation so it is much quicker than, for example, RSA key generation.</p>
+<p>
+The options are as follows:</p>
+<p>
+Encrypt the private key with the AES, CAMELLIA, DES, triple DES or the
+IDEA ciphers, respectively, before outputting it. A pass phrase is
+prompted for. If none of these options are specified, no encryption is
+used.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The output file password source.</p>
+<p>
+Specify the DSA parameter file to use. The parameters in this file
+determine the size of the private key.</p>
+<p>
+The</p>
+<p>
+command generates private keys. The use of this program is encouraged
+over the algorithm specific utilities because additional algorithm
+options can be used.</p>
+<p>
+The options are as follows:</p>
+<p>
+The public key algorithm to use, such as RSA, DSA, or DH. This option
+must precede any</p>
+<p>
+options. The options</p>
+<p>
+and</p>
+<p>
+are mutually exclusive.</p>
+<p>
+Encrypt the private key with the supplied cipher. Any algorithm name
+accepted by</p>
+<p>
+is acceptable.</p>
+<p>
+Generate a set of parameters instead of a private key. This option must
+precede any</p>
+<p>
+or</p>
+<p>
+options.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The output format.</p>
+<p>
+Some public key algorithms generate a private key based on a set of
+parameters, which can be supplied using this option. If this option is
+used, the public key algorithm used is determined by the parameters.
+This option must precede any</p>
+<p>
+options. The options</p>
+<p>
+and</p>
+<p>
+are mutually exclusive.</p>
+<p>
+The output file password source.</p>
+<p>
+Set the public key algorithm option</p>
+<p>
+to</p>
+<p>
+as follows:</p>
+<p>
+(RSA) The number of bits in the generated key. The default is 2048.</p>
+<p>
+(RSA) The RSA public exponent value. This can be a large decimal or
+hexadecimal value if preceded by 0x. The default is 65537.</p>
+<p>
+(DSA) The number of bits in the generated parameters. The default
+is 1024.</p>
+<p>
+(DH) The number of bits in the prime parameter</p>
+<p>
+(DH) The value to use for the generator</p>
+<p>
+(EC) The elliptic curve to use.</p>
+<p>
+Print the private/public key in plain text.</p>
+<p>
+The</p>
+<p>
+command generates an RSA private key, which essentially involves the
+generation of two prime numbers. When generating the key, various
+symbols will be output to indicate the progress of the generation. A</p>
+<p>
+represents each number which has passed an initial sieve test;</p>
+<p>
+means a number has passed a single round of the Miller-Rabin primality
+test;</p>
+<p>
+means the number has failed primality testing and needs to be generated
+afresh. A newline means that the number has passed all the prime tests
+(the actual number depends on the key size).</p>
+<p>
+The options are as follows:</p>
+<p>
+The public exponent to use, either 3 or 65537. The default is 65537.</p>
+<p>
+Encrypt the private key with the AES, CAMELLIA, DES, triple DES or the
+IDEA ciphers, respectively, before outputting it. If none of these
+options are specified, no encryption is used. If encryption is used, a
+pass phrase is prompted for, if it is not supplied via the</p>
+<p>
+option.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The output file password source.</p>
+<p>
+The size of the private key to generate in bits. This must be the last
+option specified. The default is 2048.</p>
+<p>
+The Online Certificate Status Protocol (OCSP) enables applications to
+determine the (revocation) state of an identified certificate (RFC
+2560).</p>
+<p>
+The</p>
+<p>
+command performs many common OCSP tasks. It can be used to print out
+requests and responses, create requests and send queries to an OCSP
+responder, and behave like a mini OCSP server itself.</p>
+<p>
+The options are as follows:</p>
+<p>
+A file or path containing trusted CA certificates, used to verify the
+signature on the OCSP response.</p>
+<p>
+Add the certificate</p>
+<p>
+to the request. The issuer certificate is taken from the previous</p>
+<p>
+option, or an error occurs if no issuer certificate is specified.</p>
+<p>
+Use the digest algorithm</p>
+<p>
+for certificate identification in the OCSP request. By default SHA1 is
+used.</p>
+<p>
+Send the OCSP request to</p>
+<p>
+on</p>
+<p>
+specifies the HTTP path name to use, or</p>
+<p>
+by default.</p>
+<p>
+Add the header name with the specified value to the OCSP request that is
+sent to the responder. This may be repeated.</p>
+<p>
+The current issuer certificate, in PEM format. Can be used multiple
+times and must come before any</p>
+<p>
+options.</p>
+<p>
+Don&#39;t perform any additional checks on the OCSP response signer&#39;s
+certificate. That is, do not make any checks to see if the signer&#39;s
+certificate is authorised to provide the necessary status information:
+as a result this option should only be used for testing purposes.</p>
+<p>
+Don&#39;t verify the OCSP response signer&#39;s certificate at all. Since this
+option allows the OCSP response to be signed by any certificate, it
+should only be used for testing purposes.</p>
+<p>
+Don&#39;t include any certificates in the signed request.</p>
+<p>
+Do not use certificates in the response as additional untrusted CA
+certificates.</p>
+<p>
+Don&#39;t check the explicit trust for OCSP signing in the root CA
+certificate.</p>
+<p>
+Ignore certificates contained in the OCSP response when searching for
+the signer&#39;s certificate. The signer&#39;s certificate must be specified
+with either the</p>
+<p>
+or</p>
+<p>
+options.</p>
+<p>
+Don&#39;t check the signature on the OCSP response. Since this option
+tolerates invalid signatures on OCSP responses, it will normally only be
+used for testing purposes.</p>
+<p>
+Add an OCSP nonce extension to a request, or disable an OCSP nonce
+addition. Normally, if an OCSP request is input using the</p>
+<p>
+option no nonce is added: using the</p>
+<p>
+option will force the addition of a nonce. If an OCSP request is being
+created (using the</p>
+<p>
+and</p>
+<p>
+options), a nonce is automatically added; specifying</p>
+<p>
+overrides this.</p>
+<p>
+Don&#39;t attempt to verify the OCSP response signature or the nonce values.
+This is normally only be used for debugging since it disables all
+verification of the responder&#39;s certificate.</p>
+<p>
+Specify the output file to write to, or standard output if not
+specified.</p>
+<p>
+Print out the text form of the OCSP request, response, or both,
+respectively.</p>
+<p>
+Read an OCSP request or response file from</p>
+<p>
+These options are ignored if an OCSP request or response creation is
+implied by other options (for example with the</p>
+<p>
+and</p>
+<p>
+options).</p>
+<p>
+Write out the DER-encoded certificate request or response to</p>
+<p>
+Same as the</p>
+<p>
+option except the certificate with serial number</p>
+<p>
+is added to the request. The serial number is interpreted as a decimal
+integer unless preceded by</p>
+<p>
+Negative integers can also be specified by preceding the value with a
+minus sign.</p>
+<p>
+Additional certificates to include in the signed request.</p>
+<p>
+Sign the OCSP request using the certificate specified in the</p>
+<p>
+option and the private key specified by the</p>
+<p>
+option. If the</p>
+<p>
+option is not present, then the private key is read from the same file
+as the certificate. If neither option is specified, the OCSP request is
+not signed.</p>
+<p>
+Connection timeout to the OCSP responder in seconds.</p>
+<p>
+The certificates specified by the</p>
+<p>
+option should be explicitly trusted and no additional checks will be
+performed on them. This is useful when the complete responder
+certificate chain is not available or trusting a root CA is not
+appropriate.</p>
+<p>
+Specify the responder URL. Both HTTP and HTTPS</p>
+<p>
+URLs can be specified.</p>
+<p>
+A file containing explicitly trusted responder certificates. Equivalent
+to the</p>
+<p>
+and</p>
+<p>
+options.</p>
+<p>
+The range of times, in seconds, which will be tolerated in an OCSP
+response. Each certificate status response includes a notBefore time and
+an optional notAfter time. The current time should fall between these
+two values, but the interval between the two times may be only a few
+seconds. In practice the OCSP responder and clients&#39; clocks may not be
+precisely synchronised and so such a check may fail. To avoid this the</p>
+<p>
+option can be used to specify an acceptable error range in seconds, the
+default value being 5 minutes.</p>
+<p>
+If the notAfter time is omitted from a response, it means that new
+status information is immediately available. In this case the age of the
+notBefore field is checked to see it is not older than</p>
+<p>
+seconds old. By default, this additional check is not performed.</p>
+<p>
+A file containing additional certificates to search when attempting to
+locate the OCSP response signing certificate. Some responders omit the
+actual signer&#39;s certificate from the response, so this can be used to
+supply the necessary certificate.</p>
+<p>
+The options for the OCSP server are as follows:</p>
+<p>
+CA certificate corresponding to the revocation information in</p>
+<p>
+Ignore the invalid response.</p>
+<p>
+is a text index file in ca format containing certificate revocation
+information.</p>
+<p>
+If this option is specified,</p>
+<p>
+is in responder mode, otherwise it is in client mode. The requests the
+responder processes can be either specified on the command line (using
+the</p>
+<p>
+and</p>
+<p>
+options), supplied in a file (using the</p>
+<p>
+option), or via external OCSP clients (if</p>
+<p>
+or</p>
+<p>
+is specified).</p>
+<p>
+If this option is present, then the</p>
+<p>
+and</p>
+<p>
+options must also be present.</p>
+<p>
+Number of</p>
+<p>
+or</p>
+<p>
+when fresh revocation information is available: used in the nextUpdate
+field. If neither option is present, the nextUpdate field is omitted,
+meaning fresh revocation information is immediately available.</p>
+<p>
+Exit after receiving</p>
+<p>
+requests (the default is unlimited).</p>
+<p>
+Port to listen for OCSP requests on. May also be specified using the</p>
+<p>
+option.</p>
+<p>
+Identify the signer certificate using the key ID; the default is to use
+the subject name.</p>
+<p>
+Don&#39;t include any certificates in the OCSP response.</p>
+<p>
+The private key to sign OCSP responses with; if not present, the file
+specified in the</p>
+<p>
+option is used.</p>
+<p>
+Additional certificates to include in the OCSP response.</p>
+<p>
+The certificate to sign OCSP responses with.</p>
+<p>
+Initially the OCSP responder certificate is located and the signature on
+the OCSP request checked using the responder certificate&#39;s public key.
+Then a normal certificate verify is performed on the OCSP responder
+certificate building up a certificate chain in the process. The
+locations of the trusted certificates used to build the chain can be
+specified by the</p>
+<p>
+and</p>
+<p>
+options or they will be looked for in the standard</p>
+<p>
+certificates directory.</p>
+<p>
+If the initial verify fails, the OCSP verify process halts with an
+error. Otherwise the issuing CA certificate in the request is compared
+to the OCSP responder certificate: if there is a match then the OCSP
+verify succeeds.</p>
+<p>
+Otherwise the OCSP responder certificate&#39;s CA is checked against the
+issuing CA certificate in the request. If there is a match and the
+OCSPSigning extended key usage is present in the OCSP responder
+certificate, then the OCSP verify succeeds.</p>
+<p>
+Otherwise the root CA of the OCSP responder&#39;s CA is checked to see if it
+is trusted for OCSP signing. If it is, the OCSP verify succeeds.</p>
+<p>
+If none of these checks is successful, the OCSP verify fails. What this
+effectively means is that if the OCSP responder certificate is
+authorised directly by the CA it is issuing revocation information about
+(and it is correctly configured), then verification will succeed.</p>
+<p>
+If the OCSP responder is a global responder, which can give details
+about multiple CAs and has its own separate certificate chain, then its
+root CA can be trusted for OCSP signing. Alternatively, the responder
+certificate itself can be explicitly trusted with the</p>
+<p>
+option.</p>
+<p>
+The</p>
+<p>
+command computes the hash of a password.</p>
+<p>
+The options are as follows:</p>
+<p>
+Use the MD5 based</p>
+<p>
+password algorithm</p>
+<p>
+Use the</p>
+<p>
+algorithm</p>
+<p>
+Apache variant of the</p>
+<p>
+algorithm</p>
+<p>
+Use the</p>
+<p>
+algorithm (the default).</p>
+<p>
+Read passwords from</p>
+<p>
+Don&#39;t verify when reading a password from the terminal.</p>
+<p>
+Don&#39;t output warnings when passwords given on the command line are
+truncated.</p>
+<p>
+Switch table columns. This only makes sense in conjunction with the</p>
+<p>
+option.</p>
+<p>
+Use the salt specified by</p>
+<p>
+When reading a password from the terminal, this implies</p>
+<p>
+Read passwords from standard input.</p>
+<p>
+In the output list, prepend the cleartext password and a TAB character
+to each password hash.</p>
+<p>
+The</p>
+<p>
+command processes PKCS#7 files in DER or PEM format. The PKCS#7 routines
+only understand PKCS#7 v 1.5 as specified in RFC 2315.</p>
+<p>
+The options are as follows:</p>
+<p>
+The input file to read from, or standard input if not specified.</p>
+<p>
+The input format.</p>
+<p>
+Don&#39;t output the encoded version of the PKCS#7 structure (or
+certificates if</p>
+<p>
+is set).</p>
+<p>
+The output to write to, or standard output if not specified.</p>
+<p>
+The output format.</p>
+<p>
+Print the ASN.1 representation of PKCS#7 structure.</p>
+<p>
+Print any certificates or CRLs contained in the file, preceded by their
+subject and issuer names in a one-line format.</p>
+<p>
+Print certificate details in full rather than just subject and issuer
+names.</p>
+<p>
+The</p>
+<p>
+command processes private keys (both encrypted and unencrypted) in
+PKCS#8 format with a variety of PKCS#5 (v1.5 and v2.0) and PKCS#12
+algorithms. The default encryption is only 56 bits; keys encrypted using
+PKCS#5 v2.0 algorithms and high iteration counts are more secure.</p>
+<p>
+The options are as follows:</p>
+<p>
+The input file to read from, or standard input if not specified. If the
+key is encrypted, a pass phrase will be prompted for.</p>
+<p>
+The input format.</p>
+<p>
+Generate an unencrypted PrivateKeyInfo structure. This option does not
+encrypt private keys at all and should only be used when absolutely
+necessary.</p>
+<p>
+Use an iteration count of 1. See the</p>
+<p>
+section below for a detailed explanation of this option.</p>
+<p>
+The output file to write to, or standard output if none is specified. If
+any encryption options are set, a pass phrase will be prompted for.</p>
+<p>
+The output format.</p>
+<p>
+The key password source.</p>
+<p>
+The output file password source.</p>
+<p>
+Read a traditional format private key and write a PKCS#8 format key.</p>
+<p>
+Specify a PKCS#5 v1.5 or PKCS#12 algorithm to use.</p>
+<p>
+56-bit DES.</p>
+<p>
+64-bit RC2 or 56-bit DES.</p>
+<p>
+PKCS#12 password-based encryption algorithm, which allow strong
+encryption algorithms like triple DES or 128-bit RC2.</p>
+<p>
+Use PKCS#5 v2.0 algorithms. Supports algorithms such as 168-bit triple
+DES or 128-bit RC2, however not many implementations support PKCS#5 v2.0
+yet (if using private keys with</p>
+<p>
+this doesn&#39;t matter).</p>
+<p>
+is the encryption algorithm to use; valid values include des, des3, and
+rc2. It is recommended that des3 is used.</p>
+<p>
+The</p>
+<p>
+command allows PKCS#12 files</p>
+<p>
+to be created and parsed. By default, a PKCS#12 file is parsed; a
+PKCS#12 file can be created by using the</p>
+<p>
+option.</p>
+<p>
+The options for parsing a PKCS12 file are as follows:</p>
+<p>
+Encrypt private keys using AES, CAMELLIA, DES, triple DES or the IDEA
+ciphers, respectively. The default is triple DES.</p>
+<p>
+Only output CA certificates</p>
+<p>
+Only output client certificates</p>
+<p>
+The input file to read from, or standard input if not specified.</p>
+<p>
+Output additional information about the PKCS#12 file structure,
+algorithms used, and iteration counts.</p>
+<p>
+Do not output certificates.</p>
+<p>
+Do not encrypt private keys.</p>
+<p>
+Do not output private keys.</p>
+<p>
+Do not attempt to verify the integrity MAC before reading the file.</p>
+<p>
+Do not output the keys and certificates to the output file version of
+the PKCS#12 file.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The key password source.</p>
+<p>
+The output file password source.</p>
+<p>
+Prompt for separate integrity and encryption passwords: most software
+always assumes these are the same so this option will render such
+PKCS#12 files unreadable.</p>
+<p>
+The options for PKCS12 file creation are as follows:</p>
+<p>
+CA storage as a file.</p>
+<p>
+CA storage as a directory. The directory must be a standard certificate
+directory: that is, a hash of each subject name (using</p>
+<p>
+should be linked to each certificate.</p>
+<p>
+Specify the</p>
+<p>
+for other certificates. May be used multiple times to specify names for
+all certificates in the order they appear.</p>
+<p>
+A file to read additional certificates from.</p>
+<p>
+Specify the algorithm used to encrypt the private key and certificates
+to be selected. Any PKCS#5 v1.5 or PKCS#12 PBE algorithm name can be
+used. If a cipher name (as output by the</p>
+<p>
+command) is specified then it is used with PKCS#5 v2.0. For
+interoperability reasons it is advisable to only use PKCS#12 algorithms.</p>
+<p>
+Include the entire certificate chain of the user certificate. The
+standard CA store is used for this search. If the search fails, it is
+considered a fatal error.</p>
+<p>
+Encrypt the certificate using triple DES; this may render the PKCS#12
+file unreadable by some</p>
+<p>
+software. By default, the private key is encrypted using triple DES and
+the certificate using 40-bit RC2.</p>
+<p>
+Create a PKCS#12 file (rather than parsing one).</p>
+<p>
+The input file to read from, or standard input if not specified. The
+order doesn&#39;t matter but one private key and its corresponding
+certificate should be present. If additional certificates are present,
+they will also be included in the PKCS#12 file.</p>
+<p>
+File to read a private key from. If not present, a private key must be
+present in the input file.</p>
+<p>
+Specify whether the private key is to be used for key exchange or just
+signing. Normally,</p>
+<p>
+software will only allow 512-bit RSA keys to be used for encryption
+purposes, but arbitrary length keys for signing. The</p>
+<p>
+option marks the key for signing only. Signing only keys can be used for
+S/MIME signing, authenticode (ActiveX control signing) and SSL client
+authentication.</p>
+<p>
+Specify the MAC digest algorithm. The default is SHA1.</p>
+<p>
+Included for compatibility only: it used to be needed to use MAC
+iterations counts but they are now used by default.</p>
+<p>
+Specify the</p>
+<p>
+for the certificate and private key. This name is typically displayed in
+list boxes by software importing the file.</p>
+<p>
+Don&#39;t attempt to provide the MAC integrity.</p>
+<p>
+Affect the iteration counts on the MAC and key algorithms.</p>
+<p>
+To discourage attacks by using large dictionaries of common passwords,
+the algorithm that derives keys from passwords can have an iteration
+count applied to it: this causes a certain part of the algorithm to be
+repeated and slows it down. The MAC is used to check the file integrity
+but since it will normally have the same password as the keys and
+certificates it could also be attacked. By default, both MAC and
+encryption iteration counts are set to 2048; using these options the MAC
+and encryption iteration counts can be set to 1. Since this reduces the
+file security, you should not use these options unless you really have
+to. Most software supports both MAC and key iteration counts.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The key password source.</p>
+<p>
+The output file password source.</p>
+<p>
+With</p>
+<p>
+is equivalent to</p>
+<p>
+Otherwise,</p>
+<p>
+is equivalent to</p>
+<p>
+The</p>
+<p>
+command processes public or private keys. They can be converted between
+various forms and their components printed out.</p>
+<p>
+The options are as follows:</p>
+<p>
+Encrypt the private key with the specified cipher. Any algorithm name
+accepted by</p>
+<p>
+is acceptable, such as</p>
+<p>
+The input file to read from, or standard input if not specified. If the
+key is encrypted, a pass phrase will be prompted for.</p>
+<p>
+The input format.</p>
+<p>
+Do not output the encoded version of the key.</p>
+<p>
+The output file to write to, or standard output if not specified. If any
+encryption options are set then a pass phrase will be prompted for.</p>
+<p>
+The output format.</p>
+<p>
+The key password source.</p>
+<p>
+The output file password source.</p>
+<p>
+Read in a public key, not a private key.</p>
+<p>
+Output a public key, not a private key. Automatically set if the input
+is a public key.</p>
+<p>
+Print the public/private key in plain text.</p>
+<p>
+Print out only public key components even if a private key is being
+processed.</p>
+<p>
+The</p>
+<p>
+command processes public or private keys. The key type is determined by
+the PEM headers.</p>
+<p>
+The options are as follows:</p>
+<p>
+The input file to read from, or standard input if not specified.</p>
+<p>
+Do not output the encoded version of the parameters.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+Print the parameters in plain text.</p>
+<p>
+The</p>
+<p>
+command can be used to perform public key operations using any supported
+algorithm.</p>
+<p>
+The options are as follows:</p>
+<p>
+ASN.1 parse the output data. This is useful when combined with the</p>
+<p>
+option when an ASN.1 structure is signed.</p>
+<p>
+The input is a certificate containing a public key.</p>
+<p>
+Decrypt the input data using a private key.</p>
+<p>
+Derive a shared secret using the peer key.</p>
+<p>
+Encrypt the input data using a public key.</p>
+<p>
+Hex dump the output data.</p>
+<p>
+The input file to read from, or standard input if not specified.</p>
+<p>
+The input key file. By default it should be a private key.</p>
+<p>
+The key format.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The key password source.</p>
+<p>
+The peer key format.</p>
+<p>
+The peer key file, used by key derivation (agreement) operations.</p>
+<p>
+Set the public key algorithm option</p>
+<p>
+to</p>
+<p>
+Unless otherwise mentioned, all algorithms support the format</p>
+<p>
+which specifies the digest to use for sign, verify, and verifyrecover
+operations. The value</p>
+<p>
+should represent a digest name as used in the</p>
+<p>
+function.</p>
+<p>
+The RSA algorithm supports the encrypt, decrypt, sign, verify, and
+verifyrecover operations in general. Some padding modes only support
+some of these operations however.</p>
+<p>
+This sets the RSA padding mode. Acceptable values for</p>
+<p>
+are</p>
+<p>
+for PKCS#1 padding;</p>
+<p>
+for no padding;</p>
+<p>
+for OAEP mode;</p>
+<p>
+for X9.31 mode; and</p>
+<p>
+for PSS.</p>
+<p>
+In PKCS#1 padding if the message digest is not set then the supplied
+data is signed or verified directly instead of using a DigestInfo
+structure. If a digest is set then a DigestInfo structure is used and
+its length must correspond to the digest type. For oeap mode only
+encryption and decryption is supported. For x931 if the digest type is
+set it is used to format the block data; otherwise the first byte is
+used to specify the X9.31 digest ID. Sign, verify, and verifyrecover can
+be performed in this mode. For pss mode only sign and verify are
+supported and the digest type must be specified.</p>
+<p>
+For pss mode only this option specifies the salt length. Two special
+values are supported: -1 sets the salt length to the digest length. When
+signing, -2 sets the salt length to the maximum permissible value. When
+verifying, -2 causes the salt length to be automatically determined
+based on the PSS block structure.</p>
+<p>
+The DSA algorithm supports the sign and verify operations. Currently
+there are no additional options other than</p>
+<p>
+Only the SHA1 digest can be used and this digest is assumed by default.</p>
+<p>
+The DH algorithm supports the derive operation and no additional
+options.</p>
+<p>
+The EC algorithm supports the sign, verify, and derive operations. The
+sign and verify operations use ECDSA and derive uses ECDH. Currently
+there are no additional options other than</p>
+<p>
+Only the SHA1 digest can be used and this digest is assumed by default.</p>
+<p>
+The input file is a public key.</p>
+<p>
+Reverse the order of the input buffer.</p>
+<p>
+Signature file (verify operation only).</p>
+<p>
+Sign the input data and output the signed result. This requires a
+private key.</p>
+<p>
+Verify the input data against the signature file and indicate if the
+verification succeeded or failed.</p>
+<p>
+Verify the input data and output the recovered data.</p>
+<p>
+The</p>
+<p>
+command is used to generate prime numbers, or to check numbers for
+primality. Results are probabilistic: they have an exceedingly high
+likelihood of being correct, but are not guaranteed.</p>
+<p>
+The options are as follows:</p>
+<p>
+Specify the number of bits in the generated prime number. Must be used
+in conjunction with</p>
+<p>
+Perform a Miller-Rabin probabilistic primality test with</p>
+<p>
+iterations. The default is 20.</p>
+<p>
+Generate a pseudo-random prime number. Must be used in conjunction with</p>
+<p>
+Output in hex format.</p>
+<p>
+Generate only</p>
+<p>
+prime numbers (i.e. a prime p so that (p-1)/2 is also prime).</p>
+<p>
+Test if number</p>
+<p>
+is prime.</p>
+<p>
+The</p>
+<p>
+command outputs</p>
+<p>
+pseudo-random bytes.</p>
+<p>
+The options are as follows:</p>
+<p>
+Perform base64 encoding on the output.</p>
+<p>
+Specify hexadecimal output.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The</p>
+<p>
+command primarily creates and processes certificate requests in PKCS#10
+format. It can additionally create self-signed certificates, for use as
+root CAs, for example.</p>
+<p>
+The options are as follows:</p>
+<p>
+Add a specific extension to the certificate (if the</p>
+<p>
+option is present) or certificate request. The argument must have the
+form of a key=value pair as it would appear in a config file. This
+option can be given multiple times.</p>
+<p>
+Non-interactive mode.</p>
+<p>
+Specify an alternative configuration file.</p>
+<p>
+Specify the number of days to certify the certificate for. The default
+is 30 days. Used with the</p>
+<p>
+option.</p>
+<p>
+Specify alternative sections to include certificate extensions (with</p>
+<p>
+or certificate request extensions, allowing several different sections
+to be used in the same configuration file.</p>
+<p>
+The input file to read a request from, or standard input if not
+specified. A request is only read if the creation options</p>
+<p>
+and</p>
+<p>
+are not specified.</p>
+<p>
+The input format.</p>
+<p>
+The file to read the private key from. It also accepts PKCS#8 format
+private keys for PEM format files.</p>
+<p>
+The format of the private key file specified in the</p>
+<p>
+argument. The default is</p>
+<p>
+The file to write the newly created private key to. If this option is
+not specified, the filename present in the configuration file is used.</p>
+<p>
+The message digest to sign the request with. This overrides the digest
+algorithm specified in the configuration file.</p>
+<p>
+Some public key algorithms may override this choice. For instance, DSA
+signatures always use SHA1.</p>
+<p>
+Print the value of the modulus of the public key contained in the
+request.</p>
+<p>
+This option causes the</p>
+<p>
+argument to be interpreted with full support for multivalued RDNs, for
+example</p>
+<p>
+If</p>
+<p>
+is not used, the UID value is set to</p>
+<p>
+Determine how the subject or issuer names are displayed.</p>
+<p>
+can be a single option or multiple options separated by commas.
+Alternatively, these options may be used more than once to set multiple
+options. See the</p>
+<p>
+section below for details.</p>
+<p>
+Generate a new certificate request. The user is prompted for the
+relevant field values. The actual fields prompted for and their maximum
+and minimum sizes are specified in the configuration file and any
+requested extensions.</p>
+<p>
+If the</p>
+<p>
+option is not used, it will generate a new RSA private key using
+information specified in the configuration file.</p>
+<p>
+Add the word NEW to the PEM file header and footer lines on the
+outputted request. Some software and CAs need this.</p>
+<p>
+Create a new certificate request and a new private key. The argument
+takes one of several forms.</p>
+<p>
+generates an RSA key</p>
+<p>
+in size. If</p>
+<p>
+is omitted, the default key size is used.</p>
+<p>
+generates a DSA key using the parameters in</p>
+<p>
+generates a key using the parameters or certificate in</p>
+<p>
+All other algorithms support the form</p>
+<p>
+where file may be an algorithm parameter file, created by the</p>
+<p>
+command or an X.509 certificate for a key with appropriate algorithm.</p>
+<p>
+can be omitted, in which case any parameters can be specified via the</p>
+<p>
+option.</p>
+<p>
+Do not encrypt the private key.</p>
+<p>
+Do not output the encoded version of the request.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The output format.</p>
+<p>
+The key password source.</p>
+<p>
+The output file password source.</p>
+<p>
+Set the public key algorithm option</p>
+<p>
+to</p>
+<p>
+Output the public key.</p>
+<p>
+Customise the output format used with</p>
+<p>
+The</p>
+<p>
+argument can be a single option or multiple options separated by commas.
+See also the discussion of</p>
+<p>
+in the</p>
+<p>
+command.</p>
+<p>
+Serial number to use when outputting a self-signed certificate. This may
+be specified as a decimal value or a hex value if preceded by</p>
+<p>
+It is possible to use negative serial numbers but this is not
+recommended.</p>
+<p>
+Pass options to the signature algorithm during sign operation. The names
+and values of these options are algorithm-specific.</p>
+<p>
+Replaces the subject field of an input request with the specified data
+and output the modified request.</p>
+<p>
+must be formatted as /type0=value0/type1=value1/type2=…; characters
+may be escaped by</p>
+<p>
+(backslash); no spaces are skipped.</p>
+<p>
+Print the request subject (or certificate subject if</p>
+<p>
+is specified).</p>
+<p>
+Print the certificate request in plain text.</p>
+<p>
+Interpret field values as UTF8 strings, not ASCII.</p>
+<p>
+Print extra details about the operations being performed.</p>
+<p>
+Verify the signature on the request.</p>
+<p>
+Output a self-signed certificate instead of a certificate request. This
+is typically used to generate a test certificate or a self-signed root
+CA. The extensions added to the certificate (if any) are specified in
+the configuration file. Unless specified using the</p>
+<p>
+option, 0 is used for the serial number.</p>
+<p>
+The configuration options are specified in the</p>
+<p>
+section of the configuration file. The options available are as follows:</p>
+<p>
+The section containing any request attributes: its format is the same as</p>
+<p>
+Typically these may contain the challengePassword or unstructuredName
+types. They are currently ignored by the</p>
+<p>
+request signing utilities, but some CAs might want them.</p>
+<p>
+The default key size, in bits. The default is 2048. It is used if the</p>
+<p>
+option is used and can be overridden by using the</p>
+<p>
+option.</p>
+<p>
+The default file to write a private key to, or standard output if not
+specified. It can be overridden by the</p>
+<p>
+option.</p>
+<p>
+The digest algorithm to use. Possible values include</p>
+<p>
+and</p>
+<p>
+(the default). It can be overridden on the command line.</p>
+<p>
+The section containing the distinguished name fields to prompt for when
+generating a certificate or certificate request. The format is described
+below.</p>
+<p>
+If set to</p>
+<p>
+and a private key is generated, it is not encrypted. It is equivalent to
+the</p>
+<p>
+option. For compatibility,</p>
+<p>
+is an equivalent option.</p>
+<p>
+The passwords for the input private key file (if present) and the output
+private key file (if one will be created). The command line options</p>
+<p>
+and</p>
+<p>
+override the configuration file values.</p>
+<p>
+A file containing additional OBJECT IDENTIFIERS. Each line of the file
+should consist of the numerical form of the object identifier, followed
+by whitespace, then the short name followed by whitespace and finally
+the long name.</p>
+<p>
+Specify a section in the configuration file containing extra object
+identifiers. Each line should consist of the short name of the object
+identifier followed by</p>
+<p>
+and the numerical form. The short and long names are the same when this
+option is used.</p>
+<p>
+If set to</p>
+<p>
+it disables prompting of certificate fields and just takes values from
+the config file directly. It also changes the expected format of the</p>
+<p>
+and</p>
+<p>
+sections.</p>
+<p>
+The configuration file section containing a list of extensions to add to
+the certificate request. It can be overridden by the</p>
+<p>
+option.</p>
+<p>
+Limit the string types for encoding certain fields. The following values
+may be used, limiting strings to the indicated types:</p>
+<p>
+UTF8String. This is the default, as recommended by PKIX in RFC 2459.</p>
+<p>
+PrintableString, IA5String, T61String, BMPString, UTF8String.</p>
+<p>
+PrintableString, IA5String, BMPString, UTF8String. Inspired by the PKIX
+recommendation in RFC 2459 for certificates generated before 2004, but
+differs by also permitting IA5String.</p>
+<p>
+PrintableString, IA5String, T61String, UniversalString. A workaround for
+some ancient software that had problems with the variable-sized
+BMPString and UTF8String types.</p>
+<p>
+An explicit bitmask of permitted types, where</p>
+<p>
+is a C-style hex, decimal, or octal number that&#39;s a bit-wise OR of</p>
+<p>
+values from</p>
+<p>
+If set to</p>
+<p>
+field values are interpreted as UTF8 strings.</p>
+<p>
+The configuration file section containing a list of extensions to add to
+a certificate generated when the</p>
+<p>
+switch is used. It can be overridden by the</p>
+<p>
+command line switch.</p>
+<p>
+There are two separate formats for the distinguished name and attribute
+sections. If the</p>
+<p>
+option is set to</p>
+<p>
+then these sections just consist of field names and values. If the</p>
+<p>
+option is absent or not set to</p>
+<p>
+then the file contains field prompting information of the form:</p>
+<p>
+fieldName=&#34;prompt&#34; fieldName_default=&#34;default field value&#34;
+fieldName_min= 2 fieldName_max= 4</p>
+<p>
+is the field name being used, for example</p>
+<p>
+(or CN). The</p>
+<p>
+string is used to ask the user to enter the relevant details. If the
+user enters nothing, the default value is used; if no default value is
+present, the field is omitted. A field can still be omitted if a default
+value is present, if the user just enters the</p>
+<p>
+character.</p>
+<p>
+The number of characters entered must be between the fieldName_min and
+fieldName_max limits: there may be additional restrictions based on the
+field being used (for example</p>
+<p>
+can only ever be two characters long and must fit in a</p>
+<p>
+Some fields (such as</p>
+<p>
+can be used more than once in a DN. This presents a problem because
+configuration files will not recognize the same name occurring twice. To
+avoid this problem, if the</p>
+<p>
+contains some characters followed by a full stop, they will be ignored.
+So, for example, a second</p>
+<p>
+can be input by calling it</p>
+<p>
+The actual permitted field names are any object identifier short or long
+names. These are compiled into</p>
+<p>
+and include the usual values such as</p>
+<p>
+Additionally,</p>
+<p>
+is included as well as</p>
+<p>
+and</p>
+<p>
+Additional object identifiers can be defined with the</p>
+<p>
+or</p>
+<p>
+options in the configuration file. Any additional fields will be treated
+as though they were a</p>
+<p>
+The</p>
+<p>
+command processes RSA keys. They can be converted between various forms
+and their components printed out.</p>
+<p>
+uses the traditional</p>
+<p>
+compatible format for private key encryption: newer applications should
+use the more secure PKCS#8 format using the</p>
+<p>
+utility.</p>
+<p>
+The options are as follows:</p>
+<p>
+Encrypt the private key with the AES, DES, or the triple DES ciphers,
+respectively, before outputting it. A pass phrase is prompted for. If
+none of these options are specified, the key is written in plain text.
+This means that using the</p>
+<p>
+utility to read in an encrypted key with no encryption option can be
+used to remove the pass phrase from a key, or by setting the encryption
+options it can be used to add or change the pass phrase. These options
+can only be used with PEM format output files.</p>
+<p>
+Check the consistency of an RSA private key.</p>
+<p>
+The input file to read from, or standard input if not specified. If the
+key is encrypted, a pass phrase will be prompted for.</p>
+<p>
+The input format.</p>
+<p>
+Do not output the encoded version of the key.</p>
+<p>
+Print the value of the modulus of the key.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The output format.</p>
+<p>
+The key password source.</p>
+<p>
+The output file password source.</p>
+<p>
+Read in a public key, not a private key.</p>
+<p>
+Output a public key, not a private key. Automatically set if the input
+is a public key.</p>
+<p>
+Enable or disable PVK encoding. The default is</p>
+<p>
+Same as</p>
+<p>
+and</p>
+<p>
+except</p>
+<p>
+format is used instead.</p>
+<p>
+Print the public/private key components in plain text.</p>
+<p>
+The</p>
+<p>
+command can be used to sign, verify, encrypt and decrypt data using the
+RSA algorithm.</p>
+<p>
+The options are as follows:</p>
+<p>
+Asn1parse the output data; this is useful when combined with the</p>
+<p>
+option.</p>
+<p>
+The input is a certificate containing an RSA public key.</p>
+<p>
+Decrypt the input data using an RSA private key.</p>
+<p>
+Encrypt the input data using an RSA public key.</p>
+<p>
+Hex dump the output data.</p>
+<p>
+The input to read from, or standard input if not specified.</p>
+<p>
+The input key file; by default an RSA private key.</p>
+<p>
+The private key format. The default is</p>
+<p>
+The padding to use: PKCS#1 OAEP, PKCS#1 v1.5 (the default), no padding,
+or ANSI X9.31, respectively. For signatures, only</p>
+<p>
+and</p>
+<p>
+can be used.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The key password source.</p>
+<p>
+The input file is an RSA public key.</p>
+<p>
+Reverse the order of the input buffer.</p>
+<p>
+Sign the input data and output the signed result. This requires an RSA
+private key.</p>
+<p>
+Verify the input data and output the recovered data.</p>
+<p>
+The</p>
+<p>
+command implements a generic SSL/TLS client which connects to a remote
+host using SSL/TLS.</p>
+<p>
+If a connection is established with an SSL server, any data received
+from the server is displayed and any key presses will be sent to the
+server. When used interactively (which means neither</p>
+<p>
+nor</p>
+<p>
+have been given), the session will be renegotiated if the line begins
+with an</p>
+<p>
+if the line begins with a</p>
+<p>
+or if end of file is reached, the connection will be closed down.</p>
+<p>
+The options are as follows:</p>
+<p>
+Attempt connections using IPv4 only.</p>
+<p>
+Attempt connections using IPv6 only.</p>
+<p>
+Enable the Application-Layer Protocol Negotiation.</p>
+<p>
+is a comma-separated list of protocol names that the client should
+advertise support for.</p>
+<p>
+Enable various workarounds for buggy implementations.</p>
+<p>
+A</p>
+<p>
+containing trusted certificates to use during server authentication and
+to use when attempting to build the client certificate chain.</p>
+<p>
+The</p>
+<p>
+to use for server certificate verification. This directory must be in</p>
+<p>
+see</p>
+<p>
+for more information. These are also used when building the client
+certificate chain.</p>
+<p>
+The certificate to use, if one is requested by the server. The default
+is not to use a certificate.</p>
+<p>
+The certificate format. The default is</p>
+<p>
+Set various certificate chain validation options. See the</p>
+<p>
+command for details.</p>
+<p>
+Modify the cipher list sent by the client. Although the server
+determines which cipher suite is used, it should take the first
+supported cipher in the list sent by the client. See the</p>
+<p>
+command for more information.</p>
+<p>
+The</p>
+<p>
+and</p>
+<p>
+to connect to. If not specified, an attempt is made to connect to the
+local host on port 4433. Alternatively, the host and port pair may be
+separated using a forward-slash character, which is useful for numeric
+IPv6 addresses.</p>
+<p>
+Translate a line feed from the terminal into CR+LF, as required by some
+servers.</p>
+<p>
+Print extensive debugging information, including a hex dump of all
+traffic.</p>
+<p>
+Permit any version of DTLS.</p>
+<p>
+Permit only DTLS1.2.</p>
+<p>
+Set the supported elliptic curve groups to the colon separated</p>
+<p>
+of group NIDs or names as documented in</p>
+<p>
+The</p>
+<p>
+to connect to. The default is localhost.</p>
+<p>
+Inhibit shutting down the connection when end of file is reached in the
+input.</p>
+<p>
+The private key to use. If not specified, the certificate file will be
+used.</p>
+<p>
+The private key format. The default is</p>
+<p>
+Export keying material using label.</p>
+<p>
+Export len bytes of keying material (default 20).</p>
+<p>
+Allow or disallow initial connection to servers that don&#39;t support RI.</p>
+<p>
+Show all protocol messages with hex dump.</p>
+<p>
+Set the link layer MTU.</p>
+<p>
+Turn on non-blocking I/O.</p>
+<p>
+Test non-blocking I/O.</p>
+<p>
+Shut down the connection when end of file is reached in the input. Can
+be used to override the implicit</p>
+<p>
+after</p>
+<p>
+Disable the use of TLS1.2 and 1.3, respectively.</p>
+<p>
+Disable RFC 4507 session ticket support.</p>
+<p>
+The private key password source.</p>
+<p>
+The</p>
+<p>
+to connect to. The default is 4433.</p>
+<p>
+Print session information when the program exits. This will always
+attempt to print out information even if the connection fails. Normally,
+information will only be printed out once if the connection succeeds.
+This option is useful because the cipher in use may be renegotiated or
+the connection may fail because a client certificate is required or is
+requested only after an attempt is made to access a certain URL. Note
+that the output produced by this option is not always accurate because a
+connection might never have been established.</p>
+<p>
+Use the HTTP proxy at</p>
+<p>
+and</p>
+<p>
+The connection to the proxy is done in cleartext and the</p>
+<p>
+argument is given to the proxy. If not specified, localhost is used as
+final destination. After that, switch the connection through the proxy
+to the destination to TLS.</p>
+<p>
+Inhibit printing of session and certificate information. This implicitly
+turns on</p>
+<p>
+as well.</p>
+<p>
+Reconnect to the same server 5 times using the same session ID; this can
+be used as a test that session caching is working.</p>
+<p>
+Include the TLS Server Name Indication (SNI) extension in the
+ClientHello message, using the specified server</p>
+<p>
+Display the whole server certificate chain: normally only the server
+certificate itself is displayed.</p>
+<p>
+Use the server&#39;s cipher preferences.</p>
+<p>
+Load TLS session from file. The client will attempt to resume a
+connection from this session.</p>
+<p>
+Output TLS session to file.</p>
+<p>
+Send the protocol-specific messages to switch to TLS for communication.</p>
+<p>
+is a keyword for the intended protocol. Currently, the supported
+keywords are</p>
+<p>
+and</p>
+<p>
+Print the SSL session states.</p>
+<p>
+Send a certificate status request to the server (OCSP stapling). The
+server response (if any) is printed out.</p>
+<p>
+Enable send/receive timeout on DTLS connections.</p>
+<p>
+Permit only TLS1.2 or 1.3 respectively.</p>
+<p>
+Print a hex dump of any TLS extensions received from the server.</p>
+<p>
+Offer SRTP key management with a colon-separated profile list.</p>
+<p>
+Turn on server certificate verification, with a maximum length of</p>
+<p>
+Currently the verify operation continues after errors so all the
+problems with a certificate chain can be seen. As a side effect the
+connection will never fail due to a server certificate verify failure.</p>
+<p>
+Return verification error.</p>
+<p>
+When used with</p>
+<p>
+specify the host for the &#34;to&#34; attribute of the stream element. If this
+option is not specified then the host specified with</p>
+<p>
+will be used.</p>
+<p>
+The</p>
+<p>
+command implements a generic SSL/TLS server which listens for
+connections on a given port using SSL/TLS.</p>
+<p>
+If a connection request is established with a client and neither the</p>
+<p>
+nor the</p>
+<p>
+option has been used, then any data received from the client is
+displayed and any key presses are sent to the client. Certain single
+letter commands perform special operations:</p>
+<p>
+Send plain text, which should cause the client to disconnect.</p>
+<p>
+End the current SSL connection and exit.</p>
+<p>
+End the current SSL connection, but still accept new connections.</p>
+<p>
+Renegotiate the SSL session and request a client certificate.</p>
+<p>
+Renegotiate the SSL session.</p>
+<p>
+Print out some session cache status information.</p>
+<p>
+The options are as follows:</p>
+<p>
+Listen on TCP</p>
+<p>
+for connections. The default is port 4433.</p>
+<p>
+Enable the Application-Layer Protocol Negotiation.</p>
+<p>
+is a comma-separated list of supported protocol names.</p>
+<p>
+Enable various workarounds for buggy implementations.</p>
+<p>
+A</p>
+<p>
+containing trusted certificates to use during client authentication and
+to use when attempting to build the server certificate chain. The list
+is also used in the list of acceptable client CAs passed to the client
+when a certificate is requested.</p>
+<p>
+The</p>
+<p>
+to use for client certificate verification. This directory must be in</p>
+<p>
+see</p>
+<p>
+for more information. These are also used when building the server
+certificate chain.</p>
+<p>
+The certificate to use: most server&#39;s cipher suites require the use of a
+certificate and some require a certificate with a certain public key
+type. For example, the DSS cipher suites require a certificate
+containing a DSS (DSA) key. If not specified, the file</p>
+<p>
+will be used.</p>
+<p>
+The certificate to use for servername.</p>
+<p>
+The certificate format. The default is</p>
+<p>
+Modify the cipher list used by the server. This allows the cipher list
+used by the server to be modified. When the client sends a list of
+supported ciphers, the first client cipher also included in the server
+list is used. Because the client specifies the preference order, the
+order of the server cipherlist is irrelevant. See the</p>
+<p>
+command for more information.</p>
+<p>
+Set the SSL context ID. It can be given any string value.</p>
+<p>
+Check the peer certificate has not been revoked by its CA. The CRLs are
+appended to the certificate file.</p>
+<p>
+checks all CRLs of all CAs in the chain.</p>
+<p>
+Translate a line feed from the terminal into CR+LF.</p>
+<p>
+Specify an additional certificate and private key; these behave in the
+same manner as the</p>
+<p>
+and</p>
+<p>
+options except there is no default if they are not specified (no
+additional certificate or key is used). By using RSA and DSS
+certificates and keys, a server can support clients which only support
+RSA or DSS cipher suites by using an appropriate certificate.</p>
+<p>
+Additional certificate and private key format, and private key password
+source, respectively.</p>
+<p>
+Print extensive debugging information, including a hex dump of all
+traffic.</p>
+<p>
+The DH parameter file to use. The ephemeral DH cipher suites generate
+keys using a set of DH parameters. If not specified, an attempt is made
+to load the parameters from the server certificate file. If this fails,
+a static set of parameters hard coded into the</p>
+<p>
+program will be used.</p>
+<p>
+Permit any version of DTLS.</p>
+<p>
+Permit only DTLS1.2.</p>
+<p>
+Set the supported elliptic curve groups to the colon separated</p>
+<p>
+of group NIDs or names as documented in</p>
+<p>
+Emulate a simple web server. Pages are resolved relative to the current
+directory. For example if the URL</p>
+<p>
+is requested, the file</p>
+<p>
+will be loaded. The files loaded are assumed to contain a complete and
+correct HTTP response (lines that are part of the HTTP response line and
+headers must end with CRLF).</p>
+<p>
+Generate SSL/TLS session IDs prefixed by</p>
+<p>
+This is mostly useful for testing any SSL/TLS code that wish to deal
+with multiple servers, when each of which might be generating a unique
+range of session IDs.</p>
+<p>
+The private key to use. If not specified, the certificate file will be
+used.</p>
+<p>
+The private key to use for servername.</p>
+<p>
+The private key format. The default is</p>
+<p>
+Export keying material using label.</p>
+<p>
+Export len bytes of keying material (default 20).</p>
+<p>
+Show all protocol messages with hex dump.</p>
+<p>
+Set the link layer MTU.</p>
+<p>
+Terminate server after</p>
+<p>
+connections.</p>
+<p>
+Specify the elliptic curve name to use for ephemeral ECDH keys. This
+option is deprecated; use</p>
+<p>
+instead.</p>
+<p>
+Turn on non-blocking I/O.</p>
+<p>
+Test non-blocking I/O.</p>
+<p>
+Disable session caching.</p>
+<p>
+Disable ephemeral DH cipher suites.</p>
+<p>
+Disable ephemeral ECDH cipher suites.</p>
+<p>
+Disable RFC 4507 session ticket support.</p>
+<p>
+Disable the use of TLS1.2 and 1.3, respectively.</p>
+<p>
+Disable temporary RSA key generation.</p>
+<p>
+Do not use a certificate. This restricts the cipher suites available to
+the anonymous ones (currently just anonymous DH).</p>
+<p>
+The private key password source.</p>
+<p>
+Inhibit printing of session and certificate information.</p>
+<p>
+Set the TLS Server Name Indication (SNI) extension with</p>
+<p>
+Send fatal alert if servername does not match. The default is warning
+alert.</p>
+<p>
+Use server&#39;s cipher preferences.</p>
+<p>
+Print the SSL session states.</p>
+<p>
+Enables certificate status request support (OCSP stapling).</p>
+<p>
+Sets the timeout for OCSP response in seconds.</p>
+<p>
+Sets a fallback responder URL to use if no responder URL is present in
+the server certificate. Without this option, an error is returned if the
+server certificate does not contain a responder address.</p>
+<p>
+Enables certificate status request support (OCSP stapling) and gives a
+verbose printout of the OCSP response.</p>
+<p>
+Enable send/receive timeout on DTLS connections.</p>
+<p>
+Permit only TLS1.2, or 1.3, respectively.</p>
+<p>
+Print a hex dump of any TLS extensions received from the server.</p>
+<p>
+Offer SRTP key management with a colon-separated profile list.</p>
+<p>
+Return verification error.</p>
+<p>
+Emulate a simple web server. Pages are resolved relative to the current
+directory. For example if the URL</p>
+<p>
+is requested, the file</p>
+<p>
+will be loaded.</p>
+<p>
+Send a status message to the client when it connects, including
+information about the ciphers used and various session parameters. The
+output is in HTML format so this option will normally be used with a web
+browser.</p>
+<p>
+Request a certificate chain from the client, with a maximum length of</p>
+<p>
+With</p>
+<p>
+the client must supply a certificate or an error occurs; with</p>
+<p>
+a certificate is requested but the client does not have to send one.</p>
+<p>
+The</p>
+<p>
+command implements a generic SSL/TLS client which connects to a remote
+host using SSL/TLS. It can request a page from the server and includes
+the time to transfer the payload data in its timing measurements. It
+measures the number of connections within a given timeframe, the amount
+of data transferred</p>
+<p>
+and calculates the average time spent for one connection.</p>
+<p>
+The options are as follows:</p>
+<p>
+Enable various workarounds for buggy implementations.</p>
+<p>
+A</p>
+<p>
+containing trusted certificates to use during server authentication and
+to use when attempting to build the client certificate chain.</p>
+<p>
+The directory to use for server certificate verification. This directory
+must be in</p>
+<p>
+see</p>
+<p>
+for more information. These are also used when building the client
+certificate chain.</p>
+<p>
+The certificate to use, if one is requested by the server. The default
+is not to use a certificate.</p>
+<p>
+Modify the cipher list sent by the client. Although the server
+determines which cipher suite is used, it should take the first
+supported cipher in the list sent by the client. See the</p>
+<p>
+command for more information.</p>
+<p>
+The host and port to connect to.</p>
+<p>
+The private key to use. If not specified, the certificate file will be
+used.</p>
+<p>
+Turn on non-blocking I/O.</p>
+<p>
+Perform the timing test using a new session ID for each connection. If
+neither</p>
+<p>
+nor</p>
+<p>
+are specified, they are both on by default and executed in sequence.</p>
+<p>
+Shut down the connection without sending a</p>
+<p>
+shutdown alert to the server.</p>
+<p>
+Perform the timing test using the same session ID for each connection.
+If neither</p>
+<p>
+nor</p>
+<p>
+are specified, they are both on by default and executed in sequence.</p>
+<p>
+Limit</p>
+<p>
+benchmarks to the number of</p>
+<p>
+The default is 30 seconds.</p>
+<p>
+Turn on server certificate verification, with a maximum length of</p>
+<p>
+Currently the verify operation continues after errors, so all the
+problems with a certificate chain can be seen. As a side effect, the
+connection will never fail due to a server certificate verify failure.</p>
+<p>
+The page to GET from the server. A value of</p>
+<p>
+gets the index.htm[l] page. If this parameter is not specified,</p>
+<p>
+will only perform the handshake to establish SSL connections but not
+transfer any payload data.</p>
+<p>
+The</p>
+<p>
+program processes the encoded version of the SSL session structure and
+optionally prints out SSL session details (for example the SSL session
+master key) in human-readable format.</p>
+<p>
+The options are as follows:</p>
+<p>
+If a certificate is present in the session, it will be output using this
+option; if the</p>
+<p>
+option is also present, then it will be printed out in text form.</p>
+<p>
+Set the session</p>
+<p>
+The ID can be any string of characters.</p>
+<p>
+The input file to read from, or standard input if not specified.</p>
+<p>
+The input format.</p>
+<p>
+uses an ASN.1 DER-encoded format containing session details. The precise
+format can vary from one version to the next.</p>
+<p>
+is the default format: it consists of the DER format base64-encoded with
+additional header and footer lines.</p>
+<p>
+Do not output the encoded version of the session.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The output format.</p>
+<p>
+Print the various public or private key components in plain text, in
+addition to the encoded version.</p>
+<p>
+The output of</p>
+<p>
+is composed as follows:</p>
+<p>
+The protocol in use.</p>
+<p>
+The actual raw SSL or TLS cipher code.</p>
+<p>
+The SSL session ID, in hex format.</p>
+<p>
+The session ID context, in hex format.</p>
+<p>
+The SSL session master key.</p>
+<p>
+The key argument; this is only used in SSL v2.</p>
+<p>
+The session start time.</p>
+<p>
+format.</p>
+<p>
+The timeout, in seconds.</p>
+<p>
+The return code when a certificate is verified.</p>
+<p>
+Since the SSL session output contains the master key, it is possible to
+read the contents of an encrypted session using this information.
+Therefore appropriate security precautions should be taken if the
+information is being output by a</p>
+<p>
+application. This is, however, strongly discouraged and should only be
+used for debugging purposes.</p>
+<p>
+The</p>
+<p>
+command handles S/MIME mail. It can encrypt, decrypt, sign, and verify
+S/MIME messages.</p>
+<p>
+The MIME message must be sent without any blank lines between the
+headers and the output. Some mail programs will automatically add a
+blank line. Piping the mail directly to an MTA is one way to achieve the
+correct format.</p>
+<p>
+The supplied message to be signed or encrypted must include the
+necessary MIME headers or many S/MIME clients won&#39;t display it properly
+(if at all). Use the</p>
+<p>
+option to automatically add plain text headers.</p>
+<p>
+A</p>
+<p>
+message is one where a signed message is then encrypted. This can be
+produced by encrypting an already signed message.</p>
+<p>
+There are a number of operations that can be performed, as follows:</p>
+<p>
+Decrypt mail using the supplied certificate and private key. The input
+file is an encrypted mail message in MIME format. The decrypted mail is
+written to the output file.</p>
+<p>
+Encrypt mail for the given recipient certificates. The input is the
+message to be encrypted. The output file is the encrypted mail, in MIME
+format.</p>
+<p>
+Take an input message and write out a PEM-encoded PKCS#7 structure.</p>
+<p>
+Resign a message: take an existing message and one or more new signers.</p>
+<p>
+Sign mail using the supplied certificate and private key. The input file
+is the message to be signed. The signed message, in MIME format, is
+written to the output file.</p>
+<p>
+Verify signed mail. The input is a signed mail message and the output is
+the signed data. Both clear text and opaque signing is supported.</p>
+<p>
+The remaining options are as follows:</p>
+<p>
+The encryption algorithm to use. 128-, 192-, or 256-bit AES, DES (56
+bits), triple DES (168 bits), or 40-, 64-, or 128-bit RC2, respectively;
+if not specified, 40-bit RC2 is used. Only used with</p>
+<p>
+Normally, the input message is converted to</p>
+<p>
+format which uses CR/LF as end of line, as required by the S/MIME
+specification. When this option is present, no translation occurs. This
+is useful when handling binary data which may not be in MIME format.</p>
+<p>
+A</p>
+<p>
+containing trusted CA certificates; only used with</p>
+<p>
+A</p>
+<p>
+containing trusted CA certificates; only used with</p>
+<p>
+This directory must be a standard certificate directory: that is, a hash
+of each subject name (using</p>
+<p>
+should be linked to each certificate.</p>
+<p>
+One or more certificates of message recipients: used when encrypting a
+message.</p>
+<p>
+Allows additional certificates to be specified. When signing, these will
+be included with the message. When verifying, these will be searched for
+the signers&#39; certificates. The certificates should be in PEM format.</p>
+<p>
+Set various certificate chain validation options. See the</p>
+<p>
+command for details.</p>
+<p>
+A file containing the detached content. This is only useful with the</p>
+<p>
+option, and only usable if the PKCS#7 structure is using the detached
+signature form where the content is not included. This option will
+override any content if the input format is S/MIME and it uses the
+multipart/signed MIME content type.</p>
+<p>
+The relevant mail headers. These are included outside the signed portion
+of a message so they may be included manually. When signing, many S/MIME
+mail clients check that the signer&#39;s certificate email address matches
+the From: address.</p>
+<p>
+The input file to read from.</p>
+<p>
+Enable streaming I/O for encoding operations. This permits single pass
+processing of data without the need to hold the entire contents in
+memory, potentially supporting very large files. Streaming is
+automatically set for S/MIME signing with detached data if the output
+format is SMIME; it is currently off by default for all other
+operations.</p>
+<p>
+The input format.</p>
+<p>
+The private key to use when signing or decrypting, which must match the
+corresponding certificate. If this option is not specified, the private
+key must be included in the certificate file specified with the</p>
+<p>
+or</p>
+<p>
+file. When signing, this option can be used multiple times to specify
+successive keys.</p>
+<p>
+Input private key format. The default is</p>
+<p>
+The digest algorithm to use when signing or resigning. If not present
+then the default digest algorithm for the signing key is used (usually
+SHA1).</p>
+<p>
+Do not include attributes.</p>
+<p>
+Do not include the signer&#39;s certificate. This will reduce the size of
+the signed message but the verifier must have a copy of the signer&#39;s
+certificate available locally (passed using the</p>
+<p>
+option, for example).</p>
+<p>
+Do not do chain verification of signers&#39; certificates: that is, don&#39;t
+use the certificates in the signed message as untrusted CAs.</p>
+<p>
+When signing a message, use opaque signing: this form is more resistant
+to translation by mail relays but it cannot be read by mail agents that
+do not support S/MIME. Without this option cleartext signing with the
+MIME type multipart/signed is used.</p>
+<p>
+Disable streaming I/O where it would produce an encoding of indefinite
+length (currently has no effect).</p>
+<p>
+Only use certificates specified in the</p>
+<p>
+The supplied certificates can still be used as untrusted CAs.</p>
+<p>
+Do not try to verify the signatures on the message.</p>
+<p>
+Exclude the list of supported algorithms from signed attributes, other
+options such as signing time and content type are still included.</p>
+<p>
+Do not verify the signer&#39;s certificate of a signed message.</p>
+<p>
+The output file to write to.</p>
+<p>
+The output format. The default is smime, which writes an S/MIME format
+message.</p>
+<p>
+and</p>
+<p>
+change this to write PEM and DER format PKCS#7 structures instead. This
+currently only affects the output format of the PKCS#7 structure; if no
+PKCS#7 structure is being output (for example with</p>
+<p>
+or</p>
+<p>
+this option has no effect.</p>
+<p>
+The key password source.</p>
+<p>
+The recipients certificate when decrypting a message. This certificate
+must match one of the recipients of the message or an error occurs.</p>
+<p>
+A signing certificate when signing or resigning a message; this option
+can be used multiple times if more than one signer is required. If a
+message is being verified, the signer&#39;s certificates will be written to
+this file if the verification was successful.</p>
+<p>
+The same as</p>
+<p>
+Add plain text (text/plain) MIME headers to the supplied message if
+encrypting or signing. If decrypting or verifying, it strips off text
+headers: if the decrypted or verified message is not of MIME type
+text/plain then an error occurs.</p>
+<p>
+The exit codes for</p>
+<p>
+are as follows:</p>
+<p>
+The operation was completely successful.</p>
+<p>
+An error occurred parsing the command options.</p>
+<p>
+One of the input files could not be read.</p>
+<p>
+An error occurred creating the file or when reading the message.</p>
+<p>
+An error occurred decrypting or verifying the message.</p>
+<p>
+An error occurred writing certificates.</p>
+<p>
+The</p>
+<p>
+command is used to test the performance of cryptographic algorithms.</p>
+<p>
+Perform the test using</p>
+<p>
+The default is to test all algorithms.</p>
+<p>
+Time decryption instead of encryption; must be used with</p>
+<p>
+Measure time in real time instead of CPU user time.</p>
+<p>
+Perform the test using one of the algorithms accepted by</p>
+<p>
+Produce machine readable output.</p>
+<p>
+Run</p>
+<p>
+benchmarks in parallel.</p>
+<p>
+Use allocated buffers with an offset of</p>
+<p>
+bytes from the alignment provided by</p>
+<p>
+should be between 0 and 16.</p>
+<p>
+The</p>
+<p>
+command is a basic Time Stamping Authority (TSA) client and server
+application as specified in RFC 3161 (Time-Stamp Protocol, TSP). A TSA
+can be part of a PKI deployment and its role is to provide long term
+proof of the existence of specific data. Here is a brief description of
+the protocol:</p>
+<p>
+The TSA client computes a one-way hash value for a data file and sends
+the hash to the TSA.</p>
+<p>
+The TSA attaches the current date and time to the received hash value,
+signs them and sends the time stamp token back to the client. By
+creating this token the TSA certifies the existence of the original data
+file at the time of response generation.</p>
+<p>
+The TSA client receives the time stamp token and verifies the signature
+on it. It also checks if the token contains the same hash value that it
+had sent to the TSA.</p>
+<p>
+There is one DER-encoded protocol data unit defined for transporting a
+time stamp request to the TSA and one for sending the time stamp
+response back to the client. The</p>
+<p>
+command has three main functions: creating a time stamp request based on
+a data file; creating a time stamp response based on a request; and
+verifying if a response corresponds to a particular request or a data
+file.</p>
+<p>
+There is no support for sending the requests/responses automatically
+over HTTP or TCP yet as suggested in RFC 3161. Users must send the
+requests either by FTP or email.</p>
+<p>
+The</p>
+<p>
+switch can be used for creating and printing a time stamp request with
+the following options:</p>
+<p>
+Expect the TSA to include its signing certificate in the response.</p>
+<p>
+Specify an alternative configuration file. Only the OID section is used.</p>
+<p>
+The data file for which the time stamp request needs to be created. The
+default is standard input.</p>
+<p>
+Specify the message imprint explicitly without the data file. The
+imprint must be specified in a hexadecimal format, two characters per
+byte, the bytes optionally separated by colons. The number of bytes must
+match the message digest algorithm in use.</p>
+<p>
+A previously created time stamp request in DER format that will be
+printed into the output file. Useful for examining the content of a
+request in human-readable format.</p>
+<p>
+The message digest to apply to the data file. It supports all the
+message digest algorithms that are supported by the</p>
+<p>
+command. The default is SHA1.</p>
+<p>
+Specify no nonce in the request. The default, to include a 64-bit long
+pseudo-random nonce, is recommended to protect against replay attacks.</p>
+<p>
+The output file to write to, or standard output if not specified.</p>
+<p>
+The policy that the client expects the TSA to use for creating the time
+stamp token. Either dotted OID notation or OID names defined in the
+config file can be used. If no policy is requested, the TSA uses its own
+default policy.</p>
+<p>
+Output in human-readable text format instead of DER.</p>
+<p>
+A time stamp response (TimeStampResp) consists of a response status and
+the time stamp token itself (ContentInfo), if the token generation was
+successful. The</p>
+<p>
+command is for creating a time stamp response or time stamp token based
+on a request and printing the response/token in human-readable format.
+If</p>
+<p>
+is not specified the output is always a time stamp response
+(TimeStampResp), otherwise it is a time stamp token (ContentInfo).</p>
+<p>
+The collection of PEM certificates that will be included in the response
+in addition to the signer certificate if the</p>
+<p>
+option was used for the request. This file is supposed to contain the
+certificate chain for the signer certificate from its issuer upwards.
+The</p>
+<p>
+command does not build a certificate chain automatically.</p>
+<p>
+Specify an alternative configuration file.</p>
+<p>
+Specify a previously created time stamp response (or time stamp token,
+if</p>
+<p>
+is also specified) in DER format that will be written to the output
+file. This option does not require a request; it is useful, for example,
+to examine the content of a response or token or to extract the time
+stamp token from a response. If the input is a token and the output is a
+time stamp response, a default</p>
+<p>
+status info is added to the token.</p>
+<p>
+The signer private key of the TSA in PEM format. Overrides the</p>
+<p>
+config file option.</p>
+<p>
+The response is written to this file. The format and content of the file
+depends on other options (see</p>
+<p>
+and</p>
+<p>
+The default is stdout.</p>
+<p>
+The key password source.</p>
+<p>
+The default policy to use for the response. Either dotted OID notation
+or OID names defined in the config file can be used. If no policy is
+requested, the TSA uses its own default policy.</p>
+<p>
+The file containing a DER-encoded time stamp request.</p>
+<p>
+The config file section containing the settings for response generation.</p>
+<p>
+The PEM signer certificate of the TSA. The TSA signing certificate must
+have exactly one extended key usage assigned to it: timeStamping. The
+extended key usage must also be critical, otherwise the certificate is
+going to be refused. Overrides the</p>
+<p>
+variable of the config file.</p>
+<p>
+Output in human-readable text format instead of DER.</p>
+<p>
+The input is a DER-encoded time stamp token (ContentInfo) instead of a
+time stamp response (TimeStampResp).</p>
+<p>
+The output is a time stamp token (ContentInfo) instead of a time stamp
+response (TimeStampResp).</p>
+<p>
+The</p>
+<p>
+command is for verifying if a time stamp response or time stamp token is
+valid and matches a particular time stamp request or data file. The</p>
+<p>
+command does not use the configuration file.</p>
+<p>
+The file containing a set of trusted self-signed PEM CA certificates.
+See</p>
+<p>
+for additional details. Either this option or</p>
+<p>
+must be specified.</p>
+<p>
+The directory containing the trusted CA certificates of the client. See</p>
+<p>
+for additional details. Either this option or</p>
+<p>
+must be specified.</p>
+<p>
+The response or token must be verified against</p>
+<p>
+The file is hashed with the message digest algorithm specified in the
+token. The</p>
+<p>
+and</p>
+<p>
+options must not be specified with this one.</p>
+<p>
+The response or token must be verified against the message digest
+specified with this option. The number of bytes must match the message
+digest algorithm specified in the token. The</p>
+<p>
+and</p>
+<p>
+options must not be specified with this one.</p>
+<p>
+The time stamp response that needs to be verified, in DER format. This
+option in mandatory.</p>
+<p>
+The original time stamp request, in DER format. The</p>
+<p>
+and</p>
+<p>
+options must not be specified with this one.</p>
+<p>
+The input is a DER-encoded time stamp token (ContentInfo) instead of a
+time stamp response (TimeStampResp).</p>
+<p>
+Additional untrusted PEM certificates which may be needed when building
+the certificate chain for the TSA&#39;s signing certificate. This file must
+contain the TSA signing certificate and all intermediate CA certificates
+unless the response includes them.</p>
+<p>
+Options specified on the command line always override the settings in
+the config file:</p>
+<p>
+This is the main section and it specifies the name of another section
+that contains all the options for the</p>
+<p>
+option. This section can be overridden with the</p>
+<p>
+command line switch.</p>
+<p>
+See</p>
+<p>
+for a description.</p>
+<p>
+See</p>
+<p>
+for a description.</p>
+<p>
+The file containing the hexadecimal serial number of the last time stamp
+response created. This number is incremented by 1 for each response. If
+the file does not exist at the time of response generation, a new file
+is created with serial number 1. This parameter is mandatory.</p>
+<p>
+TSA signing certificate, in PEM format. The same as the</p>
+<p>
+command line option.</p>
+<p>
+A set of PEM-encoded certificates that need to be included in the
+response. The same as the</p>
+<p>
+command line option.</p>
+<p>
+The private key of the TSA, in PEM format. The same as the</p>
+<p>
+command line option.</p>
+<p>
+The default policy to use when the request does not mandate any policy.
+The same as the</p>
+<p>
+command line option.</p>
+<p>
+Comma separated list of policies that are also acceptable by the TSA and
+used only if the request explicitly specifies one of them.</p>
+<p>
+The list of message digest algorithms that the TSA accepts. At least one
+algorithm must be specified. This parameter is mandatory.</p>
+<p>
+The accuracy of the time source of the TSA in seconds, milliseconds and
+microseconds. For example, secs:1, millisecs:500, microsecs:100. If any
+of the components is missing, zero is assumed for that field.</p>
+<p>
+The maximum number of digits, which represent the fraction of seconds,
+that need to be included in the time field. The trailing zeroes must be
+removed from the time, so there might actually be fewer digits or no
+fraction of seconds at all. The maximum value is 6; the default is 0.</p>
+<p>
+If this option is yes, the responses generated by this TSA can always be
+ordered, even if the time difference between two responses is less than
+the sum of their accuracies. The default is no.</p>
+<p>
+Set this option to yes if the subject name of the TSA must be included
+in the TSA name field of the response. The default is no.</p>
+<p>
+The SignedData objects created by the TSA always contain the certificate
+identifier of the signing certificate in a signed attribute (see RFC
+2634, Enhanced Security Services). If this option is set to yes and
+either the</p>
+<p>
+variable or the</p>
+<p>
+option is specified then the certificate identifiers of the chain will
+also be included in the SigningCertificate signed attribute. If this
+variable is set to no, only the signing certificate identifier is
+included. The default is no.</p>
+<p>
+The</p>
+<p>
+command verifies certificate chains.</p>
+<p>
+The options are as follows:</p>
+<p>
+A</p>
+<p>
+of trusted certificates. The</p>
+<p>
+should contain multiple certificates in PEM format, concatenated
+together.</p>
+<p>
+A</p>
+<p>
+of trusted certificates. The certificates, or symbolic links to them,
+should have names of the form</p>
+<p>
+where</p>
+<p>
+is the hashed certificate subject name (see the</p>
+<p>
+option of the</p>
+<p>
+utility).</p>
+<p>
+Verify the signature on the self-signed root CA. This is disabled by
+default because it doesn&#39;t add any security.</p>
+<p>
+The</p>
+<p>
+should contain one or more CRLs in PEM format.</p>
+<p>
+Check end entity certificate validity by attempting to look up a valid
+CRL. If a valid CRL cannot be found, an error occurs.</p>
+<p>
+Check the validity of all certificates in the chain by attempting to
+look up valid CRLs.</p>
+<p>
+Set policy variable require-explicit-policy (RFC 3280).</p>
+<p>
+Enable extended CRL features such as indirect CRLs and alternate CRL
+signing keys.</p>
+<p>
+Print a usage message.</p>
+<p>
+Ignore critical extensions instead of rejecting the certificate.</p>
+<p>
+Set policy variable inhibit-any-policy (RFC 3280).</p>
+<p>
+Set policy variable inhibit-policy-mapping (RFC 3280).</p>
+<p>
+Print diagnostics relating to searches for the issuer certificate of the
+current certificate showing why each candidate issuer certificate was
+rejected. The presence of rejection messages does not itself imply that
+anything is wrong: during the normal verify process several rejections
+may take place.</p>
+<p>
+Use the legacy X.509 certificate chain verification code.</p>
+<p>
+Enable certificate policy processing.</p>
+<p>
+The intended use for the certificate. Without this option no chain
+verification will be done. Currently accepted uses are</p>
+<p>
+and</p>
+<p>
+A</p>
+<p>
+of trusted certificates. The</p>
+<p>
+should contain multiple certificates.</p>
+<p>
+A</p>
+<p>
+of untrusted certificates. The</p>
+<p>
+should contain multiple certificates.</p>
+<p>
+Print extra information about the operations being performed.</p>
+<p>
+Disable workarounds for broken certificates which have to be disabled
+for strict X.509 compliance.</p>
+<p>
+One or more PEM</p>
+<p>
+to verify. If no certificate files are included, an attempt is made to
+read a certificate from standard input. If the first certificate
+filename begins with a dash, use a lone dash to mark the last option.</p>
+<p>
+The</p>
+<p>
+program uses the same functions as the internal SSL and S/MIME
+verification, with one crucial difference: wherever possible an attempt
+is made to continue after an error, whereas normally the verify
+operation would halt on the first error. This allows all the problems
+with a certificate chain to be determined.</p>
+<p>
+The verify operation consists of a number of separate steps. Firstly a
+certificate chain is built up starting from the supplied certificate and
+ending in the root CA. It is an error if the whole chain cannot be built
+up. The chain is built up by looking up the issuer&#39;s certificate of the
+current certificate. If a certificate is found which is its own issuer,
+it is assumed to be the root CA.</p>
+<p>
+All certificates whose subject name matches the issuer name of the
+current certificate are subject to further tests. The relevant authority
+key identifier components of the current certificate (if present) must
+match the subject key identifier (if present) and issuer and serial
+number of the candidate issuer; in addition the</p>
+<p>
+extension of the candidate issuer (if present) must permit certificate
+signing.</p>
+<p>
+The lookup first looks in the list of untrusted certificates and if no
+match is found the remaining lookups are from the trusted certificates.
+The root CA is always looked up in the trusted certificate list: if the
+certificate to verify is a root certificate, then an exact match must be
+found in the trusted list.</p>
+<p>
+The second operation is to check every untrusted certificate&#39;s
+extensions for consistency with the supplied purpose. If the</p>
+<p>
+option is not included, then no checks are done. The supplied or</p>
+<p>
+certificate must have extensions compatible with the supplied purpose
+and all other certificates must also be valid CA certificates. The
+precise extensions required are described in more detail in the</p>
+<p>
+section below.</p>
+<p>
+The third operation is to check the trust settings on the root CA. The
+root CA should be trusted for the supplied purpose. A certificate with
+no trust settings is considered to be valid for all purposes.</p>
+<p>
+The final operation is to check the validity of the certificate chain.
+The validity period is checked against the current system time and the</p>
+<p>
+and</p>
+<p>
+dates in the certificate. The certificate signatures are also checked at
+this point.</p>
+<p>
+If all operations complete successfully, the certificate is considered
+valid. If any operation fails then the certificate is not valid. When a
+verify operation fails, the output messages can be somewhat cryptic. The
+general form of the error message is:</p>
+<p>
+server.pem: /C=AU/ST=Queensland/O=CryptSoft Pty Ltd/CN=Test CA
+(1024-bit) error 24 at 1 depth lookup:invalid CA certificate</p>
+<p>
+The first line contains the name of the certificate being verified,
+followed by the subject name of the certificate. The second line
+contains the error number as defined by the</p>
+<p>
+constants in</p>
+<p>
+the associated error message documented in</p>
+<p>
+and the depth. The depth is the number of the certificate being verified
+when a problem was detected starting with zero for the certificate being
+verified itself, then 1 for the CA that signed the certificate and so
+on.</p>
+<p>
+The</p>
+<p>
+command is used to print out version information about</p>
+<p>
+The options are as follows:</p>
+<p>
+All information: this is the same as setting all the other flags.</p>
+<p>
+The date the current version of</p>
+<p>
+was built.</p>
+<p>
+setting.</p>
+<p>
+Compilation flags.</p>
+<p>
+Platform setting.</p>
+<p>
+The current</p>
+<p>
+version.</p>
+<p>
+The</p>
+<p>
+command is a multi-purpose certificate utility. It can be used to
+display certificate information, convert certificates to various forms,
+sign certificate requests like a</p>
+<p>
+or edit certificate trust settings.</p>
+<p>
+The following are x509 input, output, and general purpose options:</p>
+<p>
+The input file to read from, or standard input if not specified. This
+option cannot be used with</p>
+<p>
+The input format. Normally, the command will expect an X.509
+certificate, but this can change if other options such as</p>
+<p>
+or</p>
+<p>
+are present.</p>
+<p>
+The digest to use. This affects any signing or display option that uses
+a message digest, such as the</p>
+<p>
+and</p>
+<p>
+options. If not specified, MD5 is used. SHA1 is always used with DSA
+keys.</p>
+<p>
+The output file to write to, or standard output if none is specified.</p>
+<p>
+The output format.</p>
+<p>
+The key password source.</p>
+<p>
+The following are x509 display options:</p>
+<p>
+Output the certificate in the form of a C source file.</p>
+<p>
+Customise the output format used with</p>
+<p>
+either using a list of comma-separated options or by specifying</p>
+<p>
+multiple times. The default behaviour is to print all fields. The
+options are as follows:</p>
+<p>
+Equivalent to</p>
+<p>
+and</p>
+<p>
+Equivalent to no output options at all.</p>
+<p>
+Print unsupported certificate extensions.</p>
+<p>
+Hex dump unsupported extensions.</p>
+<p>
+Print an error message for unsupported certificate extensions.</p>
+<p>
+ASN.1 parse unsupported extensions.</p>
+<p>
+Do not print certificate trust information.</p>
+<p>
+Do not print X509V3 extensions.</p>
+<p>
+Do not print header (Certificate and Data) information.</p>
+<p>
+Do not print the issuer name.</p>
+<p>
+Do not print the public key.</p>
+<p>
+Do not print the serial number.</p>
+<p>
+Do not give a hexadecimal dump of the certificate signature.</p>
+<p>
+Do not print the signature algorithm used.</p>
+<p>
+Do not print the subject name.</p>
+<p>
+Do not print the</p>
+<p>
+and</p>
+<p>
+(validity) fields.</p>
+<p>
+Do not print the version number.</p>
+<p>
+Print the start and expiry date of a certificate.</p>
+<p>
+Output the email addresses, if any.</p>
+<p>
+Print the expiry date of the certificate; that is, the</p>
+<p>
+date.</p>
+<p>
+Print the digest of the DER-encoded version of the whole certificate.</p>
+<p>
+A synonym for</p>
+<p>
+Print the issuer name.</p>
+<p>
+Print the hash of the certificate issuer name.</p>
+<p>
+Print the hash of the certificate issuer name using the older algorithm
+as used by</p>
+<p>
+versions before 1.0.0.</p>
+<p>
+Print the value of the modulus of the public key contained in the
+certificate.</p>
+<p>
+This option causes the</p>
+<p>
+argument to be interpreted with full support for multivalued RDNs, for
+example</p>
+<p>
+If</p>
+<p>
+is not used, the UID value is set to</p>
+<p>
+Customise how the subject or issuer names are displayed, either using a
+list of comma-separated options or by specifying</p>
+<p>
+multiple times. The default behaviour is to use the</p>
+<p>
+format. The options, which can be preceded by a dash to turn them off,
+are as follows:</p>
+<p>
+Align field values for a more readable output. Only usable with</p>
+<p>
+Use the old format, equivalent to specifying no options at all.</p>
+<p>
+Reverse the fields of the DN, as required by RFC 2253. As a side effect,
+this also reverses the order of multiple AVAs.</p>
+<p>
+Dump all fields. When used with</p>
+<p>
+it allows the DER encoding of the structure to be unambiguously
+determined.</p>
+<p>
+Any fields that need to be hexdumped are dumped using the DER encoding
+of the field. Otherwise just the content octets will be displayed. Both
+options use the RFC 2253 #XXXX… format.</p>
+<p>
+Dump non-character string types (for example OCTET STRING); usually,
+non-character string types are displayed as though each content octet
+represents a single character.</p>
+<p>
+Dump any field whose OID is not recognised by</p>
+<p>
+Escape the</p>
+<p>
+characters required by RFC 2253 in a field that is</p>
+<p>
+Additionally,</p>
+<p>
+is escaped at the beginning of a string and a space character at the
+beginning or end of a string.</p>
+<p>
+Escape control characters. That is, those with ASCII values less than
+0x20 (space) and the delete (0x7f) character. They are escaped using the
+RFC 2253 \XX notation (where XX are two hex digits representing the
+character value).</p>
+<p>
+Escape characters with the MSB set; that is, with ASCII values larger
+than 127.</p>
+<p>
+A multiline format. Equivalent to</p>
+<p>
+and</p>
+<p>
+Do not attempt to interpret multibyte characters. That is, content
+octets are merely dumped as though one octet represents each character.
+This is useful for diagnostic purposes but results in rather odd looking
+output.</p>
+<p>
+Alter how the field name is displayed:</p>
+<p>
+does not display the field at all;</p>
+<p>
+uses the short name form (CN for</p>
+<p>
+for example);</p>
+<p>
+uses the long form.</p>
+<p>
+represents the OID in numerical form and is useful for diagnostic
+purpose.</p>
+<p>
+A one line format which is more readable than</p>
+<p>
+Equivalent to</p>
+<p>
+and</p>
+<p>
+Displays names compatible with RFC 2253. Equivalent to</p>
+<p>
+and</p>
+<p>
+Determine the field separators: the first character is between RDNs and
+the second between multiple AVAs (multiple AVAs are very rare and their
+use is discouraged). The options ending in</p>
+<p>
+additionally place a space after the separator to make it more readable.</p>
+<p>
+uses a linefeed character for the RDN separator and a spaced</p>
+<p>
+for the AVA separator, as well as indenting the fields by four
+characters. If no field separator is specified then</p>
+<p>
+is used by default.</p>
+<p>
+Show the type of the ASN.1 character string. The type precedes the field
+contents. For example</p>
+<p>
+Place spaces round the</p>
+<p>
+character which follows the field name.</p>
+<p>
+Escape some characters by surrounding the whole string with</p>
+<p>
+characters. Without the option, all escaping is done with the</p>
+<p>
+character.</p>
+<p>
+Convert all strings to UTF8 format first, as required by RFC 2253. On a
+UTF8 compatible terminal, the use of this option (and not setting</p>
+<p>
+may result in the correct display of multibyte characters. Usually,
+multibyte characters larger than 0xff are represented using the format
+\UXXXX for 16 bits and \WXXXXXXXX for 32 bits, and any UTF8Strings are
+converted to their character form first.</p>
+<p>
+Print the next serial number.</p>
+<p>
+Do not output the encoded version of the request.</p>
+<p>
+Print the OCSP responder addresses, if any.</p>
+<p>
+Print OCSP hash values for the subject name and public key.</p>
+<p>
+Print the public key.</p>
+<p>
+Print the certificate serial number.</p>
+<p>
+Pass options to the signature algorithm during sign or certify
+operations. The names and values of these options are
+algorithm-specific.</p>
+<p>
+Print the start date of the certificate; that is, the</p>
+<p>
+date.</p>
+<p>
+Print the subject name.</p>
+<p>
+Print the hash of the certificate subject name. This is used in</p>
+<p>
+to form an index to allow certificates in a directory to be looked up by
+subject name.</p>
+<p>
+Print the hash of the certificate subject name using the older algorithm
+as used by</p>
+<p>
+versions before 1.0.0.</p>
+<p>
+Print the full certificate in text form.</p>
+<p>
+A trusted certificate is a certificate which has several additional
+pieces of information attached to it such as the permitted and
+prohibited uses of the certificate and an alias. When a certificate is
+being verified, at least one certificate must be trusted. By default, a
+trusted certificate must be stored locally and be a root CA. The
+following are x509 trust settings options:</p>
+<p>
+Add a prohibited use. Accepts the same values as the</p>
+<p>
+option.</p>
+<p>
+Add a trusted certificate use. Any object name can be used here, but
+currently only</p>
+<p>
+(SSL client use),</p>
+<p>
+(SSL server use), and</p>
+<p>
+(S/MIME email) are used.</p>
+<p>
+Output the certificate alias.</p>
+<p>
+Clear all the prohibited or rejected uses of the certificate.</p>
+<p>
+Clear all the permitted or trusted uses of the certificate.</p>
+<p>
+Perform tests on the certificate extensions. The same code is used when
+verifying untrusted certificates in chains, so this section is useful if
+a chain is rejected by the verify code.</p>
+<p>
+The</p>
+<p>
+extension CA flag is used to determine whether the certificate can be
+used as a CA. If the CA flag is true, it is a CA; if the CA flag is
+false, it is not a CA. All CAs should have the CA flag set to true.</p>
+<p>
+If the</p>
+<p>
+extension is absent, then the certificate is considered to be a possible
+CA; other extensions are checked according to the intended use of the
+certificate. A warning is given in this case because the certificate
+should really not be regarded as a CA. However it is allowed to be a CA
+to work around some broken software.</p>
+<p>
+If the certificate is a V1 certificate (and thus has no extensions) and
+it is self-signed, it is also assumed to be a CA but a warning is again
+given. This is to work around the problem of Verisign roots which are V1
+self-signed certificates.</p>
+<p>
+If the</p>
+<p>
+extension is present, then additional restraints are made on the uses of
+the certificate. A CA certificate must have the</p>
+<p>
+bit set if the</p>
+<p>
+extension is present.</p>
+<p>
+The extended key usage extension places additional restrictions on the
+certificate uses. If this extension is present, whether critical or not,
+the key can only be used for the purposes specified.</p>
+<p>
+A complete description of each test is given below. The comments about</p>
+<p>
+and</p>
+<p>
+and V1 certificates above apply to all CA certificates.</p>
+<p>
+The extended key usage extension must be absent or include the web
+client authentication OID.</p>
+<p>
+must be absent or it must have the</p>
+<p>
+bit set. The Netscape certificate type must be absent or it must have
+the SSL client bit set.</p>
+<p>
+The extended key usage extension must be absent or include the web
+client authentication OID. The Netscape certificate type must be absent
+or it must have the SSL CA bit set: this is used as a workaround if the</p>
+<p>
+extension is absent.</p>
+<p>
+The extended key usage extension must be absent or include the web
+server authentication and/or one of the SGC OIDs.</p>
+<p>
+must be absent or it must have the</p>
+<p>
+set, the</p>
+<p>
+set, or both bits set. The Netscape certificate type must be absent or
+have the SSL server bit set.</p>
+<p>
+The extended key usage extension must be absent or include the web
+server authentication and/or one of the SGC OIDs. The Netscape
+certificate type must be absent or the SSL CA bit must be set: this is
+used as a workaround if the</p>
+<p>
+extension is absent.</p>
+<p>
+For Netscape SSL clients to connect to an SSL server; it must have the</p>
+<p>
+bit set if the</p>
+<p>
+extension is present. This isn&#39;t always valid because some cipher suites
+use the key for digital signing. Otherwise it is the same as a normal
+SSL server.</p>
+<p>
+The extended key usage extension must be absent or include the email
+protection OID. The Netscape certificate type must be absent or should
+have the S/MIME bit set. If the S/MIME bit is not set in Netscape
+certificate type, then the SSL client bit is tolerated as an alternative
+but a warning is shown: this is because some Verisign certificates don&#39;t
+set the S/MIME bit.</p>
+<p>
+In addition to the common S/MIME client tests, the</p>
+<p>
+bit must be set if the</p>
+<p>
+extension is present.</p>
+<p>
+In addition to the common S/MIME tests, the</p>
+<p>
+bit must be set if the</p>
+<p>
+extension is present.</p>
+<p>
+The extended key usage extension must be absent or include the email
+protection OID. The Netscape certificate type must be absent or must
+have the S/MIME CA bit set: this is used as a workaround if the</p>
+<p>
+extension is absent.</p>
+<p>
+The</p>
+<p>
+extension must be absent or it must have the CRL signing bit set.</p>
+<p>
+The normal CA tests apply, except the</p>
+<p>
+extension must be present.</p>
+<p>
+Set the alias of the certificate, allowing the certificate to be
+referred to using a nickname, such as</p>
+<p>
+Output a trusted certificate (the default if any trust settings are
+modified). An ordinary or trusted certificate can be input, but by
+default an ordinary certificate is output and any trust settings are
+discarded.</p>
+<p>
+The</p>
+<p>
+utility can be used to sign certificates and requests: it can thus
+behave like a mini CA. The following are x509 signing options:</p>
+<p>
+The CA certificate to be used for signing. When this option is present,</p>
+<p>
+behaves like a mini CA. The input file is signed by the CA using this
+option; that is, its issuer name is set to the subject name of the CA
+and it is digitally signed using the CA&#39;s private key.</p>
+<p>
+This option is normally combined with the</p>
+<p>
+option. Without the</p>
+<p>
+option, the input is a certificate which must be self-signed.</p>
+<p>
+Create the CA serial number file if it does not exist instead of
+generating an error. The file will contain the serial number</p>
+<p>
+and the certificate being signed will have</p>
+<p>
+as its serial number.</p>
+<p>
+The format of the CA certificate file. The default is</p>
+<p>
+Set the CA private key to sign a certificate with. Otherwise it is
+assumed that the CA private key is present in the CA certificate file.</p>
+<p>
+The format of the CA private key. The default is</p>
+<p>
+Use the serial number in</p>
+<p>
+to sign a certificate. The file should consist of one line containing an
+even number of hex digits with the serial number to use. After each use
+the serial number is incremented and written out to the file again.</p>
+<p>
+The default filename consists of the CA certificate file base name with</p>
+<p>
+appended. For example, if the CA certificate file is called</p>
+<p>
+it expects to find a serial number file called</p>
+<p>
+Check whether the certificate expires in the next</p>
+<p>
+seconds. If so, exit with return value 1; otherwise exit with return
+value 0.</p>
+<p>
+Delete any extensions from a certificate. This option is used when a
+certificate is being created from another certificate (for example with
+the</p>
+<p>
+or the</p>
+<p>
+options). Normally, all extensions are retained.</p>
+<p>
+The number of days to make a certificate valid for. The default is 30
+days.</p>
+<p>
+The section to add certificate extensions from. If this option is not
+specified, the extensions should either be contained in the unnamed
+(default) section or the default section should contain a variable
+called</p>
+<p>
+which contains the section to use.</p>
+<p>
+File containing certificate extensions to use. If not specified, no
+extensions are added to the certificate.</p>
+<p>
+Set the public key of the certificate to the public key contained in</p>
+<p>
+The format of the key file used in the</p>
+<p>
+and</p>
+<p>
+options.</p>
+<p>
+Generate a new certificate using the subject given by</p>
+<p>
+and signed by</p>
+<p>
+If no public key is provided with</p>
+<p>
+the resulting certificate is self-signed. This option cannot be used
+with</p>
+<p>
+or</p>
+<p>
+Expect a certificate request on input instead of a certificate. This
+option cannot be used with</p>
+<p>
+The issuer name to use.</p>
+<p>
+must be formatted as /type0=value0/type1=value1/type2=…; characters
+may be escaped by</p>
+<p>
+(backslash); no spaces are skipped.</p>
+<p>
+The serial number to use. This option can be used with either the</p>
+<p>
+or</p>
+<p>
+options. If used in conjunction with the</p>
+<p>
+option, the serial number file (as specified by the</p>
+<p>
+or</p>
+<p>
+options) is not used.</p>
+<p>
+The serial number can be decimal or hex (if preceded by</p>
+<p>
+Negative serial numbers can also be specified but their use is not
+recommended.</p>
+<p>
+The subject name to use.</p>
+<p>
+must be formatted as /type0=value0/type1=value1/type2=…; characters
+may be escaped by</p>
+<p>
+(backslash); no spaces are skipped.</p>
+<p>
+Self-sign</p>
+<p>
+using the supplied private key.</p>
+<p>
+If the input file is a certificate, it sets the issuer name to the
+subject name (i.e. makes it self-signed), changes the public key to the
+supplied value, and changes the start and end dates. The start date is
+set to the current time and the end date is set to a value determined by
+the</p>
+<p>
+option. Any certificate extensions are retained unless the</p>
+<p>
+option is supplied.</p>
+<p>
+If the input is a certificate request, a self-signed certificate is
+created using the supplied private key using the subject name in the
+request.</p>
+<p>
+Interpret field values read from a terminal or obtained from a
+configuration file as UTF-8 strings. By default, they are interpreted as
+ASCII.</p>
+<p>
+Convert a certificate into a certificate request. The</p>
+<p>
+option is used to pass the required private key.</p>
+<p>
+Several commands share a common syntax, as detailed below.</p>
+<p>
+Password arguments, typically specified using</p>
+<p>
+and</p>
+<p>
+for input and output passwords, allow passwords to be obtained from a
+variety of sources. Both of these options take a single argument,
+described below. If no password argument is given and a password is
+required, then the user is prompted to enter one: this will typically be
+read from the current terminal with echoing turned off.</p>
+<p>
+The actual password is</p>
+<p>
+Since the password is visible to utilities, this form should only be
+used where security is not important.</p>
+<p>
+Obtain the password from the environment variable</p>
+<p>
+Since the environment of other processes is visible, this option should
+be used with caution.</p>
+<p>
+The first line of</p>
+<p>
+is the password. If the same</p>
+<p>
+argument is supplied to</p>
+<p>
+and</p>
+<p>
+then the first line will be used for the input password and the next
+line for the output password.</p>
+<p>
+need not refer to a regular file: it could, for example, refer to a
+device or named pipe.</p>
+<p>
+Read the password from the file descriptor</p>
+<p>
+This can be used to send the data via a pipe, for example.</p>
+<p>
+Read the password from standard input.</p>
+<p>
+Input/output formats, typically specified using</p>
+<p>
+and</p>
+<p>
+indicate the format being read from or written to. The argument is case
+insensitive.</p>
+<p>
+Distinguished Encoding Rules (DER) is a binary format.</p>
+<p>
+Insecure legacy format.</p>
+<p>
+Privacy Enhanced Mail (PEM) is base64-encoded.</p>
+<p>
+Private Key format.</p>
+<p>
+An SMIME format message.</p>
+<p>
+Plain ASCII text.</p>
+<p>
+The following environment variables affect the execution of</p>
+<p>
+The location of the master configuration file.</p>
+<p>
+Default config directory for</p>
+<p>
+Unused.</p>
+<p>
+Default private key directory.</p>
+<p>
+Default configuration file for</p>
+<p>
+Default configuration file for</p>
+<p>
+certificates.</p>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

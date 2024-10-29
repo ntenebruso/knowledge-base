@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - systemd-ssh-proxy.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - systemd-ssh-proxy.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>systemd-ssh-proxy - SSH client plugin for connecting to <strong>AF_VSOCK</strong> and
+<strong>AF_UNIX</strong> sockets</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+Host unix/* vsock/*
+    ProxyCommand /usr/lib/systemd/systemd-ssh-proxy %h %p
+    ProxyUseFdpass yes
+</pre>
+<p>
+<strong>/usr/lib/systemd/systemd-ssh-proxy</strong> [ADDRESS] [PORT]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>systemd-ssh-proxy</strong> is a small &#34;proxy&#34; plugin for the <strong>ssh*(1) tool that
+allows connecting to *AF_UNIX</strong> and <strong>AF_VSOCK</strong> sockets. It implements the
+interface defined by sshs <em>ProxyCommand</em> configuration option. Its
+supposed to be used with an *ssh_config*(5) configuration fragment like
+the following:</p>
+<blockquote>
+<pre class="example">
+Host unix/* vsock/*
+    ProxyCommand /usr/lib/systemd/systemd-ssh-proxy %h %p
+    ProxyUseFdpass yes
+    CheckHostIP no
+
+Host .host
+    ProxyCommand /usr/lib/systemd/systemd-ssh-proxy unix/run/ssh-unix-local/socket %p
+    ProxyUseFdpass yes
+    CheckHostIP no
+</pre>
+</blockquote>
+<p>
+A configuration fragment along these lines is by default installed into
+/etc/ssh/ssh_config.d/20-systemd-ssh-proxy.conf.in.</p>
+<p>
+With this in place, SSH connections to host string &#34;unix/&#34; followed by
+an absolute <strong>AF_UNIX</strong> file system path to a socket will be directed to
+the specified socket, which must be of type <strong>SOCK_STREAM</strong>. Similar, SSH
+connections to &#34;vsock/&#34; followed by an <strong>AF_VSOCK</strong> CID will result in an
+SSH connection made to that CID. Moreover connecting to &#34;.host&#34; will
+connect to the local host via SSH, without involving networking.</p>
+<p>
+This tool is supposed to be used together with
+<strong>systemd-ssh-generator*(8) which when run inside a VM or container will
+bind SSH to suitable addresses. *systemd-ssh-generator</strong> is supposed to
+run in the container of VM guest, and <strong>systemd-ssh-proxy</strong> is run on the
+host, in order to connect to the container or VM guest.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>On success, 0 is returned, a non-zero failure code otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>Example 1. Talk to a local VM with CID 4711</strong></p>
+<blockquote>
+<pre class="example">
+ssh vsock/4711
+</pre>
+</blockquote>
+<p>
+<strong>Example 2. Talk to the local host via ssh</strong></p>
+<blockquote>
+<pre class="example">
+ssh .host
+</pre>
+</blockquote>
+<p>
+or equivalent:</p>
+<blockquote>
+<pre class="example">
+ssh unix/run/ssh-unix-local/socket
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*systemd*(1), *systemd-ssh-generator*(8), *vsock*(7), *unix*(7),
+*ssh*(1), *sshd*(8)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

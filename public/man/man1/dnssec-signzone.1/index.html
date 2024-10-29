@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - dnssec-signzone.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - dnssec-signzone.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>dnssec-signzone - DNSSEC zone signing tool</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>dnssec-signzone</strong> [*-a*] [*-c* class] [*-d* directory] [*-D*] [*-E*
+engine] [*-e* end-time] [*-f* output-file] [*-g*] [*-h*] [*-i* interval]
+[*-I* input-format] [*-j* jitter] [*-K* directory] [*-k* key] [*-L*
+serial] [*-M* maxttl] [*-N* soa-serial-format] [*-o* origin] [*-O*
+output-format] [*-P*] [*-Q*] [*-q*] [*-R*] [*-S*] [*-s* start-time]
+[*-T* ttl] [*-t*] [*-u*] [*-v* level] [*-V*] [*-X* extended end-time]
+[*-x*] [*-z*] [*-3* salt] [*-H* iterations] [*-A*] {zonefile} [key…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>dnssec-signzone</strong> signs a zone; it generates NSEC and RRSIG records and
+produces a signed version of the zone. The security status of
+delegations from the signed zone (that is, whether the child zones are
+secure) is determined by the presence or absence of a <strong>keyset</strong> file for
+each child zone.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>This option verifies all generated signatures.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-c class</strong>
+</dt>
+<dd>This option specifies the DNS class of the zone.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-C</strong>
+</dt>
+<dd>This option sets compatibility mode, in which a
+<strong>keyset-zonename</strong> file is generated in addition to <strong>dsset-zonename</strong>
+when signing a zone, for use by older versions of <strong>dnssec-signzone</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-d directory</strong>
+</dt>
+<dd>This option indicates the directory where BIND 9
+should look for <strong>dsset-</strong> or <strong>keyset-</strong> files.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-D</strong>
+</dt>
+<dd>This option indicates that only those record types
+automatically managed by <strong>dnssec-signzone</strong>, i.e., RRSIG, NSEC, NSEC3
+and NSEC3PARAM records, should be included in the output. If smart
+signing (<em>-S</em>) is used, DNSKEY records are also included. The
+resulting file can be included in the original zone file with
+<strong>$INCLUDE</strong>. This option cannot be combined with <em>-O raw</em> or
+serial-number updating.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-E engine</strong>
+</dt>
+<dd>This option specifies the hardware to use for
+cryptographic operations, such as a secure key store used for signing,
+when applicable.
+
+When BIND 9 is built with OpenSSL, this needs to be set to the OpenSSL
+engine identifier that drives the cryptographic accelerator or
+hardware service module (usually <strong>pkcs11</strong>).</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-g</strong>
+</dt>
+<dd>This option indicates that DS records for child zones should
+be generated from a <strong>dsset-</strong> or <strong>keyset-</strong> file. Existing DS records
+are removed.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-K directory</strong>
+</dt>
+<dd>This option specifies the directory to search for
+DNSSEC keys. If not specified, it defaults to the current directory.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-k key</strong>
+</dt>
+<dd>This option tells BIND 9 to treat the specified key as a
+key-signing key, ignoring any key flags. This option may be specified
+multiple times.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-M maxttl</strong>
+</dt>
+<dd>This option sets the maximum TTL for the signed zone.
+Any TTL higher than <strong>maxttl</strong> in the input zone is reduced to <strong>maxttl</strong>
+in the output. This provides certainty as to the largest possible TTL
+in the signed zone, which is useful to know when rolling keys. The
+maxttl is the longest possible time before signatures that have been
+retrieved by resolvers expire from resolver caches. Zones that are
+signed with this option should be configured to use a matching
+<strong>max-zone-ttl</strong> in <em>named.conf</em>. (Note: This option is incompatible
+with <em>-D</em>, because it modifies non-DNSSEC data in the output zone.)</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-s start-time</strong>
+</dt>
+<dd>This option specifies the date and time when the
+generated RRSIG records become valid. This can be either an absolute
+or relative time. An absolute start time is indicated by a number in
+YYYYMMDDHHMMSS notation; 20000530144500 denotes 14:45:00 UTC on May
+30th, 2000. A relative start time is indicated by <strong>+N</strong>, which is N
+seconds from the current time. If no <strong>start-time</strong> is specified, the
+current time minus 1 hour (to allow for clock skew) is used.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-e end-time</strong>
+</dt>
+<dd>This option specifies the date and time when the
+generated RRSIG records expire. As with <strong>start-time</strong>, an absolute time
+is indicated in YYYYMMDDHHMMSS notation. A time relative to the start
+time is indicated with <strong>+N</strong>, which is N seconds from the start time. A
+time relative to the current time is indicated with <strong>now+N</strong>. If no
+<strong>end-time</strong> is specified, 30 days from the start time is the default.
+<strong>end-time</strong> must be later than <strong>start-time</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-X extended end-time</strong>
+</dt>
+<dd>This option specifies the date and time when
+the generated RRSIG records for the DNSKEY RRset expire. This is to be
+used in cases when the DNSKEY signatures need to persist longer than
+signatures on other records; e.g., when the private component of the
+KSK is kept offline and the KSK signature is to be refreshed manually.
+
+As with <strong>end-time</strong>, an absolute time is indicated in YYYYMMDDHHMMSS
+notation. A time relative to the start time is indicated with <strong>+N</strong>,
+which is N seconds from the start time. A time relative to the current
+time is indicated with <strong>now+N</strong>. If no <strong>extended end-time</strong> is
+specified, the value of <strong>end-time</strong> is used as the default.
+(<strong>end-time</strong>, in turn, defaults to 30 days from the start time.)
+<strong>extended end-time</strong> must be later than <strong>start-time</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-f output-file</strong>
+</dt>
+<dd>This option indicates the name of the output file
+containing the signed zone. The default is to append <strong>.signed</strong> to the
+input filename. If <strong>output-file</strong> is set to <strong>-</strong>, then the signed zone
+is written to the standard output, with a default output format of
+<strong>full</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>This option prints a short summary of the options and
+arguments to <strong>dnssec-signzone</strong>.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>This option prints version information.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-i interval</strong>
+</dt>
+<dd>This option indicates that, when a previously signed
+zone is passed as input, records may be re-signed. The <strong>interval</strong>
+option specifies the cycle interval as an offset from the current
+time, in seconds. If a RRSIG record expires after the cycle interval,
+it is retained; otherwise, it is considered to be expiring soon and it
+is replaced.
+
+The default cycle interval is one quarter of the difference between
+the signature end and start times. So if neither <strong>end-time</strong> nor
+<strong>start-time</strong> is specified, <strong>dnssec-signzone</strong> generates signatures that
+are valid for 30 days, with a cycle interval of 7.5 days. Therefore,
+if any existing RRSIG records are due to expire in less than 7.5 days,
+they are replaced.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-I input-format</strong>
+</dt>
+<dd>This option sets the format of the input zone
+file. Possible formats are <strong>text</strong> (the default), and <strong>raw</strong>. This
+option is primarily intended to be used for dynamic signed zones, so
+that the dumped zone file in a non-text format containing updates can
+be signed directly. This option is not useful for non-dynamic zones.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-j jitter</strong>
+</dt>
+<dd>When signing a zone with a fixed signature lifetime,
+all RRSIG records issued at the time of signing expire simultaneously.
+If the zone is incrementally signed, i.e., a previously signed zone is
+passed as input to the signer, all expired signatures must be
+regenerated at approximately the same time. The <strong>jitter</strong> option
+specifies a jitter window that is used to randomize the signature
+expire time, thus spreading incremental signature regeneration over
+time.
+
+Signature lifetime jitter also, to some extent, benefits validators
+and servers by spreading out cache expiration, i.e., if large numbers
+of RRSIGs do not expire at the same time from all caches, there is
+less congestion than if all validators need to refetch at around the
+same time.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-L serial</strong>
+</dt>
+<dd>When writing a signed zone to &#34;raw&#34; format, this option
+sets the &#34;source serial&#34; value in the header to the specified <strong>serial</strong>
+number. (This is expected to be used primarily for testing purposes.)</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-n ncpus</strong>
+</dt>
+<dd>This option specifies the number of threads to use. By
+default, one thread is started for each detected CPU.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-N soa-serial-format</strong>
+</dt>
+<dd>
+<p>This option sets the SOA serial number
+format of the signed zone. Possible formats are <strong>keep</strong> (the default),
+<strong>increment</strong>, <strong>unixtime</strong>, and <strong>date</strong>.</p>
+<dl>
+<dt>
+<strong>keep</strong>
+</dt>
+<dd>This format indicates that the SOA serial number should
+not be modified.</dd>
+<dt>
+<strong>increment</strong>
+</dt>
+<dd>This format increments the SOA serial number using
+<em>RFC 1982</em> arithmetic.</dd>
+<dt>
+<strong>unixtime</strong>
+</dt>
+<dd>This format sets the SOA serial number to the number
+of seconds since the beginning of the Unix epoch, unless the serial
+number is already greater than or equal to that value, in which case
+it is simply incremented by one.</dd>
+<dt>
+<strong>date</strong>
+</dt>
+<dd>This format sets the SOA serial number to today&#39;s date, in
+YYYYMMDDNN format, unless the serial number is already greater than
+or equal to that value, in which case it is simply incremented by
+one.</dd>
+</dl>
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-o origin</strong>
+</dt>
+<dd>This option sets the zone origin. If not specified, the
+name of the zone file is assumed to be the origin.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-O output-format</strong>
+</dt>
+<dd>This option sets the format of the output file
+containing the signed zone. Possible formats are <strong>text</strong> (the default),
+which is the standard textual representation of the zone; <strong>full</strong>,
+which is text output in a format suitable for processing by external
+scripts; and <strong>raw</strong> and <strong>raw=N</strong>, which store the zone in binary formats
+for rapid loading by <em>named</em>. <strong>raw=N</strong> specifies the format version of
+the raw zone file: if N is 0, the raw file can be read by any version
+of <em>named</em>; if N is 1, the file can be read by release 9.9.0 or
+higher. The default is 1.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-P</strong>
+</dt>
+<dd>This option disables post-sign verification tests.
+
+The post-sign verification tests ensure that for each algorithm in use
+there is at least one non-revoked self-signed KSK key, that all
+revoked KSK keys are self-signed, and that all records in the zone are
+signed by the algorithm. This option skips these tests.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-Q</strong>
+</dt>
+<dd>This option removes signatures from keys that are no longer
+active.
+
+Normally, when a previously signed zone is passed as input to the
+signer, and a DNSKEY record has been removed and replaced with a new
+one, signatures from the old key that are still within their validity
+period are retained. This allows the zone to continue to validate with
+cached copies of the old DNSKEY RRset. The <em>-Q</em> option forces
+<strong>dnssec-signzone</strong> to remove signatures from keys that are no longer
+active. This enables ZSK rollover using the procedure described in
+<em>RFC 6781#4.1.1.1</em> (&#34;Pre-Publish Key Rollover&#34;).</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-q</strong>
+</dt>
+<dd>This option enables quiet mode, which suppresses unnecessary
+output. Without this option, when <strong>dnssec-signzone</strong> is run it prints
+three pieces of information to standard output: the number of keys in
+use; the algorithms used to verify the zone was signed correctly and
+other status information; and the filename containing the signed zone.
+With the option that output is suppressed, leaving only the filename.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-R</strong>
+</dt>
+<dd>This option removes signatures from keys that are no longer
+published.
+
+This option is similar to <em>-Q</em>, except it forces <strong>dnssec-signzone</strong> to
+remove signatures from keys that are no longer published. This enables
+ZSK rollover using the procedure described in <em>RFC 6781#4.1.1.2</em>
+(&#34;Double Signature Zone Signing Key Rollover&#34;).</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-S</strong>
+</dt>
+<dd>
+<p>This option enables smart signing, which instructs
+<strong>dnssec-signzone</strong> to search the key repository for keys that match the
+zone being signed, and to include them in the zone if appropriate.</p>
+<p>
+When a key is found, its timing metadata is examined to determine how
+it should be used, according to the following rules. Each successive
+rule takes priority over the prior ones:</p>
+<blockquote>
+<p>If no timing metadata has been set for the key, the key is published
+in the zone and used to sign the zone.</p>
+<p>
+If the key&#39;s publication date is set and is in the past, the key is
+published in the zone.</p>
+<p>
+If the key&#39;s activation date is set and is in the past, the key is
+published (regardless of publication date) and used to sign the zone.</p>
+<p>
+If the key&#39;s revocation date is set and is in the past, and the key is
+published, then the key is revoked, and the revoked key is used to
+sign the zone.</p>
+<p>
+If either the key&#39;s unpublication or deletion date is set and in the
+past, the key is NOT published or used to sign the zone, regardless of
+any other metadata.</p>
+<p>
+If the key&#39;s sync publication date is set and is in the past,
+synchronization records (type CDS and/or CDNSKEY) are created.</p>
+<p>
+If the key&#39;s sync deletion date is set and is in the past,
+synchronization records (type CDS and/or CDNSKEY) are removed.</p>
+</blockquote>
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-T ttl</strong>
+</dt>
+<dd>This option specifies a TTL to be used for new DNSKEY
+records imported into the zone from the key repository. If not
+specified, the default is the TTL value from the zone&#39;s SOA record.
+This option is ignored when signing without <em>-S</em>, since DNSKEY records
+are not imported from the key repository in that case. It is also
+ignored if there are any pre-existing DNSKEY records at the zone apex,
+in which case new records&#39; TTL values are set to match them, or if any
+of the imported DNSKEY records had a default TTL value. In the event
+of a conflict between TTL values in imported keys, the shortest one is
+used.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-t</strong>
+</dt>
+<dd>This option prints statistics at completion.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-u</strong>
+</dt>
+<dd>This option updates the NSEC/NSEC3 chain when re-signing a
+previously signed zone. With this option, a zone signed with NSEC can
+be switched to NSEC3, or a zone signed with NSEC3 can be switched to
+NSEC or to NSEC3 with different parameters. Without this option,
+<strong>dnssec-signzone</strong> retains the existing chain when re-signing.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-v level</strong>
+</dt>
+<dd>This option sets the debugging level.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-x</strong>
+</dt>
+<dd>This option indicates that BIND 9 should only sign the DNSKEY,
+CDNSKEY, and CDS RRsets with key-signing keys, and should omit
+signatures from zone-signing keys. (This is similar to the
+<strong>dnssec-dnskey-kskonly yes;</strong> zone option in <em>named</em>.)</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-z</strong>
+</dt>
+<dd>This option indicates that BIND 9 should ignore the KSK flag
+on keys when determining what to sign. This causes KSK-flagged keys to
+sign all records, not just the DNSKEY RRset. (This is similar to the
+<strong>update-check-ksk no;</strong> zone option in <em>named</em>.)</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-3 salt</strong>
+</dt>
+<dd>
+<p>This option generates an NSEC3 chain with the given
+hex-encoded salt. A dash (-) can be used to indicate that no salt is
+to be used when generating the NSEC3 chain.</p>
+<p>
+<strong>NOTE:</strong></p>
+<blockquote>
+<p><strong>-3 -</strong> is the recommended configuration. Adding salt provides no
+practical benefits. See <em>RFC 9276</em>.</p>
+</blockquote>
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-H iterations</strong>
+</dt>
+<dd>
+<p>This option indicates that, when generating an
+NSEC3 chain, BIND 9 should use this many iterations. The default is 0.</p>
+<p>
+<strong>WARNING:</strong></p>
+<blockquote>
+<p>Values greater than 0 cause interoperability issues and also increase
+the risk of CPU-exhausting DoS attacks. See <em>RFC 9276</em>.</p>
+</blockquote>
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-A</strong>
+</dt>
+<dd>
+<p>This option indicates that, when generating an NSEC3 chain,
+BIND 9 should set the OPTOUT flag on all NSEC3 records and should not
+generate NSEC3 records for insecure delegations.</p>
+<p>
+<strong>WARNING:</strong></p>
+<blockquote>
+<p>Do not use this option unless all its implications are fully
+understood. This option is intended only for extremely large zones
+(comparable to <strong>com.</strong>) with sparse secure delegations. See <em>RFC 9276</em>.</p>
+</blockquote>
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-AA</strong>
+</dt>
+<dd>This option turns the OPTOUT flag off for all records. This
+is useful when using the <em>-u</em> option to modify an NSEC3 chain which
+previously had OPTOUT set.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>zonefile</strong>
+</dt>
+<dd>This option sets the file containing the zone to be
+signed.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>key</strong>
+</dt>
+<dd>This option specifies which keys should be used to sign the
+zone. If no keys are specified, the zone is examined for DNSKEY
+records at the zone apex. If these records are found and there are
+matching private keys in the current directory, they are used for
+signing.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLE
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following command signs the <strong>example.com</strong> zone with the
+ECDSAP256SHA256 key generated by <em>dnssec-keygen</em>
+(Kexample.com.+013+17247). Because the <em>-S</em> option is not being used,
+the zone&#39;s keys must be in the master file (<strong>db.example.com</strong>). This
+invocation looks for <strong>dsset</strong> files in the current directory, so that DS
+records can be imported from them (<em>-g</em>).</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+% dnssec-signzone -g -o example.com db.example.com \
+Kexample.com.+013+17247
+db.example.com.signed
+%
+</pre>
+</blockquote>
+</blockquote>
+<p>
+In the above example, <strong>dnssec-signzone</strong> creates the file
+<strong>db.example.com.signed</strong>. This file should be referenced in a zone
+statement in the <em>named.conf</em> file.</p>
+<p>
+This example re-signs a previously signed zone with default parameters.
+The private keys are assumed to be in the current directory.</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+% cp db.example.com.signed db.example.com
+% dnssec-signzone -o example.com db.example.com
+db.example.com.signed
+%
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><em>dnssec-keygen(8)</em>, BIND 9 Administrator Reference Manual, <em>RFC 4033</em>,
+<em>RFC 6781</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHOR
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Internet Systems Consortium</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>2024, Internet Systems Consortium</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

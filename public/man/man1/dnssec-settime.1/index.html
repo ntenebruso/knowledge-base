@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - dnssec-settime.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - dnssec-settime.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>dnssec-settime - set the key timing metadata for a DNSSEC key</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>dnssec-settime</strong> [*-f*] [*-K* directory] [*-L* ttl] [*-P* date/offset]
+[*-P* ds date/offset] [*-P* sync date/offset] [*-A* date/offset] [*-R*
+date/offset] [*-I* date/offset] [*-D* date/offset] [*-D* ds date/offset]
+[*-D* sync date/offset] [*-S* key] [*-i* interval] [*-h*] [*-V*] [*-v*
+level] [*-E* engine] {keyfile} [*-s*] [*-g* state] [*-d* state
+date/offset] [*-k* state date/offset] [*-r* state date/offset] [*-z*
+state date/offset]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>dnssec-settime</strong> reads a DNSSEC private key file and sets the key timing
+metadata as specified by the <em>-P</em>, <em>-A</em>, <em>-R</em>, <em>-I</em>, and <em>-D</em> options.
+The metadata can then be used by <em>dnssec-signzone</em> or other signing
+software to determine when a key is to be published, whether it should
+be used for signing a zone, etc.</p>
+<p>
+If none of these options is set on the command line, <strong>dnssec-settime</strong>
+simply prints the key timing metadata already stored in the key.</p>
+<p>
+When key metadata fields are changed, both files of a key pair
+(<strong>Knnnn.+aaa+iiiii.key</strong> and <strong>Knnnn.+aaa+iiiii.private</strong>) are regenerated.</p>
+<p>
+Metadata fields are stored in the private file. A human-readable
+description of the metadata is also placed in comments in the key file.
+The private file&#39;s permissions are always set to be inaccessible to
+anyone other than the owner (mode 0600).</p>
+<p>
+When working with state files, it is possible to update the timing
+metadata in those files as well with <em>-s</em>. With this option, it is also
+possible to update key states with <em>-d</em> (DS), <em>-k</em> (DNSKEY), <em>-r</em> (RRSIG
+of KSK), or <em>-z</em> (RRSIG of ZSK). Allowed states are HIDDEN, RUMOURED,
+OMNIPRESENT, and UNRETENTIVE.</p>
+<p>
+The goal state of the key can also be set with <em>-g</em>. This should be
+either HIDDEN or OMNIPRESENT, representing whether the key should be
+removed from the zone or published.</p>
+<p>
+It is NOT RECOMMENDED to manipulate state files manually, except for
+testing purposes.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-f</strong>
+</dt>
+<dd>This option forces an update of an old-format key with no
+metadata fields. Without this option, <strong>dnssec-settime</strong> fails when
+attempting to update a legacy key. With this option, the key is
+recreated in the new format, but with the original key data retained.
+The key&#39;s creation date is set to the present time. If no other values
+are specified, then the key&#39;s publication and activation dates are
+also set to the present time.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-K directory</strong>
+</dt>
+<dd>This option sets the directory in which the key
+files are to reside.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-L ttl</strong>
+</dt>
+<dd>This option sets the default TTL to use for this key when
+it is converted into a DNSKEY RR. This is the TTL used when the key is
+imported into a zone, unless there was already a DNSKEY RRset in
+place, in which case the existing TTL takes precedence. If this value
+is not set and there is no existing DNSKEY RRset, the TTL defaults to
+the SOA TTL. Setting the default TTL to <strong>0</strong> or <strong>none</strong> removes it from
+the key.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>This option emits a usage message and exits.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>This option prints version information.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-v level</strong>
+</dt>
+<dd>This option sets the debugging level.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-E engine</strong>
+</dt>
+<dd>This option specifies the cryptographic hardware to
+use, when applicable.
+
+When BIND 9 is built with OpenSSL, this needs to be set to the OpenSSL
+engine identifier that drives the cryptographic accelerator or
+hardware service module (usually <strong>pkcs11</strong>).</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+TIMING OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Dates can be expressed in the format YYYYMMDD or YYYYMMDDHHMMSS (which
+is the format used inside key files), or &#39;Day Mon DD HH:MM:SS YYYY&#39; (as
+printed by <strong>dnssec-settime -p</strong>), or UNIX epoch time (as printed by
+<strong>dnssec-settime -up</strong>), or the literal <strong>now</strong>.</p>
+<p>
+The argument can be followed by <strong>+</strong> or <strong>-</strong> and an offset from the given
+time. The literal <strong>now</strong> can be omitted before an offset. The offset can
+be followed by one of the suffixes <strong>y</strong>, <strong>mo</strong>, <strong>w</strong>, <strong>d</strong>, <strong>h</strong>, or <strong>mi</strong>, so
+that it is computed in years (defined as 365 24-hour days, ignoring leap
+years), months (defined as 30 24-hour days), weeks, days, hours, or
+minutes, respectively. Without a suffix, the offset is computed in
+seconds.</p>
+<p>
+To unset a date, use <strong>none</strong>, <strong>never</strong>, or <strong>unset</strong>.</p>
+<p>
+All these formats are case-insensitive.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>-P date/offset</strong>
+</dt>
+<dd>
+<p>This option sets the date on which a key is to be
+published to the zone. After that date, the key is included in the
+zone but is not used to sign it.</p>
+<dl>
+<dt>
+<strong>ds date/offset</strong>
+</dt>
+<dd>This option sets the date on which DS records
+that match this key have been seen in the parent zone.</dd>
+</dl>
+</dd>
+</dl>
+<blockquote>
+<dl>
+<dt>
+<strong>sync date/offset</strong>
+</dt>
+<dd>This option sets the date on which CDS and
+CDNSKEY records that match this key are to be published to the zone.</dd>
+</dl>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-A date/offset</strong>
+</dt>
+<dd>This option sets the date on which the key is to
+be activated. After that date, the key is included in the zone and
+used to sign it.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-R date/offset</strong>
+</dt>
+<dd>This option sets the date on which the key is to
+be revoked. After that date, the key is flagged as revoked. It is
+included in the zone and is used to sign it.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-I date/offset</strong>
+</dt>
+<dd>This option sets the date on which the key is to
+be retired. After that date, the key is still included in the zone,
+but it is not used to sign it.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-D date/offset</strong>
+</dt>
+<dd>
+<p>This option sets the date on which the key is to
+be deleted. After that date, the key is no longer included in the
+zone. (However, it may remain in the key repository.)</p>
+<dl>
+<dt>
+<strong>ds date/offset</strong>
+</dt>
+<dd>This option sets the date on which the DS
+records that match this key have been seen removed from the parent
+zone.</dd>
+</dl>
+</dd>
+</dl>
+<blockquote>
+<dl>
+<dt>
+<strong>sync date/offset</strong>
+</dt>
+<dd>This option sets the date on which the CDS and
+CDNSKEY records that match this key are to be deleted.</dd>
+</dl>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-S predecessor key</strong>
+</dt>
+<dd>This option selects a key for which the key
+being modified is an explicit successor. The name, algorithm, size,
+and type of the predecessor key must exactly match those of the key
+being modified. The activation date of the successor key is set to the
+inactivation date of the predecessor. The publication date is set to
+the activation date minus the prepublication interval, which defaults
+to 30 days.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-i interval</strong>
+</dt>
+<dd>This option sets the prepublication interval for a
+key. If set, then the publication and activation dates must be
+separated by at least this much time. If the activation date is
+specified but the publication date is not, the publication date
+defaults to this much time before the activation date; conversely, if
+the publication date is specified but not the activation date,
+activation is set to this much time after publication.
+
+If the key is being created as an explicit successor to another key,
+then the default prepublication interval is 30 days; otherwise it is
+zero.
+
+As with date offsets, if the argument is followed by one of the
+suffixes <strong>y</strong>, <strong>mo</strong>, <strong>w</strong>, <strong>d</strong>, <strong>h</strong>, or <strong>mi</strong>, the interval is measured
+in years, months, weeks, days, hours, or minutes, respectively.
+Without a suffix, the interval is measured in seconds.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+KEY STATE OPTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>To test dnssec-policy it may be necessary to construct keys with
+artificial state information; these options are used by the testing
+framework for that purpose, but should never be used in production.</p>
+<p>
+Known key states are HIDDEN, RUMOURED, OMNIPRESENT, and UNRETENTIVE.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>This option indicates that when setting key timing data, the
+state file should also be updated.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-g state</strong>
+</dt>
+<dd>This option sets the goal state for this key. Must be
+HIDDEN or OMNIPRESENT.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-d state date/offset</strong>
+</dt>
+<dd>This option sets the DS state for this key
+as of the specified date, offset from the current date.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-k state date/offset</strong>
+</dt>
+<dd>This option sets the DNSKEY state for this
+key as of the specified date, offset from the current date.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-r state date/offset</strong>
+</dt>
+<dd>This option sets the RRSIG (KSK) state for
+this key as of the specified date, offset from the current date.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-z state date/offset</strong>
+</dt>
+<dd>This option sets the RRSIG (ZSK) state for
+this key as of the specified date, offset from the current date.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+PRINTING OPTIONS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><strong>dnssec-settime</strong> can also be used to print the timing metadata
+associated with a key.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>-u</strong>
+</dt>
+<dd>This option indicates that times should be printed in Unix
+epoch format.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-p C/P/Pds/Psync/A/R/I/D/Dds/Dsync/all</strong>
+</dt>
+<dd>This option prints a
+specific metadata value or set of metadata values. The <em>-p</em> option may
+be followed by one or more of the following letters or strings to
+indicate which value or values to print: <strong>C</strong> for the creation date,
+<strong>P</strong> for the publication date, <strong>Pds` for the DS publication</strong> date,
+``Psync for the CDS and CDNSKEY publication date, <strong>A</strong> for the
+activation date, <strong>R</strong> for the revocation date, <strong>I</strong> for the inactivation
+date, <strong>D</strong> for the deletion date, <strong>Dds</strong> for the DS deletion date, and
+<strong>Dsync</strong> for the CDS and CDNSKEY deletion date. To print all of the
+metadata, use <strong>all</strong>.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><em>dnssec-keygen(8)</em>, <em>dnssec-signzone(8)</em>, BIND 9 Administrator Reference
+Manual, <em>RFC 5011</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+AUTHOR
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Internet Systems Consortium</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>2024, Internet Systems Consortium</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

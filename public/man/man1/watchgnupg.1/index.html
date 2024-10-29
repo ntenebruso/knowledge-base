@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - watchgnupg.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - watchgnupg.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>watchgnupg</strong> - Read and print logs from a socket</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>watchgnupg</strong> [*–force*] [*–verbose*] <em>socketname</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Most of the main utilities are able to write their log files to a Unix
+Domain socket if configured that way. <strong>watchgnupg</strong> is a simple listener
+for such a socket. It ameliorates the output with a time stamp and makes
+sure that long lines are not interspersed with log output from other
+utilities. This tool is not available for Windows.</p>
+<p>
+<strong>watchgnupg</strong> is commonly invoked as</p>
+<blockquote>
+<pre class="example">
+watchgnupg
+</pre>
+</blockquote>
+<p>
+which is a shorthand for</p>
+<blockquote>
+<pre class="example">
+watchgnupg --force $(gpgconf --list-dirs socketdir)/S.log
+</pre>
+</blockquote>
+<p>
+To watch GnuPG running with a different home directory, use</p>
+<blockquote>
+<pre class="example">
+watchgnupg --homedir DIR
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>watchgnupg</strong> understands these options:</p>
+<dl>
+<dt>
+<strong>–force</strong>
+</dt>
+<dd>Delete an already existing socket file. This option is
+implicitly used if no socket name has been given on the command line.</dd>
+<dt>
+<strong>–homedir <em>DIR</em></strong>
+</dt>
+<dd>If no socket name is given on the command line,
+pass <em>DIR</em> to gpgconf so that the socket for a GnuPG running with DIR
+has its home directory is used. Note that the environment variable
+<em>GNUPGHOME</em> is ignored by watchgnupg.</dd>
+<dt>
+<strong>–tcp <em>n</em></strong>
+</dt>
+<dd>Instead of reading from a local socket, listen for
+connects on TCP port <em>n</em>. A Unix domain socket can optionally also be
+given as a second source. This option does not use a default socket
+name.</dd>
+<dt>
+<strong>–time-only</strong>
+</dt>
+<dd>Do not print the date part of the timestamp.</dd>
+<dt>
+<strong>–verbose</strong>
+</dt>
+<dd>Enable extra informational output.</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>Print version of the program and exit.</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>Display a brief help page and exit.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<pre class="example">
+$ watchgnupg --time-only
+</pre>
+</blockquote>
+<p>
+This waits for connections on the local socket (e.g.
+‘//var/run/user/1234/gnupg/S.log/&#39;) and shows all log entries. To make
+this work the option <strong>log-file</strong> needs to be used with all modules which
+logs are to be shown. The suggested entry for the configuration files
+is:</p>
+<blockquote>
+<pre class="example">
+log-file socket://
+</pre>
+</blockquote>
+<p>
+If the default socket as given above and returned by &#34;echo $(gpgconf
+–list-dirs socketdir)/S.log&#34; is not desired an arbitrary socket name
+can be specified, for example ‘/socket:///home/foo/bar/mysocket/&#39;. For
+debugging purposes it is also possible to do remote logging. Take care
+if you use this feature because the information is send in the clear
+over the network. Use this syntax in the conf files:</p>
+<blockquote>
+<pre class="example">
+log-file tcp://192.168.1.1:4711
+</pre>
+</blockquote>
+<p>
+You may use any port and not just 4711 as shown above; only IP addresses
+are supported (v4 and v6) and no host names. You need to start
+<strong>watchgnupg</strong> with the <strong>tcp</strong> option. Note that under Windows the registry
+entry <em>HKCU§oftware\GNU\GnuPG:DefaultLogFile</em> can be used to change the
+default log output from <strong>stderr</strong> to whatever is given by that entry.
+However the only useful entry is a TCP name for remote debugging.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*gpg*(1), *gpgsm*(1), *gpg-agent*(1), *scdaemon*(1)</p>
+<p>
+The full documentation for this tool is maintained as a Texinfo manual.
+If GnuPG and the info program are properly installed at your site, the
+command</p>
+<blockquote>
+<pre class="example">
+info gnupg
+</pre>
+</blockquote>
+<p>
+should give you access to the complete manual including a menu structure
+and an index.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

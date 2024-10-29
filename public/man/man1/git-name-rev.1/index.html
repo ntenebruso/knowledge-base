@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-name-rev.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-name-rev.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-name-rev - Find symbolic names for given revs</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git name-rev [--tags] [--refs=&lt;pattern&gt;]
+               ( --all | --annotate-stdin | &lt;commit-ish&gt;... )
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Finds symbolic names suitable for human digestion for revisions given in
+any format parsable by <em>git rev-parse</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–tags</p>
+<blockquote>
+<p>Do not use branch names, but only tags to name the commits</p>
+</blockquote>
+<p>
+–refs=&lt;pattern&gt;</p>
+<blockquote>
+<p>Only use refs whose names match a given shell pattern. The pattern can
+be a branch name, a tag name, or a fully qualified ref name. If given
+multiple times, use refs whose names match any of the given shell
+patterns. Use <strong>–no-refs</strong> to clear any previous ref patterns given.</p>
+</blockquote>
+<p>
+–exclude=&lt;pattern&gt;</p>
+<blockquote>
+<p>Do not use any ref whose name matches a given shell pattern. The pattern
+can be one of branch name, tag name or fully qualified ref name. If
+given multiple times, a ref will be excluded when it matches any of the
+given patterns. When used together with –refs, a ref will be used as a
+match only when it matches at least one –refs pattern and does not
+match any –exclude patterns. Use <strong>–no-exclude</strong> to clear the list of
+exclude patterns.</p>
+</blockquote>
+<p>
+–all</p>
+<blockquote>
+<p>List all commits reachable from all refs</p>
+</blockquote>
+<p>
+–annotate-stdin</p>
+<blockquote>
+<p>Transform stdin by substituting all the 40-character SHA-1 hexes (say
+$hex) with &#34;$hex ($rev_name)&#34;. When used with --name-only, substitute
+with &#34;$rev_name&#34;, omitting $hex altogether. This option was called
+<strong>–stdin</strong> in older versions of Git.</p>
+<p>
+For example:</p>
+<blockquote>
+<pre class="example">
+$ cat sample.txt
+
+An abbreviated revision 2ae0a9cb82 will not be substituted.
+The full name after substitution is 2ae0a9cb8298185a94e5998086f380a355dd8907,
+while its tree object is 70d105cc79e63b81cfdcb08a15297c23e60b07ad
+
+$ git name-rev --annotate-stdin &lt;sample.txt
+
+An abbreviated revision 2ae0a9cb82 will not be substituted.
+The full name after substitution is 2ae0a9cb8298185a94e5998086f380a355dd8907 (master),
+while its tree object is 70d105cc79e63b81cfdcb08a15297c23e60b07ad
+
+$ git name-rev --name-only --annotate-stdin &lt;sample.txt
+
+An abbreviated revision 2ae0a9cb82 will not be substituted.
+The full name after substitution is master,
+while its tree object is 70d105cc79e63b81cfdcb08a15297c23e60b07ad
+</pre>
+</blockquote>
+</blockquote>
+<p>
+–name-only</p>
+<blockquote>
+<p>Instead of printing both the SHA-1 and the name, print only the name. If
+given with –tags the usual tag prefix of &#34;tags/&#34; is also omitted from
+the name, matching the output of <strong>git-describe</strong> more closely.</p>
+</blockquote>
+<p>
+–no-undefined</p>
+<blockquote>
+<p>Die with error code != 0 when a reference is undefined, instead of
+printing <strong>undefined</strong>.</p>
+</blockquote>
+<p>
+–always</p>
+<blockquote>
+<p>Show uniquely abbreviated commit object as fallback.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Given a commit, find out where it is relative to the local refs. Say
+somebody wrote you about that fantastic commit
+33db5f4d9027a10e477ccf054b2c1ab94f74c85a. Of course, you look into the
+commit, but that only tells you what happened, but not the context.</p>
+<p>
+Enter <em>git name-rev</em>:</p>
+<blockquote>
+<pre class="example">
+% git name-rev 33db5f4d9027a10e477ccf054b2c1ab94f74c85a
+33db5f4d9027a10e477ccf054b2c1ab94f74c85a tags/v0.99~940
+</pre>
+</blockquote>
+<p>
+Now you are wiser, because you know that it happened 940 revisions
+before v0.99.</p>
+<p>
+Another nice thing you can do is:</p>
+<blockquote>
+<pre class="example">
+% git log | git name-rev --annotate-stdin
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+GIT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

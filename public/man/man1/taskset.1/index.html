@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - taskset.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - taskset.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>taskset - set or retrieve a processs CPU affinity</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>taskset</strong> [options] <em>mask command</em> [/argument/…]</p>
+<p>
+<strong>taskset</strong> [options] <strong>-p</strong> [/mask/] <em>pid</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>taskset</strong> command is used to set or retrieve the CPU affinity of a
+running process given its <em>pid</em>, or to launch a new <em>command</em> with a
+given CPU affinity. CPU affinity is a scheduler property that &#34;bonds&#34; a
+process to a given set of CPUs on the system. The Linux scheduler will
+honor the given CPU affinity and the process will not run on any other
+CPUs. Note that the Linux scheduler also supports natural CPU affinity:
+the scheduler attempts to keep processes on the same CPU as long as
+practical for performance reasons. Therefore, forcing a specific CPU
+affinity is useful only in certain applications. The affinity of some
+processes like kernel per-CPU threads cannot be set.</p>
+<p>
+The CPU affinity is represented as a bitmask, with the lowest order bit
+corresponding to the first logical CPU and the highest order bit
+corresponding to the last logical CPU. Not all CPUs may exist on a given
+system but a mask may specify more CPUs than are present. A retrieved
+mask will reflect only the bits that correspond to CPUs physically on
+the system. If an invalid mask is given (i.e., one that corresponds to
+no valid CPUs on the current system) an error is returned. The masks may
+be specified in hexadecimal (with or without a leading &#34;0x&#34;), or as a
+CPU list with the <strong>–cpu-list</strong> option. For example,</p>
+<p>
+<strong>0x00000001</strong></p>
+<blockquote>
+<p>is processor #0,</p>
+</blockquote>
+<p>
+<strong>0x00000003</strong></p>
+<blockquote>
+<p>is processors #0 and #1,</p>
+</blockquote>
+<p>
+<strong>FFFFFFFF</strong></p>
+<blockquote>
+<p>is processors #0 through #31,</p>
+</blockquote>
+<p>
+<strong>0x32</strong></p>
+<blockquote>
+<p>is processors #1, #4, and #5,</p>
+</blockquote>
+<p>
+<strong>–cpu-list 0-2,6</strong></p>
+<blockquote>
+<p>is processors #0, #1, #2, and #6.</p>
+</blockquote>
+<p>
+<strong>–cpu-list 0-10:2</strong></p>
+<blockquote>
+<p>is processors #0, #2, #4, #6, #8 and #10. The suffix &#34;:N&#34; specifies
+stride in the range, for example 0-10:3 is interpreted as 0,3,6,9 list.</p>
+</blockquote>
+<p>
+When <strong>taskset</strong> returns, it is guaranteed that the given program has been
+scheduled to a legal CPU.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-a</strong>, <strong>–all-tasks</strong></p>
+<blockquote>
+<p>Set or retrieve the CPU affinity of all the tasks (threads) for a given
+PID.</p>
+</blockquote>
+<p>
+<strong>-c</strong>, <strong>–cpu-list</strong></p>
+<blockquote>
+<p>Interpret <em>mask</em> as numerical list of processors instead of a bitmask.
+Numbers are separated by commas and may include ranges. For example:
+<strong>0,5,8-11</strong>.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–pid</strong></p>
+<blockquote>
+<p>Operate on an existing PID and do not launch a new task.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+USAGE
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The default behavior is to run a new command with a given affinity mask:</p>
+<blockquote>
+<p><strong>taskset</strong> <em>mask</em> <em>command</em> [/arguments/]</p>
+</blockquote>
+<p>
+You can also retrieve the CPU affinity of an existing task:</p>
+<blockquote>
+<p><strong>taskset -p</strong> <em>pid</em></p>
+</blockquote>
+<p>
+Or set it:</p>
+<blockquote>
+<p><strong>taskset -p</strong> <em>mask pid</em></p>
+</blockquote>
+<p>
+When a cpu-list is specified for an existing process, the <strong>-p</strong> and <strong>-c</strong>
+options must be grouped together:</p>
+<blockquote>
+<p><strong>taskset -pc</strong> <em>cpu-list pid</em></p>
+</blockquote>
+<p>
+The <strong>–cpu-list</strong> form is applicable only for launching new commands:</p>
+<blockquote>
+<p><strong>taskset –cpu-list</strong> <em>cpu-list command</em></p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+PERMISSIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>A user can change the CPU affinity of a process belonging to the same
+user. A user must possess <strong>CAP_SYS_NICE</strong> to change the CPU affinity of a
+process belonging to another user. A user can retrieve the affinity mask
+of any process.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+RETURN VALUE
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><strong>taskset</strong> returns 0 in its affinity-getting mode as long as the provided
+PID exists.</p>
+<p>
+<strong>taskset</strong> returns 0 in its affinity-setting mode as long as the
+underlying *sched_setaffinity*(2) system call does. The success of the
+command does not guarantee that the specified thread has actually
+migrated to the indicated CPU(s), but only that the thread will not
+migrate to a CPU outside the new affinity mask. For example, the
+affinity of the kernel thread kswapd can be set, but the thread may not
+immediately migrate and is not guaranteed to ever do so:</p>
+<p>
+$ ps ax -o comm,psr,pid | grep kswapd\\
+kswapd0 4 82\\
+$ sudo taskset -p 1 82<br>
+pid 82&#39;s current affinity mask: 1<br>
+pid 82&#39;s new affinity mask: 1<br>
+$ echo $?<br>
+0<br>
+$ ps ax -o comm,psr,pid | grep kswapd\\
+kswapd0 4 82\\
+$ taskset -p 82<br>
+pid 82&#39;s current affinity mask: 1\\</p>
+<p>
+In contrast, when the user specifies an illegal affinity, taskset will
+print an error and return 1:</p>
+<p>
+$ ps ax -o comm,psr,pid | grep ksoftirqd/0\\
+ksoftirqd/0 0 14\\
+$ sudo taskset -p 1 14<br>
+pid 14&#39;s current affinity mask: 1<br>
+taskset: failed to set pid 14&#39;s affinity: Invalid argument<br>
+$ echo $?<br>
+1\\</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHORS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Written by Robert M. Love.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Copyright © 2004 Robert M. Love. This is free software; see the source
+for copying conditions. There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>*chrt*(1), *nice*(1), *renice*(1), *sched_getaffinity*(2),
+*sched_setaffinity*(2)</p>
+<p>
+See *sched*(7) for a description of the Linux scheduling scheme.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>The <strong>taskset</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

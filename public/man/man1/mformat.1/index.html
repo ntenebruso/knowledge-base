@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - mformat.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - mformat.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Name
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>mformat - add an MSDOS filesystem to a low-level formatted floppy disk</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Note of warning
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>This manpage has been automatically generated from mtools&#39;s texinfo
+documentation, and may not be entirely accurate or complete. See the end
+of this man page for details.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Description
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <code class="verbatim">mformat</code> command is used to add an MS-DOS file system to a
+low-level formatted diskette. Its syntax is:</p>
+<pre class="example">
+mformat [-t cylinders|-T tot_sectors] [-h heads] [-s sectors]
+  [-f size] [-1] [-4] [-8]
+  [-v volume_label]
+  [-F] [-S sizecode]
+  [-M software_sector_size]
+  [-N serial_number] [-a]
+  [-C] [-H hidden_sectors] [-I fsVersion]
+  [-r root_sectors] [-L fat_len] 
+  [-B boot_sector] [-k]
+  [-m media_descriptor]
+  [-K backup_boot]
+  [-R nb_reserved_sectors]
+  [-c clusters_per_sector]
+  [-d fat_copies]
+  [-X] [-2 sectors_on_track_0] [-3]
+  [-0 rate_on_track_0] [-A rate_on_other_tracks]
+  drive:
+</pre>
+<p>
+<code class="verbatim">Mformat</code> adds a minimal MS-DOS file system (boot sector, FAT, and root
+directory) to a diskette that has already been formatted by a Unix
+low-level format.</p>
+<p>
+The following options are supported: (The S, 2, 1 and M options may not
+exist if this copy of mtools has been compiled without the USE_2M
+option)</p>
+<p>
+The following options are the same as for MS-DOS&#39;s format command:</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Options
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<code class="verbatim">v</code> 
+</dt>
+<dd>Specifies the volume label. A volume label identifies the disk
+and can be a maximum of 11 characters. If you omit the -v switch,
+mformat will assign no label to the disk.</dd>
+<dt>
+<code class="verbatim">f</code> 
+</dt>
+<dd>
+<p>Specifies the size of the DOS file system to format. Only a
+certain number of predefined sizes are supported by this flag; for
+others use the -h/-t/-s flags. The following sizes are supported:</p>
+<dl>
+<dt>
+160 
+</dt>
+<dd>160K, single-sided, 8 sectors per track, 40 cylinders (for 5
+1/4 DD)</dd>
+<dt>
+180 
+</dt>
+<dd>160K, single-sided, 9 sectors per track, 40 cylinders (for 5
+1/4 DD)</dd>
+<dt>
+320 
+</dt>
+<dd>320K, double-sided, 8 sectors per track, 40 cylinders (for 5
+1/4 DD)</dd>
+<dt>
+360 
+</dt>
+<dd>360K, double-sided, 9 sectors per track, 40 cylinders (for 5
+1/4 DD)</dd>
+<dt>
+720 
+</dt>
+<dd>720K, double-sided, 9 sectors per track, 80 cylinders (for 3
+1/2 DD)</dd>
+<dt>
+1200 
+</dt>
+<dd>1200K, double-sided, 15 sectors per track, 80 cylinders
+(for 5 1/4 HD)</dd>
+<dt>
+1440 
+</dt>
+<dd>1440K, double-sided, 18 sectors per track, 80 cylinders
+(for 3 1/2 HD)</dd>
+<dt>
+2880 
+</dt>
+<dd>2880K, double-sided, 36 sectors per track, 80 cylinders
+(for 3 1/2 ED)</dd>
+</dl>
+</dd>
+<dt>
+<code class="verbatim">t</code> 
+</dt>
+<dd>Specifies the number of tracks on the disk.</dd>
+<dt>
+<code class="verbatim">T</code> 
+</dt>
+<dd>Specifies the number of total sectors on the disk. Only one of
+these 2 options may be specified (tracks or total sectors)</dd>
+<dt>
+<code class="verbatim">h</code> 
+</dt>
+<dd>The number of heads (sides).</dd>
+<dt>
+<code class="verbatim">s</code> 
+</dt>
+<dd>Specifies the number of sectors per track. If the 2m option is
+given, number of 512-byte sector equivalents on generic tracks (i.e.
+not head 0 track 0). If the 2m option is not given, number of physical
+sectors per track (which may be bigger than 512 bytes).</dd>
+<dt>
+<code class="verbatim">1</code> 
+</dt>
+<dd>Formats a single side (equivalent to -h 1)</dd>
+<dt>
+<code class="verbatim">4</code> 
+</dt>
+<dd>Formats a 360K double-sided disk (equivalent to -f 360). When
+used together with -the 1 switch, this switch formats a 180K disk</dd>
+<dt>
+<code class="verbatim">8</code> 
+</dt>
+<dd>Formats a disk with 8 sectors per track.</dd>
+</dl>
+<p>MS-DOS format&#39;s <code class="verbatim">q</code>, <code class="verbatim">u</code> and <code class="verbatim">b</code> options are not supported, and <code class="verbatim">s</code> has
+a different meaning.</p>
+<p>
+The following options are specific to mtools:</p>
+<dl>
+<dt>
+<code class="verbatim">F</code> 
+</dt>
+<dd>Format the partition as FAT32.</dd>
+<dt>
+<code class="verbatim">S</code> 
+</dt>
+<dd>The size code. The size of the sector is 2 ^ (sizecode + 7).</dd>
+<dt>
+<code class="verbatim">X</code> 
+</dt>
+<dd>formats the disk as an XDF disk. See section XDF, for more
+details. The disk has first to be low-level formatted using the
+xdfcopy utility included in the fdutils package. XDF disks are used
+for instance for OS/2 install disks.</dd>
+<dt>
+<code class="verbatim">2</code> 
+</dt>
+<dd>2m format. The parameter to this option describes the number
+of sectors on track 0, head 0. This option is recommended for sectors
+bigger than normal.</dd>
+<dt>
+<code class="verbatim">3</code> 
+</dt>
+<dd>don&#39;t use a 2m format, even if the current geometry of the
+disk is a 2m geometry.</dd>
+<dt>
+<code class="verbatim">0</code> 
+</dt>
+<dd>Data transfer rate on track 0</dd>
+<dt>
+<code class="verbatim">A</code> 
+</dt>
+<dd>Data transfer rate on tracks other than 0</dd>
+<dt>
+<code class="verbatim">M</code> 
+</dt>
+<dd>software sector size. This parameter describes the sector size
+in bytes used by the MS-DOS file system. By default it is the physical
+sector size.</dd>
+<dt>
+<code class="verbatim">N</code> 
+</dt>
+<dd>Uses the requested serial number, instead of generating one
+automatically</dd>
+<dt>
+<code class="verbatim">a</code> 
+</dt>
+<dd>If this option is given, an Atari style serial number is
+generated. Ataris store their serial number in the OEM label.</dd>
+<dt>
+<code class="verbatim">C</code> 
+</dt>
+<dd>creates the disk image file to install the MS-DOS file system
+on it. Obviously, this is useless on physical devices such as floppies
+and hard disk partitions, but is interesting for image files.</dd>
+<dt>
+<code class="verbatim">H</code> 
+</dt>
+<dd>number of hidden sectors. This parameter is useful for
+formatting hard disk partition, which are not aligned on track
+boundaries (i.e. first head of first track doesn&#39;t belong to the
+partition, but contains a partition table). In that case the number of
+hidden sectors is in general the number of sectors per cylinder. This
+is untested.</dd>
+<dt>
+<code class="verbatim">I</code> 
+</dt>
+<dd>Sets the fsVersion id when formatting a FAT32 drive. In order
+to find this out, run minfo on an existing FAT32 drive, and mail me
+about it, so I can include the correct value in future versions of
+mtools.</dd>
+<dt>
+<code class="verbatim">c</code> 
+</dt>
+<dd>Sets the size of a cluster (in sectors). If this cluster size
+would generate a FAT that too big for its number of bits, mtools
+automatically increases the cluster size, until the FAT is small
+enough. If no cluster size is specified explicitly, mtools uses a
+default value as described in section ``Number of sectors per
+cluster&#39;&#39; below.</dd>
+<dt>
+<code class="verbatim">d</code> 
+</dt>
+<dd>Sets the number of FAT copies. Default is 2. This setting can
+also be specified using the <code class="verbatim">MTOOLS_NFATS</code> environment variable.</dd>
+<dt>
+<code class="verbatim">r</code> 
+</dt>
+<dd>Sets the size of the root directory (in sectors). Only
+applicable to 12 and 16 bit FATs. This setting can also be specified
+using the <code class="verbatim">MTOOLS_DIR_LEN</code> environment variable.</dd>
+<dt>
+<code class="verbatim">L</code> 
+</dt>
+<dd>Sets the length of the FAT.</dd>
+<dt>
+<code class="verbatim">B</code> 
+</dt>
+<dd>Use the boot sector stored in the given file or device,
+instead of using its own. Only the geometry fields are updated to
+match the target disks parameters.</dd>
+<dt>
+<code class="verbatim">k</code> 
+</dt>
+<dd>Keep the existing boot sector as much as possible. Only the
+geometry fields and other similar file system data are updated to
+match the target disks parameters.</dd>
+<dt>
+<code class="verbatim">K</code> 
+</dt>
+<dd>Sets the sector number where the backup of the boot sector
+should be stored (only relevant on FAT32).</dd>
+<dt>
+<code class="verbatim">R</code> 
+</dt>
+<dd>Sets the number of reserved sectors for this filesystem. This
+must be at least 1 for non-FAT32 disks, and at least 3 for FAT disks
+(in order to accommodate the boot sector, the info sector and the
+backup boot sector).</dd>
+<dt>
+<code class="verbatim">m</code> 
+</dt>
+<dd>Use a non-standard media descriptor byte for this disk. The
+media descriptor is stored at position 21 of the boot sector, and as
+first byte in each FAT copy. Using this option may confuse DOS or
+older mtools version, and may make the disk unreadable. Only use if
+you know what you are doing.</dd>
+<dt>
+<code class="verbatim">b</code> 
+</dt>
+<dd>Use a non-standard bios disk number for this disk. By default,
+bios disk number is inferred from media descriptor: 0x80 for media
+descriptor 0xf8, or 0x00 otherwise.</dd>
+</dl>
+<p>To format a diskette at a density other than the default, you must
+supply (at least) those command line parameters that are different from
+the default.</p>
+<p>
+<code class="verbatim">Mformat</code> returns 0 on success or 1 on failure.</p>
+<p>
+It doesn&#39;t record bad block information to the Fat, use <code class="verbatim">mbadblocks</code> for
+that.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Number of sectors per cluster
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>If the user indicates no cluster size, mformat figures out a default
+value for it.</p>
+<p>
+For FAT32 it uses the following table to determine the number of sectors
+per cluster, depending on the total number of sectors on the filesystem.</p>
+<p>
+more than 32*1024*1024*2: 64 sectors<br>
+between 16*1024*1024*2 and 32*1024*1024*2: 32 sectors<br>
+between 8*1024*1024*2 and 16*1024*1024*2: 16 sectors<br>
+between 260*1024*2 and 81024*1024*2: 1 sectors\\</p>
+<p>
+This is derived from information on page 20 of Microsoft&#39;s <code class="verbatim">fatgen103</code>
+document, which currently can be found at the following address:</p>
+<p>
+<code class="verbatim">https://staff.washington.edu/dittrich/misc/fatgen103.pdf</code></p>
+<p>
+For FAT12 and FAT16, mformat uses an iterative approach, where it starts
+with a set value, which it doubles until it is able to fill up the disk
+using that cluster size and a number of cluster less than the maximum
+allowed.</p>
+<p>
+The starting value is 1 for disks with one head or less than 2000
+sectors, and 2 for disks with more than one head, and more than 2000
+sectors.</p>
+<p>
+The number of sectors per cluster cannot go beyond 128.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+See Also
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Mtools&#39; texinfo doc</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+Viewing the texi doc
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>This manpage has been automatically generated from mtools&#39;s texinfo
+documentation. However, this process is only approximative, and some
+items, such as crossreferences, footnotes and indices are lost in this
+translation process. Indeed, these items have no appropriate
+representation in the manpage format. Moreover, not all information has
+been translated into the manpage version. Thus I strongly advise you to
+use the original texinfo doc. See the end of this manpage for
+instructions how to view the texinfo doc.</p>
+<dl>
+<dt>
+* 
+</dt>
+<dd>To generate a printable copy from the texinfo doc, run the
+following commands:</dd>
+</dl>
+<pre class="example">
+    ./configure; make dvi; dvips mtools.dvi
+</pre>
+<dl>
+<dt>
+* 
+</dt>
+<dd>To generate a html copy, run:</dd>
+</dl>
+<pre class="example">
+    ./configure; make html
+</pre>
+<p>
+A premade html can be found at
+<code class="verbatim">∞http://www.gnu.org/software/mtools/manual/mtools.html∫</code></p>
+<dl>
+<dt>
+* 
+</dt>
+<dd>To generate an info copy (browsable using emacs&#39; info mode),
+run:</dd>
+</dl>
+<pre class="example">
+    ./configure; make info
+</pre>
+<p>
+The texinfo doc looks most pretty when printed or as html. Indeed, in
+the info version certain examples are difficult to read due to the
+quoting conventions used in info.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - rm.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - rm.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>rm - remove files or directories</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>rm</strong> [/OPTION/]… [/FILE/]…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This manual page documents the GNU version of <strong>rm</strong>. <strong>rm</strong> removes each
+specified file. By default, it does not remove directories.</p>
+<p>
+If the <em>-I</em> or <em>–interactive=once</em> option is given, and there are more
+than three files or the <em>-r</em>, <em>-R</em>, or <em>–recursive</em> are given, then
+<strong>rm</strong> prompts the user for whether to proceed with the entire operation.
+If the response is not affirmative, the entire command is aborted.</p>
+<p>
+Otherwise, if a file is unwritable, standard input is a terminal, and
+the <em>-f</em> or <em>–force</em> option is not given, or the <em>-i</em> or
+<em>–interactive=always</em> option is given, <strong>rm</strong> prompts the user for
+whether to remove the file. If the response is not affirmative, the file
+is skipped.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Remove (unlink) the FILE(s).</p>
+<dl>
+<dt>
+<strong>-f</strong>, <strong>–force</strong>
+</dt>
+<dd>ignore nonexistent files and arguments, never
+prompt</dd>
+<dt>
+<strong>-i</strong>
+</dt>
+<dd>prompt before every removal</dd>
+<dt>
+<strong>-I</strong>
+</dt>
+<dd>prompt once before removing more than three files, or when
+removing recursively; less intrusive than <strong>-i</strong>, while still giving
+protection against most mistakes</dd>
+<dt>
+<strong>–interactive</strong>[=/WHEN/]
+</dt>
+<dd>prompt according to WHEN: never, once
+(<strong>-I</strong>), or always (<strong>-i</strong>); without WHEN, prompt always</dd>
+<dt>
+<strong>–one-file-system</strong>
+</dt>
+<dd>when removing a hierarchy recursively, skip any
+directory that is on a file system different from that of the
+corresponding command line argument</dd>
+<dt>
+<strong>–no-preserve-root</strong>
+</dt>
+<dd>do not treat &#39;/&#39; specially</dd>
+<dt>
+<strong>–preserve-root</strong>[=/all/]
+</dt>
+<dd>do not remove &#39;/&#39; (default); with &#39;all&#39;,
+reject any command line argument on a separate device from its parent</dd>
+<dt>
+<strong>-r</strong>, <strong>-R</strong>, <strong>–recursive</strong>
+</dt>
+<dd>remove directories and their contents
+recursively</dd>
+<dt>
+<strong>-d</strong>, <strong>–dir</strong>
+</dt>
+<dd>remove empty directories</dd>
+<dt>
+<strong>-v</strong>, <strong>–verbose</strong>
+</dt>
+<dd>explain what is being done</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>By default, rm does not remove directories. Use the <strong>–recursive</strong> (<strong>-r</strong>
+or <strong>-R</strong>) option to remove each listed directory, too, along with all of
+its contents.</p>
+<p>
+Any attempt to remove a file whose last file name component is &#39;.&#39; or
+&#39;..&#39; is rejected with a diagnostic.</p>
+<p>
+To remove a file whose name starts with a &#39;-&#39;, for example &#39;-foo&#39;, use
+one of these commands:</p>
+<blockquote>
+<p>rm <strong>–</strong> <strong>-foo</strong></p>
+</blockquote>
+<blockquote>
+<p>rm ./-foo</p>
+</blockquote>
+<p>
+If you use rm to remove a file, it might be possible to recover some of
+its contents, given sufficient expertise and/or time. For greater
+assurance that the contents are unrecoverable, consider using
+*shred*(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHOR
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Written by Paul Rubin, David MacKenzie, Richard M. Stallman, and Jim
+Meyering.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*unlink*(1), *unlink*(2), *chattr*(1), *shred*(1)</p>
+<p>
+\\
+Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/rm">https://www.gnu.org/software/coreutils/rm</a>&gt;<br>
+or available locally via: info &#39;(coreutils) rm invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

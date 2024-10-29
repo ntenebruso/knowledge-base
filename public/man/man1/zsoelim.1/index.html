@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - zsoelim.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - zsoelim.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>zsoelim - satisfy .so requests in roff input</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>zsoelim</strong> [ <strong>-CVh</strong> ] [ <em>file</em> . . . ]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>zsoelim</strong> parses <em>file</em> arguments, or if none are specified, its
+standard input for lines of the form:</p>
+<p>
+<strong>.so</strong> &lt; <em>filename</em> &gt;</p>
+<p>
+These requests are replaced by the contents of the <em>filename</em> specified.
+If the request cannot be met, <strong>zsoelim</strong> looks for <em>filename.ext</em> where
+<em>.ext</em> can be one of <strong>.gz</strong>, <strong>.Z</strong> or <strong>.z</strong>. Other extension types may be
+supported depending upon compile time options. If the request can be met
+by a compressed file, this file is decompressed using an appropriate
+decompressor and its output is used to satisfy the request.</p>
+<p>
+Traditionally, <strong>soelim</strong> programs were used to allow roff preprocessors
+to be able to preprocess the files referred to by the requests. This
+particular version was written to circumvent problems created by support
+for compressed manual pages.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-C</strong>, <strong>–compatible</strong>
+</dt>
+<dd>This flag is available for compatibility with
+other <strong>soelim</strong> programs. Its use is to enable .so requests followed by
+something other than whitespace. As this is already the default
+behaviour, it is ignored.</dd>
+<dt>
+<strong>-h</strong>, <strong>–help</strong>
+</dt>
+<dd>Print a help message and exit.</dd>
+<dt>
+<strong>-V</strong>, <strong>–version</strong>
+</dt>
+<dd>Display version information.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>*groff*(1), *man*(1), *nroff*(1), *troff*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHOR
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<pre class="example">
+Wilf. (G.Wilford@ee.surrey.ac.uk).
+Fabrizio Polacco (fpolacco@debian.org).
+Colin Watson (cjwatson@debian.org).
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><a href="https://gitlab.com/man-db/man-db/-/issues">https://gitlab.com/man-db/man-db/-/issues</a><br>
+<a href="https://savannah.nongnu.org/bugs/?group=man-db">https://savannah.nongnu.org/bugs/?group=man-db</a></p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

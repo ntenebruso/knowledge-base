@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - ls.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - ls.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>ls - list directory contents</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>ls</strong> [/OPTION/]… [/FILE/]…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>List information about the FILEs (the current directory by default).
+Sort entries alphabetically if none of <strong>-cftuvSUX</strong> nor <strong>–sort</strong> is
+specified.</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<dl>
+<dt>
+<strong>-a</strong>, <strong>–all</strong>
+</dt>
+<dd>do not ignore entries starting with .</dd>
+<dt>
+<strong>-A</strong>, <strong>–almost-all</strong>
+</dt>
+<dd>do not list implied . and ..</dd>
+<dt>
+<strong>–author</strong>
+</dt>
+<dd>with <strong>-l</strong>, print the author of each file</dd>
+<dt>
+<strong>-b</strong>, <strong>–escape</strong>
+</dt>
+<dd>print C-style escapes for nongraphic characters</dd>
+<dt>
+*–block-size*=/SIZE/
+</dt>
+<dd>with <strong>-l</strong>, scale sizes by SIZE when printing
+them; e.g., &#39;–block-size=M&#39;; see SIZE format below</dd>
+<dt>
+<strong>-B</strong>, <strong>–ignore-backups</strong>
+</dt>
+<dd>do not list implied entries ending with ~</dd>
+<dt>
+<strong>-c</strong>
+</dt>
+<dd>with <strong>-lt</strong>: sort by, and show, ctime (time of last change of
+file status information); with <strong>-l</strong>: show ctime and sort by name;
+otherwise: sort by ctime, newest first</dd>
+<dt>
+<strong>-C</strong>
+</dt>
+<dd>list entries by columns</dd>
+<dt>
+<strong>–color</strong>[=/WHEN/]
+</dt>
+<dd>color the output WHEN; more info below</dd>
+<dt>
+<strong>-d</strong>, <strong>–directory</strong>
+</dt>
+<dd>list directories themselves, not their contents</dd>
+<dt>
+<strong>-D</strong>, <strong>–dired</strong>
+</dt>
+<dd>generate output designed for Emacs&#39; dired mode</dd>
+<dt>
+<strong>-f</strong>
+</dt>
+<dd>do not sort, enable <strong>-aU</strong>, disable <strong>-ls</strong> <strong>–color</strong></dd>
+<dt>
+<strong>-F</strong>, <strong>–classify</strong>[=/WHEN/]
+</dt>
+<dd>append indicator (one of */=&gt;@|) to
+entries WHEN</dd>
+<dt>
+<strong>–file-type</strong>
+</dt>
+<dd>likewise, except do not append &#39;*&#39;</dd>
+<dt>
+*–format*=/WORD/
+</dt>
+<dd>across <strong>-x</strong>, commas <strong>-m</strong>, horizontal <strong>-x</strong>, long
+<strong>-l</strong>, single-column <strong>-1</strong>, verbose <strong>-l</strong>, vertical <strong>-C</strong></dd>
+<dt>
+<strong>–full-time</strong>
+</dt>
+<dd>like <strong>-l</strong> *–time-style*=/full-iso/</dd>
+<dt>
+<strong>-g</strong>
+</dt>
+<dd>like <strong>-l</strong>, but do not list owner</dd>
+<dt>
+<strong>–group-directories-first</strong>
+</dt>
+<dd>group directories before files; can be
+augmented with a <strong>–sort</strong> option, but any use of <strong>–sort*=/none/
+(</strong>-U*) disables grouping</dd>
+<dt>
+<strong>-G</strong>, <strong>–no-group</strong>
+</dt>
+<dd>in a long listing, don&#39;t print group names</dd>
+<dt>
+<strong>-h</strong>, <strong>–human-readable</strong>
+</dt>
+<dd>with <strong>-l</strong> and <strong>-s</strong>, print sizes like 1K
+234M 2G etc.</dd>
+<dt>
+<strong>–si</strong>
+</dt>
+<dd>likewise, but use powers of 1000 not 1024</dd>
+<dt>
+<strong>-H</strong>, <strong>–dereference-command-line</strong>
+</dt>
+<dd>follow symbolic links listed on
+the command line</dd>
+<dt>
+<strong>–dereference-command-line-symlink-to-dir</strong>
+</dt>
+<dd>follow each command
+line symbolic link that points to a directory</dd>
+<dt>
+*–hide*=/PATTERN/
+</dt>
+<dd>do not list implied entries matching shell
+PATTERN (overridden by <strong>-a</strong> or <strong>-A</strong>)</dd>
+<dt>
+<strong>–hyperlink</strong>[=/WHEN/]
+</dt>
+<dd>hyperlink file names WHEN</dd>
+<dt>
+*–indicator-style*=/WORD/
+</dt>
+<dd>append indicator with style WORD to
+entry names: none (default), slash (<strong>-p</strong>), file-type (<strong>–file-type</strong>),
+classify (<strong>-F</strong>)</dd>
+<dt>
+<strong>-i</strong>, <strong>–inode</strong>
+</dt>
+<dd>print the index number of each file</dd>
+<dt>
+<strong>-I</strong>, *–ignore*=/PATTERN/
+</dt>
+<dd>do not list implied entries matching
+shell PATTERN</dd>
+<dt>
+<strong>-k</strong>, <strong>–kibibytes</strong>
+</dt>
+<dd>default to 1024-byte blocks for file system
+usage; used only with <strong>-s</strong> and per directory totals</dd>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>use a long listing format</dd>
+<dt>
+<strong>-L</strong>, <strong>–dereference</strong>
+</dt>
+<dd>when showing file information for a symbolic
+link, show information for the file the link references rather than
+for the link itself</dd>
+<dt>
+<strong>-m</strong>
+</dt>
+<dd>fill width with a comma separated list of entries</dd>
+<dt>
+<strong>-n</strong>, <strong>–numeric-uid-gid</strong>
+</dt>
+<dd>like <strong>-l</strong>, but list numeric user and
+group IDs</dd>
+<dt>
+<strong>-N</strong>, <strong>–literal</strong>
+</dt>
+<dd>print entry names without quoting</dd>
+<dt>
+<strong>-o</strong>
+</dt>
+<dd>like <strong>-l</strong>, but do not list group information</dd>
+<dt>
+<strong>-p</strong>, *–indicator-style*=/slash/
+</dt>
+<dd>append / indicator to directories</dd>
+<dt>
+<strong>-q</strong>, <strong>–hide-control-chars</strong>
+</dt>
+<dd>print ? instead of nongraphic
+characters</dd>
+<dt>
+<strong>–show-control-chars</strong>
+</dt>
+<dd>show nongraphic characters as-is (the
+default, unless program is &#39;ls&#39; and output is a terminal)</dd>
+<dt>
+<strong>-Q</strong>, <strong>–quote-name</strong>
+</dt>
+<dd>enclose entry names in double quotes</dd>
+<dt>
+*–quoting-style*=/WORD/
+</dt>
+<dd>use quoting style WORD for entry names:
+literal, locale, shell, shell-always, shell-escape,
+shell-escape-always, c, escape (overrides QUOTING_STYLE environment
+variable)</dd>
+<dt>
+<strong>-r</strong>, <strong>–reverse</strong>
+</dt>
+<dd>reverse order while sorting</dd>
+<dt>
+<strong>-R</strong>, <strong>–recursive</strong>
+</dt>
+<dd>list subdirectories recursively</dd>
+<dt>
+<strong>-s</strong>, <strong>–size</strong>
+</dt>
+<dd>print the allocated size of each file, in blocks</dd>
+<dt>
+<strong>-S</strong>
+</dt>
+<dd>sort by file size, largest first</dd>
+<dt>
+*–sort*=/WORD/
+</dt>
+<dd>sort by WORD instead of name: none (<strong>-U</strong>), size
+(<strong>-S</strong>), time (<strong>-t</strong>), version (<strong>-v</strong>), extension (<strong>-X</strong>), width</dd>
+<dt>
+*–time*=/WORD/
+</dt>
+<dd>select which timestamp used to display or sort;
+access time (<strong>-u</strong>): atime, access, use; metadata change time (<strong>-c</strong>):
+ctime, status; modified time (default): mtime, modification; birth
+time: birth, creation;
+
+with <strong>-l</strong>, WORD determines which time to show; with *–sort*=/time/,
+sort by WORD (newest first)</dd>
+<dt>
+*–time-style*=/TIME_STYLE/
+</dt>
+<dd>time/date format with <strong>-l</strong>; see
+TIME_STYLE below</dd>
+<dt>
+<strong>-t</strong>
+</dt>
+<dd>sort by time, newest first; see <strong>–time</strong></dd>
+<dt>
+<strong>-T</strong>, *–tabsize*=/COLS/
+</dt>
+<dd>assume tab stops at each COLS instead of 8</dd>
+<dt>
+<strong>-u</strong>
+</dt>
+<dd>with <strong>-lt</strong>: sort by, and show, access time; with <strong>-l</strong>: show
+access time and sort by name; otherwise: sort by access time, newest
+first</dd>
+<dt>
+<strong>-U</strong>
+</dt>
+<dd>do not sort; list entries in directory order</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>natural sort of (version) numbers within text</dd>
+<dt>
+<strong>-w</strong>, *–width*=/COLS/
+</dt>
+<dd>set output width to COLS. 0 means no limit</dd>
+<dt>
+<strong>-x</strong>
+</dt>
+<dd>list entries by lines instead of by columns</dd>
+<dt>
+<strong>-X</strong>
+</dt>
+<dd>sort alphabetically by entry extension</dd>
+<dt>
+<strong>-Z</strong>, <strong>–context</strong>
+</dt>
+<dd>print any security context of each file</dd>
+<dt>
+<strong>–zero</strong>
+</dt>
+<dd>end each output line with NUL, not newline</dd>
+<dt>
+<strong>-1</strong>
+</dt>
+<dd>list one file per line</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>The SIZE argument is an integer and optional unit (example: 10K is
+10*1024). Units are K,M,G,T,P,E,Z,Y,R,Q (powers of 1024) or KB,MB,…
+(powers of 1000). Binary prefixes can be used, too: KiB=K, MiB=M, and so
+on.</p>
+<p>
+The TIME_STYLE argument can be full-iso, long-iso, iso, locale, or
++FORMAT. FORMAT is interpreted like in *date*(1). If FORMAT is
+FORMAT1&lt;newline&gt;FORMAT2, then FORMAT1 applies to non-recent files and
+FORMAT2 to recent files. TIME_STYLE prefixed with &#39;posix-&#39; takes effect
+only outside the POSIX locale. Also the TIME_STYLE environment variable
+sets the default style to use.</p>
+<p>
+The WHEN argument defaults to &#39;always&#39; and can also be &#39;auto&#39; or
+&#39;never&#39;.</p>
+<p>
+Using color to distinguish file types is disabled both by default and
+with *–color*=/never/. With *–color*=/auto/, ls emits color codes only
+when standard output is connected to a terminal. The LS_COLORS
+environment variable can change the settings. Use the *dircolors*(1)
+command to set it.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Exit status:
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<dl>
+<dt>
+0
+</dt>
+<dd>if OK,</dd>
+<dt>
+1
+</dt>
+<dd>if minor problems (e.g., cannot access subdirectory),</dd>
+<dt>
+2
+</dt>
+<dd>if serious trouble (e.g., cannot access command-line argument).</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHOR
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Written by Richard M. Stallman and David MacKenzie.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*dircolors*(1)</p>
+<p>
+\\
+Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/ls">https://www.gnu.org/software/coreutils/ls</a>&gt;<br>
+or available locally via: info &#39;(coreutils) ls invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

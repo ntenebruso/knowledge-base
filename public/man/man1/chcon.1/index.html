@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - chcon.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - chcon.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>chcon - change file security context</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>chcon</strong> [/OPTION/]… <em>CONTEXT FILE</em>…<br>
+<strong>chcon</strong> [/OPTION/]… [/-u USER/] [/-r ROLE/] [/-l RANGE/] [/-t TYPE/]
+<em>FILE</em>…<br>
+<strong>chcon</strong> [/OPTION/]… <em>–reference=RFILE FILE</em>…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Change the SELinux security context of each FILE to CONTEXT. With
+<strong>–reference</strong>, change the security context of each FILE to that of
+RFILE.</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<dl>
+<dt>
+<strong>–dereference</strong>
+</dt>
+<dd>affect the referent of each symbolic link (this is
+the default), rather than the symbolic link itself</dd>
+<dt>
+<strong>-h</strong>, <strong>–no-dereference</strong>
+</dt>
+<dd>affect symbolic links instead of any
+referenced file</dd>
+<dt>
+<strong>-u</strong>, *–user*=/USER/
+</dt>
+<dd>set user USER in the target security context</dd>
+<dt>
+<strong>-r</strong>, *–role*=/ROLE/
+</dt>
+<dd>set role ROLE in the target security context</dd>
+<dt>
+<strong>-t</strong>, *–type*=/TYPE/
+</dt>
+<dd>set type TYPE in the target security context</dd>
+<dt>
+<strong>-l</strong>, *–range*=/RANGE/
+</dt>
+<dd>set range RANGE in the target security
+context</dd>
+<dt>
+<strong>–no-preserve-root</strong>
+</dt>
+<dd>do not treat &#39;/&#39; specially (the default)</dd>
+<dt>
+<strong>–preserve-root</strong>
+</dt>
+<dd>fail to operate recursively on &#39;/&#39;</dd>
+<dt>
+*–reference*=/RFILE/
+</dt>
+<dd>use RFILE&#39;s security context rather than
+specifying a CONTEXT value</dd>
+<dt>
+<strong>-R</strong>, <strong>–recursive</strong>
+</dt>
+<dd>operate on files and directories recursively</dd>
+<dt>
+<strong>-v</strong>, <strong>–verbose</strong>
+</dt>
+<dd>output a diagnostic for every file processed</dd>
+</dl>
+<p>The following options modify how a hierarchy is traversed when the <strong>-R</strong>
+option is also specified. If more than one is specified, only the final
+one takes effect.</p>
+<dl>
+<dt>
+<strong>-H</strong>
+</dt>
+<dd>if a command line argument is a symbolic link to a directory,
+traverse it</dd>
+<dt>
+<strong>-L</strong>
+</dt>
+<dd>traverse every symbolic link to a directory encountered</dd>
+<dt>
+<strong>-P</strong>
+</dt>
+<dd>do not traverse any symbolic links (default)</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+AUTHOR
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Written by Russell Coker and Jim Meyering.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/chcon">https://www.gnu.org/software/coreutils/chcon</a>&gt;<br>
+or available locally via: info &#39;(coreutils) chcon invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

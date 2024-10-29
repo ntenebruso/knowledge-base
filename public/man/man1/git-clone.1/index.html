@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-clone.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-clone.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-clone - Clone a repository into a new directory</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git clone [--template=&lt;template-directory&gt;]
+          [-l] [-s] [--no-hardlinks] [-q] [-n] [--bare] [--mirror]
+          [-o &lt;name&gt;] [-b &lt;name&gt;] [-u &lt;upload-pack&gt;] [--reference &lt;repository&gt;]
+          [--dissociate] [--separate-git-dir &lt;git-dir&gt;]
+          [--depth &lt;depth&gt;] [--[no-]single-branch] [--no-tags]
+          [--recurse-submodules[=&lt;pathspec&gt;]] [--[no-]shallow-submodules]
+          [--[no-]remote-submodules] [--jobs &lt;n&gt;] [--sparse] [--[no-]reject-shallow]
+          [--filter=&lt;filter-spec&gt;] [--also-filter-submodules]] [--] &lt;repository&gt;
+          [&lt;directory&gt;]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Clones a repository into a newly created directory, creates
+remote-tracking branches for each branch in the cloned repository
+(visible using <strong>git branch –remotes</strong>), and creates and checks out an
+initial branch that is forked from the cloned repository&#39;s currently
+active branch.</p>
+<p>
+After the clone, a plain <strong>git fetch</strong> without arguments will update all
+the remote-tracking branches, and a <strong>git pull</strong> without arguments will in
+addition merge the remote master branch into the current master branch,
+if any (this is untrue when <strong>–single-branch</strong> is given; see below).</p>
+<p>
+This default configuration is achieved by creating references to the
+remote branch heads under <strong>refs/remotes/origin</strong> and by initializing
+<strong>remote.origin.url</strong> and <strong>remote.origin.fetch</strong> configuration variables.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-l</strong>, <strong>–local</strong></p>
+<blockquote>
+<p>When the repository to clone from is on a local machine, this flag
+bypasses the normal &#34;Git aware&#34; transport mechanism and clones the
+repository by making a copy of <strong>HEAD</strong> and everything under objects and
+refs directories. The files under <strong>.git/objects/</strong> directory are
+hardlinked to save space when possible.</p>
+<p>
+If the repository is specified as a local path (e.g., <strong>/path/to/repo</strong>),
+this is the default, and –local is essentially a no-op. If the
+repository is specified as a URL, then this flag is ignored (and we
+never use the local optimizations). Specifying <strong>–no-local</strong> will
+override the default when <strong>/path/to/repo</strong> is given, using the regular
+Git transport instead.</p>
+<p>
+If the repository&#39;s <strong>$GIT_DIR/objects</strong> has symbolic links or is a
+symbolic link, the clone will fail. This is a security measure to
+prevent the unintentional copying of files by dereferencing the symbolic
+links.</p>
+<p>
+<strong>NOTE</strong>: this operation can race with concurrent modification to the
+source repository, similar to running <strong>cp -r src dst</strong> while modifying
+<strong>src</strong>.</p>
+</blockquote>
+<p>
+<strong>–no-hardlinks</strong></p>
+<blockquote>
+<p>Force the cloning process from a repository on a local filesystem to
+copy the files under the <strong>.git/objects</strong> directory instead of using
+hardlinks. This may be desirable if you are trying to make a back-up of
+your repository.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–shared</strong></p>
+<blockquote>
+<p>When the repository to clone is on the local machine, instead of using
+hard links, automatically setup <strong>.git/objects/info/alternates</strong> to share
+the objects with the source repository. The resulting repository starts
+out without any object of its own.</p>
+<p>
+<strong>NOTE</strong>: this is a possibly dangerous operation; do <strong>not</strong> use it unless
+you understand what it does. If you clone your repository using this
+option and then delete branches (or use any other Git command that makes
+any existing commit unreferenced) in the source repository, some objects
+may become unreferenced (or dangling). These objects may be removed by
+normal Git operations (such as <strong>git commit</strong>) which automatically call
+<strong>git maintenance run –auto</strong>. (See *git-maintenance*(1).) If these
+objects are removed and were referenced by the cloned repository, then
+the cloned repository will become corrupt.</p>
+<p>
+Note that running <strong>git repack</strong> without the <strong>–local</strong> option in a
+repository cloned with <strong>–shared</strong> will copy objects from the source
+repository into a pack in the cloned repository, removing the disk space
+savings of <strong>clone –shared</strong>. It is safe, however, to run <strong>git gc</strong>, which
+uses the <strong>–local</strong> option by default.</p>
+<p>
+If you want to break the dependency of a repository cloned with
+<strong>–shared</strong> on its source repository, you can simply run <strong>git repack -a</strong>
+to copy all objects from the source repository into a pack in the cloned
+repository.</p>
+</blockquote>
+<p>
+<strong>–reference</strong>[*-if-able*] <em>&lt;repository&gt;</em></p>
+<blockquote>
+<p>If the reference <em>&lt;repository&gt;</em> is on the local machine, automatically
+setup <strong>.git/objects/info/alternates</strong> to obtain objects from the
+reference <em>&lt;repository&gt;</em>. Using an already existing repository as an
+alternate will require fewer objects to be copied from the repository
+being cloned, reducing network and local storage costs. When using the
+<strong>–reference-if-able</strong>, a non existing directory is skipped with a
+warning instead of aborting the clone.</p>
+<p>
+<strong>NOTE</strong>: see the NOTE for the <strong>–shared</strong> option, and also the
+<strong>–dissociate</strong> option.</p>
+</blockquote>
+<p>
+<strong>–dissociate</strong></p>
+<blockquote>
+<p>Borrow the objects from reference repositories specified with the
+<strong>–reference</strong> options only to reduce network transfer, and stop
+borrowing from them after a clone is made by making necessary local
+copies of borrowed objects. This option can also be used when cloning
+locally from a repository that already borrows objects from another
+repository—the new repository will borrow objects from the same
+repository, and this option can be used to stop the borrowing.</p>
+</blockquote>
+<p>
+<strong>-q</strong>, <strong>–quiet</strong></p>
+<blockquote>
+<p>Operate quietly. Progress is not reported to the standard error stream.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Run verbosely. Does not affect the reporting of progress status to the
+standard error stream.</p>
+</blockquote>
+<p>
+<strong>–progress</strong></p>
+<blockquote>
+<p>Progress status is reported on the standard error stream by default when
+it is attached to a terminal, unless <strong>–quiet</strong> is specified. This flag
+forces progress status even if the standard error stream is not directed
+to a terminal.</p>
+</blockquote>
+<p>
+*–server-option=*/&lt;option&gt;/</p>
+<blockquote>
+<p>Transmit the given string to the server when communicating using
+protocol version 2. The given string must not contain a NUL or LF
+character. The server&#39;s handling of server options, including unknown
+ones, is server-specific. When multiple *–server-option=*/&lt;option&gt;/ are
+given, they are all sent to the other side in the order listed on the
+command line.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–no-checkout</strong></p>
+<blockquote>
+<p>No checkout of HEAD is performed after the clone is complete.</p>
+</blockquote>
+<p>
+<strong>–</strong>[*no-<strong>]*reject-shallow</strong></p>
+<blockquote>
+<p>Fail if the source repository is a shallow repository. The
+<strong>clone.rejectShallow</strong> configuration variable can be used to specify the
+default.</p>
+</blockquote>
+<p>
+<strong>–bare</strong></p>
+<blockquote>
+<p>Make a <em>bare</em> Git repository. That is, instead of creating <em>&lt;directory&gt;</em>
+and placing the administrative files in <em>&lt;directory&gt;/*</em>.git*, make the
+<em>&lt;directory&gt;</em> itself the <strong>$GIT_DIR</strong>. This obviously implies the
+<strong>–no-checkout</strong> because there is nowhere to check out the working tree.
+Also the branch heads at the remote are copied directly to corresponding
+local branch heads, without mapping them to <strong>refs/remotes/origin/</strong>. When
+this option is used, neither remote-tracking branches nor the related
+configuration variables are created.</p>
+</blockquote>
+<p>
+<strong>–sparse</strong></p>
+<blockquote>
+<p>Employ a sparse-checkout, with only files in the toplevel directory
+initially being present. The *git-sparse-checkout*(1) command can be
+used to grow the working directory as needed.</p>
+</blockquote>
+<p>
+*–filter=*/&lt;filter-spec&gt;/</p>
+<blockquote>
+<p>Use the partial clone feature and request that the server sends a subset
+of reachable objects according to a given object filter. When using
+<strong>–filter</strong>, the supplied <em>&lt;filter-spec&gt;</em> is used for the partial clone
+filter. For example, <strong>–filter=blob:none</strong> will filter out all blobs
+(file contents) until needed by Git. Also,
+*–filter=blob:limit=*/&lt;size&gt;/ will filter out all blobs of size at
+least <em>&lt;size&gt;</em>. For more details on filter specifications, see the
+<strong>–filter</strong> option in *git-rev-list*(1).</p>
+</blockquote>
+<p>
+<strong>–also-filter-submodules</strong></p>
+<blockquote>
+<p>Also apply the partial clone filter to any submodules in the repository.
+Requires <strong>–filter</strong> and <strong>–recurse-submodules</strong>. This can be turned on by
+default by setting the <strong>clone.filterSubmodules</strong> config option.</p>
+</blockquote>
+<p>
+<strong>–mirror</strong></p>
+<blockquote>
+<p>Set up a mirror of the source repository. This implies <strong>–bare</strong>.
+Compared to <strong>–bare</strong>, <strong>–mirror</strong> not only maps local branches of the
+source to local branches of the target, it maps all refs (including
+remote-tracking branches, notes etc.) and sets up a refspec
+configuration such that all these refs are overwritten by a <strong>git remote
+update</strong> in the target repository.</p>
+</blockquote>
+<p>
+<strong>-o</strong> <em>&lt;name&gt;</em>, <strong>–origin</strong> <em>&lt;name&gt;</em></p>
+<blockquote>
+<p>Instead of using the remote name <strong>origin</strong> to keep track of the upstream
+repository, use <em>&lt;name&gt;</em>. Overrides <strong>clone.defaultRemoteName</strong> from the
+config.</p>
+</blockquote>
+<p>
+<strong>-b</strong> <em>&lt;name&gt;</em>, <strong>–branch</strong> <em>&lt;name&gt;</em></p>
+<blockquote>
+<p>Instead of pointing the newly created HEAD to the branch pointed to by
+the cloned repository&#39;s HEAD, point to <em>&lt;name&gt;</em> branch instead. In a
+non-bare repository, this is the branch that will be checked out.
+<strong>–branch</strong> can also take tags and detaches the HEAD at that commit in
+the resulting repository.</p>
+</blockquote>
+<p>
+<strong>-u</strong> <em>&lt;upload-pack&gt;</em>, <strong>–upload-pack</strong> <em>&lt;upload-pack&gt;</em></p>
+<blockquote>
+<p>When given, and the repository to clone from is accessed via ssh, this
+specifies a non-default path for the command run on the other end.</p>
+</blockquote>
+<p>
+*–template=*/&lt;template-directory&gt;/</p>
+<blockquote>
+<p>Specify the directory from which templates will be used; (See the
+&#34;TEMPLATE DIRECTORY&#34; section of *git-init*(1).)</p>
+</blockquote>
+<p>
+<strong>-c</strong> <em>&lt;key&gt;/*=*/&lt;value&gt;</em>, <strong>–config</strong> <em>&lt;key&gt;/*=*/&lt;value&gt;</em></p>
+<blockquote>
+<p>Set a configuration variable in the newly-created repository; this takes
+effect immediately after the repository is initialized, but before the
+remote history is fetched or any files checked out. The <em>&lt;key&gt;</em> is in
+the same format as expected by <strong>git-config*(1) (e.g., *core.eol=true</strong>).
+If multiple values are given for the same key, each value will be
+written to the config file. This makes it safe, for example, to add
+additional fetch refspecs to the origin remote.</p>
+<p>
+Due to limitations of the current implementation, some configuration
+variables do not take effect until after the initial fetch and checkout.
+Configuration variables known to not take effect are:
+<strong>remote.*/&lt;name&gt;/</strong>.mirror* and <strong>remote.*/&lt;name&gt;/</strong>.tagOpt*. Use the
+corresponding <strong>–mirror</strong> and <strong>–no-tags</strong> options instead.</p>
+</blockquote>
+<p>
+<strong>–depth</strong> <em>&lt;depth&gt;</em></p>
+<blockquote>
+<p>Create a <em>shallow</em> clone with a history truncated to the specified
+number of commits. Implies <strong>–single-branch</strong> unless <strong>–no-single-branch</strong>
+is given to fetch the histories near the tips of all branches. If you
+want to clone submodules shallowly, also pass <strong>–shallow-submodules</strong>.</p>
+</blockquote>
+<p>
+*–shallow-since=*/&lt;date&gt;/</p>
+<blockquote>
+<p>Create a shallow clone with a history after the specified time.</p>
+</blockquote>
+<p>
+*–shallow-exclude=*/&lt;revision&gt;/</p>
+<blockquote>
+<p>Create a shallow clone with a history, excluding commits reachable from
+a specified remote branch or tag. This option can be specified multiple
+times.</p>
+</blockquote>
+<p>
+<strong>–</strong>[*no-<strong>]*single-branch</strong></p>
+<blockquote>
+<p>Clone only the history leading to the tip of a single branch, either
+specified by the <strong>–branch</strong> option or the primary branch remote&#39;s <strong>HEAD</strong>
+points at. Further fetches into the resulting repository will only
+update the remote-tracking branch for the branch this option was used
+for the initial cloning. If the <strong>HEAD</strong> at the remote did not point at
+any branch when <strong>–single-branch</strong> clone was made, no remote-tracking
+branch is created.</p>
+</blockquote>
+<p>
+<strong>–no-tags</strong></p>
+<blockquote>
+<p>Don&#39;t clone any tags, and set <strong>remote.&lt;remote&gt;.tagOpt=–no-tags</strong> in the
+config, ensuring that future <strong>git pull</strong> and <strong>git fetch</strong> operations won&#39;t
+follow any tags. Subsequent explicit tag fetches will still work, (see
+*git-fetch*(1)).</p>
+<p>
+Can be used in conjunction with <strong>–single-branch</strong> to clone and maintain
+a branch with no references other than a single cloned branch. This is
+useful e.g. to maintain minimal clones of the default branch of some
+repository for search indexing.</p>
+</blockquote>
+<p>
+<strong>–recurse-submodules</strong>[*=*/&lt;pathspec&gt;/]</p>
+<blockquote>
+<p>After the clone is created, initialize and clone submodules within based
+on the provided <em>&lt;pathspec&gt;</em>. If no <em>=&lt;pathspec&gt;</em> is provided, all
+submodules are initialized and cloned. This option can be given multiple
+times for pathspecs consisting of multiple entries. The resulting clone
+has <strong>submodule.active</strong> set to the provided pathspec, or &#34;.&#34; (meaning all
+submodules) if no pathspec is provided.</p>
+<p>
+Submodules are initialized and cloned using their default settings. This
+is equivalent to running <strong>git submodule update –init –recursive
+&lt;pathspec&gt;</strong> immediately after the clone is finished. This option is
+ignored if the cloned repository does not have a worktree/checkout (i.e.
+if any of <strong>–no-checkout*/</strong>-n*, <strong>–bare</strong>, or <strong>–mirror</strong> is given)</p>
+</blockquote>
+<p>
+<strong>–</strong>[*no-<strong>]*shallow-submodules</strong></p>
+<blockquote>
+<p>All submodules which are cloned will be shallow with a depth of 1.</p>
+</blockquote>
+<p>
+<strong>–</strong>[*no-<strong>]*remote-submodules</strong></p>
+<blockquote>
+<p>All submodules which are cloned will use the status of the submodule&#39;s
+remote-tracking branch to update the submodule, rather than the
+superproject&#39;s recorded SHA-1. Equivalent to passing <strong>–remote</strong> to <strong>git
+submodule update</strong>.</p>
+</blockquote>
+<p>
+*–separate-git-dir=*/&lt;git-dir&gt;/</p>
+<blockquote>
+<p>Instead of placing the cloned repository where it is supposed to be,
+place the cloned repository at the specified directory, then make a
+filesystem-agnostic Git symbolic link to there. The result is Git
+repository can be separated from working tree.</p>
+</blockquote>
+<p>
+*–ref-format=*/&lt;ref-format&gt;/</p>
+<blockquote>
+<p>Specify the given ref storage format for the repository. The valid
+values are:</p>
+<blockquote>
+<p>·</p>
+<p>
+<strong>files</strong> for loose files with packed-refs. This is the default.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>reftable</strong> for the reftable format. This format is experimental and its
+internals are subject to change.</p>
+</blockquote>
+</blockquote>
+<p>
+<strong>-j</strong> <em>&lt;n&gt;</em>, <strong>–jobs</strong> <em>&lt;n&gt;</em></p>
+<blockquote>
+<p>The number of submodules fetched at the same time. Defaults to the
+<strong>submodule.fetchJobs</strong> option.</p>
+</blockquote>
+<p>
+<em>&lt;repository&gt;</em></p>
+<blockquote>
+<p>The (possibly remote) <em>&lt;repository&gt;</em> to clone from. See the GIT URLS
+section below for more information on specifying repositories.</p>
+</blockquote>
+<p>
+<em>&lt;directory&gt;</em></p>
+<blockquote>
+<p>The name of a new directory to clone into. The &#34;humanish&#34; part of the
+source repository is used if no <em>&lt;directory&gt;</em> is explicitly given
+(<strong>repo</strong> for <strong>/path/to/repo.git</strong> and <strong>foo</strong> for <strong>host.xz:foo/.git</strong>).
+Cloning into an existing directory is only allowed if the directory is
+empty.</p>
+</blockquote>
+<p>
+*–bundle-uri=*/&lt;uri&gt;/</p>
+<blockquote>
+<p>Before fetching from the remote, fetch a bundle from the given <em>&lt;uri&gt;</em>
+and unbundle the data into the local repository. The refs in the bundle
+will be stored under the hidden <strong>refs/bundle/*</strong> namespace. This option
+is incompatible with <strong>–depth</strong>, <strong>–shallow-since</strong>, and
+<strong>–shallow-exclude</strong>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+GIT URLS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>In general, URLs contain information about the transport protocol, the
+address of the remote server, and the path to the repository. Depending
+on the transport protocol, some of this information may be absent.</p>
+<p>
+Git supports ssh, git, http, and https protocols (in addition, ftp and
+ftps can be used for fetching, but this is inefficient and deprecated;
+do not use them).</p>
+<p>
+The native transport (i.e. git:// URL) does no authentication and should
+be used with caution on unsecured networks.</p>
+<p>
+The following syntaxes may be used with them:</p>
+<blockquote>
+<p>·</p>
+<p>
+<strong>ssh://</strong>[/&lt;user&gt;/*@*]/&lt;host&gt;/[*:*/&lt;port&gt;/]*/*/&lt;path-to-git-repo&gt;/</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+*git://*/&lt;host&gt;/[:/&lt;port&gt;/]*/*/&lt;path-to-git-repo&gt;/</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>http</strong>[*s*]*://*/&lt;host&gt;/[*:*/&lt;port&gt;/]*/*/&lt;path-to-git-repo&gt;/</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>ftp</strong>[*s*]*://*/&lt;host&gt;/[*:*/&lt;port&gt;/]*/*/&lt;path-to-git-repo&gt;/</p>
+</blockquote>
+<p>
+An alternative scp-like syntax may also be used with the ssh protocol:</p>
+<blockquote>
+<p>·</p>
+<p>
+[/&lt;user&gt;/*@*]/&lt;host&gt;/*:/*/&lt;path-to-git-repo&gt;/</p>
+</blockquote>
+<p>
+This syntax is only recognized if there are no slashes before the first
+colon. This helps differentiate a local path that contains a colon. For
+example the local path <strong>foo:bar</strong> could be specified as an absolute path
+or <strong>./foo:bar</strong> to avoid being misinterpreted as an ssh url.</p>
+<p>
+The ssh and git protocols additionally support *~*/&lt;username&gt;/
+expansion:</p>
+<blockquote>
+<p>·</p>
+<p>
+<strong>ssh://</strong>[/&lt;user&gt;/*@*]/&lt;host&gt;/[*:*/&lt;port&gt;/]*/~*/&lt;user&gt;/*/*/&lt;path-to-git-repo&gt;/</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>git://*/&lt;host&gt;/[</strong>:*/&lt;port&gt;/]*/~*/&lt;user&gt;/*/*/&lt;path-to-git-repo&gt;/</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+[/&lt;user&gt;/*@*]/&lt;host&gt;/*:~*/&lt;user&gt;/*/*/&lt;path-to-git-repo&gt;/</p>
+</blockquote>
+<p>
+For local repositories, also supported by Git natively, the following
+syntaxes may be used:</p>
+<blockquote>
+<p>·</p>
+<p>
+<strong><em>path/to/repo.git</em></strong></p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong><a href="///path/to/repo.git/">///path/to/repo.git/</a></strong></p>
+</blockquote>
+<p>
+These two syntaxes are mostly equivalent, except the former implies
+<strong>–local</strong> option.</p>
+<p>
+<strong>git clone</strong>, <strong>git fetch</strong> and <strong>git pull</strong>, but not <strong>git push</strong>, will also
+accept a suitable bundle file. See *git-bundle*(1).</p>
+<p>
+When Git doesn&#39;t know how to handle a certain transport protocol, it
+attempts to use the *remote-*/&lt;transport&gt;/ remote helper, if one exists.
+To explicitly request a remote helper, the following syntax may be used:</p>
+<blockquote>
+<p>·</p>
+<p>
+<em>&lt;transport&gt;</em>::/&lt;address&gt;/</p>
+</blockquote>
+<p>
+where <em>&lt;address&gt;</em> may be a path, a server and path, or an arbitrary
+URL-like string recognized by the specific remote helper being invoked.
+See *gitremote-helpers*(7) for details.</p>
+<p>
+If there are a large number of similarly-named remote repositories and
+you want to use a different format for them (such that the URLs you use
+will be rewritten into URLs that work), you can create a configuration
+section of the form:</p>
+<blockquote>
+<pre class="example">
+        [url &#34;&lt;actual-url-base&gt;&#34;]
+                insteadOf = &lt;other-url-base&gt;
+</pre>
+</blockquote>
+<p>
+For example, with this:</p>
+<blockquote>
+<pre class="example">
+        [url &#34;git://git.host.xz/&#34;]
+                insteadOf = host.xz:/path/to/
+                insteadOf = work:
+</pre>
+</blockquote>
+<p>
+a URL like &#34;work:repo.git&#34; or like &#34;host.xz:/path/to/repo.git&#34; will be
+rewritten in any context that takes a URL to be
+&#34;git://git.host.xz/repo.git&#34;.</p>
+<p>
+If you want to rewrite URLs for push only, you can create a
+configuration section of the form:</p>
+<blockquote>
+<pre class="example">
+        [url &#34;&lt;actual-url-base&gt;&#34;]
+                pushInsteadOf = &lt;other-url-base&gt;
+</pre>
+</blockquote>
+<p>
+For example, with this:</p>
+<blockquote>
+<pre class="example">
+        [url &#34;ssh://example.org/&#34;]
+                pushInsteadOf = git://example.org/
+</pre>
+</blockquote>
+<p>
+a URL like &#34;git://example.org/path/to/repo.git&#34; will be rewritten to
+&#34;ssh://example.org/path/to/repo.git&#34; for pushes, but pulls will still
+use the original URL.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<blockquote>
+<p>·</p>
+<p>
+Clone from upstream:</p>
+<blockquote>
+<pre class="example">
+$ git clone git://git.kernel.org/pub/scm/.../linux.git my-linux
+$ cd my-linux
+$ make
+</pre>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Make a local clone that borrows from the current directory, without
+checking things out:</p>
+<blockquote>
+<pre class="example">
+$ git clone -l -s -n . ../copy
+$ cd ../copy
+$ git show-branch
+</pre>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Clone from upstream while borrowing from an existing local directory:</p>
+<blockquote>
+<pre class="example">
+$ git clone --reference /git/linux.git \
+        git://git.kernel.org/pub/scm/.../linux.git \
+        my-linux
+$ cd my-linux
+</pre>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Create a bare repository to publish your changes to the public:</p>
+<blockquote>
+<pre class="example">
+$ git clone --bare -l /home/proj/.git /pub/scm/proj.git
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+<strong>init.templateDir</strong></p>
+<blockquote>
+<p>Specify the directory from which templates will be copied. (See the
+&#34;TEMPLATE DIRECTORY&#34; section of *git-init*(1).)</p>
+</blockquote>
+<p>
+<strong>init.defaultBranch</strong></p>
+<blockquote>
+<p>Allows overriding the default branch name e.g. when initializing a new
+repository.</p>
+</blockquote>
+<p>
+<strong>clone.defaultRemoteName</strong></p>
+<blockquote>
+<p>The name of the remote to create when cloning a repository. Defaults to
+<strong>origin</strong>. It can be overridden by passing the <strong>–origin</strong> command-line
+option.</p>
+</blockquote>
+<p>
+<strong>clone.rejectShallow</strong></p>
+<blockquote>
+<p>Reject cloning a repository if it is a shallow one; this can be
+overridden by passing the <strong>–reject-shallow</strong> option on the command line.</p>
+</blockquote>
+<p>
+<strong>clone.filterSubmodules</strong></p>
+<blockquote>
+<p>If a partial clone filter is provided (see <strong>–filter</strong> in
+<strong>git-rev-list*(1)) and *–recurse-submodules</strong> is used, also apply the
+filter to submodules.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

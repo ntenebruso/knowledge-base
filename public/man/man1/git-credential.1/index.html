@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-credential.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-credential.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-credential - Retrieve and store user credentials</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git credential (fill|approve|reject|capability)
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Git has an internal interface for storing and retrieving credentials
+from system-specific helpers, as well as prompting the user for
+usernames and passwords. The git-credential command exposes this
+interface to scripts which may want to retrieve, store, or prompt for
+credentials in the same manner as Git. The design of this scriptable
+interface models the internal C API; see credential.h for more
+background on the concepts.</p>
+<p>
+git-credential takes an &#34;action&#34; option on the command-line (one of
+<strong>fill</strong>, <strong>approve</strong>, or <strong>reject</strong>) and reads a credential description on
+stdin (see INPUT/OUTPUT FORMAT).</p>
+<p>
+If the action is <strong>fill</strong>, git-credential will attempt to add &#34;username&#34;
+and &#34;password&#34; attributes to the description by reading config files, by
+contacting any configured credential helpers, or by prompting the user.
+The username and password attributes of the credential description are
+then printed to stdout together with the attributes already provided.</p>
+<p>
+If the action is <strong>approve</strong>, git-credential will send the description to
+any configured credential helpers, which may store the credential for
+later use.</p>
+<p>
+If the action is <strong>reject</strong>, git-credential will send the description to
+any configured credential helpers, which may erase any stored
+credentials matching the description.</p>
+<p>
+If the action is <strong>capability</strong>, git-credential will announce any
+capabilities it supports to standard output.</p>
+<p>
+If the action is <strong>approve</strong> or <strong>reject</strong>, no output should be emitted.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+TYPICAL USE OF GIT CREDENTIAL
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>An application using git-credential will typically use <strong>git credential</strong>
+following these steps:</p>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>Generate a credential description based on the context.</p>
+<p>
+For example, if we want a password for <strong><a href="https://example.com/foo.git">https://example.com/foo.git</a></strong>, we
+might generate the following credential description (don&#39;t forget the
+blank line at the end; it tells <strong>git credential</strong> that the application
+finished feeding all the information it has):</p>
+<blockquote>
+<pre class="example">
+protocol=https
+host=example.com
+path=foo.git
+</pre>
+</blockquote>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>Ask git-credential to give us a username and password for this
+description. This is done by running <strong>git credential fill</strong>, feeding the
+description from step (1) to its standard input. The complete credential
+description (including the credential per se, i.e. the login and
+password) will be produced on standard output, like:</p>
+<blockquote>
+<pre class="example">
+protocol=https
+host=example.com
+username=bob
+password=secr3t
+</pre>
+</blockquote>
+<p>
+In most cases, this means the attributes given in the input will be
+repeated in the output, but Git may also modify the credential
+description, for example by removing the <strong>path</strong> attribute when the
+protocol is HTTP(s) and <strong>credential.useHttpPath</strong> is false.</p>
+<p>
+If the <strong>git credential</strong> knew about the password, this step may not have
+involved the user actually typing this password (the user may have typed
+a password to unlock the keychain instead, or no user interaction was
+done if the keychain was already unlocked) before it returned
+<strong>password=secr3t</strong>.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>Use the credential (e.g., access the URL with the username and password
+from step (2)), and see if it&#39;s accepted.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>Report on the success or failure of the password. If the credential
+allowed the operation to complete successfully, then it can be marked
+with an &#34;approve&#34; action to tell <strong>git credential</strong> to reuse it in its
+next invocation. If the credential was rejected during the operation,
+use the &#34;reject&#34; action so that <strong>git credential</strong> will ask for a new
+password in its next invocation. In either case, <strong>git credential</strong> should
+be fed with the credential description obtained from step (2) (which
+also contains the fields provided in step (1)).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+INPUT/OUTPUT FORMAT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>git credential</strong> reads and/or writes (depending on the action used)
+credential information in its standard input/output. This information
+can correspond either to keys for which <strong>git credential</strong> will obtain the
+login information (e.g. host, protocol, path), or to the actual
+credential data to be obtained (username/password).</p>
+<p>
+The credential is split into a set of named attributes, with one
+attribute per line. Each attribute is specified by a key-value pair,
+separated by an <strong>=</strong> (equals) sign, followed by a newline.</p>
+<p>
+The key may contain any bytes except <strong>=</strong>, newline, or NUL. The value may
+contain any bytes except newline or NUL. A line, including the trailing
+newline, may not exceed 65535 bytes in order to allow implementations to
+parse efficiently.</p>
+<p>
+Attributes with keys that end with C-style array brackets <strong>[]</strong> can have
+multiple values. Each instance of a multi-valued attribute forms an
+ordered list of values - the order of the repeated attributes defines
+the order of the values. An empty multi-valued attribute (<strong>key[]=\n</strong>)
+acts to clear any previous entries and reset the list.</p>
+<p>
+In all cases, all bytes are treated as-is (i.e., there is no quoting,
+and one cannot transmit a value with newline or NUL in it). The list of
+attributes is terminated by a blank line or end-of-file.</p>
+<p>
+Git understands the following attributes:</p>
+<p>
+<strong>protocol</strong></p>
+<blockquote>
+<p>The protocol over which the credential will be used (e.g., <strong>https</strong>).</p>
+</blockquote>
+<p>
+<strong>host</strong></p>
+<blockquote>
+<p>The remote hostname for a network credential. This includes the port
+number if one was specified (e.g., &#34;example.com:8088&#34;).</p>
+</blockquote>
+<p>
+<strong>path</strong></p>
+<blockquote>
+<p>The path with which the credential will be used. E.g., for accessing a
+remote https repository, this will be the repository&#39;s path on the
+server.</p>
+</blockquote>
+<p>
+<strong>username</strong></p>
+<blockquote>
+<p>The credential&#39;s username, if we already have one (e.g., from a URL, the
+configuration, the user, or from a previously run helper).</p>
+</blockquote>
+<p>
+<strong>password</strong></p>
+<blockquote>
+<p>The credential&#39;s password, if we are asking it to be stored.</p>
+</blockquote>
+<p>
+<strong>password_expiry_utc</strong></p>
+<blockquote>
+<p>Generated passwords such as an OAuth access token may have an expiry
+date. When reading credentials from helpers, <strong>git credential fill</strong>
+ignores expired passwords. Represented as Unix time UTC, seconds
+since 1970.</p>
+</blockquote>
+<p>
+<strong>oauth_refresh_token</strong></p>
+<blockquote>
+<p>An OAuth refresh token may accompany a password that is an OAuth access
+token. Helpers must treat this attribute as confidential like the
+password attribute. Git itself has no special behaviour for this
+attribute.</p>
+</blockquote>
+<p>
+<strong>url</strong></p>
+<blockquote>
+<p>When this special attribute is read by <strong>git credential</strong>, the value is
+parsed as a URL and treated as if its constituent parts were read (e.g.,
+<strong>url=<a href="https://example.com">https://example.com</a></strong> would behave as if <strong>protocol=https</strong> and
+<strong>host=example.com</strong> had been provided). This can help callers avoid
+parsing URLs themselves.</p>
+<p>
+Note that specifying a protocol is mandatory and if the URL doesn&#39;t
+specify a hostname (e.g., &#34;cert:///path/to/file&#34;) the credential will
+contain a hostname attribute whose value is an empty string.</p>
+<p>
+Components which are missing from the URL (e.g., there is no username in
+the example above) will be left unset.</p>
+</blockquote>
+<p>
+<strong>authtype</strong></p>
+<blockquote>
+<p>This indicates that the authentication scheme in question should be
+used. Common values for HTTP and HTTPS include <strong>basic</strong>, <strong>bearer</strong>, and
+<strong>digest</strong>, although the latter is insecure and should not be used. If
+<strong>credential</strong> is used, this may be set to an arbitrary string suitable
+for the protocol in question (usually HTTP).</p>
+<p>
+This value should not be sent unless the appropriate capability (see
+below) is provided on input.</p>
+</blockquote>
+<p>
+<strong>credential</strong></p>
+<blockquote>
+<p>The pre-encoded credential, suitable for the protocol in question
+(usually HTTP). If this key is sent, <strong>authtype</strong> is mandatory, and
+<strong>username</strong> and <strong>password</strong> are not used. For HTTP, Git concatenates the
+<strong>authtype</strong> value and this value with a single space to determine the
+<strong>Authorization</strong> header.</p>
+<p>
+This value should not be sent unless the appropriate capability (see
+below) is provided on input.</p>
+</blockquote>
+<p>
+<strong>ephemeral</strong></p>
+<blockquote>
+<p>This boolean value indicates, if true, that the value in the
+<strong>credential</strong> field should not be saved by the credential helper because
+its usefulness is limited in time. For example, an HTTP Digest
+<strong>credential</strong> value is computed using a nonce and reusing it will not
+result in successful authentication. This may also be used for
+situations with short duration (e.g., 24-hour) credentials. The default
+value is false.</p>
+<p>
+The credential helper will still be invoked with <strong>store</strong> or <strong>erase</strong> so
+that it can determine whether the operation was successful.</p>
+<p>
+This value should not be sent unless the appropriate capability (see
+below) is provided on input.</p>
+</blockquote>
+<p>
+<strong>state[]</strong></p>
+<blockquote>
+<p>This value provides an opaque state that will be passed back to this
+helper if it is called again. Each different credential helper may
+specify this once. The value should include a prefix unique to the
+credential helper and should ignore values that don&#39;t match its prefix.</p>
+<p>
+This value should not be sent unless the appropriate capability (see
+below) is provided on input.</p>
+</blockquote>
+<p>
+<strong>continue</strong></p>
+<blockquote>
+<p>This is a boolean value, which, if enabled, indicates that this
+authentication is a non-final part of a multistage authentication step.
+This is common in protocols such as NTLM and Kerberos, where two rounds
+of client authentication are required, and setting this flag allows the
+credential helper to implement the multistage authentication step. This
+flag should only be sent if a further stage is required; that is, if
+another round of authentication is expected.</p>
+<p>
+This value should not be sent unless the appropriate capability (see
+below) is provided on input. This attribute is <em>one-way</em> from a
+credential helper to pass information to Git (or other programs invoking
+<strong>git credential</strong>).</p>
+</blockquote>
+<p>
+<strong>wwwauth[]</strong></p>
+<blockquote>
+<p>When an HTTP response is received by Git that includes one or more
+<em>WWW-Authenticate</em> authentication headers, these will be passed by Git
+to credential helpers.</p>
+<p>
+Each <em>WWW-Authenticate</em> header value is passed as a multi-valued
+attribute <em>wwwauth[]</em>, where the order of the attributes is the same as
+they appear in the HTTP response. This attribute is <em>one-way</em> from Git
+to pass additional information to credential helpers.</p>
+</blockquote>
+<p>
+<strong>capability[]</strong></p>
+<blockquote>
+<p>This signals that Git, or the helper, as appropriate, supports the
+capability in question. This can be used to provide better, more
+specific data as part of the protocol. A <strong>capability[]</strong> directive must
+precede any value depending on it and these directives <em>should</em> be the
+first item announced in the protocol.</p>
+<p>
+There are two currently supported capabilities. The first is <strong>authtype</strong>,
+which indicates that the <strong>authtype</strong>, <strong>credential</strong>, and <strong>ephemeral</strong>
+values are understood. The second is <strong>state</strong>, which indicates that the
+<strong>state[]</strong> and <strong>continue</strong> values are understood.</p>
+<p>
+It is not obligatory to use the additional features just because the
+capability is supported, but they should not be provided without the
+capability.</p>
+</blockquote>
+<p>
+Unrecognised attributes and capabilities are silently discarded.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+CAPABILITY INPUT/OUTPUT FORMAT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>For <strong>git credential capability</strong>, the format is slightly different.
+First, a <strong>version 0</strong> announcement is made to indicate the current
+version of the protocol, and then each capability is announced with a
+line like <strong>capability authtype</strong>. Credential helpers may also implement
+this format, again with the <strong>capability</strong> argument. Additional lines may
+be added in the future; callers should ignore lines which they don&#39;t
+understand.</p>
+<p>
+Because this is a new part of the credential helper protocol, older
+versions of Git, as well as some credential helpers, may not support it.
+If a non-zero exit status is received, or if the first line doesn&#39;t
+start with the word <strong>version</strong> and a space, callers should assume that no
+capabilities are supported.</p>
+<p>
+The intention of this format is to differentiate it from the credential
+output in an unambiguous way. It is possible to use very simple
+credential helpers (e.g., inline shell scripts) which always produce
+identical output. Using a distinct format allows users to continue to
+use this syntax without having to worry about correctly implementing
+capability advertisements or accidentally confusing callers querying for
+capabilities.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+GIT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

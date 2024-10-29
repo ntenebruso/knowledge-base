@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - which.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - which.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>which - shows the full path of (shell) commands.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>which</strong> [options] [–] programname […]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>Which</strong> takes one or more arguments. For each of its arguments it prints
+to stdout the full path of the executables that would have been executed
+when this argument had been entered at the shell prompt. It does this by
+searching for an executable or script in the directories listed in the
+environment variable <strong>PATH</strong> using the same algorithm as <strong>bash(1)</strong>.</p>
+<p>
+This man page is generated from the file <em>which.texinfo</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>–all, <strong>-a</strong></strong>
+</dt>
+<dd>Print all matching executables in <strong>PATH</strong>, not just
+the first.</dd>
+<dt>
+<strong>–read-alias, <strong>-i</strong></strong>
+</dt>
+<dd>Read aliases from stdin, reporting matching
+ones on stdout. This is useful in combination with using an alias for
+which itself. For example<br>
+<strong>alias which=&#39;alias | which -i&#39;.</strong></dd>
+<dt>
+<strong>–skip-alias</strong>
+</dt>
+<dd>Ignore option `–read-alias&#39;, if any. This is useful
+to explicity search for normal binaries, while using the
+`–read-alias&#39; option in an alias or function for which.</dd>
+<dt>
+<strong>–read-functions</strong>
+</dt>
+<dd>Read shell function definitions from stdin,
+reporting matching ones on stdout. This is useful in combination with
+using a shell function for which itself. For example:<br>
+<strong>which() { declare -f | which –read-functions $@ }</strong><br>
+export -f which</dd>
+<dt>
+<strong>–skip-functions</strong>
+</dt>
+<dd>Ignore option `–read-functions&#39;, if any. This
+is useful to explicity search for normal binaries, while using the
+`–read-functions&#39; option in an alias or function for which.</dd>
+<dt>
+<strong>–skip-dot</strong>
+</dt>
+<dd>Skip directories in <strong>PATH</strong> that start with a dot.</dd>
+<dt>
+<strong>–skip-tilde</strong>
+</dt>
+<dd>Skip directories in <strong>PATH</strong> that start with a tilde
+and executables which reside in the <strong>HOME</strong> directory.</dd>
+<dt>
+<strong>–show-dot</strong>
+</dt>
+<dd>If a directory in <strong>PATH</strong> starts with a dot and a
+matching executable was found for that path, then print
+&#34;./programname&#34; rather than the full path.</dd>
+<dt>
+<strong>–show-tilde</strong>
+</dt>
+<dd>Output a tilde when a directory matches the <strong>HOME</strong>
+directory. This option is ignored when which is invoked as root.</dd>
+<dt>
+<strong>–tty-only</strong>
+</dt>
+<dd>Stop processing options on the right if not on tty.</dd>
+<dt>
+<strong>–version,-v,-V</strong>
+</dt>
+<dd>Print version information on standard output then
+exit successfully.</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>Print usage information on standard output then exit
+successfully.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+RETURN VALUE
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>Which</strong> returns the number of failed arguments, or -1 when no
+`programname&#39; was given.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLE
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The recommended way to use this utility is by adding an alias (C shell)
+or shell function (Bourne shell) for <strong>which</strong> like the following:</p>
+<p>
+[ba]sh:</p>
+<pre class="example">
+which ()
+{
+  (alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot $@
+}
+export -f which
+</pre>
+<p>
+[t]csh:</p>
+<pre class="example">
+alias which &#39;alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde&#39;
+</pre>
+<p>
+This will print the readable ~/ and ./ when starting which from your
+prompt, while still printing the full path when used from a script:</p>
+<pre class="example">
+&gt; which q2
+~/bin/q2
+&gt; echo `which q2`
+/home/carlo/bin/q2
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The <strong>HOME</strong> directory is determined by looking for the <strong>HOME</strong> environment
+variable, which aborts when this variable doesn&#39;t exist. <strong>Which</strong> will
+consider two equivalent directories to be different when one of them
+contains a path with a symbolic link.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>\\
+Carlo Wood &lt;carlo@gnu.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p><strong>bash(1)</strong></p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

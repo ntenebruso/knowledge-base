@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - dumpkeys.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - dumpkeys.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>dumpkeys - dump keyboard translation tables</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>dumpkeys</strong> [OPTIONS]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>dumpkeys</strong> writes, to the standard output, the current contents of the
+keyboard driver&#39;s translation tables, in the format specified by
+*keymaps*(5).</p>
+<p>
+Using the various options, the format of the output can be controlled
+and also other information from the kernel and the programs
+*dumpkeys*(1) and *loadkeys*(1) can be obtained.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-h –help</strong>
+</dt>
+<dd>Prints the program&#39;s version number and a short usage
+message to the program&#39;s standard error output and exits.</dd>
+<dt>
+<strong>-i –short-info</strong>
+</dt>
+<dd>Prints some characteristics of the kernel&#39;s
+keyboard driver. The items shown are:</dd>
+</dl>
+<blockquote>
+<p>Keycode range supported by the kernel</p>
+<blockquote>
+<p>This tells what values can be used after the <strong>keycode</strong> keyword in
+keytable files. See *keymaps*(5) for more information and the syntax of
+these files.</p>
+</blockquote>
+<p>
+Number of actions bindable to a key</p>
+<blockquote>
+<p>This tells how many different actions a single key can output using
+various modifier keys. If the value is 16 for example, you can define up
+to 16 different actions to a key combined with modifiers. When the value
+is 16, the kernel probably knows about four modifier keys, which you can
+press in different combinations with the key to access all the bound
+actions.</p>
+</blockquote>
+<p>
+Ranges of action codes supported by the kernel</p>
+<blockquote>
+<p>This item contains a list of action code ranges in hexadecimal notation.
+These are the values that can be used in the right hand side of a key
+definition, ie. the <em>vv</em>&#39;s in a line</p>
+<blockquote>
+<p><strong>keycode</strong> <em>xx</em> = <em>vv vv vv vv</em></p>
+</blockquote>
+<p>
+(see *keymaps*(5) for more information about the format of key
+definition lines). *dumpkeys*(1) and *loadkeys*(1) support a symbolic
+notation, which is preferable to the numeric one, as the action codes
+may vary from kernel to kernel while the symbolic names usually remain
+the same. However, the list of action code ranges can be used to
+determine, if the kernel actually supports all the symbols *loadkeys*(1)
+knows, or are there maybe some actions supported by the kernel that have
+no symbolic name in your <strong>loadkeys*(1) program. To see this, you compare
+the range list with the action symbol list, see option *–long-info</strong>
+below.</p>
+</blockquote>
+<p>
+Number of function keys supported by kernel</p>
+<blockquote>
+<p>This tells the number of action codes that can be used to output strings
+of characters. These action codes are traditionally bound to the various
+function and editing keys of the keyboard and are defined to send
+standard escape sequences. However, you can redefine these to send
+common command lines, email addresses or whatever you like. Especially
+if the number of this item is greater than the number of function and
+editing keys in your keyboard, you may have some &#34;spare&#34; action codes
+that you can bind to AltGr-letter combinations, for example, to send
+some useful strings. See *loadkeys*(1) for more details.</p>
+</blockquote>
+<p>
+Function strings</p>
+<blockquote>
+<p>You can see you current function key definitions with the command</p>
+<blockquote>
+<p><strong>dumpkeys –funcs-only</strong></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<dl>
+<dt>
+<strong>-l -s –long-info</strong>
+</dt>
+<dd>This option instructs <strong>dumpkeys</strong> to print a
+long information listing. The output is the same as with the
+<strong>–short-info</strong> appended with the list of action symbols supported by
+*loadkeys*(1) and *dumpkeys*(1), along with the symbols&#39; numeric
+values.</dd>
+<dt>
+<strong>-n –numeric</strong>
+</dt>
+<dd>This option causes <strong>dumpkeys</strong> to by-pass the
+conversion of action code values to symbolic notation and to print the
+in hexadecimal format instead.</dd>
+<dt>
+<strong>-f –full-table</strong>
+</dt>
+<dd>This makes <strong>dumpkeys</strong> skip all the short-hand
+heuristics (see *keymaps*(5)) and output the key bindings in the
+canonical form. First a keymaps line describing the currently defined
+modifier combinations is printed. Then for each key a row with a
+column for each modifier combination is printed. For example, if the
+current keymap in use uses seven modifiers, every row will have seven
+action code columns. This format can be useful for example to programs
+that post-process the output of <strong>dumpkeys</strong>.</dd>
+<dt>
+<strong>-S*/shape/</strong> <strong>/ /</strong>–shape=*/shape/
+</dt>
+<dd>Available shapes:</dd>
+</dl>
+<blockquote>
+<p><strong>2</strong> default output.</p>
+</blockquote>
+<blockquote>
+<p><strong>4</strong> one line for each keycode.</p>
+</blockquote>
+<blockquote>
+<p><strong>8</strong> one line for each (modifier,keycode) pair.</p>
+</blockquote>
+<blockquote>
+<p><strong>16</strong> one line for each keycode until 1st hole.</p>
+</blockquote>
+<dl>
+<dt>
+<strong>-1 –separate-lines</strong>
+</dt>
+<dd>This forces <strong>dumpkeys</strong> to write one line per
+(modifier,keycode) pair. It prefixes the word <em>plain</em> for plain
+keycodes.</dd>
+<dt>
+<strong>-t –funcs-only</strong>
+</dt>
+<dd>When this option is given, <strong>dumpkeys</strong> prints only
+the function key string definitions. Normally <strong>dumpkeys</strong> prints both
+the key bindings and the string definitions.</dd>
+<dt>
+<strong>-k –keys-only</strong>
+</dt>
+<dd>When this option is given, <strong>dumpkeys</strong> prints only
+the key bindings. Normally <strong>dumpkeys</strong> prints both the key bindings and
+the string definitions.</dd>
+<dt>
+<strong>-d –compose-only</strong>
+</dt>
+<dd>When this option is given, <strong>dumpkeys</strong> prints
+only the compose key combinations. This option is available only if
+your kernel has compose key support.</dd>
+<dt>
+<strong>-c*/charset/</strong> <strong>/ /</strong>–charset=*/charset/
+</dt>
+<dd>This instructs <strong>dumpkeys</strong>
+to interpret character code values according to the specified
+character set. This affects only the translation of character code
+values to symbolic names. Valid values for <em>charset</em> currently are
+<strong>iso-8859-X</strong>, Where X is a digit in 1-9. If no <em>charset</em> is specified,
+<strong>iso-8859-1</strong> is used as a default. This option produces an output line
+`charset &#34;iso-8859-X&#34;&#39;, telling loadkeys how to interpret the keymap.
+(For example, &#34;division&#34; is 0xf7 in iso-8859-1 but 0xba in
+iso-8859-8.)</dd>
+<dt>
+<strong>-C*/dev/</strong> <strong>/ /</strong>–console=*/dev/
+</dt>
+<dd>The affected console device can be
+specified using the <em>-C</em> (or <em>–console</em> ) option. This option
+supports exactly one device name.</dd>
+<dt>
+<strong>-v –verbose</strong>
+</dt>
+<dd>Turn on verbose output.</dd>
+<dt>
+<strong>-V –version</strong>
+</dt>
+<dd>Prints version number and exits.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+FILES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+<em>/nix/store/xa3wmqiw0h87k4p7isdrwv60xaqly1gy-kbd-2.6.4/share/keymaps</em>
+</dt>
+<dd>The
+recommended directory for keytable files.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*loadkeys*(1), *keymaps*(5)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

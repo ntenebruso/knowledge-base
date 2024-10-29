@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - write.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - write.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>write - send a message to another user</p>
+<p>
+<strong>write</strong> <em>user</em> [/ttyname/]</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>write</strong> allows you to communicate with other users, by copying lines
+from your terminal to theirs.</p>
+<p>
+When you run the <strong>write</strong> command, the user you are writing to gets a
+message of the form:</p>
+<blockquote>
+<pre class="example">
+Message from yourname@yourhost on yourtty at hh:mm ...
+</pre>
+</blockquote>
+<p>
+Any further lines you enter will be copied to the specified user&#39;s
+terminal. If the other user wants to reply, they must run <strong>write</strong> as
+well.</p>
+<p>
+When you are done, type an end-of-file or interrupt character. The other
+user will see the message <strong>EOF</strong> indicating that the conversation is
+over.</p>
+<p>
+You can prevent people (other than the superuser) from writing to you
+with the *mesg*(1) command. Some commands, for example *nroff*(1) and
+*pr*(1), may automatically disallow writing, so that the output they
+produce isn&#39;t overwritten.</p>
+<p>
+If the user you want to write to is logged in on more than one terminal,
+you can specify which terminal to write to by giving the terminal name
+as the second operand to the <strong>write</strong> command. Alternatively, you can let
+<strong>write</strong> select one of the terminals - it will pick the one with the
+shortest idle time. This is so that if the user is logged in at work and
+also dialed up from home, the message will go to the right place.</p>
+<p>
+The traditional protocol for writing to someone is that the string <em>-o</em>,
+either at the end of a line or on a line by itself, means that it&#39;s the
+other person&#39;s turn to talk. The string <em>oo</em> means that the person
+believes the conversation to be over.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+OPTIONS
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+HISTORY
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>A <strong>write</strong> command appeared in Version 5 AT&amp;T UNIX (Jun 1974).</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>*mesg*(1), *talk*(1), *who*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The <strong>write</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

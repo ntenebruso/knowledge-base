@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-blame.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-blame.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-blame - Show what revision and author last modified each line of a
+file</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git blame [-c] [-b] [-l] [--root] [-t] [-f] [-n] [-s] [-e] [-p] [-w] [--incremental]
+            [-L &lt;range&gt;] [-S &lt;revs-file&gt;] [-M] [-C] [-C] [-C] [--since=&lt;date&gt;]
+            [--ignore-rev &lt;rev&gt;] [--ignore-revs-file &lt;file&gt;]
+            [--color-lines] [--color-by-age] [--progress] [--abbrev=&lt;n&gt;]
+            [ --contents &lt;file&gt; ] [&lt;rev&gt; | --reverse &lt;rev&gt;..&lt;rev&gt;] [--] &lt;file&gt;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Annotates each line in the given file with information from the revision
+which last modified the line. Optionally, start annotating from the
+given revision.</p>
+<p>
+When specified one or more times, <strong>-L</strong> restricts annotation to the
+requested lines.</p>
+<p>
+The origin of lines is automatically followed across whole-file renames
+(currently there is no option to turn the rename-following off). To
+follow lines moved from one file to another, or to follow lines that
+were copied and pasted from another file, etc., see the <strong>-C</strong> and <strong>-M</strong>
+options.</p>
+<p>
+The report does not tell you anything about lines which have been
+deleted or replaced; you need to use a tool such as <em>git diff</em> or the
+&#34;pickaxe&#34; interface briefly mentioned in the following paragraph.</p>
+<p>
+Apart from supporting file annotation, Git also supports searching the
+development history for when a code snippet occurred in a change. This
+makes it possible to track when a code snippet was added to a file,
+moved or copied between files, and eventually deleted or replaced. It
+works by searching for a text string in the diff. A small example of the
+pickaxe interface that searches for <strong>blame_usage</strong>:</p>
+<blockquote>
+<pre class="example">
+$ git log --pretty=oneline -Sblame_usage
+5040f17eba15504bad66b14a645bddd9b015ebb7 blame -S &lt;ancestry-file&gt;
+ea4c7f9bf69e781dd0cd88d2bccb2bf5cc15c9a7 git-blame: Make the output
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-b</p>
+<blockquote>
+<p>Show blank SHA-1 for boundary commits. This can also be controlled via
+the <strong>blame.blankBoundary</strong> config option.</p>
+</blockquote>
+<p>
+–root</p>
+<blockquote>
+<p>Do not treat root commits as boundaries. This can also be controlled via
+the <strong>blame.showRoot</strong> config option.</p>
+</blockquote>
+<p>
+–show-stats</p>
+<blockquote>
+<p>Include additional statistics at the end of blame output.</p>
+</blockquote>
+<p>
+-L &lt;start&gt;,&lt;end&gt;, -L :&lt;funcname&gt;</p>
+<blockquote>
+<p>Annotate only the line range given by <em>&lt;start&gt;,&lt;end&gt;</em>, or by the
+function name regex <em>&lt;funcname&gt;</em>. May be specified multiple times.
+Overlapping ranges are allowed.</p>
+<p>
+<em>&lt;start&gt;</em> and <em>&lt;end&gt;</em> are optional. <strong>-L &lt;start&gt;</strong> or <strong>-L &lt;start&gt;,</strong> spans
+from <em>&lt;start&gt;</em> to end of file. <strong>-L ,&lt;end&gt;</strong> spans from start of file to
+<em>&lt;end&gt;</em>.</p>
+<p>
+<em>&lt;start&gt;</em> and <em>&lt;end&gt;</em> can take one of these forms:</p>
+<blockquote>
+<p>·</p>
+<p>
+number</p>
+<p>
+If <em>&lt;start&gt;</em> or <em>&lt;end&gt;</em> is a number, it specifies an absolute line
+number (lines count from 1).</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong><em>regex</em></strong></p>
+<p>
+This form will use the first line matching the given POSIX regex. If
+<em>&lt;start&gt;</em> is a regex, it will search from the end of the previous <strong>-L</strong>
+range, if any, otherwise from the start of file. If <em>&lt;start&gt;</em> is
+<strong>^/regex/</strong>, it will search from the start of file. If <em>&lt;end&gt;</em> is a
+regex, it will search starting at the line given by <em>&lt;start&gt;</em>.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
++offset or -offset</p>
+<p>
+This is only valid for <em>&lt;end&gt;</em> and will specify a number of lines before
+or after the line given by <em>&lt;start&gt;</em>.</p>
+</blockquote>
+<p>
+If <strong>:&lt;funcname&gt;</strong> is given in place of <em>&lt;start&gt;</em> and <em>&lt;end&gt;</em>, it is a
+regular expression that denotes the range from the first funcname line
+that matches <em>&lt;funcname&gt;</em>, up to the next funcname line. <strong>:&lt;funcname&gt;</strong>
+searches from the end of the previous <strong>-L</strong> range, if any, otherwise from
+the start of file. <strong>^:&lt;funcname&gt;</strong> searches from the start of file. The
+function names are determined in the same way as <strong>git diff</strong> works out
+patch hunk headers (see <em>Defining a custom hunk-header</em> in
+*gitattributes*(5)).</p>
+</blockquote>
+<p>
+-l</p>
+<blockquote>
+<p>Show long rev (Default: off).</p>
+</blockquote>
+<p>
+-t</p>
+<blockquote>
+<p>Show raw timestamp (Default: off).</p>
+</blockquote>
+<p>
+-S &lt;revs-file&gt;</p>
+<blockquote>
+<p>Use revisions from revs-file instead of calling *git-rev-list*(1).</p>
+</blockquote>
+<p>
+–reverse &lt;rev&gt;..&lt;rev&gt;</p>
+<blockquote>
+<p>Walk history forward instead of backward. Instead of showing the
+revision in which a line appeared, this shows the last revision in which
+a line has existed. This requires a range of revision like START..END
+where the path to blame exists in START. <strong>git blame –reverse START</strong> is
+taken as <strong>git blame –reverse START..HEAD</strong> for convenience.</p>
+</blockquote>
+<p>
+–first-parent</p>
+<blockquote>
+<p>Follow only the first parent commit upon seeing a merge commit. This
+option can be used to determine when a line was introduced to a
+particular integration branch, rather than when it was introduced to the
+history overall.</p>
+</blockquote>
+<p>
+-p, –porcelain</p>
+<blockquote>
+<p>Show in a format designed for machine consumption.</p>
+</blockquote>
+<p>
+–line-porcelain</p>
+<blockquote>
+<p>Show the porcelain format, but output commit information for each line,
+not just the first time a commit is referenced. Implies –porcelain.</p>
+</blockquote>
+<p>
+–incremental</p>
+<blockquote>
+<p>Show the result incrementally in a format designed for machine
+consumption.</p>
+</blockquote>
+<p>
+–encoding=&lt;encoding&gt;</p>
+<blockquote>
+<p>Specifies the encoding used to output author names and commit summaries.
+Setting it to <strong>none</strong> makes blame output unconverted data. For more
+information see the discussion about encoding in the *git-log*(1) manual
+page.</p>
+</blockquote>
+<p>
+–contents &lt;file&gt;</p>
+<blockquote>
+<p>Annotate using the contents from the named file, starting from &lt;rev&gt; if
+it is specified, and HEAD otherwise. You may specify <em>-</em> to make the
+command read from the standard input for the file contents.</p>
+</blockquote>
+<p>
+–date &lt;format&gt;</p>
+<blockquote>
+<p>Specifies the format used to output dates. If –date is not provided,
+the value of the blame.date config variable is used. If the blame.date
+config variable is also not set, the iso format is used. For supported
+values, see the discussion of the –date option at *git-log*(1).</p>
+</blockquote>
+<p>
+–[no-]progress</p>
+<blockquote>
+<p>Progress status is reported on the standard error stream by default when
+it is attached to a terminal. This flag enables progress reporting even
+if not attached to a terminal. Can&#39;t use <strong>–progress</strong> together with
+<strong>–porcelain</strong> or <strong>–incremental</strong>.</p>
+</blockquote>
+<p>
+-M[&lt;num&gt;]</p>
+<blockquote>
+<p>Detect moved or copied lines within a file. When a commit moves or
+copies a block of lines (e.g. the original file has A and then B, and
+the commit changes it to B and then A), the traditional <em>blame</em>
+algorithm notices only half of the movement and typically blames the
+lines that were moved up (i.e. B) to the parent and assigns blame to the
+lines that were moved down (i.e. A) to the child commit. With this
+option, both groups of lines are blamed on the parent by running extra
+passes of inspection.</p>
+<p>
+&lt;num&gt; is optional but it is the lower bound on the number of
+alphanumeric characters that Git must detect as moving/copying within a
+file for it to associate those lines with the parent commit. The default
+value is 20.</p>
+</blockquote>
+<p>
+-C[&lt;num&gt;]</p>
+<blockquote>
+<p>In addition to <strong>-M</strong>, detect lines moved or copied from other files that
+were modified in the same commit. This is useful when you reorganize
+your program and move code around across files. When this option is
+given twice, the command additionally looks for copies from other files
+in the commit that creates the file. When this option is given three
+times, the command additionally looks for copies from other files in any
+commit.</p>
+<p>
+&lt;num&gt; is optional but it is the lower bound on the number of
+alphanumeric characters that Git must detect as moving/copying between
+files for it to associate those lines with the parent commit. And the
+default value is 40. If there are more than one <strong>-C</strong> options given, the
+&lt;num&gt; argument of the last <strong>-C</strong> will take effect.</p>
+</blockquote>
+<p>
+–ignore-rev &lt;rev&gt;</p>
+<blockquote>
+<p>Ignore changes made by the revision when assigning blame, as if the
+change never happened. Lines that were changed or added by an ignored
+commit will be blamed on the previous commit that changed that line or
+nearby lines. This option may be specified multiple times to ignore more
+than one revision. If the <strong>blame.markIgnoredLines</strong> config option is set,
+then lines that were changed by an ignored commit and attributed to
+another commit will be marked with a <strong>?</strong> in the blame output. If the
+<strong>blame.markUnblamableLines</strong> config option is set, then those lines
+touched by an ignored commit that we could not attribute to another
+revision are marked with a <em>*</em>.</p>
+</blockquote>
+<p>
+–ignore-revs-file &lt;file&gt;</p>
+<blockquote>
+<p>Ignore revisions listed in <strong>file</strong>, which must be in the same format as
+an <strong>fsck.skipList</strong>. This option may be repeated, and these files will be
+processed after any files specified with the <strong>blame.ignoreRevsFile</strong>
+config option. An empty file name, <strong>&#34;&#34;</strong>, will clear the list of revs
+from previously processed files.</p>
+</blockquote>
+<p>
+–color-lines</p>
+<blockquote>
+<p>Color line annotations in the default format differently if they come
+from the same commit as the preceding line. This makes it easier to
+distinguish code blocks introduced by different commits. The color
+defaults to cyan and can be adjusted using the
+<strong>color.blame.repeatedLines</strong> config option.</p>
+</blockquote>
+<p>
+–color-by-age</p>
+<blockquote>
+<p>Color line annotations depending on the age of the line in the default
+format. The <strong>color.blame.highlightRecent</strong> config option controls what
+color is used for each range of age.</p>
+</blockquote>
+<p>
+-h</p>
+<blockquote>
+<p>Show help message.</p>
+</blockquote>
+<p>
+-c</p>
+<blockquote>
+<p>Use the same output mode as *git-annotate*(1) (Default: off).</p>
+</blockquote>
+<p>
+–score-debug</p>
+<blockquote>
+<p>Include debugging information related to the movement of lines between
+files (see <strong>-C</strong>) and lines moved within a file (see <strong>-M</strong>). The first
+number listed is the score. This is the number of alphanumeric
+characters detected as having been moved between or within files. This
+must be above a certain threshold for <em>git blame</em> to consider those
+lines of code to have been moved.</p>
+</blockquote>
+<p>
+-f, –show-name</p>
+<blockquote>
+<p>Show the filename in the original commit. By default the filename is
+shown if there is any line that came from a file with a different name,
+due to rename detection.</p>
+</blockquote>
+<p>
+-n, –show-number</p>
+<blockquote>
+<p>Show the line number in the original commit (Default: off).</p>
+</blockquote>
+<p>
+-s</p>
+<blockquote>
+<p>Suppress the author name and timestamp from the output.</p>
+</blockquote>
+<p>
+-e, –show-email</p>
+<blockquote>
+<p>Show the author email instead of the author name (Default: off). This
+can also be controlled via the <strong>blame.showEmail</strong> config option.</p>
+</blockquote>
+<p>
+-w</p>
+<blockquote>
+<p>Ignore whitespace when comparing the parent&#39;s version and the child&#39;s to
+find where the lines came from.</p>
+</blockquote>
+<p>
+–abbrev=&lt;n&gt;</p>
+<blockquote>
+<p>Instead of using the default 7+1 hexadecimal digits as the abbreviated
+object name, use &lt;m&gt;+1 digits, where &lt;m&gt; is at least &lt;n&gt; but ensures the
+commit object names are unique. Note that 1 column is used for a caret
+to mark the boundary commit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+THE DEFAULT FORMAT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>When neither <strong>–porcelain</strong> nor <strong>–incremental</strong> option is specified, <strong>git
+blame</strong> will output annotation for each line with:</p>
+<blockquote>
+<p>·</p>
+<p>
+abbreviated object name for the commit the line came from;</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+author ident (by default the author name and date, unless <strong>-s</strong> or <strong>-e</strong>
+is specified); and</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+line number</p>
+</blockquote>
+<p>
+before the line contents.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+THE PORCELAIN FORMAT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>In this format, each line is output after a header; the header at the
+minimum has the first line which has:</p>
+<blockquote>
+<p>·</p>
+<p>
+40-byte SHA-1 of the commit the line is attributed to;</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+the line number of the line in the original file;</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+the line number of the line in the final file;</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+on a line that starts a group of lines from a different commit than the
+previous one, the number of lines in this group. On subsequent lines
+this field is absent.</p>
+</blockquote>
+<p>
+This header line is followed by the following information at least once
+for each commit:</p>
+<blockquote>
+<p>·</p>
+<p>
+the author name (&#34;author&#34;), email (&#34;author-mail&#34;), time (&#34;author-time&#34;),
+and time zone (&#34;author-tz&#34;); similarly for committer.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+the filename in the commit that the line is attributed to.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+the first line of the commit log message (&#34;summary&#34;).</p>
+</blockquote>
+<p>
+The contents of the actual line are output after the above header,
+prefixed by a TAB. This is to allow adding more header elements later.</p>
+<p>
+The porcelain format generally suppresses commit information that has
+already been seen. For example, two lines that are blamed to the same
+commit will both be shown, but the details for that commit will be shown
+only once. This is more efficient, but may require more state be kept by
+the reader. The <strong>–line-porcelain</strong> option can be used to output full
+commit information for each line, allowing simpler (but less efficient)
+usage like:</p>
+<blockquote>
+<pre class="example">
+# count the number of lines attributed to each author
+git blame --line-porcelain file |
+sed -n s/^author //p |
+sort | uniq -c | sort -rn
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SPECIFYING RANGES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Unlike <em>git blame</em> and <em>git annotate</em> in older versions of git, the
+extent of the annotation can be limited to both line ranges and revision
+ranges. The <strong>-L</strong> option, which limits annotation to a range of lines,
+may be specified multiple times.</p>
+<p>
+When you are interested in finding the origin for lines 40-60 for file
+<strong>foo</strong>, you can use the <strong>-L</strong> option like so (they mean the same thing —
+both ask for 21 lines starting at line 40):</p>
+<blockquote>
+<pre class="example">
+git blame -L 40,60 foo
+git blame -L 40,+21 foo
+</pre>
+</blockquote>
+<p>
+Also you can use a regular expression to specify the line range:</p>
+<blockquote>
+<pre class="example">
+git blame -L /^sub hello {/,/^}$/ foo
+</pre>
+</blockquote>
+<p>
+which limits the annotation to the body of the <strong>hello</strong> subroutine.</p>
+<p>
+When you are not interested in changes older than version v2.6.18, or
+changes older than 3 weeks, you can use revision range specifiers
+similar to <em>git rev-list</em>:</p>
+<blockquote>
+<pre class="example">
+git blame v2.6.18.. -- foo
+git blame --since=3.weeks -- foo
+</pre>
+</blockquote>
+<p>
+When revision range specifiers are used to limit the annotation, lines
+that have not changed since the range boundary (either the commit
+v2.6.18 or the most recent commit that is more than 3 weeks old in the
+above example) are blamed for that range boundary commit.</p>
+<p>
+A particularly useful way is to see if an added file has lines created
+by copy-and-paste from existing files. Sometimes this indicates that the
+developer was being sloppy and did not refactor the code properly. You
+can first find the commit that introduced the file with:</p>
+<blockquote>
+<pre class="example">
+git log --diff-filter=A --pretty=short -- foo
+</pre>
+</blockquote>
+<p>
+and then annotate the change between the commit and its parents, using
+<strong>commit^!</strong> notation:</p>
+<blockquote>
+<pre class="example">
+git blame -C -C -f $commit^! -- foo
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+INCREMENTAL OUTPUT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>When called with <strong>–incremental</strong> option, the command outputs the result
+as it is built. The output generally will talk about lines touched by
+more recent commits first (i.e. the lines will be annotated out of
+order) and is meant to be used by interactive viewers.</p>
+<p>
+The output format is similar to the Porcelain format, but it does not
+contain the actual lines from the file that is being annotated.</p>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>Each blame entry always starts with a line of:</p>
+<blockquote>
+<pre class="example">
+&lt;40-byte-hex-sha1&gt; &lt;sourceline&gt; &lt;resultline&gt; &lt;num-lines&gt;
+</pre>
+</blockquote>
+<p>
+Line numbers count from 1.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>The first time that a commit shows up in the stream, it has various
+other information about it printed out with a one-word tag at the
+beginning of each line describing the extra commit information (author,
+email, committer, dates, summary, etc.).</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>Unlike the Porcelain format, the filename information is always given
+and terminates the entry:</p>
+<blockquote>
+<pre class="example">
+&#34;filename&#34; &lt;whitespace-quoted-filename-goes-here&gt;
+</pre>
+</blockquote>
+<p>
+and thus it is really quite easy to parse for some line- and
+word-oriented parser (which should be quite natural for most scripting
+languages).</p>
+<blockquote>
+<p>\\</p>
+<p>
+<strong>Note</strong></p>
+<p>
+\\
+For people who do parsing: to make it more robust, just ignore any lines
+between the first and last one (&#34;&lt;sha1&gt;&#34; and &#34;filename&#34; lines) where you
+do not recognize the tag words (or care about that particular one) at
+the beginning of the &#34;extended information&#34; lines. That way, if there is
+ever added information (like the commit encoding or extended commit
+commentary), a blame viewer will not care.</p>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+MAPPING AUTHORS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>See *gitmailmap*(5).</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+blame.blankBoundary</p>
+<blockquote>
+<p>Show blank commit object name for boundary commits in *git-blame*(1).
+This option defaults to false.</p>
+</blockquote>
+<p>
+blame.coloring</p>
+<blockquote>
+<p>This determines the coloring scheme to be applied to blame output. It
+can be <em>repeatedLines</em>, <em>highlightRecent</em>, or <em>none</em> which is the
+default.</p>
+</blockquote>
+<p>
+blame.date</p>
+<blockquote>
+<p>Specifies the format used to output dates in *git-blame*(1). If unset
+the iso format is used. For supported values, see the discussion of the
+<strong>–date</strong> option at *git-log*(1).</p>
+</blockquote>
+<p>
+blame.showEmail</p>
+<blockquote>
+<p>Show the author email instead of author name in *git-blame*(1). This
+option defaults to false.</p>
+</blockquote>
+<p>
+blame.showRoot</p>
+<blockquote>
+<p>Do not treat root commits as boundaries in *git-blame*(1). This option
+defaults to false.</p>
+</blockquote>
+<p>
+blame.ignoreRevsFile</p>
+<blockquote>
+<p>Ignore revisions listed in the file, one unabbreviated object name per
+line, in <strong>git-blame*(1). Whitespace and comments beginning with *#</strong> are
+ignored. This option may be repeated multiple times. Empty file names
+will reset the list of ignored revisions. This option will be handled
+before the command line option <strong>–ignore-revs-file</strong>.</p>
+</blockquote>
+<p>
+blame.markUnblamableLines</p>
+<blockquote>
+<p>Mark lines that were changed by an ignored revision that we could not
+attribute to another commit with a <em>*</em> in the output of *git-blame*(1).</p>
+</blockquote>
+<p>
+blame.markIgnoredLines</p>
+<blockquote>
+<p>Mark lines that were changed by an ignored revision that we attributed
+to another commit with a <em>?</em> in the output of *git-blame*(1).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>*git-annotate*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+GIT
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

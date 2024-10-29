@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - attr.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - attr.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>attr - extended attributes on XFS filesystem objects</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+attr [ -LRSq ] -s attrname [ -V attrvalue ] 
+pathname
+
+attr [ -LRSq ] -g attrname pathname
+
+attr [ -LRSq ] -r attrname pathname
+
+attr [ -LRSq ] -l pathname
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+OVERVIEW
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Extended attributes implement the ability for a user to attach
+name:value pairs to objects within the XFS filesystem.</p>
+<p>
+This document describes the <em>attr</em> command, which is mostly compatible
+with the IRIX command of the same name. It is thus aimed specifically at
+users of the XFS filesystem - for filesystem independent extended
+attribute manipulation, consult the /getfattr/(1) and /setfattr/(1)
+documentation.</p>
+<p>
+Extended attributes can be used to store meta-information about the
+file. For example &#34;character-set=kanji&#34; could tell a document browser to
+use the Kanji character set when displaying that document and
+&#34;thumbnail=…&#34; could provide a reduced resolution overview of a high
+resolution graphic image.</p>
+<p>
+In the XFS filesystem, the <em>names</em> can be up to 256 bytes in length,
+terminated by the first 0 byte. The intent is that they be printable
+ASCII (or other character set) names for the attribute. The <em>values</em> can
+be up to 64KB of arbitrary binary data.</p>
+<p>
+Attributes can be attached to all types of XFS inodes: regular files,
+directories, symbolic links, device nodes, etc.</p>
+<p>
+XFS uses 2 disjoint attribute name spaces associated with every
+filesystem object. They are the <strong>root</strong> and <strong>user</strong> address spaces. The
+<strong>root</strong> address space is accessible only to the superuser, and then only
+by specifying a flag argument to the function call. Other users will not
+see or be able to modify attributes in the <strong>root</strong> address space. The
+<strong>user</strong> address space is protected by the normal file permissions
+mechanism, so the owner of the file can decide who is able to see and/or
+modify the value of attributes on any particular file.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The <em>attr</em> utility allows the manipulation of extended attributes
+associated with filesystem objects from within shell scripts.</p>
+<p>
+There are four main operations that <em>attr</em> can perform:</p>
+<dl>
+<dt>
+<strong>GET</strong>
+</dt>
+<dd>The <strong>-g attrname</strong> option tells <em>attr</em> to search the named
+object and print (to stdout) the value associated with that attribute
+name. With the <strong>-q</strong> flag, stdout will be exactly and only the value of
+the attribute, suitable for storage directly into a file or processing
+via a piped command.</dd>
+<dt>
+<strong>LIST</strong>
+</dt>
+<dd>The <strong>-l</strong> option tells <em>attr</em> to list the names of all the
+attributes that are associated with the object, and the number of
+bytes in the value of each of those attributes. With the <strong>-q</strong> flag,
+stdout will be a simple list of only the attribute names, one per
+line, suitable for input into a script.</dd>
+<dt>
+<strong>REMOVE</strong>
+</dt>
+<dd>The <strong>-r attrname</strong> option tells <em>attr</em> to remove an
+attribute with the given name from the object if the attribute exists.
+There is no output on successful completion.</dd>
+<dt>
+<strong>SET/CREATE</strong>
+</dt>
+<dd>The <strong>-s attrname</strong> option tells <em>attr</em> to set the named
+attribute of the object to the value read from stdin. If an attribute
+with that name already exists, its value will be replaced with this
+one. If an attribute with that name does not already exist, one will
+be created with this value. With the <strong>-V attrvalue</strong> flag, the
+attribute will be set to have a value of <strong>attrvalue</strong> and stdin will
+not be read. With the <strong>-q</strong> flag, stdout will not be used. Without the
+<strong>-q</strong> flag, a message showing the attribute name and the entire value
+will be printed.</dd>
+</dl>
+<p>When the <strong>-L</strong> option is given and the named object is a symbolic link,
+operate on the attributes of the object referenced by the symbolic link.
+Without this option, operate on the attributes of the symbolic link
+itself.</p>
+<p>
+When the <strong>-R</strong> option is given and the process has appropriate
+privileges, operate in the <em>root</em> attribute namespace rather that the
+<em>USER</em> attribute namespace.</p>
+<p>
+The <strong>-S</strong> option is similar, except it specifies use of the <em>security</em>
+attribute namespace.</p>
+<p>
+When the <strong>-q</strong> option is given <em>attr</em> will try to keep quiet. It will
+output error messages (to stderr) but will not print status messages (to
+stdout).</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+NOTES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The standard file interchange/archive programs /tar/(1), and /cpio/(1)
+will not archive or restore extended attributes, while the /xfsdump/(8)
+program will.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+CAVEATS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The list option present in the IRIX version of this command is not
+supported. <em>getfattr</em> provides a mechanism to retrieve all of the
+attribute names.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHOR
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Andreas Gruenbacher, &lt;/andreas.gruenbacher@gmail.com/&gt; and the SGI XFS
+development team, &lt;/linux-xfs@oss.sgi.com/&gt;.</p>
+<p>
+Please send your bug reports or comments to
+&lt;/<a href="https://savannah.nongnu.org/bugs/?group=attr/">https://savannah.nongnu.org/bugs/?group=attr/</a>&gt; or
+&lt;/acl-devel@nongnu.org/&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*getfattr*(1), *setfattr*(1), *attr_get*(3), *attr_set*(3),
+*attr_multi*(3), *attr_remove*(3), *xattr*(7), *xfsdump*(8)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

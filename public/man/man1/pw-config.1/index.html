@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pw-config.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pw-config.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pw-config - Debug PipeWire Config parsing</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>pw-config</strong> [/options/] paths</p>
+<p>
+<strong>pw-config</strong> [/options/] list [/SECTION/]</p>
+<p>
+<strong>pw-config</strong> [/options/] merge <em>SECTION</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>List config paths and config sections and display the parsed output.</p>
+<p>
+This tool can be used to get an overview of the config file that will be
+parsed by the PipeWire server and clients.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMON OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-h | –help</strong></p>
+<blockquote>
+<p>Show help.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Show version information.</p>
+</blockquote>
+<p>
+<strong>-n | –name=NAME</strong></p>
+<blockquote>
+<p>Config Name (default &#39;pipewire.conf&#39;)</p>
+</blockquote>
+<p>
+<strong>-p | –prefix=PREFIX</strong></p>
+<blockquote>
+<p>Config Prefix (default &#39;&#39;)</p>
+</blockquote>
+<p>
+<strong>-L | –no-newline</strong></p>
+<blockquote>
+<p>Omit newlines after values</p>
+</blockquote>
+<p>
+<strong>-r | –recurse</strong></p>
+<blockquote>
+<p>Reformat config sections recursively</p>
+</blockquote>
+<p>
+<strong>-N | –no-colors</strong></p>
+<blockquote>
+<p>Disable color output</p>
+</blockquote>
+<p>
+<strong>-C | -color[=WHEN]</strong></p>
+<blockquote>
+<p>whether to enable color support. WHEN is <em>never</em>, <em>always</em>, or <em>auto</em></p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+LISTING PATHS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Specify the paths command. It will display all the config files that
+will be parsed and in what order.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+LISTING CONFIG SECTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Specify the list command with an optional <em>SECTION</em> to list the
+configuration fragments used for <em>SECTION</em>. Without a <em>SECTION</em>, all
+sections will be listed.</p>
+<p>
+Use the -r options to reformat the sections.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+MERGING A CONFIG SECTION
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>With the merge option and a <em>SECTION</em>, pw-config will merge all config
+files into a merged config section and dump the results. This will be
+the section used by the client or server.</p>
+<p>
+Use the -r options to reformat the sections.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>pw-config</strong></p>
+<blockquote>
+<p>List all config files that will be used</p>
+</blockquote>
+<p>
+<strong>pw-config -n pipewire-pulse.conf</strong></p>
+<blockquote>
+<p>List all config files that will be used by the PipeWire pulseaudio
+server.</p>
+</blockquote>
+<p>
+<strong>pw-config -n pipewire-pulse.conf list</strong></p>
+<blockquote>
+<p>List all config sections used by the PipeWire pulseaudio server</p>
+</blockquote>
+<p>
+<strong>pw-config -n jack.conf list context.properties</strong></p>
+<blockquote>
+<p>List the context.properties fragments used by the JACK clients</p>
+</blockquote>
+<p>
+<strong>pw-config -n jack.conf merge context.properties</strong></p>
+<blockquote>
+<p>List the merged context.properties used by the JACK clients</p>
+</blockquote>
+<p>
+<strong>pw-config -n pipewire.conf -r merge context.modules</strong></p>
+<blockquote>
+<p>List the merged context.modules used by the PipeWire server and reformat</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+AUTHORS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The PipeWire Developers
+&lt;<a href="https://gitlab.freedesktop.org/pipewire/pipewire/issues">https://gitlab.freedesktop.org/pipewire/pipewire/issues</a>&gt;; PipeWire is
+available from &lt;<a href="https://pipewire.org">https://pipewire.org</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p><strong>pipewire(1)</strong>, <strong>pw-dump(1)</strong>,</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

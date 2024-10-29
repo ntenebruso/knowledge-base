@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - split.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - split.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>split - split a file into pieces</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>split</strong> [/OPTION/]… [/FILE /[/PREFIX/]]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Output pieces of FILE to PREFIXaa, PREFIXab, …; default size is 1000
+lines, and default PREFIX is &#39;x&#39;.</p>
+<p>
+With no FILE, or when FILE is -, read standard input.</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<dl>
+<dt>
+<strong>-a</strong>, *–suffix-length*=/N/
+</dt>
+<dd>generate suffixes of length N
+(default 2)</dd>
+<dt>
+*–additional-suffix*=/SUFFIX/
+</dt>
+<dd>append an additional SUFFIX to file
+names</dd>
+<dt>
+<strong>-b</strong>, *–bytes*=/SIZE/
+</dt>
+<dd>put SIZE bytes per output file</dd>
+<dt>
+<strong>-C</strong>, *–line-bytes*=/SIZE/
+</dt>
+<dd>put at most SIZE bytes of records per
+output file</dd>
+<dt>
+<strong>-d</strong>
+</dt>
+<dd>use numeric suffixes starting at 0, not alphabetic</dd>
+<dt>
+<strong>–numeric-suffixes</strong>[=/FROM/]
+</dt>
+<dd>same as <strong>-d</strong>, but allow setting the
+start value</dd>
+<dt>
+<strong>-x</strong>
+</dt>
+<dd>use hex suffixes starting at 0, not alphabetic</dd>
+<dt>
+<strong>–hex-suffixes</strong>[=/FROM/]
+</dt>
+<dd>same as <strong>-x</strong>, but allow setting the start
+value</dd>
+<dt>
+<strong>-e</strong>, <strong>–elide-empty-files</strong>
+</dt>
+<dd>do not generate empty output files with
+&#39;-n&#39;</dd>
+<dt>
+*–filter*=/COMMAND/
+</dt>
+<dd>write to shell COMMAND; file name is $FILE</dd>
+<dt>
+<strong>-l</strong>, *–lines*=/NUMBER/
+</dt>
+<dd>put NUMBER lines/records per output file</dd>
+<dt>
+<strong>-n</strong>, *–number*=/CHUNKS/
+</dt>
+<dd>generate CHUNKS output files; see
+explanation below</dd>
+<dt>
+<strong>-t</strong>, *–separator*=/SEP/
+</dt>
+<dd>use SEP instead of newline as the record
+separator; &#39;\0&#39; (zero) specifies the NUL character</dd>
+<dt>
+<strong>-u</strong>, <strong>–unbuffered</strong>
+</dt>
+<dd>immediately copy input to output with &#39;-n
+r/…&#39;</dd>
+<dt>
+<strong>–verbose</strong>
+</dt>
+<dd>print a diagnostic just before each output file is
+opened</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>The SIZE argument is an integer and optional unit (example: 10K is
+10*1024). Units are K,M,G,T,P,E,Z,Y,R,Q (powers of 1024) or KB,MB,…
+(powers of 1000). Binary prefixes can be used, too: KiB=K, MiB=M, and so
+on.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+CHUNKS may be:
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<dl>
+<dt>
+N
+</dt>
+<dd>split into N files based on size of input</dd>
+<dt>
+K/N
+</dt>
+<dd>output Kth of N to stdout</dd>
+<dt>
+l/N
+</dt>
+<dd>split into N files without splitting lines/records</dd>
+<dt>
+l/K/N
+</dt>
+<dd>output Kth of N to stdout without splitting lines/records</dd>
+<dt>
+r/N
+</dt>
+<dd>like &#39;l&#39; but use round robin distribution</dd>
+<dt>
+r/K/N
+</dt>
+<dd>likewise but only output Kth of N to stdout</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHOR
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Written by Torbjorn Granlund and Richard M. Stallman.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/split">https://www.gnu.org/software/coreutils/split</a>&gt;<br>
+or available locally via: info &#39;(coreutils) split invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

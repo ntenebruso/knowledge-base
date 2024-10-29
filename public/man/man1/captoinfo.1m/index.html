@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - captoinfo.1m | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - captoinfo.1m</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>captoinfo</strong> - convert a <em>termcap</em> description into a <em>terminfo</em>
+description</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>captoinfo</strong> [*-v*/n/ <em>width/] [*-V*] [*-1*] [*-w* /width/] /file</em> …</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>captoinfo</strong> looks in each given text <em>file</em> for <strong>termcap</strong> descriptions.
+For each one found, an equivalent <strong>terminfo</strong> description is written to
+standard output. Termcap <strong>tc</strong> capabilities are translated directly to
+terminfo <strong>use</strong> capabilities.</p>
+<p>
+If no <em>file</em> is given, then the environment variable <strong>TERMCAP</strong> is used
+for the filename or entry. If <strong>TERMCAP</strong> is a full pathname to a file,
+only the terminal whose name is specified in the environment variable
+<strong>TERM</strong> is extracted from that file. If the environment variable
+<strong>TERMCAP</strong> is not set, then the file
+<strong>/nix/store/53iigsmf32bwkfdhhihq2rppgk23k2rg-ncurses-6.4.20221231/share/terminfo</strong>
+is read.</p>
+<dl>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>print out tracing information on standard error as the program
+runs.</dd>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>print out the version of the program in use on standard error
+and exit.</dd>
+<dt>
+<strong>-1</strong>
+</dt>
+<dd>cause the fields to print out one to a line. Otherwise, the
+fields will be printed several to a line to a maximum width of 60
+characters.</dd>
+<dt>
+<strong>-w</strong>
+</dt>
+<dd>change the output to <em>width</em> characters.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+FILES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+/nix/store/53iigsmf32bwkfdhhihq2rppgk23k2rg-ncurses-6.4.20221231/share/terminfo
+</dt>
+<dd>Compiled
+terminal description database.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+TRANSLATIONS FROM NONSTANDARD CAPABILITIES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Some obsolete nonstandard capabilities will automatically be translated
+into standard (SVr4/XSI Curses) terminfo capabilities by <strong>captoinfo</strong>.
+Whenever one of these automatic translations is done, the program will
+issue an notification to stderr, inviting the user to check that it has
+not mistakenly translated a completely unknown and random capability
+and/or syntax error.</p>
+<table>
+<tbody>
+<tr>
+<td>Nonstd</td>
+<td>Std</td>
+<td>From</td>
+<td>Terminfo</td>
+</tr>
+<tr>
+<td>name</td>
+<td>name</td>
+<td></td>
+<td>capability</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>BO</td>
+<td>mr</td>
+<td>AT&amp;T</td>
+<td>enter_reverse_mode</td>
+</tr>
+<tr>
+<td>CI</td>
+<td>vi</td>
+<td>AT&amp;T</td>
+<td>cursor_invisible</td>
+</tr>
+<tr>
+<td>CV</td>
+<td>ve</td>
+<td>AT&amp;T</td>
+<td>cursor_normal</td>
+</tr>
+<tr>
+<td>DS</td>
+<td>mh</td>
+<td>AT&amp;T</td>
+<td>enter_dim_mode</td>
+</tr>
+<tr>
+<td>EE</td>
+<td>me</td>
+<td>AT&amp;T</td>
+<td>exit_attribute_mode</td>
+</tr>
+<tr>
+<td>FE</td>
+<td>LF</td>
+<td>AT&amp;T</td>
+<td>label_on</td>
+</tr>
+<tr>
+<td>FL</td>
+<td>LO</td>
+<td>AT&amp;T</td>
+<td>label_off</td>
+</tr>
+<tr>
+<td>XS</td>
+<td>mk</td>
+<td>AT&amp;T</td>
+<td>enter_secure_mode</td>
+</tr>
+<tr>
+<td>EN</td>
+<td>@7</td>
+<td>XENIX</td>
+<td>key_end</td>
+</tr>
+<tr>
+<td>GE</td>
+<td>ae</td>
+<td>XENIX</td>
+<td>exit_alt_charset_mode</td>
+</tr>
+<tr>
+<td>GS</td>
+<td>as</td>
+<td>XENIX</td>
+<td>enter_alt_charset_mode</td>
+</tr>
+<tr>
+<td>HM</td>
+<td>kh</td>
+<td>XENIX</td>
+<td>key_home</td>
+</tr>
+<tr>
+<td>LD</td>
+<td>kL</td>
+<td>XENIX</td>
+<td>key_dl</td>
+</tr>
+<tr>
+<td>PD</td>
+<td>kN</td>
+<td>XENIX</td>
+<td>key_npage</td>
+</tr>
+<tr>
+<td>PN</td>
+<td>po</td>
+<td>XENIX</td>
+<td>prtr_off</td>
+</tr>
+<tr>
+<td>PS</td>
+<td>pf</td>
+<td>XENIX</td>
+<td>prtr_on</td>
+</tr>
+<tr>
+<td>PU</td>
+<td>kP</td>
+<td>XENIX</td>
+<td>key_ppage</td>
+</tr>
+<tr>
+<td>RT</td>
+<td>@8</td>
+<td>XENIX</td>
+<td>kent</td>
+</tr>
+<tr>
+<td>UP</td>
+<td>ku</td>
+<td>XENIX</td>
+<td>kcuu1</td>
+</tr>
+<tr>
+<td>KA</td>
+<td>k;</td>
+<td>Tek</td>
+<td>key_f10</td>
+</tr>
+<tr>
+<td>KB</td>
+<td>F1</td>
+<td>Tek</td>
+<td>key_f11</td>
+</tr>
+<tr>
+<td>KC</td>
+<td>F2</td>
+<td>Tek</td>
+<td>key_f12</td>
+</tr>
+<tr>
+<td>KD</td>
+<td>F3</td>
+<td>Tek</td>
+<td>key_f13</td>
+</tr>
+<tr>
+<td>KE</td>
+<td>F4</td>
+<td>Tek</td>
+<td>key_f14</td>
+</tr>
+<tr>
+<td>KF</td>
+<td>F5</td>
+<td>Tek</td>
+<td>key_f15</td>
+</tr>
+<tr>
+<td>BC</td>
+<td>Sb</td>
+<td>Tek</td>
+<td>set_background</td>
+</tr>
+<tr>
+<td>FC</td>
+<td>Sf</td>
+<td>Tek</td>
+<td>set_foreground</td>
+</tr>
+<tr>
+<td>HS</td>
+<td>mh</td>
+<td>Iris</td>
+<td>enter_dim_mode</td>
+</tr>
+</tbody>
+</table>
+<p>
+XENIX termcap also used to have a set of extension capabilities for
+forms drawing, designed to take advantage of the IBM PC high-half
+graphics. They were as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Cap</th>
+<th>Graphic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G2</td>
+<td>upper left</td>
+</tr>
+<tr>
+<td>G3</td>
+<td>lower left</td>
+</tr>
+<tr>
+<td>G1</td>
+<td>upper right</td>
+</tr>
+<tr>
+<td>G4</td>
+<td>lower right</td>
+</tr>
+<tr>
+<td>GR</td>
+<td>pointing right</td>
+</tr>
+<tr>
+<td>GL</td>
+<td>pointing left</td>
+</tr>
+<tr>
+<td>GU</td>
+<td>pointing up</td>
+</tr>
+<tr>
+<td>GD</td>
+<td>pointing down</td>
+</tr>
+<tr>
+<td>GH</td>
+<td>horizontal line</td>
+</tr>
+<tr>
+<td>GV</td>
+<td>vertical line</td>
+</tr>
+<tr>
+<td>GC</td>
+<td>intersection</td>
+</tr>
+<tr>
+<td>G6</td>
+<td>upper left</td>
+</tr>
+<tr>
+<td>G7</td>
+<td>lower left</td>
+</tr>
+<tr>
+<td>G5</td>
+<td>upper right</td>
+</tr>
+<tr>
+<td>G8</td>
+<td>lower right</td>
+</tr>
+<tr>
+<td>Gr</td>
+<td>tee pointing right</td>
+</tr>
+<tr>
+<td>Gr</td>
+<td>tee pointing left</td>
+</tr>
+<tr>
+<td>Gu</td>
+<td>tee pointing up</td>
+</tr>
+<tr>
+<td>Gd</td>
+<td>tee pointing down</td>
+</tr>
+<tr>
+<td>Gh</td>
+<td>horizontal line</td>
+</tr>
+<tr>
+<td>Gv</td>
+<td>vertical line</td>
+</tr>
+<tr>
+<td>Gc</td>
+<td>intersection</td>
+</tr>
+<tr>
+<td>GG</td>
+<td>acs magic cookie count</td>
+</tr>
+</tbody>
+</table>
+<p>
+If the single-line capabilities occur in an entry, they will
+automatically be composed into an <strong>acsc</strong> string. The double-line
+capabilities and <strong>GG</strong> are discarded with a warning message.</p>
+<p>
+IBM&#39;s AIX has a terminfo facility descended from SVr1 terminfo but
+incompatible with the SVr4 format. The following AIX extensions are
+automatically translated:</p>
+<table>
+<thead>
+<tr>
+<th>IBM</th>
+<th>XSI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ksel</td>
+<td>kslt</td>
+</tr>
+<tr>
+<td>kbtab</td>
+<td>kcbt</td>
+</tr>
+<tr>
+<td>font0</td>
+<td>s0ds</td>
+</tr>
+<tr>
+<td>font1</td>
+<td>s1ds</td>
+</tr>
+<tr>
+<td>font2</td>
+<td>s2ds</td>
+</tr>
+<tr>
+<td>font3</td>
+<td>s3ds</td>
+</tr>
+</tbody>
+</table>
+<p>
+Additionally, the AIX <em>box1</em> capability will be automatically translated
+to an <strong>acsc</strong> string.</p>
+<p>
+Hewlett-Packard&#39;s terminfo library supports two nonstandard terminfo
+capabilities <strong>meml</strong> (memory lock) and <strong>memu</strong> (memory unlock). These will
+be discarded with a warning message.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+NOTES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>This utility is actually a link to <strong>tic*(1M), running in <em>-I</em> mode. You
+can use other *tic</strong> options such as <strong>-f</strong> and <strong>-x</strong>.</p>
+<p>
+The verbose option is not identical to SVr4&#39;s. Under SVr4, instead of
+following the <strong>-v</strong> with a trace level n, you repeat it n times.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+PORTABILITY
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>X/Open Curses, Issue 7 (2009) describes <strong>tic</strong> briefly, but omits this
+program. SVr4 systems provide <strong>captoinfo</strong> as a separate application from
+<strong>tic</strong>.</p>
+<p>
+NetBSD does not provide this application.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*infocmp*(1M), *curses*(3X), *terminfo*(5)</p>
+<p>
+This describes <strong>ncurses</strong> version 6.4 (patch 20221231).</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+AUTHOR
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Eric S. Raymond &lt;esr@snark.thyrsus.com&gt; and<br>
+Thomas E. Dickey &lt;dickey@invisible-island.net&gt;</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

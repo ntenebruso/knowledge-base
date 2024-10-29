@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - xdg-email.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - xdg-email.1</h1>
+    
+<p>.SH &#34;NAME&#34; xdg-email - command line tool for sending mail using the
+users preferred e-mail composer</p>
+<p>
+.SH &#34;SYNOPSIS&#34;</p>
+<p>
+.HP u</p>
+<p>
+<strong>xdg-email</strong> [*–utf8*] [*–cc* /address/] [*–bcc* /address/]
+[*–subject* <em>text/] [*–body* /text/] [*–attach* /file/] [ |
+/mailto-uri</em> | <em>address(es)</em> ]</p>
+<p>
+.HP u</p>
+<p>
+<strong>xdg-email</strong> { | <strong>–help</strong> | <strong>–manual</strong> | <strong>–version</strong> }</p>
+<p>
+.SH &#34;DESCRIPTION&#34;</p>
+<p>
+.PP xdg-email opens the users preferred e-mail composer in order to send
+a mail to <em>address(es)</em> or <em>mailto-uri</em>. RFC2368 defines mailto: URIs.
+xdg-email limits support to, cc, subject and body fields in
+<em>mailto-uri</em>, all other fields are silently ignored. <em>address(es)</em> must
+follow the syntax of RFC822. Multiple addresses may be provided as
+separate arguments.</p>
+<p>
+.PP All information provided on the command line is used to prefill
+corresponding fields in the users e-mail composer. The user will have
+the opportunity to change any of this information before actually
+sending the e-mail.</p>
+<p>
+.PP xdg-email is for use inside a desktop session only. It is not
+recommended to use xdg-email as root.</p>
+<p>
+.SH &#34;OPTIONS&#34;</p>
+<p>
+.PP <strong>–utf8</strong></p>
+<blockquote>
+<p>Indicates that all command line options that follow are in utf8. Without
+this option, command line options are expected to be encoded according
+to locale. If the locale already specifies utf8 this option has no
+effect. This option does not affect mailto URIs that are passed on the
+command line.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>–cc</strong> <em>address</em></p>
+<blockquote>
+<p>Specify a recipient to be copied on the e-mail.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>–bcc</strong> <em>address</em></p>
+<blockquote>
+<p>Specify a recipient to be blindly copied on the e-mail.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>–subject</strong> <em>text</em></p>
+<blockquote>
+<p>Specify a subject for the e-mail.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>–body</strong> <em>text</em></p>
+<blockquote>
+<p>Specify a body for the e-mail. Since the user will be able to make
+changes before actually sending the e-mail, this can be used to provide
+the user with a template for the e-mail. <em>text</em> may contain linebreaks.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>–attach</strong> <em>file</em></p>
+<blockquote>
+<p>Specify an attachment for the e-mail. <em>file</em> must point to an existing
+file.</p>
+<p>
+Some e-mail applications require the file to remain present after
+xdg-email returns.</p>
+<p>
+.RE .PP <strong>–help</strong></p>
+<blockquote>
+<p>Show command synopsis.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>–manual</strong></p>
+<blockquote>
+<p>Show this manual page.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>–version</strong></p>
+<blockquote>
+<p>Show the xdg-utils version information.</p>
+<p>
+.RE .SH &#34;ENVIRONMENT VARIABLES&#34;</p>
+<p>
+.PP xdg-email honours the following environment variables:</p>
+<p>
+.PP XDG_UTILS_DEBUG_LEVEL</p>
+<blockquote>
+<p>Setting this environment variable to a non-zero numerical value makes
+xdg-email do more verbose reporting on stderr. Setting a higher value
+increases the verbosity.</p>
+<p>
+.RE .SH &#34;EXIT CODES&#34;</p>
+<p>
+.PP An exit code of 0 indicates success while a non-zero exit code
+indicates failure. The following failure codes can be returned:</p>
+<p>
+.PP <strong>1</strong></p>
+<blockquote>
+<p>Error in command line syntax.</p>
+<p>
+.RE .PP <strong>2</strong></p>
+<blockquote>
+<p>One of the files passed on the command line did not exist.</p>
+<p>
+.RE .PP <strong>3</strong></p>
+<blockquote>
+<p>A required tool could not be found.</p>
+<p>
+.RE .PP <strong>4</strong></p>
+<blockquote>
+<p>The action failed.</p>
+<p>
+.RE .PP <strong>5</strong></p>
+<blockquote>
+<p>No permission to read one of the files passed on the command line.</p>
+<p>
+.RE .SH &#34;SEE ALSO&#34;</p>
+<p>
+.PP <strong>xdg-open*(1), *xdg-mime*(1), *MIME applications associations
+specification</strong>[1], <strong>RFC 6068 - The mailto URI Scheme</strong>[2]</p>
+<p>
+.SH &#34;EXAMPLES&#34;</p>
+<p>
+.PP</p>
+<blockquote>
+<pre class="example">
+xdg-email Jeremy White &lt;jwhite@example.com&gt;
+</pre>
+</blockquote>
+<p>
+.PP</p>
+<blockquote>
+<pre class="example">
+xdg-email --attach /tmp/logo.png \
+          --subject Logo contest \
+          --body Attached you find the logo for the contest. \
+          jwhite@example.com
+</pre>
+</blockquote>
+<p>
+.PP</p>
+<blockquote>
+<pre class="example">
+xdg-email --subject Your password is about to expire \
+          jwhite@example.com bastian@example.com whipple@example.com
+</pre>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+AUTHORS
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>Kevin Krammer</strong></p>
+<blockquote>
+<p>Author.</p>
+</blockquote>
+<p>
+<strong>Jeremy White</strong></p>
+<blockquote>
+<p>Author.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>\\
+Copyright © 2006\\</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+NOTES
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>MIME applications associations specification
+
+http://www.freedesktop.org/wiki/Specifications/mime-apps-spec/</dd>
+<dt>
+2.
+</dt>
+<dd>RFC 6068 - The &#39;mailto&#39; URI Scheme
+
+https://tools.ietf.org/html/rfc6068</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

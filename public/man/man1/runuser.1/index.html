@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - runuser.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - runuser.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>runuser - run a command with substitute user and group ID</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>runuser</strong> [options] <strong>-u</strong> <em>user</em> <a href="--] /command/ [/argument/...">--] /command/ [/argument/...</a></p>
+<p>
+<strong>runuser</strong> [options] [*-*] [/user/ [/argument/…]]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>runuser</strong> can be used to run commands with a substitute user and group
+ID. If the option <strong>-u</strong> is not given, <strong>runuser</strong> falls back to
+<strong>su</strong>-compatible semantics and a shell is executed. The difference
+between the commands <strong>runuser</strong> and <strong>su</strong> is that <strong>runuser</strong> does not ask
+for a password (because it may be executed by the root user only) and it
+uses a different PAM configuration. The command <strong>runuser</strong> does not have
+to be installed with set-user-ID permissions.</p>
+<p>
+If the PAM session is not required, then the recommended solution is to
+use the *setpriv*(1) command.</p>
+<p>
+When called without arguments, <strong>runuser</strong> defaults to running an
+interactive shell as <em>root</em>.</p>
+<p>
+For backward compatibility, <strong>runuser</strong> defaults to not changing the
+current directory and to setting only the environment variables <strong>HOME</strong>
+and <strong>SHELL</strong> (plus <strong>USER</strong> and <strong>LOGNAME</strong> if the target <em>user</em> is not
+root). This version of <strong>runuser</strong> uses PAM for session management.</p>
+<p>
+Note that <strong>runuser</strong> in all cases use PAM (pam_getenvlist()) to do the
+final environment modification. Command-line options such as <strong>–login</strong>
+and <strong>–preserve-environment</strong> affect the environment before it is
+modified by PAM.</p>
+<p>
+Since version 2.38 <strong>runuser</strong> resets process resource limits RLIMIT_NICE,
+RLIMIT_RTPRIO, RLIMIT_FSIZE, RLIMIT_AS and RLIMIT_NOFILE.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-c</strong>, *–command*=/command/</p>
+<blockquote>
+<p>Pass <em>command</em> to the shell with the <strong>-c</strong> option.</p>
+</blockquote>
+<p>
+<strong>-f</strong>, <strong>–fast</strong></p>
+<blockquote>
+<p>Pass <strong>-f</strong> to the shell, which may or may not be useful, depending on the
+shell.</p>
+</blockquote>
+<p>
+<strong>-g</strong>, *–group*=/group/</p>
+<blockquote>
+<p>The primary group to be used. This option is allowed for the root user
+only.</p>
+</blockquote>
+<p>
+<strong>-G</strong>, *–supp-group*=/group/</p>
+<blockquote>
+<p>Specify a supplementary group. This option is available to the root user
+only. The first specified supplementary group is also used as a primary
+group if the option <strong>–group</strong> is not specified.</p>
+</blockquote>
+<p>
+<strong>-</strong>, <strong>-l</strong>, <strong>–login</strong></p>
+<blockquote>
+<p>Start the shell as a login shell with an environment similar to a real
+login:</p>
+<blockquote>
+<p>·</p>
+<p>
+clears all the environment variables except for <strong>TERM</strong> and variables
+specified by <strong>–whitelist-environment</strong></p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+initializes the environment variables <strong>HOME</strong>, <strong>SHELL</strong>, <strong>USER</strong>,
+<strong>LOGNAME</strong>, and <strong>PATH</strong></p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+changes to the target user&#39;s home directory</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+sets argv[0] of the shell to <strong>-</strong> in order to make the shell a login
+shell</p>
+</blockquote>
+</blockquote>
+<p>
+<strong>-P</strong>, <strong>–pty</strong></p>
+<blockquote>
+<p>Create a pseudo-terminal for the session. The independent terminal
+provides better security as the user does not share a terminal with the
+original session. This can be used to avoid TIOCSTI ioctl terminal
+injection and other security attacks against terminal file descriptors.
+The entire session can also be moved to the background (e.g., <strong>runuser
+–pty</strong> <strong>-u</strong> <em>username</em> <strong>–</strong> <em>command</em> <strong>&amp;</strong>). If the pseudo-terminal is
+enabled, then <strong>runuser</strong> works as a proxy between the sessions (sync
+stdin and stdout).</p>
+<p>
+This feature is mostly designed for interactive sessions. If the
+standard input is not a terminal, but for example a pipe (e.g., <strong>echo
+&#34;date&#34; | runuser –pty -u</strong> <em>user</em>), then the <strong>ECHO</strong> flag for the
+pseudo-terminal is disabled to avoid messy output.</p>
+</blockquote>
+<p>
+<strong>-m</strong>, <strong>-p</strong>, <strong>–preserve-environment</strong></p>
+<blockquote>
+<p>Preserve the entire environment, i.e., do not set <strong>HOME</strong>, <strong>SHELL</strong>,
+<strong>USER</strong> or <strong>LOGNAME</strong>. The option is ignored if the option <strong>–login</strong> is
+specified.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, *–shell*=/shell/</p>
+<blockquote>
+<p>Run the specified <em>shell</em> instead of the default. The shell to run is
+selected according to the following rules, in order:</p>
+<blockquote>
+<p>·</p>
+<p>
+the shell specified with <strong>–shell</strong></p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+the shell specified in the environment variable <strong>SHELL</strong> if the
+<strong>–preserve-environment</strong> option is used</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+the shell listed in the passwd entry of the target user</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+/bin/sh</p>
+<p>
+If the target user has a restricted shell (i.e., not listed in
+<em>/etc/shells</em>), then the <strong>–shell</strong> option and the <strong>SHELL</strong> environment
+variables are ignored unless the calling user is root.</p>
+</blockquote>
+</blockquote>
+<p>
+*–session-command=*/command/</p>
+<blockquote>
+<p>Same as <strong>-c</strong>, but do not create a new session. (Discouraged.)</p>
+</blockquote>
+<p>
+<strong>-w</strong>, *–whitelist-environment*=/list/</p>
+<blockquote>
+<p>Don&#39;t reset the environment variables specified in the comma-separated
+<em>list</em> when clearing the environment for <strong>–login</strong>. The whitelist is
+ignored for the environment variables <strong>HOME</strong>, <strong>SHELL</strong>, <strong>USER</strong>,
+<strong>LOGNAME</strong>, and <strong>PATH</strong>.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+CONFIG FILES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>runuser</strong> reads the <em>/etc/default/runuser</em> and <em>/etc/login.defs</em>
+configuration files. The following configuration items are relevant for
+<strong>runuser</strong>:</p>
+<p>
+<strong>ENV_PATH</strong> (string)</p>
+<blockquote>
+<p>Defines the PATH environment variable for a regular user. The default
+value is <em>/usr/local/bin:/bin:/usr/bin</em>.</p>
+</blockquote>
+<p>
+<strong>ENV_ROOTPATH</strong> (string), <strong>ENV_SUPATH</strong> (string)</p>
+<blockquote>
+<p>Defines the <strong>PATH</strong> environment variable for root. <strong>ENV_SUPATH</strong> takes
+precedence. The default value is
+<em>/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin</em>.</p>
+</blockquote>
+<p>
+<strong>ALWAYS_SET_PATH</strong> (boolean)</p>
+<blockquote>
+<p>If set to <em>yes</em> and <strong>–login</strong> and <strong>–preserve-environment</strong> were not
+specified <strong>runuser</strong> initializes <strong>PATH</strong>.</p>
+</blockquote>
+<p>
+The environment variable <strong>PATH</strong> may be different on systems where <em>/bin</em>
+and <em>/sbin</em> are merged into <em>/usr</em>; this variable is also affected by
+the <strong>–login</strong> command-line option and the PAM system setting (e.g.,
+*pam_env*(8)).</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>runuser</strong> normally returns the exit status of the command it executed.
+If the command was killed by a signal, <strong>runuser</strong> returns the number of
+the signal plus 128.</p>
+<p>
+Exit status generated by <strong>runuser</strong> itself:</p>
+<p>
+1</p>
+<blockquote>
+<p>Generic error before executing the requested command</p>
+</blockquote>
+<p>
+126</p>
+<blockquote>
+<p>The requested command could not be executed</p>
+</blockquote>
+<p>
+127</p>
+<blockquote>
+<p>The requested command was not found</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+FILES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><em>/etc/pam.d/runuser</em></p>
+<blockquote>
+<p>default PAM configuration file</p>
+</blockquote>
+<p>
+<em>/etc/pam.d/runuser-l</em></p>
+<blockquote>
+<p>PAM configuration file if <strong>–login</strong> is specified</p>
+</blockquote>
+<p>
+<em>/etc/default/runuser</em></p>
+<blockquote>
+<p>runuser specific logindef config file</p>
+</blockquote>
+<p>
+<em>/etc/login.defs</em></p>
+<blockquote>
+<p>global logindef config file</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+HISTORY
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>This <strong>runuser</strong> command was derived from coreutils <strong>su</strong>, which was based
+on an implementation by David MacKenzie, and the Fedora <strong>runuser</strong>
+command by Dan Walsh.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*setpriv*(1), *su*(1), *login.defs*(5), *shells*(5), *pam*(8)</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The <strong>runuser</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

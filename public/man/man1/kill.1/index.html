@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - kill.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - kill.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>kill - terminate a process</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>kill</strong> [*-<strong>/signal/|</strong>-s* <em>signal/|*-p*] [*-q* /value/] [*-a*]
+[*–timeout* /milliseconds</em> <em>signal/] [*–*] /pid/|/name</em>…</p>
+<p>
+<strong>kill</strong> <strong>-l</strong> [/number/] | <strong>-L</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The command <strong>kill</strong> sends the specified <em>signal</em> to the specified
+processes or process groups.</p>
+<p>
+If no signal is specified, the <strong>TERM</strong> signal is sent. The default action
+for this signal is to terminate the process. This signal should be used
+in preference to the <strong>KILL</strong> signal (number 9), since a process may
+install a handler for the TERM signal in order to perform clean-up steps
+before terminating in an orderly fashion. If a process does not
+terminate after a <strong>TERM</strong> signal has been sent, then the <strong>KILL</strong> signal
+may be used; be aware that the latter signal cannot be caught, and so
+does not give the target process the opportunity to perform any clean-up
+before terminating.</p>
+<p>
+Most modern shells have a builtin <strong>kill</strong> command, with a usage rather
+similar to that of the command described here. The <strong>–all</strong>, <strong>–pid</strong>, and
+<strong>–queue</strong> options, and the possibility to specify processes by command
+name, are local extensions.</p>
+<p>
+If <em>signal</em> is 0, then no actual signal is sent, but error checking is
+still performed.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+ARGUMENTS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The list of processes to be signaled can be a mixture of names and PIDs.</p>
+<p>
+<em>pid</em></p>
+<blockquote>
+<p>Each <em>pid</em> can be expressed in one of the following ways:</p>
+<p>
+<em>n</em></p>
+<blockquote>
+<p>where <em>n</em> is larger than 0. The process with PID <em>n</em> is signaled.</p>
+</blockquote>
+<p>
+<strong>0</strong></p>
+<blockquote>
+<p>All processes in the current process group are signaled.</p>
+</blockquote>
+<p>
+<strong>-1</strong></p>
+<blockquote>
+<p>All processes with a PID larger than 1 are signaled.</p>
+</blockquote>
+<p>
+*-*/n/</p>
+<blockquote>
+<p>where <em>n</em> is larger than 1. All processes in process group <em>n</em> are
+signaled. When an argument of the form -n is given, and it is meant to
+denote a process group, either a signal must be specified first, or the
+argument must be preceded by a – option, otherwise it will be taken as
+the signal to send.</p>
+</blockquote>
+</blockquote>
+<p>
+<em>name</em></p>
+<blockquote>
+<p>All processes invoked using this <em>name</em> will be signaled.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>-s</strong>, <strong>–signal</strong> <em>signal</em></p>
+<blockquote>
+<p>The signal to send. It may be given as a name or a number.</p>
+</blockquote>
+<p>
+<strong>-l</strong>, <strong>–list</strong> [/number/]</p>
+<blockquote>
+<p>Print a list of signal names, or convert the given signal number to a
+name. The signals can be found in <em>/usr/include/linux/signal.h</em>.</p>
+</blockquote>
+<p>
+<strong>-L</strong>, <strong>–table</strong></p>
+<blockquote>
+<p>Similar to <strong>-l</strong>, but it will print signal names and their corresponding
+numbers.</p>
+</blockquote>
+<p>
+<strong>-a</strong>, <strong>–all</strong></p>
+<blockquote>
+<p>Do not restrict the command-name-to-PID conversion to processes with the
+same UID as the present process.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–pid</strong></p>
+<blockquote>
+<p>Only print the process ID (PID) of the named processes, do not send any
+signals.</p>
+</blockquote>
+<p>
+<strong>-r</strong>, <strong>–require-handler</strong></p>
+<blockquote>
+<p>Do not send the signal if it is not caught in userspace by the signalled
+process.</p>
+</blockquote>
+<p>
+<strong>–verbose</strong></p>
+<blockquote>
+<p>Print PID(s) that will be signaled with <strong>kill</strong> along with the signal.</p>
+</blockquote>
+<p>
+<strong>-q</strong>, <strong>–queue</strong> <em>value</em></p>
+<blockquote>
+<p>Send the signal using *sigqueue*(3) rather than *kill*(2). The <em>value</em>
+argument is an integer that is sent along with the signal. If the
+receiving process has installed a handler for this signal using the
+<strong>SA_SIGINFO</strong> flag to *sigaction*(2), then it can obtain this data via
+the <em>si_sigval</em> field of the <em>siginfo_t</em> structure.</p>
+</blockquote>
+<p>
+<strong>–timeout</strong> <em>milliseconds signal</em></p>
+<blockquote>
+<p>Send a signal defined in the usual way to a process, followed by an
+additional signal after a specified delay. The <strong>–timeout</strong> option causes
+<strong>kill</strong> to wait for a period defined in <em>milliseconds</em> before sending a
+follow-up <em>signal</em> to the process. This feature is implemented using the
+Linux kernel PID file descriptor feature in order to guarantee that the
+follow-up signal is sent to the same process or not sent if the process
+no longer exists.</p>
+<p>
+Note that the operating system may re-use PIDs and implementing an
+equivalent feature in a shell using <strong>kill</strong> and <strong>sleep</strong> would be subject
+to races whereby the follow-up signal might be sent to a different
+process that used a recycled PID.</p>
+<p>
+The <strong>–timeout</strong> option can be specified multiple times: the signals are
+sent sequentially with the specified timeouts. The <strong>–timeout</strong> option
+can be combined with the <strong>–queue</strong> option.</p>
+<p>
+As an example, the following command sends the signals <strong>QUIT</strong>, <strong>TERM</strong>
+and <strong>KILL</strong> in sequence and waits for 1000 milliseconds between sending
+the signals:</p>
+<blockquote>
+<pre class="example">
+kill --verbose --timeout 1000 TERM --timeout 1000 KILL \
+        --signal QUIT 12345
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>kill</strong> has the following exit status values:</p>
+<p>
+<strong>0</strong></p>
+<blockquote>
+<p>success</p>
+</blockquote>
+<p>
+<strong>1</strong></p>
+<blockquote>
+<p>failure</p>
+</blockquote>
+<p>
+<strong>64</strong></p>
+<blockquote>
+<p>partial success (when more than one process specified)</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+NOTES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Although it is possible to specify the TID (thread ID, see *gettid*(2))
+of one of the threads in a multithreaded process as the argument of
+<strong>kill</strong>, the signal is nevertheless directed to the process (i.e., the
+entire thread group). In other words, it is not possible to send a
+signal to an explicitly selected thread in a multithreaded process. The
+signal will be delivered to an arbitrarily selected thread in the target
+process that is not blocking the signal. For more details, see
+<strong>signal*(7) and the description of *CLONE_THREAD</strong> in *clone*(2).</p>
+<p>
+Various shells provide a builtin <strong>kill</strong> command that is preferred in
+relation to the *kill*(1) executable described by this manual. The
+easiest way to ensure one is executing the command described in this
+page is to use the full path when calling the command, for example:
+<strong>/bin/kill –version</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHORS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The original version was taken from BSD 4.4.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*bash*(1), *tcsh*(1), *sigaction*(2), *kill*(2), *sigqueue*(3),
+*signal*(7)</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The <strong>kill</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

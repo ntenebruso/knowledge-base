@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-mergetool--lib.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-mergetool--lib.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-mergetool–lib - Common Git merge tool shell scriptlets</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+TOOL_MODE=(diff|merge) . &#34;$(git --exec-path)/git-mergetool--lib&#34;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This is not a command the end user would want to run. Ever. This
+documentation is meant for people who are studying the Porcelain-ish
+scripts and/or are writing new ones.</p>
+<p>
+The <em>git-mergetool–lib</em> scriptlet is designed to be sourced (using <strong>.</strong>)
+by other shell scripts to set up functions for working with Git merge
+tools.</p>
+<p>
+Before sourcing <em>git-mergetool–lib</em>, your script must set <strong>TOOL_MODE</strong>
+to define the operation mode for the functions listed below. <em>diff</em> and
+<em>merge</em> are valid values.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+FUNCTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>get_merge_tool</p>
+<blockquote>
+<p>Returns a merge tool. The return code is 1 if we returned a guessed
+merge tool, else 0. <em>$GIT_MERGETOOL_GUI</em> may be set to <em>true</em> to search
+for the appropriate guitool.</p>
+</blockquote>
+<p>
+get_merge_tool_cmd</p>
+<blockquote>
+<p>Returns the custom command for a merge tool.</p>
+</blockquote>
+<p>
+get_merge_tool_path</p>
+<blockquote>
+<p>Returns the custom path for a merge tool.</p>
+</blockquote>
+<p>
+initialize_merge_tool</p>
+<blockquote>
+<p>Brings merge tool specific functions into scope so they can be used or
+overridden.</p>
+</blockquote>
+<p>
+run_merge_tool</p>
+<blockquote>
+<p>Launches a merge tool given the tool name and a true/false flag to
+indicate whether a merge base is present. <em>$MERGED</em>, <em>$LOCAL</em>,
+<em>$REMOTE</em>, and <em>$BASE</em> must be defined for use by the merge tool.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+GIT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

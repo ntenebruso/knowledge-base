@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - chsh.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - chsh.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>chsh - change login shell</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>chsh</strong> [/options/] [/LOGIN/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>chsh</strong> command changes the user login shell. This determines the
+name of the users initial login command. A normal user may only change
+the login shell for her own account; the superuser may change the login
+shell for any account.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The options which apply to the <strong>chsh</strong> command are:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help message and exit.</p>
+</blockquote>
+<p>
+<strong>-R</strong>, <strong>–root</strong> <em>CHROOT_DIR</em></p>
+<blockquote>
+<p>Apply changes in the <em>CHROOT_DIR</em> directory and use the configuration
+files from the <em>CHROOT_DIR</em> directory. Only absolute paths are
+supported.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–shell</strong> <em>SHELL</em></p>
+<blockquote>
+<p>The name of the users new login shell. Setting this field to blank
+causes the system to select the default login shell.</p>
+</blockquote>
+<p>
+If the <strong>-s</strong> option is not selected, <strong>chsh</strong> operates in an interactive
+fashion, prompting the user with the current login shell. Enter the new
+value to change the shell, or leave the line blank to use the current
+one. The current shell is displayed between a pair of <em>[ ]</em> marks.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+NOTE
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The only restriction placed on the login shell is that the command name
+must be listed in /etc/shells, unless the invoker is the superuser, and
+then any value may be added. An account with a restricted login shell
+may not change her login shell. For this reason, placing /bin/rsh in
+/etc/shells is discouraged since accidentally changing to a restricted
+shell would prevent the user from ever changing her login shell back to
+its original value.</p>
+<p>
+For this reason, placing /bin/rsh in /etc/shells is discouraged since
+accidentally changing to a restricted shell would prevent the user from
+ever changing her login shell back to its original value.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+FILES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>/etc/passwd</p>
+<blockquote>
+<p>User account information.</p>
+</blockquote>
+<p>
+/etc/shells</p>
+<blockquote>
+<p>List of valid login shells.</p>
+</blockquote>
+<p>
+/etc/login.defs</p>
+<blockquote>
+<p>Shadow password suite configuration.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*chfn*(1), *login.defs*(5), *passwd*(5).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

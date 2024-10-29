@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - vimdiff.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - vimdiff.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>vimdiff - edit between two and eight versions of a file with Vim and
+show differences</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>\\
+<strong>vimdiff</strong> [options] file1 file2 [file3 [file4 [file5 [file6 [file7
+[file8]]]]]]</p>
+<p>
+<strong>gvimdiff</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>Vimdiff</strong> starts <strong>Vim</strong> on two up to eight files. Each file gets its own
+window. The differences between the files are highlighted. This is a
+nice way to inspect changes and to move changes from one version to
+another version of the same file.</p>
+<p>
+See vim(1) for details about Vim itself.</p>
+<p>
+When started as <strong>gvimdiff</strong> the GUI will be started, if available.</p>
+<p>
+In each window the &#39;diff&#39; option will be set, which causes the
+differences to be highlighted.<br>
+The &#39;wrap&#39; and &#39;scrollbind&#39; options are set to make the text look
+good.<br>
+The &#39;foldmethod&#39; option is set to &#34;diff&#34;, which puts ranges of lines
+without changes in a fold. &#39;foldcolumn&#39; is set to two to make it easy to
+spot the folds and open or close them.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Vertical splits are used to align the lines, as if the &#34;-O&#34; argument was
+used. To use horizontal splits instead, use the &#34;-o&#34; argument.</p>
+<p>
+For all other arguments see vim(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>vim(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHOR
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Most of <strong>Vim</strong> was made by Bram Moolenaar, with a lot of help from
+others. See &#34;:help credits&#34; in <strong>Vim.</strong></p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

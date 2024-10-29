@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-credential-cache.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-credential-cache.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-credential-cache - Helper to temporarily store passwords in memory</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git config credential.helper cache [&lt;options&gt;]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This command caches credentials for use by future Git programs. The
+stored credentials are kept in memory of the cache-daemon process
+(instead of being written to a file) and are forgotten after a
+configurable timeout. Credentials are forgotten sooner if the
+cache-daemon dies, for example if the system restarts. The cache is
+accessible over a Unix domain socket, restricted to the current user by
+filesystem permissions.</p>
+<p>
+You probably don&#39;t want to invoke this command directly; it is meant to
+be used as a credential helper by other parts of Git. See
+<strong>gitcredentials*(7) or *EXAMPLES</strong> below.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–timeout &lt;seconds&gt;</p>
+<blockquote>
+<p>Number of seconds to cache credentials (default: 900).</p>
+</blockquote>
+<p>
+–socket &lt;path&gt;</p>
+<blockquote>
+<p>Use <strong>&lt;path&gt;</strong> to contact a running cache daemon (or start a new cache
+daemon if one is not started). Defaults to
+<strong>$XDG_CACHE_HOME/git/credential/socket</strong> unless
+<strong>~/.git-credential-cache/</strong> exists in which case
+<strong>~/.git-credential-cache/socket</strong> is used instead. If your home directory
+is on a network-mounted filesystem, you may need to change this to a
+local filesystem. You must specify an absolute path.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+CONTROLLING THE DAEMON
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>If you would like the daemon to exit early, forgetting all cached
+credentials before their timeout, you can issue an <strong>exit</strong> action:</p>
+<blockquote>
+<pre class="example">
+git credential-cache exit
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The point of this helper is to reduce the number of times you must type
+your username or password. For example:</p>
+<blockquote>
+<pre class="example">
+$ git config credential.helper cache
+$ git push http://example.com/repo.git
+Username: &lt;type your username&gt;
+Password: &lt;type your password&gt;
+
+[work for 5 more minutes]
+$ git push http://example.com/repo.git
+[your credentials are used automatically]
+</pre>
+</blockquote>
+<p>
+You can provide options via the credential.helper configuration variable
+(this example increases the cache time to 1 hour):</p>
+<blockquote>
+<pre class="example">
+$ git config credential.helper cache --timeout=3600
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+GIT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

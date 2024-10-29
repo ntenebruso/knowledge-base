@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - rsync-ssl.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - rsync-ssl.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>rsync-ssl - a helper script for connecting to an ssl rsync daemon</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+rsync-ssl [--type=SSL_TYPE] RSYNC_ARGS
+</pre>
+<p>
+The online version of this manpage (that includes cross-linking of
+topics) is available at
+<a href="https://download.samba.org/pub/rsync/rsync-ssl.1">https://download.samba.org/pub/rsync/rsync-ssl.1</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The rsync-ssl script helps you to run an rsync copy to/from an rsync
+daemon that requires ssl connections.</p>
+<p>
+The script requires that you specify an rsync-daemon arg in the style of
+either <strong>hostname::</strong> (with 2 colons) or <strong>rsync://hostname/</strong>. The default
+port used for connecting is 874 (one higher than the normal 873) unless
+overridden in the environment. You can specify an overriding port via
+<strong>–port</strong> or by including it in the normal spot in the URL format, though
+both of those require your rsync version to be at least 3.2.0.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>If the <strong>first</strong> arg is a <strong>–type=SSL_TYPE</strong> option, the script will only
+use that particular program to open an ssl connection instead of trying
+to find an openssl or stunnel executable via a simple heuristic
+(assuming that the <strong>RSYNC_SSL_TYPE</strong> environment variable is not set as
+well – see below). This option must specify one of <strong>openssl</strong> or
+<strong>stunnel</strong>. The equal sign is required for this particular option.</p>
+<p>
+All the other options are passed through to the rsync command, so
+consult the *rsync*(1) manpage for more information on how it works.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ENVIRONMENT VARIABLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The ssl helper scripts are affected by the following environment
+variables:</p>
+<dl>
+<dt>
+RSYNC_SSL_TYPE
+</dt>
+<dd>Specifies the program type that should be used to
+open the ssl connection. It must be one of <strong>openssl</strong> or <strong>stunnel</strong>. The
+<strong>–type=SSL_TYPE</strong> option overrides this, when specified.</dd>
+<dt>
+RSYNC_SSL_PORT
+</dt>
+<dd>If specified, the value is the port number that is
+used as the default when the user does not specify a port in their
+rsync command. When not specified, the default port number is 874.
+(Note that older rsync versions (prior to 3.2.0) did not communicate
+an overriding port number value to the helper script.)</dd>
+<dt>
+RSYNC_SSL_CERT
+</dt>
+<dd>If specified, the value is a filename that contains
+a certificate to use for the connection.</dd>
+<dt>
+RSYNC_SSL_KEY
+</dt>
+<dd>If specified, the value is a filename that contains a
+key for the provided certificate to use for the connection.</dd>
+<dt>
+RSYNC_SSL_CA_CERT
+</dt>
+<dd>If specified, the value is a filename that
+contains a certificate authority certificate that is used to validate
+the connection.</dd>
+<dt>
+RSYNC_SSL_OPENSSL
+</dt>
+<dd>Specifies the openssl executable to run when the
+connection type is set to openssl. If unspecified, the $PATH is
+searched for &#34;openssl&#34;.</dd>
+<dt>
+RSYNC_SSL_GNUTLS
+</dt>
+<dd>Specifies the gnutls-cli executable to run when
+the connection type is set to gnutls. If unspecified, the $PATH is
+searched for &#34;gnutls-cli&#34;.</dd>
+<dt>
+RSYNC_SSL_STUNNEL
+</dt>
+<dd>Specifies the stunnel executable to run when the
+connection type is set to stunnel. If unspecified, the $PATH is
+searched first for &#34;stunnel4&#34; and then for &#34;stunnel&#34;.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<blockquote>
+<pre class="example">
+rsync-ssl -aiv example.com::mod/ dest
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+rsync-ssl --type=openssl -aiv example.com::mod/ dest
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+rsync-ssl -aiv --port 9874 example.com::mod/ dest
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+rsync-ssl -aiv rsync://example.com:9874/mod/ dest
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+THE SERVER SIDE
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>For help setting up an SSL/TLS supporting rsync, see the instructions in
+rsyncd.conf.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*rsync*(1), *rsyncd.conf*(5)</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+CAVEATS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Note that using an stunnel connection requires at least version 4 of
+stunnel, which should be the case on modern systems. Also, it does not
+verify a connection against the CA certificate collection, so it only
+encrypts the connection without any cert validation unless you have
+specified the certificate environment options.</p>
+<p>
+This script also supports a <strong>–type=gnutls</strong> option, but at the time of
+this release the gnutls-cli command was dropping output, making it
+unusable. If that bug has been fixed in your version, feel free to put
+gnutls into an exported RSYNC_SSL_TYPE environment variable to make its
+use the default.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Please report bugs! See the web site at <a href="https://rsync.samba.org/">https://rsync.samba.org/</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+VERSION
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>This manpage is current for version 3.3.0 of rsync.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+CREDITS
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>Rsync is distributed under the GNU General Public License. See the file
+COPYING for details.</p>
+<p>
+A web site is available at <a href="https://rsync.samba.org/">https://rsync.samba.org/</a>. The site
+includes an FAQ-O-Matic which may cover questions unanswered by this
+manual page.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+AUTHOR
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>This manpage was written by Wayne Davison.</p>
+<p>
+Mailing lists for support and development are available at
+<a href="https://lists.samba.org/">https://lists.samba.org/</a>.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

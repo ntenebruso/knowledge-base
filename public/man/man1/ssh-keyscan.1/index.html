@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - ssh-keyscan.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - ssh-keyscan.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>ssh-keyscan</strong> - gather SSH public keys from servers</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>\\
+<strong>ssh-keyscan</strong> [*-46cDHqv*] [*-f* <em>file/] [*-O* /option/] [*-p* /port/]
+[*-T* /timeout/] [*-t* /type/] [/host</em> | <em>addrlist</em> namelist]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>ssh-keyscan</strong> is a utility for gathering the public SSH host keys of a
+number of hosts. It was designed to aid in building and verifying
+<em>ssh_known_hosts</em> files, the format of which is documented in <strong>sshd*(8).
+*ssh-keyscan</strong> provides a minimal interface suitable for use by shell and
+perl scripts.</p>
+<p>
+<strong>ssh-keyscan</strong> uses non-blocking socket I/O to contact as many hosts as
+possible in parallel, so it is very efficient. The keys from a domain of
+1,000 hosts can be collected in tens of seconds, even when some of those
+hosts are down or do not run *sshd*(8). For scanning, one does not need
+login access to the machines that are being scanned, nor does the
+scanning process involve any encryption.</p>
+<p>
+Hosts to be scanned may be specified by hostname, address or by CIDR
+network range (e.g. 192.168.16/28). If a network range is specified,
+then all addresses in that range will be scanned.</p>
+<p>
+The options are as follows:</p>
+<dl>
+<dt>
+<strong>-4</strong>
+</dt>
+<dd>Force <strong>ssh-keyscan</strong> to use IPv4 addresses only.</dd>
+<dt>
+<strong>-6</strong>
+</dt>
+<dd>Force <strong>ssh-keyscan</strong> to use IPv6 addresses only.</dd>
+<dt>
+<strong>-c</strong>
+</dt>
+<dd>Request certificates from target hosts instead of plain keys.</dd>
+<dt>
+<strong>-D</strong>
+</dt>
+<dd>Print keys found as SSHFP DNS records. The default is to print
+keys in a format usable as a *ssh*(1) <em>known_hosts</em> file.</dd>
+<dt>
+<strong>-f</strong> <em>file</em>
+</dt>
+<dd>Read hosts or ``addrlist namelist&#39;&#39; pairs from <em>file</em>,
+one per line. If `-&#39; is supplied instead of a filename, <strong>ssh-keyscan</strong>
+will read from the standard input. Names read from a file must start
+with an address, hostname or CIDR network range to be scanned.
+Addresses and hostnames may optionally be followed by comma-separated
+name or address aliases that will be copied to the output. For
+example:
+
+192.168.11.0/24<br>
+10.20.1.1<br>
+happy.example.org<br>
+10.0.0.1,sad.example.org\\</dd>
+<dt>
+<strong>-H</strong>
+</dt>
+<dd>Hash all hostnames and addresses in the output. Hashed names
+may be used normally by *ssh*(1) and *sshd*(8), but they do not reveal
+identifying information should the file&#39;s contents be disclosed.</dd>
+<dt>
+<strong>-O</strong> <em>option</em>
+</dt>
+<dd>Specify a key/value option. At present, only a single
+option is supported:</dd>
+<dt>
+*hashalg*=/algorithm/
+</dt>
+<dd>Selects a hash algorithm to use when printing
+SSHFP records using the <strong>-D</strong> flag. Valid algorithms are ``sha1&#39;&#39; and
+``sha256&#39;&#39;. The default is to print both.</dd>
+<dt>
+<strong>-p</strong> <em>port</em>
+</dt>
+<dd>Connect to <em>port</em> on the remote host.</dd>
+<dt>
+<strong>-q</strong>
+</dt>
+<dd>Quiet mode: do not print server host name and banners in
+comments.</dd>
+<dt>
+<strong>-T</strong> <em>timeout</em>
+</dt>
+<dd>Set the timeout for connection attempts. If
+<em>timeout</em> seconds have elapsed since a connection was initiated to a
+host or since the last time anything was read from that host, the
+connection is closed and the host in question considered unavailable.
+The default is 5 seconds.</dd>
+<dt>
+<strong>-t</strong> <em>type</em>
+</dt>
+<dd>Specify the type of the key to fetch from the scanned
+hosts. The possible values are ``ecdsa&#39;&#39;, ``ed25519&#39;&#39;, ``ecdsa-sk&#39;&#39;,
+``ed25519-sk&#39;&#39;, or ``rsa&#39;&#39;. Multiple values may be specified by
+separating them with commas. The default is to fetch all the above key
+types.</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>Verbose mode: print debugging messages about progress.
+
+If an ssh_known_hosts file is constructed using <strong>ssh-keyscan</strong> without
+verifying the keys, users will be vulnerable to /man/in/the/middle
+attacks. On the other hand, if the security model allows such a risk,
+<strong>ssh-keyscan</strong> can help in the detection of tampered keyfiles or man in
+the middle attacks which have begun after the ssh_known_hosts file was
+created.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+FILES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><em>/etc/ssh/ssh_known_hosts</em></p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Print the RSA host key for machine <em>hostname</em> :</p>
+<p>
+Dl $ ssh-keyscan -t rsa hostname</p>
+<p>
+Search a network range, printing all supported key types:</p>
+<p>
+Dl $ ssh-keyscan 192.168.0.64/25</p>
+<p>
+Find all hosts from the file <em>ssh_hosts</em> which have new or different
+keys from those in the sorted file <em>ssh_known_hosts</em>:</p>
+<p>
+$ ssh-keyscan -t rsa,ecdsa,ed25519 -f ssh_hosts | \<br>
+sort -u - ssh_known_hosts | diff ssh_known_hosts -\\</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*ssh*(1), *sshd*(8)</p>
+<p>
+<em>Using DNS to Securely Publish Secure Shell (SSH) Key Fingerprints</em>, RFC
+4255, 2006.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHORS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>-nosplit</p>
+<p>
+David Mazieres &lt;Mt dm@lcs.mit.edu&gt; wrote the initial version, and</p>
+<p>
+Wayne Davison &lt;Mt wayned@users.sourceforge.net&gt; added support for
+protocol version 2.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

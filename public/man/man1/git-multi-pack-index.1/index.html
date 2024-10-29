@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-multi-pack-index.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-multi-pack-index.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-multi-pack-index - Write and verify multi-pack-indexes</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git multi-pack-index [--object-dir=&lt;dir&gt;] [--[no-]bitmap] &lt;sub-command&gt;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Write or verify a multi-pack-index (MIDX) file.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–object-dir=&lt;dir&gt;</p>
+<blockquote>
+<p>Use given directory for the location of Git objects. We check
+<strong>&lt;dir&gt;/packs/multi-pack-index</strong> for the current MIDX file, and
+<strong>&lt;dir&gt;/packs</strong> for the pack-files to index.</p>
+<p>
+<strong>&lt;dir&gt;</strong> must be an alternate of the current repository.</p>
+</blockquote>
+<p>
+–[no-]progress</p>
+<blockquote>
+<p>Turn progress on/off explicitly. If neither is specified, progress is
+shown if standard error is connected to a terminal. Supported by
+sub-commands <strong>write</strong>, <strong>verify</strong>, <strong>expire</strong>, and `repack.</p>
+</blockquote>
+<p>
+The following subcommands are available:</p>
+<p>
+write</p>
+<blockquote>
+<p>Write a new MIDX file. The following options are available for the
+<strong>write</strong> sub-command:</p>
+<p>
+–preferred-pack=&lt;pack&gt;</p>
+<blockquote>
+<p>Optionally specify the tie-breaking pack used when multiple packs
+contain the same object. <strong>&lt;pack&gt;</strong> must contain at least one object. If
+not given, ties are broken in favor of the pack with the lowest mtime.</p>
+</blockquote>
+<p>
+–[no-]bitmap</p>
+<blockquote>
+<p>Control whether or not a multi-pack bitmap is written.</p>
+</blockquote>
+<p>
+–stdin-packs</p>
+<blockquote>
+<p>Write a multi-pack index containing only the set of line-delimited pack
+index basenames provided over stdin.</p>
+</blockquote>
+<p>
+–refs-snapshot=&lt;path&gt;</p>
+<blockquote>
+<p>With <strong>–bitmap</strong>, optionally specify a file which contains a &#34;refs
+snapshot&#34; taken prior to repacking.</p>
+<p>
+A reference snapshot is composed of line-delimited OIDs corresponding to
+the reference tips, usually taken by <strong>git repack</strong> prior to generating a
+new pack. A line may optionally start with a <strong>+</strong> character to indicate
+that the reference which corresponds to that OID is &#34;preferred&#34; (see
+<strong>git-config*(1)s *pack.preferBitmapTips</strong>.)</p>
+<p>
+The file given at <strong>&lt;path&gt;</strong> is expected to be readable, and can contain
+duplicates. (If a given OID is given more than once, it is marked as
+preferred if at least one instance of it begins with the special <strong>+</strong>
+marker).</p>
+</blockquote>
+</blockquote>
+<p>
+verify</p>
+<blockquote>
+<p>Verify the contents of the MIDX file.</p>
+</blockquote>
+<p>
+expire</p>
+<blockquote>
+<p>Delete the pack-files that are tracked by the MIDX file, but have no
+objects referenced by the MIDX (with the exception of <strong>.keep</strong> packs and
+cruft packs). Rewrite the MIDX file afterward to remove all references
+to these pack-files.</p>
+</blockquote>
+<p>
+repack</p>
+<blockquote>
+<p>Create a new pack-file containing objects in small pack-files referenced
+by the multi-pack-index. If the size given by the <strong>–batch-size=&lt;size&gt;</strong>
+argument is zero, then create a pack containing all objects referenced
+by the multi-pack-index. For a non-zero batch size, Select the
+pack-files by examining packs from oldest-to-newest, computing the
+&#34;expected size&#34; by counting the number of objects in the pack referenced
+by the multi-pack-index, then divide by the total number of objects in
+the pack and multiply by the pack size. We select packs with expected
+size below the batch size until the set of packs have total expected
+size at least the batch size, or all pack-files are considered. If only
+one pack-file is selected, then do nothing. If a new pack-file is
+created, rewrite the multi-pack-index to reference the new pack-file. A
+later run of <em>git multi-pack-index expire</em> will delete the pack-files
+that were part of this batch.</p>
+<p>
+If <strong>repack.packKeptObjects</strong> is <strong>false</strong>, then any pack-files with an
+associated <strong>.keep</strong> file will not be selected for the batch to repack.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<p>·</p>
+<p>
+Write a MIDX file for the packfiles in the current <strong>.git</strong> directory.</p>
+<blockquote>
+<pre class="example">
+$ git multi-pack-index write
+</pre>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Write a MIDX file for the packfiles in the current <strong>.git</strong> directory with
+a corresponding bitmap.</p>
+<blockquote>
+<pre class="example">
+$ git multi-pack-index write --preferred-pack=&lt;pack&gt; --bitmap
+</pre>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Write a MIDX file for the packfiles in an alternate object store.</p>
+<blockquote>
+<pre class="example">
+$ git multi-pack-index --object-dir &lt;alt&gt; write
+</pre>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Verify the MIDX file for the packfiles in the current <strong>.git</strong> directory.</p>
+<blockquote>
+<pre class="example">
+$ git multi-pack-index verify
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>See <strong>The Multi-Pack-Index Design Document</strong>[1] and *gitformat-pack*(5)
+for more information on the multi-pack-index feature and its file
+format.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+GIT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+NOTES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>The Multi-Pack-Index Design Document
+
+file:///nix/store/9xdnzfl42isjgsn1mnxyjdmspakf8ayi-git-2.46.1-doc/share/doc/git/technical/multi-pack-index.html</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

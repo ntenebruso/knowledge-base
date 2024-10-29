@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - od.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - od.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>od - dump files in octal and other formats</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>od</strong> [/OPTION/]… [/FILE/]…<br>
+<strong>od</strong> [/-abcdfilosx/]… [/FILE/] <a href="/+/]/OFFSET/[/./"><em>b</em></a><br>
+<strong>od</strong> <em>–traditional /[/OPTION/]… [/FILE/] [[/+/]/OFFSET</em>[/./][/b/]
+[/+/][/LABEL/][/./][/b/]]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Write an unambiguous representation, octal bytes by default, of FILE to
+standard output. With more than one FILE argument, concatenate them in
+the listed order to form the input.</p>
+<p>
+With no FILE, or when FILE is -, read standard input.</p>
+<p>
+If first and second call formats both apply, the second format is
+assumed if the last operand begins with + or (if there are 2 operands) a
+digit. An OFFSET operand means <strong>-j</strong> OFFSET. LABEL is the pseudo-address
+at first byte printed, incremented when dump is progressing. For OFFSET
+and LABEL, a 0x or 0X prefix indicates hexadecimal; suffixes may be .
+for octal and b for multiply by 512.</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<dl>
+<dt>
+<strong>-A</strong>, *–address-radix*=/RADIX/
+</dt>
+<dd>output format for file offsets;
+RADIX is one of [doxn], for Decimal, Octal, Hex or None</dd>
+<dt>
+*–endian=*{big|little}
+</dt>
+<dd>swap input bytes according the specified
+order</dd>
+<dt>
+<strong>-j</strong>, *–skip-bytes*=/BYTES/
+</dt>
+<dd>skip BYTES input bytes first</dd>
+<dt>
+<strong>-N</strong>, *–read-bytes*=/BYTES/
+</dt>
+<dd>limit dump to BYTES input bytes</dd>
+<dt>
+<strong>-S</strong> BYTES, <strong>–strings</strong>[=/BYTES/]
+</dt>
+<dd>show only NUL terminated strings
+of at least BYTES (3) printable characters</dd>
+<dt>
+<strong>-t</strong>, *–format*=/TYPE/
+</dt>
+<dd>select output format or formats</dd>
+<dt>
+<strong>-v</strong>, <strong>–output-duplicates</strong>
+</dt>
+<dd>do not use * to mark line suppression</dd>
+<dt>
+<strong>-w[BYTES]</strong>, <strong>–width</strong>[=/BYTES/]
+</dt>
+<dd>output BYTES bytes per output
+line; 32 is implied when BYTES is not specified</dd>
+<dt>
+<strong>–traditional</strong>
+</dt>
+<dd>accept arguments in third form above</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Traditional format specifications may be intermixed; they accumulate:
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<dl>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>same as <strong>-t</strong> a, select named characters, ignoring high-order
+bit</dd>
+<dt>
+<strong>-b</strong>
+</dt>
+<dd>same as <strong>-t</strong> o1, select octal bytes</dd>
+<dt>
+<strong>-c</strong>
+</dt>
+<dd>same as <strong>-t</strong> c, select printable characters or backslash
+escapes</dd>
+<dt>
+<strong>-d</strong>
+</dt>
+<dd>same as <strong>-t</strong> u2, select unsigned decimal 2-byte units</dd>
+<dt>
+<strong>-f</strong>
+</dt>
+<dd>same as <strong>-t</strong> fF, select floats</dd>
+<dt>
+<strong>-i</strong>
+</dt>
+<dd>same as <strong>-t</strong> dI, select decimal ints</dd>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>same as <strong>-t</strong> dL, select decimal longs</dd>
+<dt>
+<strong>-o</strong>
+</dt>
+<dd>same as <strong>-t</strong> o2, select octal 2-byte units</dd>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>same as <strong>-t</strong> d2, select decimal 2-byte units</dd>
+<dt>
+<strong>-x</strong>
+</dt>
+<dd>same as <strong>-t</strong> x2, select hexadecimal 2-byte units</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+TYPE is made up of one or more of these specifications:
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<dl>
+<dt>
+a
+</dt>
+<dd>named character, ignoring high-order bit</dd>
+<dt>
+c
+</dt>
+<dd>printable character or backslash escape</dd>
+<dt>
+d[SIZE]
+</dt>
+<dd>signed decimal, SIZE bytes per integer</dd>
+<dt>
+f[SIZE]
+</dt>
+<dd>floating point, SIZE bytes per float</dd>
+<dt>
+o[SIZE]
+</dt>
+<dd>octal, SIZE bytes per integer</dd>
+<dt>
+u[SIZE]
+</dt>
+<dd>unsigned decimal, SIZE bytes per integer</dd>
+<dt>
+x[SIZE]
+</dt>
+<dd>hexadecimal, SIZE bytes per integer</dd>
+</dl>
+<p>SIZE is a number. For TYPE in [doux], SIZE may also be C for
+sizeof(char), S for sizeof(short), I for sizeof(int) or L for
+sizeof(long). If TYPE is f, SIZE may also be B for Brain 16 bit, H for
+Half precision float, F for sizeof(float), D for sizeof(double), or L
+for sizeof(long double).</p>
+<p>
+Adding a z suffix to any type displays printable characters at the end
+of each output line.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+BYTES is hex with 0x or 0X prefix, and may have a multiplier suffix:
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<dl>
+<dt>
+b
+</dt>
+<dd>512</dd>
+<dt>
+KB
+</dt>
+<dd>1000</dd>
+<dt>
+K
+</dt>
+<dd>1024</dd>
+<dt>
+MB
+</dt>
+<dd>1000*1000</dd>
+<dt>
+M
+</dt>
+<dd>1024*1024</dd>
+</dl>
+<p>and so on for G, T, P, E, Z, Y, R, Q. Binary prefixes can be used, too:
+KiB=K, MiB=M, and so on.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<dl>
+<dt>
+<strong>od -A x -t x1z -v</strong>
+</dt>
+<dd>Display hexdump format output</dd>
+<dt>
+<strong>od -A o -t oS -w16</strong>
+</dt>
+<dd>The default output format used by od</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Written by Jim Meyering.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/od">https://www.gnu.org/software/coreutils/od</a>&gt;<br>
+or available locally via: info &#39;(coreutils) od invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

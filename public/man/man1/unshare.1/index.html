@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - unshare.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - unshare.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>unshare - run program in new namespaces</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>unshare</strong> [options] [/program/ [/arguments/]]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>unshare</strong> command creates new namespaces (as specified by the
+command-line options described below) and then executes the specified
+<em>program</em>. If <em>program</em> is not given, then &#34;${SHELL}&#34; is run (default:
+<em>/bin/sh</em>).</p>
+<p>
+By default, a new namespace persists only as long as it has member
+processes. A new namespace can be made persistent even when it has no
+member processes by bind mounting <em>proc//pid//ns//type</em> files to a
+filesystem path. A namespace that has been made persistent in this way
+can subsequently be entered with *nsenter*(1) even after the <em>program</em>
+terminates (except PID namespaces where a permanently running init
+process is required). Once a persistent namespace is no longer needed,
+it can be unpersisted by using <strong>umount*(8) to remove the bind mount. See
+the *EXAMPLES</strong> section for more details.</p>
+<p>
+<strong>unshare</strong> since util-linux version 2.36 uses
+<em>/proc</em>[pid]/ns/pid_for_children/ and <em>/proc</em>[pid]/ns/time_for_children/
+files for persistent PID and TIME namespaces. This change requires Linux
+kernel 4.17 or newer.</p>
+<p>
+The following types of namespaces can be created with <strong>unshare</strong>:</p>
+<p>
+<strong>mount namespace</strong></p>
+<blockquote>
+<p>Mounting and unmounting filesystems will not affect the rest of the
+system, except for filesystems which are explicitly marked as shared
+(with <strong>mount –make-shared</strong>; see <em>/proc/self/mountinfo</em> or <strong>findmnt
+-o+PROPAGATION</strong> for the <strong>shared</strong> flags). For further details, see
+*mount_namespaces*(7).</p>
+<p>
+<strong>unshare</strong> since util-linux version 2.27 automatically sets propagation
+to <strong>private</strong> in a new mount namespace to make sure that the new
+namespace is really unshared. It&#39;s possible to disable this feature with
+option <strong>–propagation unchanged</strong>. Note that <strong>private</strong> is the kernel
+default.</p>
+</blockquote>
+<p>
+<strong>UTS namespace</strong></p>
+<blockquote>
+<p>Setting hostname or domainname will not affect the rest of the system.
+For further details, see *uts_namespaces*(7).</p>
+</blockquote>
+<p>
+<strong>IPC namespace</strong></p>
+<blockquote>
+<p>The process will have an independent namespace for POSIX message queues
+as well as System V message queues, semaphore sets and shared memory
+segments. For further details, see *ipc_namespaces*(7).</p>
+</blockquote>
+<p>
+<strong>network namespace</strong></p>
+<blockquote>
+<p>The process will have independent IPv4 and IPv6 stacks, IP routing
+tables, firewall rules, the <em>/proc/net</em> and <em>/sys/class/net</em> directory
+trees, sockets, etc. For further details, see *network_namespaces*(7).</p>
+</blockquote>
+<p>
+<strong>PID namespace</strong></p>
+<blockquote>
+<p>Children will have a distinct set of PID-to-process mappings from their
+parent. For further details, see *pid_namespaces*(7).</p>
+</blockquote>
+<p>
+<strong>cgroup namespace</strong></p>
+<blockquote>
+<p>The process will have a virtualized view of <em>/proc/self/cgroup</em>, and new
+cgroup mounts will be rooted at the namespace cgroup root. For further
+details, see *cgroup_namespaces*(7).</p>
+</blockquote>
+<p>
+<strong>user namespace</strong></p>
+<blockquote>
+<p>The process will have a distinct set of UIDs, GIDs and capabilities. For
+further details, see *user_namespaces*(7).</p>
+</blockquote>
+<p>
+<strong>time namespace</strong></p>
+<blockquote>
+<p>The process can have a distinct view of <strong>CLOCK_MONOTONIC</strong> and/or
+<strong>CLOCK_BOOTTIME</strong> which can be changed using <em>/proc/self/timens_offsets</em>.
+For further details, see *time_namespaces*(7).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-i</strong>, <strong>–ipc</strong>[*=*/file/]</p>
+<blockquote>
+<p>Create a new IPC namespace. If <em>file</em> is specified, then the namespace
+is made persistent by creating a bind mount at <em>file</em>.</p>
+</blockquote>
+<p>
+<strong>-m</strong>, <strong>–mount</strong>[*=*/file/]</p>
+<blockquote>
+<p>Create a new mount namespace. If <em>file</em> is specified, then the namespace
+is made persistent by creating a bind mount at <em>file</em>. Note that <em>file</em>
+must be located on a mount whose propagation type is not <strong>shared</strong> (or an
+error results). Use the command <strong>findmnt -o+PROPAGATION</strong> when not sure
+about the current setting. See also the examples below.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–net</strong>[*=*/file/]</p>
+<blockquote>
+<p>Create a new network namespace. If <em>file</em> is specified, then the
+namespace is made persistent by creating a bind mount at <em>file</em>.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–pid</strong>[*=*/file/]</p>
+<blockquote>
+<p>Create a new PID namespace. If <em>file</em> is specified, then the namespace
+is made persistent by creating a bind mount at <em>file</em>. (Creation of a
+persistent PID namespace will fail if the <strong>–fork</strong> option is not also
+specified.)</p>
+<p>
+See also the <strong>–fork</strong> and <strong>–mount-proc</strong> options.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–uts</strong>[*=*/file/]</p>
+<blockquote>
+<p>Create a new UTS namespace. If <em>file</em> is specified, then the namespace
+is made persistent by creating a bind mount at <em>file</em>.</p>
+</blockquote>
+<p>
+<strong>-U</strong>, <strong>–user</strong>[*=*/file/]</p>
+<blockquote>
+<p>Create a new user namespace. If <em>file</em> is specified, then the namespace
+is made persistent by creating a bind mount at <em>file</em>.</p>
+</blockquote>
+<p>
+<strong>-C</strong>, <strong>–cgroup</strong>[*=*/file/]</p>
+<blockquote>
+<p>Create a new cgroup namespace. If <em>file</em> is specified, then the
+namespace is made persistent by creating a bind mount at <em>file</em>.</p>
+</blockquote>
+<p>
+<strong>-T</strong>, <strong>–time</strong>[*=*/file/]</p>
+<blockquote>
+<p>Create a new time namespace. If <em>file</em> is specified, then the namespace
+is made persistent by creating a bind mount at <em>file</em>. The <strong>–monotonic</strong>
+and <strong>–boottime</strong> options can be used to specify the corresponding offset
+in the time namespace.</p>
+</blockquote>
+<p>
+<strong>-f</strong>, <strong>–fork</strong></p>
+<blockquote>
+<p>Fork the specified <em>program</em> as a child process of <strong>unshare</strong> rather than
+running it directly. This is useful when creating a new PID namespace.
+Note that when <strong>unshare</strong> is waiting for the child process, then it
+ignores <strong>SIGINT</strong> and <strong>SIGTERM</strong> and does not forward any signals to the
+child. It is necessary to send signals to the child process.</p>
+</blockquote>
+<p>
+<strong>–keep-caps</strong></p>
+<blockquote>
+<p>When the <strong>–user</strong> option is given, ensure that capabilities granted in
+the user namespace are preserved in the child process.</p>
+</blockquote>
+<p>
+<strong>–kill-child</strong>[*=*/signame/]</p>
+<blockquote>
+<p>When <strong>unshare</strong> terminates, have <em>signame</em> be sent to the forked child
+process. Combined with <strong>–pid</strong> this allows for an easy and reliable
+killing of the entire process tree below <strong>unshare</strong>. If not given,
+<em>signame</em> defaults to <strong>SIGKILL</strong>. This option implies <strong>–fork</strong>.</p>
+</blockquote>
+<p>
+<strong>–mount-proc</strong>[*=*/mountpoint/]</p>
+<blockquote>
+<p>Just before running the program, mount the proc filesystem at
+<em>mountpoint</em> (default is <em>/proc</em>). This is useful when creating a new
+PID namespace. It also implies creating a new mount namespace since the
+<em>/proc</em> mount would otherwise mess up existing programs on the system.
+The new proc filesystem is explicitly mounted as private (with
+<strong>MS_PRIVATE*|*MS_REC</strong>).</p>
+</blockquote>
+<p>
+*–map-user=*/uid|name/</p>
+<blockquote>
+<p>Run the program only after the current effective user ID has been mapped
+to <em>uid</em>. If this option is specified multiple times, the last
+occurrence takes precedence. This option implies <strong>–user</strong>.</p>
+</blockquote>
+<p>
+<strong>–map-users=*/inneruid:outeruid:count/|*auto</strong></p>
+<blockquote>
+<p>Run the program only after the block of user IDs of size <em>count</em>
+beginning at <em>outeruid</em> has been mapped to the block of user IDs
+beginning at <em>inneruid</em>. This mapping is created with *newuidmap*(1). If
+the range of user IDs overlaps with the mapping specified by
+<strong>–map-user</strong>, then a &#34;hole&#34; will be removed from the mapping. This may
+result in the highest user ID of the mapping not being mapped. The
+special value <strong>auto</strong> will map the first block of user IDs owned by the
+effective user from <em>/etc/subuid</em> to a block starting at user ID 0. If
+this option is specified multiple times, the last occurrence takes
+precedence. This option implies <strong>–user</strong>.</p>
+<p>
+Before util-linux version 2.39, this option expected a comma-separated
+argument of the form <em>outeruid,inneruid,count</em> but that format is now
+deprecated for consistency with the ordering used in
+<em>/proc</em>[pid]/uid_map/ and the <em>X-mount.idmap</em> mount option.</p>
+</blockquote>
+<p>
+*–map-group=*/gid|name/</p>
+<blockquote>
+<p>Run the program only after the current effective group ID has been
+mapped to <em>gid</em>. If this option is specified multiple times, the last
+occurrence takes precedence. This option implies <strong>–setgroups=deny</strong> and
+<strong>–user</strong>.</p>
+</blockquote>
+<p>
+<strong>–map-groups=*/innergid:outergid:count/|*auto</strong></p>
+<blockquote>
+<p>Run the program only after the block of group IDs of size <em>count</em>
+beginning at <em>outergid</em> has been mapped to the block of group IDs
+beginning at <em>innergid</em>. This mapping is created with *newgidmap*(1). If
+the range of group IDs overlaps with the mapping specified by
+<strong>–map-group</strong>, then a &#34;hole&#34; will be removed from the mapping. This may
+result in the highest group ID of the mapping not being mapped. The
+special value <strong>auto</strong> will map the first block of user IDs owned by the
+effective user from <em>/etc/subgid</em> to a block starting at group ID 0. If
+this option is specified multiple times, the last occurrence takes
+precedence. This option implies <strong>–user</strong>.</p>
+<p>
+Before util-linux version 2.39, this option expected a comma-separated
+argument of the form <em>outergid,innergid,count</em> but that format is now
+deprecated for consistency with the ordering used in
+<em>/proc</em>[pid]/gid_map/ and the <em>X-mount.idmap</em> mount option.</p>
+</blockquote>
+<p>
+<strong>–map-auto</strong></p>
+<blockquote>
+<p>Map the first block of user IDs owned by the effective user from
+<em>/etc/subuid</em> to a block starting at user ID 0. In the same manner, also
+map the first block of group IDs owned by the effective group from
+<em>/etc/subgid</em> to a block starting at group ID 0. This option is intended
+to handle the common case where the first block of subordinate user and
+group IDs can map the whole user and group ID space. This option is
+equivalent to specifying <strong>–map-users=auto</strong> and <strong>–map-groups=auto</strong>.</p>
+</blockquote>
+<p>
+<strong>-r</strong>, <strong>–map-root-user</strong></p>
+<blockquote>
+<p>Run the program only after the current effective user and group IDs have
+been mapped to the superuser UID and GID in the newly created user
+namespace. This makes it possible to conveniently gain capabilities
+needed to manage various aspects of the newly created namespaces (such
+as configuring interfaces in the network namespace or mounting
+filesystems in the mount namespace) even when run unprivileged. As a
+mere convenience feature, it does not support more sophisticated use
+cases, such as mapping multiple ranges of UIDs and GIDs. This option
+implies <strong>–setgroups=deny</strong> and <strong>–user</strong>. This option is equivalent to
+<strong>–map-user=0 –map-group=0</strong>.</p>
+</blockquote>
+<p>
+<strong>-c</strong>, <strong>–map-current-user</strong></p>
+<blockquote>
+<p>Run the program only after the current effective user and group IDs have
+been mapped to the same UID and GID in the newly created user namespace.
+This option implies <strong>–setgroups=deny</strong> and <strong>–user</strong>. This option is
+equivalent to <strong>–map-user=$(id -ru) --map-group=$(id -rg)</strong>.</p>
+</blockquote>
+<p>
+<strong>–propagation private*|*shared*|*slave*|*unchanged</strong></p>
+<blockquote>
+<p>Recursively set the mount propagation flag in the new mount namespace.
+The default is to set the propagation to <em>private</em>. It is possible to
+disable this feature with the argument <strong>unchanged</strong>. The option is
+silently ignored when the mount namespace (<strong>–mount</strong>) is not requested.</p>
+</blockquote>
+<p>
+<strong>–setgroups allow*|*deny</strong></p>
+<blockquote>
+<p>Allow or deny the *setgroups*(2) system call in a user namespace.</p>
+<p>
+To be able to call <strong>setgroups*(2), the calling process must at least
+have *CAP_SETGID</strong>. But since Linux 3.19 a further restriction applies:
+the kernel gives permission to call <strong>setgroups*(2) only after the GID
+map (*/proc/*/pid/*/gid_map</strong>) has been set. The GID map is writable by
+root when <strong>setgroups*(2) is enabled (i.e., *allow</strong>, the default), and
+the GID map becomes writable by unprivileged processes when
+<strong>setgroups*(2) is permanently disabled (with *deny</strong>).</p>
+</blockquote>
+<p>
+<strong>-R</strong>, *–root=*/dir/</p>
+<blockquote>
+<p>run the command with root directory set to <em>dir</em>.</p>
+</blockquote>
+<p>
+<strong>-w</strong>, *–wd=*/dir/</p>
+<blockquote>
+<p>change working directory to <em>dir</em>.</p>
+</blockquote>
+<p>
+<strong>-S</strong>, <strong>–setuid</strong> <em>uid</em></p>
+<blockquote>
+<p>Set the user ID which will be used in the entered namespace.</p>
+</blockquote>
+<p>
+<strong>-G</strong>, <strong>–setgid</strong> <em>gid</em></p>
+<blockquote>
+<p>Set the group ID which will be used in the entered namespace and drop
+supplementary groups.</p>
+</blockquote>
+<p>
+<strong>–monotonic</strong> <em>offset</em></p>
+<blockquote>
+<p>Set the offset of <strong>CLOCK_MONOTONIC</strong> which will be used in the entered
+time namespace. This option requires unsharing a time namespace with
+<strong>–time</strong>.</p>
+</blockquote>
+<p>
+<strong>–boottime</strong> <em>offset</em></p>
+<blockquote>
+<p>Set the offset of <strong>CLOCK_BOOTTIME</strong> which will be used in the entered
+time namespace. This option requires unsharing a time namespace with
+<strong>–time</strong>.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+NOTES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The proc and sysfs filesystems mounting as root in a user namespace have
+to be restricted so that a less privileged user cannot get more access
+to sensitive files that a more privileged user made unavailable. In
+short the rule for proc and sysfs is as close to a bind mount as
+possible.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The following command creates a PID namespace, using <strong>–fork</strong> to ensure
+that the executed command is performed in a child process that (being
+the first process in the namespace) has PID 1. The <strong>–mount-proc</strong> option
+ensures that a new mount namespace is also simultaneously created and
+that a new *proc*(5) filesystem is mounted that contains information
+corresponding to the new PID namespace. When the *readlink*(1) command
+terminates, the new namespaces are automatically torn down.</p>
+<blockquote>
+<pre class="example">
+# unshare --fork --pid --mount-proc readlink /proc/self
+1
+</pre>
+</blockquote>
+<p>
+As an unprivileged user, create a new user namespace where the user&#39;s
+credentials are mapped to the root IDs inside the namespace:</p>
+<blockquote>
+<pre class="example">
+$ id -u; id -g
+1000
+1000
+$ unshare --user --map-root-user \
+        sh -c whoami; cat /proc/self/uid_map /proc/self/gid_map
+root
+         0       1000          1
+         0       1000          1
+</pre>
+</blockquote>
+<p>
+As an unprivileged user, create a user namespace where the first 65536
+IDs are all mapped, and the user&#39;s credentials are mapped to the root
+IDs inside the namespace. The map is determined by the subordinate IDs
+assigned in *subuid*(5) and *subgid*(5). Demonstrate this mapping by
+creating a file with user ID 1 and group ID 1. For brevity, only the
+user ID mappings are shown:</p>
+<blockquote>
+<pre class="example">
+$ id -u
+1000
+$ cat /etc/subuid
+1000:100000:65536
+$ unshare --user --map-auto --map-root-user
+# id -u
+0
+# cat /proc/self/uid_map
+         0       1000          1
+         1     100000      65535
+# touch file; chown 1:1 file
+# ls -ln --time-style=+ file
+-rw-r--r-- 1 1 1 0  file
+# exit
+$ ls -ln --time-style=+ file
+-rw-r--r-- 1 100000 100000 0  file
+</pre>
+</blockquote>
+<p>
+The first of the following commands creates a new persistent UTS
+namespace and modifies the hostname as seen in that namespace. The
+namespace is then entered with *nsenter*(1) in order to display the
+modified hostname; this step demonstrates that the UTS namespace
+continues to exist even though the namespace had no member processes
+after the <strong>unshare</strong> command terminated. The namespace is then destroyed
+by removing the bind mount.</p>
+<blockquote>
+<pre class="example">
+# touch /root/uts-ns
+# unshare --uts=/root/uts-ns hostname FOO
+# nsenter --uts=/root/uts-ns hostname
+FOO
+# umount /root/uts-ns
+</pre>
+</blockquote>
+<p>
+The following commands establish a persistent mount namespace referenced
+by the bind mount <em>/root/namespaces/mnt</em>. In order to ensure that the
+creation of that bind mount succeeds, the parent directory
+(<em>/root/namespaces</em>) is made a bind mount whose propagation type is not
+<strong>shared</strong>.</p>
+<blockquote>
+<pre class="example">
+# mount --bind /root/namespaces /root/namespaces
+# mount --make-private /root/namespaces
+# touch /root/namespaces/mnt
+# unshare --mount=/root/namespaces/mnt
+</pre>
+</blockquote>
+<p>
+The following commands demonstrate the use of the <strong>–kill-child</strong> option
+when creating a PID namespace, in order to ensure that when <strong>unshare</strong> is
+killed, all of the processes within the PID namespace are killed.</p>
+<blockquote>
+<pre class="example">
+# set +m                # Dont print job status messages
+
+# unshare --pid --fork --mount-proc --kill-child -- \
+       bash --norc -c (sleep 555 &amp;) &amp;&amp; (ps a &amp;) &amp;&amp; sleep 999 &amp;
+[1] 53456
+#     PID TTY      STAT   TIME COMMAND
+      1 pts/3    S+     0:00 sleep 999
+      3 pts/3    S+     0:00 sleep 555
+      5 pts/3    R+     0:00 ps a
+
+# ps h -o comm $!     # Show that background job is unshare(1)
+unshare
+# kill $!               # Kill unshare(1)
+# pidof sleep
+</pre>
+</blockquote>
+<p>
+The <strong>pidof*(1) command prints no output, because the *sleep</strong> processes
+have been killed. More precisely, when the <strong>sleep</strong> process that has PID
+1 in the namespace (i.e., the namespace&#39;s init process) was killed, this
+caused all other processes in the namespace to be killed. By contrast, a
+similar series of commands where the <strong>–kill-child</strong> option is not used
+shows that when <strong>unshare</strong> terminates, the processes in the PID namespace
+are not killed:</p>
+<blockquote>
+<pre class="example">
+# unshare --pid --fork --mount-proc -- \
+       bash --norc -c (sleep 555 &amp;) &amp;&amp; (ps a &amp;) &amp;&amp; sleep 999 &amp;
+[1] 53479
+#     PID TTY      STAT   TIME COMMAND
+      1 pts/3    S+     0:00 sleep 999
+      3 pts/3    S+     0:00 sleep 555
+      5 pts/3    R+     0:00 ps a
+
+# kill $!
+# pidof sleep
+53482 53480
+</pre>
+</blockquote>
+<p>
+The following example demonstrates the creation of a time namespace
+where the boottime clock is set to a point several years in the past:</p>
+<blockquote>
+<pre class="example">
+# uptime -p             # Show uptime in initial time namespace
+up 21 hours, 30 minutes
+# unshare --time --fork --boottime 300000000 uptime -p
+up 9 years, 28 weeks, 1 day, 2 hours, 50 minutes
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*newuidmap*(1), *newgidmap*(1), *clone*(2), *unshare*(2),
+*namespaces*(7), *mount*(8)</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The <strong>unshare</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

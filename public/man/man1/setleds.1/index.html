@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - setleds.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - setleds.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>setleds - set the keyboard leds</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>setleds</strong> [/-v/] [/-L/] [/-D/] [/-F/] [/{+|-}num/] [/{+|-}caps/]
+[/{+|-}scroll/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>Setleds</strong> reports and changes the led flag settings of a VT (namely
+NumLock, CapsLock and ScrollLock). Without arguments, <strong>setleds</strong> prints
+the current settings. With arguments, it sets or clears the indicated
+flags (and leaves the others unchanged). The settings before and after
+the change are reported if the -v flag is given.</p>
+<p>
+The led flag settings are specific for each VT (and the VT corresponding
+to stdin is used).</p>
+<p>
+By default (or with option -F), <strong>setleds</strong> will only change the VT flags
+(and their setting may be reflected by the keyboard leds).</p>
+<p>
+With option -D, <strong>setleds</strong> will change both the VT flags and their
+default settings (so that a subsequent reset will not undo the change).
+This might be useful for people who always want to have numlock set.</p>
+<p>
+With option -L, <strong>setleds</strong> will not touch the VT flags, but only change
+the leds. From this moment on, the leds will no longer reflect the VT
+flags (but display whatever is put into them). The command <strong>setleds -L</strong>
+(without further arguments) will restore the situation in which the leds
+reflect the VT flags.</p>
+<p>
+One might use <strong>setleds</strong> in /etc/rc to define the initial and default
+state of NumLock, e.g. by\\</p>
+<p>
+INITTY=/dev/tty[1-8]<br>
+for tty in $INITTY; do\\</p>
+<p>
+setleds -D +num &lt; $tty\\</p>
+<p>
+done</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+-num +num
+</dt>
+<dd>Clear or set NumLock. (At present, the NumLock setting
+influences the interpretation of keypad keys. Pressing the NumLock key
+complements the NumLock setting.)</dd>
+<dt>
+-caps +caps
+</dt>
+<dd>Clear or set CapsLock. (At present, the CapsLock
+setting complements the Shift key when applied to letters. Pressing
+the CapsLock key complements the CapsLock setting.)</dd>
+<dt>
+-scroll +scroll
+</dt>
+<dd>Clear or set ScrollLock. (At present, pressing the
+ScrollLock key (or ^S/^Q) stops/starts console output.)</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+BUGS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>In keyboard application mode the NumLock key does not influence the
+NumLock flag setting.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*loadkeys*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

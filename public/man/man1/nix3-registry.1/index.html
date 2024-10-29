@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nix3-registry.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nix3-registry.1</h1>
+    
+<p><strong>Warning</strong><br>
+This program is <strong>experimental</strong> and its interface is subject to change.</p>
+<p>#+end_quote</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Name
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><code class="verbatim">nix registry</code> - manage the flake registry</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Synopsis
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><code class="verbatim">nix registry</code> [/option/…] <em>subcommand</em></p>
+<p>
+where <em>subcommand</em> is one of the following:</p>
+<ul>
+<li><code class="verbatim">nix registry add</code> - add/replace flake in user flake registry</li>
+<li><code class="verbatim">nix registry list</code> - list available Nix flakes</li>
+<li><code class="verbatim">nix registry pin</code> - pin a flake to its current version or to the
+current version of a flake URL</li>
+<li><code class="verbatim">nix registry remove</code> - remove flake from user flake registry</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Description
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><code class="verbatim">nix registry</code> provides subcommands for managing <em>flake</em> registries.
+Flake registries are a convenience feature that allows you to refer to
+flakes using symbolic identifiers such as <code class="verbatim">nixpkgs</code>, rather than full
+URLs such as <code class="verbatim">git://github.com/NixOS/nixpkgs</code>. You can use these
+identifiers on the command line (e.g. when you do <code class="verbatim">nix</code> run
+nixpkgs#hello) or in flake input specifications in <code class="verbatim">flake.nix</code> files.
+The latter are automatically resolved to full URLs and recorded in the
+flake&#39;s <code class="verbatim">flake.lock</code> file.</p>
+<p>
+In addition, the flake registry allows you to redirect arbitrary flake
+references (e.g. <code class="verbatim">github:NixOS/patchelf</code>) to another location, such as a
+local fork.</p>
+<p>
+There are multiple registries. These are, in order from lowest to
+highest precedence:</p>
+<ul>
+<li>The global registry, which is a file downloaded from the URL specified
+by the setting <code class="verbatim">flake-registry</code>. It is cached locally and updated
+automatically when it&#39;s older than <code class="verbatim">tarball-ttl</code> seconds. The default
+global registry is kept in <strong>a GitHub</strong> repository.</li>
+<li>The system registry, which is shared by all users. The default
+location is <code class="verbatim">/etc/nix/registry.json</code>. On NixOS, the system registry
+can be specified using the NixOS option <code class="verbatim">nix.registry</code>.</li>
+<li>The user registry <code class="verbatim">~/.config/nix/registry.json</code>. This registry can be
+modified by commands such as <code class="verbatim">nix registry pin</code>.</li>
+<li>Overrides specified on the command line using the option
+<code class="verbatim">--override-flake</code>.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Registry format
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>A registry is a JSON file with the following format:</p>
+<pre class="example">
+{
+  &#34;version&#34;: 2,
+  &#34;flakes&#34;: [
+    {
+      &#34;from&#34;: {
+        &#34;type&#34;: &#34;indirect&#34;,
+        &#34;id&#34;: &#34;nixpkgs&#34;
+      },
+      &#34;to&#34;: {
+        &#34;type&#34;: &#34;github&#34;,
+        &#34;owner&#34;: &#34;NixOS&#34;,
+        &#34;repo&#34;: &#34;nixpkgs&#34;
+      }
+    },
+    ...
+  ]
+}
+</pre>
+<p>
+That is, it contains a list of objects with attributes <code class="verbatim">from</code> and <code class="verbatim">to</code>,
+both of which contain a flake reference in attribute representation.
+(For example, <code class="verbatim">{&#34;type&#34;: &#34;indirect&#34;, &#34;id&#34;: &#34;nixpkgs&#34;}</code> is the attribute
+representation of <code class="verbatim">nixpkgs</code>, while <code class="verbatim">{&#34;type&#34;:</code> &#34;github&#34;, &#34;owner&#34;:
+&#34;NixOS&#34;, &#34;repo&#34;: &#34;nixpkgs&#34;} is the attribute representation of
+<code class="verbatim">github:NixOS/nixpkgs</code>.)</p>
+<p>
+Given some flake reference <em>R</em>, a registry entry is used if its <code class="verbatim">from</code>
+flake reference <em>matches</em> <em>R</em>. <em>R</em> is then replaced by the <em>unification</em>
+of the <code class="verbatim">to</code> flake reference with <em>R</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Matching
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The <code class="verbatim">from</code> flake reference in a registry entry <em>matches</em> some flake
+reference <em>R</em> if the attributes in <code class="verbatim">from</code> are the same as the attributes
+in <code class="verbatim">R</code>. For example:</p>
+<ul>
+<li><code class="verbatim">nixpkgs</code> matches with <code class="verbatim">nixpkgs</code>.</li>
+<li><code class="verbatim">nixpkgs</code> matches with <code class="verbatim">nixpkgs/nixos-20.09</code>.</li>
+<li><code class="verbatim">nixpkgs/nixos-20.09</code> does not match with <code class="verbatim">nixpkgs</code>.</li>
+<li><code class="verbatim">nixpkgs</code> does not match with <code class="verbatim">git://github.com/NixOS/patchelf</code>.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Unification
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The <code class="verbatim">to</code> flake reference in a registry entry is <em>unified</em> with some
+flake reference <em>R</em> by taking <code class="verbatim">to</code> and applying the <code class="verbatim">rev</code> and <code class="verbatim">ref</code>
+attributes from <em>R</em>, if specified. For example:</p>
+<ul>
+<li><code class="verbatim">github:NixOS/nixpkgs</code> unified with <code class="verbatim">nixpkgs</code> produces
+<code class="verbatim">github:NixOS/nixpkgs</code>.</li>
+<li><code class="verbatim">github:NixOS/nixpkgs</code> unified with <code class="verbatim">nixpkgs/nixos-20.09</code> produces
+<code class="verbatim">github:NixOS/nixpkgs/nixos-20.09</code>.</li>
+<li><code class="verbatim">github:NixOS/nixpkgs/master</code> unified with <code class="verbatim">nixpkgs/nixos-20.09</code>
+produces <code class="verbatim">github:NixOS/nixpkgs/nixos-20.09</code>.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+Options
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Logging-related options
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<ul>
+<li><code class="verbatim">--debug</code>
+
+Set the logging verbosity level to ‘debug&#39;.</li>
+<li><code class="verbatim">--log-format</code> <em>format</em>
+
+Set the format of log output; one of <code class="verbatim">raw</code>, <code class="verbatim">internal-json</code>, <code class="verbatim">bar</code> or
+<code class="verbatim">bar-with-logs</code>.</li>
+<li><code class="verbatim">--print-build-logs</code> / <code class="verbatim">-L</code>
+
+Print full build logs on standard error.</li>
+<li><code class="verbatim">--quiet</code>
+
+Decrease the logging verbosity level.</li>
+<li><code class="verbatim">--verbose</code> / <code class="verbatim">-v</code>
+
+Increase the logging verbosity level.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Miscellaneous global options
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<ul>
+<li><code class="verbatim">--help</code>
+
+Show usage information.</li>
+<li><code class="verbatim">--offline</code>
+
+Disable substituters and consider all previously downloaded files
+up-to-date.</li>
+<li><code class="verbatim">--option</code> <em>name</em> <em>value</em>
+
+Set the Nix configuration setting <em>name</em> to <em>value</em> (overriding
+<code class="verbatim">nix.conf</code>).</li>
+<li><code class="verbatim">--refresh</code>
+
+Consider all previously downloaded files out-of-date.</li>
+<li><code class="verbatim">--version</code>
+
+Show version information.
+
+<strong>Note</strong>
+
+See <code class="verbatim">man nix.conf</code> for overriding configuration settings with command
+line flags.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

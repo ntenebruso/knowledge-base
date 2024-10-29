@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-maintenance.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-maintenance.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-maintenance - Run tasks to optimize Git repository data</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git maintenance run [&lt;options&gt;]
+git maintenance start [--scheduler=&lt;scheduler&gt;]
+git maintenance (stop|register|unregister) [&lt;options&gt;]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Run tasks to optimize Git repository data, speeding up other Git
+commands and reducing storage requirements for the repository.</p>
+<p>
+Git commands that add repository data, such as <strong>git add</strong> or <strong>git fetch</strong>,
+are optimized for a responsive user experience. These commands do not
+take time to optimize the Git data, since such optimizations scale with
+the full size of the repository while these user commands each perform a
+relatively small action.</p>
+<p>
+The <strong>git maintenance</strong> command provides flexibility for how to optimize
+the Git repository.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+SUBCOMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>run</p>
+<blockquote>
+<p>Run one or more maintenance tasks. If one or more <strong>–task</strong> options are
+specified, then those tasks are run in that order. Otherwise, the tasks
+are determined by which <strong>maintenance.&lt;task&gt;.enabled</strong> config options are
+true. By default, only <strong>maintenance.gc.enabled</strong> is true.</p>
+</blockquote>
+<p>
+start</p>
+<blockquote>
+<p>Start running maintenance on the current repository. This performs the
+same config updates as the <strong>register</strong> subcommand, then updates the
+background scheduler to run <strong>git maintenance run –scheduled</strong> on an
+hourly basis.</p>
+</blockquote>
+<p>
+stop</p>
+<blockquote>
+<p>Halt the background maintenance schedule. The current repository is not
+removed from the list of maintained repositories, in case the background
+maintenance is restarted later.</p>
+</blockquote>
+<p>
+register</p>
+<blockquote>
+<p>Initialize Git config values so any scheduled maintenance will start
+running on this repository. This adds the repository to the
+<strong>maintenance.repo</strong> config variable in the current user&#39;s global config,
+or the config specified by –config-file option, and enables some
+recommended configuration values for <strong>maintenance.&lt;task&gt;.schedule</strong>. The
+tasks that are enabled are safe for running in the background without
+disrupting foreground processes.</p>
+<p>
+The <strong>register</strong> subcommand will also set the <strong>maintenance.strategy</strong>
+config value to <strong>incremental</strong>, if this value is not previously set. The
+<strong>incremental</strong> strategy uses the following schedule for each maintenance
+task:</p>
+<blockquote>
+<p>·</p>
+<p>
+<strong>gc</strong>: disabled.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>commit-graph</strong>: hourly.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>prefetch</strong>: hourly.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>loose-objects</strong>: daily.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>incremental-repack</strong>: daily.</p>
+</blockquote>
+<p>
+<strong>git maintenance register</strong> will also disable foreground maintenance by
+setting <strong>maintenance.auto = false</strong> in the current repository. This
+config setting will remain after a <strong>git maintenance unregister</strong> command.</p>
+</blockquote>
+<p>
+unregister</p>
+<blockquote>
+<p>Remove the current repository from background maintenance. This only
+removes the repository from the configured list. It does not stop the
+background maintenance processes from running.</p>
+<p>
+The <strong>unregister</strong> subcommand will report an error if the current
+repository is not already registered. Use the <strong>–force</strong> option to return
+success even when the current repository is not registered.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+TASKS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>commit-graph</p>
+<blockquote>
+<p>The <strong>commit-graph</strong> job updates the <strong>commit-graph</strong> files incrementally,
+then verifies that the written data is correct. The incremental write is
+safe to run alongside concurrent Git processes since it will not expire
+<strong>.graph</strong> files that were in the previous <strong>commit-graph-chain</strong> file. They
+will be deleted by a later run based on the expiration delay.</p>
+</blockquote>
+<p>
+prefetch</p>
+<blockquote>
+<p>The <strong>prefetch</strong> task updates the object directory with the latest objects
+from all registered remotes. For each remote, a <strong>git fetch</strong> command is
+run. The configured refspec is modified to place all requested refs
+within <strong>refs/prefetch/</strong>. Also, tags are not updated.</p>
+<p>
+This is done to avoid disrupting the remote-tracking branches. The end
+users expect these refs to stay unmoved unless they initiate a fetch.
+However, with the prefetch task, the objects necessary to complete a
+later real fetch would already be obtained, making the real fetch
+faster. In the ideal case, it will just become an update to a bunch of
+remote-tracking branches without any object transfer.</p>
+</blockquote>
+<p>
+gc</p>
+<blockquote>
+<p>Clean up unnecessary files and optimize the local repository. &#34;GC&#34;
+stands for &#34;garbage collection,&#34; but this task performs many smaller
+tasks. This task can be expensive for large repositories, as it repacks
+all Git objects into a single pack-file. It can also be disruptive in
+some situations, as it deletes stale data. See *git-gc*(1) for more
+details on garbage collection in Git.</p>
+</blockquote>
+<p>
+loose-objects</p>
+<blockquote>
+<p>The <strong>loose-objects</strong> job cleans up loose objects and places them into
+pack-files. In order to prevent race conditions with concurrent Git
+commands, it follows a two-step process. First, it deletes any loose
+objects that already exist in a pack-file; concurrent Git processes will
+examine the pack-file for the object data instead of the loose object.
+Second, it creates a new pack-file (starting with &#34;loose-&#34;) containing a
+batch of loose objects. The batch size is limited to 50 thousand objects
+to prevent the job from taking too long on a repository with many loose
+objects. The <strong>gc</strong> task writes unreachable objects as loose objects to be
+cleaned up by a later step only if they are not re-added to a pack-file;
+for this reason it is not advisable to enable both the <strong>loose-objects</strong>
+and <strong>gc</strong> tasks at the same time.</p>
+</blockquote>
+<p>
+incremental-repack</p>
+<blockquote>
+<p>The <strong>incremental-repack</strong> job repacks the object directory using the
+<strong>multi-pack-index</strong> feature. In order to prevent race conditions with
+concurrent Git commands, it follows a two-step process. First, it calls
+<strong>git multi-pack-index expire</strong> to delete pack-files unreferenced by the
+<strong>multi-pack-index</strong> file. Second, it calls <strong>git multi-pack-index repack</strong>
+to select several small pack-files and repack them into a bigger one,
+and then update the <strong>multi-pack-index</strong> entries that refer to the small
+pack-files to refer to the new pack-file. This prepares those small
+pack-files for deletion upon the next run of <strong>git multi-pack-index
+expire</strong>. The selection of the small pack-files is such that the expected
+size of the big pack-file is at least the batch size; see the
+<strong>–batch-size</strong> option for the <strong>repack</strong> subcommand in
+*git-multi-pack-index*(1). The default batch-size is zero, which is a
+special case that attempts to repack all pack-files into a single
+pack-file.</p>
+</blockquote>
+<p>
+pack-refs</p>
+<blockquote>
+<p>The <strong>pack-refs</strong> task collects the loose reference files and collects
+them into a single file. This speeds up operations that need to iterate
+across many references. See *git-pack-refs*(1) for more information.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+OPTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>–auto</p>
+<blockquote>
+<p>When combined with the <strong>run</strong> subcommand, run maintenance tasks only if
+certain thresholds are met. For example, the <strong>gc</strong> task runs when the
+number of loose objects exceeds the number stored in the <strong>gc.auto</strong>
+config setting, or when the number of pack-files exceeds the
+<strong>gc.autoPackLimit</strong> config setting. Not compatible with the <strong>–schedule</strong>
+option.</p>
+</blockquote>
+<p>
+–schedule</p>
+<blockquote>
+<p>When combined with the <strong>run</strong> subcommand, run maintenance tasks only if
+certain time conditions are met, as specified by the
+<strong>maintenance.&lt;task&gt;.schedule</strong> config value for each <strong>&lt;task&gt;</strong>. This
+config value specifies a number of seconds since the last time that task
+ran, according to the <strong>maintenance.&lt;task&gt;.lastRun</strong> config value. The
+tasks that are tested are those provided by the <strong>–task=&lt;task&gt;</strong>
+option(s) or those with <strong>maintenance.&lt;task&gt;.enabled</strong> set to true.</p>
+</blockquote>
+<p>
+–quiet</p>
+<blockquote>
+<p>Do not report progress or other information over <strong>stderr</strong>.</p>
+</blockquote>
+<p>
+–task=&lt;task&gt;</p>
+<blockquote>
+<p>If this option is specified one or more times, then only run the
+specified tasks in the specified order. If no <strong>–task=&lt;task&gt;</strong> arguments
+are specified, then only the tasks with <strong>maintenance.&lt;task&gt;.enabled</strong>
+configured as <strong>true</strong> are considered. See the <em>TASKS</em> section for the
+list of accepted <strong>&lt;task&gt;</strong> values.</p>
+</blockquote>
+<p>
+–scheduler=auto|crontab|systemd-timer|launchctl|schtasks</p>
+<blockquote>
+<p>When combined with the <strong>start</strong> subcommand, specify the scheduler for
+running the hourly, daily and weekly executions of <strong>git maintenance
+run</strong>. Possible values for <strong>&lt;scheduler&gt;</strong> are <strong>auto</strong>, <strong>crontab</strong> (POSIX),
+<strong>systemd-timer</strong> (Linux), <strong>launchctl</strong> (macOS), and <strong>schtasks</strong> (Windows).
+When <strong>auto</strong> is specified, the appropriate platform-specific scheduler is
+used; on Linux, <strong>systemd-timer</strong> is used if available, otherwise
+<strong>crontab</strong>. Default is <strong>auto</strong>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+TROUBLESHOOTING
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The <strong>git maintenance</strong> command is designed to simplify the repository
+maintenance patterns while minimizing user wait time during Git
+commands. A variety of configuration options are available to allow
+customizing this process. The default maintenance options focus on
+operations that complete quickly, even on large repositories.</p>
+<p>
+Users may find some cases where scheduled maintenance tasks do not run
+as frequently as intended. Each <strong>git maintenance run</strong> command takes a
+lock on the repository&#39;s object database, and this prevents other
+concurrent <strong>git maintenance run</strong> commands from running on the same
+repository. Without this safeguard, competing processes could leave the
+repository in an unpredictable state.</p>
+<p>
+The background maintenance schedule runs <strong>git maintenance run</strong> processes
+on an hourly basis. Each run executes the &#34;hourly&#34; tasks. At midnight,
+that process also executes the &#34;daily&#34; tasks. At midnight on the first
+day of the week, that process also executes the &#34;weekly&#34; tasks. A single
+process iterates over each registered repository, performing the
+scheduled tasks for that frequency. Depending on the number of
+registered repositories and their sizes, this process may take longer
+than an hour. In this case, multiple <strong>git maintenance run</strong> commands may
+run on the same repository at the same time, colliding on the object
+database lock. This results in one of the two tasks not running.</p>
+<p>
+If you find that some maintenance windows are taking longer than one
+hour to complete, then consider reducing the complexity of your
+maintenance tasks. For example, the <strong>gc</strong> task is much slower than the
+<strong>incremental-repack</strong> task. However, this comes at a cost of a slightly
+larger object database. Consider moving more expensive tasks to be run
+less frequently.</p>
+<p>
+Expert users may consider scheduling their own maintenance tasks using a
+different schedule than is available through <strong>git maintenance start</strong> and
+Git configuration options. These users should be aware of the object
+database lock and how concurrent <strong>git maintenance run</strong> commands behave.
+Further, the <strong>git gc</strong> command should not be combined with <strong>git
+maintenance run</strong> commands. <strong>git gc</strong> modifies the object database but
+does not take the lock in the same way as <strong>git maintenance run</strong>. If
+possible, use <strong>git maintenance run –task=gc</strong> instead of <strong>git gc</strong>.</p>
+<p>
+The following sections describe the mechanisms put in place to run
+background maintenance by <strong>git maintenance start</strong> and how to customize
+them.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+BACKGROUND MAINTENANCE ON POSIX SYSTEMS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The standard mechanism for scheduling background tasks on POSIX systems
+is cron(8). This tool executes commands based on a given schedule. The
+current list of user-scheduled tasks can be found by running <strong>crontab
+-l</strong>. The schedule written by <strong>git maintenance start</strong> is similar to this:</p>
+<blockquote>
+<pre class="example">
+# BEGIN GIT MAINTENANCE SCHEDULE
+# The following schedule was created by Git
+# Any edits made in this region might be
+# replaced in the future by a Git command.
+
+0 1-23 * * * &#34;/&lt;path&gt;/git&#34; --exec-path=&#34;/&lt;path&gt;&#34; for-each-repo --config=maintenance.repo maintenance run --schedule=hourly
+0 0 * * 1-6 &#34;/&lt;path&gt;/git&#34; --exec-path=&#34;/&lt;path&gt;&#34; for-each-repo --config=maintenance.repo maintenance run --schedule=daily
+0 0 * * 0 &#34;/&lt;path&gt;/git&#34; --exec-path=&#34;/&lt;path&gt;&#34; for-each-repo --config=maintenance.repo maintenance run --schedule=weekly
+
+# END GIT MAINTENANCE SCHEDULE
+</pre>
+</blockquote>
+<p>
+The comments are used as a region to mark the schedule as written by
+Git. Any modifications within this region will be completely deleted by
+<strong>git maintenance stop</strong> or overwritten by <strong>git maintenance start</strong>.</p>
+<p>
+The <strong>crontab</strong> entry specifies the full path of the <strong>git</strong> executable to
+ensure that the executed <strong>git</strong> command is the same one with which <strong>git
+maintenance start</strong> was issued independent of <strong>PATH</strong>. If the same user
+runs <strong>git maintenance start</strong> with multiple Git executables, then only
+the latest executable is used.</p>
+<p>
+These commands use <strong>git for-each-repo –config=maintenance.repo</strong> to run
+<strong>git maintenance run –schedule=&lt;frequency&gt;</strong> on each repository listed
+in the multi-valued <strong>maintenance.repo</strong> config option. These are
+typically loaded from the user-specific global config. The <strong>git
+maintenance</strong> process then determines which maintenance tasks are
+configured to run on each repository with each <strong>&lt;frequency&gt;</strong> using the
+<strong>maintenance.&lt;task&gt;.schedule</strong> config options. These values are loaded
+from the global or repository config values.</p>
+<p>
+If the config values are insufficient to achieve your desired background
+maintenance schedule, then you can create your own schedule. If you run
+<strong>crontab -e</strong>, then an editor will load with your user-specific <strong>cron</strong>
+schedule. In that editor, you can add your own schedule lines. You could
+start by adapting the default schedule listed earlier, or you could read
+the crontab(5) documentation for advanced scheduling techniques. Please
+do use the full path and <strong>–exec-path</strong> techniques from the default
+schedule to ensure you are executing the correct binaries in your
+schedule.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+BACKGROUND MAINTENANCE ON LINUX SYSTEMD SYSTEMS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>While Linux supports <strong>cron</strong>, depending on the distribution, <strong>cron</strong> may
+be an optional package not necessarily installed. On modern Linux
+distributions, systemd timers are superseding it.</p>
+<p>
+If user systemd timers are available, they will be used as a replacement
+of <strong>cron</strong>.</p>
+<p>
+In this case, <strong>git maintenance start</strong> will create user systemd timer
+units and start the timers. The current list of user-scheduled tasks can
+be found by running <strong>systemctl –user list-timers</strong>. The timers written
+by <strong>git maintenance start</strong> are similar to this:</p>
+<blockquote>
+<pre class="example">
+$ systemctl --user list-timers
+NEXT                         LEFT          LAST                         PASSED     UNIT                         ACTIVATES
+Thu 2021-04-29 19:00:00 CEST 42min left    Thu 2021-04-29 18:00:11 CEST 17min ago  git-maintenance@hourly.timer git-maintenance@hourly.service
+Fri 2021-04-30 00:00:00 CEST 5h 42min left Thu 2021-04-29 00:00:11 CEST 18h ago    git-maintenance@daily.timer  git-maintenance@daily.service
+Mon 2021-05-03 00:00:00 CEST 3 days left   Mon 2021-04-26 00:00:11 CEST 3 days ago git-maintenance@weekly.timer git-maintenance@weekly.service
+</pre>
+</blockquote>
+<p>
+One timer is registered for each <strong>–schedule=&lt;frequency&gt;</strong> option.</p>
+<p>
+The definition of the systemd units can be inspected in the following
+files:</p>
+<blockquote>
+<pre class="example">
+~/.config/systemd/user/git-maintenance@.timer
+~/.config/systemd/user/git-maintenance@.service
+~/.config/systemd/user/timers.target.wants/git-maintenance@hourly.timer
+~/.config/systemd/user/timers.target.wants/git-maintenance@daily.timer
+~/.config/systemd/user/timers.target.wants/git-maintenance@weekly.timer
+</pre>
+</blockquote>
+<p>
+<strong>git maintenance start</strong> will overwrite these files and start the timer
+again with <strong>systemctl –user</strong>, so any customization should be done by
+creating a drop-in file, i.e. a <strong>.conf</strong> suffixed file in the
+<strong>~/.config/systemd/user/git-maintenance@.service.d</strong> directory.</p>
+<p>
+<strong>git maintenance stop</strong> will stop the user systemd timers and delete the
+above mentioned files.</p>
+<p>
+For more details, see <strong>systemd.timer(5)</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+BACKGROUND MAINTENANCE ON MACOS SYSTEMS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>While macOS technically supports <strong>cron</strong>, using <strong>crontab -e</strong> requires
+elevated privileges and the executed process does not have a full user
+context. Without a full user context, Git and its credential helpers
+cannot access stored credentials, so some maintenance tasks are not
+functional.</p>
+<p>
+Instead, <strong>git maintenance start</strong> interacts with the <strong>launchctl</strong> tool,
+which is the recommended way to schedule timed jobs in macOS. Scheduling
+maintenance through <strong>git maintenance (start|stop)</strong> requires some
+<strong>launchctl</strong> features available only in macOS 10.11 or later.</p>
+<p>
+Your user-specific scheduled tasks are stored as XML-formatted <strong>.plist</strong>
+files in <strong>~/Library/LaunchAgents/</strong>. You can see the currently-registered
+tasks using the following command:</p>
+<blockquote>
+<pre class="example">
+$ ls ~/Library/LaunchAgents/org.git-scm.git*
+org.git-scm.git.daily.plist
+org.git-scm.git.hourly.plist
+org.git-scm.git.weekly.plist
+</pre>
+</blockquote>
+<p>
+One task is registered for each <strong>–schedule=&lt;frequency&gt;</strong> option. To
+inspect how the XML format describes each schedule, open one of these
+<strong>.plist</strong> files in an editor and inspect the <strong>&lt;array&gt;</strong> element following
+the <strong>&lt;key&gt;StartCalendarInterval&lt;/key&gt;</strong> element.</p>
+<p>
+<strong>git maintenance start</strong> will overwrite these files and register the
+tasks again with <strong>launchctl</strong>, so any customizations should be done by
+creating your own <strong>.plist</strong> files with distinct names. Similarly, the
+<strong>git maintenance stop</strong> command will unregister the tasks with
+<strong>launchctl</strong> and delete the <strong>.plist</strong> files.</p>
+<p>
+To create more advanced customizations to your background tasks, see
+launchctl.plist(5) for more information.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+BACKGROUND MAINTENANCE ON WINDOWS SYSTEMS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Windows does not support <strong>cron</strong> and instead has its own system for
+scheduling background tasks. The <strong>git maintenance start</strong> command uses
+the <strong>schtasks</strong> command to submit tasks to this system. You can inspect
+all background tasks using the Task Scheduler application. The tasks
+added by Git have names of the form <strong>Git Maintenance (&lt;frequency&gt;)</strong>. The
+Task Scheduler GUI has ways to inspect these tasks, but you can also
+export the tasks to XML files and view the details there.</p>
+<p>
+Note that since Git is a console application, these background tasks
+create a console window visible to the current user. This can be changed
+manually by selecting the &#34;Run whether user is logged in or not&#34; option
+in Task Scheduler. This change requires a password input, which is why
+<strong>git maintenance start</strong> does not select it by default.</p>
+<p>
+If you want to customize the background tasks, please rename the tasks
+so future calls to <strong>git maintenance (start|stop)</strong> do not overwrite your
+custom tasks.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+maintenance.auto</p>
+<blockquote>
+<p>This boolean config option controls whether some commands run <strong>git
+maintenance run –auto</strong> after doing their normal work. Defaults to true.</p>
+</blockquote>
+<p>
+maintenance.strategy</p>
+<blockquote>
+<p>This string config option provides a way to specify one of a few
+recommended schedules for background maintenance. This only affects
+which tasks are run during <strong>git maintenance run –schedule=X</strong> commands,
+provided no <strong>–task=&lt;task&gt;</strong> arguments are provided. Further, if a
+<strong>maintenance.&lt;task&gt;.schedule</strong> config value is set, then that value is
+used instead of the one provided by <strong>maintenance.strategy</strong>. The possible
+strategy strings are:</p>
+<blockquote>
+<p>·</p>
+<p>
+<strong>none</strong>: This default setting implies no tasks are run at any schedule.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>incremental</strong>: This setting optimizes for performing small maintenance
+activities that do not delete any data. This does not schedule the <strong>gc</strong>
+task, but runs the <strong>prefetch</strong> and <strong>commit-graph</strong> tasks hourly, the
+<strong>loose-objects</strong> and <strong>incremental-repack</strong> tasks daily, and the
+<strong>pack-refs</strong> task weekly.</p>
+</blockquote>
+</blockquote>
+<p>
+maintenance.&lt;task&gt;.enabled</p>
+<blockquote>
+<p>This boolean config option controls whether the maintenance task with
+name <strong>&lt;task&gt;</strong> is run when no <strong>–task</strong> option is specified to <strong>git
+maintenance run</strong>. These config values are ignored if a <strong>–task</strong> option
+exists. By default, only <strong>maintenance.gc.enabled</strong> is true.</p>
+</blockquote>
+<p>
+maintenance.&lt;task&gt;.schedule</p>
+<blockquote>
+<p>This config option controls whether or not the given <strong>&lt;task&gt;</strong> runs
+during a <strong>git maintenance run –schedule=&lt;frequency&gt;</strong> command. The value
+must be one of &#34;hourly&#34;, &#34;daily&#34;, or &#34;weekly&#34;.</p>
+</blockquote>
+<p>
+maintenance.commit-graph.auto</p>
+<blockquote>
+<p>This integer config option controls how often the <strong>commit-graph</strong> task
+should be run as part of <strong>git maintenance run –auto</strong>. If zero, then the
+<strong>commit-graph</strong> task will not run with the <strong>–auto</strong> option. A negative
+value will force the task to run every time. Otherwise, a positive value
+implies the command should run when the number of reachable commits that
+are not in the commit-graph file is at least the value of
+<strong>maintenance.commit-graph.auto</strong>. The default value is 100.</p>
+</blockquote>
+<p>
+maintenance.loose-objects.auto</p>
+<blockquote>
+<p>This integer config option controls how often the <strong>loose-objects</strong> task
+should be run as part of <strong>git maintenance run –auto</strong>. If zero, then the
+<strong>loose-objects</strong> task will not run with the <strong>–auto</strong> option. A negative
+value will force the task to run every time. Otherwise, a positive value
+implies the command should run when the number of loose objects is at
+least the value of <strong>maintenance.loose-objects.auto</strong>. The default value
+is 100.</p>
+</blockquote>
+<p>
+maintenance.incremental-repack.auto</p>
+<blockquote>
+<p>This integer config option controls how often the <strong>incremental-repack</strong>
+task should be run as part of <strong>git maintenance run –auto</strong>. If zero,
+then the <strong>incremental-repack</strong> task will not run with the <strong>–auto</strong>
+option. A negative value will force the task to run every time.
+Otherwise, a positive value implies the command should run when the
+number of pack-files not in the multi-pack-index is at least the value
+of <strong>maintenance.incremental-repack.auto</strong>. The default value is 10.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+GIT
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

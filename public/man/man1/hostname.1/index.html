@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - hostname.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - hostname.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>hostname - show or set the system&#39;s host name<br>
+dnsdomainname - show the system&#39;s DNS domain name<br>
+domainname - show or set the system&#39;s NIS/YP domain name<br>
+nisdomainname - show or set system&#39;s NIS/YP domain name<br>
+nodename - show or set the system&#39;s DECnet node name<br>
+ypdomainname - show or set the system&#39;s NIS/YP domain name</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>hostname</strong> [*-v*] [*-s*|*–short*]</p>
+<p>
+<strong>hostname</strong> [*-v*] [*-a*|*–alias*] [*-d*|*–domain*]
+[*-f*|*–fqdn*|*–long*] [*-i*|*–ip-address*]</p>
+<p>
+<strong>hostname</strong> [*-v*] [*-y*|*–yp*|*–nis*] [*-n*|*–node*]</p>
+<p>
+<strong>hostname</strong> [*-v*] [*-F filename*|*–file filename*] [/newname/]</p>
+<p>
+<strong>domainname</strong> [*-v*] [*-F filename*|*–file filename*] [/newname/]</p>
+<p>
+<strong>nodename</strong> [*-v*] [*-F filename*|*–file filename*] [/newname/]</p>
+<p>
+<strong>hostname</strong> [*-v*|*–verbose*] [*-h*|*–help*] [*-V*|*–version*]</p>
+<p>
+<strong>dnsdomainname</strong> [*-v*]<br>
+<strong>nisdomainname</strong> [*-v*]<br>
+<strong>ypdomainname</strong> [*-v*]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>Hostname</strong> is the program that is used to either set or display the
+current host, domain or node name of the system. These names are used by
+many of the networking programs to identify the machine. The domain name
+is also used by NIS/YP.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+GET NAME
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>When called without any arguments, the program displays the current
+names:</p>
+<p>
+<strong>hostname</strong> will print the name of the system as returned by the
+*gethostname*(2) function.</p>
+<p>
+<strong>domainname, nisdomainname, ypdomainname</strong> will print the name of the
+system as returned by the *getdomainname*(2) function. This is also
+known as the YP/NIS domain name of the system.</p>
+<p>
+<strong>nodename</strong> will print the DECnet node name of the system as returned by
+the *getnodename*(2) function.</p>
+<p>
+<strong>dnsdomainname</strong> will print the domain part of the FQDN (Fully Qualified
+Domain Name). The complete FQDN of the system is returned with <strong>hostname
+–fqdn</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+SET NAME
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>When called with one argument or with the <strong>–file</strong> option, the commands
+set the host name, the NIS/YP domain name or the node name.</p>
+<p>
+Note, that only the super-user can change the names.</p>
+<p>
+It is not possible to set the FQDN or the DNS domain name with the
+<strong>dnsdomainname</strong> command (see <strong>THE FQDN</strong> below).</p>
+<p>
+The host name is usually set once at system startup by reading the
+contents of a file which contains the host name, e.g. <em>/etc/hostname</em>).</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+THE FQDN
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>You can&#39;t change the FQDN (as returned by <strong>hostname –fqdn</strong>) or the DNS
+domain name (as returned by <strong>dnsdomainname</strong>) with this command. The FQDN
+of the system is the name that the *resolver*(3) returns for the host
+name.</p>
+<p>
+Technically: The FQDN is the canonical name returned by
+*gethostbyname2*(2) when resolving the result of the *gethostname*(2)
+name. The DNS domain name is the part after the first dot.</p>
+<p>
+Therefore it depends on the configuration (usually in <em>/etc/host.conf</em>)
+how you can change it. If <strong>hosts</strong> is the first lookup method, you can
+change the FQDN in <em>/etc/hosts</em>.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+OPTIONS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<dl>
+<dt>
+<em>-a, –alias</em>
+</dt>
+<dd>Display the alias name of the host (if used).</dd>
+<dt>
+<em>-d, –domain</em>
+</dt>
+<dd>Display the name of the DNS domain (this is the FQDN
+without the segment up to the first dot). This is equivalent to using
+the <strong>dnsdomainname</strong> command.</dd>
+<dt>
+<em>-F, –file filename</em>
+</dt>
+<dd>Read the new host name from the specified
+file. Comments (lines starting with a `#&#39;) are ignored.</dd>
+<dt>
+<em>-f, –fqdn, –long</em>
+</dt>
+<dd>Display the FQDN (Fully Qualified Domain
+Name). A FQDN consists of name including the DNS domain.</dd>
+<dt>
+<em>-h, –help</em>
+</dt>
+<dd>Print a usage message and exit.</dd>
+<dt>
+<em>-i, –ip-address</em>
+</dt>
+<dd>Display the IP address(es) of the host.</dd>
+<dt>
+<em>-n, –node</em>
+</dt>
+<dd>Display the DECnet node name. If a parameter is given
+(or <strong>–file name</strong> ) the root can also set a new node name.</dd>
+<dt>
+<em>-s, –short</em>
+</dt>
+<dd>Display the short host name. This is the host name
+cut at the first dot.</dd>
+<dt>
+<em>-V, –version</em>
+</dt>
+<dd>Print version information on standard output and
+exit successfully.</dd>
+<dt>
+<em>-v, –verbose</em>
+</dt>
+<dd>Be verbose and tell what&#39;s going on.</dd>
+<dt>
+<em>-y, –yp, –nis</em>
+</dt>
+<dd>Display the NIS domain name. If a parameter is
+given (or <strong>–file name</strong> ) then root can also set a new NIS domain.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+FILES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>/etc/hostname</strong> <strong>/etc/hosts</strong> <strong>/etc/host.conf</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+AUTHOR
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Peter Tobias, &lt;tobias@et-inf.fho-emden.de&gt;<br>
+Bernd Eckenfels, &lt;net-tools@lina.inka.de&gt; (NIS and manpage).<br>
+Steve Whitehouse, &lt;SteveW@ACM.org&gt; (DECnet support and manpage).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

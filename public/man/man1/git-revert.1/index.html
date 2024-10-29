@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-revert.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-revert.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-revert - Revert some existing commits</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git revert [--[no-]edit] [-n] [-m &lt;parent-number&gt;] [-s] [-S[&lt;keyid&gt;]] &lt;commit&gt;...
+git revert (--continue | --skip | --abort | --quit)
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Given one or more existing commits, revert the changes that the related
+patches introduce, and record some new commits that record them. This
+requires your working tree to be clean (no modifications from the HEAD
+commit).</p>
+<p>
+Note: <em>git revert</em> is used to record some new commits to reverse the
+effect of some earlier commits (often only a faulty one). If you want to
+throw away all uncommitted changes in your working directory, you should
+see <strong>git-reset*(1), particularly the *–hard</strong> option. If you want to
+extract specific files as they were in another commit, you should see
+<strong>git-restore*(1), specifically the *–source</strong> option. Take care with
+these alternatives as both will discard uncommitted changes in your
+working directory.</p>
+<p>
+See &#34;Reset, restore and revert&#34; in *git*(1) for the differences between
+the three commands.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>&lt;commit&gt;…</p>
+<blockquote>
+<p>Commits to revert. For a more complete list of ways to spell commit
+names, see <strong>gitrevisions*(7). Sets of commits can also be given but no
+traversal is done by default, see *git-rev-list*(1) and its *–no-walk</strong>
+option.</p>
+</blockquote>
+<p>
+-e, –edit</p>
+<blockquote>
+<p>With this option, <em>git revert</em> will let you edit the commit message
+prior to committing the revert. This is the default if you run the
+command from a terminal.</p>
+</blockquote>
+<p>
+-m parent-number, –mainline parent-number</p>
+<blockquote>
+<p>Usually you cannot revert a merge because you do not know which side of
+the merge should be considered the mainline. This option specifies the
+parent number (starting from 1) of the mainline and allows revert to
+reverse the change relative to the specified parent.</p>
+<p>
+Reverting a merge commit declares that you will never want the tree
+changes brought in by the merge. As a result, later merges will only
+bring in tree changes introduced by commits that are not ancestors of
+the previously reverted merge. This may or may not be what you want.</p>
+<p>
+See the <strong>revert-a-faulty-merge How-To</strong>[1] for more details.</p>
+</blockquote>
+<p>
+–no-edit</p>
+<blockquote>
+<p>With this option, <em>git revert</em> will not start the commit message editor.</p>
+</blockquote>
+<p>
+–cleanup=&lt;mode&gt;</p>
+<blockquote>
+<p>This option determines how the commit message will be cleaned up before
+being passed on to the commit machinery. See <strong>git-commit*(1) for more
+details. In particular, if the <em>&lt;mode&gt;</em> is given a value of *scissors</strong>,
+scissors will be appended to <strong>MERGE_MSG</strong> before being passed on in the
+case of a conflict.</p>
+</blockquote>
+<p>
+-n, –no-commit</p>
+<blockquote>
+<p>Usually the command automatically creates some commits with commit log
+messages stating which commits were reverted. This flag applies the
+changes necessary to revert the named commits to your working tree and
+the index, but does not make the commits. In addition, when this option
+is used, your index does not have to match the HEAD commit. The revert
+is done against the beginning state of your index.</p>
+<p>
+This is useful when reverting more than one commits effect to your index
+in a row.</p>
+</blockquote>
+<p>
+-S[&lt;keyid&gt;], –gpg-sign[=&lt;keyid&gt;], –no-gpg-sign</p>
+<blockquote>
+<p>GPG-sign commits. The <strong>keyid</strong> argument is optional and defaults to the
+committer identity; if specified, it must be stuck to the option without
+a space. <strong>–no-gpg-sign</strong> is useful to countermand both <strong>commit.gpgSign</strong>
+configuration variable, and earlier <strong>–gpg-sign</strong>.</p>
+</blockquote>
+<p>
+-s, –signoff</p>
+<blockquote>
+<p>Add a <strong>Signed-off-by</strong> trailer at the end of the commit message. See the
+signoff option in *git-commit*(1) for more information.</p>
+</blockquote>
+<p>
+–strategy=&lt;strategy&gt;</p>
+<blockquote>
+<p>Use the given merge strategy. Should only be used once. See the MERGE
+STRATEGIES section in *git-merge*(1) for details.</p>
+</blockquote>
+<p>
+-X&lt;option&gt;, –strategy-option=&lt;option&gt;</p>
+<blockquote>
+<p>Pass the merge strategy-specific option through to the merge strategy.
+See *git-merge*(1) for details.</p>
+</blockquote>
+<p>
+–rerere-autoupdate, –no-rerere-autoupdate</p>
+<blockquote>
+<p>After the rerere mechanism reuses a recorded resolution on the current
+conflict to update the files in the working tree, allow it to also
+update the index with the result of resolution. <strong>–no-rerere-autoupdate</strong>
+is a good way to double-check what <strong>rerere</strong> did and catch potential
+mismerges, before committing the result to the index with a separate
+<strong>git add</strong>.</p>
+</blockquote>
+<p>
+–reference</p>
+<blockquote>
+<p>Instead of starting the body of the log message with &#34;This reverts
+&lt;full-object-name-of-the-commit-being-reverted&gt;.&#34;, refer to the commit
+using &#34;–pretty=reference&#34; format (cf. <strong>git-log*(1)). The
+*revert.reference</strong> configuration variable can be used to enable this
+option by default.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEQUENCER SUBCOMMANDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>–continue</p>
+<blockquote>
+<p>Continue the operation in progress using the information in
+<strong>.git/sequencer</strong>. Can be used to continue after resolving conflicts in a
+failed cherry-pick or revert.</p>
+</blockquote>
+<p>
+–skip</p>
+<blockquote>
+<p>Skip the current commit and continue with the rest of the sequence.</p>
+</blockquote>
+<p>
+–quit</p>
+<blockquote>
+<p>Forget about the current operation in progress. Can be used to clear the
+sequencer state after a failed cherry-pick or revert.</p>
+</blockquote>
+<p>
+–abort</p>
+<blockquote>
+<p>Cancel the operation and return to the pre-sequence state.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>git revert HEAD~3</strong></p>
+<blockquote>
+<p>Revert the changes specified by the fourth last commit in HEAD and
+create a new commit with the reverted changes.</p>
+</blockquote>
+<p>
+<strong>git revert -n master~5..master~2</strong></p>
+<blockquote>
+<p>Revert the changes done by commits from the fifth last commit in master
+(included) to the third last commit in master (included), but do not
+create any commit with the reverted changes. The revert only modifies
+the working tree and the index.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+DISCUSSION
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>While git creates a basic commit message automatically, it is <em>strongly</em>
+recommended to explain why the original commit is being reverted. In
+addition, repeatedly reverting reverts will result in increasingly
+unwieldy subject lines, for example <em>Reapply &#34;Reapply
+&#34;&lt;original-subject&gt;&#34;&#34;</em>. Please consider rewording these to be shorter
+and more unique.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+revert.reference</p>
+<blockquote>
+<p>Setting this variable to true makes <strong>git revert</strong> behave as if the
+<strong>–reference</strong> option is given.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*git-cherry-pick*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+GIT
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+NOTES
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>revert-a-faulty-merge How-To
+
+file:///nix/store/9xdnzfl42isjgsn1mnxyjdmspakf8ayi-git-2.46.1-doc/share/doc/git/howto/revert-a-faulty-merge.html</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

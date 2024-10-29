@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - shasum.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - shasum.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>shasum - Print or Check SHA Checksums</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>Usage: shasum [OPTION]… [FILE]… Print or check SHA checksums. With
+no FILE, or when FILE is -, read standard input. -a, –algorithm 1
+(default), 224, 256, 384, 512, 512224, 512256 -b, –binary read in
+binary mode -c, –check read SHA sums from the FILEs and check them
+–tag create a BSD-style checksum -t, –text read in text mode (default)
+-U, –UNIVERSAL read in Universal Newlines mode produces same digest on
+Windows/Unix/Mac -0, –01 read in BITS mode ASCII 0 interpreted as
+0-bit, ASCII 1 interpreted as 1-bit, all other characters ignored The
+following five options are useful only when verifying checksums:
+–ignore-missing dont fail or report status for missing files -q,
+–quiet dont print OK for each successfully verified file -s, –status
+dont output anything, status code shows success –strict exit non-zero
+for improperly formatted checksum lines -w, –warn warn about improperly
+formatted checksum lines -h, –help display this help and exit -v,
+–version output version information and exit When verifying SHA-512/224
+or SHA-512/256 checksums, indicate the algorithm explicitly using the -a
+option, e.g. shasum -a 512224 -c checksumfile The sums are computed as
+described in FIPS PUB 180-4. When checking, the input should be a former
+output of this program. The default mode is to print a line with
+checksum, a character indicating type (`* for binary, ` for text, `U for
+UNIVERSAL, `^ for BITS), and name for each FILE. The line starts with a
+`\ character if the FILE name contains either newlines or backslashes,
+which are then replaced by the two-character sequences `\n and `<br>
+respectively. Report shasum bugs to mshelor@cpan.org</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Running <em>shasum</em> is often the quickest way to compute SHA message
+digests. The user simply feeds data to the script through files or
+standard input, and then collects the results from standard output.</p>
+<p>
+The following command shows how to compute digests for typical inputs
+such as the NIST test vector &#34;abc&#34;:</p>
+<p>
+perl -e &#34;print qq(abc)&#34; | shasum</p>
+<p>
+Or, if you want to use SHA-256 instead of the default SHA-1, simply say:</p>
+<p>
+perl -e &#34;print qq(abc)&#34; | shasum -a 256</p>
+<p>
+Since <em>shasum</em> mimics the behavior of the combined GNU <em>sha1sum</em>,
+<em>sha224sum</em>, <em>sha256sum</em>, <em>sha384sum</em>, and <em>sha512sum</em> programs, you can
+install this script as a convenient drop-in replacement.</p>
+<p>
+Unlike the GNU programs, <em>shasum</em> encompasses the full SHA standard by
+allowing partial-byte inputs. This is accomplished through the BITS
+option (<em>-0</em>). The following example computes the SHA-224 digest of the
+7-bit message <em>0001100</em>:</p>
+<p>
+perl -e &#34;print qq(0001100)&#34; | shasum -0 -a 224</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+AUTHOR
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Copyright (C) 2003-2023 Mark Shelor &lt;mshelor@cpan.org&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><em>shasum</em> is implemented using the Perl module Digest::SHA.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

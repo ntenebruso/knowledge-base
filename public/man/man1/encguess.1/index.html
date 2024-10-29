@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - encguess.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - encguess.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>encguess - guess character encodings of files</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+VERSION
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><code class="verbatim">$Id:</code> encguess,v 0.4 2023/11/10 01:10:50 dankogai Exp $</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>encguess [switches] filename…</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+SWITCHES
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<dl>
+<dt>
+-h
+</dt>
+<dd>show this message and exit.</dd>
+<dt>
+-s
+</dt>
+<dd>specify a list of &#34;suspect encoding types&#34; to test, separated by
+either <code class="verbatim">:</code> or <code class="verbatim">,</code></dd>
+<dt>
+-S
+</dt>
+<dd>output a list of all acceptable encoding types that can be used
+with the -s param</dd>
+<dt>
+-u
+</dt>
+<dd>suppress display of unidentified types</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+EXAMPLES:
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<ul>
+<li>Guess encoding of a file named <code class="verbatim">test.txt</code>, using only the default
+suspect types. encguess test.txt</li>
+<li>Guess the encoding type of a file named <code class="verbatim">test.txt</code>, using the suspect
+types <code class="verbatim">euc-jp,shiftjis,7bit-jis</code>. encguess -s euc-jp,shiftjis,7bit-jis
+test.txt encguess -s euc-jp:shiftjis:7bit-jis test.txt</li>
+<li>Guess the encoding type of several files, do not display results for
+unidentified files. encguess -us euc-jp,shiftjis,7bit-jis test*.txt</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The encoding identification is done by checking one encoding type at a
+time until all but the right type are eliminated. The set of encoding
+types to try is defined by the -s parameter and defaults to ascii, utf8
+and UTF-16/32 with BOM. This can be overridden by passing one or more
+encoding types via the -s parameter. If you need to pass in multiple
+suspect encoding types, use a quoted string with the a space separating
+each value.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Encode::Guess, Encode::Detect</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+LICENSE AND COPYRIGHT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Copyright 2015 Michael LaGrasta and Dan Kogai.</p>
+<p>
+This program is free software; you can redistribute it and/or modify it
+under the terms of the Artistic License (2.0). You may obtain a copy of
+the full license at:</p>
+<p>
+&lt;<a href="http://www.perlfoundation.org/artistic_license_2_0">http://www.perlfoundation.org/artistic_license_2_0</a>&gt;</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

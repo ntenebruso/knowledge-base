@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - install-info.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - install-info.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>install-info - update info/dir entries</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>install-info</strong> [/OPTION/]… [/INFO-FILE /[/DIR-FILE/]]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Add or remove entries in INFO-FILE from the Info directory DIR-FILE.
+INFO-FILE and DIR-FILE are required unless the <strong>–info-file</strong> or
+<strong>–dir-file</strong> (or <strong>–info-dir</strong>) options are given, respectively.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>–add-once</strong>
+</dt>
+<dd>add only to first matching section, not all.</dd>
+<dt>
+*–align*=/COL/
+</dt>
+<dd>start description of new entries at column COL.</dd>
+<dt>
+*–calign*=/COL/
+</dt>
+<dd>format second and subsequent description lines to
+start at column COL.</dd>
+<dt>
+<strong>–debug</strong>
+</dt>
+<dd>report what is being done.</dd>
+<dt>
+<strong>–delete</strong>
+</dt>
+<dd>delete existing entries for INFO-FILE from DIR-FILE;
+don&#39;t insert any new entries.</dd>
+<dt>
+*–defsection*=/TEXT/
+</dt>
+<dd>like <strong>–section</strong>, but only use TEXT if no
+sections are present in INFO-FILE (replacing &#34;Miscellaneous&#34;).</dd>
+<dt>
+*–description*=/TEXT/
+</dt>
+<dd>the description of the entry is TEXT; used
+with the <strong>–name</strong> option to become synonymous with the <strong>–entry</strong>
+option.</dd>
+<dt>
+*–dir-file*=/NAME/
+</dt>
+<dd>specify file name of Info directory file;
+equivalent to using the DIR-FILE argument.</dd>
+<dt>
+<strong>–dry-run</strong>
+</dt>
+<dd>same as <strong>–test</strong>.</dd>
+<dt>
+*–entry*=/TEXT/
+</dt>
+<dd>insert TEXT as an Info directory entry, overriding
+any corresponding entry from DIR-FILE. TEXT is written as an Info menu
+item line followed</dd>
+<dt>
+by zero or more extra lines starting with whitespace.
+</dt>
+<dd>If you
+specify more than one entry, all are added. If you don&#39;t specify any
+entries, they are determined
+
+from information in the Info file itself.</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit.</dd>
+<dt>
+*–info-dir*=/DIR/
+</dt>
+<dd>same as *–dir-file*=/DIR//dir.</dd>
+<dt>
+*–info-file*=/FILE/
+</dt>
+<dd>specify Info file to install in the directory;
+equivalent to using the INFO-FILE argument.</dd>
+<dt>
+*–item*=/TEXT/
+</dt>
+<dd>same as *–entry*=/TEXT/.</dd>
+<dt>
+<strong>–keep-old</strong>
+</dt>
+<dd>do not replace entries, or remove empty sections.</dd>
+<dt>
+<strong>–maxwidth</strong>, *–max-width*=/COL/
+</dt>
+<dd>wrap description at column COL.</dd>
+<dt>
+*–menuentry*=/TEXT/
+</dt>
+<dd>same as *–name*=/TEXT/.</dd>
+<dt>
+*–name*=/TEXT/
+</dt>
+<dd>the name of the entry is TEXT; used with
+<strong>–description</strong> to become synonymous with the <strong>–entry</strong> option.</dd>
+<dt>
+<strong>–no-indent</strong>
+</dt>
+<dd>do not format new entries in the DIR file.</dd>
+<dt>
+<strong>–quiet</strong>
+</dt>
+<dd>suppress warnings.</dd>
+<dt>
+*–regex*=/R/
+</dt>
+<dd>put this file&#39;s entries in all sections that match
+the regular expression R (ignoring case).</dd>
+<dt>
+<strong>–remove</strong>
+</dt>
+<dd>same as <strong>–delete</strong>.</dd>
+<dt>
+<strong>–remove-exactly</strong>
+</dt>
+<dd>only remove if the info file name matches
+exactly; suffixes such as .info and .gz are not ignored.</dd>
+<dt>
+*–section*=/SEC/
+</dt>
+<dd>put entries in section SEC of the directory. If
+you specify more than one section, all the entries</dd>
+<dt>
+are added in each of the sections.
+</dt>
+<dd>If you don&#39;t specify any
+sections, they are determined</dd>
+<dt>
+from information in the Info file itself;
+</dt>
+<dd>if nothing is available
+there, the <strong>–defsection</strong> value is used; if that is not specified, the
+final default is &#34;Miscellaneous&#34;.</dd>
+<dt>
+<strong>–section</strong> R SEC
+</dt>
+<dd>equivalent to <strong>–regex*=/R/ *–section*=/SEC/
+*–add-once</strong>.</dd>
+<dt>
+<strong>–silent</strong>
+</dt>
+<dd>suppress warnings.</dd>
+<dt>
+<strong>–test</strong>
+</dt>
+<dd>suppress updating of DIR-FILE.</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>display version information and exit.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Email bug reports to bug-texinfo@gnu.org, general questions and
+discussion to help-texinfo@gnu.org.<br>
+Texinfo home page: <a href="http://www.gnu.org/software/texinfo/">http://www.gnu.org/software/texinfo/</a></p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Copyright © 2023 Free Software Foundation, Inc. License GPLv3+: GNU GPL
+version 3 or later &lt;<a href="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</a>&gt;<br>
+This is free software: you are free to change and redistribute it. There
+is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The full documentation for <strong>install-info</strong> is maintained as a Texinfo
+manual. If the <strong>info</strong> and <strong>install-info</strong> programs are properly installed
+at your site, the command</p>
+<blockquote>
+<p><strong>info install-info</strong></p>
+</blockquote>
+<p>
+should give you access to the complete manual.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - btmon.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - btmon.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>btmon - Bluetooth monitor</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSYS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>btmon</strong> [/OPTIONS/ …]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The btmon(1) command provides access to the Bluetooth subsystem monitor
+infrastructure for reading HCI traces.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-r*/ FILE,/</strong> –read*/ FILE/
+</dt>
+<dd>Read traces in btsnoop format from
+/FILE/*.*</dd>
+<dt>
+<strong>-w*/ FILE,/</strong> –write*/ FILE/
+</dt>
+<dd>Save traces in btsnoop format to
+/FILE/*.*</dd>
+<dt>
+<strong>-a*/ FILE,/</strong> –analyze*/ FILE/
+</dt>
+<dd>Analyze traces in btsnoop format
+from /FILE/*.* It displays the devices found in the /FILE/* with* its
+packets by type. If gnuplot is installed on the system it also
+attempts to plot packet latency graph.</dd>
+<dt>
+<strong>-s*/ SOCKET,/</strong> –server*/ SOCKET/
+</dt>
+<dd>Start monitor server socket.</dd>
+<dt>
+<strong>-p*/ PRIORITY,/</strong> –priority*/ PRIORITY/
+</dt>
+<dd>Show only priority or
+lower for user log.</dd>
+</dl>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><em>PRIORITY</em></th>
+<th>NAME</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>3</strong></td>
+<td>Error</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Warning</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>Information (Default)</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td>Debug. <strong>debug</strong> can be used.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong>-i*/ NUM,/</strong> –index*/ NUM/
+</dt>
+<dd>Show only specified controller.
+/hciNUM/* is also* acceptable. This is useful to capture the traces
+from the specific controller when the multiple controllers are
+presented.</dd>
+<dt>
+<strong>-d*/ TTY,/</strong> –tty*/ TTY/
+</dt>
+<dd>Read data from /TTY/*.*</dd>
+<dt>
+<strong>-B*/ SPEED,/</strong> –rate*/ SPEED/
+</dt>
+<dd>Set TTY speed. The default /SPEED/*
+is 115300*</dd>
+<dt>
+<strong>-V*/ COMPID,/</strong> –vendor*/ COMPID/
+</dt>
+<dd>Set the default company
+identifier. The /COMPID/* is* a unique number assigned by the
+Bluetooth SIG to a member company and can be found/searched from the
+Bluetooth SIG webpage.
+
+For example, Intel is 2 and Realtek is 93.</dd>
+<dt>
+<strong>-M/,/ –mgmt</strong>
+</dt>
+<dd>Open channel for mgmt events.</dd>
+<dt>
+<strong>-t/,/ –time</strong>
+</dt>
+<dd>Show a time instead of time offset.</dd>
+<dt>
+<strong>-T/,/ –date</strong>
+</dt>
+<dd>Show a time and date information instead of time
+offset.</dd>
+<dt>
+<strong>-S/,/ –sco</strong>
+</dt>
+<dd>Dump SCO traffic in raw hex format.</dd>
+<dt>
+<strong>-A/,/ –a2dp</strong>
+</dt>
+<dd>Dump A2DP stream traffic in a raw hex format.</dd>
+<dt>
+<strong>-E*/ IP,/</strong> –ellisys*/ IP/
+</dt>
+<dd>Send Ellisys HCI Injection.</dd>
+<dt>
+<strong>-P, –no-pager</strong>
+</dt>
+<dd>Disable pager usage while reading the log file.</dd>
+<dt>
+<strong>-J*/ OPTIONS,/</strong> –jlink*/ OPTIONS/
+</dt>
+<dd>Read data from RTT. Each
+options are comma(,) seprated without spaces.</dd>
+</dl>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><em>OPTIONS</em></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DEVICE</strong></td>
+<td>Required. Set the target device.</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>SERIALNO</strong></td>
+<td>(Optional) Set the USB serial number. Default is <strong>0</strong>.</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>INTERFACE</strong></td>
+<td>(Optional) Target interface. Default is <strong>swd</strong>.</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>SPEED</strong></td>
+<td>(Optional) Set target interface speed in kHz. Default is <strong>1000</strong>.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong>-R*/ OPTIONS,/</strong> –rtt*/ OPTIONS/
+</dt>
+<dd>RTT control block parameters.
+Each options are comma(,) seprated without spaces.</dd>
+</dl>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><em>OPTIONS</em></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ADDRESS</strong></td>
+<td>(Optional) Address of RTT buffer. Default is <strong>0x00</strong></td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>AREA</strong></td>
+<td>(Optional) Size of range to search in RTT buffer. Default is <strong>0</strong></td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>NAME</strong></td>
+<td>(Optional) Buffer name. Default is <strong>btmonitor</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong>-C*/ WIDTH,/</strong> –columns*/ WIDTH/
+</dt>
+<dd>Output width if not a terminal</dd>
+<dt>
+<strong>-c*/ MODE,/</strong> –color*/ MODE/
+</dt>
+<dd>Set output color. The possible
+/MODE/* values are:* <strong>auto|always|never.</strong>
+
+Default value is <strong>auto</strong></dd>
+<dt>
+<strong>-v</strong>,* –version*
+</dt>
+<dd>Show version</dd>
+<dt>
+<strong>-h</strong>,* –help*
+</dt>
+<dd>Show help options</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Capture the traces from hci0 to hcidump.log file
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<blockquote>
+<blockquote>
+<pre class="example">
+$ btmon -i hci0 -w hcidump.log
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Open the trace file
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<blockquote>
+<blockquote>
+<pre class="example">
+$ btmon -r hcidump.log
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+RESOURCES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AUTHOR
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Marcel Holtmann &lt;marcel@holtmann.org&gt;, Tedd Ho-Jeong An
+&lt;tedd.an@intel.com&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

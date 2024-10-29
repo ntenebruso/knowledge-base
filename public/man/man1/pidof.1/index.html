@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pidof.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pidof.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pidof – find the process ID of a running program</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>pidof</strong> [*-s*] [*-c*] [*-q*] [*-w*] [*-x*] [*-o*
+/omitpid[,omitpid…]…/] [*-S* /separator/] <strong>program</strong> [*program…*]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>Pidof</strong> finds the process id&#39;s (pids) of the named programs. It prints
+those id&#39;s on the standard output.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+-s
+</dt>
+<dd>Single shot - this instructs the program to only return one
+<em>pid</em>.</dd>
+<dt>
+-c
+</dt>
+<dd>Only return process ids that are running with the same root
+directory. This option is ignored for non-root users, as they will be
+unable to check the current root directory of processes they do not
+own.</dd>
+<dt>
+-q
+</dt>
+<dd>Quiet mode, suppress any output and only sets the exit status
+accordingly.</dd>
+<dt>
+-w
+</dt>
+<dd>Show also processes that do not have visible command line (e.g.
+kernel worker threads).</dd>
+<dt>
+-x
+</dt>
+<dd>Scripts too - this causes the program to also return process
+id&#39;s of shells running the named scripts.</dd>
+<dt>
+-o omitpid
+</dt>
+<dd>Tells <em>pidof</em> to omit processes with that process id.
+The special pid <strong>%PPID</strong> can be used to name the parent process of the
+<em>pidof</em> program, in other words the calling shell or shell script.</dd>
+<dt>
+-S separator
+</dt>
+<dd>Use <em>separator</em> as a separator put between pids. Used
+only when more than one pids are printed for the program. The <strong>-d</strong>
+option is an alias for this option for sysvinit <strong>pidof</strong> compatibility.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+<strong>0</strong>
+</dt>
+<dd>At least one program was found with the requested name.</dd>
+<dt>
+<strong>1</strong>
+</dt>
+<dd>No program was found with the requested name.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+BUGS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>When using the <em>-x</em> option, <strong>pidof</strong> only has a simple method for
+detecting scripts and will miss scripts that, for example, use env. This
+limitation is due to how the scripts look in the proc filesystem.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*pgrep*(1), *pkill*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Jaromir Capik &lt;jcapik@redhat.com&gt;</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

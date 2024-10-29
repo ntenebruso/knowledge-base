@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-mailsplit.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-mailsplit.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-mailsplit - Simple UNIX mbox splitter program</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git mailsplit [-b] [-f&lt;nn&gt;] [-d&lt;prec&gt;] [--keep-cr] [--mboxrd]
+                -o&lt;directory&gt; [--] [(&lt;mbox&gt;|&lt;Maildir&gt;)...]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Splits a mbox file or a Maildir into a list of files: &#34;0001&#34; &#34;0002&#34; ..
+in the specified directory so you can process them further from there.</p>
+<blockquote>
+<p>\\</p>
+<p>
+<strong>Important</strong></p>
+<p>
+\\</p>
+<p>
+Maildir splitting relies upon filenames being sorted to output patches
+in the correct order.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>&lt;mbox&gt;</p>
+<blockquote>
+<p>Mbox file to split. If not given, the mbox is read from the standard
+input.</p>
+</blockquote>
+<p>
+&lt;Maildir&gt;</p>
+<blockquote>
+<p>Root of the Maildir to split. This directory should contain the cur, tmp
+and new subdirectories.</p>
+</blockquote>
+<p>
+-o&lt;directory&gt;</p>
+<blockquote>
+<p>Directory in which to place the individual messages.</p>
+</blockquote>
+<p>
+-b</p>
+<blockquote>
+<p>If any file doesn&#39;t begin with a From line, assume it is a single mail
+message instead of signaling an error.</p>
+</blockquote>
+<p>
+-d&lt;prec&gt;</p>
+<blockquote>
+<p>Instead of the default 4 digits with leading zeros, different precision
+can be specified for the generated filenames.</p>
+</blockquote>
+<p>
+-f&lt;nn&gt;</p>
+<blockquote>
+<p>Skip the first &lt;nn&gt; numbers, for example if -f3 is specified, start the
+numbering with 0004.</p>
+</blockquote>
+<p>
+–keep-cr</p>
+<blockquote>
+<p>Do not remove <strong>\r</strong> from lines ending with <strong>\r\n</strong>.</p>
+</blockquote>
+<p>
+–mboxrd</p>
+<blockquote>
+<p>Input is of the &#34;mboxrd&#34; format and &#34;^&gt;+From &#34; line escaping is
+reversed.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+GIT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

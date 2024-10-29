@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - virtfs-proxy-helper.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - virtfs-proxy-helper.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>virtfs-proxy-helper - QEMU 9p virtfs proxy filesystem helper</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>virtfs-proxy-helper</strong> [/OPTIONS/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>NOTE: The 9p &#39;proxy&#39; backend is deprecated (since QEMU 8.1) and will be
+removed, along with this daemon, in a future version of QEMU!</p>
+<p>
+Pass-through security model in QEMU 9p server needs root privilege to do
+few file operations (like chown, chmod to any mode/uid:gid). There are
+two issues in pass-through security model:</p>
+<blockquote>
+<ul>
+<li>TOCTTOU vulnerability: Following symbolic links in the server could
+provide access to files beyond 9p export path.</li>
+<li>Running QEMU with root privilege could be a security issue.</li>
+</ul>
+</blockquote>
+<p>
+To overcome above issues, following approach is used: A new filesystem
+type &#39;proxy&#39; is introduced. Proxy FS uses chroot + socket combination
+for securing the vulnerability known with following symbolic links.
+Intention of adding a new filesystem type is to allow qemu to run in
+non-root mode, but doing privileged operations using socket IO.</p>
+<p>
+Proxy helper (a stand alone binary part of qemu) is invoked with root
+privileges. Proxy helper chroots into 9p export path and creates a
+socket pair or a named socket based on the command line parameter. QEMU
+and proxy helper communicate using this socket. QEMU proxy fs driver
+sends filesystem request to proxy helper and receives the response from
+it.</p>
+<p>
+The proxy helper is designed so that it can drop root privileges except
+for the capabilities needed for doing filesystem operations.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are supported:</p>
+<blockquote>
+<dl>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>Display help and exit</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-p, –path PATH</strong>
+</dt>
+<dd>Path to export for proxy filesystem driver</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-f, –fd SOCKET_ID</strong>
+</dt>
+<dd>Use given file descriptor as socket descriptor
+for communicating with qemu proxy fs drier. Usually a helper like
+libvirt will create socketpair and pass one of the fds as parameter to
+this option.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-s, –socket SOCKET_FILE</strong>
+</dt>
+<dd>Creates named socket file for
+communicating with qemu proxy fs driver</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-u, –uid UID</strong>
+</dt>
+<dd>uid to give access to named socket file; used in
+combination with -g.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-g, –gid GID</strong>
+</dt>
+<dd>gid to give access to named socket file; used in
+combination with -u.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-n, –nodaemon</strong>
+</dt>
+<dd>Run as a normal program. By default program will
+run in daemon mode</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHOR
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<ol>
+<li>Mohan Kumar</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>2024, The QEMU Project Developers</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

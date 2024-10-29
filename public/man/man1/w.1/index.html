@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - w.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - w.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>w - Show who is logged on and what they are doing.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>w</strong> [/options/] <em>user</em> […]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>w</strong> displays information about the users currently on the machine, and
+their processes. The header shows, in this order, the current time, how
+long the system has been running, how many users are currently logged
+on, and the system load averages for the past 1, 5, and 15 minutes.</p>
+<p>
+The following entries are displayed for each user: login name, the tty
+name, the remote host, login time, idle time, JCPU, PCPU, and the
+command line of their current process.</p>
+<p>
+The JCPU time is the time used by all processes attached to the tty. It
+does not include past background jobs, but does include currently
+running background jobs.</p>
+<p>
+The PCPU time is the time used by the current process, named in the
+&#34;what&#34; field.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMAND-LINE OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-h</strong>, <strong>–no-header</strong>
+</dt>
+<dd>Don&#39;t print the header.</dd>
+<dt>
+<strong>-u</strong>, <strong>–no-current</strong>
+</dt>
+<dd>Ignores the username while figuring out the
+current process and cpu times. To demonstrate this, do a <strong>su</strong> and do a
+<strong>w</strong> and a <strong>w -u</strong>.</dd>
+<dt>
+<strong>-s</strong>, <strong>–short</strong>
+</dt>
+<dd>Use the short format. Don&#39;t print the login time,
+JCPU or PCPU times.</dd>
+<dt>
+<strong>-f</strong>, <strong>–from</strong>
+</dt>
+<dd>Toggle printing the <strong>from</strong> (remote hostname) field.
+The default as released is for the <strong>from</strong> field to not be printed,
+although your system administrator or distribution maintainer may have
+compiled a version in which the <strong>from</strong> field is shown by default.</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>Display help text and exit.</dd>
+<dt>
+<strong>-i</strong>, <strong>–ip-addr</strong>
+</dt>
+<dd>Display IP address instead of hostname for <strong>from</strong>
+field.</dd>
+<dt>
+<strong>-V</strong>, <strong>–version</strong>
+</dt>
+<dd>Display version information.</dd>
+<dt>
+<strong>-o</strong>, <strong>–old-style</strong>
+</dt>
+<dd>Old style output. Prints blank space for idle
+times less than one minute.</dd>
+<dt>
+*user *
+</dt>
+<dd>Show information about the specified user only.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+PROCPS_USERLEN
+</dt>
+<dd>Override the default width of the username column.
+Defaults to 8.</dd>
+<dt>
+PROCPS_FROMLEN
+</dt>
+<dd>Override the default width of the from column.
+Defaults to 16.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+FILES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<dl>
+<dt>
+<em>/var/run/utmp</em>
+</dt>
+<dd>information about who is currently logged on</dd>
+<dt>
+<em>/proc</em>
+</dt>
+<dd>process information</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*free*(1), *ps*(1), *top*(1), *uptime*(1), *utmp*(5), *who*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHORS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>w</strong> was re-written almost entirely by Charles Blake, based on the
+version by <a href="greenfie@gauss.rutgers.edu">Larry Greenfield</a> and
+<a href="johnsonm@redhat.com">Michael K. Johnson</a></p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Please send bug reports to <a href="procps@freelists.html">procps@freelists.html</a></p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

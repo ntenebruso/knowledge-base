@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nix-prefetch-url.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nix-prefetch-url.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Name
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><code class="verbatim">nix-prefetch-url</code> - copy a file from a URL into the store and print its
+hash</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Synopsis
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><code class="verbatim">nix-prefetch-url</code> <em>url</em> [/hash/] [=–type= /hashAlgo/] [=–print-path=]
+[=–unpack=] [=–name= /name/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Description
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The command <code class="verbatim">nix-prefetch-url</code> downloads the file referenced by the URL
+<em>url</em>, prints its cryptographic hash, and copies it into the Nix store.
+The file name in the store is <code class="verbatim">hash-baseName</code>, where <em>baseName</em> is
+everything following the final slash in <em>url</em>.</p>
+<p>
+This command is just a convenience for Nix expression writers. Often a
+Nix expression fetches some source distribution from the network using
+the <code class="verbatim">fetchurl</code> expression contained in Nixpkgs. However, <code class="verbatim">fetchurl</code>
+requires a cryptographic hash. If you don&#39;t know the hash, you would
+have to download the file first, and then <code class="verbatim">fetchurl</code> would download it
+again when you build your Nix expression. Since <code class="verbatim">fetchurl</code> uses the same
+name for the downloaded file as <code class="verbatim">nix-prefetch-url</code>, the redundant
+download can be avoided.</p>
+<p>
+If <em>hash</em> is specified, then a download is not performed if the Nix
+store already contains a file with the same hash and base name.
+Otherwise, the file is downloaded, and an error is signaled if the
+actual hash of the file does not match the specified hash.</p>
+<p>
+This command prints the hash on standard output. The hash is printed
+using base-32 unless <code class="verbatim">--type md5</code> is specified, in which case it&#39;s
+printed using base-16. Additionally, if the option <code class="verbatim">--print-path</code> is
+used, the path of the downloaded file in the Nix store is also printed.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Options
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<ul>
+<li><code class="verbatim">--type</code> <em>hashAlgo</em>
+
+Use the specified cryptographic hash algorithm, which can be one of
+<code class="verbatim">md5</code>, <code class="verbatim">sha1</code>, <code class="verbatim">sha256</code>, and <code class="verbatim">sha512</code>. The default is <code class="verbatim">sha256</code>.</li>
+<li><code class="verbatim">--print-path</code>
+
+Print the store path of the downloaded file on standard output.</li>
+<li><code class="verbatim">--unpack</code>
+
+Unpack the archive (which must be a tarball or zip file) and add the
+result to the Nix store. The resulting hash can be used with functions
+such as Nixpkgs&#39;s <code class="verbatim">fetchzip</code> or <code class="verbatim">fetchFromGitHub</code>.</li>
+<li><code class="verbatim">--executable</code>
+
+Set the executable bit on the downloaded file.</li>
+<li><code class="verbatim">--name</code> <em>name</em>
+
+Override the name of the file in the Nix store. By default, this is
+<code class="verbatim">hash-basename</code>, where <em>basename</em> is the last component of <em>url</em>.
+Overriding the name is necessary when <em>basename</em> contains characters
+that are not allowed in Nix store paths.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Examples
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<pre class="example">
+$ nix-prefetch-url ftp://ftp.gnu.org/pub/gnu/hello/hello-2.10.tar.gz
+0ssi1wpaf7plaswqqjwigppsg5fyh99vdlb9kzl7c9lng89ndq1i
+</pre>
+<pre class="example">
+$ nix-prefetch-url --print-path mirror://gnu/hello/hello-2.10.tar.gz
+0ssi1wpaf7plaswqqjwigppsg5fyh99vdlb9kzl7c9lng89ndq1i
+/nix/store/3x7dwzq014bblazs7kq20p9hyzz0qh8g-hello-2.10.tar.gz
+</pre>
+<pre class="example">
+$ nix-prefetch-url --unpack --print-path https://github.com/NixOS/patchelf/archive/0.8.tar.gz
+079agjlv0hrv7fxnx9ngipx14gyncbkllxrp9cccnh3a50fxcmy7
+/nix/store/19zrmhm3m40xxaw81c8cqm6aljgrnwj2-0.8.tar.gz
+</pre>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

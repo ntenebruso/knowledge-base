@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - setpriv.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - setpriv.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>setpriv - run a program with different Linux privilege settings</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>setpriv</strong> [options] <em>program</em> [/arguments/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Sets or queries various Linux privilege settings that are inherited
+across *execve*(2).</p>
+<p>
+In comparison to <strong>su*(1) and *runuser*(1), *setpriv</strong> neither uses PAM,
+nor does it prompt for a password. It is a simple, non-set-user-ID
+wrapper around <strong>execve*(2), and can be used to drop privileges in the
+same way as *setuidgid*(8) from *daemontools</strong>, <strong>chpst*(8) from *runit</strong>,
+or similar tools shipped by other service managers.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>–clear-groups</strong></p>
+<blockquote>
+<p>Clear supplementary groups.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–dump</strong></p>
+<blockquote>
+<p>Dump the current privilege state. This option can be specified more than
+once to show extra, mostly useless, information. Incompatible with all
+other options.</p>
+</blockquote>
+<p>
+<strong>–groups</strong> <em>group</em>…</p>
+<blockquote>
+<p>Set supplementary groups. The argument is a comma-separated list of GIDs
+or names.</p>
+</blockquote>
+<p>
+<strong>–inh-caps</strong> (<strong>+*|</strong>-<strong>)/cap/…, *–ambient-caps</strong> (<strong>+*|</strong>-<strong>)/cap/…,
+*–bounding-set</strong> (<strong>+*|</strong>-*)/cap/…</p>
+<blockquote>
+<p>Set the inheritable capabilities, ambient capabilities or the capability
+bounding set. See *capabilities*(7). The argument is a comma-separated
+list of *+*/cap/ and *-*/cap/ entries, which add or remove an entry
+respectively. <em>cap</em> can either be a human-readable name as seen in
+<strong>capabilities*(7) without the <em>cap_</em> prefix or of the format *cap_N</strong>,
+where <em>N</em> is the internal capability index used by Linux. <strong>+all</strong> and
+<strong>-all</strong> can be used to add or remove all caps.</p>
+<p>
+The set of capabilities starts out as the current inheritable set for
+<strong>–inh-caps</strong>, the current ambient set for <strong>–ambient-caps</strong> and the
+current bounding set for <strong>–bounding-set</strong>.</p>
+<p>
+Note the following restrictions (detailed in *capabilities*(7))
+regarding modifications to these capability sets:</p>
+<blockquote>
+<p>·</p>
+<p>
+A capability can be added to the inheritable set only if it is currently
+present in the bounding set.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+A capability can be added to the ambient set only if it is currently
+present in both the permitted and inheritable sets.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Notwithstanding the syntax offered by <strong>setpriv</strong>, the kernel does not
+permit capabilities to be added to the bounding set.</p>
+</blockquote>
+</blockquote>
+<p>
+If you drop a capability from the bounding set without also dropping it
+from the inheritable set, you are likely to become confused. Do not do
+that.</p>
+<p>
+<strong>–keep-groups</strong></p>
+<blockquote>
+<p>Preserve supplementary groups. Only useful in conjunction with <strong>–rgid</strong>,
+<strong>–egid</strong>, or <strong>–regid</strong>.</p>
+</blockquote>
+<p>
+<strong>–init-groups</strong></p>
+<blockquote>
+<p>Initialize supplementary groups using initgroups3. Only useful in
+conjunction with <strong>–ruid</strong> or <strong>–reuid</strong>.</p>
+</blockquote>
+<p>
+<strong>–list-caps</strong></p>
+<blockquote>
+<p>List all known capabilities. This option must be specified alone.</p>
+</blockquote>
+<p>
+<strong>–no-new-privs</strong></p>
+<blockquote>
+<p>Set the <em>no_new_privs</em> bit. With this bit set, *execve*(2) will not
+grant new privileges. For example, the set-user-ID and set-group-ID bits
+as well as file capabilities will be disabled. (Executing binaries with
+these bits set will still work, but they will not gain privileges.
+Certain LSMs, especially AppArmor, may result in failures to execute
+certain programs.) This bit is inherited by child processes and cannot
+be unset. See *prctl*(2) and <em>Documentation/prctl/no_new_privs.txt</em> in
+the Linux kernel source.</p>
+<p>
+The <em>no_new_privs</em> bit is supported since Linux 3.5.</p>
+</blockquote>
+<p>
+<strong>–rgid</strong> <em>gid</em>, <strong>–egid</strong> <em>gid</em>, <strong>–regid</strong> <em>gid</em></p>
+<blockquote>
+<p>Set the real, effective, or both GIDs. The <em>gid</em> argument can be given
+as a textual group name.</p>
+<p>
+For safety, you must specify one of <strong>–clear-groups</strong>, <strong>–groups</strong>,
+<strong>–keep-groups</strong>, or <strong>–init-groups</strong> if you set any primary <em>gid</em>.</p>
+</blockquote>
+<p>
+<strong>–ruid</strong> <em>uid</em>, <strong>–euid</strong> <em>uid</em>, <strong>–reuid</strong> <em>uid</em></p>
+<blockquote>
+<p>Set the real, effective, or both UIDs. The <em>uid</em> argument can be given
+as a textual login name.</p>
+<p>
+Setting a <em>uid</em> or <em>gid</em> does not change capabilities, although the exec
+call at the end might change capabilities. This means that, if you are
+root, you probably want to do something like:</p>
+<p>
+<strong>setpriv –reuid=1000 –regid=1000 –inh-caps=-all</strong></p>
+</blockquote>
+<p>
+<strong>–securebits</strong> (<strong>+*|</strong>-*)/securebit/…</p>
+<blockquote>
+<p>Set or clear securebits. The argument is a comma-separated list. The
+valid securebits are <em>noroot</em>, <em>noroot_locked</em>, <em>no_setuid_fixup</em>,
+<em>no_setuid_fixup_locked</em>, and <em>keep_caps_locked</em>. <em>keep_caps</em> is cleared
+by *execve*(2) and is therefore not allowed.</p>
+</blockquote>
+<p>
+<strong>–pdeathsig keep*|*clear*|*&lt;signal&gt;</strong></p>
+<blockquote>
+<p>Keep, clear or set the parent death signal. Some LSMs, most notably
+SELinux and AppArmor, clear the signal when the process credentials
+change. Using <strong>–pdeathsig keep</strong> will restore the parent death signal
+after changing credentials to remedy that situation.</p>
+</blockquote>
+<p>
+<strong>–selinux-label</strong> <em>label</em></p>
+<blockquote>
+<p>Request a particular SELinux transition (using a transition on exec, not
+dyntrans). This will fail and cause <strong>setpriv</strong> to abort if SELinux is not
+in use, and the transition may be ignored or cause *execve*(2) to fail
+at SELinux&#39;s whim. (In particular, this is unlikely to work in
+conjunction with <em>no_new_privs</em>.) This is similar to *runcon*(1).</p>
+</blockquote>
+<p>
+<strong>–apparmor-profile</strong> <em>profile</em></p>
+<blockquote>
+<p>Request a particular AppArmor profile (using a transition on exec). This
+will fail and cause <strong>setpriv</strong> to abort if AppArmor is not in use, and
+the transition may be ignored or cause *execve*(2) to fail at AppArmor&#39;s
+whim.</p>
+</blockquote>
+<p>
+<strong>–reset-env</strong></p>
+<blockquote>
+<p>Clears all the environment variables except <strong>TERM</strong>; initializes the
+environment variables <strong>HOME</strong>, <strong>SHELL</strong>, <strong>USER</strong>, <strong>LOGNAME</strong> according to
+the user&#39;s passwd entry; sets <strong>PATH</strong> to <em>/usr/local/bin:/bin:/usr/bin</em>
+for a regular user and to
+<em>/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin</em> for root.</p>
+<p>
+The environment variable <strong>PATH</strong> may be different on systems where <em>/bin</em>
+and <em>/sbin</em> are merged into <em>/usr</em>. The environment variable <strong>SHELL</strong>
+defaults to <strong>/bin/sh</strong> if none is given in the user&#39;s passwd entry.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+NOTES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>If applying any specified option fails, <em>program</em> will not be run and
+<strong>setpriv</strong> will return with exit status 127.</p>
+<p>
+Be careful with this tool — it may have unexpected security
+consequences. For example, setting <em>no_new_privs</em> and then execing a
+program that is SELinux-confined (as this tool would do) may prevent the
+SELinux restrictions from taking effect.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>If you&#39;re looking for behavior similar to <strong>su*(1)/*runuser*(1), or
+*sudo*(8) (without the *-g</strong> option), try something like:</p>
+<p>
+<strong>setpriv –reuid=1000 –regid=1000 –init-groups</strong></p>
+<p>
+If you want to mimic daemontools *setuid*(8), try:</p>
+<p>
+<strong>setpriv –reuid=1000 –regid=1000 –clear-groups</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*runuser*(1), *su*(1), *prctl*(2), *capabilities*(7)</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The <strong>setpriv</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

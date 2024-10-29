@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - diff3.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - diff3.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>diff3 - compare three files line by line</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>diff3</strong> [/OPTION/]… <em>MYFILE OLDFILE YOURFILE</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Compare three files line by line.</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<dl>
+<dt>
+<strong>-A</strong>, <strong>–show-all</strong>
+</dt>
+<dd>output all changes, bracketing conflicts</dd>
+<dt>
+<strong>-e</strong>, <strong>–ed</strong>
+</dt>
+<dd>output ed script incorporating changes from OLDFILE to
+YOURFILE into MYFILE</dd>
+<dt>
+<strong>-E</strong>, <strong>–show-overlap</strong>
+</dt>
+<dd>like <strong>-e</strong>, but bracket conflicts</dd>
+<dt>
+<strong>-3</strong>, <strong>–easy-only</strong>
+</dt>
+<dd>like <strong>-e</strong>, but incorporate only nonoverlapping
+changes</dd>
+<dt>
+<strong>-x</strong>, <strong>–overlap-only</strong>
+</dt>
+<dd>like <strong>-e</strong>, but incorporate only overlapping
+changes</dd>
+<dt>
+<strong>-X</strong>
+</dt>
+<dd>like <strong>-x</strong>, but bracket conflicts</dd>
+<dt>
+<strong>-i</strong>
+</dt>
+<dd>append &#39;w&#39; and &#39;q&#39; commands to ed scripts</dd>
+<dt>
+<strong>-m</strong>, <strong>–merge</strong>
+</dt>
+<dd>output actual merged file, according to <strong>-A</strong> if no
+other options are given</dd>
+<dt>
+<strong>-a</strong>, <strong>–text</strong>
+</dt>
+<dd>treat all files as text</dd>
+<dt>
+<strong>–strip-trailing-cr</strong>
+</dt>
+<dd>strip trailing carriage return on input</dd>
+<dt>
+<strong>-T</strong>, <strong>–initial-tab</strong>
+</dt>
+<dd>make tabs line up by prepending a tab</dd>
+<dt>
+*–diff-program*=/PROGRAM/
+</dt>
+<dd>use PROGRAM to compare files</dd>
+<dt>
+<strong>-L</strong>, *–label*=/LABEL/
+</dt>
+<dd>use LABEL instead of file name (can be
+repeated up to three times)</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>-v</strong>, <strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>The default output format is a somewhat human-readable representation of
+the changes.</p>
+<p>
+The <strong>-e</strong>, <strong>-E</strong>, <strong>-x</strong>, <strong>-X</strong> (and corresponding long) options cause an ed
+script to be output instead of the default.</p>
+<p>
+Finally, the <strong>-m</strong> (<strong>–merge</strong>) option causes diff3 to do the merge
+internally and output the actual merged file. For unusual input, this is
+more robust than using ed.</p>
+<p>
+If a FILE is &#39;-&#39;, read standard input. Exit status is 0 if successful, 1
+if conflicts, 2 if trouble.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+AUTHOR
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Written by Randy Smith.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Report bugs to: bug-diffutils@gnu.org<br>
+GNU diffutils home page: &lt;<a href="https://www.gnu.org/software/diffutils/">https://www.gnu.org/software/diffutils/</a>&gt;<br>
+General help using GNU software: &lt;<a href="https://www.gnu.org/gethelp/">https://www.gnu.org/gethelp/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Copyright © 2023 Free Software Foundation, Inc. License GPLv3+: GNU GPL
+version 3 or later &lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it. There
+is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*cmp*(1), *diff*(1), *sdiff*(1)</p>
+<p>
+The full documentation for <strong>diff3</strong> is maintained as a Texinfo manual. If
+the <strong>info</strong> and <strong>diff3</strong> programs are properly installed at your site, the
+command</p>
+<blockquote>
+<p><strong>info diff3</strong></p>
+</blockquote>
+<p>
+should give you access to the complete manual.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

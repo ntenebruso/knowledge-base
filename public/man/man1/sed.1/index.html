@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - sed.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - sed.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>sed - stream editor for filtering and transforming text</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+sed [-V] [--version] [--help] [-n] [--quiet] [--silent]
+    [-l N] [--line-length=N] [-u] [--unbuffered]
+    [-E] [-r] [--regexp-extended]
+    [-e script] [--expression=script]
+    [-f script-file] [--file=script-file]
+    [script-if-no-other-script]
+    [file...]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><em>Sed</em> is a stream editor. A stream editor is used to perform basic text
+transformations on an input stream (a file or input from a pipeline).
+While in some ways similar to an editor which permits scripted edits
+(such as <em>ed</em>), <em>sed</em> works by making only one pass over the input(s),
+and is consequently more efficient. But it is <em>sed</em>&#39;s ability to filter
+text in a pipeline which particularly distinguishes it from other types
+of editors.</p>
+<p>
+<strong>-n</strong>, <strong>–quiet</strong>, <strong>–silent</strong></p>
+<blockquote>
+<p>suppress automatic printing of pattern space</p>
+</blockquote>
+<p>
+<strong>–debug</strong></p>
+<blockquote>
+<p>annotate program execution</p>
+</blockquote>
+<p>
+<strong>-e</strong> script, *–expression*=/script/</p>
+<blockquote>
+<p>add the script to the commands to be executed</p>
+</blockquote>
+<p>
+<strong>-f</strong> script-file, *–file*=/script-file/</p>
+<blockquote>
+<p>add the contents of script-file to the commands to be executed</p>
+</blockquote>
+<p>
+<strong>–follow-symlinks</strong></p>
+<blockquote>
+<p>follow symlinks when processing in place</p>
+</blockquote>
+<p>
+<strong>-i[SUFFIX]</strong>, <strong>–in-place</strong>[=/SUFFIX/]</p>
+<blockquote>
+<p>edit files in place (makes backup if SUFFIX supplied)</p>
+</blockquote>
+<p>
+<strong>-l</strong> N, *–line-length*=/N/</p>
+<blockquote>
+<p>specify the desired line-wrap length for the `l&#39; command</p>
+</blockquote>
+<p>
+<strong>–posix</strong></p>
+<blockquote>
+<p>disable all GNU extensions.</p>
+</blockquote>
+<p>
+<strong>-E</strong>, <strong>-r</strong>, <strong>–regexp-extended</strong></p>
+<blockquote>
+<p>use extended regular expressions in the script (for portability use
+POSIX <strong>-E</strong>).</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–separate</strong></p>
+<blockquote>
+<p>consider files as separate rather than as a single, continuous long
+stream.</p>
+</blockquote>
+<p>
+<strong>–sandbox</strong></p>
+<blockquote>
+<p>operate in sandbox mode (disable e/r/w commands).</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–unbuffered</strong></p>
+<blockquote>
+<p>load minimal amounts of data from the input files and flush the output
+buffers more often</p>
+</blockquote>
+<p>
+<strong>-z</strong>, <strong>–null-data</strong></p>
+<blockquote>
+<p>separate lines by NUL characters</p>
+</blockquote>
+<dl>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>If no <strong>-e</strong>, <strong>–expression</strong>, <strong>-f</strong>, or <strong>–file</strong> option is given, then the
+first non-option argument is taken as the sed script to interpret. All
+remaining arguments are names of input files; if no input files are
+specified, then the standard input is read.</p>
+<p>
+GNU sed home page: &lt;<a href="https://www.gnu.org/software/sed/">https://www.gnu.org/software/sed/</a>&gt;. General help
+using GNU software: &lt;<a href="https://www.gnu.org/gethelp/">https://www.gnu.org/gethelp/</a>&gt;. E-mail bug reports
+to: &lt;bug-sed@gnu.org&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMAND SYNOPSIS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>This is just a brief synopsis of <em>sed</em> commands to serve as a reminder
+to those who already know <em>sed</em>; other documentation (such as the
+texinfo document) must be consulted for fuller descriptions.</p>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Zero-address ``commands&#39;&#39;
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<dl>
+<dt>
+: <em>label</em>
+</dt>
+<dd>Label for <strong>b</strong> and <strong>t</strong> commands.</dd>
+<dt>
+#/comment/
+</dt>
+<dd>The comment extends until the next newline (or the end
+of a <strong>-e</strong> script fragment).</dd>
+<dt>
+}
+</dt>
+<dd>The closing bracket of a { } block.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Zero- or One- address commands
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<dl>
+<dt>
+=
+</dt>
+<dd>Print the current line number.</dd>
+<dt>
+a \
+</dt>
+<dd>
+<dl>
+<dt>
+<em>text</em>
+</dt>
+<dd>
+<p>Append <em>text</em>, which has each embedded newline
+preceded by a backslash.</p>
+<dl>
+<dt>
+i \
+</dt>
+<dd>
+<dl>
+<dt>
+<em>text</em>
+</dt>
+<dd>
+<p>Insert <em>text</em>, which has each embedded newline
+preceded by a backslash.</p>
+<dl>
+<dt>
+q [/exit-code/]
+</dt>
+<dd>Immediately quit the <em>sed</em> script without
+processing any more input, except that if auto-print is not
+disabled the current pattern space will be printed. The exit code
+argument is a GNU extension.</dd>
+<dt>
+Q [/exit-code/]
+</dt>
+<dd>Immediately quit the <em>sed</em> script without
+processing any more input. This is a GNU extension.</dd>
+<dt>
+r <em>filename</em>
+</dt>
+<dd>Append text read from <em>filename</em>.</dd>
+<dt>
+R <em>filename</em>
+</dt>
+<dd>Append a line read from <em>filename</em>. Each
+invocation of the command reads a line from the file. This is a
+GNU extension.</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Commands which accept address ranges
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<dl>
+<dt>
+{
+</dt>
+<dd>Begin a block of commands (end with a }).</dd>
+<dt>
+b <em>label</em>
+</dt>
+<dd>Branch to <em>label</em>; if <em>label</em> is omitted, branch to end
+of script.</dd>
+<dt>
+c \
+</dt>
+<dd>
+<dl>
+<dt>
+<em>text</em>
+</dt>
+<dd>
+<p>Replace the selected lines with <em>text</em>, which has
+each embedded newline preceded by a backslash.</p>
+<dl>
+<dt>
+d
+</dt>
+<dd>Delete pattern space. Start next cycle.</dd>
+<dt>
+D
+</dt>
+<dd>If pattern space contains no newline, start a normal new cycle
+as if the d command was issued. Otherwise, delete text in the
+pattern space up to the first newline, and restart cycle with the
+resultant pattern space, without reading a new line of input.</dd>
+<dt>
+h H
+</dt>
+<dd>Copy/append pattern space to hold space.</dd>
+<dt>
+g G
+</dt>
+<dd>Copy/append hold space to pattern space.</dd>
+<dt>
+l
+</dt>
+<dd>List out the current line in a ``visually unambiguous&#39;&#39; form.</dd>
+<dt>
+l <em>width</em>
+</dt>
+<dd>List out the current line in a ``visually unambiguous&#39;&#39;
+form, breaking it at <em>width</em> characters. This is a GNU extension.</dd>
+<dt>
+n N
+</dt>
+<dd>Read/append the next line of input into the pattern space.</dd>
+<dt>
+p
+</dt>
+<dd>Print the current pattern space.</dd>
+<dt>
+P
+</dt>
+<dd>Print up to the first embedded newline of the current pattern
+space.</dd>
+<dt>
+s//regexp///replacement//
+</dt>
+<dd>Attempt to match <em>regexp</em> against the
+pattern space. If successful, replace that portion matched with
+<em>replacement</em>. The <em>replacement</em> may contain the special character
+<strong>&amp;</strong> to refer to that portion of the pattern space which matched, and
+the special escapes \1 through \9 to refer to the corresponding
+matching sub-expressions in the <em>regexp</em>.</dd>
+<dt>
+t <em>label</em>
+</dt>
+<dd>If a s/// has done a successful substitution since the
+last input line was read and since the last t or T command, then
+branch to <em>label</em>; if <em>label</em> is omitted, branch to end of script.</dd>
+<dt>
+T <em>label</em>
+</dt>
+<dd>If no s/// has done a successful substitution since the
+last input line was read and since the last t or T command, then
+branch to <em>label</em>; if <em>label</em> is omitted, branch to end of script.
+This is a GNU extension.</dd>
+<dt>
+w <em>filename</em>
+</dt>
+<dd>Write the current pattern space to <em>filename</em>.</dd>
+<dt>
+W <em>filename</em>
+</dt>
+<dd>Write the first line of the current pattern space to
+<em>filename</em>. This is a GNU extension.</dd>
+<dt>
+x
+</dt>
+<dd>Exchange the contents of the hold and pattern spaces.</dd>
+<dt>
+y//source///dest//
+</dt>
+<dd>Transliterate the characters in the pattern
+space which appear in <em>source</em> to the corresponding character in
+<em>dest</em>.</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+Addresses
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><em>Sed</em> commands can be given with no addresses, in which case the command
+will be executed for all input lines; with one address, in which case
+the command will only be executed for input lines which match that
+address; or with two addresses, in which case the command will be
+executed for all input lines which match the inclusive range of lines
+starting from the first address and continuing to the second address.
+Three things to note about address ranges: the syntax is <em>addr1</em>,/addr2/
+(i.e., the addresses are separated by a comma); the line which <em>addr1</em>
+matched will always be accepted, even if <em>addr2</em> selects an earlier
+line; and if <em>addr2</em> is a <em>regexp</em>, it will not be tested against the
+line that <em>addr1</em> matched.</p>
+<p>
+After the address (or address-range), and before the command, a <strong>!</strong> may
+be inserted, which specifies that the command shall only be executed if
+the address (or address-range) does <strong>not</strong> match.</p>
+<p>
+The following address types are supported:</p>
+<dl>
+<dt>
+<em>number</em>
+</dt>
+<dd>Match only the specified line <em>number</em> (which increments
+cumulatively across files, unless the <strong>-s</strong> option is specified on the
+command line).</dd>
+<dt>
+<em>first/~/step</em>
+</dt>
+<dd>Match every <em>step</em>&#39;th line starting with line
+<em>first</em>. For example, ``sed -n 1~2p&#39;&#39; will print all the odd-numbered
+lines in the input stream, and the address 2~5 will match every fifth
+line, starting with the second. <em>first</em> can be zero; in this case,
+<em>sed</em> operates as if it were equal to <em>step</em>. (This is an extension.)</dd>
+<dt>
+$
+</dt>
+<dd>Match the last line.</dd>
+<dt>
+<em><em>regexp</em></em>
+</dt>
+<dd>Match lines matching the regular expression <em>regexp</em>.
+Matching is performed on the current pattern space, which can be
+modified with commands such as ``s///&#39;&#39;.</dd>
+<dt>
+<strong>\c*/regexp/*c</strong>
+</dt>
+<dd>Match lines matching the regular expression
+<em>regexp</em>. The <strong>c</strong> may be any character.</dd>
+</dl>
+<p>GNU <em>sed</em> also supports some special 2-address forms:</p>
+<dl>
+<dt>
+0,/addr2/
+</dt>
+<dd>Start out in &#34;matched first address&#34; state, until <em>addr2</em>
+is found. This is similar to 1,/addr2/, except that if <em>addr2</em> matches
+the very first line of input the 0,/addr2/ form will be at the end of
+its range, whereas the 1,/addr2/ form will still be at the beginning
+of its range. This works only when <em>addr2</em> is a regular expression.</dd>
+<dt>
+<em>addr1</em>,+/N/
+</dt>
+<dd>Will match <em>addr1</em> and the <em>N</em> lines following
+<em>addr1</em>.</dd>
+<dt>
+<em>addr1</em>,~/N/
+</dt>
+<dd>Will match <em>addr1</em> and the lines following <em>addr1</em>
+until the next line whose input line number is a multiple of <em>N</em>.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+REGULAR EXPRESSIONS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>POSIX.2 BREs <em>should</em> be supported, but they aren&#39;t completely because
+of performance problems. The <strong>\n</strong> sequence in a regular expression
+matches the newline character, and similarly for <strong>\a</strong>, <strong>\t</strong>, and other
+sequences. The <em>-E</em> option switches to using extended regular
+expressions instead; it has been supported for years by GNU sed, and is
+now included in POSIX.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>E-mail bug reports to <strong>bug-sed@gnu.org</strong>. Also, please include the output
+of ``sed –version&#39;&#39; in the body of your report if at all possible.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+AUTHOR
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Written by Jay Fenlason, Tom Lord, Ken Pizzini, Paolo Bonzini, Jim
+Meyering, and Assaf Gordon.</p>
+<p>
+This sed program was built without SELinux support.</p>
+<p>
+GNU sed home page: &lt;<a href="https://www.gnu.org/software/sed/">https://www.gnu.org/software/sed/</a>&gt;. General help
+using GNU software: &lt;<a href="https://www.gnu.org/gethelp/">https://www.gnu.org/gethelp/</a>&gt;. E-mail bug reports
+to: &lt;bug-sed@gnu.org&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>Copyright © 2022 Free Software Foundation, Inc. License GPLv3+: GNU GPL
+version 3 or later &lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it. There
+is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>*awk*(1), *ed*(1), *grep*(1), *tr*(1), *perlre*(1), sed.info, any of
+various books on <em>sed</em>,</p>
+<p>
+the <em>sed</em> FAQ (<a href="http://sed.sf.net/grabbag/tutorials/sedfaq.txt),">http://sed.sf.net/grabbag/tutorials/sedfaq.txt),</a>
+<a href="http://sed.sf.net/grabbag/.">http://sed.sf.net/grabbag/.</a></p>
+<p>
+The full documentation for <strong>sed</strong> is maintained as a Texinfo manual. If
+the <strong>info</strong> and <strong>sed</strong> programs are properly installed at your site, the
+command</p>
+<blockquote>
+<p><strong>info sed</strong></p>
+</blockquote>
+<p>
+should give you access to the complete manual.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

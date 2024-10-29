@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - ptargrep.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - ptargrep.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>ptargrep - Apply pattern matching to the contents of files in a tar
+archive</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>ptargrep [options] &lt;pattern&gt; &lt;tar file&gt; … Options: –basename|-b
+ignore directory paths from archive –ignore-case|-i do case-insensitive
+pattern matching –list-only|-l list matching filenames rather than
+extracting matches –verbose|-v write debugging message to STDERR
+–help|-? detailed help message</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This utility allows you to apply pattern matching to <strong>the contents</strong> of
+files contained in a tar archive. You might use this to identify all
+files in an archive which contain lines matching the specified pattern
+and either print out the pathnames or extract the files.</p>
+<p>
+The pattern will be used as a Perl regular expression (as opposed to a
+simple grep regex).</p>
+<p>
+Multiple tar archive filenames can be specified - they will each be
+processed in turn.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+–basename (alias -b)
+</dt>
+<dd>When matching files are extracted, ignore the
+directory path from the archive and write to the current directory
+using the basename of the file from the archive. Beware: if two
+matching files in the archive have the same basename, the second file
+extracted will overwrite the first.</dd>
+<dt>
+–ignore-case (alias -i)
+</dt>
+<dd>Make pattern matching case-insensitive.</dd>
+<dt>
+–list-only (alias -l)
+</dt>
+<dd>Print the pathname of each matching file
+from the archive to STDOUT. Without this option, the default behaviour
+is to extract each matching file.</dd>
+<dt>
+–verbose (alias -v)
+</dt>
+<dd>Log debugging info to STDERR.</dd>
+<dt>
+–help (alias -?)
+</dt>
+<dd>Display this documentation.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Copyright 2010 Grant McLean &lt;grantm@cpan.org&gt;</p>
+<p>
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

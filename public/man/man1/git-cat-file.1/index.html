@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-cat-file.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-cat-file.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-cat-file - Provide contents or details of repository objects</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git cat-file &lt;type&gt; &lt;object&gt;
+git cat-file (-e | -p) &lt;object&gt;
+git cat-file (-t | -s) [--allow-unknown-type] &lt;object&gt;
+git cat-file (--textconv | --filters)
+             [&lt;rev&gt;:&lt;path|tree-ish&gt; | --path=&lt;path|tree-ish&gt; &lt;rev&gt;]
+git cat-file (--batch | --batch-check | --batch-command) [--batch-all-objects]
+             [--buffer] [--follow-symlinks] [--unordered]
+             [--textconv | --filters] [-Z]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Output the contents or other properties such as size, type or delta
+information of one or more objects.</p>
+<p>
+This command can operate in two modes, depending on whether an option
+from the <strong>–batch</strong> family is specified.</p>
+<p>
+In non-batch mode, the command provides information on an object named
+on the command line.</p>
+<p>
+In batch mode, arguments are read from standard input.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>&lt;object&gt;</p>
+<blockquote>
+<p>The name of the object to show. For a more complete list of ways to
+spell object names, see the &#34;SPECIFYING REVISIONS&#34; section in
+*gitrevisions*(7).</p>
+</blockquote>
+<p>
+-t</p>
+<blockquote>
+<p>Instead of the content, show the object type identified by <strong>&lt;object&gt;</strong>.</p>
+</blockquote>
+<p>
+-s</p>
+<blockquote>
+<p>Instead of the content, show the object size identified by <strong>&lt;object&gt;</strong>.
+If used with <strong>–use-mailmap</strong> option, will show the size of updated
+object after replacing idents using the mailmap mechanism.</p>
+</blockquote>
+<p>
+-e</p>
+<blockquote>
+<p>Exit with zero status if <strong>&lt;object&gt;</strong> exists and is a valid object. If
+<strong>&lt;object&gt;</strong> is of an invalid format, exit with non-zero status and emit
+an error on stderr.</p>
+</blockquote>
+<p>
+-p</p>
+<blockquote>
+<p>Pretty-print the contents of <strong>&lt;object&gt;</strong> based on its type.</p>
+</blockquote>
+<p>
+&lt;type&gt;</p>
+<blockquote>
+<p>Typically this matches the real type of <strong>&lt;object&gt;</strong> but asking for a type
+that can trivially be dereferenced from the given <strong>&lt;object&gt;</strong> is also
+permitted. An example is to ask for a &#34;tree&#34; with <strong>&lt;object&gt;</strong> being a
+commit object that contains it, or to ask for a &#34;blob&#34; with <strong>&lt;object&gt;</strong>
+being a tag object that points at it.</p>
+</blockquote>
+<p>
+–[no-]mailmap, –[no-]use-mailmap</p>
+<blockquote>
+<p>Use mailmap file to map author, committer and tagger names and email
+addresses to canonical real names and email addresses. See
+*git-shortlog*(1).</p>
+</blockquote>
+<p>
+–textconv</p>
+<blockquote>
+<p>Show the content as transformed by a textconv filter. In this case,
+<strong>&lt;object&gt;</strong> has to be of the form <strong>&lt;tree-ish&gt;:&lt;path&gt;</strong>, or <strong>:&lt;path&gt;</strong> in
+order to apply the filter to the content recorded in the index at
+<strong>&lt;path&gt;</strong>.</p>
+</blockquote>
+<p>
+–filters</p>
+<blockquote>
+<p>Show the content as converted by the filters configured in the current
+working tree for the given <strong>&lt;path&gt;</strong> (i.e. smudge filters, end-of-line
+conversion, etc). In this case, <strong>&lt;object&gt;</strong> has to be of the form
+<strong>&lt;tree-ish&gt;:&lt;path&gt;</strong>, or <strong>:&lt;path&gt;</strong>.</p>
+</blockquote>
+<p>
+–path=&lt;path&gt;</p>
+<blockquote>
+<p>For use with <strong>–textconv</strong> or <strong>–filters</strong>, to allow specifying an object
+name and a path separately, e.g. when it is difficult to figure out the
+revision from which the blob came.</p>
+</blockquote>
+<p>
+–batch, –batch=&lt;format&gt;</p>
+<blockquote>
+<p>Print object information and contents for each object provided on stdin.
+May not be combined with any other options or arguments except
+<strong>–textconv</strong>, <strong>–filters</strong>, or <strong>–use-mailmap</strong>.</p>
+<blockquote>
+<p>·</p>
+<p>
+When used with <strong>–textconv</strong> or <strong>–filters</strong>, the input lines must specify
+the path, separated by whitespace. See the section <strong>BATCH OUTPUT</strong> below
+for details.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+When used with <strong>–use-mailmap</strong>, for commit and tag objects, the contents
+part of the output shows the identities replaced using the mailmap
+mechanism, while the information part of the output shows the size of
+the object as if it actually recorded the replacement identities.</p>
+</blockquote>
+</blockquote>
+<p>
+–batch-check, –batch-check=&lt;format&gt;</p>
+<blockquote>
+<p>Print object information for each object provided on stdin. May not be
+combined with any other options or arguments except <strong>–textconv</strong>,
+<strong>–filters</strong> or <strong>–use-mailmap</strong>.</p>
+<blockquote>
+<p>·</p>
+<p>
+When used with <strong>–textconv</strong> or <strong>–filters</strong>, the input lines must specify
+the path, separated by whitespace. See the section <strong>BATCH OUTPUT</strong> below
+for details.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+When used with <strong>–use-mailmap</strong>, for commit and tag objects, the printed
+object information shows the size of the object as if the identities
+recorded in it were replaced by the mailmap mechanism.</p>
+</blockquote>
+</blockquote>
+<p>
+–batch-command, –batch-command=&lt;format&gt;</p>
+<blockquote>
+<p>Enter a command mode that reads commands and arguments from stdin. May
+only be combined with <strong>–buffer</strong>, <strong>–textconv</strong>, <strong>–use-mailmap</strong> or
+<strong>–filters</strong>.</p>
+<blockquote>
+<p>·</p>
+<p>
+When used with <strong>–textconv</strong> or <strong>–filters</strong>, the input lines must specify
+the path, separated by whitespace. See the section <strong>BATCH OUTPUT</strong> below
+for details.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+When used with <strong>–use-mailmap</strong>, for commit and tag objects, the
+<strong>contents</strong> command shows the identities replaced using the mailmap
+mechanism, while the <strong>info</strong> command shows the size of the object as if
+it actually recorded the replacement identities.</p>
+</blockquote>
+<p>
+<strong>–batch-command</strong> recognizes the following commands:</p>
+<p>
+contents &lt;object&gt;</p>
+<blockquote>
+<p>Print object contents for object reference <strong>&lt;object&gt;</strong>. This corresponds
+to the output of <strong>–batch</strong>.</p>
+</blockquote>
+<p>
+info &lt;object&gt;</p>
+<blockquote>
+<p>Print object info for object reference <strong>&lt;object&gt;</strong>. This corresponds to
+the output of <strong>–batch-check</strong>.</p>
+</blockquote>
+<p>
+flush</p>
+<blockquote>
+<p>Used with <strong>–buffer</strong> to execute all preceding commands that were issued
+since the beginning or since the last flush was issued. When <strong>–buffer</strong>
+is used, no output will come until a <strong>flush</strong> is issued. When <strong>–buffer</strong>
+is not used, commands are flushed each time without issuing <strong>flush</strong>.</p>
+</blockquote>
+</blockquote>
+<p>
+–batch-all-objects</p>
+<blockquote>
+<p>Instead of reading a list of objects on stdin, perform the requested
+batch operation on all objects in the repository and any alternate
+object stores (not just reachable objects). Requires <strong>–batch</strong> or
+<strong>–batch-check</strong> be specified. By default, the objects are visited in
+order sorted by their hashes; see also <strong>–unordered</strong> below. Objects are
+presented as-is, without respecting the &#34;replace&#34; mechanism of
+*git-replace*(1).</p>
+</blockquote>
+<p>
+–buffer</p>
+<blockquote>
+<p>Normally batch output is flushed after each object is output, so that a
+process can interactively read and write from <strong>cat-file</strong>. With this
+option, the output uses normal stdio buffering; this is much more
+efficient when invoking <strong>–batch-check</strong> or <strong>–batch-command</strong> on a large
+number of objects.</p>
+</blockquote>
+<p>
+–unordered</p>
+<blockquote>
+<p>When <strong>–batch-all-objects</strong> is in use, visit objects in an order which
+may be more efficient for accessing the object contents than hash order.
+The exact details of the order are unspecified, but if you do not
+require a specific order, this should generally result in faster output,
+especially with <strong>–batch</strong>. Note that <strong>cat-file</strong> will still show each
+object only once, even if it is stored multiple times in the repository.</p>
+</blockquote>
+<p>
+–allow-unknown-type</p>
+<blockquote>
+<p>Allow <strong>-s</strong> or <strong>-t</strong> to query broken/corrupt objects of unknown type.</p>
+</blockquote>
+<p>
+–follow-symlinks</p>
+<blockquote>
+<p>With <strong>–batch</strong> or <strong>–batch-check</strong>, follow symlinks inside the repository
+when requesting objects with extended SHA-1 expressions of the form
+tree-ish:path-in-tree. Instead of providing output about the link
+itself, provide output about the linked-to object. If a symlink points
+outside the tree-ish (e.g. a link to <strong>/foo</strong> or a root-level link to
+<strong>../foo</strong>), the portion of the link which is outside the tree will be
+printed.</p>
+<p>
+This option does not (currently) work correctly when an object in the
+index is specified (e.g. <strong>:link</strong> instead of <strong>HEAD:link</strong>) rather than one
+in the tree.</p>
+<p>
+This option cannot (currently) be used unless <strong>–batch</strong> or
+<strong>–batch-check</strong> is used.</p>
+<p>
+For example, consider a git repository containing:</p>
+<blockquote>
+<pre class="example">
+f: a file containing &#34;hello\n&#34;
+link: a symlink to f
+dir/link: a symlink to ../f
+plink: a symlink to ../f
+alink: a symlink to /etc/passwd
+</pre>
+</blockquote>
+<p>
+For a regular file <strong>f</strong>, <strong>echo HEAD:f | git cat-file –batch</strong> would print</p>
+<blockquote>
+<pre class="example">
+ce013625030ba8dba906f756967f9e9ca394464a blob 6
+</pre>
+</blockquote>
+<p>
+And <strong>echo HEAD:link | git cat-file –batch –follow-symlinks</strong> would
+print the same thing, as would <strong>HEAD:dir/link</strong>, as they both point at
+<strong>HEAD:f</strong>.</p>
+<p>
+Without <strong>–follow-symlinks</strong>, these would print data about the symlink
+itself. In the case of <strong>HEAD:link</strong>, you would see</p>
+<blockquote>
+<pre class="example">
+4d1ae35ba2c8ec712fa2a379db44ad639ca277bd blob 1
+</pre>
+</blockquote>
+<p>
+Both <strong>plink</strong> and <strong>alink</strong> point outside the tree, so they would
+respectively print:</p>
+<blockquote>
+<pre class="example">
+symlink 4
+../f
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+symlink 11
+/etc/passwd
+</pre>
+</blockquote>
+</blockquote>
+<p>
+-Z</p>
+<blockquote>
+<p>Only meaningful with <strong>–batch</strong>, <strong>–batch-check</strong>, or <strong>–batch-command</strong>;
+input and output is NUL-delimited instead of newline-delimited.</p>
+</blockquote>
+<p>
+-z</p>
+<blockquote>
+<p>Only meaningful with <strong>–batch</strong>, <strong>–batch-check</strong>, or <strong>–batch-command</strong>;
+input is NUL-delimited instead of newline-delimited. This option is
+deprecated in favor of <strong>-Z</strong> as the output can otherwise be ambiguous.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OUTPUT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>If <strong>-t</strong> is specified, one of the <strong>&lt;type&gt;</strong>.</p>
+<p>
+If <strong>-s</strong> is specified, the size of the <strong>&lt;object&gt;</strong> in bytes.</p>
+<p>
+If <strong>-e</strong> is specified, no output, unless the <strong>&lt;object&gt;</strong> is malformed.</p>
+<p>
+If <strong>-p</strong> is specified, the contents of <strong>&lt;object&gt;</strong> are pretty-printed.</p>
+<p>
+If <strong>&lt;type&gt;</strong> is specified, the raw (though uncompressed) contents of the
+<strong>&lt;object&gt;</strong> will be returned.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+BATCH OUTPUT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>If <strong>–batch</strong> or <strong>–batch-check</strong> is given, <strong>cat-file</strong> will read objects
+from stdin, one per line, and print information about them in the same
+order as they have been read. By default, the whole line is considered
+as an object, as if it were fed to *git-rev-parse*(1).</p>
+<p>
+When <strong>–batch-command</strong> is given, <strong>cat-file</strong> will read commands from
+stdin, one per line, and print information based on the command given.
+With <strong>–batch-command</strong>, the <strong>info</strong> command followed by an object will
+print information about the object the same way <strong>–batch-check</strong> would,
+and the <strong>contents</strong> command followed by an object prints contents in the
+same way <strong>–batch</strong> would.</p>
+<p>
+You can specify the information shown for each object by using a custom
+<strong>&lt;format&gt;</strong>. The <strong>&lt;format&gt;</strong> is copied literally to stdout for each
+object, with placeholders of the form <strong>%(atom)</strong> expanded, followed by a
+newline. The available atoms are:</p>
+<p>
+<strong>objectname</strong></p>
+<blockquote>
+<p>The full hex representation of the object name.</p>
+</blockquote>
+<p>
+<strong>objecttype</strong></p>
+<blockquote>
+<p>The type of the object (the same as <strong>cat-file -t</strong> reports).</p>
+</blockquote>
+<p>
+<strong>objectsize</strong></p>
+<blockquote>
+<p>The size, in bytes, of the object (the same as <strong>cat-file -s</strong> reports).</p>
+</blockquote>
+<p>
+<strong>objectsize:disk</strong></p>
+<blockquote>
+<p>The size, in bytes, that the object takes up on disk. See the note about
+on-disk sizes in the <strong>CAVEATS</strong> section below.</p>
+</blockquote>
+<p>
+<strong>deltabase</strong></p>
+<blockquote>
+<p>If the object is stored as a delta on-disk, this expands to the full hex
+representation of the delta base object name. Otherwise, expands to the
+null OID (all zeroes). See <strong>CAVEATS</strong> below.</p>
+</blockquote>
+<p>
+<strong>rest</strong></p>
+<blockquote>
+<p>If this atom is used in the output string, input lines are split at the
+first whitespace boundary. All characters before that whitespace are
+considered to be the object name; characters after that first run of
+whitespace (i.e., the &#34;rest&#34; of the line) are output in place of the
+<strong>%(rest)</strong> atom.</p>
+</blockquote>
+<p>
+If no format is specified, the default format is <strong>%(objectname)
+%(objecttype) %(objectsize)</strong>.</p>
+<p>
+If <strong>–batch</strong> is specified, or if <strong>–batch-command</strong> is used with the
+<strong>contents</strong> command, the object information is followed by the object
+contents (consisting of <strong>%(objectsize)</strong> bytes), followed by a newline.</p>
+<p>
+For example, <strong>–batch</strong> without a custom format would produce:</p>
+<blockquote>
+<pre class="example">
+&lt;oid&gt; SP &lt;type&gt; SP &lt;size&gt; LF
+&lt;contents&gt; LF
+</pre>
+</blockquote>
+<p>
+Whereas <strong>–batch-check=%(objectname) %(objecttype)</strong> would produce:</p>
+<blockquote>
+<pre class="example">
+&lt;oid&gt; SP &lt;type&gt; LF
+</pre>
+</blockquote>
+<p>
+If a name is specified on stdin that cannot be resolved to an object in
+the repository, then <strong>cat-file</strong> will ignore any custom format and print:</p>
+<blockquote>
+<pre class="example">
+&lt;object&gt; SP missing LF
+</pre>
+</blockquote>
+<p>
+If a name is specified that might refer to more than one object (an
+ambiguous short sha), then <strong>cat-file</strong> will ignore any custom format and
+print:</p>
+<blockquote>
+<pre class="example">
+&lt;object&gt; SP ambiguous LF
+</pre>
+</blockquote>
+<p>
+If <strong>–follow-symlinks</strong> is used, and a symlink in the repository points
+outside the repository, then <strong>cat-file</strong> will ignore any custom format
+and print:</p>
+<blockquote>
+<pre class="example">
+symlink SP &lt;size&gt; LF
+&lt;symlink&gt; LF
+</pre>
+</blockquote>
+<p>
+The symlink will either be absolute (beginning with a <strong>/</strong>), or relative
+to the tree root. For instance, if dir/link points to <strong>../../foo</strong>, then
+<strong>&lt;symlink&gt;</strong> will be <strong>../foo</strong>. <strong>&lt;size&gt;</strong> is the size of the symlink in
+bytes.</p>
+<p>
+If <strong>–follow-symlinks</strong> is used, the following error messages will be
+displayed:</p>
+<blockquote>
+<pre class="example">
+&lt;object&gt; SP missing LF
+</pre>
+</blockquote>
+<p>
+is printed when the initial symlink requested does not exist.</p>
+<blockquote>
+<pre class="example">
+dangling SP &lt;size&gt; LF
+&lt;object&gt; LF
+</pre>
+</blockquote>
+<p>
+is printed when the initial symlink exists, but something that it
+(transitive-of) points to does not.</p>
+<blockquote>
+<pre class="example">
+loop SP &lt;size&gt; LF
+&lt;object&gt; LF
+</pre>
+</blockquote>
+<p>
+is printed for symlink loops (or any symlinks that require more than 40
+link resolutions to resolve).</p>
+<blockquote>
+<pre class="example">
+notdir SP &lt;size&gt; LF
+&lt;object&gt; LF
+</pre>
+</blockquote>
+<p>
+is printed when, during symlink resolution, a file is used as a
+directory name.</p>
+<p>
+Alternatively, when <strong>-Z</strong> is passed, the line feeds in any of the above
+examples are replaced with NUL terminators. This ensures that output
+will be parsable if the output itself would contain a linefeed and is
+thus recommended for scripting purposes.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+CAVEATS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Note that the sizes of objects on disk are reported accurately, but care
+should be taken in drawing conclusions about which refs or objects are
+responsible for disk usage. The size of a packed non-delta object may be
+much larger than the size of objects which delta against it, but the
+choice of which object is the base and which is the delta is arbitrary
+and is subject to change during a repack.</p>
+<p>
+Note also that multiple copies of an object may be present in the object
+database; in this case, it is undefined which copy&#39;s size or delta base
+will be reported.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

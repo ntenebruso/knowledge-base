@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - importctl.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - importctl.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>importctl - Download, import or export disk images</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>importctl</strong> [OPTIONS…] {COMMAND} [NAME…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>importctl</strong> may be used to download, import, and export disk images via
+*systemd-importd.service*(8).</p>
+<p>
+<strong>importctl</strong> operates both on block-level disk images (such as DDIs) as
+well as file-system-level images (tarballs). It supports disk images are
+one of the four following classes:</p>
+<blockquote>
+<p>·</p>
+<p>
+VM images or full OS container images, that may be run via
+*systemd-vmspawn*(1) or *systemd-nspawn*(1), and managed via
+*machinectl*(1).</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Portable service images, that may be attached an managed via
+*portablectl*(1).</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+System extension (sysext) images, that may be activated via
+*systemd-sysext*(8).</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Configuration extension (confext) images, that may be activated via
+*systemd-confext*(8).</p>
+</blockquote>
+<p>
+When images are downloaded or imported they are placed in the following
+directories, depending on the <strong>–class=</strong> parameter:</p>
+<p>
+\\
+<strong>Table 1. Classes and Directories</strong></p>
+<table>
+<tbody>
+<tr>
+<td>Class</td>
+<td>Directory</td>
+</tr>
+<tr>
+<td>&#34;machine&#34;</td>
+<td><em>var/lib/machines</em></td>
+</tr>
+<tr>
+<td>&#34;portable&#34;</td>
+<td><em>var/lib/portables</em></td>
+</tr>
+<tr>
+<td>&#34;sysext&#34;</td>
+<td><em>var/lib/extensions</em></td>
+</tr>
+<tr>
+<td>&#34;confext&#34;</td>
+<td><em>var/lib/confexts</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following commands are understood:</p>
+<p>
+<strong>pull-tar</strong> <em>URL</em> [/NAME/]</p>
+<blockquote>
+<p>Downloads a .tar image from the specified URL, and makes it available
+under the specified local name in the image directory for the selected
+<strong>–class=</strong>. The URL must be of type &#34;http://&#34; or &#34;https://&#34;, and must
+refer to a .tar, .tar.gz, .tar.xz or .tar.bz2 archive file. If the local
+image name is omitted, it is automatically derived from the last
+component of the URL, with its suffix removed.</p>
+<p>
+The image is verified before it is made available, unless <strong>–verify=no</strong>
+is specified. Verification is done either via an inline signed file with
+the name of the image and the suffix .sha256 or via separate SHA256SUMS
+and SHA256SUMS.gpg files. The signature files need to be made available
+on the same web server, under the same URL as the .tar file. With
+<strong>–verify=checksum</strong>, only the SHA256 checksum for the file is verified,
+based on the .sha256 suffixed file or the SHA256SUMS file. With
+<strong>–verify=signature</strong>, the sha checksum file is first verified with the
+inline signature in the .sha256 file or the detached GPG signature file
+SHA256SUMS.gpg. The public key for this verification step needs to be
+available in /usr/lib/systemd/import-pubring.gpg or
+/etc/systemd/import-pubring.gpg.</p>
+<p>
+If <strong>-keep-download=yes</strong> is specified the image will be downloaded and
+stored in a read-only subvolume/directory in the image directory that is
+named after the specified URL and its HTTP etag. A writable snapshot is
+then taken from this subvolume, and named after the specified local
+name. This behavior ensures that creating multiple instances of the same
+URL is efficient, as multiple downloads are not necessary. In order to
+create only the read-only image, and avoid creating its writable
+snapshot, specify &#34;-&#34; as local name.</p>
+<p>
+Note that pressing C-c during execution of this command will not abort
+the download. Use <strong>cancel-transfer</strong>, described below.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>pull-raw</strong> <em>URL</em> [/NAME/]</p>
+<blockquote>
+<p>Downloads a .raw disk image from the specified URL, and makes it
+available under the specified local name in the image directory for the
+selected <strong>–class=</strong>. The URL must be of type &#34;http://&#34; or &#34;https://&#34;.
+The image must either be a .qcow2 or raw disk image, optionally
+compressed as .gz, .xz, or .bz2. If the local name is omitted, it is
+automatically derived from the last component of the URL, with its
+suffix removed.</p>
+<p>
+Image verification is identical for raw and tar images (see above).</p>
+<p>
+If the downloaded image is in .qcow2 format it is converted into a raw
+image file before it is made available.</p>
+<p>
+If <strong>-keep-download=yes</strong> is specified the image will be downloaded and
+stored in a read-only file in the image directory that is named after
+the specified URL and its HTTP etag. A writable copy is then made from
+this file, and named after the specified local name. This behavior
+ensures that creating multiple instances of the same URL is efficient,
+as multiple downloads are not necessary. In order to create only the
+read-only image, and avoid creating its writable copy, specify &#34;-&#34; as
+local name.</p>
+<p>
+Note that pressing C-c during execution of this command will not abort
+the download. Use <strong>cancel-transfer</strong>, described below.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>import-tar</strong> <em>FILE</em> [/NAME/], <strong>import-raw</strong> <em>FILE</em> [/NAME/]</p>
+<blockquote>
+<p>Imports a TAR or RAW image, and places it under the specified name in
+the image directory for the image class selected via <strong>–class=</strong>. When
+<strong>import-tar</strong> is used, the file specified as the first argument should be
+a tar archive, possibly compressed with xz, gzip or bzip2. It will then
+be unpacked into its own subvolume/directory. When <strong>import-raw</strong> is used,
+the file should be a qcow2 or raw disk image, possibly compressed with
+xz, gzip or bzip2. If the second argument (the resulting image name) is
+not specified, it is automatically derived from the file name. If the
+filename is passed as &#34;-&#34;, the image is read from standard input, in
+which case the second argument is mandatory.</p>
+<p>
+No cryptographic validation is done when importing the images.</p>
+<p>
+Much like image downloads, ongoing imports may be listed with <strong>list</strong> and
+aborted with <strong>cancel-transfer</strong>.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>import-fs</strong> <em>DIRECTORY</em> [/NAME/]</p>
+<blockquote>
+<p>Imports an image stored in a local directory into the image directory
+for the image class selected via <strong>–class=</strong> and operates similarly to
+<strong>import-tar</strong> or <strong>import-raw</strong>, but the first argument is the source
+directory. If supported, this command will create a btrfs snapshot or
+subvolume for the new image.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>export-tar</strong> <em>NAME</em> [/FILE/], <strong>export-raw</strong> <em>NAME</em> [/FILE/]</p>
+<blockquote>
+<p>Exports a TAR or RAW image and stores it in the specified file. The
+first parameter should be an image name. The second parameter should be
+a file path the TAR or RAW image is written to. If the path ends in
+&#34;.gz&#34;, the file is compressed with gzip, if it ends in &#34;.xz&#34;, with xz,
+and if it ends in &#34;.bz2&#34;, with bzip2. If the path ends in neither, the
+file is left uncompressed. If the second argument is missing, the image
+is written to standard output. The compression may also be explicitly
+selected with the <strong>–format=</strong> switch. This is in particular useful if
+the second parameter is left unspecified.</p>
+<p>
+Much like image downloads and imports, ongoing exports may be listed
+with <strong>list</strong> and aborted with <strong>cancel-transfer</strong>.</p>
+<p>
+Note that, currently, only directory and subvolume images may be
+exported as TAR images, and only raw disk images as RAW images.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>list-transfer</strong></p>
+<blockquote>
+<p>Shows a list of image downloads, imports and exports that are currently
+in progress.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>cancel-transfer</strong> <em>ID</em>…</p>
+<blockquote>
+<p>Aborts a download, import or export of the image with the specified ID.
+To list ongoing transfers and their IDs, use <strong>list</strong>.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>list-images</strong></p>
+<blockquote>
+<p>Shows a list of already downloaded/imported images.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>–read-only</strong></p>
+<blockquote>
+<p>When used with <strong>pull-raw</strong>, <strong>pull-tar</strong>, <strong>import-raw</strong>, <strong>import-tar</strong> or
+<strong>import-fs</strong> a read-only image is created.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–verify=</strong></p>
+<blockquote>
+<p>When downloading an image, specify whether the image shall be verified
+before it is made available. Takes one of &#34;no&#34;, &#34;checksum&#34; and
+&#34;signature&#34;. If &#34;no&#34;, no verification is done. If &#34;checksum&#34; is
+specified, the download is checked for integrity after the transfer is
+complete, but no signatures are verified. If &#34;signature&#34; is specified,
+the checksum is verified and the images signature is checked against a
+local keyring of trustable vendors. It is strongly recommended to set
+this option to &#34;signature&#34; if the server and protocol support this.
+Defaults to &#34;signature&#34;.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–force</strong></p>
+<blockquote>
+<p>When downloading an image, and a local copy by the specified local name
+already exists, delete it first and replace it by the newly downloaded
+image.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–format=</strong></p>
+<blockquote>
+<p>When used with the <strong>export-tar</strong> or <strong>export-raw</strong> commands, specifies the
+compression format to use for the resulting file. Takes one of
+&#34;uncompressed&#34;, &#34;xz&#34;, &#34;gzip&#34;, &#34;bzip2&#34;. By default, the format is
+determined automatically from the output image file name passed.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>-q</strong>, <strong>–quiet</strong></p>
+<blockquote>
+<p>Suppresses additional informational output while running.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>-H</strong>, <strong>–host=</strong></p>
+<blockquote>
+<p>Execute the operation remotely. Specify a hostname, or a username and
+hostname separated by &#34;@&#34;, to connect to. The hostname may optionally be
+suffixed by a port ssh is listening on, separated by &#34;:&#34;, and then a
+container name, separated by &#34;/&#34;, which connects directly to a specific
+container on the specified host. This will use SSH to talk to the remote
+machine manager instance. Container names may be enumerated with
+*machinectl -H */HOST/. Put IPv6 addresses in brackets.</p>
+</blockquote>
+<p>
+<strong>-M</strong>, <strong>–machine=</strong></p>
+<blockquote>
+<p>Connect to *systemd-import.service*(8) running in a local container, to
+perform the specified operation within the container.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–class=</strong>, <strong>-m</strong>, <strong>-P</strong>, <strong>-S</strong>, <strong>-C</strong></p>
+<blockquote>
+<p>Selects the image class for the downloaded images. This primarily
+selects the directory to download into. The <strong>–class=</strong> switch takes
+&#34;machine&#34;, &#34;portable&#34;, &#34;sysext&#34; or &#34;confext&#34; as argument. The short
+options <strong>-m</strong>, <strong>-P</strong>, <strong>-S</strong>, <strong>-C</strong> are shortcuts for <strong>–class=machine</strong>,
+<strong>–class=portable</strong>, <strong>–class=sysext</strong>, <strong>–class=confext</strong>.</p>
+<p>
+Note that <strong>–keep-download=</strong> defaults to true for <strong>–class=machine</strong> and
+false otherwise, see below.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–keep-download=</strong>, <strong>-N</strong></p>
+<blockquote>
+<p>Takes a boolean argument. When specified with <strong>pull-raw</strong> or <strong>pull-tar</strong>,
+selects whether to download directly into the specified local image
+name, or whether to download into a read-only copy first of which to
+make a writable copy after the download is completed. Defaults to true
+for <strong>–class=machine</strong>, false otherwise.</p>
+<p>
+The <strong>-N</strong> switch is a shortcut for <strong>–keep-download=no</strong>.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+*–json=*/MODE/</p>
+<blockquote>
+<p>Shows output formatted as JSON. Expects one of &#34;short&#34; (for the shortest
+possible output without any redundant whitespace or line breaks),
+&#34;pretty&#34; (for a pretty version of the same, with indentation and line
+breaks) or &#34;off&#34; (to turn off JSON output, the default).</p>
+</blockquote>
+<p>
+<strong>-j</strong></p>
+<blockquote>
+<p>Equivalent to <strong>–json=pretty</strong> if running on a terminal, and
+<strong>–json=short</strong> otherwise.</p>
+</blockquote>
+<p>
+<strong>–no-pager</strong></p>
+<blockquote>
+<p>Do not pipe output into a pager.</p>
+</blockquote>
+<p>
+<strong>–no-legend</strong></p>
+<blockquote>
+<p>Do not print the legend, i.e. column headers and the footer with hints.</p>
+</blockquote>
+<p>
+<strong>–no-ask-password</strong></p>
+<blockquote>
+<p>Do not query the user for authentication for privileged operations.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Print a short help text and exit.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Print a short version string and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>Example 1. Download an Ubuntu TAR image and open a shell in it</strong></p>
+<blockquote>
+<pre class="example">
+# importctl pull-tar -mN https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64-root.tar.xz
+# systemd-nspawn -M jammy-server-cloudimg-amd64-root
+</pre>
+</blockquote>
+<p>
+This downloads and verifies the specified .tar image, and then uses
+*systemd-nspawn*(1) to open a shell in it.</p>
+<p>
+<strong>Example 2. Download an Ubuntu RAW image, set a root password in it,
+start it as a service</strong></p>
+<blockquote>
+<pre class="example">
+# importctl pull-raw -mN \
+      https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64-disk-kvm.img \
+      jammy
+# systemd-firstboot --image=/var/lib/machines/jammy.raw --prompt-root-password --force
+# machinectl start jammy
+# machinectl login jammy
+</pre>
+</blockquote>
+<p>
+This downloads the specified .raw image and makes it available under the
+local name &#34;jammy&#34;. Then, a root password is set with
+*systemd-firstboot*(1). Afterwards the machine is started as system
+service. With the last command a login prompt into the container is
+requested.</p>
+<p>
+<strong>Example 3. Exports a container image as tar file</strong></p>
+<blockquote>
+<pre class="example">
+# importctl export-tar -m fedora myfedora.tar.xz
+</pre>
+</blockquote>
+<p>
+Exports the container &#34;fedora&#34; as an xz-compressed tar file
+myfedora.tar.xz into the current directory.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>On success, 0 is returned, a non-zero failure code otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><em>$SYSTEMD_LOG_LEVEL</em></p>
+<blockquote>
+<p>The maximum log level of emitted messages (messages with a higher log
+level, i.e. less important ones, will be suppressed). Takes a
+comma-separated list of values. A value may be either one of (in order
+of decreasing importance) <strong>emerg</strong>, <strong>alert</strong>, <strong>crit</strong>, <strong>err</strong>, <strong>warning</strong>,
+<strong>notice</strong>, <strong>info</strong>, <strong>debug</strong>, or an integer in the range 0…7. See
+<strong>syslog*(3) for more information. Each value may optionally be prefixed
+with one of *console</strong>, <strong>syslog</strong>, <strong>kmsg</strong> or <strong>journal</strong> followed by a colon
+to set the maximum log level for that specific log target (e.g.
+<strong>SYSTEMD_LOG_LEVEL=debug,console:info</strong> specifies to log at debug level
+except when logging to the console which should be at info level). Note
+that the global maximum log level takes priority over any per target
+maximum log levels.</p>
+</blockquote>
+<p>
+<em>$SYSTEMD_LOG_COLOR</em></p>
+<blockquote>
+<p>A boolean. If true, messages written to the tty will be colored
+according to priority.</p>
+<p>
+This setting is only useful when messages are written directly to the
+terminal, because *journalctl*(1) and other tools that display logs will
+color messages based on the log level on their own.</p>
+</blockquote>
+<p>
+<em>$SYSTEMD_LOG_TIME</em></p>
+<blockquote>
+<p>A boolean. If true, console log messages will be prefixed with a
+timestamp.</p>
+<p>
+This setting is only useful when messages are written directly to the
+terminal or a file, because *journalctl*(1) and other tools that display
+logs will attach timestamps based on the entry metadata on their own.</p>
+</blockquote>
+<p>
+<em>$SYSTEMD_LOG_LOCATION</em></p>
+<blockquote>
+<p>A boolean. If true, messages will be prefixed with a filename and line
+number in the source code where the message originates.</p>
+<p>
+Note that the log location is often attached as metadata to journal
+entries anyway. Including it directly in the message text can
+nevertheless be convenient when debugging programs.</p>
+</blockquote>
+<p>
+<em>$SYSTEMD_LOG_TID</em></p>
+<blockquote>
+<p>A boolean. If true, messages will be prefixed with the current numerical
+thread ID (TID).</p>
+<p>
+Note that the this information is attached as metadata to journal
+entries anyway. Including it directly in the message text can
+nevertheless be convenient when debugging programs.</p>
+</blockquote>
+<p>
+<em>$SYSTEMD_LOG_TARGET</em></p>
+<blockquote>
+<p>The destination for log messages. One of <strong>console</strong> (log to the attached
+tty), <strong>console-prefixed</strong> (log to the attached tty but with prefixes
+encoding the log level and &#34;facility&#34;, see <strong>syslog*(3), *kmsg</strong> (log to
+the kernel circular log buffer), <strong>journal</strong> (log to the journal),
+<strong>journal-or-kmsg</strong> (log to the journal if available, and to kmsg
+otherwise), <strong>auto</strong> (determine the appropriate log target automatically,
+the default), <strong>null</strong> (disable log output).</p>
+</blockquote>
+<p>
+<em>$SYSTEMD_LOG_RATELIMIT_KMSG</em></p>
+<blockquote>
+<p>Whether to ratelimit kmsg or not. Takes a boolean. Defaults to &#34;true&#34;.
+If disabled, systemd will not ratelimit messages written to kmsg.</p>
+</blockquote>
+<p>
+<em>$SYSTEMD_PAGER</em></p>
+<blockquote>
+<p>Pager to use when <strong>–no-pager</strong> is not given; overrides <em>$PAGER</em>. If
+neither <em>$SYSTEMD_PAGER</em> nor <em>$PAGER</em> are set, a set of well-known pager
+implementations are tried in turn, including *less*(1) and *more*(1),
+until one is found. If no pager implementation is discovered no pager is
+invoked. Setting this environment variable to an empty string or the
+value &#34;cat&#34; is equivalent to passing <strong>–no-pager</strong>.</p>
+<p>
+Note: if <em>$SYSTEMD_PAGERSECURE</em> is not set, <em>$SYSTEMD_PAGER</em> (as well as
+<em>$PAGER</em>) will be silently ignored.</p>
+</blockquote>
+<p>
+<em>$SYSTEMD_LESS</em></p>
+<blockquote>
+<p>Override the options passed to <strong>less</strong> (by default &#34;FRSXMK&#34;).</p>
+<p>
+Users might want to change two options in particular:</p>
+<p>
+<strong>K</strong></p>
+<blockquote>
+<p>This option instructs the pager to exit immediately when Ctrl+C is
+pressed. To allow <strong>less</strong> to handle Ctrl+C itself to switch back to the
+pager command prompt, unset this option.</p>
+<p>
+If the value of <em>$SYSTEMD_LESS</em> does not include &#34;K&#34;, and the pager that
+is invoked is <strong>less</strong>, Ctrl+C will be ignored by the executable, and
+needs to be handled by the pager.</p>
+</blockquote>
+<p>
+<strong>X</strong></p>
+<blockquote>
+<p>This option instructs the pager to not send termcap initialization and
+deinitialization strings to the terminal. It is set by default to allow
+command output to remain visible in the terminal even after the pager
+exits. Nevertheless, this prevents some pager functionality from
+working, in particular paged output cannot be scrolled with the mouse.</p>
+</blockquote>
+<p>
+Note that setting the regular <em>$LESS</em> environment variable has no effect
+for <strong>less</strong> invocations by systemd tools.</p>
+<p>
+See *less*(1) for more discussion.</p>
+</blockquote>
+<p>
+<em>$SYSTEMD_LESSCHARSET</em></p>
+<blockquote>
+<p>Override the charset passed to <strong>less</strong> (by default &#34;utf-8&#34;, if the
+invoking terminal is determined to be UTF-8 compatible).</p>
+<p>
+Note that setting the regular <em>$LESSCHARSET</em> environment variable has no
+effect for <strong>less</strong> invocations by systemd tools.</p>
+</blockquote>
+<p>
+<em>$SYSTEMD_PAGERSECURE</em></p>
+<blockquote>
+<p>Takes a boolean argument. When true, the &#34;secure&#34; mode of the pager is
+enabled; if false, disabled. If <em>$SYSTEMD_PAGERSECURE</em> is not set at
+all, secure mode is enabled if the effective UID is not the same as the
+owner of the login session, see <strong>geteuid*(2) and
+*sd_pid_get_owner_uid*(3). In secure mode, *LESSSECURE=1</strong> will be set
+when invoking the pager, and the pager shall disable commands that open
+or create new files or start new subprocesses. When
+<em>$SYSTEMD_PAGERSECURE</em> is not set at all, pagers which are not known to
+implement secure mode will not be used. (Currently only *less*(1)
+implements secure mode.)</p>
+<p>
+Note: when commands are invoked with elevated privileges, for example
+under *sudo*(8) or *pkexec*(1), care must be taken to ensure that
+unintended interactive features are not enabled. &#34;Secure&#34; mode for the
+pager may be enabled automatically as describe above. Setting
+<em>SYSTEMD_PAGERSECURE=0</em> or not removing it from the inherited
+environment allows the user to invoke arbitrary commands. Note that if
+the <em>$SYSTEMD_PAGER</em> or <em>$PAGER</em> variables are to be honoured,
+<em>$SYSTEMD_PAGERSECURE</em> must be set too. It might be reasonable to
+completely disable the pager using <strong>–no-pager</strong> instead.</p>
+</blockquote>
+<p>
+<em>$SYSTEMD_COLORS</em></p>
+<blockquote>
+<p>Takes a boolean argument. When true, <strong>systemd</strong> and related utilities
+will use colors in their output, otherwise the output will be
+monochrome. Additionally, the variable can take one of the following
+special values: &#34;16&#34;, &#34;256&#34; to restrict the use of colors to the base 16
+or 256 ANSI colors, respectively. This can be specified to override the
+automatic decision based on <em>$TERM</em> and what the console is connected
+to.</p>
+</blockquote>
+<p>
+<em>$SYSTEMD_URLIFY</em></p>
+<blockquote>
+<p>The value must be a boolean. Controls whether clickable links should be
+generated in the output for terminal emulators supporting this. This can
+be specified to override the decision that <strong>systemd</strong> makes based on
+<em>$TERM</em> and other conditions.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*systemd*(1), *systemd-importd.service*(8), *systemd-nspawn*(1),
+*systemd-vmspawn*(1), *machinectl*(1), *portablectl*(1),
+*systemd-sysext*(8), *systemd-confext*(8), *tar*(1), *xz*(1), *gzip*(1),
+*bzip2*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

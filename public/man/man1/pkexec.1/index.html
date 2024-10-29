@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pkexec.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pkexec.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pkexec - Execute a command as another user</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>pkexec</strong> [*–version*] [*–disable-internal-agent*] [*–help*]</p>
+<p>
+<strong>pkexec</strong> [*–keep-cwd*] [*–user* <em>username/] /PROGRAM</em> [/ARGUMENTS/…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>pkexec</strong> allows an authorized user to execute <em>PROGRAM</em> as another user.
+If <em>PROGRAM</em> is not specified, the default shell will be run. If
+<em>username</em> is not specified, then the program will be executed as the
+administrative super user, <em>root</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+RETURN VALUE
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Upon successful completion, the return value is the return value of
+<em>PROGRAM</em>. If the calling process is not authorized or an authorization
+could not be obtained through authentication or an error occured,
+<strong>pkexec</strong> exits with a return value of 127. If the authorization could
+not be obtained because the user dismissed the authentication dialog,
+<strong>pkexec</strong> exits with a return value of 126.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHENTICATION AGENT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>pkexec</strong>, like any other polkit application, will use the authentication
+agent registered for the calling process or session. However, if no
+authentication agent is available, then <strong>pkexec</strong> will register its own
+textual authentication agent. This behavior can be turned off by passing
+the <strong>–disable-internal-agent</strong> option.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SECURITY NOTES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Executing a program as another user is a privileged operation. By
+default the action to check for (see the section called “ACTION AND
+AUTHORIZATIONS”) requires administrator authentication. In addition, the
+authentication dialog presented to the user will display the full path
+to the program to be executed so the user is aware of what will happen.</p>
+<p>
+The environment that <em>PROGRAM</em> will run it, will be set to a minimal
+known and safe environment in order to avoid injecting code through
+LD_LIBRARY_PATH or similar mechanisms. In addition the PKEXEC_UID
+environment variable is set to the user id of the process invoking
+<strong>pkexec</strong>. As a result, <strong>pkexec</strong> will not by default allow you to run X11
+applications as another user since the $DISPLAY and $XAUTHORITY
+environment variables are not set. These two variables will be retained
+if the <em>org.freedesktop.policykit.exec.allow_gui</em> annotation on an
+action is set to a nonempty value; this is discouraged, though, and
+should only be used for legacy programs.</p>
+<p>
+<strong>pkexec</strong> will run <em>PROGRAM</em> in /username/s home directory, unless
+<strong>–keep-cwd</strong> is used to override this behavior</p>
+<p>
+Note that <strong>pkexec</strong> does no validation of the <em>ARGUMENTS</em> passed to
+<em>PROGRAM</em>. In the normal case (where administrator authentication is
+required every time <strong>pkexec</strong> is used), this is not a problem since if
+the user is an administrator he might as well just run <strong>pkexec bash</strong> to
+get root.</p>
+<p>
+However, if an action is used for which the user can retain
+authorization (or if the user is implicitly authorized) this could be a
+security hole. Therefore, as a rule of thumb, programs for which the
+default required authorization is changed, should <strong>never</strong> implicitly
+trust user input (e.g. like any other well-written <em>suid</em> program).</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+ACTION AND AUTHORIZATIONS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>By default, the <em>org.freedesktop.policykit.exec</em> action is used. To use
+another action, use the <em>org.freedesktop.policykit.exec.path</em> annotation
+on an action with the value set to the full path of the program. In
+addition to specifying the program, the authentication message,
+description, icon and defaults can be specified. If the
+<em>org.freedesktop.policykit.exec.argv1</em> annotation is present, the action
+will only be picked if the first argument to the program matches the
+value of the annotation.</p>
+<p>
+Note that authentication messages may reference variables (see the
+section called “VARIABLES”), for example $(user) will be expanded to the
+value of the user variable.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+WRAPPER USAGE
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>To avoid modifying existing software to prefix their command-line
+invocations with <strong>pkexec</strong>, its possible to use <strong>pkexec</strong> in a <strong>she-bang
+wrapper</strong>[1] like this:</p>
+<blockquote>
+<pre class="example">
+#!/usr/bin/pkexec /usr/bin/python
+
+import os
+import sys
+
+print &#34;Hello, Im running as uid %d&#34;%(os.getuid())
+
+for n in range(len(sys.argv)):
+    print &#34;arg[%d]=`%s&#34;%(n, sys.argv[n])
+</pre>
+</blockquote>
+<p>
+If this script is installed into /usr/bin/my-pk-test, then the following
+annotations</p>
+<blockquote>
+<pre class="example">
+  [...]
+  &lt;annotate key=&#34;org.freedesktop.policykit.exec.path&#34;&gt;/usr/bin/python&lt;/annotate&gt;
+  &lt;annotate key=&#34;org.freedesktop.policykit.exec.argv1&#34;&gt;/usr/bin/my-pk-test&lt;/annotate&gt;
+  [...]
+</pre>
+</blockquote>
+<p>
+can be used to select the appropriate polkit action. Be careful to get
+the latter annotation right, otherwise it will match any <strong>pkexec</strong>
+invocation of /usr/bin/python scripts.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+VARIABLES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The following variables are set by <strong>pkexec</strong>. They can be used in
+authorization rules and messages shown in authentication dialogs:</p>
+<p>
+<em>program</em></p>
+<blockquote>
+<p>Fully qualified path to the program to be executed. Example: “/bin/cat”</p>
+</blockquote>
+<p>
+<em>command_line</em></p>
+<blockquote>
+<p>The requested command-line (do not use this for any security checks, it
+is not secure). Example: “cat /srv/xyz/foobar”</p>
+</blockquote>
+<p>
+<em>user</em></p>
+<blockquote>
+<p>The user name of the user to execute the program as. Example: “davidz”</p>
+</blockquote>
+<p>
+<em>user.gecos</em></p>
+<blockquote>
+<p>The full name of the user to execute the program as. Example: “David
+Zeuthen”</p>
+</blockquote>
+<p>
+<em>user.display</em></p>
+<blockquote>
+<p>A representation of the user to execute the program as that is suitable
+for display in an authentication dialog. Is typically set to a
+combination of the user name and the full name. Example: “David Zeuthen
+(davidz)”</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AUTHOR
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Written by David Zeuthen &lt;davidz@redhat.com&gt; with a lot of help from
+many others.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+BUGS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Please send bug reports to either the distribution or the polkit-devel
+mailing list, see the link
+<strong><a href="https://gitlab.freedesktop.org/polkit/polkit/-/issues/">https://gitlab.freedesktop.org/polkit/polkit/-/issues/</a></strong> on how to
+subscribe.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>*polkit*(8), *polkitd*(8), *pkaction*(1), *pkcheck*(1), *pkttyagent*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+NOTES
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>she-bang wrapper
+
+http://en.wikipedia.org/wiki/Shebang_(Unix)</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

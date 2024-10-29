@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - systemd-vpick.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - systemd-vpick.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>systemd-vpick - Resolve paths to &#34;.v/&#34; versioned directories</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>systemd-vpick [OPTIONS…] [PATH…]</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>systemd-vpick</strong> resolves a file system path referencing a &#34;.v/&#34;
+versioned directory to a path to the newest (by version) file contained
+therein. This tool provides a command line interface for the
+*systemd.v*(7) logic.</p>
+<p>
+The tool expects a path to a &#34;.v/&#34; directory as argument (either
+directly, or with a triple underscore pattern as final component). It
+then determines the newest file contained in that directory, and writes
+its path to standard output.</p>
+<p>
+Unless the triple underscore pattern is passed as last component of the
+path, it is typically necessary to at least specify the <strong>–suffix=</strong>
+switch to configure the file suffix to look for.</p>
+<p>
+If the specified path does not reference a &#34;.v/&#34; path (i.e. neither the
+final component ends in &#34;.v&#34;, nor the penultimate does or the final one
+does contain a triple underscore) it specified path is written
+unmodified to standard output.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>–basename=</strong>, <strong>-B</strong></p>
+<blockquote>
+<p>Overrides the &#34;basename&#34; of the files to look for, i.e. the part to the
+left of the variable part of the filenames. Normally this is derived
+automatically from the filename of the &#34;.v&#34; component of the specified
+path, or from the triple underscore pattern in the last component of the
+specified path.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>-V</strong></p>
+<blockquote>
+<p>Explicitly configures the version to select. If specified, a filename
+with the specified version string will be looked for, instead of the
+newest version available.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>-A</strong></p>
+<blockquote>
+<p>Explicitly configures the architecture to select. If specified, a
+filename with the specified architecture identifier will be looked for.
+If not specified only filenames with a locally supported architecture
+are considered, or those without any architecture identifier.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–suffix=</strong>, <strong>-S</strong></p>
+<blockquote>
+<p>Configures the suffix of the filenames to consider. For the &#34;.v/&#34; logic
+it is necessary to specify the suffix to look for, and the &#34;.v/&#34;
+component must also carry the suffix immediately before &#34;.v&#34; in its
+name.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–type=</strong>, <strong>-t</strong></p>
+<blockquote>
+<p>Configures the inode type to look for in the &#34;.v/&#34; directory. Takes one
+of &#34;reg&#34;, &#34;dir&#34;, &#34;sock&#34;, &#34;fifo&#34;, &#34;blk&#34;, &#34;chr&#34;, &#34;lnk&#34; as argument, each
+identifying an inode type. See *inode*(7) for details about inode types.
+If this option is used inodes not matching the specified type are
+filtered and not taken into consideration.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–print=</strong>, <strong>-p</strong></p>
+<blockquote>
+<p>Configures what precisely to write to standard output. If not specified
+prints the full, resolved path of the newest matching file in the &#34;.v/&#34;
+directory. This switch can be set to one of the following:</p>
+<blockquote>
+<p>·</p>
+<p>
+If set to &#34;filename&#34;, will print only the filename instead of the full
+path of the resolved file.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+If set to &#34;version&#34;, will print only the version of the resolved file.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+If set to &#34;type&#34;, will print only the inode type of the resolved file
+(i.e. a string such as &#34;reg&#34; for regular files, or &#34;dir&#34; for
+directories).</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+If set to &#34;arch&#34;, will print only the architecture of the resolved file.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+If set to &#34;tries&#34;, will print only the tries left/tries done of the
+resolved file.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+If set to &#34;all&#34;, will print all of the above in a simple tabular output.</p>
+</blockquote>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–resolve=</strong></p>
+<blockquote>
+<p>Takes a boolean argument. If true the path to the versioned file is
+fully canonicalized (i.e. symlinks resolved, and redundant path
+components removed) before it is shown. If false (the default) this is
+not done, and the path is shown without canonicalization.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Print a short help text and exit.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Print a short version string and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Use a command like the following to automatically pick the newest raw
+disk image from a &#34;.v/&#34; directory:</p>
+<blockquote>
+<pre class="example">
+$ systemd-vpick --suffix=.raw --type=reg /var/lib/machines/quux.raw.v/
+</pre>
+</blockquote>
+<p>
+This will enumerate all regular files matching
+/var/lib/machines/quux.raw.v/quux*.raw, filter and sort them according
+to the rules described in *systemd.v*(7), and then write the path to the
+newest (by version) file to standard output.</p>
+<p>
+Use a command like the following to automatically pick the newest OS
+directory tree from a &#34;.v/&#34; directory:</p>
+<blockquote>
+<pre class="example">
+$ systemd-vpick --type=dir /var/lib/machines/waldo.v/
+</pre>
+</blockquote>
+<p>
+This will enumerate all directory inodes matching
+/var/lib/machines/waldo.v/waldo*, filter and sort them according to the
+rules described in *systemd.v*(7), and then write the path to the newest
+(by version) directory to standard output.</p>
+<p>
+For further examples see *systemd.v*(7).</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>On success, 0 is returned, a non-zero failure code otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*systemd*(1), *systemd.v*(7)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

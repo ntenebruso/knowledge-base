@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - chattr.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - chattr.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>chattr - change file attributes on a Linux file system</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>chattr</strong> [ <strong>-RVf</strong> ] [ <strong>-v</strong> <em>version</em> ] [ <strong>-p</strong> <em>project</em> ] [ <em>mode</em> ]
+<em>files…</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>chattr</strong> changes the file attributes on a Linux file system.</p>
+<p>
+The format of a symbolic <em>mode</em> is <strong>+-=</strong>[*aAcCdDeFijmPsStTux*].</p>
+<p>
+The operator &#39;<strong>+</strong>&#39; causes the selected attributes to be added to the
+existing attributes of the files; &#39;<strong>-</strong>&#39; causes them to be removed; and
+&#39;<strong>=</strong>&#39; causes them to be the only attributes that the files have.</p>
+<p>
+The letters &#39;<strong>aAcCdDeFijmPsStTux</strong>&#39; select the new attributes for the
+files: append only (<strong>a</strong>), no atime updates (<strong>A</strong>), compressed (<strong>c</strong>), no
+copy on write (<strong>C</strong>), no dump (<strong>d</strong>), synchronous directory updates (<strong>D</strong>),
+extent format (<strong>e</strong>), case-insensitive directory lookups (<strong>F</strong>), immutable
+(<strong>i</strong>), data journaling (<strong>j</strong>), don&#39;t compress (<strong>m</strong>), project hierarchy
+(<strong>P</strong>), secure deletion (<strong>s</strong>), synchronous updates (<strong>S</strong>), no tail-merging
+(<strong>t</strong>), top of directory hierarchy (<strong>T</strong>), undeletable (<strong>u</strong>), and direct
+access for files (<strong>x</strong>).</p>
+<p>
+The following attributes are read-only, and may be listed by <strong>lsattr*(1)
+but not modified by chattr: encrypted (*E</strong>), indexed directory (<strong>I</strong>),
+inline data (<strong>N</strong>), and verity (<strong>V</strong>).</p>
+<p>
+Not all flags are supported or utilized by all file systems; refer to
+file system-specific man pages such as *btrfs*(5), *ext4*(5),
+*mkfs.f2fs*(8), and *xfs*(5) for more file system-specific details.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-R</strong>
+</dt>
+<dd>Recursively change attributes of directories and their
+contents.</dd>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>Be verbose with chattr&#39;s output and print the program version.</dd>
+<dt>
+<strong>-f</strong>
+</dt>
+<dd>Suppress most error messages.</dd>
+<dt>
+*-v*/ version/
+</dt>
+<dd>Set the file&#39;s version/generation number.</dd>
+<dt>
+*-p*/ project/
+</dt>
+<dd>Set the file&#39;s project number.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ATTRIBUTES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+<strong>a</strong>
+</dt>
+<dd>A file with the &#39;a&#39; attribute set can only be opened in append
+mode for writing. Only the superuser or a process possessing the
+CAP_LINUX_IMMUTABLE capability can set or clear this attribute.</dd>
+<dt>
+<strong>A</strong>
+</dt>
+<dd>When a file with the &#39;A&#39; attribute set is accessed, its atime
+record is not modified. This avoids a certain amount of disk I/O for
+laptop systems.</dd>
+<dt>
+<strong>c</strong>
+</dt>
+<dd>A file with the &#39;c&#39; attribute set is automatically compressed
+on the disk by the kernel. A read from this file returns uncompressed
+data. A write to this file compresses data before storing them on the
+disk. Note: please make sure to read the bugs and limitations section
+at the end of this document. (Note: For btrfs, If the &#39;c&#39; flag is set,
+then the &#39;C&#39; flag cannot be set. Also conflicts with btrfs mount
+option &#39;nodatasum&#39;)</dd>
+<dt>
+<strong>C</strong>
+</dt>
+<dd>A file with the &#39;C&#39; attribute set will not be subject to
+copy-on-write updates. This flag is only supported on file systems
+which perform copy-on-write. (Note: For btrfs, the &#39;C&#39; flag should be
+set on new or empty files. If it is set on a file which already has
+data blocks, it is undefined when the blocks assigned to the file will
+be fully stable. If the &#39;C&#39; flag is set on a directory, it will have
+no effect on the directory, but new files created in that directory
+will have the No_COW attribute set. If the &#39;C&#39; flag is set, then the
+&#39;c&#39; flag cannot be set.)</dd>
+<dt>
+<strong>d</strong>
+</dt>
+<dd>A file with the &#39;d&#39; attribute set is not a candidate for backup
+when the *dump*(8) program is run.</dd>
+<dt>
+<strong>D</strong>
+</dt>
+<dd>When a directory with the &#39;D&#39; attribute set is modified, the
+changes are written synchronously to the disk; this is equivalent to
+the &#39;dirsync&#39; mount option applied to a subset of the files.</dd>
+<dt>
+<strong>e</strong>
+</dt>
+<dd>The &#39;e&#39; attribute indicates that the file is using extents for
+mapping the blocks on disk. It may not be removed using *chattr*(1).</dd>
+<dt>
+<strong>E</strong>
+</dt>
+<dd>A file, directory, or symlink with the &#39;E&#39; attribute set is
+encrypted by the file system. This attribute may not be set or cleared
+using *chattr*(1), although it can be displayed by *lsattr*(1).</dd>
+<dt>
+<strong>F</strong>
+</dt>
+<dd>A directory with the &#39;F&#39; attribute set indicates that all the
+path lookups inside that directory are made in a case-insensitive
+fashion. This attribute can only be changed in empty directories on
+file systems with the casefold feature enabled.</dd>
+<dt>
+<strong>i</strong>
+</dt>
+<dd>A file with the &#39;i&#39; attribute cannot be modified: it cannot be
+deleted or renamed, no link can be created to this file, most of the
+file&#39;s metadata can not be modified, and the file can not be opened in
+write mode. Only the superuser or a process possessing the
+CAP_LINUX_IMMUTABLE capability can set or clear this attribute.</dd>
+<dt>
+<strong>I</strong>
+</dt>
+<dd>The &#39;I&#39; attribute is used by the htree code to indicate that a
+directory is being indexed using hashed trees. It may not be set or
+cleared using *chattr*(1), although it can be displayed by
+*lsattr*(1).</dd>
+<dt>
+<strong>j</strong>
+</dt>
+<dd>A file with the &#39;j&#39; attribute has all of its data written to
+the ext3 or ext4 journal before being written to the file itself, if
+the file system is mounted with the &#34;data=ordered&#34; or &#34;data=writeback&#34;
+options and the file system has a journal. When the file system is
+mounted with the &#34;data=journal&#34; option all file data is already
+journalled and this attribute has no effect. Only the superuser or a
+process possessing the CAP_SYS_RESOURCE capability can set or clear
+this attribute.</dd>
+<dt>
+<strong>m</strong>
+</dt>
+<dd>A file with the &#39;m&#39; attribute is excluded from compression on
+file systems that support per-file compression.</dd>
+<dt>
+<strong>N</strong>
+</dt>
+<dd>A file with the &#39;N&#39; attribute set indicates that the file has
+data stored inline, within the inode itself. It may not be set or
+cleared using *chattr*(1), although it can be displayed by
+*lsattr*(1).</dd>
+<dt>
+<strong>P</strong>
+</dt>
+<dd>A directory with the &#39;P&#39; attribute set will enforce a
+hierarchical structure for project id&#39;s. This means that files and
+directories created in the directory will inherit the project id of
+the directory, rename operations are constrained so when a file or
+directory is moved into another directory, that the project ids must
+match. In addition, a hard link to file can only be created when the
+project id for the file and the destination directory match.</dd>
+<dt>
+<strong>s</strong>
+</dt>
+<dd>When a file with the &#39;s&#39; attribute set is deleted, its blocks
+are zeroed and written back to the disk. Note: please make sure to
+read the bugs and limitations section at the end of this document.</dd>
+<dt>
+<strong>S</strong>
+</dt>
+<dd>When a file with the &#39;S&#39; attribute set is modified, the changes
+are written synchronously to the disk; this is equivalent to the
+&#39;sync&#39; mount option applied to a subset of the files.</dd>
+<dt>
+<strong>t</strong>
+</dt>
+<dd>A file with the &#39;t&#39; attribute will not have a partial block
+fragment at the end of the file merged with other files (for those
+file systems which support tail-merging). This is necessary for
+applications such as LILO which read the file system directly, and
+which don&#39;t understand tail-merged files. Note: As of this writing,
+the ext2, ext3, and ext4 file systems do not support tail-merging.</dd>
+<dt>
+<strong>T</strong>
+</dt>
+<dd>A directory with the &#39;T&#39; attribute will be deemed to be the top
+of directory hierarchies for the purposes of the Orlov block
+allocator. This is a hint to the block allocator used by ext3 and ext4
+that the subdirectories under this directory are not related, and thus
+should be spread apart for allocation purposes. For example it is a
+very good idea to set the &#39;T&#39; attribute on the /home directory, so
+that /home/john and /home/mary are placed into separate block groups.
+For directories where this attribute is not set, the Orlov block
+allocator will try to group subdirectories closer together where
+possible.</dd>
+<dt>
+<strong>u</strong>
+</dt>
+<dd>When a file with the &#39;u&#39; attribute set is deleted, its contents
+are saved. This allows the user to ask for its undeletion. Note:
+please make sure to read the bugs and limitations section at the end
+of this document.</dd>
+<dt>
+<strong>x</strong>
+</dt>
+<dd>A file with the &#39;x&#39; requests the use of direct access (dax)
+mode, if the kernel supports DAX. This can be overridden by the
+&#39;dax=never&#39; mount option. For more information see the kernel
+documentation for dax:
+&lt;<a href="https://www.kernel.org/doc/html/latest/filesystems/dax.html">https://www.kernel.org/doc/html/latest/filesystems/dax.html</a>&gt;.
+
+If the attribute is set on an existing directory, it will be inherited
+by all files and subdirectories that are subsequently created in the
+directory. If an existing directory has contained some files and
+subdirectories, modifying the attribute on the parent directory
+doesn&#39;t change the attributes on these files and subdirectories.</dd>
+<dt>
+<strong>V</strong>
+</dt>
+<dd>A file with the &#39;V&#39; attribute set has fs-verity enabled. It
+cannot be written to, and the file system will automatically verify
+all data read from it against a cryptographic hash that covers the
+entire file&#39;s contents, e.g. via a Merkle tree. This makes it possible
+to efficiently authenticate the file. This attribute may not be set or
+cleared using *chattr*(1), although it can be displayed by
+*lsattr*(1).</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHOR
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>chattr</strong> was written by Remy Card &lt;Remy.Card@linux.org&gt;. It is currently
+being maintained by Theodore Ts&#39;o &lt;tytso@alum.mit.edu&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS AND LIMITATIONS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The &#39;c&#39;, &#39;s&#39;, and &#39;u&#39; attributes are not honored by the ext2, ext3, and
+ext4 file systems as implemented in the current mainline Linux kernels.
+Setting &#39;a&#39; and &#39;i&#39; attributes will not affect the ability to write to
+already existing file descriptors.</p>
+<p>
+The &#39;j&#39; option is only useful for ext3 and ext4 file systems.</p>
+<p>
+The &#39;D&#39; option is only useful on Linux kernel 2.5.19 and later.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>chattr</strong> is part of the e2fsprogs package and is available from
+<a href="http://e2fsprogs.sourceforge.net.">http://e2fsprogs.sourceforge.net.</a></p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*lsattr*(1), *btrfs*(5), *ext4*(5), *mkfs.f2fs*(8), *xfs*(5).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

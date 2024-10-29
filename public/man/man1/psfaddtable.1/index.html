@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - psfaddtable.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - psfaddtable.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>psfaddtable - add a Unicode character table to a console font</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>psfaddtable</strong> <em>fontfile tablefile outfile</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>psfaddtable</strong> takes a console font in .psf format given by <em>fontfile</em>
+and merges it with the Unicode character table given by <em>tablefile</em> to
+produce a font file with an embedded character table, which is written
+to <em>outfile</em>. An input file name of &#34;-&#34; denotes standard input, and an
+output file name of &#34;-&#34; denotes standard output. If the <em>fontfile</em>
+already contains an embedded character table, it is ignored.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+TABLE FILE FORMAT
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Each line in the <em>tablefile</em> should be either blank, contain a comment
+(preceded by <em>#</em>), or contain a sequence of numbers in either decimal
+(default), octal (preceded by <em>0</em>), or hexadecimal (preceded by <em>0x</em>)
+format, separated by spaces or tabs. The first number on each line
+indicates the glyph slot in the font that is being referred to, this is
+between 0 and 0xff for a 256-character font and 0 and 0x1ff for a
+512-character font. Any subsequent numbers on the same line are Unicodes
+matched by this specific glyph slot. Instead of a single Unicode one may
+have a sequence of Unicodes separates by commas, to denote that the
+glyph depicts the corresponding composed symbol. It is permissible to
+have multiple lines for the same glyph.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>*setfont*(8), *psfgettable*(1), *psfstriptable*(1), *psfxtable*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nmcli.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nmcli.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>nmcli - command-line tool for controlling NetworkManager</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>nmcli</strong> [/OPTIONS/…] {<strong>help</strong> | <strong>general</strong> | <strong>networking</strong> | <strong>radio</strong> |
+<strong>connection</strong> | <strong>device</strong> | <strong>agent</strong> | <strong>monitor</strong>} [/COMMAND/]
+[/ARGUMENTS/…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>nmcli</strong> is a command-line tool for controlling NetworkManager and
+reporting network status. It can be utilized as a replacement for
+<strong>nm-applet</strong> or other graphical clients. <strong>nmcli</strong> is used to create,
+display, edit, delete, activate, and deactivate network connections, as
+well as control and display network device status. See
+*nmcli-examples*(7) for ready to run nmcli examples.</p>
+<p>
+Typical uses include:</p>
+<blockquote>
+<p>·</p>
+<p>
+Scripts: Utilize NetworkManager via <strong>nmcli</strong> instead of managing network
+connections manually. <strong>nmcli</strong> supports a terse output format which is
+better suited for script processing. Note that NetworkManager can also
+execute scripts, called &#34;dispatcher scripts&#34;, in response to network
+events. See *NetworkManager*(8) for details about these dispatcher
+scripts.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Servers, headless machines, and terminals: <strong>nmcli</strong> can be used to
+control NetworkManager without a GUI, including creating, editing,
+starting and stopping network connections and viewing network status.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-a</strong> | <strong>–ask</strong></p>
+<blockquote>
+<p>When using this option <strong>nmcli</strong> will stop and ask for any missing
+required arguments, so do not use this option for non-interactive
+purposes like scripts. This option controls, for example, whether you
+will be prompted for a password if it is required for connecting to a
+network.</p>
+</blockquote>
+<p>
+<strong>-c</strong> | <strong>–colors</strong> {yes | no | auto}</p>
+<blockquote>
+<p>This option controls color output (using terminal escape sequences). yes
+enables colors, no disables them, auto only produces colors when
+standard output is directed to a terminal. The default value is auto.</p>
+<p>
+The actual colors used are configured as described in
+<strong>terminal-colors.d*(5). Please refer to the COLORS section for a list of
+color names supported by *nmcli</strong>.</p>
+<p>
+If the environment variable NO_COLOR is set (to any non-empty value),
+then coloring is disabled with mode &#34;auto&#34;. If the environment variable
+CLICOLOR_FORCE is set (to any non-empty value), then coloring is enabled
+with mode &#34;auto&#34;. Explicitly enabling coloring overrides the environment
+variable.</p>
+</blockquote>
+<p>
+<strong>–complete-args</strong></p>
+<blockquote>
+<p>Instead of conducting the desired action, <strong>nmcli</strong> will list possible
+completions for the last argument. This is useful to implement argument
+completion in shell.</p>
+<p>
+The exit status will indicate success or return a code 65 to indicate
+the last argument is a file name.</p>
+<p>
+NetworkManager ships with command completion support for GNU Bash.</p>
+</blockquote>
+<p>
+<strong>-e</strong> | <strong>–escape</strong> {yes | no}</p>
+<blockquote>
+<p>Whether to escape : and \ characters in terse tabular mode. The escape
+character is \.</p>
+<p>
+If omitted, default is yes.</p>
+</blockquote>
+<p>
+<strong>-f</strong> | <strong>–fields</strong> {<em>field1</em>,/field2/… | all | common}</p>
+<blockquote>
+<p>This option is used to specify what fields (column names) should be
+printed. Valid field names differ for specific commands. List available
+fields by providing an invalid value to the <strong>–fields</strong> option. all is
+used to print all valid field values of the command. common is used to
+print common field values of the command.</p>
+<p>
+If omitted, default is common.</p>
+</blockquote>
+<p>
+<strong>-g</strong> | <strong>–get-values</strong> {<em>field1</em>,/field2/… | all | common}</p>
+<blockquote>
+<p>This option is used to print values from specific fields. It is
+basically a shortcut for –mode tabular –terse –fields and is a
+convenient way to retrieve values for particular fields. The values are
+printed one per line without headers.</p>
+<p>
+If a section is specified instead of a field, the section name will be
+printed followed by colon separated values of the fields belonging to
+that section, all on the same line.</p>
+</blockquote>
+<p>
+<strong>-h</strong> | <strong>–help</strong></p>
+<blockquote>
+<p>Print help information.</p>
+</blockquote>
+<p>
+<strong>-m</strong> | <strong>–mode</strong> {tabular | multiline}</p>
+<blockquote>
+<p>Switch between tabular and multiline output:</p>
+<p>
+tabular</p>
+<blockquote>
+<p>Output is a table where each line describes a single entry. Columns
+define particular properties of the entry.</p>
+</blockquote>
+<p>
+multiline</p>
+<blockquote>
+<p>Each entry comprises multiple lines, each property on its own line. The
+values are prefixed with the property name.</p>
+</blockquote>
+<p>
+If omitted, default is tabular for most commands. For the commands
+producing more structured information, that cannot be displayed on a
+single line, default is multiline. Currently, they are:</p>
+<blockquote>
+<p>·</p>
+<p>
+nmcli connection show <em>ID</em></p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+nmcli device show</p>
+</blockquote>
+</blockquote>
+<p>
+<strong>-p</strong> | <strong>–pretty</strong></p>
+<blockquote>
+<p>Output is pretty. This causes <strong>nmcli</strong> to produce easily readable outputs
+for humans, i.e. values are aligned, headers are printed, etc.</p>
+</blockquote>
+<p>
+<strong>-s</strong> | <strong>–show-secrets</strong></p>
+<blockquote>
+<p>When using this option <strong>nmcli</strong> will display passwords and secrets that
+might be present in an output of an operation. This option also
+influences echoing passwords typed by user as an input.</p>
+</blockquote>
+<p>
+<strong>-t</strong> | <strong>–terse</strong></p>
+<blockquote>
+<p>Output is terse. This mode is designed and suitable for computer
+(script) processing.</p>
+</blockquote>
+<p>
+<strong>–offline</strong></p>
+<blockquote>
+<p>Work without a daemon. Makes <strong>connection add</strong> and <strong>connection modify</strong>
+commands accept and produce connection data via standard input/output.
+Ordinarily, nmcli would communicate with the NetworkManager service.</p>
+<p>
+The connection data format (keyfile) is described in
+*nm-settings-keyfile*(5) manual.</p>
+</blockquote>
+<p>
+<strong>-v</strong> | <strong>–version</strong></p>
+<blockquote>
+<p>Show <strong>nmcli</strong> version.</p>
+</blockquote>
+<p>
+<strong>-w</strong> | <strong>–wait</strong> <em>seconds</em></p>
+<blockquote>
+<p>This option sets a timeout period for which <strong>nmcli</strong> will wait for
+NetworkManager to finish operations. It is especially useful for
+commands that may take a longer time to complete, e.g. connection
+activation.</p>
+<p>
+Specifying a value of 0 instructs <strong>nmcli</strong> not to wait but to exit
+immediately with a status of success. The default value depends on the
+executed command.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+GENERAL COMMANDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>nmcli general</strong> {<strong>status</strong> | <strong>hostname</strong> | <strong>permissions</strong> | <strong>logging</strong> |
+<strong>reload</strong>} [/ARGUMENTS/…]</p>
+<p>
+Use this command to show NetworkManager status and permissions. You can
+also get and change system hostname, as well as NetworkManager logging
+level and domains.</p>
+<p>
+<strong>status</strong></p>
+<blockquote>
+<p>Show overall status of NetworkManager. This is the default action, when
+no additional command is provided for <strong>nmcli general</strong>.</p>
+</blockquote>
+<p>
+<strong>hostname</strong> [/hostname/]</p>
+<blockquote>
+<p>Get and change system hostname. With no arguments, this prints currently
+configured hostname. When you pass a hostname, it will be handed over to
+NetworkManager to be set as a new system hostname.</p>
+<p>
+Note that the term &#34;system&#34; hostname may also be referred to as
+&#34;persistent&#34; or &#34;static&#34; by other programs or tools. The hostname is
+stored in /etc/hostname file in most distributions. For example,
+systemd-hostnamed service uses the term &#34;static&#34; hostname and it only
+reads the /etc/hostname file when it starts.</p>
+</blockquote>
+<p>
+<strong>permissions</strong></p>
+<blockquote>
+<p>Show the permissions a caller has for various authenticated operations
+that NetworkManager provides, like enable and disable networking,
+changing Wi-Fi and WWAN state, modifying connections, etc.</p>
+</blockquote>
+<p>
+<strong>logging</strong> [*level* <em>level/] [*domains* /domains</em>…]</p>
+<blockquote>
+<p>Get and change NetworkManager logging level and domains. Without any
+argument current logging level and domains are shown. In order to change
+logging state, provide <strong>level</strong> and, or, <strong>domain</strong> parameters. See
+*NetworkManager.conf*(5) for available level and domain values.</p>
+</blockquote>
+<p>
+<strong>reload</strong> [/flags/…]</p>
+<blockquote>
+<p>Reload NetworkManagers configuration and perform certain updates, like
+flushing caches or rewriting external state to disk. This is similar to
+sending SIGHUP to NetworkManager but it allows for more fine-grained
+control over what to reload through the flags argument. It also allows
+non-root access via PolicyKit and contrary to signals it is synchronous.
+Available flags are:</p>
+<p>
+<strong>conf</strong></p>
+<blockquote>
+<p>Reload the NetworkManager.conf configuration from disk. Note that this
+does not include connections, which can be reloaded through <strong>nmcli
+connection reload</strong> instead.</p>
+</blockquote>
+<p>
+<strong>dns-rc</strong></p>
+<blockquote>
+<p>Update DNS configuration, which usually involves writing
+/etc/resolv.conf anew. This is equivalent to sending the SIGUSR1 signal
+to the NetworkManager process.</p>
+</blockquote>
+<p>
+<strong>dns-full</strong></p>
+<blockquote>
+<p>Restart the DNS plugin. This is for example useful when using dnsmasq
+plugin, which uses additional configuration in
+/etc/NetworkManager/dnsmasq.d. If you edit those files, you can restart
+the DNS plugin. This action shortly interrupts name resolution.</p>
+</blockquote>
+<p>
+With no flags, everything that is supported is reloaded, which is
+identical to sending a SIGHUP. See *NetworkManager*(8) for more details
+about signals.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+NETWORKING CONTROL COMMANDS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>nmcli networking</strong> {<strong>on</strong> | <strong>off</strong> | <strong>connectivity</strong>} [/ARGUMENTS/…]</p>
+<p>
+Query NetworkManager networking status, enable and disable networking.</p>
+<p>
+<strong>on</strong>, <strong>off</strong></p>
+<blockquote>
+<p>Enable or disable networking control by NetworkManager. All interfaces
+managed by NetworkManager are deactivated when networking is disabled.</p>
+</blockquote>
+<p>
+<strong>connectivity</strong> [check]</p>
+<blockquote>
+<p>Get network connectivity state. The optional <strong>check</strong> argument tells
+NetworkManager to re-check the connectivity, else the most recent known
+connectivity state is displayed without re-checking.</p>
+<p>
+Possible states are:</p>
+<p>
+none</p>
+<blockquote>
+<p>the host is not connected to any network.</p>
+</blockquote>
+<p>
+portal</p>
+<blockquote>
+<p>the host is behind a captive portal and cannot reach the full Internet.</p>
+</blockquote>
+<p>
+limited</p>
+<blockquote>
+<p>the host is connected to a network, but it has no access to the
+Internet.</p>
+</blockquote>
+<p>
+full</p>
+<blockquote>
+<p>the host is connected to a network and has full access to the Internet.</p>
+</blockquote>
+<p>
+unknown</p>
+<blockquote>
+<p>the connectivity status cannot be found out.</p>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+RADIO TRANSMISSION CONTROL COMMANDS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><strong>nmcli radio</strong> {<strong>all</strong> | <strong>wifi</strong> | <strong>wwan</strong>} [/ARGUMENTS/…]</p>
+<p>
+Show radio switches status, or enable and disable the switches.</p>
+<p>
+<strong>wifi</strong> [on | off]</p>
+<blockquote>
+<p>Show or set status of Wi-Fi in NetworkManager. If no arguments are
+supplied, Wi-Fi status is printed; <strong>on</strong> enables Wi-Fi; <strong>off</strong> disables
+Wi-Fi.</p>
+</blockquote>
+<p>
+<strong>wwan</strong> [on | off]</p>
+<blockquote>
+<p>Show or set status of WWAN (mobile broadband) in NetworkManager. If no
+arguments are supplied, mobile broadband status is printed; <strong>on</strong> enables
+mobile broadband, <strong>off</strong> disables it.</p>
+</blockquote>
+<p>
+<strong>all</strong> [on | off]</p>
+<blockquote>
+<p>Show or set all previously mentioned radio switches at the same time.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+ACTIVITY MONITOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>nmcli monitor</strong></p>
+<p>
+Observe NetworkManager activity. Watches for changes in connectivity
+state, devices or connection profiles.</p>
+<p>
+See also <strong>nmcli connection monitor</strong> and <strong>nmcli device monitor</strong> to watch
+for changes in certain devices or connections.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+CONNECTION MANAGEMENT COMMANDS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p><strong>nmcli connection</strong> {<strong>show</strong> | <strong>up</strong> | <strong>down</strong> | <strong>modify</strong> | <strong>add</strong> | <strong>edit</strong> |
+<strong>clone</strong> | <strong>delete</strong> | <strong>monitor</strong> | <strong>reload</strong> | <strong>load</strong> | <strong>import</strong> | <strong>export</strong>
+​| <strong>migrate</strong>} [/ARGUMENTS/…]</p>
+<p>
+NetworkManager stores all network configuration as &#34;connections&#34;, which
+are collections of data (Layer2 details, IP addressing, etc.) that
+describe how to create or connect to a network. A connection is &#34;active&#34;
+when a device uses that connections configuration to create or connect
+to a network. There may be multiple connections that apply to a device,
+but only one of them can be active on that device at any given time. The
+additional connections can be used to allow quick switching between
+different networks and configurations.</p>
+<p>
+Consider a machine which is usually connected to a DHCP-enabled network,
+but sometimes connected to a testing network which uses static IP
+addressing. Instead of manually reconfiguring eth0 each time the network
+is changed, the settings can be saved as two connections which both
+apply to eth0, one for DHCP (called default) and one with the static
+addressing details (called testing). When connected to the DHCP-enabled
+network the user would run <strong>nmcli con up default</strong> , and when connected
+to the static network the user would run <strong>nmcli con up testing</strong>.</p>
+<p>
+<strong>show</strong> [*–active*] [*–order* [+-]/category/:…]</p>
+<blockquote>
+<p>List in-memory and on-disk connection profiles, some of which may also
+be active if a device is using that connection profile. Without a
+parameter, all profiles are listed. When <strong>–active</strong> option is specified,
+only the active profiles are shown.</p>
+<p>
+The <strong>–order</strong> option can be used to get custom ordering of connections.
+The connections can be ordered by active status (active), name (name),
+type (type) or D-Bus path (path). If connections are equal according to
+a sort order category, an additional category can be specified. The
+default sorting order is equivalent to –order active:name:path. + or no
+prefix means sorting in ascending order (alphabetically or in
+numbers), - means reverse (descending) order. The category names can be
+abbreviated (e.g. –order -a:na).</p>
+</blockquote>
+<p>
+<strong>show</strong> [*–active*] [*id* | <strong>uuid</strong> | <strong>path</strong> | *apath*] <em>ID</em>…</p>
+<blockquote>
+<p>Show details for specified connections. By default, both static
+configuration and active connection data are displayed. When <strong>–active</strong>
+option is specified, only the active profiles are taken into account.
+Use global <strong>–show-secrets</strong> option to display secrets associated with
+the profile.</p>
+<p>
+<strong>id</strong>, <strong>uuid</strong>, <strong>path</strong> and <strong>apath</strong> keywords can be used if <em>ID</em> is
+ambiguous. Optional <em>ID</em>-specifying keywords are:</p>
+<p>
+<strong>id</strong></p>
+<blockquote>
+<p>the <em>ID</em> denotes a connection name.</p>
+</blockquote>
+<p>
+<strong>uuid</strong></p>
+<blockquote>
+<p>the <em>ID</em> denotes a connection UUID.</p>
+</blockquote>
+<p>
+<strong>path</strong></p>
+<blockquote>
+<p>the <em>ID</em> denotes a D-Bus static connection path in the format of
+<em>org/freedesktop/NetworkManager/Settings//num</em> or just <em>num</em>.</p>
+</blockquote>
+<p>
+<strong>apath</strong></p>
+<blockquote>
+<p>the <em>ID</em> denotes a D-Bus active connection path in the format of
+<em>org/freedesktop/NetworkManager/ActiveConnection//num</em> or just <em>num</em>.</p>
+</blockquote>
+<p>
+It is possible to filter the output using the global <strong>–fields</strong> option.
+Use the following values:</p>
+<p>
+<strong>profile</strong></p>
+<blockquote>
+<p>only shows static profile configuration.</p>
+</blockquote>
+<p>
+<strong>active</strong></p>
+<blockquote>
+<p>only shows active connection data (when the profile is active).</p>
+</blockquote>
+<p>
+You can also specify particular fields. For static configuration, use
+setting and property names as described in *nm-settings-nmcli*(5) manual
+page. For active data use GENERAL, IP4, DHCP4, IP6, DHCP6, VPN.</p>
+<p>
+When no command is given to the <strong>nmcli connection</strong>, the default action
+is <strong>nmcli connection show</strong>.</p>
+</blockquote>
+<p>
+<strong>up</strong> [*id* | <strong>uuid</strong> | <strong>path*] <em>ID</em> [*ifname</strong> /ifname/] [*ap* /BSSID/]
+[*passwd-file* /file/]</p>
+<blockquote>
+<p>Activate a connection. The connection is identified by its name, UUID or
+D-Bus path. If <em>ID</em> is ambiguous, a keyword <strong>id</strong>, <strong>uuid</strong> or <strong>path</strong> can
+be used. When requiring a particular device to activate the connection
+on, the <strong>ifname</strong> option with interface name should be given. If the <em>ID</em>
+is not given an <strong>ifname</strong> is required, and NetworkManager will activate
+the best available connection for the given <strong>ifname</strong>. In case of a VPN
+connection, the <strong>ifname</strong> option specifies the device of the base
+connection. The <strong>ap</strong> option specify what particular AP should be used in
+case of a Wi-Fi connection.</p>
+<p>
+If <strong>–wait</strong> option is not specified, the default timeout will be 90
+seconds.</p>
+<p>
+See <strong>connection show</strong> above for the description of the <em>ID</em>-specifying
+keywords.</p>
+<p>
+Available options are:</p>
+<p>
+<strong>ifname</strong></p>
+<blockquote>
+<p>interface that will be used for activation.</p>
+</blockquote>
+<p>
+<strong>ap</strong></p>
+<blockquote>
+<p>BSSID of the AP which the command should connect to (for Wi-Fi
+connections).</p>
+</blockquote>
+<p>
+<strong>passwd-file</strong></p>
+<blockquote>
+<p>some networks may require credentials during activation. You can give
+these credentials using this option. Each line of the file should
+contain one password in the form:</p>
+<blockquote>
+<pre class="example">
+setting_name.property_name:the password
+</pre>
+</blockquote>
+<p>
+For example, for WPA Wi-Fi with PSK, the line would be</p>
+<blockquote>
+<pre class="example">
+802-11-wireless-security.psk:secret12345
+</pre>
+</blockquote>
+<p>
+For 802.1X password, the line would be</p>
+<blockquote>
+<pre class="example">
+802-1x.password:my 1X password
+</pre>
+</blockquote>
+<p>
+<strong>nmcli</strong> also accepts wifi-sec and wifi strings instead of
+802-11-wireless-security. When NetworkManager requires a password and it
+is not given, <strong>nmcli</strong> will ask for it when run with <strong>–ask</strong>. If <strong>–ask</strong>
+was not passed, NetworkManager can ask another secret agent that may be
+running (typically a GUI secret agent, such as nm-applet or
+gnome-shell).</p>
+</blockquote>
+</blockquote>
+<p>
+<strong>down</strong> [*id* | <strong>uuid</strong> | <strong>path</strong> | *apath*] <em>ID</em>…</p>
+<blockquote>
+<p>Deactivate a connection from a device without preventing the device from
+further auto-activation. Multiple connections can be passed to the
+command.</p>
+<p>
+Be aware that this command deactivates the specified active connection,
+but the device on which the connection was active, is still ready to
+connect and will perform auto-activation by looking for a suitable
+connection that has the autoconnect flag set. Note that the deactivating
+connection profile is internally blocked from autoconnecting again.
+Hence it will not autoconnect until reboot or until the user performs an
+action that unblocks autoconnect, like modifying the profile or
+explicitly activating it.</p>
+<p>
+In most cases you may want to use <strong>device down</strong> command instead.</p>
+<p>
+The connection is identified by its name, UUID or D-Bus path. If <em>ID</em> is
+ambiguous, a keyword <strong>id</strong>, <strong>uuid</strong>, <strong>path</strong> or <strong>apath</strong> can be used.</p>
+<p>
+See <strong>connection show</strong> above for the description of the <em>ID</em>-specifying
+keywords.</p>
+<p>
+If <strong>–wait</strong> option is not specified, the default timeout will be 10
+seconds.</p>
+</blockquote>
+<p>
+<strong>modify</strong> [*–temporary*] [*id* | <strong>uuid</strong> | *path*] [/ID/] {<em>option</em>
+<em>value</em> | [+|-]/setting/./property/ <em>value</em>}…</p>
+<blockquote>
+<p>Add, modify or remove properties in the connection profile.</p>
+<p>
+To set the property just specify the property name followed by the
+value. An empty value (&#34;&#34;) resets the property value to the default.</p>
+<p>
+See *nm-settings-nmcli*(5) for complete reference of setting and
+property names, their descriptions and default values. The <em>setting</em> and
+<em>property</em> can be abbreviated provided they are unique.</p>
+<p>
+If you want to append an item or a flag to the existing value, use +
+prefix for the property name or alias. If you want to remove items from
+a container-type or flag property, use - prefix. For certain properties
+you can also remove elements by specifying the zero-based index(es). The</p>
+<ul>
+<li>and - modifiers only have a real effect for properties that support</li>
+</ul>
+<p>them. These are for example multi-value (container) properties or flags
+like ipv4.dns, ip4, ipv4.addresses, bond.options,
+802-1x.phase1-auth-flags etc.</p>
+<p>
+The connection is identified by its name, UUID or D-Bus path. If <em>ID</em> is
+ambiguous, a keyword <strong>id</strong>, <strong>uuid</strong> or <strong>path</strong> can be used. The <em>ID</em> is not
+used with the global <strong>–offline</strong> option.</p>
+<p>
+When the global <strong>–offline</strong> is used, the command reads the connection
+from the standard input and prints the modified connection to standard
+output instead of making the the NetworkManager daemon act upon
+specified connection.</p>
+</blockquote>
+<p>
+<strong>modify</strong> [*–temporary*] [*id* | <strong>uuid</strong> | <strong>path*] <em>ID</em> *remove</strong>
+<em>setting</em></p>
+<blockquote>
+<p>Removes a setting from the connection profile.</p>
+</blockquote>
+<p>
+<strong>add</strong> [*save* {yes | no}] {<em>option</em> <em>value</em> | [+|-]/setting/./property/
+<em>value</em>}…</p>
+<blockquote>
+<p>Create a new connection using specified properties.</p>
+<p>
+You need to describe the newly created connections with the property and
+value pairs. See <strong>nm-settings-nmcli*(5) for the complete reference. The
+syntax is the same as of the *nmcli connection modify</strong> command.</p>
+<p>
+To construct a meaningful connection you at the very least need to set
+the <strong>connection.type</strong> property (or use the <strong>type</strong> alias) to one of known
+NetworkManager connection types:</p>
+<blockquote>
+<p>·</p>
+<p>
+6lowpan</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+802-11-olpc-mesh (alias olpc-mesh)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+802-11-wireless (alias wifi)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+802-3-ethernet (alias ethernet)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+adsl</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+bluetooth</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+bond</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+bond-slave (deprecated for ethernet with controller)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+bridge</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+bridge-slave (deprecated for ethernet with controller)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+cdma</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+dummy</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+generic</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+gsm</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+infiniband</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+ip-tunnel</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+macsec</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+macvlan</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+olpc-mesh</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+ovs-bridge</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+ovs-dpdk</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+ovs-interface</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+ovs-patch</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+ovs-port</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+pppoe</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+team</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+team-slave (deprecated for ethernet with controller)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+tun</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+veth</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+vlan</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+vpn</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+vrf</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+vxlan</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+wifi-p2p</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+wimax</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+wireguard</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+wpan</p>
+</blockquote>
+<p>
+The most typical uses are described in the EXAMPLES section.</p>
+<p>
+Aside from the properties and values two special options are accepted:</p>
+<p>
+<strong>save</strong></p>
+<blockquote>
+<p>Controls whether the connection should be persistent, i.e.
+NetworkManager should store it on disk (default: yes).</p>
+</blockquote>
+<p>
+<strong>–</strong></p>
+<blockquote>
+<p>If a single <strong>–</strong> argument is encountered it is ignored. This is for
+compatibility with older versions on <strong>nmcli</strong>.</p>
+</blockquote>
+<p>
+When the global <strong>–offline</strong> is used, the command prints the resulting
+connection to standard output instead of actually adding the connection
+via the NetworkManager daemon.</p>
+</blockquote>
+<p>
+<strong>edit</strong> {[*id* | <strong>uuid</strong> | <strong>path*] <em>ID</em> | [*type</strong> /type/] [*con-name*
+/name/] }</p>
+<blockquote>
+<p>Edit an existing connection or add a new one, using an interactive
+editor.</p>
+<p>
+The existing connection is identified by its name, UUID or D-Bus path.
+If <em>ID</em> is ambiguous, a keyword <strong>id</strong>, <strong>uuid</strong>, or <strong>path</strong> can be used. See
+<strong>connection show</strong> above for the description of the <em>ID</em>-specifying
+keywords. Not providing an <em>ID</em> means that a new connection will be
+added.</p>
+<p>
+The interactive editor will guide you through the connection editing and
+allow you to change connection parameters according to your needs by
+means of a simple menu-driven interface. The editor indicates what
+settings and properties can be modified and provides in-line help.</p>
+<p>
+Available options:</p>
+<p>
+<strong>type</strong></p>
+<blockquote>
+<p>type of the new connection; valid types are the same as for <strong>connection
+add</strong> command.</p>
+</blockquote>
+<p>
+<strong>con-name</strong></p>
+<blockquote>
+<p>name for the new connection. It can be changed later in the editor.</p>
+</blockquote>
+<p>
+See also *nm-settings-nmcli*(5) for all NetworkManager settings and
+property names, and their descriptions; and *nmcli-examples*(7) for
+sample editor sessions.</p>
+</blockquote>
+<p>
+<strong>clone</strong> [*–temporary*] [*id* | <strong>uuid</strong> | *path*] <em>ID</em> <em>new_name</em></p>
+<blockquote>
+<p>Clone a connection. The connection to be cloned is identified by its
+name, UUID or D-Bus path. If <em>ID</em> is ambiguous, a keyword <strong>id</strong>, <strong>uuid</strong>
+or <strong>path</strong> can be used. See <strong>connection show</strong> above for the description
+of the <em>ID</em>-specifying keywords. <em>new_name</em> is the name of the new
+cloned connection. The new connection will be the exact copy except the
+connection.id (<em>new_name</em>) and connection.uuid (generated) properties.</p>
+<p>
+The new connection profile will be saved as persistent unless
+<strong>–temporary</strong> option is specified, in which case the new profile wont
+exist after NetworkManager restart.</p>
+</blockquote>
+<p>
+<strong>delete</strong> [*id* | <strong>uuid</strong> | *path*] <em>ID</em>…</p>
+<blockquote>
+<p>Delete a configured connection. The connection to be deleted is
+identified by its name, UUID or D-Bus path. If <em>ID</em> is ambiguous, a
+keyword <strong>id</strong>, <strong>uuid</strong> or <strong>path</strong> can be used. See <strong>connection show</strong> above
+for the description of the <em>ID</em>-specifying keywords.</p>
+<p>
+If <strong>–wait</strong> option is not specified, the default timeout will be 10
+seconds.</p>
+</blockquote>
+<p>
+<strong>monitor</strong> [*id* | <strong>uuid</strong> | *path*] <em>ID</em>…</p>
+<blockquote>
+<p>Monitor connection profile activity. This command prints a line whenever
+the specified connection changes. The connection to be monitored is
+identified by its name, UUID or D-Bus path. If <em>ID</em> is ambiguous, a
+keyword <strong>id</strong>, <strong>uuid</strong> or <strong>path</strong> can be used. See <strong>connection show</strong> above
+for the description of the <em>ID</em>-specifying keywords.</p>
+<p>
+Monitors all connection profiles in case none is specified. The command
+terminates when all monitored connections disappear. If you want to
+monitor connection creation consider using the global monitor with
+<strong>nmcli monitor</strong> command.</p>
+</blockquote>
+<p>
+<strong>reload</strong></p>
+<blockquote>
+<p>Reload all connection files from disk. NetworkManager does not monitor
+changes to connection. So you need to use this command in order to tell
+NetworkManager to re-read the connection profiles from disk when a
+change was made to them.</p>
+</blockquote>
+<p>
+<strong>load</strong> <em>filename</em>…</p>
+<blockquote>
+<p>Load/reload one or more connection files from disk. Use this after
+manually editing a connection file to ensure that NetworkManager is
+aware of its latest state.</p>
+</blockquote>
+<p>
+<strong>import</strong> [*–temporary*] <strong>type</strong> <em>type</em> <strong>file</strong> <em>file</em></p>
+<blockquote>
+<p>Import an external/foreign configuration as a NetworkManager connection
+profile. The type of the input file is specified by <strong>type</strong> option.</p>
+<p>
+Only VPN configurations are supported at the moment. The configuration
+is imported by NetworkManager VPN plugins. <strong>type</strong> values are the same as
+for <strong>vpn-type</strong> option in <strong>nmcli connection add</strong>. VPN configurations are
+imported by VPN plugins. Therefore the proper VPN plugin has to be
+installed so that <strong>nmcli</strong> could import the data.</p>
+<p>
+The imported connection profile will be saved as persistent unless
+<strong>–temporary</strong> option is specified, in which case the new profile wont
+exist after NetworkManager restart.</p>
+</blockquote>
+<p>
+<strong>export</strong> [*id* | <strong>uuid</strong> | *path*] <em>ID</em> [/file/]</p>
+<blockquote>
+<p>Export a connection.</p>
+<p>
+Only VPN connections are supported at the moment. A proper VPN plugin
+has to be installed so that <strong>nmcli</strong> could export a connection. If no
+<em>file</em> is provided, the VPN configuration data will be printed to
+standard output.</p>
+</blockquote>
+<p>
+<strong>migrate</strong> [*–plugin* <em>plugin</em>…] [*id* | <strong>uuid</strong> | *path*] [/ID/…]</p>
+<blockquote>
+<p>Migrate connection profiles to a different settings plugin, such as
+keyfile (default) or ifcfg-rh.</p>
+<p>
+The connection to be migrated is identified by its name, UUID or D-Bus
+path. If <em>ID</em> is ambiguous, a keyword <strong>id</strong>, <strong>uuid</strong> or <strong>path</strong> can be
+used. See <strong>connection show</strong> above for the description of the
+<em>ID</em>-specifying keywords.</p>
+<p>
+If no connections are specified, the command acts on all available
+connections. Therefore, with no arguments, the command migrates all
+connection profiles to the keyfile plugin.</p>
+<p>
+If <strong>–wait</strong> option is not specified, the default timeout will be 10
+seconds.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+DEVICE MANAGEMENT COMMANDS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p><strong>nmcli device</strong> {<strong>status</strong> | <strong>show</strong> | <strong>set</strong> | <strong>up</strong> | <strong>connect</strong> | <strong>reapply</strong>
+​| <strong>modify</strong> | <strong>down</strong> | <strong>disconnect</strong> | <strong>delete</strong> | <strong>monitor</strong> | <strong>wifi</strong> |
+<strong>lldp</strong> | <strong>checkpoint</strong>} [/ARGUMENTS/…]</p>
+<p>
+Show and manage network interfaces.</p>
+<p>
+<strong>status</strong></p>
+<blockquote>
+<p>Print status of devices.</p>
+<p>
+This is the default action if no command is specified to <strong>nmcli device</strong>.</p>
+</blockquote>
+<p>
+<strong>show</strong> [/ifname/]</p>
+<blockquote>
+<p>Show detailed information about devices. Without an argument, all
+devices are examined. To get information for a specific device, the
+interface name has to be provided.</p>
+</blockquote>
+<p>
+<strong>set</strong> [ifname] <em>ifname</em> [*autoconnect* {yes | no}] [*managed* {yes |
+no}]</p>
+<blockquote>
+<p>Set device properties.</p>
+</blockquote>
+<p>
+<strong>up</strong> <em>ifname</em></p>
+<blockquote>
+<p>Connect the device. NetworkManager will try to find a suitable
+connection that will be activated. It will also consider connections
+that are not set to auto connect.</p>
+<p>
+If no compatible connection exists, a new profile with default settings
+will be created and activated. This differentiates <strong>nmcli connection up
+ifname &#34;$DEVICE&#34;</strong> from <strong>nmcli device up &#34;$DEVICE&#34;</strong></p>
+<p>
+If <strong>–wait</strong> option is not specified, the default timeout will be 90
+seconds.</p>
+</blockquote>
+<p>
+<strong>connect</strong> <em>ifname</em></p>
+<blockquote>
+<p>Alias for command <strong>up</strong>. Before version 1.34.0 <strong>up</strong> was not supported.</p>
+</blockquote>
+<p>
+<strong>reapply</strong> <em>ifname</em></p>
+<blockquote>
+<p>Attempt to update device with changes to the currently active connection
+made since it was last applied.</p>
+</blockquote>
+<p>
+<strong>modify</strong> <em>ifname</em> {<em>option</em> <em>value</em> | [+|-]/setting/./property/
+<em>value</em>}…</p>
+<blockquote>
+<p>Modify the settings currently active on the device.</p>
+<p>
+This command lets you do temporary changes to a configuration active on
+a particular device. The changes are not preserved in the connection
+profile.</p>
+<p>
+See *nm-settings-nmcli*(5) for the list of available properties. Please
+note that some properties cant be changed on an already connected
+device.</p>
+</blockquote>
+<p>
+<strong>down</strong> <em>ifname</em>…</p>
+<blockquote>
+<p>Disconnect a device and prevent the device from automatically activating
+further connections without user/manual intervention. Note that
+disconnecting software devices may mean that the devices will disappear.</p>
+<p>
+If <strong>–wait</strong> option is not specified, the default timeout will be 10
+seconds.</p>
+</blockquote>
+<p>
+<strong>disconnect</strong> <em>ifname</em>…</p>
+<blockquote>
+<p>Alias for command <strong>down</strong>. Before version 1.34.0 <strong>down</strong> was not
+supported.</p>
+</blockquote>
+<p>
+<strong>delete</strong> <em>ifname</em>…</p>
+<blockquote>
+<p>Delete a device. The command removes the interface from the system. Note
+that this only works for software devices like bonds, bridges, teams,
+etc. Hardware devices (like Ethernet) cannot be deleted by the command.</p>
+<p>
+If <strong>–wait</strong> option is not specified, the default timeout will be 10
+seconds.</p>
+</blockquote>
+<p>
+<strong>monitor</strong> [/ifname/…]</p>
+<blockquote>
+<p>Monitor device activity. This command prints a line whenever the
+specified devices change state.</p>
+<p>
+Monitors all devices in case no interface is specified. The monitor
+terminates when all specified devices disappear. If you want to monitor
+device addition consider using the global monitor with <strong>nmcli monitor</strong>
+command.</p>
+</blockquote>
+<p>
+<strong>wifi</strong> [*list* [*–rescan* | <strong>auto</strong> | <strong>no</strong> | <strong>yes*] [*ifname</strong> /ifname/]
+[*bssid* /BSSID/]]</p>
+<blockquote>
+<p>List available Wi-Fi access points. The <strong>ifname</strong> and <strong>bssid</strong> options can
+be used to list APs for a particular interface or with a specific BSSID,
+respectively.</p>
+<p>
+By default, <strong>nmcli</strong> ensures that the access point list is no older than
+30 seconds and triggers a network scan if necessary. The <strong>–rescan</strong> can
+be used to either force or disable the scan regardless of how fresh the
+access point list is.</p>
+</blockquote>
+<p>
+<strong>wifi</strong> <strong>connect</strong> <em>(B)SSID</em> [*password* /password/] [*wep-key-type* {key
+​| phrase}] [*ifname* /ifname/] [*bssid* /BSSID/] [*name* /name/]
+[*private* {yes | no}] [*hidden* {yes | no}]</p>
+<blockquote>
+<p>Connect to a Wi-Fi network specified by SSID or BSSID. The command finds
+a matching connection or creates one and then activates it on a device.
+This is a command-line counterpart of clicking an SSID in a GUI client.
+If a connection for the network already exists, it is possible to bring
+up (activate) the existing profile as follows: *nmcli con up id */name/.
+Note that only open, WEP and WPA-PSK networks are supported if no
+previous connection exists. It is also assumed that IP configuration is
+obtained via DHCP.</p>
+<p>
+If <strong>–wait</strong> option is not specified, the default timeout will be 90
+seconds.</p>
+<p>
+Available options are:</p>
+<p>
+<strong>password</strong></p>
+<blockquote>
+<p>password for secured networks (WEP or WPA).</p>
+</blockquote>
+<p>
+<strong>wep-key-type</strong></p>
+<blockquote>
+<p>type of WEP secret, either <strong>key</strong> for ASCII/HEX key or <strong>phrase</strong> for
+passphrase.</p>
+</blockquote>
+<p>
+<strong>ifname</strong></p>
+<blockquote>
+<p>interface that will be used for activation.</p>
+</blockquote>
+<p>
+<strong>bssid</strong></p>
+<blockquote>
+<p>if specified, the created connection will be restricted just for the
+BSSID.</p>
+</blockquote>
+<p>
+<strong>name</strong></p>
+<blockquote>
+<p>if specified, the connection will use the name (else NM creates a name
+itself).</p>
+</blockquote>
+<p>
+<strong>private</strong></p>
+<blockquote>
+<p>if set to yes, the connection will only be visible to the user who
+created it. Otherwise, the connection is system-wide, which is the
+default.</p>
+</blockquote>
+<p>
+<strong>hidden</strong></p>
+<blockquote>
+<p>set to yes when connecting for the first time to an AP not broadcasting
+its SSID. Otherwise, the SSID would not be found and the connection
+attempt would fail.</p>
+</blockquote>
+</blockquote>
+<p>
+<strong>wifi</strong> <strong>hotspot</strong> [*ifname* /ifname/] [*con-name* /name/] [*ssid* /SSID/]
+[*band* {a | bg}] [*channel* /channel/] [*password* /password/]</p>
+<blockquote>
+<p>Create a Wi-Fi hotspot. The command creates a hotspot connection profile
+according to Wi-Fi device capabilities and activates it on the device.
+The hotspot is secured with WPA if device/driver supports that,
+otherwise WEP is used. Use <strong>connection down</strong> or <strong>device down</strong> to stop
+the hotspot.</p>
+<p>
+Parameters of the hotspot can be influenced by the optional parameters:</p>
+<p>
+<strong>ifname</strong></p>
+<blockquote>
+<p>what Wi-Fi device is used.</p>
+</blockquote>
+<p>
+<strong>con-name</strong></p>
+<blockquote>
+<p>name of the created hotspot connection profile.</p>
+</blockquote>
+<p>
+<strong>ssid</strong></p>
+<blockquote>
+<p>SSID of the hotspot.</p>
+</blockquote>
+<p>
+<strong>band</strong></p>
+<blockquote>
+<p>Wi-Fi band to use.</p>
+</blockquote>
+<p>
+<strong>channel</strong></p>
+<blockquote>
+<p>Wi-Fi channel to use.</p>
+</blockquote>
+<p>
+<strong>password</strong></p>
+<blockquote>
+<p>password to use for the created hotspot. If not provided, <strong>nmcli</strong> will
+generate a password. The password is either WPA pre-shared key or WEP
+key.</p>
+<p>
+Note that <strong>–show-secrets</strong> global option can be used to print the
+hotspot password. It is useful especially when the password was
+generated.</p>
+</blockquote>
+</blockquote>
+<p>
+<strong>wifi</strong> <strong>rescan</strong> [*ifname* <em>ifname/] [*ssid* /SSID</em>…]</p>
+<blockquote>
+<p>Request that NetworkManager immediately re-scan for available access
+points. NetworkManager scans Wi-Fi networks periodically, but in some
+cases it can be useful to start scanning manually (e.g. after resuming
+the computer). By using <strong>ssid</strong>, it is possible to scan for a specific
+SSID, which is useful for APs with hidden SSIDs. You can provide
+multiple <strong>ssid</strong> parameters in order to scan more SSIDs.</p>
+<p>
+This command does not show the APs, use <strong>nmcli device wifi list</strong> for
+that.</p>
+</blockquote>
+<p>
+<strong>wifi</strong> <strong>show-password</strong> [*ifname* /ifname/]</p>
+<blockquote>
+<p>Show the details of the active Wi-Fi networks, including the secrets.</p>
+</blockquote>
+<p>
+<strong>lldp</strong> [*list* [*ifname* /ifname/]]</p>
+<blockquote>
+<p>Display information about neighboring devices learned through the Link
+Layer Discovery Protocol (LLDP). The <strong>ifname</strong> option can be used to list
+neighbors only for a given interface. The protocol must be enabled in
+the connection settings.</p>
+</blockquote>
+<p>
+<strong>checkpoint</strong> [*–timeout* <em>seconds/] [/ifname</em>…] <strong>–</strong> <em>COMMAND</em>…</p>
+<blockquote>
+<p>Runs the command with a configuration checkpoint taken and asks for a
+confirmation when finished. When the confirmation is not given, the
+checkpoint is automatically restored after timeout.</p>
+<p>
+This allows doing disruptive configuration changes over remote
+connections with an option of restoring the network configuration to a
+known good state in case of an error.</p>
+<p>
+If the a list of interface names is specified, the checkpoint is taken,
+the checkpoint is takes only on the specified devices. Otherwise a
+checkpoint is taken for all devices.</p>
+<p>
+Currently the timeout defaults to 15 seconds. This may change in a
+future version.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+SECRET AGENT
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p><strong>nmcli agent</strong> {<strong>secret</strong> | <strong>polkit</strong> | <strong>all</strong>}</p>
+<p>
+Run <strong>nmcli</strong> as a NetworkManager secret agent, or polkit agent.</p>
+<p>
+<strong>secret</strong></p>
+<blockquote>
+<p>Register <strong>nmcli</strong> as a NetworkManager secret agent and listen for secret
+requests. You usually do not need this command, because <strong>nmcli</strong> can
+handle secrets when connecting to networks. However, you may find the
+command useful when you use another tool for activating connections and
+you do not have a secret agent available (like nm-applet).</p>
+</blockquote>
+<p>
+<strong>polkit</strong></p>
+<blockquote>
+<p>Register <strong>nmcli</strong> as a polkit agent for the user session and listen for
+authorization requests. You do not usually need this command, because
+<strong>nmcli</strong> can handle polkit actions related to NetworkManager operations
+(when run with <strong>–ask</strong>). However, you may find the command useful when
+you want to run a simple text based polkit agent and you do not have an
+agent of a desktop environment. Note that running this command makes
+<strong>nmcli</strong> handle all polkit requests, not only NetworkManager related
+ones, because only one polkit agent can run for the session.</p>
+</blockquote>
+<p>
+<strong>all</strong></p>
+<blockquote>
+<p>Runs <strong>nmcli</strong> as both NetworkManager secret and a polkit agent.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+COLORS
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>Implicit coloring can be disabled by an empty file
+/etc/terminal-colors.d/nmcli.disable.</p>
+<p>
+See <strong>terminal-colors.d*(5) for more details about colorization
+configuration. The logical color names supported by *nmcli</strong> are:</p>
+<p>
+<strong>connection-activated</strong></p>
+<blockquote>
+<p>A connection that is active.</p>
+</blockquote>
+<p>
+<strong>connection-activating</strong></p>
+<blockquote>
+<p>Connection that is being activated.</p>
+</blockquote>
+<p>
+<strong>connection-disconnecting</strong></p>
+<blockquote>
+<p>Connection that is being disconnected.</p>
+</blockquote>
+<p>
+<strong>connection-external</strong></p>
+<blockquote>
+<p>Connection representing configuration created externally to
+NetworkManager.</p>
+</blockquote>
+<p>
+<strong>connection-invisible</strong></p>
+<blockquote>
+<p>Connection whose details is the user not permitted to see.</p>
+</blockquote>
+<p>
+<strong>connection-deprecated</strong></p>
+<blockquote>
+<p>Connection that uses deprecated settings. It might not be possible to
+activate it.</p>
+</blockquote>
+<p>
+<strong>connectivity-full</strong></p>
+<blockquote>
+<p>Connectivity state when Internet is reachable.</p>
+</blockquote>
+<p>
+<strong>connectivity-limited</strong></p>
+<blockquote>
+<p>Connectivity state when only a local network reachable.</p>
+</blockquote>
+<p>
+<strong>connectivity-none</strong></p>
+<blockquote>
+<p>Connectivity state when the network is disconnected.</p>
+</blockquote>
+<p>
+<strong>connectivity-portal</strong></p>
+<blockquote>
+<p>Connectivity state when a captive portal hijacked the connection.</p>
+</blockquote>
+<p>
+<strong>connectivity-unknown</strong></p>
+<blockquote>
+<p>Connectivity state when a connectivity check didnt run.</p>
+</blockquote>
+<p>
+<strong>device-activated</strong></p>
+<blockquote>
+<p>Device that is connected.</p>
+</blockquote>
+<p>
+<strong>device-activating</strong></p>
+<blockquote>
+<p>Device that is being configured.</p>
+</blockquote>
+<p>
+<strong>device-disconnected</strong></p>
+<blockquote>
+<p>Device that is not connected.</p>
+</blockquote>
+<p>
+<strong>device-external</strong></p>
+<blockquote>
+<p>Device configured externally to NetworkManager.</p>
+</blockquote>
+<p>
+<strong>device-firmware-missing</strong></p>
+<blockquote>
+<p>Warning of a missing device firmware.</p>
+</blockquote>
+<p>
+<strong>device-plugin-missing</strong></p>
+<blockquote>
+<p>Warning of a missing device plugin.</p>
+</blockquote>
+<p>
+<strong>device-unavailable</strong></p>
+<blockquote>
+<p>Device that is not available for activation.</p>
+</blockquote>
+<p>
+<strong>device-disabled</strong></p>
+<blockquote>
+<p>Device is disabled by software or hardware kill switch.</p>
+</blockquote>
+<p>
+<strong>manager-running</strong></p>
+<blockquote>
+<p>Notice that the NetworkManager daemon is available.</p>
+</blockquote>
+<p>
+<strong>manager-starting</strong></p>
+<blockquote>
+<p>Notice that the NetworkManager daemon is being initially connected.</p>
+</blockquote>
+<p>
+<strong>manager-stopped</strong></p>
+<blockquote>
+<p>Notice that the NetworkManager daemon is not available.</p>
+</blockquote>
+<p>
+<strong>permission-auth</strong></p>
+<blockquote>
+<p>An action that requires user authentication to get permission.</p>
+</blockquote>
+<p>
+<strong>permission-no</strong></p>
+<blockquote>
+<p>An action that is not permitted.</p>
+</blockquote>
+<p>
+<strong>permission-yes</strong></p>
+<blockquote>
+<p>An action that is permitted.</p>
+</blockquote>
+<p>
+<strong>prompt</strong></p>
+<blockquote>
+<p>Prompt in interactive mode.</p>
+</blockquote>
+<p>
+<strong>state-asleep</strong></p>
+<blockquote>
+<p>Indication that NetworkManager in suspended state.</p>
+</blockquote>
+<p>
+<strong>state-connected-global</strong></p>
+<blockquote>
+<p>Indication that NetworkManager in connected to Internet.</p>
+</blockquote>
+<p>
+<strong>state-connected-local</strong></p>
+<blockquote>
+<p>Indication that NetworkManager in local network.</p>
+</blockquote>
+<p>
+<strong>state-connected-site</strong></p>
+<blockquote>
+<p>Indication that NetworkManager in connected to networks other than
+Internet.</p>
+</blockquote>
+<p>
+<strong>state-connecting</strong></p>
+<blockquote>
+<p>Indication that NetworkManager is establishing a network connection.</p>
+</blockquote>
+<p>
+<strong>state-disconnected</strong></p>
+<blockquote>
+<p>Indication that NetworkManager is disconnected from a network.</p>
+</blockquote>
+<p>
+<strong>state-disconnecting</strong></p>
+<blockquote>
+<p>Indication that NetworkManager is being disconnected from a network.</p>
+</blockquote>
+<p>
+<strong>wifi-signal-excellent</strong></p>
+<blockquote>
+<p>Wi-Fi network with an excellent signal level.</p>
+</blockquote>
+<p>
+<strong>wifi-signal-fair</strong></p>
+<blockquote>
+<p>Wi-Fi network with a fair signal level.</p>
+</blockquote>
+<p>
+<strong>wifi-signal-good</strong></p>
+<blockquote>
+<p>Wi-Fi network with a good signal level.</p>
+</blockquote>
+<p>
+<strong>wifi-signal-poor</strong></p>
+<blockquote>
+<p>Wi-Fi network with a poor signal level.</p>
+</blockquote>
+<p>
+<strong>wifi-signal-unknown</strong></p>
+<blockquote>
+<p>Wi-Fi network that hasnt been actually seen (a hidden AP).</p>
+</blockquote>
+<p>
+<strong>wifi-deprecated</strong></p>
+<blockquote>
+<p>Wi-Fi network that might be impossible to connect to due to use of
+deprecated functionality.</p>
+</blockquote>
+<p>
+<strong>disabled</strong></p>
+<blockquote>
+<p>A property that is turned off.</p>
+</blockquote>
+<p>
+<strong>enabled</strong></p>
+<blockquote>
+<p>A property that is turned on.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+ENVIRONMENT VARIABLES
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>*nmcli*s behavior is affected by the following environment variables.</p>
+<p>
+<strong>LC_ALL</strong></p>
+<blockquote>
+<p>If set to a non-empty string value, it overrides the values of all the
+other internationalization variables.</p>
+</blockquote>
+<p>
+<strong>LC_MESSAGES</strong></p>
+<blockquote>
+<p>Determines the locale to be used for internationalized messages.</p>
+</blockquote>
+<p>
+<strong>LANG</strong></p>
+<blockquote>
+<p>Provides a default value for the internationalization variables that are
+unset or null.</p>
+</blockquote>
+<p>
+<strong>NO_COLOR</strong></p>
+<blockquote>
+<p>Default to not producing colored and paged output. The <strong>–colors</strong>
+option, if used, takes precedence.</p>
+</blockquote>
+<p>
+<strong>PAGER</strong></p>
+<blockquote>
+<p>Filter to pipe the output through if it doesnt fit on a screen. Can be a
+file name of an executable or a shell command. Empty string to disable
+the functionality.</p>
+<p>
+Note that the pager command is expected to handle wide characters and
+ANSI escape sequences for changing colors (unless theyre disabled).
+<strong>nmcli</strong> sets up the environment variables <strong>LESS</strong> and <strong>LESSCHARSET</strong>
+appropriately for the *less*(1) pager, other pagers may or may not need
+extra configuration.</p>
+<p>
+If unspecified, *pager*(1), *less*(1) and *more*(1) will be tried (in
+that order).</p>
+</blockquote>
+<p>
+<strong>TERM</strong></p>
+<blockquote>
+<p>Terminal type. If dumb, <strong>nmcli</strong> will not use a pager or produce ANSI
+escape sequences for coloring.</p>
+<p>
+Terminal types other than dumb are assumed to support ASCII escape
+sequences for setting the output color.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+INTERNATIONALIZATION NOTES
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>Be aware that <strong>nmcli</strong> is localized and that is why the output depends on
+your environment. This is important to realize especially when you parse
+the output.</p>
+<p>
+Call <strong>nmcli</strong> as <strong>LC_ALL=C nmcli</strong> to be sure the locale is set to C while
+executing in a script.</p>
+<p>
+<strong>LC_ALL</strong>, <strong>LC_MESSAGES</strong>, <strong>LANG</strong> variables specify the <strong>LC_MESSAGES</strong>
+locale category (in that order), which determines the language that
+<strong>nmcli</strong> uses for messages. The C locale is used if none of these
+variables are set, and this locale uses English messages.</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p><strong>nmcli</strong> exits with status 0 if it succeeds, a value greater than 0 is
+returned if an error occurs.</p>
+<p>
+<strong>0</strong></p>
+<blockquote>
+<p>Success indicates the operation succeeded.</p>
+</blockquote>
+<p>
+<strong>1</strong></p>
+<blockquote>
+<p>Unknown or unspecified error.</p>
+</blockquote>
+<p>
+<strong>2</strong></p>
+<blockquote>
+<p>Invalid user input, wrong <strong>nmcli</strong> invocation.</p>
+</blockquote>
+<p>
+<strong>3</strong></p>
+<blockquote>
+<p>Timeout expired (see <strong>–wait</strong> option).</p>
+</blockquote>
+<p>
+<strong>4</strong></p>
+<blockquote>
+<p>Connection activation failed.</p>
+</blockquote>
+<p>
+<strong>5</strong></p>
+<blockquote>
+<p>Connection deactivation failed.</p>
+</blockquote>
+<p>
+<strong>6</strong></p>
+<blockquote>
+<p>Disconnecting device failed.</p>
+</blockquote>
+<p>
+<strong>7</strong></p>
+<blockquote>
+<p>Connection deletion failed.</p>
+</blockquote>
+<p>
+<strong>8</strong></p>
+<blockquote>
+<p>NetworkManager is not running.</p>
+</blockquote>
+<p>
+<strong>10</strong></p>
+<blockquote>
+<p>Connection, device, or access point does not exist.</p>
+</blockquote>
+<p>
+<strong>65</strong></p>
+<blockquote>
+<p>When used with <strong>–complete-args</strong> option, a file name is expected to
+follow.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>This section presents various examples of <strong>nmcli</strong> usage. If you want
+even more, please refer to *nmcli-examples*(7) manual page.</p>
+<p>
+<strong>nmcli -t -f RUNNING general</strong></p>
+<blockquote>
+<p>tells you whether NetworkManager is running or not.</p>
+</blockquote>
+<p>
+<strong>nmcli -t -f STATE general</strong></p>
+<blockquote>
+<p>shows the overall status of NetworkManager.</p>
+</blockquote>
+<p>
+<strong>nmcli radio wifi off</strong></p>
+<blockquote>
+<p>switches Wi-Fi off.</p>
+</blockquote>
+<p>
+<strong>nmcli connection show</strong></p>
+<blockquote>
+<p>lists all connections NetworkManager has.</p>
+</blockquote>
+<p>
+<strong>nmcli -p -m multiline -f all con show</strong></p>
+<blockquote>
+<p>shows all configured connections in multi-line mode.</p>
+</blockquote>
+<p>
+<strong>nmcli connection show –active</strong></p>
+<blockquote>
+<p>lists all currently active connections.</p>
+</blockquote>
+<p>
+<strong>nmcli -f name,autoconnect c s</strong></p>
+<blockquote>
+<p>shows all connection profile names and their auto-connect property.</p>
+</blockquote>
+<p>
+<strong>nmcli -p connection show &#34;My default em1&#34;</strong></p>
+<blockquote>
+<p>shows details for &#34;My default em1&#34; connection profile.</p>
+</blockquote>
+<p>
+<strong>nmcli –show-secrets connection show &#34;My Home Wi-Fi&#34;</strong></p>
+<blockquote>
+<p>shows details for &#34;My Home Wi-Fi&#34; connection profile with all passwords.
+Without <strong>–show-secrets</strong> option, secrets would not be displayed.</p>
+</blockquote>
+<p>
+<strong>nmcli -f active connection show &#34;My default em1&#34;</strong></p>
+<blockquote>
+<p>shows details for &#34;My default em1&#34; active connection, like IP, DHCP
+information, etc.</p>
+</blockquote>
+<p>
+<strong>nmcli -f profile con s &#34;My wired connection&#34;</strong></p>
+<blockquote>
+<p>shows static configuration details of the connection profile with &#34;My
+wired connection&#34; name.</p>
+</blockquote>
+<p>
+<strong>nmcli -p con up &#34;My wired connection&#34; ifname eth0</strong></p>
+<blockquote>
+<p>activates the connection profile with name &#34;My wired connection&#34; on
+interface eth0. The -p option makes <strong>nmcli</strong> show progress of the
+activation.</p>
+</blockquote>
+<p>
+<strong>nmcli con up 6b028a27-6dc9-4411-9886-e9ad1dd43761 ap 00:3A:98:7C:42:D3</strong></p>
+<blockquote>
+<p>connects the Wi-Fi connection with UUID
+6b028a27-6dc9-4411-9886-e9ad1dd43761 to the AP with BSSID
+00:3A:98:7C:42:D3.</p>
+</blockquote>
+<p>
+<strong>nmcli device status</strong></p>
+<blockquote>
+<p>shows the status for all devices.</p>
+</blockquote>
+<p>
+<strong>nmcli dev down em2</strong></p>
+<blockquote>
+<p>disconnects a connection on interface em2 and marks the device as
+unavailable for auto-connecting. As a result, no connection will
+automatically be activated on the device until the devices autoconnect
+is set to TRUE or the user manually activates a connection.</p>
+</blockquote>
+<p>
+<strong>nmcli -f GENERAL,WIFI-PROPERTIES dev show wlan0</strong></p>
+<blockquote>
+<p>shows details for wlan0 interface; only GENERAL and WIFI-PROPERTIES
+sections will be shown.</p>
+</blockquote>
+<p>
+<strong>nmcli -f CONNECTIONS device show wlp3s0</strong></p>
+<blockquote>
+<p>shows all available connection profiles for your Wi-Fi interface wlp3s0.</p>
+</blockquote>
+<p>
+<strong>nmcli dev wifi</strong></p>
+<blockquote>
+<p>lists available Wi-Fi access points known to NetworkManager.</p>
+</blockquote>
+<p>
+<strong>nmcli dev wifi con &#34;Cafe Hotspot 1&#34; password caffeine name &#34;My cafe&#34;</strong></p>
+<blockquote>
+<p>creates a new connection named &#34;My cafe&#34; and then connects it to &#34;Cafe
+Hotspot 1&#34; SSID using password &#34;caffeine&#34;. This is mainly useful when
+connecting to &#34;Cafe Hotspot 1&#34; for the first time. Next time, it is
+better to use <strong>nmcli con up id &#34;My cafe&#34;</strong> so that the existing
+connection profile can be used and no additional is created.</p>
+</blockquote>
+<p>
+<strong>nmcli -s dev wifi hotspot con-name QuickHotspot</strong></p>
+<blockquote>
+<p>creates a hotspot profile and connects it. Prints the hotspot password
+the user should use to connect to the hotspot from other devices.</p>
+</blockquote>
+<p>
+<strong>nmcli dev modify em1 ipv4.method shared</strong></p>
+<blockquote>
+<p>starts IPv4 connection sharing using em1 device. The sharing will be
+active until the device is disconnected.</p>
+</blockquote>
+<p>
+<strong>nmcli dev modify em1 ipv6.address 2001:db8::a:bad:c0de</strong></p>
+<blockquote>
+<p>temporarily adds an IP address to a device. The address will be removed
+when the same connection is activated again.</p>
+</blockquote>
+<p>
+<strong>nmcli connection add type ethernet autoconnect no ifname eth0</strong></p>
+<blockquote>
+<p>non-interactively adds an Ethernet connection tied to eth0 interface
+with automatic IP configuration (DHCP), and disables the connections
+autoconnect flag.</p>
+</blockquote>
+<p>
+<strong>nmcli c a ifname Maxipes-fik type vlan dev eth0 id 55</strong></p>
+<blockquote>
+<p>non-interactively adds a VLAN connection with ID 55. The connection will
+use eth0 and the VLAN interface will be named Maxipes-fik.</p>
+</blockquote>
+<p>
+<strong>nmcli c a ifname eth0 type ethernet ipv4.method disabled ipv6.method
+link-local</strong></p>
+<blockquote>
+<p>non-interactively adds a connection that will use eth0 Ethernet
+interface and only have an IPv6 link-local address configured.</p>
+</blockquote>
+<p>
+<strong>nmcli connection edit ethernet-em1-2</strong></p>
+<blockquote>
+<p>edits existing &#34;ethernet-em1-2&#34; connection in the interactive editor.</p>
+</blockquote>
+<p>
+<strong>nmcli connection edit type ethernet con-name &#34;yet another Ethernet
+connection&#34;</strong></p>
+<blockquote>
+<p>adds a new Ethernet connection in the interactive editor.</p>
+</blockquote>
+<p>
+<strong>nmcli con mod ethernet-2 connection.autoconnect no</strong></p>
+<blockquote>
+<p>modifies autoconnect property in the connection setting of ethernet-2
+connection.</p>
+</blockquote>
+<p>
+<strong>nmcli con mod &#34;Home Wi-Fi&#34; wifi.mtu 1350</strong></p>
+<blockquote>
+<p>modifies mtu property in the wifi setting of Home Wi-Fi connection.</p>
+</blockquote>
+<p>
+<strong>nmcli con mod em1-1 ipv4.method manual ipv4.addr &#34;192.168.1.23/24
+192.168.1.1, 10.10.1.5/8, 10.0.0.11&#34;</strong></p>
+<blockquote>
+<p>sets manual addressing and the addresses in em1-1 profile.</p>
+</blockquote>
+<p>
+<strong>nmcli con modify ABC +ipv4.dns 8.8.8.8</strong></p>
+<blockquote>
+<p>appends a Google public DNS server to DNS servers in ABC profile.</p>
+</blockquote>
+<p>
+<strong>nmcli con modify ABC -ipv4.addresses &#34;192.168.100.25/24 192.168.1.1&#34;</strong></p>
+<blockquote>
+<p>removes the specified IP address from (static) profile ABC.</p>
+</blockquote>
+<p>
+<strong>nmcli con import type openvpn file ~/Downloads/frootvpn.ovpn</strong></p>
+<blockquote>
+<p>imports an OpenVPN configuration to NetworkManager.</p>
+</blockquote>
+<p>
+<strong>nmcli con export corp-vpnc /home/joe/corpvpn.conf</strong></p>
+<blockquote>
+<p>exports NetworkManager VPN profile corp-vpnc as standard Cisco (vpnc)
+configuration.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
+<h2 id="headline-17">
+NOTES
+</h2>
+<div id="outline-text-headline-17" class="outline-text-2">
+<p><strong>nmcli</strong> accepts abbreviations, as long as they are a unique prefix in
+the set of possible options. As new options get added, these
+abbreviations are not guaranteed to stay unique. For scripting and long
+term compatibility it is therefore strongly advised to spell out the
+full option names.</p>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-2">
+<h2 id="headline-18">
+BUGS
+</h2>
+<div id="outline-text-headline-18" class="outline-text-2">
+<p>There are probably some bugs. If you find a bug, please report it to
+your distribution or upstream at
+<a href="https://gitlab.freedesktop.org/NetworkManager/NetworkManager.">https://gitlab.freedesktop.org/NetworkManager/NetworkManager.</a></p>
+</div>
+</div>
+<div id="outline-container-headline-19" class="outline-2">
+<h2 id="headline-19">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-19" class="outline-text-2">
+<p>*nmcli-examples*(7), *nm-settings-nmcli*(5), *nm-online*(1),
+*NetworkManager*(8), *NetworkManager.conf*(5), *nm-applet*(1),
+*nm-connection-editor*(1), *terminal-colors.d*(5).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

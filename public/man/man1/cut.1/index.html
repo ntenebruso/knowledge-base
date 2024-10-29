@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - cut.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - cut.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>cut - remove sections from each line of files</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>cut</strong> <em>OPTION</em>… [/FILE/]…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Print selected parts of lines from each FILE to standard output.</p>
+<p>
+With no FILE, or when FILE is -, read standard input.</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<dl>
+<dt>
+<strong>-b</strong>, *–bytes*=/LIST/
+</dt>
+<dd>select only these bytes</dd>
+<dt>
+<strong>-c</strong>, *–characters*=/LIST/
+</dt>
+<dd>select only these characters</dd>
+<dt>
+<strong>-d</strong>, *–delimiter*=/DELIM/
+</dt>
+<dd>use DELIM instead of TAB for field
+delimiter</dd>
+<dt>
+<strong>-f</strong>, *–fields*=/LIST/
+</dt>
+<dd>select only these fields; also print any
+line that contains no delimiter character, unless the <strong>-s</strong> option is
+specified</dd>
+<dt>
+<strong>-n</strong>
+</dt>
+<dd>(ignored)</dd>
+<dt>
+<strong>–complement</strong>
+</dt>
+<dd>complement the set of selected bytes, characters or
+fields</dd>
+<dt>
+<strong>-s</strong>, <strong>–only-delimited</strong>
+</dt>
+<dd>do not print lines not containing
+delimiters</dd>
+<dt>
+*–output-delimiter*=/STRING/
+</dt>
+<dd>use STRING as the output delimiter
+the default is to use the input delimiter</dd>
+<dt>
+<strong>-z</strong>, <strong>–zero-terminated</strong>
+</dt>
+<dd>line delimiter is NUL, not newline</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>Use one, and only one of <strong>-b</strong>, <strong>-c</strong> or <strong>-f</strong>. Each LIST is made up of one
+range, or many ranges separated by commas. Selected input is written in
+the same order that it is read, and is written exactly once. Each range
+is one of:</p>
+<dl>
+<dt>
+N
+</dt>
+<dd>N&#39;th byte, character or field, counted from 1</dd>
+<dt>
+N-
+</dt>
+<dd>from N&#39;th byte, character or field, to end of line</dd>
+<dt>
+N-M
+</dt>
+<dd>from N&#39;th to M&#39;th (included) byte, character or field</dd>
+<dt>
+<strong>-M</strong>
+</dt>
+<dd>from first to M&#39;th (included) byte, character or field</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+AUTHOR
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Written by David M. Ihnat, David MacKenzie, and Jim Meyering.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/cut">https://www.gnu.org/software/coreutils/cut</a>&gt;<br>
+or available locally via: info &#39;(coreutils) cut invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

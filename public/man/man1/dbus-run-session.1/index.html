@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - dbus-run-session.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - dbus-run-session.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>dbus-run-session - start a process as a new D-Bus session</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>dbus-run-session</strong> [–config-file <em>FILENAME/] [–dbus-daemon /BINARY/]
+[–] /PROGRAM</em> [/ARGUMENTS/…]</p>
+<p>
+<strong>dbus-run-session</strong> –help</p>
+<p>
+<strong>dbus-run-session</strong> –version</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>dbus-run-session</strong> is used to start a session bus instance of
+<strong>dbus-daemon</strong> from a shell script, and start a specified program in that
+session. The <strong>dbus-daemon</strong> will run for as long as the program does,
+after which it will terminate.</p>
+<p>
+One use is to run a shell with its own <strong>dbus-daemon</strong> in a text‐mode or
+SSH session, and have the <strong>dbus-daemon</strong> terminate automatically on
+leaving the sub‐shell, like this:</p>
+<p>
+dbus-run-session – bash</p>
+<p>
+or to replace the login shell altogether, by combining
+<strong>dbus-run-session</strong> with the <strong>exec</strong> builtin:</p>
+<p>
+exec dbus-run-session – bash</p>
+<p>
+Another use is to run regression tests and similar things in an isolated
+D-Bus session, to avoid either interfering with the &#34;real&#34; D-Bus session
+or relying on there already being a D-Bus session active, for instance:</p>
+<p>
+dbus-run-session – make check</p>
+<p>
+or (in *automake*(1)):</p>
+<blockquote>
+<pre class="example">
+  AM_TESTS_ENVIRONMENT = export MY_DEBUG=all;
+  LOG_COMPILER = dbus-run-session
+  AM_LOG_FLAGS = --
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>.PP <strong>–config-file=*/FILENAME/, *–config-file</strong> <em>FILENAME</em></p>
+<blockquote>
+<p>Pass <strong>–config-file=*/FILENAME/ to the bus daemon, instead of passing it
+the *–session</strong> argument. See *dbus-daemon*(1).</p>
+<p>
+.RE .PP <strong>–dbus-daemon=*/BINARY/, *–dbus-daemon</strong> <em>BINARY</em></p>
+<blockquote>
+<p>Run <em>BINARY</em> as <strong>dbus-daemon*(1), instead of searching the *PATH</strong> in the
+usual way for an executable called <strong>dbus-daemon</strong>.</p>
+<p>
+.RE .PP <strong>–help</strong></p>
+<blockquote>
+<p>Print usage information and exit.</p>
+<p>
+.RE .PP <strong>–version</strong></p>
+<blockquote>
+<p>Print the version of dbus-run-session and exit.</p>
+<p>
+.RE</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>dbus-run-session</strong> exits with the exit status of <em>PROGRAM</em>, 0 if the
+<strong>–help</strong> or <strong>–version</strong> options were used, 127 on an error within
+<strong>dbus-run-session</strong> itself, or 128+/n/ if the <em>PROGRAM</em> was killed by
+signal <em>n</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>PATH</strong> is searched to find <em>PROGRAM</em>, and (if the –dbus-daemon option
+is not used or its argument does not contain a <strong>/</strong> character) to find
+<strong>dbus-daemon</strong>.</p>
+<p>
+The session bus address is made available to <em>PROGRAM</em> in the
+environment variable <strong>DBUS_SESSION_BUS_ADDRESS</strong>.</p>
+<p>
+The variables <strong>DBUS_SESSION_BUS_PID</strong>, <strong>DBUS_SESSION_BUS_WINDOWID</strong>,
+<strong>DBUS_STARTER_BUS_TYPE</strong> and <strong>DBUS_STARTER_ADDRESS</strong> are removed from the
+environment, if present.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Please send bug reports to the D-Bus mailing list or bug tracker, see
+<strong><a href="http://www.freedesktop.org/software/dbus/">http://www.freedesktop.org/software/dbus/</a></strong></p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*dbus-daemon*(1), *dbus-launch*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

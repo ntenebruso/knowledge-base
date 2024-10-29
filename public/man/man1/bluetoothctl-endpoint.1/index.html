@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - bluetoothctl-endpoint.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - bluetoothctl-endpoint.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>bluetoothctl-endpoint - Endpoint Submenu</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>bluetoothctl</strong> [–options] [endpoint.commands]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+ENDPOINT COMMANDS
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+list
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>List available endpoints.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># list [local]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+show
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Endpoint information.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># show &lt;endpoint&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+register
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Register Endpoint.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># register &lt;UUID&gt; &lt;codec[:company]&gt; [capabilities…]</strong></dd>
+<dt>
+<strong>Example LC3 source</strong>
+</dt>
+<dd>
+<pre class="example">
+ #endpoint.register 00002bcb-0000-1000-8000-00805f9b34fb 0x06
+ #Auto Accept (yes/no): y
+ #Max Transports (auto/value): a
+ #Locations: a
+ #Supported Context (value): 3
+ #Context (value): 3
+ #CIG (auto/value): a
+ #CIS (auto/value): a
+</pre>
+</dd>
+<dt>
+<strong>Example LC3 since with extra capabilities</strong>
+</dt>
+<dd>
+<pre class="example">
+ #endpoint.register 00002bc9-0000-1000-8000-00805f9b34fb 0x06 &#34;0x03 0xe5 0x03 0x00 0x02 0xe6 0x07&#34;
+ #Enter Metadata (value/no): n
+ #Auto Accept (yes/no): y
+ #Max Transports (auto/value): a
+ #Locations: a
+ #Supported Context (value): 3
+ #Context (value): 3
+ #CIG (auto/value): a
+ #CIS (auto/value): a
+</pre>
+</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+unregister
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Unregister Endpoint.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># unregister &lt;UUID/object&gt;</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+config
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Configure Endpoint.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># config &lt;endpoint&gt; &lt;local endpoint&gt; [preset]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+presets
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>List available presets.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># presets &lt;endpoint&gt;/&lt;UUID&gt; [codec[:company]] [preset]
+[codec config] [metadata]</strong></dd>
+<dt>
+<strong>Example using endpoint</strong>
+</dt>
+<dd>
+<pre class="example">
+ #presets /local/endpoint/ep0 32_1_1
+ #presets /local/endpoint/ep0
+ Preset 32_1_1
+ Configuration.#0: len 0x02 type 0x01
+ Configuration.Sampling Frequency: 32 Khz (0x06)
+ Configuration.#1: len 0x02 type 0x02
+ Configuration.Frame Duration: 7.5 ms (0x00)
+ Configuration.#2: len 0x03 type 0x04
+ Configuration.Frame Length: 60 (0x003c)
+</pre>
+</dd>
+<dt>
+<strong>Example using UUID</strong>
+</dt>
+<dd>
+<pre class="example">
+ #presets 00002bc9-0000-1000-8000-00805f9b34fb 0x06 32_1_1
+ #presets 00002bc9-0000-1000-8000-00805f9b34fb 0x06
+ ...
+ *32_1_1
+</pre>
+</dd>
+<dt>
+<strong>Example setting up LC3 custom preset</strong>
+</dt>
+<dd>
+<pre class="example">
+ #presets 00002bc9-0000-1000-8000-00805f9b34fb 0x06 custom
+ #[Codec] Enter frequency (Khz): 48
+ #[Codec] Enter frame duration (ms): 10
+ #[Codec] Enter channel allocation: 3
+ #[Codec] Enter frame length: 100
+ #[QoS] Enter Target Latency (Low, Balance, High): Low
+ #[QoS] Enter SDU Interval (us): 1000
+ #[QoS] Enter Framing (Unframed, Framed): Unframed
+ #[QoS] Enter PHY (1M, 2M): 2M
+ #[QoS] Enter Max SDU: 200
+ #[QoS] Enter RTN: 3
+ #[QoS] Enter Max Transport Latency (ms): 10
+ #[QoS] Enter Presentation Delay (us): 20000
+ #presets 00002bc9-0000-1000-8000-00805f9b34fb 0x06
+ ...
+ *custom
+</pre>
+</dd>
+<dt>
+?
+</dt>
+<dd><strong>Example setting up LC3 custom preset with extra
+configuration</strong> :: #+begin_example
+#presets 00002bc9-0000-1000-8000-00805f9b34fb 0x06 custom &#34;0x03 0xe8 0x00 0x00 0x02 0xe9 0x00&#34;
+#[Codec] Enter frequency (Khz): 48
+#[Codec] Enter frame duration (ms): 10
+#[Codec] Enter channel allocation: 3
+#[Codec] Enter frame length: 100
+#[QoS] Enter Target Latency (Low, Balance, High): Low
+#[QoS] Enter SDU Interval (us): 1000
+#[QoS] Enter Framing (Unframed, Framed): Unframed
+#[QoS] Enter PHY (1M, 2M): 2M
+#[QoS] Enter Max SDU: 200
+#[QoS] Enter RTN: 3
+#[QoS] Enter Max Transport Latency (ms): 10
+#[QoS] Enter Presentation Delay (us): 20000
+#presets 00002bc9-0000-1000-8000-00805f9b34fb 0x06
+…
+*custom
+#+end_example</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+RESOURCES
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

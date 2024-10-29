@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-var.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-var.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-var - Show a Git logical variable</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git var (-l | &lt;variable&gt;)
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Prints a Git logical variable. Exits with code 1 if the variable has no
+value.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-l</p>
+<blockquote>
+<p>Display the logical variables. In addition, all the variables of the Git
+configuration file .git/config are listed as well. (However, the
+configuration variables listing functionality is deprecated in favor of
+<strong>git config -l</strong>.)</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<pre class="example">
+$ git var GIT_AUTHOR_IDENT
+Eric W. Biederman &lt;ebiederm@lnxi.com&gt; 1121223278 -0600
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+VARIABLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>GIT_AUTHOR_IDENT</p>
+<blockquote>
+<p>The author of a piece of code.</p>
+</blockquote>
+<p>
+GIT_COMMITTER_IDENT</p>
+<blockquote>
+<p>The person who put a piece of code into Git.</p>
+</blockquote>
+<p>
+GIT_EDITOR</p>
+<blockquote>
+<p>Text editor for use by Git commands. The value is meant to be
+interpreted by the shell when it is used. Examples: <strong>~/bin/vi</strong>,
+<strong>$SOME_ENVIRONMENT_VARIABLE</strong>, <strong>&#34;C:Program Files\Vim\gvim.exe&#34;
+–nofork</strong>. The order of preference is the <strong>$GIT_EDITOR</strong> environment
+variable, then <strong>core.editor</strong> configuration, then <strong>$VISUAL</strong>, then
+<strong>$EDITOR</strong>, and then the default chosen at compile time, which is usually
+<em>vi</em>.</p>
+</blockquote>
+<p>
+GIT_SEQUENCE_EDITOR</p>
+<blockquote>
+<p>Text editor used to edit the <em>todo</em> file while running <strong>git rebase -i</strong>.
+Like <strong>GIT_EDITOR</strong>, the value is meant to be interpreted by the shell
+when it is used. The order of preference is the <strong>$GIT_SEQUENCE_EDITOR</strong>
+environment variable, then <strong>sequence.editor</strong> configuration, and then the
+value of <strong>git var GIT_EDITOR</strong>.</p>
+</blockquote>
+<p>
+GIT_PAGER</p>
+<blockquote>
+<p>Text viewer for use by Git commands (e.g., <em>less</em>). The value is meant
+to be interpreted by the shell. The order of preference is the
+<strong>$GIT_PAGER</strong> environment variable, then <strong>core.pager</strong> configuration, then
+<strong>$PAGER</strong>, and then the default chosen at compile time (usually <em>less</em>).</p>
+</blockquote>
+<p>
+GIT_DEFAULT_BRANCH</p>
+<blockquote>
+<p>The name of the first branch created in newly initialized repositories.</p>
+</blockquote>
+<p>
+GIT_SHELL_PATH</p>
+<blockquote>
+<p>The path of the binary providing the POSIX shell for commands which use
+the shell.</p>
+</blockquote>
+<p>
+GIT_ATTR_SYSTEM</p>
+<blockquote>
+<p>The path to the system *gitattributes*(5) file, if one is enabled.</p>
+</blockquote>
+<p>
+GIT_ATTR_GLOBAL</p>
+<blockquote>
+<p>The path to the global (per-user) *gitattributes*(5) file.</p>
+</blockquote>
+<p>
+GIT_CONFIG_SYSTEM</p>
+<blockquote>
+<p>The path to the system configuration file, if one is enabled.</p>
+</blockquote>
+<p>
+GIT_CONFIG_GLOBAL</p>
+<blockquote>
+<p>The path to the global (per-user) configuration files, if any.</p>
+</blockquote>
+<p>
+Most path values contain only one value. However, some can contain
+multiple values, which are separated by newlines, and are listed in
+order from highest to lowest priority. Callers should be prepared for
+any such path value to contain multiple items.</p>
+<p>
+Note that paths are printed even if they do not exist, but not if they
+are disabled by other environment variables.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*git-commit-tree*(1) *git-tag*(1) *git-config*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

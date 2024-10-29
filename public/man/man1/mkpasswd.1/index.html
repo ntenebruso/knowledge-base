@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - mkpasswd.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - mkpasswd.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>mkpasswd - Overfeatured front end to crypt(3)</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>mkpasswd</strong> <em>PASSWORD</em> [/SALT/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>mkpasswd</strong> encrypts the given password with the *crypt*(3) libc
+function, using the given salt.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-S</strong>, **
+</dt>
+<dd>*–salt=*/STRING/ Use the <em>STRING</em> as salt. If it begins
+with <em>$</em> then it will be passed straight to *crypt*(3) without any
+checks.</dd>
+<dt>
+<strong>-R</strong>, **
+</dt>
+<dd>*–rounds=*/NUMBER/ Use <em>NUMBER</em> rounds. This argument is
+ignored if the method chosen does not support variable rounds. For the
+OpenBSD Blowfish method this is the logarithm of the number of rounds.
+The behavior is undefined if this option is used without <em>–method</em>.</dd>
+<dt>
+<strong>-m</strong>, **
+</dt>
+<dd>*–method=*/TYPE/ Compute the password using the <em>TYPE</em>
+method. If <em>TYPE</em> is <em>help</em> then the list of available methods is
+printed. If <em>TYPE</em> begins and end with <em>$</em> characters then the string
+is passed to /crypt_gensalt/(3) as-is.</dd>
+<dt>
+<strong>-5</strong>
+</dt>
+<dd>Like <em>–method=md5crypt</em>.</dd>
+<dt>
+*-P *
+</dt>
+<dd><em>NUM</em>, <em>/ *–password-fd=*/NUM</em> Read the password from file
+descriptor <em>NUM</em> instead of using /getpass/(3). If the file descriptor
+is not connected to a tty then no other text than the hashed password
+is printed on stdout.</dd>
+<dt>
+<strong>-s</strong>, <strong>–stdin</strong>
+</dt>
+<dd>Like <em>–password-fd=0</em>.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+MKPASSWD_OPTIONS
+</dt>
+<dd>A list of options which will be evaluated before
+the ones specified on the command line.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+BUGS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>If the <em>–stdin</em> option is used then passwords containing some control
+characters may not be read correctly.</p>
+<p>
+This program suffers of a bad case of featuritis.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>/passwd/(1), /passwd/(5), /crypt/(3), /crypt/(5), /crypt_gensalt/(3),
+/getpass/(3).</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>mkpasswd</strong> and this man page were written by Marco d&#39;Itri
+&lt;/md@linux.it/&gt; and are licensed under the terms of the GNU General
+Public License, version 2 or later.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

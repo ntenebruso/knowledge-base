@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-shell.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-shell.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-shell - Restricted login shell for Git-only SSH access</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+chsh -s $(command -v git-shell) &lt;user&gt;
+git clone &lt;user&gt;@localhost:/path/to/repo.git
+ssh &lt;user&gt;@localhost
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This is a login shell for SSH accounts to provide restricted Git access.
+It permits execution only of server-side Git commands implementing the
+pull/push functionality, plus custom commands present in a subdirectory
+named <strong>git-shell-commands</strong> in the user&#39;s home directory.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><em>git shell</em> accepts the following commands after the <strong>-c</strong> option:</p>
+<p>
+<em>git receive-pack &lt;argument&gt;</em>, <em>git upload-pack &lt;argument&gt;</em>, <em>git
+upload-archive &lt;argument&gt;</em></p>
+<blockquote>
+<p>Call the corresponding server-side command to support the client&#39;s <em>git
+push</em>, <em>git fetch</em>, or <em>git archive –remote</em> request.</p>
+</blockquote>
+<p>
+<em>cvs server</em></p>
+<blockquote>
+<p>Imitate a CVS server. See *git-cvsserver*(1).</p>
+</blockquote>
+<p>
+If a <strong>~/git-shell-commands</strong> directory is present, <em>git shell</em> will also
+handle other, custom commands by running &#34;<strong>git-shell-commands/&lt;command&gt;
+&lt;arguments&gt;</strong>&#34; from the user&#39;s home directory.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+INTERACTIVE USE
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>By default, the commands above can be executed only with the <strong>-c</strong>
+option; the shell is not interactive.</p>
+<p>
+If a <strong>~/git-shell-commands</strong> directory is present, <em>git shell</em> can also
+be run interactively (with no arguments). If a <strong>help</strong> command is present
+in the <strong>git-shell-commands</strong> directory, it is run to provide the user
+with an overview of allowed actions. Then a &#34;git&gt; &#34; prompt is presented
+at which one can enter any of the commands from the <strong>git-shell-commands</strong>
+directory, or <strong>exit</strong> to close the connection.</p>
+<p>
+Generally this mode is used as an administrative interface to allow
+users to list repositories they have access to, create, delete, or
+rename repositories, or change repository descriptions and permissions.</p>
+<p>
+If a <strong>no-interactive-login</strong> command exists, then it is run and the
+interactive shell is aborted.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>To disable interactive logins, displaying a greeting instead:</p>
+<blockquote>
+<pre class="example">
+$ chsh -s /usr/bin/git-shell
+$ mkdir $HOME/git-shell-commands
+$ cat &gt;$HOME/git-shell-commands/no-interactive-login &lt;&lt;\EOF
+#!/bin/sh
+printf %s\n &#34;Hi $USER! Youve successfully authenticated, but I do not&#34;
+printf %s\n &#34;provide interactive shell access.&#34;
+exit 128
+EOF
+$ chmod +x $HOME/git-shell-commands/no-interactive-login
+</pre>
+</blockquote>
+<p>
+To enable git-cvsserver access (which should generally have the
+<strong>no-interactive-login</strong> example above as a prerequisite, as creating the
+git-shell-commands directory allows interactive logins):</p>
+<blockquote>
+<pre class="example">
+$ cat &gt;$HOME/git-shell-commands/cvs &lt;&lt;\EOF
+if ! test $# = 1 &amp;&amp; test &#34;$1&#34; = &#34;server&#34;
+then
+        echo &gt;&amp;2 &#34;git-cvsserver only handles \&#34;server\&#34;&#34;
+        exit 1
+fi
+exec git cvsserver server
+EOF
+$ chmod +x $HOME/git-shell-commands/cvs
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>ssh(1), *git-daemon*(1), contrib/git-shell-commands/README</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

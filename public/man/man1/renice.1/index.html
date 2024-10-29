@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - renice.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - renice.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>renice - alter priority of running processes</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>renice</strong> [*–priority|–relative*] <em>priority</em> [*-g*|*-p*|*-u*]
+<em>identifier</em>…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>renice</strong> alters the scheduling priority of one or more running
+processes. The first argument is the <em>priority</em> value to be used. The
+other arguments are interpreted as process IDs (by default), process
+group IDs, user IDs, or user names. *renice*ing a process group causes
+all processes in the process group to have their scheduling priority
+altered. *renice*ing a user causes all processes owned by the user to
+have their scheduling priority altered.</p>
+<p>
+If no <strong>-n</strong>, <strong>–priority</strong> or <strong>–relative</strong> option is used, then the
+priority is set as <strong>absolute</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-n</strong> <em>priority</em></p>
+<blockquote>
+<p>Specify the <strong>absolute</strong> or <strong>relative</strong> (depending on environment variable
+POSIXLY_CORRECT) scheduling <em>priority</em> to be used for the process,
+process group, or user. Use of the option <strong>-n</strong> is optional, but when
+used, it must be the first argument. See <strong>NOTES</strong> for more information.</p>
+</blockquote>
+<p>
+<strong>–priority</strong> <em>priority</em></p>
+<blockquote>
+<p>Specify an <strong>absolute</strong> scheduling <em>priority</em>. <em>Priority</em> is set to the
+given value. This is the default, when no option is specified.</p>
+</blockquote>
+<p>
+<strong>–relative</strong> <em>priority</em></p>
+<blockquote>
+<p>Specify a <strong>relative</strong> scheduling <em>priority</em>. Same as the standard POSIX
+<strong>-n</strong> option. <em>Priority</em> gets <em>incremented/decremented</em> by the given
+value.</p>
+</blockquote>
+<p>
+<strong>-g</strong>, <strong>–pgrp</strong></p>
+<blockquote>
+<p>Interpret the succeeding arguments as process group IDs.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–pid</strong></p>
+<blockquote>
+<p>Interpret the succeeding arguments as process IDs (the default).</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–user</strong></p>
+<blockquote>
+<p>Interpret the succeeding arguments as usernames or UIDs.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+FILES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><em>/etc/passwd</em></p>
+<blockquote>
+<p>to map user names to user IDs</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+NOTES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Users other than the superuser may only alter the priority of processes
+they own. Furthermore, an unprivileged user can only <em>increase</em> the
+&#34;nice value&#34; (i.e., choose a lower priority) and such changes are
+irreversible unless (since Linux 2.6.12) the user has a suitable &#34;nice&#34;
+resource limit (see *ulimit*(1p) and *getrlimit*(2)).</p>
+<p>
+The superuser may alter the priority of any process and set the priority
+to any value in the range -20 to 19. Useful priorities are: 19 (the
+affected processes will run only when nothing else in the system wants
+to), 0 (the &#34;base&#34; scheduling priority), anything negative (to make
+things go very fast).</p>
+<p>
+For historical reasons in this implementation, the <strong>-n</strong> option did not
+follow the POSIX specification. Therefore, instead of setting a
+<strong>relative</strong> priority, it sets an <strong>absolute</strong> priority by default. As this
+may not be desirable, this behavior can be controlled by setting the
+environment variable POSIXLY_CORRECT to be fully POSIX compliant. See
+the <strong>-n</strong> option for details. See <strong>–relative</strong> and <strong>–priority</strong> for
+options that do not change behavior depending on environment variables.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+HISTORY
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The <strong>renice</strong> command appeared in 4.0BSD.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The following command would change the priority of the processes with
+PIDs 987 and 32, plus all processes owned by the users daemon and root:</p>
+<p>
+<strong>renice +1 987 -u daemon root -p 32</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*nice*(1), *chrt*(1), *getpriority*(2), *setpriority*(2),
+*credentials*(7), *sched*(7)</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The <strong>renice</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

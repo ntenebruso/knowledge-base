@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-show-branch.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-show-branch.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-show-branch - Show branches and their commits</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]
+                [--current] [--color[=&lt;when&gt;] | --no-color] [--sparse]
+                [--more=&lt;n&gt; | --list | --independent | --merge-base]
+                [--no-name | --sha1-name] [--topics]
+                [(&lt;rev&gt; | &lt;glob&gt;)...]
+git show-branch (-g | --reflog)[=&lt;n&gt;[,&lt;base&gt;]] [--list] [&lt;ref&gt;]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Shows the commit ancestry graph starting from the commits named with
+&lt;rev&gt;s or &lt;glob&gt;s (or all refs under refs/heads and/or refs/tags)
+semi-visually.</p>
+<p>
+It cannot show more than 26 branches and commits at a time.</p>
+<p>
+It uses <strong>showbranch.default</strong> multi-valued configuration items if no
+&lt;rev&gt; or &lt;glob&gt; is given on the command line.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>&lt;rev&gt;</p>
+<blockquote>
+<p>Arbitrary extended SHA-1 expression (see *gitrevisions*(7)) that
+typically names a branch head or a tag.</p>
+</blockquote>
+<p>
+&lt;glob&gt;</p>
+<blockquote>
+<p>A glob pattern that matches branch or tag names under refs/. For
+example, if you have many topic branches under refs/heads/topic, giving
+<strong>topic/*</strong> would show all of them.</p>
+</blockquote>
+<p>
+-r, –remotes</p>
+<blockquote>
+<p>Show the remote-tracking branches.</p>
+</blockquote>
+<p>
+-a, –all</p>
+<blockquote>
+<p>Show both remote-tracking branches and local branches.</p>
+</blockquote>
+<p>
+–current</p>
+<blockquote>
+<p>With this option, the command includes the current branch in the list of
+revs to be shown when it is not given on the command line.</p>
+</blockquote>
+<p>
+–topo-order</p>
+<blockquote>
+<p>By default, the branches and their commits are shown in reverse
+chronological order. This option makes them appear in topological order
+(i.e., descendant commits are shown before their parents).</p>
+</blockquote>
+<p>
+–date-order</p>
+<blockquote>
+<p>This option is similar to <strong>–topo-order</strong> in the sense that no parent
+comes before all of its children, but otherwise commits are ordered
+according to their commit date.</p>
+</blockquote>
+<p>
+–sparse</p>
+<blockquote>
+<p>By default, the output omits merges that are reachable from only one tip
+being shown. This option makes them visible.</p>
+</blockquote>
+<p>
+–more=&lt;n&gt;</p>
+<blockquote>
+<p>Usually the command stops output upon showing the commit that is the
+common ancestor of all the branches. This flag tells the command to go
+&lt;n&gt; more common commits beyond that. When &lt;n&gt; is negative, display only
+the &lt;ref&gt;s given, without showing the commit ancestry tree.</p>
+</blockquote>
+<p>
+–list</p>
+<blockquote>
+<p>Synonym to <strong>–more=-1</strong></p>
+</blockquote>
+<p>
+–merge-base</p>
+<blockquote>
+<p>Instead of showing the commit list, determine possible merge bases for
+the specified commits. All merge bases will be contained in all
+specified commits. This is different from how *git-merge-base*(1)
+handles the case of three or more commits.</p>
+</blockquote>
+<p>
+–independent</p>
+<blockquote>
+<p>Among the &lt;ref&gt;s given, display only the ones that cannot be reached
+from any other &lt;ref&gt;.</p>
+</blockquote>
+<p>
+–no-name</p>
+<blockquote>
+<p>Do not show naming strings for each commit.</p>
+</blockquote>
+<p>
+–sha1-name</p>
+<blockquote>
+<p>Instead of naming the commits using the path to reach them from heads
+(e.g. &#34;master~2&#34; to mean the grandparent of &#34;master&#34;), name them with
+the unique prefix of their object names.</p>
+</blockquote>
+<p>
+–topics</p>
+<blockquote>
+<p>Shows only commits that are NOT on the first branch given. This helps
+track topic branches by hiding any commit that is already in the main
+line of development. When given &#34;git show-branch –topics master topic1
+topic2&#34;, this will show the revisions given by &#34;git rev-list ^master
+topic1 topic2&#34;</p>
+</blockquote>
+<p>
+-g, –reflog[=&lt;n&gt;[,&lt;base&gt;]] [&lt;ref&gt;]</p>
+<blockquote>
+<p>Shows &lt;n&gt; most recent ref-log entries for the given ref. If &lt;base&gt; is
+given, &lt;n&gt; entries going back from that entry. &lt;base&gt; can be specified
+as count or date. When no explicit &lt;ref&gt; parameter is given, it defaults
+to the current branch (or <strong>HEAD</strong> if it is detached).</p>
+</blockquote>
+<p>
+–color[=&lt;when&gt;]</p>
+<blockquote>
+<p>Color the status sign (one of these: <strong>*</strong> <strong>!</strong> <strong>+</strong> <strong>-</strong>) of each commit
+corresponding to the branch it&#39;s in. The value must be always (the
+default), never, or auto.</p>
+</blockquote>
+<p>
+–no-color</p>
+<blockquote>
+<p>Turn off colored output, even when the configuration file gives the
+default to color output. Same as <strong>–color=never</strong>.</p>
+</blockquote>
+<p>
+Note that –more, –list, –independent, and –merge-base options are
+mutually exclusive.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OUTPUT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Given N &lt;ref&gt;s, the first N lines are the one-line description from
+their commit message. The branch head that is pointed at by
+$GIT_DIR/HEAD is prefixed with an asterisk <strong>*</strong> character while other
+heads are prefixed with a <strong>!</strong> character.</p>
+<p>
+Following these N lines, a one-line log for each commit is displayed,
+indented N places. If a commit is on the I-th branch, the I-th
+indentation character shows a <strong>+</strong> sign; otherwise it shows a space.
+Merge commits are denoted by a <strong>-</strong> sign. Each commit shows a short name
+that can be used as an extended SHA-1 to name that commit.</p>
+<p>
+The following example shows three branches, &#34;master&#34;, &#34;fixes&#34;, and
+&#34;mhf&#34;:</p>
+<blockquote>
+<pre class="example">
+$ git show-branch master fixes mhf
+* [master] Add git show-branch.
+ ! [fixes] Introduce &#34;reset type&#34; flag to &#34;git reset&#34;
+  ! [mhf] Allow &#34;+remote:local&#34; refspec to cause --force when fetching.
+---
+  + [mhf] Allow &#34;+remote:local&#34; refspec to cause --force when fetching.
+  + [mhf~1] Use git-octopus when pulling more than one head.
+ +  [fixes] Introduce &#34;reset type&#34; flag to &#34;git reset&#34;
+  + [mhf~2] &#34;git fetch --force&#34;.
+  + [mhf~3] Use .git/remote/origin, not .git/branches/origin.
+  + [mhf~4] Make &#34;git pull&#34; and &#34;git fetch&#34; default to origin
+  + [mhf~5] Infamous octopus merge
+  + [mhf~6] Retire git-parse-remote.
+  + [mhf~7] Multi-head fetch.
+  + [mhf~8] Start adding the $GIT_DIR/remotes/ support.
+*++ [master] Add git show-branch.
+</pre>
+</blockquote>
+<p>
+These three branches all forked from a common commit, [master], whose
+commit message is &#34;Add git show-branch&#34;. The &#34;fixes&#34; branch adds one
+commit &#34;Introduce &#34;reset type&#34; flag to &#34;git reset&#34;&#34;. The &#34;mhf&#34; branch
+adds many other commits. The current branch is &#34;master&#34;.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>If you keep your primary branches immediately under <strong>refs/heads</strong>, and
+topic branches in subdirectories of it, having the following in the
+configuration file may help:</p>
+<blockquote>
+<pre class="example">
+[showbranch]
+        default = --topo-order
+        default = heads/*
+</pre>
+</blockquote>
+<p>
+With this, <strong>git show-branch</strong> without extra parameters would show only
+the primary branches. In addition, if you happen to be on your topic
+branch, it is shown as well.</p>
+<blockquote>
+<pre class="example">
+$ git show-branch --reflog=&#34;10,1 hour ago&#34; --list master
+</pre>
+</blockquote>
+<p>
+shows 10 reflog entries going back from the tip as of 1 hour ago.
+Without <strong>–list</strong>, the output also shows how these tips are topologically
+related to each other.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+showBranch.default</p>
+<blockquote>
+<p>The default set of branches for *git-show-branch*(1). See
+*git-show-branch*(1).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

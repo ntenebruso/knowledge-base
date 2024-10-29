@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - lpstat.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - lpstat.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>lpstat - print cups status information</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>lpstat</strong> [ <strong>-h */hostname/[</strong>:*/port/] ] [ <strong>-E</strong> ] [ <strong>-H</strong> ] [ <strong>-U</strong>
+<em>username</em> ] [ <strong>-l</strong> ] [ <strong>-W</strong> <em>which-jobs</em> ] [ <strong>-a</strong> [ <em>destination(s)</em> ]
+] [ <strong>-c</strong> [ <em>class(es)</em> ] ] [ <strong>-d</strong> ] [ <strong>-e</strong> ] [ <strong>-o</strong> [ <em>destination(s)</em> ]
+] [ <strong>-p</strong> [ <em>printer(s)</em> ] ] [ <strong>-r</strong> ] [ <strong>-R</strong> ] [ <strong>-s</strong> ] [ <strong>-t</strong> ] [ <strong>-u</strong> [
+<em>user(s)</em> ] ] [ <strong>-v</strong> [ <em>printer(s)</em> ] ]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>lpstat</strong> displays status information about the current classes, jobs,
+and printers. When run with no arguments, <strong>lpstat</strong> will list active jobs
+queued by the current user.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The <strong>lpstat</strong> command supports the following options:</p>
+<dl>
+<dt>
+<strong>-E</strong>
+</dt>
+<dd>Forces encryption when connecting to the server.</dd>
+<dt>
+<strong>-H</strong>
+</dt>
+<dd>Shows the server hostname and port.</dd>
+<dt>
+<strong>-R</strong>
+</dt>
+<dd>Shows the ranking of print jobs.</dd>
+<dt>
+*-U */username/
+</dt>
+<dd>Specifies an alternate username.</dd>
+<dt>
+*-W */which-jobs/
+</dt>
+<dd>Specifies which jobs to show, &#34;all, &#34;successful&#34;,
+&#34;completed&#34; or &#34;not-completed&#34; (the default). This option <em>must</em>
+appear before the <em>-o</em> option and/or any printer names, otherwise the
+default (&#34;not-completed&#34;) value will be used in the request to the
+scheduler.</dd>
+<dt>
+*-a *[/printer(s)/]
+</dt>
+<dd>Shows the accepting state of printer queues. If
+no printers are specified then all printers are listed.</dd>
+<dt>
+*-c *[/class(es)/]
+</dt>
+<dd>Shows the printer classes and the printers that
+belong to them. If no classes are specified then all classes are
+listed.</dd>
+<dt>
+<strong>-d</strong>
+</dt>
+<dd>Shows the current default destination.</dd>
+<dt>
+<strong>-e</strong>
+</dt>
+<dd>Shows all available destinations on the local network.</dd>
+<dt>
+<strong>-h */server/[</strong>:*/port/]
+</dt>
+<dd>Specifies an alternate server. Note: This
+option must occur before all others.</dd>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>Shows a long listing of printers, classes, or jobs.</dd>
+<dt>
+*-o *[/destination(s)/]
+</dt>
+<dd>Shows the jobs queued on the specified
+destinations. If no destinations are specified all jobs are shown.</dd>
+<dt>
+*-p *[/printer(s)/]
+</dt>
+<dd>Shows the printers and whether they are enabled
+for printing. If no printers are specified then all printers are
+listed.</dd>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>Shows whether the CUPS server is running.</dd>
+<dt>
+<strong>-s</strong>
+</dt>
+<dd>Shows a status summary, including the default destination, a
+list of classes and their member printers, and a list of printers and
+their associated devices. This is equivalent to using the <em>-d</em>, <em>-c</em>,
+and <em>-v</em> options.</dd>
+<dt>
+<strong>-t</strong>
+</dt>
+<dd>Shows all status information. This is equivalent to using the
+<em>-r</em>, <em>-d</em>, <em>-c</em>, <em>-v</em>, <em>-a</em>, <em>-p</em>, and <em>-o</em> options.</dd>
+<dt>
+*-u *[/user(s)/]
+</dt>
+<dd>Shows a list of print jobs queued by the specified
+users. If no users are specified, lists the jobs queued by the current
+user.</dd>
+<dt>
+*-v *[/printer(s)/]
+</dt>
+<dd>Shows the printers and what device they are
+attached to. If no printers are specified then all printers are
+listed.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+CONFORMING TO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Unlike the System V printing system, CUPS allows printer names to
+contain any printable character except SPACE, TAB, &#34;<em>&#34;, and &#34;#&#34;. Also,
+printer and class names are /not</em> case-sensitive.</p>
+<p>
+The <em>-h</em>, <em>-e</em>, <em>-E</em>, <em>-U</em>, and <em>-W</em> options are unique to CUPS.</p>
+<p>
+The Solaris <em>-f</em>, <em>-P</em>, and <em>-S</em> options are silently ignored.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*cancel*(1), *lp*(1), *lpq*(1), *lpr*(1), *lprm*(1), CUPS Online Help
+(<a href="http://localhost:631/help)">http://localhost:631/help)</a></p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Copyright © 2020-2024 by OpenPrinting.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

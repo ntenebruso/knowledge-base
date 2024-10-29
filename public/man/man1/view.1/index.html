@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - view.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - view.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>vim - Vi IMproved, a programmer&#39;s text editor</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>\\
+<strong>vim</strong> [options] [file ..]<br>
+<strong>vim</strong> [options] -<br>
+<strong>vim</strong> [options] -t tag<br>
+<strong>vim</strong> [options] -q [errorfile]</p>
+<p>
+\\
+<strong>ex</strong><br>
+<strong>view</strong><br>
+<strong>gvim</strong> <strong>gview</strong> <strong>evim</strong> <strong>eview</strong><br>
+<strong>rvim</strong> <strong>rview</strong> <strong>rgvim</strong> <strong>rgview</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>Vim</strong> is a text editor that is upwards compatible to Vi. It can be used
+to edit all kinds of plain text. It is especially useful for editing
+programs.</p>
+<p>
+There are a lot of enhancements above Vi: multi level undo, multi
+windows and buffers, syntax highlighting, command line editing, filename
+completion, on-line help, visual selection, etc.. See &#34;:help
+vi_diff.txt&#34; for a summary of the differences between <strong>Vim</strong> and Vi.</p>
+<p>
+While running <strong>Vim</strong> a lot of help can be obtained from the on-line help
+system, with the &#34;:help&#34; command. See the ON-LINE HELP section below.</p>
+<p>
+Most often <strong>Vim</strong> is started to edit a single file with the command</p>
+<p>
+vim file</p>
+<p>
+More generally <strong>Vim</strong> is started with:</p>
+<p>
+vim [options] [filelist]</p>
+<p>
+If the filelist is missing, the editor will start with an empty buffer.
+Otherwise exactly one out of the following four may be used to choose
+one or more files to be edited.</p>
+<dl>
+<dt>
+file ..
+</dt>
+<dd>A list of filenames. The first one will be the current file
+and read into the buffer. The cursor will be positioned on the first
+line of the buffer. You can get to the other files with the &#34;:next&#34;
+command. To edit a file that starts with a dash, precede the filelist
+with &#34;–&#34;.</dd>
+<dt>
+-
+</dt>
+<dd>The file to edit is read from stdin. Commands are read from
+stderr, which should be a tty.</dd>
+<dt>
+-t {tag}
+</dt>
+<dd>The file to edit and the initial cursor position depends
+on a &#34;tag&#34;, a sort of goto label. {tag} is looked up in the tags file,
+the associated file becomes the current file and the associated
+command is executed. Mostly this is used for C programs, in which case
+{tag} could be a function name. The effect is that the file containing
+that function becomes the current file and the cursor is positioned on
+the start of the function. See &#34;:help tag-commands&#34;.</dd>
+<dt>
+-q [errorfile]
+</dt>
+<dd>Start in quickFix mode. The file [errorfile] is read
+and the first error is displayed. If [errorfile] is omitted, the
+filename is obtained from the &#39;errorfile&#39; option (defaults to
+&#34;AztecC.Err&#34; for the Amiga, &#34;errors.err&#34; on other systems). Further
+errors can be jumped to with the &#34;:cn&#34; command. See &#34;:help quickfix&#34;.</dd>
+</dl>
+<p><strong>Vim</strong> behaves differently, depending on the name of the command (the
+executable may still be the same file).</p>
+<dl>
+<dt>
+vim
+</dt>
+<dd>The &#34;normal&#34; way, everything is default.</dd>
+<dt>
+ex
+</dt>
+<dd>Start in Ex mode. Go to Normal mode with the &#34;:vi&#34; command. Can
+also be done with the &#34;-e&#34; argument.</dd>
+<dt>
+view
+</dt>
+<dd>Start in read-only mode. You will be protected from writing
+the files. Can also be done with the &#34;-R&#34; argument.</dd>
+<dt>
+gvim gview
+</dt>
+<dd>The GUI version. Starts a new window. Can also be done
+with the &#34;-g&#34; argument.</dd>
+<dt>
+evim eview
+</dt>
+<dd>The GUI version in easy mode. Starts a new window. Can
+also be done with the &#34;-y&#34; argument.</dd>
+<dt>
+rvim rview rgvim rgview
+</dt>
+<dd>Like the above, but with restrictions. It
+will not be possible to start shell commands, or suspend <strong>Vim.</strong> Can
+also be done with the &#34;-Z&#34; argument.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The options may be given in any order, before or after filenames.
+Options without an argument can be combined after a single dash.</p>
+<dl>
+<dt>
++[num]
+</dt>
+<dd>For the first file the cursor will be positioned on line
+&#34;num&#34;. If &#34;num&#34; is missing, the cursor will be positioned on the last
+line.</dd>
+<dt>
++/{pat}
+</dt>
+<dd>For the first file the cursor will be positioned in the
+line with the first occurrence of {pat}. See &#34;:help search-pattern&#34;
+for the available search patterns.</dd>
+<dt>
++{command}
+</dt>
+<dd>
+<dl>
+<dt>
+-c {command}
+</dt>
+<dd>
+<p>{command} will be executed after the
+first file has been read. {command} is interpreted as an Ex command.
+If the {command} contains spaces it must be enclosed in double
+quotes (this depends on the shell that is used). Example: vim &#34;+set
+si&#34; main.c<br>
+Note: You can use up to 10 &#34;+&#34; or &#34;-c&#34; commands.</p>
+<dl>
+<dt>
+-A
+</dt>
+<dd>If <strong>Vim</strong> has been compiled with ARABIC support for editing
+right-to-left oriented files and Arabic keyboard mapping, this
+option starts <strong>Vim</strong> in Arabic mode, i.e. &#39;arabic&#39; is set. Otherwise
+an error message is given and <strong>Vim</strong> aborts.</dd>
+<dt>
+-b
+</dt>
+<dd>Binary mode. A few options will be set that makes it possible
+to edit a binary or executable file.</dd>
+<dt>
+-C
+</dt>
+<dd>Compatible. Set the &#39;compatible&#39; option. This will make <strong>Vim</strong>
+behave mostly like Vi, even though a .vimrc file exists.</dd>
+<dt>
+-d
+</dt>
+<dd>Start in diff mode. There should between two to eight file
+name arguments. <strong>Vim</strong> will open all the files and show differences
+between them. Works like vimdiff(1).</dd>
+<dt>
+-d {device}, -dev {device}
+</dt>
+<dd>Open {device} for use as a terminal.
+Only on the Amiga. Example: &#34;-d con:20/30/600/150&#34;.</dd>
+<dt>
+-D
+</dt>
+<dd>Debugging. Go to debugging mode when executing the first
+command from a script.</dd>
+<dt>
+-e
+</dt>
+<dd>Start <strong>Vim</strong> in Ex mode, just like the executable was called
+&#34;ex&#34;.</dd>
+<dt>
+-E
+</dt>
+<dd>Start <strong>Vim</strong> in improved Ex mode, just like the executable was
+called &#34;exim&#34;.</dd>
+<dt>
+-f
+</dt>
+<dd>Foreground. For the GUI version, <strong>Vim</strong> will not fork and
+detach from the shell it was started in. On the Amiga, <strong>Vim</strong> is not
+restarted to open a new window. This option should be used when
+<strong>Vim</strong> is executed by a program that will wait for the edit session
+to finish (e.g. mail). On the Amiga the &#34;:sh&#34; and &#34;:!&#34; commands will
+not work.</dd>
+<dt>
+-F
+</dt>
+<dd>If <strong>Vim</strong> has been compiled with FKMAP support for editing
+right-to-left oriented files and Farsi keyboard mapping, this option
+starts <strong>Vim</strong> in Farsi mode, i.e. &#39;fkmap&#39; and &#39;rightleft&#39; are set.
+Otherwise an error message is given and <strong>Vim</strong> aborts.<br>
+Note: Farsi support has been removed in patch 8.1.0932.</dd>
+<dt>
+-g
+</dt>
+<dd>If <strong>Vim</strong> has been compiled with GUI support, this option
+enables the GUI. If no GUI support was compiled in, an error message
+is given and <strong>Vim</strong> aborts.</dd>
+<dt>
+-H
+</dt>
+<dd>If <strong>Vim</strong> has been compiled with RIGHTLEFT support for editing
+right-to-left oriented files and Hebrew keyboard mapping, this
+option starts <strong>Vim</strong> in Hebrew mode, i.e. &#39;hkmap&#39; and &#39;rightleft&#39; are
+set. Otherwise an error message is given and <strong>Vim</strong> aborts.</dd>
+<dt>
+-i {viminfo}
+</dt>
+<dd>Specifies the filename to use when reading or
+writing the viminfo file, instead of the default &#34;~/.viminfo&#34;. This
+can also be used to skip the use of the .viminfo file, by giving the
+name &#34;NONE&#34;.</dd>
+<dt>
+-l
+</dt>
+<dd>Lisp mode. Sets the &#39;lisp&#39; and &#39;showmatch&#39; options on.</dd>
+<dt>
+-L
+</dt>
+<dd>Same as -r.</dd>
+<dt>
+-m
+</dt>
+<dd>Modifying files is disabled. Resets the &#39;write&#39; option. You
+can still modify the buffer, but writing a file is not possible.</dd>
+<dt>
+-M
+</dt>
+<dd>Modifications not allowed. The &#39;modifiable&#39; and &#39;write&#39;
+options will be unset, so that changes are not allowed and files can
+not be written. Note that these options can be set to enable making
+modifications.</dd>
+<dt>
+-n
+</dt>
+<dd>No swap file will be used. Recovery after a crash will be
+impossible. Handy if you want to edit a file on a very slow medium
+(e.g. floppy). Can also be done with &#34;:set uc=0&#34;. Can be undone with
+&#34;:set uc=200&#34;.</dd>
+<dt>
+-N
+</dt>
+<dd>No-compatible mode. Resets the &#39;compatible&#39; option. This will
+make <strong>Vim</strong> behave a bit better, but less Vi compatible, even though
+a .vimrc file does not exist.</dd>
+<dt>
+-nb
+</dt>
+<dd>Become an editor server for NetBeans. See the docs for
+details.</dd>
+<dt>
+-o[N]
+</dt>
+<dd>Open N windows stacked. When N is omitted, open one window
+for each file.</dd>
+<dt>
+-O[N]
+</dt>
+<dd>Open N windows side by side. When N is omitted, open one
+window for each file.</dd>
+<dt>
+-p[N]
+</dt>
+<dd>Open N tab pages. When N is omitted, open one tab page for
+each file.</dd>
+<dt>
+-P {parent-title}
+</dt>
+<dd>Win32 GUI only: Specify the title of the parent
+application. When possible, Vim will run in an MDI window inside the
+application. {parent-title} must appear in the window title of the
+parent application. Make sure that it is specific enough. Note that
+the implementation is still primitive. It won&#39;t work with all
+applications and the menu doesn&#39;t work.</dd>
+<dt>
+-r
+</dt>
+<dd>List swap files, with information about using them for
+recovery.</dd>
+<dt>
+-r {file}
+</dt>
+<dd>Recovery mode. The swap file is used to recover a
+crashed editing session. The swap file is a file with the same
+filename as the text file with &#34;.swp&#34; appended. See &#34;:help
+recovery&#34;.</dd>
+<dt>
+-R
+</dt>
+<dd>Read-only mode. The &#39;readonly&#39; option will be set. You can
+still edit the buffer, but will be prevented from accidentally
+overwriting a file. If you do want to overwrite a file, add an
+exclamation mark to the Ex command, as in &#34;:w!&#34;. The -R option also
+implies the -n option (see above). The &#39;readonly&#39; option can be
+reset with &#34;:set noro&#34;. See &#34;:help &#39;readonly&#39;&#34;.</dd>
+<dt>
+-s
+</dt>
+<dd>Silent mode. Only when started as &#34;Ex&#34; or when the &#34;-e&#34; option
+was given before the &#34;-s&#34; option.</dd>
+<dt>
+-s {scriptin}
+</dt>
+<dd>The script file {scriptin} is read. The characters
+in the file are interpreted as if you had typed them. The same can
+be done with the command &#34;:source! {scriptin}&#34;. If the end of the
+file is reached before the editor exits, further characters are read
+from the keyboard.</dd>
+<dt>
+-S {file}
+</dt>
+<dd>{file} will be sourced after the first file has been
+read. This is equivalent to -c &#34;source {file}&#34;. {file} cannot start
+with &#39;-&#39;. If {file} is omitted &#34;Session.vim&#34; is used (only works
+when -S is the last argument).</dd>
+<dt>
+-T {terminal}
+</dt>
+<dd>Tells <strong>Vim</strong> the name of the terminal you are using.
+Only required when the automatic way doesn&#39;t work. Should be a
+terminal known to <strong>Vim</strong> (builtin) or defined in the termcap or
+terminfo file.</dd>
+<dt>
+-u {vimrc}
+</dt>
+<dd>Use the commands in the file {vimrc} for
+initializations. All the other initializations are skipped. Use this
+to edit a special kind of files. It can also be used to skip all
+initializations by giving the name &#34;NONE&#34;. See &#34;:help
+initialization&#34; within vim for more details.</dd>
+<dt>
+-U {gvimrc}
+</dt>
+<dd>Use the commands in the file {gvimrc} for GUI
+initializations. All the other GUI initializations are skipped. It
+can also be used to skip all GUI initializations by giving the name
+&#34;NONE&#34;. See &#34;:help gui-init&#34; within vim for more details.</dd>
+<dt>
+-v
+</dt>
+<dd>Start <strong>Vim</strong> in Vi mode, just like the executable was called
+&#34;vi&#34;. This only has effect when the executable is called &#34;ex&#34;.</dd>
+<dt>
+-V[N]
+</dt>
+<dd>Verbose. Give messages about which files are sourced and
+for reading and writing a viminfo file. The optional number N is the
+value for &#39;verbose&#39;. Default is 10.</dd>
+<dt>
+-V[N]{filename}
+</dt>
+<dd>Like -V and set &#39;verbosefile&#39; to {filename}. The
+result is that messages are not displayed but written to the file
+{filename}. {filename} must not start with a digit.</dd>
+<dt>
+-w{number}
+</dt>
+<dd>Set the &#39;window&#39; option to {number}.</dd>
+<dt>
+-w {scriptout}
+</dt>
+<dd>All the characters that you type are recorded in
+the file {scriptout}, until you exit <strong>Vim.</strong> This is useful if you
+want to create a script file to be used with &#34;vim -s&#34; or &#34;:source!&#34;.
+If the {scriptout} file exists, characters are appended.</dd>
+<dt>
+-W {scriptout}
+</dt>
+<dd>Like -w, but an existing file is overwritten.</dd>
+<dt>
+-x
+</dt>
+<dd>If <strong>Vim</strong> has been compiled with encryption support, use
+encryption when writing files. Will prompt for a crypt key.</dd>
+<dt>
+-X
+</dt>
+<dd>Don&#39;t connect to the X server. Shortens startup time in a
+terminal, but the window title and clipboard will not be used.</dd>
+<dt>
+-y
+</dt>
+<dd>Start <strong>Vim</strong> in easy mode, just like the executable was called
+&#34;evim&#34; or &#34;eview&#34;. Makes <strong>Vim</strong> behave like a click-and-type editor.</dd>
+<dt>
+-Z
+</dt>
+<dd>Restricted mode. Works like the executable starts with &#34;r&#34;.</dd>
+<dt>
+–
+</dt>
+<dd>Denotes the end of the options. Arguments after this will be
+handled as a file name. This can be used to edit a filename that
+starts with a &#39;-&#39;.</dd>
+<dt>
+–clean
+</dt>
+<dd>Do not use any personal configuration (vimrc, plugins,
+etc.). Useful to see if a problem reproduces with a clean Vim setup.</dd>
+<dt>
+–cmd {command}
+</dt>
+<dd>Like using &#34;-c&#34;, but the command is executed just
+before processing any vimrc file. You can use up to 10 of these
+commands, independently from &#34;-c&#34; commands.</dd>
+<dt>
+–echo-wid
+</dt>
+<dd>GTK GUI only: Echo the Window ID on stdout.</dd>
+<dt>
+–gui-dialog-file {name}
+</dt>
+<dd>When using the GUI, instead of showing a
+dialog, write the title and message of the dialog to file {name}.
+The file is created or appended to. Only useful for testing, to
+avoid that the test gets stuck on a dialog that can&#39;t be seen.
+Without the GUI the argument is ignored.</dd>
+<dt>
+–help, -h, -?
+</dt>
+<dd>Give a bit of help about the command line
+arguments and options. After this <strong>Vim</strong> exits.</dd>
+<dt>
+–literal
+</dt>
+<dd>Take file name arguments literally, do not expand
+wildcards. This has no effect on Unix where the shell expands
+wildcards.</dd>
+<dt>
+–log {filename}
+</dt>
+<dd>If <strong>Vim</strong> has been compiled with eval and channel
+feature, start logging and write entries to {filename}. This works
+like calling <em>ch_logfile({filename}, &#39;ao&#39;)</em> very early during
+startup.</dd>
+<dt>
+–nofork
+</dt>
+<dd>Foreground. For the GUI version, <strong>Vim</strong> will not fork and
+detach from the shell it was started in.</dd>
+<dt>
+–noplugin
+</dt>
+<dd>Skip loading plugins. Implied by -u NONE.</dd>
+<dt>
+–not-a-term
+</dt>
+<dd>Tells <strong>Vim</strong> that the user knows that the input
+and/or output is not connected to a terminal. This will avoid the
+warning and the two second delay that would happen.</dd>
+<dt>
+–remote
+</dt>
+<dd>Connect to a Vim server and make it edit the files given
+in the rest of the arguments. If no server is found a warning is
+given and the files are edited in the current Vim.</dd>
+<dt>
+–remote-expr {expr}
+</dt>
+<dd>Connect to a Vim server, evaluate {expr} in
+it and print the result on stdout.</dd>
+<dt>
+–remote-send {keys}
+</dt>
+<dd>Connect to a Vim server and send {keys} to
+it.</dd>
+<dt>
+–remote-silent
+</dt>
+<dd>As –remote, but without the warning when no
+server is found.</dd>
+<dt>
+–remote-wait
+</dt>
+<dd>As –remote, but Vim does not exit until the files
+have been edited.</dd>
+<dt>
+–remote-wait-silent
+</dt>
+<dd>As –remote-wait, but without the warning
+when no server is found.</dd>
+<dt>
+–serverlist
+</dt>
+<dd>List the names of all Vim servers that can be found.</dd>
+<dt>
+–servername {name}
+</dt>
+<dd>Use {name} as the server name. Used for the
+current Vim, unless used with a –remote argument, then it&#39;s the
+name of the server to connect to.</dd>
+<dt>
+–socketid {id}
+</dt>
+<dd>GTK GUI only: Use the GtkPlug mechanism to run
+gVim in another window.</dd>
+<dt>
+–startuptime {file}
+</dt>
+<dd>During startup write timing messages to the
+file {fname}.</dd>
+<dt>
+–ttyfail
+</dt>
+<dd>When stdin or stdout is not a a terminal (tty) then
+exit right away.</dd>
+<dt>
+–version
+</dt>
+<dd>Print version information and exit.</dd>
+<dt>
+–windowid {id}
+</dt>
+<dd>Win32 GUI only: Make gVim try to use the window
+{id} as a parent, so that it runs inside that window.</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ON-LINE HELP
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Type &#34;:help&#34; in <strong>Vim</strong> to get started. Type &#34;:help subject&#34; to get help
+on a specific subject. For example: &#34;:help ZZ&#34; to get help for the &#34;ZZ&#34;
+command. Use &lt;Tab&gt; and CTRL-D to complete subjects (&#34;:help
+cmdline-completion&#34;). Tags are present to jump from one place to another
+(sort of hypertext links, see &#34;:help&#34;). All documentation files can be
+viewed in this way, for example &#34;:help syntax.txt&#34;.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+FILES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<dl>
+<dt>
+/usr/local/share/vim/vim??/doc/*.txt
+</dt>
+<dd>The <strong>Vim</strong> documentation files.
+Use &#34;:help doc-file-list&#34; to get the complete list.<br>
+<em>vim??</em> is short version number, like vim91 for <strong>Vim 9.1</strong></dd>
+<dt>
+/usr/local/share/vim/vim??/doc/tags
+</dt>
+<dd>The tags file used for finding
+information in the documentation files.</dd>
+<dt>
+/usr/local/share/vim/vim??/syntax/syntax.vim
+</dt>
+<dd>System wide syntax
+initializations.</dd>
+<dt>
+/usr/local/share/vim/vim??/syntax/*.vim
+</dt>
+<dd>Syntax files for various
+languages.</dd>
+<dt>
+/usr/local/share/vim/vimrc
+</dt>
+<dd>System wide <strong>Vim</strong> initializations.</dd>
+<dt>
+~/.vimrc, ~/.vim/vimrc, $XDG_CONFIG_HOME/vim/vimrc
+</dt>
+<dd>Your personal
+<strong>Vim</strong> initializations (first one found is used).</dd>
+<dt>
+/usr/local/share/vim/gvimrc
+</dt>
+<dd>System wide gvim initializations.</dd>
+<dt>
+~/.gvimrc, ~/.vim/gvimrc, $XDG_CONFIG_HOME/vim/gvimrc
+</dt>
+<dd>Your personal
+<strong>gVim</strong> initializations (first one found is used).</dd>
+<dt>
+/usr/local/share/vim/vim??/optwin.vim
+</dt>
+<dd>Script used for the
+&#34;:options&#34; command, a nice way to view and set options.</dd>
+<dt>
+/usr/local/share/vim/vim??/menu.vim
+</dt>
+<dd>System wide menu
+initializations for <strong>gVim.</strong></dd>
+<dt>
+/usr/local/share/vim/vim??/bugreport.vim
+</dt>
+<dd>Script to generate a bug
+report. See &#34;:help bugs&#34;.</dd>
+<dt>
+/usr/local/share/vim/vim??/filetype.vim
+</dt>
+<dd>Script to detect the type
+of a file by its name. See &#34;:help &#39;filetype&#39;&#34;.</dd>
+<dt>
+/usr/local/share/vim/vim??/scripts.vim
+</dt>
+<dd>Script to detect the type of
+a file by its contents. See &#34;:help &#39;filetype&#39;&#34;.</dd>
+<dt>
+/usr/local/share/vim/vim??/print/*.ps
+</dt>
+<dd>Files used for PostScript
+printing.</dd>
+</dl>
+<p>For recent info read the VIM home page:<br>
+&lt;URL:<a href="http://www.vim.org/">http://www.vim.org/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>vimtutor(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Most of <strong>Vim</strong> was made by Bram Moolenaar, with a lot of help from
+others. See &#34;:help credits&#34; in <strong>Vim.</strong><br>
+<strong>Vim</strong> is based on Stevie, worked on by: Tim Thompson, Tony Andrews and
+G.R. (Fred) Walter. Although hardly any of the original code remains.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Probably. See &#34;:help todo&#34; for a list of known problems.</p>
+<p>
+Note that a number of things that may be regarded as bugs by some, are
+in fact caused by a too-faithful reproduction of Vi&#39;s behaviour. And if
+you think other things are bugs &#34;because Vi does it differently&#34;, you
+should take a closer look at the vi_diff.txt file (or type :help
+vi_diff.txt when in Vim). Also have a look at the &#39;compatible&#39; and
+&#39;cpoptions&#39; options.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - flock.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - flock.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>flock - manage locks from shell scripts</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>flock</strong> [options] <em>file/|/directory</em> <em>command</em> [/arguments/]</p>
+<p>
+<strong>flock</strong> [options] <em>file/|/directory</em> <strong>-c</strong> <em>command</em></p>
+<p>
+<strong>flock</strong> [options] <em>number</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This utility manages *flock*(2) locks from within shell scripts or from
+the command line.</p>
+<p>
+The first and second of the above forms wrap the lock around the
+execution of a <em>command</em>, in a manner similar to *su*(1) or *newgrp*(1).
+They lock a specified <em>file</em> or <em>directory</em>, which is created (assuming
+appropriate permissions) if it does not already exist. By default, if
+the lock cannot be immediately acquired, <strong>flock</strong> waits until the lock is
+available.</p>
+<p>
+The third form uses an open file by its file descriptor <em>number</em>. See
+the examples below for how that can be used.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-c</strong>, <strong>–command</strong> <em>command</em></p>
+<blockquote>
+<p>Pass a single <em>command</em>, without arguments, to the shell with <strong>-c</strong>.</p>
+</blockquote>
+<p>
+<strong>-E</strong>, <strong>–conflict-exit-code</strong> <em>number</em></p>
+<blockquote>
+<p>The exit status used when the <strong>-n</strong> option is in use, and the conflicting
+lock exists, or the <strong>-w</strong> option is in use, and the timeout is reached.
+The default value is <strong>1</strong>. The <em>number</em> has to be in the range of 0
+to 255.</p>
+</blockquote>
+<p>
+<strong>-F</strong>, <strong>–no-fork</strong></p>
+<blockquote>
+<p>Do not fork before executing <em>command</em>. Upon execution the flock process
+is replaced by <em>command</em> which continues to hold the lock. This option
+is incompatible with <strong>–close</strong> as there would otherwise be nothing left
+to hold the lock.</p>
+</blockquote>
+<p>
+<strong>-e</strong>, <strong>-x</strong>, <strong>–exclusive</strong></p>
+<blockquote>
+<p>Obtain an exclusive lock, sometimes called a write lock. This is the
+default.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–nb</strong>, <strong>–nonblock</strong></p>
+<blockquote>
+<p>Fail rather than wait if the lock cannot be immediately acquired. See
+the <strong>-E</strong> option for the exit status used.</p>
+</blockquote>
+<p>
+<strong>-o</strong>, <strong>–close</strong></p>
+<blockquote>
+<p>Close the file descriptor on which the lock is held before executing
+<em>command</em>. This is useful if <em>command</em> spawns a child process which
+should not be holding the lock.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–shared</strong></p>
+<blockquote>
+<p>Obtain a shared lock, sometimes called a read lock.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–unlock</strong></p>
+<blockquote>
+<p>Drop a lock. This is usually not required, since a lock is automatically
+dropped when the file is closed. However, it may be required in special
+cases, for example if the enclosed command group may have forked a
+background process which should not be holding the lock.</p>
+</blockquote>
+<p>
+<strong>-w</strong>, <strong>–wait</strong>, <strong>–timeout</strong> <em>seconds</em></p>
+<blockquote>
+<p>Fail if the lock cannot be acquired within <em>seconds</em>. Decimal fractional
+values are allowed. See the <strong>-E</strong> option for the exit status used. The
+zero number of <em>seconds</em> is interpreted as <strong>–nonblock</strong>.</p>
+</blockquote>
+<p>
+<strong>–verbose</strong></p>
+<blockquote>
+<p>Report how long it took to acquire the lock, or why the lock could not
+be obtained.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The command uses &lt;sysexits.h&gt; exit status values for everything, except
+when using either of the options <strong>-n</strong> or <strong>-w</strong> which report a failure to
+acquire the lock with an exit status given by the <strong>-E</strong> option, or 1 by
+default. The exit status given by <strong>-E</strong> has to be in the range of 0
+to 255.</p>
+<p>
+When using the <em>command</em> variant, and executing the child worked, then
+the exit status is that of the child command.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+NOTES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>flock</strong> does not detect deadlock. See *flock*(2) for details.</p>
+<p>
+Some file systems (e. g. NFS and CIFS) have a limited implementation of
+*flock*(2) and flock may always fail. For details see *flock*(2),
+*nfs*(5) and *mount.cifs*(8). Depending on mount options, flock can
+always fail there.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Note that &#34;shell&gt; &#34; in examples is a command line prompt.</p>
+<p>
+shell1&gt; flock /tmp -c cat; shell2&gt; flock -w .007 /tmp -c echo; /bin/echo
+$?</p>
+<blockquote>
+<p>Set exclusive lock to directory <em>/tmp</em> and the second command will fail.</p>
+</blockquote>
+<p>
+shell1&gt; flock -s /tmp -c cat; shell2&gt; flock -s -w .007 /tmp -c echo;
+/bin/echo $?</p>
+<blockquote>
+<p>Set shared lock to directory <em>/tmp</em> and the second command will not
+fail. Notice that attempting to get exclusive lock with second command
+would fail.</p>
+</blockquote>
+<p>
+shell&gt; flock -x local-lock-file echo a b c</p>
+<blockquote>
+<p>Grab the exclusive lock &#34;local-lock-file&#34; before running echo with a b</p>
+<ol>
+<li></li>
+</ol>
+</blockquote>
+<p>
+(; flock -n 9 || exit 1; # … commands executed under lock …; )
+9&gt;/var/lock/mylockfile</p>
+<blockquote>
+<p>The form is convenient inside shell scripts. The mode used to open the
+file doesn&#39;t matter to <strong>flock</strong>; using <em>&gt;</em> or <em>&gt;&gt;</em> allows the lockfile to
+be created if it does not already exist, however, write permission is
+required. Using <em>&lt;</em> requires that the file already exists but only read
+permission is required.</p>
+</blockquote>
+<p>
+[ &#34;${FLOCKER}&#34; != &#34;$0&#34; ] &amp;&amp; exec env FLOCKER=&#34;$0&#34; flock -en &#34;$0&#34; &#34;$0&#34;
+&#34;$@&#34; || :</p>
+<blockquote>
+<p>This is useful boilerplate code for shell scripts. Put it at the top of
+the shell script you want to lock and it&#39;ll automatically lock itself on
+the first run. If the environment variable <strong>$FLOCKER</strong> is not set to the
+shell script that is being run, then execute <strong>flock</strong> and grab an
+exclusive non-blocking lock (using the script itself as the lock file)
+before re-execing itself with the right arguments. It also sets the
+<strong>FLOCKER</strong> environment variable to the right value so it doesn&#39;t run
+again.</p>
+</blockquote>
+<p>
+shell&gt; exec 4&lt;&gt;/var/lock/mylockfile; shell&gt; flock -n 4</p>
+<blockquote>
+<p>This form is convenient for locking a file without spawning a
+subprocess. The shell opens the lock file for reading and writing as
+file descriptor 4, then <strong>flock</strong> is used to lock the descriptor.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Copyright © 2003-2006 H. Peter Anvin. This is free software; see the
+source for copying conditions. There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>*flock*(2)</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>The <strong>flock</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

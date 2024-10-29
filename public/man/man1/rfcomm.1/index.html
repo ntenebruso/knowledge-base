@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - rfcomm.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - rfcomm.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>rfcomm - RFCOMM configuration utility</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>rfcomm</strong> [/OPTIONS/] &lt;/COMMAND/&gt; &lt;/dev/&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>rfcomm(1)</strong> is used to set up, maintain, and inspect the RFCOMM
+configuration of the Bluetooth subsystem in the Linux kernel. If no
+<strong>command</strong> is given, or if the option <strong>-a</strong> is used, <strong>rfcomm</strong> prints
+information about the configured RFCOMM devices.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>Gives a list of possible commands.</dd>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>Prints information about all configured RFCOMM devices.</dd>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>Switch TTY into raw mode (doesn&#39;t work with &#34;bind&#34;).</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-i &lt;/hciX/&gt; | &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>The command is applied to device <em>hciX</em>,
+which must be the name or the address of an installed Bluetooth
+device. If not specified, the command will be use the first available
+Bluetooth device.</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt>
+<strong>-A</strong>
+</dt>
+<dd>Enable authentication</dd>
+<dt>
+<strong>-E</strong>
+</dt>
+<dd>Enable encryption</dd>
+<dt>
+<strong>-S</strong>
+</dt>
+<dd>Secure connection</dd>
+<dt>
+<strong>-C</strong>
+</dt>
+<dd>Become the central of a piconet</dd>
+<dt>
+*-L*/ &lt;seconds&gt;/
+</dt>
+<dd>Set linger timeout</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+COMMANDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>show &lt;/dev/&gt;</strong>
+</dt>
+<dd>Display the information about the specified device.</dd>
+<dt>
+<strong>connect &lt;/dev/&gt; [/bdaddr/] [/channel/]</strong>
+</dt>
+<dd>Connect the RFCOMM device
+to the remote Bluetooth device on the specified channel. If no channel
+is specified, it will use the channel number <strong>1</strong>. This command can be
+terminated with the key sequence CTRL-C.</dd>
+<dt>
+<strong>listen &lt;/dev/&gt; [/channel/] [/cmd/]</strong>
+</dt>
+<dd>Listen on a specified RFCOMM
+channel for incoming connections. If no channel is specified, it will
+use the channel number <strong>1</strong>, but a channel must be specified before
+cmd. If cmd is given, it will be executed as soon as a client
+connects. When the child process terminates or the client disconnect,
+the command will terminate. Occurrences of {} in cmd will be replaced
+by the name of the device used by the connection. This command can be
+terminated with the key sequence CTRL-C.</dd>
+<dt>
+<strong>watch &lt;/dev/&gt; [/channel/] [/cmd/]</strong>
+</dt>
+<dd>Watch is identical to listen
+except that when the child process terminates or the client
+disconnect, the command will restart listening with the same
+parameters.</dd>
+<dt>
+<strong>bind &lt;/dev/&gt; [/bdaddr/] [/channel/]</strong>
+</dt>
+<dd>This binds the RFCOMM device
+to a remote Bluetooth device. The command does not establish a
+connection to the remote device, it only creates the binding. The
+connection will be established right after an application tries to
+open the RFCOMM device. If no channel number is specified, it uses the
+channel number <strong>1</strong>.</dd>
+<dt>
+<strong>release &lt;/dev/&gt;</strong>
+</dt>
+<dd>This command releases a defined RFCOMM binding.
+
+If <strong>all</strong> is specified for the RFCOMM device, then all bindings will be
+removed.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+RESOURCES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Marcel Holtmann &lt;marcel@holtmann.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

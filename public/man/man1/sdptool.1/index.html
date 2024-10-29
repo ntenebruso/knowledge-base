@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - sdptool.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - sdptool.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>sdptool - control and interrogate SDP servers</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>sdptool</strong> [/OPTIONS/] [/COMMAND/ [/PARAMETERS/]]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>sdptool(1)</strong> provides the interface for performing SDP queries on
+Bluetooth devices, and administering a local SDP database.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following commands are available. In all cases <strong>bdaddr</strong> specifies
+the device to search or browse. If <em>local</em> is used for <strong>bdaddr</strong>, then
+the local SDP database is searched.</p>
+<p>
+Services are identified and manipulated with a 4-byte <strong>record_handle</strong>
+(NOT the service name). To find a service&#39;s <strong>record_handle</strong>, look for
+the &#34;Service RecHandle&#34; line in the <strong>search</strong> or <strong>browse</strong> results</p>
+<blockquote>
+<ul>
+<li><strong>search [–bdaddr bdaddr] [–tree] [–raw] [–xml]
+service_name</strong> :: Search for services..
+
+Known service names are <strong>DID</strong>, <strong>SP</strong>, <strong>DUN</strong>, <strong>LAN</strong>, <strong>FAX</strong>, <strong>OPUSH</strong>,
+<strong>FTP</strong>, <strong>HS</strong>, <strong>HF</strong>, <strong>HFAG</strong>, <strong>SAP</strong>, <strong>NAP</strong>, <strong>GN</strong>, <strong>PANU</strong>, <strong>HCRP</strong>, <strong>HID</strong>,
+<strong>CIP</strong>, <strong>A2SRC</strong>, <strong>A2SNK</strong>, <strong>AVRCT</strong>, <strong>AVRTG</strong>, <strong>UDIUE</strong>, <strong>UDITE</strong> and
+<strong>SYNCML</strong>.</li>
+<li><strong>browse [–tree] [–raw] [–xml] [bdaddr]</strong> :: Browse all available
+services on the device specified by a Bluetooth address as a
+parameter.</li>
+<li><strong>records [–tree] [–raw] [–xml] bdaddr</strong> :: Retrieve all possible
+service records.</li>
+<li><strong>add [ –handle=N –channel=N ]</strong> :: Add a service to the local SDP
+database.
+
+You can specify a handle for this record using the <strong>–handle</strong> option.
+
+You can specify a channel to add the service on using the <strong>–channel</strong>
+option.
+
+NOTE: Local adapters configuration will not be updated and this
+command should be used only for SDP testing.</li>
+<li><strong>del record_handle</strong> :: Remove a service from the local SDP database.
+
+NOTE: Local adapters configuration will not be updated and this
+command should be used only for SDP testing.</li>
+<li><strong>get [–tree] [–raw] [–xml] [–bdaddr bdaddr]
+record_handle</strong> :: Retrieve a service from the local SDP database.</li>
+<li><strong>setattr record_handle attrib_id attrib_value</strong> :: Set or add an
+attribute to an SDP record.</li>
+<li><strong>setseq record_handle attrib_id attrib_values</strong> :: Set or add an
+attribute sequence to an SDP record.</li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>Displays help on using sdptool.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<blockquote>
+<blockquote>
+<pre class="example">
+$ sdptool browse 00:80:98:24:15:6D
+$ sdptool browse local
+$ sdptool add DUN
+$ sdptool del 0x10000
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+RESOURCES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+AUTHOR
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Maxim Krasnyansky &lt;maxk@qualcomm.com&gt;, Edd Dumbill &lt;ejad@debian.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

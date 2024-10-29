@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - gcov-tool.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - gcov-tool.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>gcov-tool - offline gcda profile processing tool</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>gcov-tool [*-v*|*–version*] [*-h*|*–help*]</p>
+<p>
+gcov-tool merge [merge-options] <em>directory1</em> <em>directory2</em>
+[*-o*|*–output* /directory/] [*-v*|*–verbose*] [*-w*|*–weight*
+/w1,w2/]</p>
+<p>
+gcov-tool merge-stream [merge-stream-options] [/file/]
+[*-v*|*–verbose*] [*-w*|*–weight* /w1,w2/]</p>
+<p>
+gcov-tool rewrite [rewrite-options] <em>directory</em> [*-n*|*–normalize*
+/long_long_value/] [*-o*|*–output* /directory/] [*-s*|*–scale*
+/float_or_simple-frac_value/] [*-v*|*–verbose*]</p>
+<p>
+gcov-tool overlap [overlap-options] <em>directory1</em> <em>directory2</em>
+[*-f*|*–function*] [*-F*|*–fullname*] [*-h*|*–hotonly*]
+[*-o*|*–object*] [*-t*|*–hot_threshold*] <em>float</em> [*-v*|*–verbose*]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>gcov-tool</strong> is an offline tool to process gcc&#39;s gcda profile files.</p>
+<p>
+Current gcov-tool supports the following functionalities:</p>
+<ul>
+<li>merge two sets of profiles with weights.</li>
+<li>read a stream of profiles with associated filenames and merge it with
+a set of profiles with weights.</li>
+<li>read one set of profile and rewrite profile contents. One can scale or
+normalize the count values.</li>
+</ul>
+<p>Examples of the use cases for this tool are:</p>
+<ul>
+<li>Collect the profiles for different set of inputs, and use this tool to
+merge them. One can specify the weight to factor in the relative
+importance of each input.</li>
+<li>Collect profiles from target systems without a filesystem
+(freestanding environments). Merge the collected profiles with
+associated profiles present on the host system. One can specify the
+weight to factor in the relative importance of each input.</li>
+<li>Rewrite the profile after removing a subset of the gcda files, while
+maintaining the consistency of the summary and the histogram.</li>
+<li>It can also be used to debug or libgcov code as the tools shares the
+majority code as the runtime library.</li>
+</ul>
+<p>Note that for the merging operation, this profile generated offline may
+contain slight different values from the online merged profile. Here are
+a list of typical differences:</p>
+<ul>
+<li>histogram difference: This offline tool recomputes the histogram after
+merging the counters. The resulting histogram, therefore, is precise.
+The online merging does not have this capability Ω- the histogram is
+merged from two histograms and the result is an approximation.</li>
+<li>summary checksum difference: Summary checksum uses a CRC32 operation.
+The value depends on the link list order of gcov-info objects. This
+order is different in gcov-tool from that in the online merge. It&#39;s
+expected to have different summary checksums. It does not really
+matter as the compiler does not use this checksum anywhere.</li>
+<li>value profile counter values difference: Some counter values for value
+profile are runtime dependent, like heap addresses. It&#39;s normal to see
+some difference in these kind of counters.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+-h
+</dt>
+<dd></dd>
+<dt>
+–help
+</dt>
+<dd></dd>
+</dl>
+<p>Display help about using <strong>gcov-tool</strong> (on the standard output), and exit
+without doing any further processing.</p>
+<dl>
+<dt>
+-v
+</dt>
+<dd></dd>
+<dt>
+–version
+</dt>
+<dd></dd>
+</dl>
+<p>Display the <strong>gcov-tool</strong> version number (on the standard output), and
+exit without doing any further processing.</p>
+<dl>
+<dt>
+merge
+</dt>
+<dd>
+<p>Merge two profile directories.</p>
+<dl>
+<dt>
+-o directory
+</dt>
+<dd></dd>
+<dt>
+–output directory
+</dt>
+<dd></dd>
+</dl>
+<p>Set the output profile directory. Default output directory name is
+<em>merged_profile</em>.</p>
+<dl>
+<dt>
+-v
+</dt>
+<dd></dd>
+<dt>
+–verbose
+</dt>
+<dd></dd>
+</dl>
+<p>Set the verbose mode.</p>
+<dl>
+<dt>
+-w w1,w2
+</dt>
+<dd></dd>
+<dt>
+–weight w1,w2
+</dt>
+<dd></dd>
+</dl>
+<p>Set the merge weights of the <em>directory1</em> and <em>directory2</em>,
+respectively. The default weights are 1 for both.</p>
+</dd>
+<dt>
+merge-stream
+</dt>
+<dd>
+<p>Collect profiles with associated filenames from a
+<em>gcfn</em> and <em>gcda</em> data stream. Read the stream from the file specified
+by <em>file</em> or from <em>stdin</em>. Merge the profiles with associated profiles
+in the host filesystem. Apply the optional weights while merging
+profiles. For the generation of a <em>gcfn</em> and <em>gcda</em> data stream on the
+target system, please have a look at the <code class="verbatim">_ _gcov_filename_to_gcfn()</code>
+and <code class="verbatim">_ _gcov_info_to_gcda()</code> functions declared in
+<code class="verbatim">#include &lt;gcov.h&gt;</code>.</p>
+<dl>
+<dt>
+-v
+</dt>
+<dd></dd>
+<dt>
+–verbose
+</dt>
+<dd></dd>
+</dl>
+<p>Set the verbose mode.</p>
+<dl>
+<dt>
+-w w1,w2
+</dt>
+<dd></dd>
+<dt>
+–weight w1,w2
+</dt>
+<dd></dd>
+</dl>
+<p>Set the merge weights of the profiles from the <em>gcfn</em> and <em>gcda</em> data
+stream and the associated profiles in the host filesystem,
+respectively. The default weights are 1 for both.</p>
+</dd>
+<dt>
+rewrite
+</dt>
+<dd>
+<p>Read the specified profile directory and rewrite to a new
+directory.</p>
+<dl>
+<dt>
+-n long_long_value
+</dt>
+<dd></dd>
+<dt>
+–normalize &lt;long_long_value&gt;
+</dt>
+<dd></dd>
+</dl>
+<p>Normalize the profile. The specified value is the max counter value in
+the new profile.</p>
+<dl>
+<dt>
+-o directory
+</dt>
+<dd></dd>
+<dt>
+–output directory
+</dt>
+<dd></dd>
+</dl>
+<p>Set the output profile directory. Default output name is
+<em>rewrite_profile</em>.</p>
+<dl>
+<dt>
+-s float_or_simple-frac_value
+</dt>
+<dd></dd>
+<dt>
+–scale float_or_simple-frac_value
+</dt>
+<dd></dd>
+</dl>
+<p>Scale the profile counters. The specified value can be in floating
+point value, or simple fraction value form, such 1, 2, 2/3, and 5/3.</p>
+<dl>
+<dt>
+-v
+</dt>
+<dd></dd>
+<dt>
+–verbose
+</dt>
+<dd></dd>
+</dl>
+<p>Set the verbose mode.</p>
+</dd>
+<dt>
+overlap
+</dt>
+<dd>
+<p>Compute the overlap score between the two specified profile
+directories. The overlap score is computed based on the arc profiles.
+It is defined as the sum of min (p1_counter[i] / p1_sum_all,
+p2_counter[i] / p2_sum_all), for all arc counter i, where
+p1_counter[i] and p2_counter[i] are two matched counters and
+p1_sum_all and p2_sum_all are the sum of counter values in profile 1
+and profile 2, respectively.</p>
+<dl>
+<dt>
+-f
+</dt>
+<dd></dd>
+<dt>
+–function
+</dt>
+<dd></dd>
+</dl>
+<p>Print function level overlap score.</p>
+<dl>
+<dt>
+-F
+</dt>
+<dd></dd>
+<dt>
+–fullname
+</dt>
+<dd></dd>
+</dl>
+<p>Print full gcda filename.</p>
+<dl>
+<dt>
+-h
+</dt>
+<dd></dd>
+<dt>
+–hotonly
+</dt>
+<dd></dd>
+</dl>
+<p>Only print info for hot objects/functions.</p>
+<dl>
+<dt>
+-o
+</dt>
+<dd></dd>
+<dt>
+–object
+</dt>
+<dd></dd>
+</dl>
+<p>Print object level overlap score.</p>
+<dl>
+<dt>
+-t float
+</dt>
+<dd></dd>
+<dt>
+–hot_threshold &lt;float&gt;
+</dt>
+<dd></dd>
+</dl>
+<p>Set the threshold for hot counter value.</p>
+<dl>
+<dt>
+-v
+</dt>
+<dd></dd>
+<dt>
+–verbose
+</dt>
+<dd></dd>
+</dl>
+<p>Set the verbose mode.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>gpl</strong> (7), <strong>gfdl</strong> (7), <strong>fsf-funding</strong> (7), <strong>gcc</strong> (1), <strong>gcov</strong> (1) and the
+Info entry for <em>gcc</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Copyright (c) 2014-2023 Free Software Foundation, Inc.</p>
+<p>
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being GNU General Public License and Funding Free
+Software, the Front-Cover texts being (a) (see below), and with the
+Back-Cover Texts being (b) (see below). A copy of the license is
+included in the <strong>gfdl</strong> (7) man page.</p>
+<p>
+(a) The FSF&#39;s Front-Cover Text is:</p>
+<p>
+A GNU Manual</p>
+<p>
+(b) The FSF&#39;s Back-Cover Text is:</p>
+<p>
+You have freedom to copy and modify this GNU Manual, like GNU software.
+Copies published by the Free Software Foundation raise funds for GNU
+development.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

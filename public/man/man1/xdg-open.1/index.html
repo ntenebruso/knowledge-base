@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - xdg-open.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - xdg-open.1</h1>
+    
+<p>.SH &#34;NAME&#34; xdg-open - opens a file or URL in the users preferred
+application</p>
+<p>
+.SH &#34;SYNOPSIS&#34;</p>
+<p>
+.HP u</p>
+<p>
+<strong>xdg-open</strong> { | <em>file</em> | <em>URL</em> }</p>
+<p>
+.HP u</p>
+<p>
+<strong>xdg-open</strong> { | <strong>–help</strong> | <strong>–manual</strong> | <strong>–version</strong> }</p>
+<p>
+.SH &#34;DESCRIPTION&#34;</p>
+<p>
+.PP xdg-open opens a file or URL in the users preferred application. If
+a URL is provided the URL will be opened in the users preferred web
+browser. If a file is provided the file will be opened in the preferred
+application for files of that type. xdg-open supports file, ftp, http
+and https URLs.</p>
+<p>
+.PP xdg-open is for use inside a desktop session only. It is not
+recommended to use xdg-open as root.</p>
+<p>
+.PP As xdg-open can not handle arguments that begin with a “-” it is
+recommended to pass filepaths in one of the following ways:</p>
+<blockquote>
+<p>·</p>
+<p>
+Pass absolute paths, i.e. by using <strong>realpath</strong> as a preprocessor.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Prefix known relative filepaths with a “./”. For example using sed -E
+s|^[^/]|./\0|.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Pass a file URL.</p>
+</blockquote>
+<p>
+.SH &#34;OPTIONS&#34;</p>
+<p>
+.PP <strong>–help</strong></p>
+<blockquote>
+<p>Show command synopsis.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>–manual</strong></p>
+<blockquote>
+<p>Show this manual page.</p>
+<p>
+.RE</p>
+<p>
+.PP <strong>–version</strong></p>
+<blockquote>
+<p>Show the xdg-utils version information.</p>
+<p>
+.RE .SH &#34;EXIT CODES&#34;</p>
+<p>
+.PP An exit code of 0 indicates success while a non-zero exit code
+indicates failure. The following failure codes can be returned:</p>
+<p>
+.PP <strong>1</strong></p>
+<blockquote>
+<p>Error in command line syntax.</p>
+<p>
+.RE .PP <strong>2</strong></p>
+<blockquote>
+<p>One of the files passed on the command line did not exist.</p>
+<p>
+.RE .PP <strong>3</strong></p>
+<blockquote>
+<p>A required tool could not be found.</p>
+<p>
+.RE .PP <strong>4</strong></p>
+<blockquote>
+<p>The action failed.</p>
+<p>
+.RE .PP In case of success the process launched from the .desktop file
+will not be forked off and therefore may result in xdg-open running for
+a very long time. This behaviour intentionally differs from most desktop
+specific openers to allow terminal based applications to run using the
+same terminal xdg-open was called from.</p>
+<p>
+.SH &#34;REPORTING ISSUES&#34;</p>
+<p>
+.PP Please keep in mind <strong>xdg-open</strong> inherits most of the flaws of its
+configuration and the underlying opener.</p>
+<p>
+.PP In case the command xdg-mime query default &#34;$(xdg-mime query
+filetype path/to/troublesome_file)&#34; names the program responsible for
+any unexpected behaviour you can fix that by setting a different
+handler. (If the program is broken let the developers know)</p>
+<p>
+.PP Also see the security note on *xdg-mime*(1) for the default
+subcommand.</p>
+<p>
+.PP If a flaw is reproducible using the desktop specific opener (and
+isnt a configuration issue): Please report to whoever is responsible for
+that first (reporting to xdg-utils is better than not reporting at all,
+but since the xdg-utils are maintained in very little spare time a fix
+will take much longer)</p>
+<p>
+.PP In case an issue specific to xdg-open please report it to
+<a href="https://gitlab.freedesktop.org/xdg/xdg-utils/-/issues">https://gitlab.freedesktop.org/xdg/xdg-utils/-/issues</a> .</p>
+<p>
+.SH &#34;SEE ALSO&#34;</p>
+<p>
+.PP <strong>xdg-mime*(1), *xdg-settings*(1), *MIME applications associations
+specification</strong>[1]</p>
+<p>
+.SH &#34;EXAMPLES&#34;</p>
+<p>
+.PP</p>
+<blockquote>
+<pre class="example">
+xdg-open http://www.freedesktop.org/
+</pre>
+</blockquote>
+<p>
+Opens the freedesktop.org website in the users default browser.</p>
+<p>
+.PP</p>
+<blockquote>
+<pre class="example">
+xdg-open /tmp/foobar.png
+</pre>
+</blockquote>
+<p>
+Opens the PNG image file /tmp/foobar.png in the users default image
+viewing application.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+AUTHORS
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>Kevin Krammer</strong></p>
+<blockquote>
+<p>Author.</p>
+</blockquote>
+<p>
+<strong>Jeremy White</strong></p>
+<blockquote>
+<p>Author.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>\\
+Copyright © 2006\\</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+NOTES
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>MIME applications associations specification
+
+http://www.freedesktop.org/wiki/Specifications/mime-apps-spec/</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-diagnose.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-diagnose.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-diagnose - Generate a zip archive of diagnostic information</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git diagnose [(-o | --output-directory) &lt;path&gt;] [(-s | --suffix) &lt;format&gt;]
+               [--mode=&lt;mode&gt;]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Collects detailed information about the user&#39;s machine, Git client, and
+repository state and packages that information into a zip archive. The
+generated archive can then, for example, be shared with the Git mailing
+list to help debug an issue or serve as a reference for independent
+debugging.</p>
+<p>
+By default, the following information is captured in the archive:</p>
+<blockquote>
+<p>·</p>
+<p>
+<em>git version –build-options</em></p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+The path to the repository root</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+The available disk space on the filesystem</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+The name and size of each packfile, including those in alternate object
+stores</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+The total count of loose objects, as well as counts broken down by
+<strong>.git/objects</strong> subdirectory</p>
+</blockquote>
+<p>
+Additional information can be collected by selecting a different
+diagnostic mode using the <strong>–mode</strong> option.</p>
+<p>
+This tool differs from *git-bugreport*(1) in that it collects much more
+detailed information with a greater focus on reporting the size and data
+shape of repository contents.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-o &lt;path&gt;, –output-directory &lt;path&gt;</p>
+<blockquote>
+<p>Place the resulting diagnostics archive in <strong>&lt;path&gt;</strong> instead of the
+current directory.</p>
+</blockquote>
+<p>
+-s &lt;format&gt;, –suffix &lt;format&gt;</p>
+<blockquote>
+<p>Specify an alternate suffix for the diagnostics archive name, to create
+a file named <em>git-diagnostics-&lt;formatted-suffix&gt;</em>. This should take the
+form of a strftime(3) format string; the current local time will be
+used.</p>
+</blockquote>
+<p>
+–mode=(stats|all)</p>
+<blockquote>
+<p>Specify the type of diagnostics that should be collected. The default
+behavior of <em>git diagnose</em> is equivalent to <strong>–mode=stats</strong>.</p>
+<p>
+The <strong>–mode=all</strong> option collects everything included in <strong>–mode=stats</strong>,
+as well as copies of <strong>.git</strong>, <strong>.git/hooks</strong>, <strong>.git/info</strong>, <strong>.git/logs</strong>, and
+<strong>.git/objects/info</strong> directories. This additional information may be
+sensitive, as it can be used to reconstruct the full contents of the
+diagnosed repository. Users should exercise caution when sharing an
+archive generated with <strong>–mode=all</strong>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+GIT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

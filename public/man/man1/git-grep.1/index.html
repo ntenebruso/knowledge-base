@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-grep.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-grep.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-grep - Print lines matching a pattern</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git grep [-a | --text] [-I] [--textconv] [-i | --ignore-case] [-w | --word-regexp]
+           [-v | --invert-match] [-h|-H] [--full-name]
+           [-E | --extended-regexp] [-G | --basic-regexp]
+           [-P | --perl-regexp]
+           [-F | --fixed-strings] [-n | --line-number] [--column]
+           [-l | --files-with-matches] [-L | --files-without-match]
+           [(-O | --open-files-in-pager) [&lt;pager&gt;]]
+           [-z | --null]
+           [ -o | --only-matching ] [-c | --count] [--all-match] [-q | --quiet]
+           [--max-depth &lt;depth&gt;] [--[no-]recursive]
+           [--color[=&lt;when&gt;] | --no-color]
+           [--break] [--heading] [-p | --show-function]
+           [-A &lt;post-context&gt;] [-B &lt;pre-context&gt;] [-C &lt;context&gt;]
+           [-W | --function-context]
+           [(-m | --max-count) &lt;num&gt;]
+           [--threads &lt;num&gt;]
+           [-f &lt;file&gt;] [-e] &lt;pattern&gt;
+           [--and|--or|--not|(|)|-e &lt;pattern&gt;...]
+           [--recurse-submodules] [--parent-basename &lt;basename&gt;]
+           [ [--[no-]exclude-standard] [--cached | --untracked | --no-index] | &lt;tree&gt;...]
+           [--] [&lt;pathspec&gt;...]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Look for specified patterns in the tracked files in the work tree, blobs
+registered in the index file, or blobs in given tree objects. Patterns
+are lists of one or more search expressions separated by newline
+characters. An empty string as search expression matches all lines.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–cached</p>
+<blockquote>
+<p>Instead of searching tracked files in the working tree, search blobs
+registered in the index file.</p>
+</blockquote>
+<p>
+–untracked</p>
+<blockquote>
+<p>In addition to searching in the tracked files in the working tree,
+search also in untracked files.</p>
+</blockquote>
+<p>
+–no-index</p>
+<blockquote>
+<p>Search files in the current directory that is not managed by Git, or by
+ignoring that the current directory is managed by Git. This is rather
+similar to running the regular <strong>grep(1)</strong> utility with its <strong>-r</strong> option
+specified, but with some additional benefits, such as using pathspec
+patterns to limit paths; see the <em>pathspec</em> entry in *gitglossary*(7)
+for more information.</p>
+<p>
+This option cannot be used together with <strong>–cached</strong> or <strong>–untracked</strong>.
+See also <strong>grep.fallbackToNoIndex</strong> in <em>CONFIGURATION</em> below.</p>
+</blockquote>
+<p>
+–no-exclude-standard</p>
+<blockquote>
+<p>Also search in ignored files by not honoring the <strong>.gitignore</strong> mechanism.
+Only useful with <strong>–untracked</strong>.</p>
+</blockquote>
+<p>
+–exclude-standard</p>
+<blockquote>
+<p>Do not pay attention to ignored files specified via the <strong>.gitignore</strong>
+mechanism. Only useful when searching files in the current directory
+with <strong>–no-index</strong>.</p>
+</blockquote>
+<p>
+–recurse-submodules</p>
+<blockquote>
+<p>Recursively search in each submodule that is active and checked out in
+the repository. When used in combination with the <em>&lt;tree&gt;</em> option the
+prefix of all submodule output will be the name of the parent project&#39;s
+<em>&lt;tree&gt;</em> object. This option cannot be used together with <strong>–untracked</strong>,
+and it has no effect if <strong>–no-index</strong> is specified.</p>
+</blockquote>
+<p>
+-a, –text</p>
+<blockquote>
+<p>Process binary files as if they were text.</p>
+</blockquote>
+<p>
+–textconv</p>
+<blockquote>
+<p>Honor textconv filter settings.</p>
+</blockquote>
+<p>
+–no-textconv</p>
+<blockquote>
+<p>Do not honor textconv filter settings. This is the default.</p>
+</blockquote>
+<p>
+-i, –ignore-case</p>
+<blockquote>
+<p>Ignore case differences between the patterns and the files.</p>
+</blockquote>
+<p>
+-I</p>
+<blockquote>
+<p>Don&#39;t match the pattern in binary files.</p>
+</blockquote>
+<p>
+–max-depth &lt;depth&gt;</p>
+<blockquote>
+<p>For each &lt;pathspec&gt; given on command line, descend at most &lt;depth&gt;
+levels of directories. A value of -1 means no limit. This option is
+ignored if &lt;pathspec&gt; contains active wildcards. In other words if &#34;a*&#34;
+matches a directory named &#34;a*&#34;, &#34;*&#34; is matched literally so –max-depth
+is still effective.</p>
+</blockquote>
+<p>
+-r, –recursive</p>
+<blockquote>
+<p>Same as <strong>–max-depth=-1</strong>; this is the default.</p>
+</blockquote>
+<p>
+–no-recursive</p>
+<blockquote>
+<p>Same as <strong>–max-depth=0</strong>.</p>
+</blockquote>
+<p>
+-w, –word-regexp</p>
+<blockquote>
+<p>Match the pattern only at word boundary (either begin at the beginning
+of a line, or preceded by a non-word character; end at the end of a line
+or followed by a non-word character).</p>
+</blockquote>
+<p>
+-v, –invert-match</p>
+<blockquote>
+<p>Select non-matching lines.</p>
+</blockquote>
+<p>
+-h, -H</p>
+<blockquote>
+<p>By default, the command shows the filename for each match. <strong>-h</strong> option
+is used to suppress this output. <strong>-H</strong> is there for completeness and does
+not do anything except it overrides <strong>-h</strong> given earlier on the command
+line.</p>
+</blockquote>
+<p>
+–full-name</p>
+<blockquote>
+<p>When run from a subdirectory, the command usually outputs paths relative
+to the current directory. This option forces paths to be output relative
+to the project top directory.</p>
+</blockquote>
+<p>
+-E, –extended-regexp, -G, –basic-regexp</p>
+<blockquote>
+<p>Use POSIX extended/basic regexp for patterns. Default is to use basic
+regexp.</p>
+</blockquote>
+<p>
+-P, –perl-regexp</p>
+<blockquote>
+<p>Use Perl-compatible regular expressions for patterns.</p>
+<p>
+Support for these types of regular expressions is an optional
+compile-time dependency. If Git wasn&#39;t compiled with support for them
+providing this option will cause it to die.</p>
+</blockquote>
+<p>
+-F, –fixed-strings</p>
+<blockquote>
+<p>Use fixed strings for patterns (don&#39;t interpret pattern as a regex).</p>
+</blockquote>
+<p>
+-n, –line-number</p>
+<blockquote>
+<p>Prefix the line number to matching lines.</p>
+</blockquote>
+<p>
+–column</p>
+<blockquote>
+<p>Prefix the 1-indexed byte-offset of the first match from the start of
+the matching line.</p>
+</blockquote>
+<p>
+-l, –files-with-matches, –name-only, -L, –files-without-match</p>
+<blockquote>
+<p>Instead of showing every matched line, show only the names of files that
+contain (or do not contain) matches. For better compatibility with <em>git
+diff</em>, <strong>–name-only</strong> is a synonym for <strong>–files-with-matches</strong>.</p>
+</blockquote>
+<p>
+-O[&lt;pager&gt;], –open-files-in-pager[=&lt;pager&gt;]</p>
+<blockquote>
+<p>Open the matching files in the pager (not the output of <em>grep</em>). If the
+pager happens to be &#34;less&#34; or &#34;vi&#34;, and the user specified only one
+pattern, the first file is positioned at the first match automatically.
+The <strong>pager</strong> argument is optional; if specified, it must be stuck to the
+option without a space. If <strong>pager</strong> is unspecified, the default pager
+will be used (see <strong>core.pager</strong> in *git-config*(1)).</p>
+</blockquote>
+<p>
+-z, –null</p>
+<blockquote>
+<p>Use \0 as the delimiter for pathnames in the output, and print them
+verbatim. Without this option, pathnames with &#34;unusual&#34; characters are
+quoted as explained for the configuration variable <strong>core.quotePath</strong> (see
+*git-config*(1)).</p>
+</blockquote>
+<p>
+-o, –only-matching</p>
+<blockquote>
+<p>Print only the matched (non-empty) parts of a matching line, with each
+such part on a separate output line.</p>
+</blockquote>
+<p>
+-c, –count</p>
+<blockquote>
+<p>Instead of showing every matched line, show the number of lines that
+match.</p>
+</blockquote>
+<p>
+–color[=&lt;when&gt;]</p>
+<blockquote>
+<p>Show colored matches. The value must be always (the default), never, or
+auto.</p>
+</blockquote>
+<p>
+–no-color</p>
+<blockquote>
+<p>Turn off match highlighting, even when the configuration file gives the
+default to color output. Same as <strong>–color=never</strong>.</p>
+</blockquote>
+<p>
+–break</p>
+<blockquote>
+<p>Print an empty line between matches from different files.</p>
+</blockquote>
+<p>
+–heading</p>
+<blockquote>
+<p>Show the filename above the matches in that file instead of at the start
+of each shown line.</p>
+</blockquote>
+<p>
+-p, –show-function</p>
+<blockquote>
+<p>Show the preceding line that contains the function name of the match,
+unless the matching line is a function name itself. The name is
+determined in the same way as <strong>git diff</strong> works out patch hunk headers
+(see <em>Defining a custom hunk-header</em> in *gitattributes*(5)).</p>
+</blockquote>
+<p>
+-&lt;num&gt;, -C &lt;num&gt;, –context &lt;num&gt;</p>
+<blockquote>
+<p>Show &lt;num&gt; leading and trailing lines, and place a line containing <strong>–</strong>
+between contiguous groups of matches.</p>
+</blockquote>
+<p>
+-A &lt;num&gt;, –after-context &lt;num&gt;</p>
+<blockquote>
+<p>Show &lt;num&gt; trailing lines, and place a line containing <strong>–</strong> between
+contiguous groups of matches.</p>
+</blockquote>
+<p>
+-B &lt;num&gt;, –before-context &lt;num&gt;</p>
+<blockquote>
+<p>Show &lt;num&gt; leading lines, and place a line containing <strong>–</strong> between
+contiguous groups of matches.</p>
+</blockquote>
+<p>
+-W, –function-context</p>
+<blockquote>
+<p>Show the surrounding text from the previous line containing a function
+name up to the one before the next function name, effectively showing
+the whole function in which the match was found. The function names are
+determined in the same way as <strong>git diff</strong> works out patch hunk headers
+(see <em>Defining a custom hunk-header</em> in *gitattributes*(5)).</p>
+</blockquote>
+<p>
+-m &lt;num&gt;, –max-count &lt;num&gt;</p>
+<blockquote>
+<p>Limit the amount of matches per file. When using the <strong>-v</strong> or
+<strong>–invert-match</strong> option, the search stops after the specified number of
+non-matches. A value of -1 will return unlimited results (the default).
+A value of 0 will exit immediately with a non-zero status.</p>
+</blockquote>
+<p>
+–threads &lt;num&gt;</p>
+<blockquote>
+<p>Number of <strong>grep</strong> worker threads to use. See <em>NOTES ON THREADS</em> and
+<strong>grep.threads</strong> in <em>CONFIGURATION</em> for more information.</p>
+</blockquote>
+<p>
+-f &lt;file&gt;</p>
+<blockquote>
+<p>Read patterns from &lt;file&gt;, one per line.</p>
+<p>
+Passing the pattern via &lt;file&gt; allows for providing a search pattern
+containing a \0.</p>
+<p>
+Not all pattern types support patterns containing \0. Git will error out
+if a given pattern type can&#39;t support such a pattern. The
+<strong>–perl-regexp</strong> pattern type when compiled against the PCRE v2 backend
+has the widest support for these types of patterns.</p>
+<p>
+In versions of Git before 2.23.0 patterns containing \0 would be
+silently considered fixed. This was never documented, there were also
+odd and undocumented interactions between e.g. non-ASCII patterns
+containing \0 and <strong>–ignore-case</strong>.</p>
+<p>
+In future versions we may learn to support patterns containing \0 for
+more search backends, until then we&#39;ll die when the pattern type in
+question doesn&#39;t support them.</p>
+</blockquote>
+<p>
+-e</p>
+<blockquote>
+<p>The next parameter is the pattern. This option has to be used for
+patterns starting with <strong>-</strong> and should be used in scripts passing user
+input to grep. Multiple patterns are combined by <em>or</em>.</p>
+</blockquote>
+<p>
+–and, –or, –not, ( … )</p>
+<blockquote>
+<p>Specify how multiple patterns are combined using Boolean expressions.
+<strong>–or</strong> is the default operator. <strong>–and</strong> has higher precedence than
+<strong>–or</strong>. <strong>-e</strong> has to be used for all patterns.</p>
+</blockquote>
+<p>
+–all-match</p>
+<blockquote>
+<p>When giving multiple pattern expressions combined with <strong>–or</strong>, this flag
+is specified to limit the match to files that have lines to match all of
+them.</p>
+</blockquote>
+<p>
+-q, –quiet</p>
+<blockquote>
+<p>Do not output matched lines; instead, exit with status 0 when there is a
+match and with non-zero status when there isn&#39;t.</p>
+</blockquote>
+<p>
+&lt;tree&gt;…</p>
+<blockquote>
+<p>Instead of searching tracked files in the working tree, search blobs in
+the given trees.</p>
+</blockquote>
+<p>
+–</p>
+<blockquote>
+<p>Signals the end of options; the rest of the parameters are &lt;pathspec&gt;
+limiters.</p>
+</blockquote>
+<p>
+&lt;pathspec&gt;…</p>
+<blockquote>
+<p>If given, limit the search to paths matching at least one pattern. Both
+leading paths match and glob(7) patterns are supported.</p>
+<p>
+For more details about the &lt;pathspec&gt; syntax, see the <em>pathspec</em> entry
+in *gitglossary*(7).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>git grep time_t – *.[ch]</strong></p>
+<blockquote>
+<p>Looks for <strong>time_t</strong> in all tracked .c and .h files in the working
+directory and its subdirectories.</p>
+</blockquote>
+<p>
+<strong>git grep -e #define –and \( -e MAX_PATH -e PATH_MAX \)</strong></p>
+<blockquote>
+<p>Looks for a line that has <strong>#define</strong> and either <strong>MAX_PATH</strong> or <strong>PATH_MAX</strong>.</p>
+</blockquote>
+<p>
+<strong>git grep –all-match -e NODE -e Unexpected</strong></p>
+<blockquote>
+<p>Looks for a line that has <strong>NODE</strong> or <strong>Unexpected</strong> in files that have
+lines that match both.</p>
+</blockquote>
+<p>
+<strong>git grep solution – :^Documentation</strong></p>
+<blockquote>
+<p>Looks for <strong>solution</strong>, excluding files in <strong>Documentation</strong>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+NOTES ON THREADS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The <strong>–threads</strong> option (and the <strong>grep.threads</strong> configuration) will be
+ignored when <strong>–open-files-in-pager</strong> is used, forcing a single-threaded
+execution.</p>
+<p>
+When grepping the object store (with <strong>–cached</strong> or giving tree objects),
+running with multiple threads might perform slower than single-threaded
+if <strong>–textconv</strong> is given and there are too many text conversions. Thus,
+if low performance is experienced in this case, it might be desirable to
+use <strong>–threads=1</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+grep.lineNumber</p>
+<blockquote>
+<p>If set to true, enable <strong>-n</strong> option by default.</p>
+</blockquote>
+<p>
+grep.column</p>
+<blockquote>
+<p>If set to true, enable the <strong>–column</strong> option by default.</p>
+</blockquote>
+<p>
+grep.patternType</p>
+<blockquote>
+<p>Set the default matching behavior. Using a value of <em>basic</em>, <em>extended</em>,
+<em>fixed</em>, or <em>perl</em> will enable the <strong>–basic-regexp</strong>,
+<strong>–extended-regexp</strong>, <strong>–fixed-strings</strong>, or <strong>–perl-regexp</strong> option
+accordingly, while the value <em>default</em> will use the
+<strong>grep.extendedRegexp</strong> option to choose between <em>basic</em> and <em>extended</em>.</p>
+</blockquote>
+<p>
+grep.extendedRegexp</p>
+<blockquote>
+<p>If set to true, enable <strong>–extended-regexp</strong> option by default. This
+option is ignored when the <strong>grep.patternType</strong> option is set to a value
+other than <em>default</em>.</p>
+</blockquote>
+<p>
+grep.threads</p>
+<blockquote>
+<p>Number of grep worker threads to use. If unset (or set to 0), Git will
+use as many threads as the number of logical cores available.</p>
+</blockquote>
+<p>
+grep.fullName</p>
+<blockquote>
+<p>If set to true, enable <strong>–full-name</strong> option by default.</p>
+</blockquote>
+<p>
+grep.fallbackToNoIndex</p>
+<blockquote>
+<p>If set to true, fall back to <strong>git grep –no-index</strong> if <strong>git grep</strong> is
+executed outside of a git repository. Defaults to false.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

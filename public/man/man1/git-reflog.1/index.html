@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-reflog.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-reflog.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-reflog - Manage reflog information</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git reflog [show] [&lt;log-options&gt;] [&lt;ref&gt;]
+git reflog list
+git reflog expire [--expire=&lt;time&gt;] [--expire-unreachable=&lt;time&gt;]
+        [--rewrite] [--updateref] [--stale-fix]
+        [--dry-run | -n] [--verbose] [--all [--single-worktree] | &lt;refs&gt;...]
+git reflog delete [--rewrite] [--updateref]
+        [--dry-run | -n] [--verbose] &lt;ref&gt;@{&lt;specifier&gt;}...
+git reflog exists &lt;ref&gt;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This command manages the information recorded in the reflogs.</p>
+<p>
+Reference logs, or &#34;reflogs&#34;, record when the tips of branches and other
+references were updated in the local repository. Reflogs are useful in
+various Git commands, to specify the old value of a reference. For
+example, <strong>HEAD@{2}</strong> means &#34;where HEAD used to be two moves ago&#34;,
+<strong>master@{one.week.ago}</strong> means &#34;where master used to point to one week
+ago in this local repository&#34;, and so on. See *gitrevisions*(7) for more
+details.</p>
+<p>
+The command takes various subcommands, and different options depending
+on the subcommand:</p>
+<p>
+The &#34;show&#34; subcommand (which is also the default, in the absence of any
+subcommands) shows the log of the reference provided in the command-line
+(or <strong>HEAD</strong>, by default). The reflog covers all recent actions, and in
+addition the <strong>HEAD</strong> reflog records branch switching. <strong>git reflog show</strong>
+is an alias for <strong>git log -g –abbrev-commit –pretty=oneline</strong>; see
+*git-log*(1) for more information.</p>
+<p>
+The &#34;list&#34; subcommand lists all refs which have a corresponding reflog.</p>
+<p>
+The &#34;expire&#34; subcommand prunes older reflog entries. Entries older than
+<strong>expire</strong> time, or entries older than <strong>expire-unreachable</strong> time and not
+reachable from the current tip, are removed from the reflog. This is
+typically not used directly by end users — instead, see *git-gc*(1).</p>
+<p>
+The &#34;delete&#34; subcommand deletes single entries from the reflog. Its
+argument must be an <em>exact</em> entry (e.g. &#34;<strong>git reflog delete
+master@{2}</strong>&#34;). This subcommand is also typically not used directly by
+end users.</p>
+<p>
+The &#34;exists&#34; subcommand checks whether a ref has a reflog. It exits with
+zero status if the reflog exists, and non-zero status if it does not.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Options for <strong>show</strong>
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p><strong>git reflog show</strong> accepts any of the options accepted by <strong>git log</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Options for <strong>expire</strong>
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>–all</p>
+<blockquote>
+<p>Process the reflogs of all references.</p>
+</blockquote>
+<p>
+–single-worktree</p>
+<blockquote>
+<p>By default when <strong>–all</strong> is specified, reflogs from all working trees are
+processed. This option limits the processing to reflogs from the current
+working tree only.</p>
+</blockquote>
+<p>
+–expire=&lt;time&gt;</p>
+<blockquote>
+<p>Prune entries older than the specified time. If this option is not
+specified, the expiration time is taken from the configuration setting
+<strong>gc.reflogExpire</strong>, which in turn defaults to 90 days. <strong>–expire=all</strong>
+prunes entries regardless of their age; <strong>–expire=never</strong> turns off
+pruning of reachable entries (but see <strong>–expire-unreachable</strong>).</p>
+</blockquote>
+<p>
+–expire-unreachable=&lt;time&gt;</p>
+<blockquote>
+<p>Prune entries older than <strong>&lt;time&gt;</strong> that are not reachable from the
+current tip of the branch. If this option is not specified, the
+expiration time is taken from the configuration setting
+<strong>gc.reflogExpireUnreachable</strong>, which in turn defaults to 30 days.
+<strong>–expire-unreachable=all</strong> prunes unreachable entries regardless of
+their age; <strong>–expire-unreachable=never</strong> turns off early pruning of
+unreachable entries (but see <strong>–expire</strong>).</p>
+</blockquote>
+<p>
+–updateref</p>
+<blockquote>
+<p>Update the reference to the value of the top reflog entry (i.e.
+&lt;ref&gt;@{0}) if the previous top entry was pruned. (This option is ignored
+for symbolic references.)</p>
+</blockquote>
+<p>
+–rewrite</p>
+<blockquote>
+<p>If a reflog entry&#39;s predecessor is pruned, adjust its &#34;old&#34; SHA-1 to be
+equal to the &#34;new&#34; SHA-1 field of the entry that now precedes it.</p>
+</blockquote>
+<p>
+–stale-fix</p>
+<blockquote>
+<p>Prune any reflog entries that point to &#34;broken commits&#34;. A broken commit
+is a commit that is not reachable from any of the reference tips and
+that refers, directly or indirectly, to a missing commit, tree, or blob
+object.</p>
+<p>
+This computation involves traversing all the reachable objects, i.e. it
+has the same cost as <em>git prune</em>. It is primarily intended to fix
+corruption caused by garbage collecting using older versions of Git,
+which didn&#39;t protect objects referred to by reflogs.</p>
+</blockquote>
+<p>
+-n, –dry-run</p>
+<blockquote>
+<p>Do not actually prune any entries; just show what would have been
+pruned.</p>
+</blockquote>
+<p>
+–verbose</p>
+<blockquote>
+<p>Print extra information on screen.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Options for <strong>delete</strong>
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p><strong>git reflog delete</strong> accepts options <strong>–updateref</strong>, <strong>–rewrite</strong>, <strong>-n</strong>,
+<strong>–dry-run</strong>, and <strong>–verbose</strong>, with the same meanings as when they are
+used with <strong>expire</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

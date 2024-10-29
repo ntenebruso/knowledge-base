@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-describe.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-describe.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-describe - Give an object a human readable name based on an
+available ref</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git describe [--all] [--tags] [--contains] [--abbrev=&lt;n&gt;] [&lt;commit-ish&gt;...]
+git describe [--all] [--tags] [--contains] [--abbrev=&lt;n&gt;] --dirty[=&lt;mark&gt;]
+git describe &lt;blob&gt;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The command finds the most recent tag that is reachable from a commit.
+If the tag points to the commit, then only the tag is shown. Otherwise,
+it suffixes the tag name with the number of additional commits on top of
+the tagged object and the abbreviated object name of the most recent
+commit. The result is a &#34;human-readable&#34; object name which can also be
+used to identify the commit to other git commands.</p>
+<p>
+By default (without –all or –tags) <strong>git describe</strong> only shows annotated
+tags. For more information about creating annotated tags see the -a and
+-s options to *git-tag*(1).</p>
+<p>
+If the given object refers to a blob, it will be described as
+<strong>&lt;commit-ish&gt;:&lt;path&gt;</strong>, such that the blob can be found at <strong>&lt;path&gt;</strong> in
+the <strong>&lt;commit-ish&gt;</strong>, which itself describes the first commit in which
+this blob occurs in a reverse revision walk from HEAD.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>&lt;commit-ish&gt;…</p>
+<blockquote>
+<p>Commit-ish object names to describe. Defaults to HEAD if omitted.</p>
+</blockquote>
+<p>
+–dirty[=&lt;mark&gt;], –broken[=&lt;mark&gt;]</p>
+<blockquote>
+<p>Describe the state of the working tree. When the working tree matches
+HEAD, the output is the same as &#34;git describe HEAD&#34;. If the working tree
+has local modification &#34;-dirty&#34; is appended to it. If a repository is
+corrupt and Git cannot determine if there is local modification, Git
+will error out, unless ‘–broken&#39; is given, which appends the suffix
+&#34;-broken&#34; instead.</p>
+</blockquote>
+<p>
+–all</p>
+<blockquote>
+<p>Instead of using only the annotated tags, use any ref found in <strong>refs/</strong>
+namespace. This option enables matching any known branch,
+remote-tracking branch, or lightweight tag.</p>
+</blockquote>
+<p>
+–tags</p>
+<blockquote>
+<p>Instead of using only the annotated tags, use any tag found in
+<strong>refs/tags</strong> namespace. This option enables matching a lightweight
+(non-annotated) tag.</p>
+</blockquote>
+<p>
+–contains</p>
+<blockquote>
+<p>Instead of finding the tag that predates the commit, find the tag that
+comes after the commit, and thus contains it. Automatically implies
+–tags.</p>
+</blockquote>
+<p>
+–abbrev=&lt;n&gt;</p>
+<blockquote>
+<p>Instead of using the default number of hexadecimal digits (which will
+vary according to the number of objects in the repository with a default
+of 7) of the abbreviated object name, use &lt;n&gt; digits, or as many digits
+as needed to form a unique object name. An &lt;n&gt; of 0 will suppress long
+format, only showing the closest tag.</p>
+</blockquote>
+<p>
+–candidates=&lt;n&gt;</p>
+<blockquote>
+<p>Instead of considering only the 10 most recent tags as candidates to
+describe the input commit-ish consider up to &lt;n&gt; candidates. Increasing
+&lt;n&gt; above 10 will take slightly longer but may produce a more accurate
+result. An &lt;n&gt; of 0 will cause only exact matches to be output.</p>
+</blockquote>
+<p>
+–exact-match</p>
+<blockquote>
+<p>Only output exact matches (a tag directly references the supplied
+commit). This is a synonym for –candidates=0.</p>
+</blockquote>
+<p>
+–debug</p>
+<blockquote>
+<p>Verbosely display information about the searching strategy being
+employed to standard error. The tag name will still be printed to
+standard out.</p>
+</blockquote>
+<p>
+–long</p>
+<blockquote>
+<p>Always output the long format (the tag, the number of commits and the
+abbreviated commit name) even when it matches a tag. This is useful when
+you want to see parts of the commit object name in &#34;describe&#34; output,
+even when the commit in question happens to be a tagged version. Instead
+of just emitting the tag name, it will describe such a commit as
+v1.2-0-gdeadbee (0th commit since tag v1.2 that points at object
+deadbee….).</p>
+</blockquote>
+<p>
+–match &lt;pattern&gt;</p>
+<blockquote>
+<p>Only consider tags matching the given <strong>glob(7)</strong> pattern, excluding the
+&#34;refs/tags/&#34; prefix. If used with <strong>–all</strong>, it also considers local
+branches and remote-tracking references matching the pattern, excluding
+respectively &#34;refs/heads/&#34; and &#34;refs/remotes/&#34; prefix; references of
+other types are never considered. If given multiple times, a list of
+patterns will be accumulated, and tags matching any of the patterns will
+be considered. Use <strong>–no-match</strong> to clear and reset the list of patterns.</p>
+</blockquote>
+<p>
+–exclude &lt;pattern&gt;</p>
+<blockquote>
+<p>Do not consider tags matching the given <strong>glob(7)</strong> pattern, excluding the
+&#34;refs/tags/&#34; prefix. If used with <strong>–all</strong>, it also does not consider
+local branches and remote-tracking references matching the pattern,
+excluding respectively &#34;refs/heads/&#34; and &#34;refs/remotes/&#34; prefix;
+references of other types are never considered. If given multiple times,
+a list of patterns will be accumulated and tags matching any of the
+patterns will be excluded. When combined with –match a tag will be
+considered when it matches at least one –match pattern and does not
+match any of the –exclude patterns. Use <strong>–no-exclude</strong> to clear and
+reset the list of patterns.</p>
+</blockquote>
+<p>
+–always</p>
+<blockquote>
+<p>Show uniquely abbreviated commit object as fallback.</p>
+</blockquote>
+<p>
+–first-parent</p>
+<blockquote>
+<p>Follow only the first parent commit upon seeing a merge commit. This is
+useful when you wish to not match tags on branches merged in the history
+of the target commit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>With something like git.git current tree, I get:</p>
+<blockquote>
+<pre class="example">
+[torvalds@g5 git]$ git describe parent
+v1.0.4-14-g2414721
+</pre>
+</blockquote>
+<p>
+i.e. the current head of my &#34;parent&#34; branch is based on v1.0.4, but
+since it has a few commits on top of that, describe has added the number
+of additional commits (&#34;14&#34;) and an abbreviated object name for the
+commit itself (&#34;2414721&#34;) at the end.</p>
+<p>
+The number of additional commits is the number of commits which would be
+displayed by &#34;git log v1.0.4..parent&#34;. The hash suffix is &#34;-g&#34; + an
+unambiguous abbreviation for the tip commit of parent (which was
+<strong>2414721b194453f058079d897d13c4e377f92dc6</strong>). The length of the
+abbreviation scales as the repository grows, using the approximate
+number of objects in the repository and a bit of math around the
+birthday paradox, and defaults to a minimum of 7. The &#34;g&#34; prefix stands
+for &#34;git&#34; and is used to allow describing the version of a software
+depending on the SCM the software is managed with. This is useful in an
+environment where people may use different SCMs.</p>
+<p>
+Doing a <em>git describe</em> on a tag-name will just show the tag name:</p>
+<blockquote>
+<pre class="example">
+[torvalds@g5 git]$ git describe v1.0.4
+v1.0.4
+</pre>
+</blockquote>
+<p>
+With –all, the command can use branch heads as references, so the
+output shows the reference path as well:</p>
+<blockquote>
+<pre class="example">
+[torvalds@g5 git]$ git describe --all --abbrev=4 v1.0.5^2
+tags/v1.0.0-21-g975b
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+[torvalds@g5 git]$ git describe --all --abbrev=4 HEAD^
+heads/lt/describe-7-g975b
+</pre>
+</blockquote>
+<p>
+With –abbrev set to 0, the command can be used to find the closest
+tagname without any suffix:</p>
+<blockquote>
+<pre class="example">
+[torvalds@g5 git]$ git describe --abbrev=0 v1.0.5^2
+tags/v1.0.0
+</pre>
+</blockquote>
+<p>
+Note that the suffix you get if you type these commands today may be
+longer than what Linus saw above when he ran these commands, as your Git
+repository may have new commits whose object names begin with 975b that
+did not exist back then, and &#34;-g975b&#34; suffix alone may not be sufficient
+to disambiguate these commits.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEARCH STRATEGY
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>For each commit-ish supplied, <em>git describe</em> will first look for a tag
+which tags exactly that commit. Annotated tags will always be preferred
+over lightweight tags, and tags with newer dates will always be
+preferred over tags with older dates. If an exact match is found, its
+name will be output and searching will stop.</p>
+<p>
+If an exact match was not found, <em>git describe</em> will walk back through
+the commit history to locate an ancestor commit which has been tagged.
+The ancestor&#39;s tag will be output along with an abbreviation of the
+input commit-ish&#39;s SHA-1. If <strong>–first-parent</strong> was specified then the
+walk will only consider the first parent of each commit.</p>
+<p>
+If multiple tags were found during the walk then the tag which has the
+fewest commits different from the input commit-ish will be selected and
+output. Here fewest commits different is defined as the number of
+commits which would be shown by <strong>git log tag..input</strong> will be the
+smallest number of commits possible.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Tree objects as well as tag objects not pointing at commits, cannot be
+described. When describing blobs, the lightweight tags pointing at blobs
+are ignored, but the blob is still described as &lt;commit-ish&gt;:&lt;path&gt;
+despite the lightweight tag being favorable.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

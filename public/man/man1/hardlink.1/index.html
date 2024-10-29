@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - hardlink.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - hardlink.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>hardlink - link multiple copies of a file</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>hardlink</strong> [options] [/directory/|/file/]…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>hardlink</strong> is a tool that replaces copies of a file with either
+hardlinks or copy-on-write clones, thus saving space.</p>
+<p>
+<strong>hardlink</strong> first creates a binary tree of file sizes and then compares
+the content of files that have the same size. There are two basic
+content comparison methods. The <strong>memcmp</strong> method directly reads data
+blocks from files and compares them. The other method is based on
+checksums (like SHA256); in this case for each data block a checksum is
+calculated by the Linux kernel crypto API, and this checksum is stored
+in userspace and used for file comparisons.</p>
+<p>
+For each file also an &#34;intro&#34; buffer (32 bytes) is cached. This buffer
+is used independently from the comparison method and requested
+cache-size and io-size. The &#34;intro&#34; buffer dramatically reduces
+operations with data content as files are very often different from the
+beginning.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+<p>
+<strong>-c</strong>, <strong>–content</strong></p>
+<blockquote>
+<p>Consider only file content, not attributes, when determining whether two
+files are equal. Same as <strong>-pot</strong>.</p>
+</blockquote>
+<p>
+<strong>-b</strong>, <strong>–io-size</strong> <em>size</em></p>
+<blockquote>
+<p>The size of the *read*(2) or *sendfile*(2) buffer used when comparing
+file contents. The <em>size</em> argument may be followed by the multiplicative
+suffixes KiB, MiB, etc. The &#34;iB&#34; is optional, e.g., &#34;K&#34; has the same
+meaning as &#34;KiB&#34;. The default is 8KiB for memcmp method and 1MiB for the
+other methods. The only memcmp method uses process memory for the
+buffer, other methods use zero-copy way and I/O operation is done in the
+kernel. The size may be altered on the fly to fit a number of cached
+content checksums.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–respect-dir</strong></p>
+<blockquote>
+<p>Only try to link files with the same directory name. The top-level
+directory (as specified on the hardlink command line) is ignored. For
+example, <strong>hardlink –respect-dir /foo /bar</strong> will link <em>/foo/some/file</em>
+with <em>/bar/some/file</em>, but not <em>/bar/other/file</em>. If combined with
+<strong>–respect-name</strong>, then entire paths (except the top-level directory) are
+compared.</p>
+</blockquote>
+<p>
+<strong>-f</strong>, <strong>–respect-name</strong></p>
+<blockquote>
+<p>Only try to link files with the same (base)name. It&#39;s strongly
+recommended to use long options rather than <strong>-f</strong> which is interpreted in
+a different way by other <strong>hardlink</strong> implementations.</p>
+</blockquote>
+<p>
+<strong>-i</strong>, <strong>–include</strong> <em>regex</em></p>
+<blockquote>
+<p>A regular expression to include files. If the option <strong>–exclude</strong> has
+been given, this option re-includes files which would otherwise be
+excluded. If the option is used without <strong>–exclude</strong>, only files matched
+by the pattern are included.</p>
+</blockquote>
+<p>
+<strong>-m</strong>, <strong>–maximize</strong></p>
+<blockquote>
+<p>Among equal files, keep the file with the highest link count.</p>
+</blockquote>
+<p>
+<strong>-M</strong>, <strong>–minimize</strong></p>
+<blockquote>
+<p>Among equal files, keep the file with the lowest link count.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–dry-run</strong></p>
+<blockquote>
+<p>Do not act, just print what would happen.</p>
+</blockquote>
+<p>
+<strong>-o</strong>, <strong>–ignore-owner</strong></p>
+<blockquote>
+<p>Link and compare files even if their owner information (user and group)
+differs. Results may be unpredictable.</p>
+</blockquote>
+<p>
+<strong>-O</strong>, <strong>–keep-oldest</strong></p>
+<blockquote>
+<p>Among equal files, keep the oldest file (least recent modification
+time). By default, the newest file is kept. If <strong>–maximize</strong> or
+<strong>–minimize</strong> is specified, the link count has a higher precedence than
+the time of modification.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–ignore-mode</strong></p>
+<blockquote>
+<p>Link and compare files even if their mode is different. Results may be
+slightly unpredictable.</p>
+</blockquote>
+<p>
+<strong>-q</strong>, <strong>–quiet</strong></p>
+<blockquote>
+<p>Quiet mode, don&#39;t print anything.</p>
+</blockquote>
+<p>
+<strong>-r</strong>, <strong>–cache-size</strong> <em>size</em></p>
+<blockquote>
+<p>The size of the cache for content checksums. All non-memcmp methods
+calculate checksum for each file content block (see <strong>–io-size</strong>), these
+checksums are cached for the next comparison. The size is important for
+large files or a large sets of files of the same size. The default is
+10MiB.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–minimum-size</strong> <em>size</em></p>
+<blockquote>
+<p>The minimum size to consider. By default this is 1, so empty files will
+not be linked. The <em>size</em> argument may be followed by the multiplicative
+suffixes KiB (=1024), MiB (=1024*1024), and so on for GiB, TiB, PiB,
+EiB, ZiB and YiB (the &#34;iB&#34; is optional, e.g., &#34;K&#34; has the same meaning
+as &#34;KiB&#34;).</p>
+</blockquote>
+<p>
+<strong>-S</strong>, <strong>–maximum-size</strong> <em>size</em></p>
+<blockquote>
+<p>The maximum size to consider. By default this is 0 and 0 has the special
+meaning of unlimited. The <em>size</em> argument may be followed by the
+multiplicative suffixes KiB (=1024), MiB (=1024*1024), and so on for
+GiB, TiB, PiB, EiB, ZiB and YiB (the &#34;iB&#34; is optional, e.g., &#34;K&#34; has the
+same meaning as &#34;KiB&#34;).</p>
+</blockquote>
+<p>
+<strong>-t</strong>, <strong>–ignore-time</strong></p>
+<blockquote>
+<p>Link and compare files even if their time of modification is different.
+This is usually a good choice.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Verbose output, explain to the user what is being done. If specified
+once, every hardlinked file is displayed. If specified twice, it also
+shows every comparison.</p>
+</blockquote>
+<p>
+<strong>-x</strong>, <strong>–exclude</strong> <em>regex</em></p>
+<blockquote>
+<p>A regular expression which excludes files from being compared and
+linked.</p>
+</blockquote>
+<p>
+<strong>-X</strong>, <strong>–respect-xattrs</strong></p>
+<blockquote>
+<p>Only try to link files with the same extended attributes.</p>
+</blockquote>
+<p>
+<strong>-y</strong>, <strong>–method</strong> <em>name</em></p>
+<blockquote>
+<p>Set the file content comparison method. The currently supported methods
+are sha256, sha1, crc32c and memcmp. The default is sha256, or memcmp if
+Linux Crypto API is not available. The methods based on checksums are
+implemented in zero-copy way, in this case file contents are not copied
+to the userspace and all calculation is done in kernel.</p>
+</blockquote>
+<p>
+<strong>–reflink</strong>[=/when/]</p>
+<blockquote>
+<p>Create copy-on-write clones (aka reflinks) rather than hardlinks. The
+reflinked files share only on-disk data, but the file mode and owner can
+be different. It&#39;s recommended to use it with <strong>–ignore-owner</strong> and
+<strong>–ignore-mode</strong> options. This option implies <strong>–skip-reflinks</strong> to ignore
+already cloned files.</p>
+<p>
+The optional argument <em>when</em> can be <strong>never</strong>, <strong>always</strong>, or <strong>auto</strong>. If the
+<em>when</em> argument is omitted, it defaults to <strong>auto</strong>, in this case,
+<strong>hardlink</strong> checks filesystem type and uses reflinks on BTRFS and XFS
+only, and fallback to hardlinks when creating reflink is impossible. The
+argument <strong>always</strong> disables filesystem type detection and fallback to
+hardlinks, in this case, only reflinks are allowed.</p>
+</blockquote>
+<p>
+<strong>–skip-reflinks</strong></p>
+<blockquote>
+<p>Ignore already cloned files. This option may be used without <strong>–reflink</strong>
+when creating classic hardlinks.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ARGUMENTS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>hardlink</strong> takes one or more directories which will be searched for
+files to be linked.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+BUGS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The original <strong>hardlink</strong> implementation uses the option <strong>-f</strong> to force
+hardlinks creation between filesystem. This very rarely usable feature
+is no more supported by the current <strong>hardlink</strong>.</p>
+<p>
+<strong>hardlink</strong> assumes that the trees it operates on do not change during
+operation. If a tree does change, the result is undefined and
+potentially dangerous. For example, if a regular file is replaced by a
+device, <strong>hardlink</strong> may start reading from the device. If a component of
+a path is replaced by a symbolic link or file permissions change,
+security may be compromised. Do not run <strong>hardlink</strong> on a changing tree or
+on a tree controlled by another user.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHOR
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>There are multiple <strong>hardlink</strong> implementations. The very first
+implementation is from Jakub Jelinek for Fedora distribution, this
+implementation has been used in util-linux between versions v2.34 to
+v2.36. The current implementations is based on Debian version from
+Julian Andres Klode.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The <strong>hardlink</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

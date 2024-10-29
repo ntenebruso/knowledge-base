@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nl.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nl.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>nl - number lines of files</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>nl</strong> [/OPTION/]… [/FILE/]…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Write each FILE to standard output, with line numbers added.</p>
+<p>
+With no FILE, or when FILE is -, read standard input.</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<dl>
+<dt>
+<strong>-b</strong>, *–body-numbering*=/STYLE/
+</dt>
+<dd>use STYLE for numbering body lines</dd>
+<dt>
+<strong>-d</strong>, *–section-delimiter*=/CC/
+</dt>
+<dd>use CC for logical page delimiters</dd>
+<dt>
+<strong>-f</strong>, *–footer-numbering*=/STYLE/
+</dt>
+<dd>use STYLE for numbering footer
+lines</dd>
+<dt>
+<strong>-h</strong>, *–header-numbering*=/STYLE/
+</dt>
+<dd>use STYLE for numbering header
+lines</dd>
+<dt>
+<strong>-i</strong>, *–line-increment*=/NUMBER/
+</dt>
+<dd>line number increment at each
+line</dd>
+<dt>
+<strong>-l</strong>, *–join-blank-lines*=/NUMBER/
+</dt>
+<dd>group of NUMBER empty lines
+counted as one</dd>
+<dt>
+<strong>-n</strong>, *–number-format*=/FORMAT/
+</dt>
+<dd>insert line numbers according to
+FORMAT</dd>
+<dt>
+<strong>-p</strong>, <strong>–no-renumber</strong>
+</dt>
+<dd>do not reset line numbers for each section</dd>
+<dt>
+<strong>-s</strong>, *–number-separator*=/STRING/
+</dt>
+<dd>add STRING after (possible)
+line number</dd>
+<dt>
+<strong>-v</strong>, *–starting-line-number*=/NUMBER/
+</dt>
+<dd>first line number for each
+section</dd>
+<dt>
+<strong>-w</strong>, *–number-width*=/NUMBER/
+</dt>
+<dd>use NUMBER columns for line numbers</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>Default options are: <strong>-bt</strong> <strong>-d</strong>&#39;\:&#39; <strong>-fn</strong> <strong>-hn</strong> <strong>-i1</strong> <strong>-l1</strong> <strong>-n</strong>&#39;rn&#39;
+<strong>-s*&lt;TAB&gt; *-v1</strong> <strong>-w6</strong></p>
+<p>
+CC are two delimiter characters used to construct logical page
+delimiters; a missing second character implies &#39;:&#39;. As a GNU extension
+one can specify more than two characters, and also specifying the empty
+string (<strong>-d</strong> &#39;&#39;) disables section matching.</p>
+<p>
+STYLE is one of:</p>
+<dl>
+<dt>
+a
+</dt>
+<dd>number all lines</dd>
+<dt>
+t
+</dt>
+<dd>number only nonempty lines</dd>
+<dt>
+n
+</dt>
+<dd>number no lines</dd>
+<dt>
+pBRE
+</dt>
+<dd>number only lines that contain a match for the basic regular
+expression, BRE</dd>
+</dl>
+<p>FORMAT is one of:</p>
+<dl>
+<dt>
+ln
+</dt>
+<dd>left justified, no leading zeros</dd>
+<dt>
+rn
+</dt>
+<dd>right justified, no leading zeros</dd>
+<dt>
+rz
+</dt>
+<dd>right justified, leading zeros</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+AUTHOR
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Written by Scott Bartram and David MacKenzie.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/nl">https://www.gnu.org/software/coreutils/nl</a>&gt;<br>
+or available locally via: info &#39;(coreutils) nl invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

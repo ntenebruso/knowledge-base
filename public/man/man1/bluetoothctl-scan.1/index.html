@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - bluetoothctl-scan.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - bluetoothctl-scan.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>bluetoothctl-scan - Scan Submenu</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>bluetoothctl</strong> [–options] [scan.commands]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+SCAN COMMANDS
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+uuids
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>Set/Get UUIDs filter.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># uuids [all/uuid1 uuid2 …]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+rssi
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Set/Get RSSI filter, and clears pathloss.</p>
+<p>
+This sets the minimum rssi value for reporting device advertisements.</p>
+<p>
+The value is in dBm.</p>
+<p>
+If one or more discovery filters have been set, the RSSI delta-threshold
+imposed by starting discovery by default will not be applied.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># rssi [rssi]</strong></dd>
+<dt>
+<strong>Example</strong>
+</dt>
+<dd><strong># rssi -60</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+pathloss
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Set/Get Pathloss filter, and clears RSSI.</p>
+<p>
+This sets the maximum pathloss value for reporting device
+advertisements.</p>
+<p>
+The value is in dB.</p>
+<p>
+If one or more discovery filters have been set, the RSSI delta-threshold
+imposed by starting discovery by default will not be applied.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># pathloss [pathloss]</strong></dd>
+<dt>
+<strong>Example</strong>
+</dt>
+<dd><strong># pathloss 4</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+transport
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Set/Get transport filter.</p>
+<p>
+Transport parameter determines the type of scan.</p>
+<p>
+The default is auto.</p>
+<p>
+Possible values:</p>
+<blockquote>
+<ul>
+<li>&#34;auto&#34;: interleaved scan</li>
+<li>&#34;bredr&#34;: BR/EDR inquiry</li>
+<li>&#34;le&#34;: LE scan only</li>
+</ul>
+</blockquote>
+<p>
+If &#34;le&#34; or &#34;bredr&#34; Transport is requested and the controller doesn&#39;t
+support it, an org.bluez.Error.Failed error will be returned.</p>
+<p>
+If &#34;auto&#34; transport is requested, the scan will use LE, BREDR, or both,
+depending on what&#39;s currently enabled on the controller.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># transport [auto/bredr/le]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+duplicate-data
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Set/Get duplicate data filter.</p>
+<p>
+Disables duplicate detection of advertisement data.</p>
+<p>
+When enabled, PropertiesChanged signals will be generated for
+ManufacturerData and ServiceData every time they are discovered.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># duplicate-data [on/off]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+discoverable
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>Set/Get discoverable filter.</p>
+<p>
+Makes the adapter discoverable while discovering.</p>
+<p>
+If the adapter is already discoverable, setting this filter won&#39;t have
+any effect.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># discoverable [on/off]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+pattern
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>Set/Get pattern filter.</p>
+<p>
+Discover devices where the pattern matches either the prefix of the
+address or the device name, which is a convenient way to limit the
+number of device objects created during a discovery.</p>
+<p>
+When set, it disregards device discoverable flags.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Note</strong>
+</dt>
+<dd>The pattern matching is ignored if there are other clients
+that don&#39;t set any pattern, as it works as a logical OR. Also, setting
+an empty string &#34;&#34; pattern will match any device found.</dd>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># pattern [value]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+clear
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>Clears discovery filter.</p>
+<blockquote>
+<dl>
+<dt>
+<strong>Usage</strong>
+</dt>
+<dd><strong># clear
+[uuids/rssi/pathloss/transport/duplicate-data/discoverable/pattern]</strong></dd>
+</dl>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+RESOURCES
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

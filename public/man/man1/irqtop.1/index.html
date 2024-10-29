@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - irqtop.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - irqtop.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>irqtop - utility to display kernel interrupt information</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>irqtop</strong> [options]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Display kernel interrupt counter information in *top*(1) style view.</p>
+<p>
+The default output is subject to change. So whenever possible, you
+should avoid using default outputs in your scripts. Always explicitly
+define expected columns by using <strong>–output</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-o</strong>, <strong>–output</strong> <em>list</em></p>
+<blockquote>
+<p>Specify which output columns to print. Use <strong>–help</strong> to get a list of all
+supported columns. The default list of columns may be extended if list
+is specified in the format <em>+list</em>.</p>
+</blockquote>
+<p>
+<strong>-c</strong>, <strong>–cpu-stat</strong> <em>mode</em></p>
+<blockquote>
+<p>Show per-cpu statistics by specified mode. Available modes are: <strong>auto</strong>,
+<strong>enable</strong>, <strong>disable</strong>. The default option <strong>auto</strong> detects the width of
+window, then shows the per-cpu statistics if the width of window is
+large enouth to show a full line of statistics.</p>
+</blockquote>
+<p>
+<strong>-C</strong>, <strong>–cpu-list</strong> <em>list</em></p>
+<blockquote>
+<p>Specify cpus in list format to show.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–delay</strong> <em>seconds</em></p>
+<blockquote>
+<p>Update interrupt output every <em>seconds</em> intervals.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–sort</strong> <em>column</em></p>
+<blockquote>
+<p>Specify sort criteria by column name. See <strong>–help</strong> output to get column
+names. The sort criteria may be changes in interactive mode.</p>
+</blockquote>
+<p>
+<strong>-S</strong>, <strong>–softirq</strong></p>
+<blockquote>
+<p>Show softirqs information.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+INTERACTIVE MODE KEY COMMANDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>i</strong></p>
+<blockquote>
+<p>sort by short irq name or number field</p>
+</blockquote>
+<p>
+<strong>t</strong></p>
+<blockquote>
+<p>sort by total count of interrupts (the default)</p>
+</blockquote>
+<p>
+<strong>d</strong></p>
+<blockquote>
+<p>sort by delta count of interrupts</p>
+</blockquote>
+<p>
+<strong>n</strong></p>
+<blockquote>
+<p>sort by long descriptive name field</p>
+</blockquote>
+<p>
+<strong>q Q</strong></p>
+<blockquote>
+<p>stop updates and exit program</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The <strong>irqtop</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

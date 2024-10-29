@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - cvtsudoers.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - cvtsudoers.1</h1>
+    <p>The</p>
+<p>
+utility accepts one or more security policies in either</p>
+<p>
+or LDIF format as input, and generates a single policy of the specified
+format as output. The default input format is</p>
+<p>
+The default output format is LDIF. It is only possible to convert a
+policy file that is syntactically correct.</p>
+<p>
+If no</p>
+<p>
+is specified, or if it is</p>
+<p>
+the policy is read from the standard input. Input files may be
+optionally prefixed with a host name followed by a colon</p>
+<p>
+to make the policy rules specific to a host when merging multiple files.
+By default, the result is written to the standard output.</p>
+<p>
+The options are as follows:</p>
+<p>
+The base DN (distinguished name) that will be used when performing LDAP
+queries. Typically this is of the form</p>
+<p>
+for the domain my-domain.com. If this option is not specified, the value
+of the</p>
+<p>
+environment variable will be used instead. Only necessary when
+converting to LDIF format.</p>
+<p>
+Specify the path to the configuration file. Defaults to</p>
+<p>
+Only convert</p>
+<p>
+entries of the specified types. One or more</p>
+<p>
+types may be specified, separated by a comma</p>
+<p>
+The supported types are:</p>
+<p>
+All Defaults entries.</p>
+<p>
+Global Defaults entries that are applied regardless of user, runas,
+host, or command.</p>
+<p>
+Per-user Defaults entries.</p>
+<p>
+Per-runas user Defaults entries.</p>
+<p>
+Per-host Defaults entries.</p>
+<p>
+Per-command Defaults entries.</p>
+<p>
+See the</p>
+<p>
+section in</p>
+<p>
+for more information.</p>
+<p>
+If the</p>
+<p>
+option is not specified, all</p>
+<p>
+entries will be converted.</p>
+<p>
+Expand aliases in</p>
+<p>
+Aliases are preserved by default when the output</p>
+<p>
+is JSON or sudoers.</p>
+<p>
+Specify the output format (case-insensitive). The following formats are
+supported:</p>
+<p>
+CSV (comma-separated value) files are often used by spreadsheets and
+report generators. See</p>
+<p>
+for more details.</p>
+<p>
+JSON (JavaScript Object Notation) files are usually easier for
+third-party applications to consume than the traditional</p>
+<p>
+format. The various values have explicit types which removes much of the
+ambiguity of the</p>
+<p>
+format. See</p>
+<p>
+for more details.</p>
+<p>
+LDIF (LDAP Data Interchange Format) files can be imported into an LDAP
+server for use with</p>
+<p>
+Conversion to LDIF has the following limitations:</p>
+<p>
+Command, host, runas, and user-specific Defaults lines cannot be
+translated as they don&#39;t have an equivalent in the sudoers LDAP schema.</p>
+<p>
+Command, host, runas, and user aliases are not supported by the sudoers
+LDAP schema so they are expanded during the conversion.</p>
+<p>
+Traditional sudoers format. A new sudoers file will be reconstructed
+from the parsed input file. Comments are not preserved and data from any
+include files will be output inline.</p>
+<p>
+When the</p>
+<p>
+option is also specified, perform group queries using</p>
+<p>
+instead of the system group database.</p>
+<p>
+Display a short help message to the standard output and exit.</p>
+<p>
+Specify the input format. The following formats are supported:</p>
+<p>
+LDIF (LDAP Data Interchange Format) files can be exported from an LDAP
+server to convert security policies used by</p>
+<p>
+If a base DN (distinguished name) is specified, only sudoRole objects
+that match the base DN will be processed. Not all sudoOptions specified
+in a sudoRole can be translated from LDIF to sudoers format.</p>
+<p>
+Traditional sudoers format. This is the default input format.</p>
+<p>
+When generating LDIF output, increment each sudoOrder attribute by the
+specified number. Defaults to an increment of 1.</p>
+<p>
+Log conversion warnings to</p>
+<p>
+instead of to the standard error. This is particularly useful when
+merging multiple</p>
+<p>
+files, which can generate a large number of warnings.</p>
+<p>
+Only output rules that match the specified</p>
+<p>
+A</p>
+<p>
+expression is made up of one or more</p>
+<p>
+pairs, separated by a comma</p>
+<p>
+The</p>
+<p>
+may be</p>
+<p>
+or</p>
+<p>
+For example,</p>
+<p>
+or</p>
+<p>
+An upper-case</p>
+<p>
+or</p>
+<p>
+may be specified as the</p>
+<p>
+or</p>
+<p>
+A matching</p>
+<p>
+rule may also include users, groups, and hosts that are not part of the</p>
+<p>
+This can happen when a rule includes multiple users, groups, or hosts.
+To prune out any non-matching user, group, or host from the rules, the</p>
+<p>
+option may be used.</p>
+<p>
+By default, the password and group databases are not consulted when
+matching against the filter so the users and groups do not need to be
+present on the local system (see the</p>
+<p>
+option). Only aliases that are referenced by the filtered policy rules
+will be displayed.</p>
+<p>
+When the</p>
+<p>
+option is also specified, use password and group database information
+when matching users and groups in the filter. Only users and groups in
+the filter that exist on the local system will match, and a user&#39;s
+groups will automatically be added to the filter. If the</p>
+<p>
+is</p>
+<p>
+specified, users and groups in the filter do not need to exist on the
+local system, but all groups used for matching must be explicitly listed
+in the filter.</p>
+<p>
+Write the converted output to</p>
+<p>
+If no</p>
+<p>
+is specified, or if it is</p>
+<p>
+the converted</p>
+<p>
+policy will be written to the standard output.</p>
+<p>
+When generating LDIF output, use the number specified by</p>
+<p>
+in the sudoOrder attribute of the first sudoRole object. Subsequent
+sudoRole object use a sudoOrder value generated by adding an</p>
+<p>
+see the</p>
+<p>
+option for details. Defaults to a starting point of 1. A starting point
+of 0 will disable the generation of sudoOrder attributes in the
+resulting LDIF file.</p>
+<p>
+When the</p>
+<p>
+option is also specified, perform passwd queries using</p>
+<p>
+instead of the system passwd database.</p>
+<p>
+When the</p>
+<p>
+option is also specified,</p>
+<p>
+will prune out non-matching users, groups, and hosts from matching
+entries.</p>
+<p>
+When generating LDIF output, construct the initial sudoOrder value by
+concatenating</p>
+<p>
+and</p>
+<p>
+padding the</p>
+<p>
+with zeros until it consists of</p>
+<p>
+digits. For example, if</p>
+<p>
+is 1027,</p>
+<p>
+is 3, and</p>
+<p>
+is 1, the value of sudoOrder for the first entry will be 1027000,
+followed by 1027001, 1027002, etc. If the number of sudoRole entries is
+larger than the padding would allow,</p>
+<p>
+will exit with an error. By default, no padding is performed.</p>
+<p>
+Suppress the output of specific</p>
+<p>
+of the security policy. One or more section names may be specified,
+separated by a comma</p>
+<p>
+The supported section name are:</p>
+<p>
+and</p>
+<p>
+(which may be shortened to</p>
+<p>
+Print the</p>
+<p>
+and</p>
+<p>
+grammar versions and exit.</p>
+<p>
+When multiple input files are specified,</p>
+<p>
+will attempt to merge them into a single policy file. It is assumed that
+user and group names are consistent among the policy files to be merged.
+For example, user</p>
+<p>
+on one host is the same as user</p>
+<p>
+on another host.</p>
+<p>
+When merging policy files, it is possible to prefix the input file name
+with a host name, separated by a colon</p>
+<p>
+When the files are merged, the host name will be used to restrict the
+policy rules to that specific host where possible.</p>
+<p>
+The merging process is performed as follows:</p>
+<p>
+Each input file is parsed into internal sudoers data structures.</p>
+<p>
+Aliases are merged and renamed as necessary to avoid conflicts. In the
+event of a conflict, the first alias found is left as-is and subsequent
+aliases of the same name are renamed with a numeric suffix separated
+with a underscore</p>
+<p>
+For example, if there are two different aliases named</p>
+<p>
+the first will be left as-is and the second will be renamed</p>
+<p>
+References to the renamed alias are also updated in the policy file.
+Duplicate aliases (those with identical contents) are pruned.</p>
+<p>
+Defaults settings are merged and duplicates are removed. If there are
+conflicts in the Defaults settings, a warning is emitted for each
+conflict. If a host name is specified with the input file,</p>
+<p>
+will change the global Defaults settings in that file to be
+host-specific. A warning is emitted for command, user, or runas-specific
+Defaults settings which cannot be made host-specific.</p>
+<p>
+Per-user rules are merged and duplicates are removed. If a host name is
+specified with the input file,</p>
+<p>
+will change rules that specify a host name of</p>
+<p>
+to the host name associated with the policy file being merged. The
+merging of rules is currently fairly simplistic but will be improved in
+a later release.</p>
+<p>
+It is possible to merge policy files with differing formats.</p>
+<p>
+Options in the form</p>
+<p>
+may also be specified in a configuration file,</p>
+<p>
+by default. The following keywords are recognized:</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+See the description of the</p>
+<p>
+command line option.</p>
+<p>
+Options on the command line will override values from the configuration
+file.</p>
+<p>
+The</p>
+<p>
+JSON format may contain any of the following top-level objects:</p>
+<p>
+An array of objects, each containing an</p>
+<p>
+array and an optional</p>
+<p>
+array.</p>
+<p>
+The</p>
+<p>
+array consists of one or more objects, each containing a</p>
+<p>
+pair that corresponds to a</p>
+<p>
+setting.</p>
+<p>
+that operate on a list will also include an</p>
+<p>
+entry in the object, with a value of</p>
+<p>
+for</p>
+<p>
+for</p>
+<p>
+or</p>
+<p>
+for</p>
+<p>
+The optional</p>
+<p>
+array consists of one or more objects, each containing a</p>
+<p>
+pair and an optional</p>
+<p>
+entry, which will negate any comparison performed with the object. If a</p>
+<p>
+is present, the setting will only take effect if one of the specified</p>
+<p>
+or alias entries match.</p>
+<p>
+For example, the following</p>
+<p>
+entry:</p>
+<p>
+Defaults@somehost set_home, env_keep += DISPLAY</p>
+<p>
+converts to:</p>
+<p>
+&#34;Defaults&#34;: [ { &#34;Binding&#34;: [ { &#34;hostname&#34;: &#34;somehost&#34; } ], &#34;Options&#34;: [
+{ &#34;set_home&#34;: true }, { &#34;operation&#34;: &#34;list_add&#34;, &#34;env_keep&#34;: [ &#34;DISPLAY&#34;
+] } ] } ]</p>
+<p>
+A JSON object containing one or more</p>
+<p>
+entries where each named alias has as its value an array containing one
+or more objects. Each object contains a</p>
+<p>
+pair and an optional</p>
+<p>
+entry, which will negate any comparison performed with the object. The
+name may be one of</p>
+<p>
+or</p>
+<p>
+For example, the following</p>
+<p>
+entry:</p>
+<p>
+User_Alias SYSADMIN = will, %wheel, +admin</p>
+<p>
+converts to:</p>
+<p>
+&#34;User_Aliases&#34;: { &#34;SYSADMIN&#34;: [ { &#34;username&#34;: &#34;will&#34; }, { &#34;usergroup&#34;:
+&#34;wheel&#34; }, { &#34;netgroup&#34;: &#34;admin&#34; } ] }</p>
+<p>
+A JSON object containing one or more</p>
+<p>
+entries, where each named alias has as its value an array containing one
+or more objects. Each object contains a</p>
+<p>
+pair and an optional</p>
+<p>
+entry, which will negate any comparison performed with the object. The
+name may be one of</p>
+<p>
+or</p>
+<p>
+For example, the following</p>
+<p>
+entry:</p>
+<p>
+Runas_Alias DB = oracle, sybase : OP = root, operator</p>
+<p>
+converts to:</p>
+<p>
+&#34;Runas_Aliases&#34;: { &#34;DB&#34;: [ { &#34;username&#34;: &#34;oracle&#34; }, { &#34;username&#34;:
+&#34;sybase&#34; } ], &#34;OP&#34;: [ { &#34;username&#34;: &#34;root&#34; }, { &#34;username&#34;: &#34;operator&#34; }
+] }</p>
+<p>
+A JSON object containing one or more</p>
+<p>
+entries where each named alias has as its value an array containing one
+or more objects. Each object contains a</p>
+<p>
+pair and an optional</p>
+<p>
+entry, which will negate any comparison performed with the object. The
+name may be one of</p>
+<p>
+or</p>
+<p>
+For example, the following</p>
+<p>
+entries:</p>
+<p>
+Host_Alias DORMNET = 128.138.243.0, 128.138.204.0/24 Host_Alias SERVERS
+= boulder, refuge</p>
+<p>
+convert to:</p>
+<p>
+&#34;Host_Aliases&#34;: { &#34;DORMNET&#34;: [ { &#34;networkaddr&#34;: &#34;128.138.243.0&#34; }, {
+&#34;networkaddr&#34;: &#34;128.138.204.0/24&#34; } ], &#34;SERVERS&#34;: [ { &#34;hostname&#34;:
+&#34;boulder&#34; }, { &#34;hostname&#34;: &#34;refuge&#34; } ] }</p>
+<p>
+A JSON object containing one or more</p>
+<p>
+entries where each named alias has as its value an array containing one
+or more objects. Each object contains a</p>
+<p>
+pair and an optional</p>
+<p>
+entry, which will negate any comparison performed with the object. The
+name may be either another</p>
+<p>
+or a</p>
+<p>
+For example, the following</p>
+<p>
+entries:</p>
+<p>
+Cmnd_Alias SHELLS = /bin/bash, /bin/csh, /bin/sh, /bin/zsh Cmnd_Alias
+VIPW = /usr/bin/chpass, /usr/bin/chfn, /usr/bin/chsh, \ /usr/bin/passwd,
+/usr/sbin/vigr, /usr/sbin/vipw</p>
+<p>
+convert to:</p>
+<p>
+&#34;Cmnd_Aliases&#34;: { &#34;SHELLS&#34;: [ { &#34;command&#34;: &#34;/bin/bash&#34; }, { &#34;command&#34;:
+&#34;/bin/csh&#34; }, { &#34;command&#34;: &#34;/bin/sh&#34; }, { &#34;command&#34;: &#34;/bin/zsh&#34; } ],
+&#34;VIPW&#34;: [ { &#34;command&#34;: &#34;/usr/bin/chpass&#34; }, { &#34;command&#34;: &#34;/usr/bin/chfn&#34;
+}, { &#34;command&#34;: &#34;/usr/bin/chsh&#34; }, { &#34;command&#34;: &#34;/usr/bin/passwd&#34; }, {
+&#34;command&#34;: &#34;/usr/sbin/vigr&#34; }, { &#34;command&#34;: &#34;/usr/sbin/vipw&#34; } ] }</p>
+<p>
+A JSON array containing one or more objects, each representing a</p>
+<p>
+User_Spec. Each object in the</p>
+<p>
+array should contain a</p>
+<p>
+array, a</p>
+<p>
+array and a</p>
+<p>
+array.</p>
+<p>
+A</p>
+<p>
+consists of one or more objects. Each object contains a</p>
+<p>
+pair and an optional</p>
+<p>
+entry, which will negate any comparison performed with the object. The
+name may be one of</p>
+<p>
+or</p>
+<p>
+If</p>
+<p>
+is set to the special value</p>
+<p>
+it will match any user.</p>
+<p>
+A</p>
+<p>
+consists of one or more objects. Each object contains a</p>
+<p>
+pair and an optional</p>
+<p>
+entry, which will negate any comparison performed with the object. The
+name may be one of</p>
+<p>
+or</p>
+<p>
+If</p>
+<p>
+is set to the special value</p>
+<p>
+it will match any host.</p>
+<p>
+The</p>
+<p>
+array consists of one or more JSON objects describing a command that may
+be run. Each</p>
+<p>
+is made up of a</p>
+<p>
+array, an optional</p>
+<p>
+array, an optional</p>
+<p>
+array, and an optional</p>
+<p>
+The</p>
+<p>
+array consists of one or more objects containing</p>
+<p>
+pair elements. The following names and values are supported:</p>
+<p>
+A string containing the command to run. The special value</p>
+<p>
+it will match any command.</p>
+<p>
+A boolean value that, if true, will negate any comparison performed with
+the object.</p>
+<p>
+A string containing the SHA224 digest of the</p>
+<p>
+A string containing the SHA256 digest of the</p>
+<p>
+A string containing the SHA384 digest of the</p>
+<p>
+A string containing the SHA512 digest of the</p>
+<p>
+The</p>
+<p>
+array consists of objects describing users the command may be run as.
+Each object contains a</p>
+<p>
+pair and an optional</p>
+<p>
+entry, which will negate any comparison performed with the object. The
+name may be one of</p>
+<p>
+or</p>
+<p>
+If</p>
+<p>
+is set to the special value</p>
+<p>
+it will match any user. If</p>
+<p>
+is set to the empty string</p>
+<p>
+it will match the invoking user.</p>
+<p>
+The</p>
+<p>
+array consists of objects describing groups the command may be run as.
+Each object contains a</p>
+<p>
+pair and an optional</p>
+<p>
+entry, which will negate any comparison performed with the object. The
+name may be one of</p>
+<p>
+or</p>
+<p>
+If</p>
+<p>
+is set to the special value</p>
+<p>
+it will match any group.</p>
+<p>
+The</p>
+<p>
+array is of the same format as the one in the</p>
+<p>
+object. Any</p>
+<p>
+entries in</p>
+<p>
+are converted to</p>
+<p>
+A user with</p>
+<p>
+privileges will automatically have the</p>
+<p>
+option enabled to match the implicit behavior provided by</p>
+<p>
+For example, the following</p>
+<p>
+entry:</p>
+<p>
+millert ALL = (ALL : ALL) NOPASSWD: ALL, !/usr/bin/id</p>
+<p>
+converts to:</p>
+<p>
+&#34;User_Specs&#34;: [ { &#34;User_List&#34;: [ { &#34;username&#34;: &#34;millert&#34; } ],
+&#34;Host_List&#34;: [ { &#34;hostname&#34;: &#34;ALL&#34; } ], &#34;Cmnd_Specs&#34;: [ { &#34;runasusers&#34;:
+[ { &#34;username&#34;: &#34;ALL&#34; } ], &#34;runasgroups&#34;: [ { &#34;usergroup&#34;: &#34;ALL&#34; } ],
+&#34;Options&#34;: [ { &#34;authenticate&#34;: false }, { &#34;setenv&#34;: true } ],
+&#34;Commands&#34;: [ { &#34;command&#34;: &#34;ALL&#34; }, { &#34;command&#34;: &#34;/usr/bin/id&#34;,
+&#34;negated&#34;: true } ] } ] } ]</p>
+<p>
+CSV (comma-separated value) files are often used by spreadsheets and
+report generators. For CSV output,</p>
+<p>
+double quotes strings that contain commas. For each literal double quote
+character present inside the string, two double quotes are output. This
+method of quoting commas is compatible with most spreadsheet programs.</p>
+<p>
+There are three possible sections in</p>
+<p>
+CSV output, each separated by a blank line:</p>
+<p>
+This section includes any</p>
+<p>
+settings in</p>
+<p>
+The</p>
+<p>
+section begins with the following heading:</p>
+<p>
+defaults_type,binding,name,operator,value</p>
+<p>
+The fields are as follows:</p>
+<p>
+The type of</p>
+<p>
+setting; one of</p>
+<p>
+or</p>
+<p>
+For</p>
+<p>
+and</p>
+<p>
+this is the value that must match for the setting to be applied.</p>
+<p>
+The name of the</p>
+<p>
+setting.</p>
+<p>
+The operator determines how the value is applied to the setting. It may
+be either</p>
+<p>
+(assignment),</p>
+<p>
+(append), or</p>
+<p>
+(remove).</p>
+<p>
+The setting&#39;s value, usually a string or, for settings used in a boolean
+context,</p>
+<p>
+or</p>
+<p>
+This section includes any</p>
+<p>
+or</p>
+<p>
+entries from</p>
+<p>
+The</p>
+<p>
+section begins with the following heading:</p>
+<p>
+alias_type,alias_name,members</p>
+<p>
+The fields are as follows:</p>
+<p>
+The type of alias; one of</p>
+<p>
+or</p>
+<p>
+The name of the alias; a string starting with an upper-case letter that
+consists of upper-case letters, digits, or underscores.</p>
+<p>
+A comma-separated list of members belonging to the alias. Due to the use
+of commas,</p>
+<p>
+is surrounded by double quotes if it contains more than one member.</p>
+<p>
+This section includes the</p>
+<p>
+rules that grant privileges. The</p>
+<p>
+section begins with the following heading:</p>
+<p>
+rule,user,host,runusers,rungroups,options,command</p>
+<p>
+The fields are as follows:</p>
+<p>
+This field indicates a</p>
+<p>
+entry.</p>
+<p>
+The user the rule applies to. This may also be a Unix group (preceded by
+a</p>
+<p>
+character), a non-Unix group (preceded by</p>
+<p>
+or a netgroup (preceded by a</p>
+<p>
+character) or a</p>
+<p>
+If set to the special value</p>
+<p>
+it will match any user.</p>
+<p>
+The host the rule applies to. This may also be a netgroup (preceded by a</p>
+<p>
+character) or a</p>
+<p>
+If set to the special value</p>
+<p>
+it will match any host.</p>
+<p>
+An optional comma-separated list of users (or</p>
+<p>
+the command may be run as. If it contains more than one member, the
+value is surrounded by double quotes. If set to the special value</p>
+<p>
+it will match any user. If empty, the root user is assumed.</p>
+<p>
+An optional comma-separated list of groups (or</p>
+<p>
+the command may be run as. If it contains more than one member, the
+value is surrounded by double quotes. If set to the special value</p>
+<p>
+it will match any group. If empty, the</p>
+<p>
+group is used.</p>
+<p>
+An optional list of</p>
+<p>
+settings to apply to the command. Any</p>
+<p>
+entries in</p>
+<p>
+are converted to</p>
+<p>
+A list of commands, with optional arguments, that the user is allowed to
+run. If set to the special value</p>
+<p>
+it will match any command.</p>
+<p>
+For example, the following</p>
+<p>
+entry:</p>
+<p>
+millert ALL = (ALL : ALL) NOPASSWD: ALL, !/usr/bin/id</p>
+<p>
+converts to:</p>
+<p>
+rule,millert,ALL,ALL,ALL,&#34;!authenticate&#34;,&#34;ALL,!/usr/bin/id&#34;</p>
+<p>
+default configuration for cvtsudoers</p>
+<p>
+Convert</p>
+<p>
+to LDIF (LDAP Data Interchange Format) where the</p>
+<p>
+file uses a</p>
+<p>
+of my-domain,dc=com, storing the result in</p>
+<p>
+$ cvtsudoers -b ou=SUDOers,dc=my-domain,dc=com -o sudoers.ldif \
+/etc/sudoers</p>
+<p>
+Convert</p>
+<p>
+to JSON format, storing the result in</p>
+<p>
+$ cvtsudoers -f json -o sudoers.json /etc/sudoers</p>
+<p>
+Parse</p>
+<p>
+and display only rules that match user</p>
+<p>
+on host</p>
+<p>
+$ cvtsudoers -f sudoers -m user=ambrose,host=hastur /etc/sudoers</p>
+<p>
+Same as above, but expand aliases and prune out any non-matching users
+and hosts from the expanded entries.</p>
+<p>
+$ cvtsudoers -ep -f sudoers -m user=ambrose,host=hastur /etc/sudoers</p>
+<p>
+Convert</p>
+<p>
+from LDIF to traditional</p>
+<p>
+format:</p>
+<p>
+$ cvtsudoers -i ldif -f sudoers -o sudoers.new sudoers.ldif</p>
+<p>
+Merge a global</p>
+<p>
+file with two host-specific policy files from the hosts</p>
+<p>
+and</p>
+<p>
+$ cvtsudoers -f sudoers -o sudoers.merged sudoers \ xyzzy:sudoers.xyzzy
+plugh:sudoers.plugh</p>
+<p>
+Many people have worked on</p>
+<p>
+over the years; this version consists of code written primarily by:</p>
+<p>
+See the CONTRIBUTORS.md file in the</p>
+<p>
+distribution (<a href="https://www.sudo.ws/about/contributors/)">https://www.sudo.ws/about/contributors/)</a> for an exhaustive
+list of people who have contributed to</p>
+<p>
+If you believe you have found a bug in</p>
+<p>
+you can submit a bug report at <a href="https://bugzilla.sudo.ws/">https://bugzilla.sudo.ws/</a></p>
+<p>
+Limited free support is available via the sudo-users mailing list, see
+<a href="https://www.sudo.ws/mailman/listinfo/sudo-users">https://www.sudo.ws/mailman/listinfo/sudo-users</a> to subscribe or search
+the archives.</p>
+<p>
+is provided</p>
+<p>
+and any express or implied warranties, including, but not limited to,
+the implied warranties of merchantability and fitness for a particular
+purpose are disclaimed. See the LICENSE.md file distributed with</p>
+<p>
+or <a href="https://www.sudo.ws/about/license/">https://www.sudo.ws/about/license/</a> for complete details.</p>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

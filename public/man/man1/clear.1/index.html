@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - clear.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - clear.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>clear</strong> - clear the terminal screen</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>clear</strong> [*-T*/type/] [*-V*] [*-x*]\\</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>clear</strong> clears your terminal&#39;s screen if this is possible, including the
+terminal&#39;s scrollback buffer (if the extended E3 capability is defined).
+<strong>clear</strong> looks in the environment for the terminal type given by the
+environment variable <strong>TERM</strong>, and then in the <strong>terminfo</strong> database to
+determine how to clear the screen.</p>
+<p>
+<strong>clear</strong> writes to the standard output. You can redirect the standard
+output to a file (which prevents <strong>clear</strong> from actually clearing the
+screen), and later <strong>cat</strong> the file to the screen, clearing it at that
+point.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-T <em>type</em></strong>
+</dt>
+<dd>indicates the <em>type</em> of terminal. Normally this option
+is unnecessary, because the default is taken from the environment
+variable <strong>TERM</strong>. If <strong>-T</strong> is specified, then the shell variables
+<strong>LINES</strong> and <strong>COLUMNS</strong> will also be ignored.</dd>
+<dt>
+<strong>-V</strong>
+</dt>
+<dd>reports the version of ncurses which was used in this program,
+and exits. The options are as follows:</dd>
+<dt>
+<strong>-x</strong>
+</dt>
+<dd>do not attempt to clear the terminal&#39;s scrollback buffer using
+the extended E3 capability.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+HISTORY
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>A <strong>clear</strong> command appeared in 2.79BSD dated February 24, 1979. Later
+that was provided in Unix 8th edition (1985).</p>
+<p>
+AT&amp;T adapted a different BSD program (<strong>tset</strong>) to make a new command
+(<strong>tput</strong>), and used this to replace the <strong>clear</strong> command with a shell
+script which calls <strong>tput clear</strong>, e.g.,</p>
+<pre class="example">
+/usr/bin/tput ${1:+-T$1} clear 2&gt; /dev/null
+exit
+</pre>
+<p>
+In 1989, when Keith Bostic revised the BSD <strong>tput</strong> command to make it
+similar to the AT&amp;T <strong>tput</strong>, he added a shell script for the <strong>clear</strong>
+command:</p>
+<pre class="example">
+exec tput clear
+</pre>
+<p>
+The remainder of the script in each case is a copyright notice.</p>
+<p>
+The ncurses <strong>clear</strong> command began in 1995 by adapting the original BSD
+<strong>clear</strong> command (with terminfo, of course).</p>
+<p>
+The <strong>E3</strong> extension came later:</p>
+<ul>
+<li>In June 1999, <strong>xterm</strong> provided an extension to the standard control
+sequence for clearing the screen. Rather than clearing just the
+visible part of the screen using</li>
+</ul>
+<pre class="example">
+printf &#39;\033[2J&#39;
+</pre>
+<blockquote>
+<p>one could clear the <em>scrollback</em> using</p>
+<pre class="example">
+printf &#39;\033[3J&#39;
+</pre>
+</blockquote>
+<blockquote>
+<p>This is documented in <em>XTerm Control Sequences</em> as a feature originating
+with <strong>xterm</strong>.</p>
+</blockquote>
+<ul>
+<li>A few other terminal developers adopted the feature, e.g., PuTTY
+in 2006.</li>
+<li>In April 2011, a Red Hat developer submitted a patch to the Linux
+kernel, modifying its console driver to do the same thing. The Linux
+change, part of the 3.0 release, did not mention <strong>xterm</strong>, although it
+was cited in the Red Hat bug report (#683733) which led to the change.</li>
+<li>Again, a few other terminal developers adopted the feature. But the
+next relevant step was a change to the <strong>clear</strong> program in 2013 to
+incorporate this extension.</li>
+<li>In 2013, the <strong>E3</strong> extension was overlooked in <strong>tput</strong> with the clear
+parameter. That was addressed in 2016 by reorganizing <strong>tput</strong> to share
+its logic with <strong>clear</strong> and <strong>tset</strong>.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+PORTABILITY
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Neither IEEE Std 1003.1/The Open Group Base Specifications Issue 7
+(POSIX.1-2008) nor X/Open Curses Issue 7 documents tset or reset.</p>
+<p>
+The latter documents <strong>tput</strong>, which could be used to replace this utility
+either via a shell script or by an alias (such as a symbolic link) to
+run <strong>tput</strong> as <strong>clear</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*tput*(1), *terminfo*(5), *xterm*(1).</p>
+<p>
+This describes <strong>ncurses</strong> version 6.4 (patch 20221231).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - Xserver.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - Xserver.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>Xserver - X Window System display server</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>X</strong> [option …]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><em>X</em> is the generic name for the X Window System display server. It is
+frequently a link or a copy of the appropriate server binary for driving
+the most frequently used server on a given machine.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+STARTING THE SERVER
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The X server is usually started from the X Display Manager program
+/xdm/(1) or a similar display manager program. This utility is run from
+the system boot files and takes care of keeping the server running,
+prompting for usernames and passwords, and starting up the user
+sessions.</p>
+<p>
+Installations that run more than one window system may need to use the
+<em>xinit/(1) utility instead of a display manager. However, /xinit</em> is to
+be considered a tool for building startup scripts and is not intended
+for use by end users. Site administrators are <strong>strongly</strong> urged to use a
+display manager, or build other interfaces for novice users.</p>
+<p>
+The X server may also be started directly by the user, though this
+method is usually reserved for testing and is not recommended for normal
+operation. On some platforms, the user must have special permission to
+start the X server, often because access to certain devices (e.g.
+<em>/dev/mouse</em>) is restricted. Where applicable, the X server notifies
+systemd when it is ready to process requests.</p>
+<p>
+When the X server starts up, it typically takes over the display. If you
+are running on a workstation whose console is the display, you may not
+be able to log into the console while the server is running.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Many X servers have device-specific command line options. See the manual
+pages for the individual servers for more details; a list of
+server-specific manual pages is provided in the SEE ALSO section below.</p>
+<p>
+All of the X servers accept the command line options described below.
+Some X servers may have alternative ways of providing the parameters
+described here, but the values provided via the command line options
+should override values specified via other mechanisms.</p>
+<dl>
+<dt>
+<strong>:/displaynumber/</strong>
+</dt>
+<dd>The X server runs as the given <em>displaynumber</em>,
+which by default is 0. If multiple X servers are to run simultaneously
+on a host, each must have a unique display number. See the DISPLAY
+NAMES section of the /X/(7) manual page to learn how to specify which
+display number clients should try to use.</dd>
+<dt>
+<strong>-a <em>number</em></strong>
+</dt>
+<dd>sets pointer acceleration (i.e. the ratio of how much
+is reported to how much the user actually moved the pointer).</dd>
+<dt>
+<strong>-ac</strong>
+</dt>
+<dd>disables host-based access control mechanisms. Enables access
+by any host, and permits any host to modify the access control list.
+Use with extreme caution. This option exists primarily for running
+test suites remotely.</dd>
+<dt>
+<strong>-audit <em>level</em></strong>
+</dt>
+<dd>sets the audit trail level. The default level is
+1, meaning only connection rejections are reported. Level 2
+additionally reports all successful connections and disconnects. Level
+4 enables messages from the SECURITY extension, if present, including
+generation and revocation of authorizations and violations of the
+security policy. Level 0 turns off the audit trail. Audit lines are
+sent as standard error output.</dd>
+<dt>
+<strong>-auth <em>authorization-file</em></strong>
+</dt>
+<dd>specifies a file which contains a
+collection of authorization records used to authenticate access. See
+also the /xdm/(1) and /Xsecurity/(7) manual pages.</dd>
+<dt>
+<strong>-background none</strong>
+</dt>
+<dd>Asks the driver not to clear the background on
+startup, if the driver supports that. May be useful for smooth
+transition with eg. fbdev driver. For security reasons this is not the
+default as the screen contents might show a previous user session.</dd>
+<dt>
+<strong>-br</strong>
+</dt>
+<dd>sets the default root window to solid black instead of the
+standard root weave pattern. This is the default unless -retro or -wr
+is specified.</dd>
+<dt>
+<strong>-bs</strong>
+</dt>
+<dd>disables backing store support on all screens.</dd>
+<dt>
+<strong>+byteswappedclients</strong>
+</dt>
+<dd>Allow connections from clients with an
+endianess different to that of the server.</dd>
+<dt>
+<strong>-byteswappedclients</strong>
+</dt>
+<dd>Prohibit connections from clients with an
+endianess different to that of the server. This is the default unless
+<strong>+byteswappedclients</strong> is specified.</dd>
+<dt>
+<strong>-c</strong>
+</dt>
+<dd>turns off key-click.</dd>
+<dt>
+<strong>c <em>volume</em></strong>
+</dt>
+<dd>sets key-click volume (allowable range: 0-100).</dd>
+<dt>
+<strong>-cc <em>class</em></strong>
+</dt>
+<dd>sets the visual class for the root window of color
+screens. The class numbers are as specified in the X protocol. Not
+obeyed by all servers.</dd>
+<dt>
+<strong>-core</strong>
+</dt>
+<dd>causes the server to generate a core dump on fatal errors.</dd>
+<dt>
+<strong>-displayfd <em>fd</em></strong>
+</dt>
+<dd>specifies a file descriptor in the launching
+process. Rather than specify a display number, the X server will
+attempt to listen on successively higher display numbers, and upon
+finding a free one, will write the display number back on this file
+descriptor as a newline-terminated string. The -pn option is ignored
+when using -displayfd.</dd>
+<dt>
+<strong>-deferglyphs <em>whichfonts</em></strong>
+</dt>
+<dd>specifies the types of fonts for which
+the server should attempt to use deferred glyph loading. <em>whichfonts</em>
+can be all (all fonts), none (no fonts), or 16 (16 bit fonts only).</dd>
+<dt>
+<strong>-dpi <em>resolution</em></strong>
+</dt>
+<dd>sets the resolution for all screens, in dots
+per inch. To be used when the server cannot determine the screen
+size(s) from the hardware.</dd>
+<dt>
+<strong>dpms</strong>
+</dt>
+<dd>enables DPMS (display power management services), where
+supported. The default state is platform and configuration specific.</dd>
+<dt>
+<strong>-dpms</strong>
+</dt>
+<dd>disables DPMS (display power management services). The
+default state is platform and configuration specific.</dd>
+<dt>
+*-extension*/extensionName/
+</dt>
+<dd>disables named extension. If an unknown
+extension name is specified, a list of accepted extension names is
+printed.</dd>
+<dt>
+*+extension*/extensionName/
+</dt>
+<dd>enables named extension. If an unknown
+extension name is specified, a list of accepted extension names is
+printed.</dd>
+<dt>
+<strong>-f <em>volume</em></strong>
+</dt>
+<dd>sets beep (bell) volume (allowable range: 0-100).</dd>
+<dt>
+<strong>-fakescreenfps ps</strong>
+</dt>
+<dd>sets fake presenter screen default fps
+(allowable range: 1-600).</dd>
+<dt>
+<strong>-fp <em>fontPath</em></strong>
+</dt>
+<dd>sets the search path for fonts. This path is a
+comma separated list of directories which the X server searches for
+font databases. See the FONTS section of this manual page for more
+information and the default list.</dd>
+<dt>
+<strong>-help</strong>
+</dt>
+<dd>prints a usage message.</dd>
+<dt>
+<strong>-I</strong>
+</dt>
+<dd>causes all remaining command line arguments to be ignored.</dd>
+<dt>
+<strong>-iglx</strong>
+</dt>
+<dd>Prohibit creating indirect GLX contexts. Indirect GLX is of
+limited use, since it lacks support for many modern OpenGL features
+and extensions; it&#39;s slower than direct contexts; and it opens a large
+attack surface for protocol parsing errors. This is the default unless
++iglx is specified.</dd>
+<dt>
+<strong>+iglx</strong>
+</dt>
+<dd>Allow creating indirect GLX contexts.</dd>
+<dt>
+<strong>-maxbigreqsize <em>size</em></strong>
+</dt>
+<dd>sets the maximum big request to <em>size</em> MB.</dd>
+<dt>
+<strong>-nocursor</strong>
+</dt>
+<dd>disable the display of the pointer cursor.</dd>
+<dt>
+<strong>-nolisten <em>trans-type</em></strong>
+</dt>
+<dd>disables a transport type. For example,
+TCP/IP connections can be disabled with <strong>-nolisten tcp</strong>. This option
+may be issued multiple times to disable listening to different
+transport types. Supported transport types are platform dependent, but
+commonly include:</dd>
+</dl>
+<table>
+<tbody>
+<tr>
+<td>tcp TCP over IPv4 or IPv6</td>
+<td class="align-right"></td>
+</tr>
+<tr>
+<td>inet TCP over IPv4 only</td>
+<td class="align-right"></td>
+</tr>
+<tr>
+<td>inet6 TCP over IPv6 only</td>
+<td class="align-right"></td>
+</tr>
+<tr>
+<td>unix UNIX Domain Sockets</td>
+<td class="align-right"></td>
+</tr>
+<tr>
+<td>local Platform preferred local connection method</td>
+<td class="align-right"></td>
+</tr>
+</tbody>
+</table>
+<dl>
+<dt>
+<strong>-listen <em>trans-type</em></strong>
+</dt>
+<dd>enables a transport type. For example,
+TCP/IP connections can be enabled with <strong>-listen tcp</strong>. This option may
+be issued multiple times to enable listening to different transport
+types.</dd>
+<dt>
+<strong>-noreset</strong>
+</dt>
+<dd>prevents a server reset when the last client connection
+is closed. This overrides a previous <strong>-terminate</strong> command line option.</dd>
+<dt>
+<strong>-p <em>minutes</em></strong>
+</dt>
+<dd>sets screen-saver pattern cycle time in minutes.</dd>
+<dt>
+<strong>-pn</strong>
+</dt>
+<dd>permits the server to continue running if it fails to
+establish all of its well-known sockets (connection points for
+clients), but establishes at least one. This option is set by default.</dd>
+<dt>
+<strong>-nopn</strong>
+</dt>
+<dd>causes the server to exit if it fails to establish all of
+its well-known sockets (connection points for clients).</dd>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>turns off auto-repeat.</dd>
+<dt>
+<strong>r</strong>
+</dt>
+<dd>turns on auto-repeat.</dd>
+<dt>
+<strong>-retro</strong>
+</dt>
+<dd>starts the server with the classic stipple and cursor
+visible. The default is to start with a black root window, and to
+suppress display of the cursor until the first time an application
+calls XDefineCursor(). For kdrive servers, this implies -zap.</dd>
+<dt>
+<strong>-s <em>minutes</em></strong>
+</dt>
+<dd>sets screen-saver timeout time in minutes.</dd>
+<dt>
+<strong>-su</strong>
+</dt>
+<dd>disables save under support on all screens.</dd>
+<dt>
+<strong>-seat <em>seat</em></strong>
+</dt>
+<dd>seat to run on. Takes a string identifying a seat in
+a platform specific syntax. On platforms which support this feature
+this may be used to limit the server to expose only a specific subset
+of devices connected to the system.</dd>
+<dt>
+<strong>-t <em>number</em></strong>
+</dt>
+<dd>sets pointer acceleration threshold in pixels (i.e.
+after how many pixels pointer acceleration should take effect).</dd>
+<dt>
+<strong>-terminate <em>[delay]</em></strong>
+</dt>
+<dd>causes the server to terminate at server
+reset, instead of continuing to run. This overrides a previous
+<strong>-noreset</strong> command line option. If a delay in seconds is specified,
+the server waits for at least the delay. At the end of this grace
+period if no client is connected, the server terminates immediately.</dd>
+<dt>
+<strong>-tst</strong>
+</dt>
+<dd>disables all testing extensions (e.g., XTEST, XTrap,
+XTestExtension1, RECORD).</dd>
+<dt>
+<strong>tty/xx/</strong>
+</dt>
+<dd>ignored, for servers started the ancient way (from init).</dd>
+<dt>
+<strong>v</strong>
+</dt>
+<dd>sets video-off screen-saver preference.</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>sets video-on screen-saver preference.</dd>
+<dt>
+<strong>-wr</strong>
+</dt>
+<dd>sets the default root window to solid white instead of the
+standard root weave pattern.</dd>
+<dt>
+<strong>-x <em>extension</em></strong>
+</dt>
+<dd>loads the specified extension at init. This is a
+no-op for most implementations.</dd>
+<dt>
+<strong>[+-]xinerama</strong>
+</dt>
+<dd>enables(+) or disables(-) the XINERAMA extension.
+The default state is platform and configuration specific.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SERVER DEPENDENT OPTIONS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Some X servers accept the following options:</p>
+<dl>
+<dt>
+<strong>-ld <em>kilobytes</em></strong>
+</dt>
+<dd>sets the data space limit of the server to the
+specified number of kilobytes. A value of zero makes the data size as
+large as possible. The default value of -1 leaves the data space limit
+unchanged.</dd>
+<dt>
+<strong>-lf <em>files</em></strong>
+</dt>
+<dd>sets the number-of-open-files limit of the server to
+the specified number. A value of zero makes the limit as large as
+possible. The default value of -1 leaves the limit unchanged.</dd>
+<dt>
+<strong>-ls <em>kilobytes</em></strong>
+</dt>
+<dd>sets the stack space limit of the server to the
+specified number of kilobytes. A value of zero makes the stack size as
+large as possible. The default value of -1 leaves the stack space
+limit unchanged.</dd>
+<dt>
+<strong>-maxclients</strong>
+</dt>
+<dd><strong>64*|*128*|*256*|*512</strong> Set the maximum number of
+clients allowed to connect to the X server. Acceptable values are 64,
+128, 256 or 512.</dd>
+<dt>
+<strong>-render</strong>
+</dt>
+<dd>
+<p><strong>default*|*mono*|*gray*|*color</strong> sets the color allocation
+policy that will be used by the render extension.</p>
+<dl>
+<dt>
+<em>default</em>
+</dt>
+<dd>selects the default policy defined for the display
+depth of the X server.</dd>
+<dt>
+<em>mono</em>
+</dt>
+<dd>don&#39;t use any color cell.</dd>
+<dt>
+<em>gray</em>
+</dt>
+<dd>use a gray map of 13 color cells for the X render
+extension.</dd>
+<dt>
+<em>color</em>
+</dt>
+<dd>use a color cube of at most 4*4*4 colors (that is 64
+color cells).</dd>
+</dl>
+</dd>
+<dt>
+<strong>-dumbSched</strong>
+</dt>
+<dd>disables smart scheduling on platforms that support
+the smart scheduler.</dd>
+<dt>
+<strong>-schedInterval <em>interval</em></strong>
+</dt>
+<dd>sets the smart scheduler&#39;s scheduling
+interval to <em>interval</em> milliseconds.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+XDMCP OPTIONS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>X servers that support XDMCP have the following options. See the <em>X
+Display Manager Control Protocol</em> specification for more information.</p>
+<dl>
+<dt>
+<strong>-query <em>hostname</em></strong>
+</dt>
+<dd>enables XDMCP and sends Query packets to the
+specified <em>hostname</em>.</dd>
+<dt>
+<strong>-broadcast</strong>
+</dt>
+<dd>enable XDMCP and broadcasts BroadcastQuery packets to
+the network. The first responding display manager will be chosen for
+the session.</dd>
+<dt>
+<strong>-multicast [/address/ [/hop/ count]]</strong>
+</dt>
+<dd>Enable XDMCP and multicast
+BroadcastQuery packets to the network. The first responding display
+manager is chosen for the session. If an address is specified, the
+multicast is sent to that address. If no address is specified, the
+multicast is sent to the default XDMCP IPv6 multicast group. If a hop
+count is specified, it is used as the maximum hop count for the
+multicast. If no hop count is specified, the multicast is set to a
+maximum of 1 hop, to prevent the multicast from being routed beyond
+the local network.</dd>
+<dt>
+<strong>-indirect <em>hostname</em></strong>
+</dt>
+<dd>enables XDMCP and send IndirectQuery packets
+to the specified <em>hostname</em>.</dd>
+<dt>
+<strong>-port <em>port-number</em></strong>
+</dt>
+<dd>uses the specified <em>port-number</em> for XDMCP
+packets, instead of the default. This option must be specified before
+any -query, -broadcast, -multicast, or -indirect options.</dd>
+<dt>
+<strong>-from <em>local-address</em></strong>
+</dt>
+<dd>specifies the local address to connect from
+(useful if the connecting host has multiple network interfaces). The
+<em>local-address</em> may be expressed in any form acceptable to the host
+platform&#39;s /gethostbyname/(3) implementation.</dd>
+<dt>
+<strong>-once</strong>
+</dt>
+<dd>causes the server to terminate (rather than reset) when the
+XDMCP session ends.</dd>
+<dt>
+<strong>-class <em>display-class</em></strong>
+</dt>
+<dd>XDMCP has an additional display qualifier
+used in resource lookup for display-specific options. This option sets
+that value, by default it is &#34;MIT-unspecified&#34; (not a very useful
+value).</dd>
+<dt>
+<strong>-cookie <em>xdm-auth-bits</em></strong>
+</dt>
+<dd>When testing XDM-AUTHENTICATION-1, a
+private key is shared between the server and the manager. This option
+sets the value of that private data (not that it is very private,
+being on the command line!).</dd>
+<dt>
+<strong>-displayID <em>display-id</em></strong>
+</dt>
+<dd>Yet another XDMCP specific value, this
+one allows the display manager to identify each display so that it can
+locate the shared key.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+XKEYBOARD OPTIONS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>X servers that support the XKEYBOARD (a.k.a. XKB) extension accept the
+following options. All layout files specified on the command line must
+be located in the XKB base directory or a subdirectory, and specified as
+the relative path from the XKB base directory. The default XKB base
+directory is
+<em>/nix/store/qpmml219sc5kv1qxl0akz990pzkgn91v-xwayland-24.1.3/lib/X11/xkb</em>.</p>
+<ul>
+<li><strong>[+-]accessx</strong> [ <em>timeout</em> [ <em>timeout_mask</em> [ <em>feedback</em> [
+<em>options_mask</em> ] ] ] ] :: enables(+) or disables(-) AccessX key
+sequences.</li>
+<li><strong>-xkbdir <em>directory</em></strong> :: base directory for keyboard layout files.
+This option is not available for setuid X servers (i.e., when the X
+server&#39;s real and effective uids are different).</li>
+<li><strong>-ardelay <em>milliseconds</em></strong> :: sets the autorepeat delay (length of time
+in milliseconds that a key must be depressed before autorepeat
+starts).</li>
+<li><strong>-arinterval <em>milliseconds</em></strong> :: sets the autorepeat interval (length
+of time in milliseconds that should elapse between
+autorepeat-generated keystrokes).</li>
+<li><strong>-xkbmap <em>filename</em></strong> :: loads keyboard description in <em>filename</em> on
+server startup.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+NETWORK CONNECTIONS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The X server supports client connections via a platform-dependent subset
+of the following transport types: TCP/IP, Unix Domain sockets, and
+several varieties of SVR4 local connections. See the DISPLAY NAMES
+section of the /X/(7) manual page to learn how to specify which
+transport type clients should try to use.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+GRANTING ACCESS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The X server implements a platform-dependent subset of the following
+authorization protocols: MIT-MAGIC-COOKIE-1, XDM-AUTHORIZATION-1,
+XDM-AUTHORIZATION-2, SUN-DES-1, and MIT-KERBEROS-5. See the
+/Xsecurity/(7) manual page for information on the operation of these
+protocols.</p>
+<p>
+Authorization data required by the above protocols is passed to the
+server in a private file named with the <strong>-auth</strong> command line option.
+Each time the server is about to accept the first connection after a
+reset (or when the server is starting), it reads this file. If this file
+contains any authorization records, the local host is not automatically
+allowed access to the server, and only clients which send one of the
+authorization records contained in the file in the connection setup
+information will be allowed access. See the <em>Xau</em> manual page for a
+description of the binary format of this file. See /xauth/(1) for
+maintenance of this file, and distribution of its contents to remote
+hosts.</p>
+<p>
+The X server also uses a host-based access control list for deciding
+whether or not to accept connections from clients on a particular
+machine. If no other authorization mechanism is being used, this list
+initially consists of the host on which the server is running as well as
+any machines listed in the file <em>/etc/X/*n*</em>.hosts/, where <strong>n</strong> is the
+display number of the server. Each line of the file should contain
+either an Internet hostname (e.g. expo.lcs.mit.edu) or a complete name
+in the format <em>family</em>:/name/ as described in the /xhost/(1) manual
+page. There should be no leading or trailing spaces on any lines. For
+example:</p>
+<pre class="example">
+joesworkstation
+corporate.company.com
+inet:bigcpu
+local:
+</pre>
+<p>
+Users can add or remove hosts from this list and enable or disable
+access control using the <em>xhost</em> command from the same machine as the
+server.</p>
+<p>
+If the X FireWall Proxy (<em>xfwp</em>) is being used without a sitepolicy,
+host-based authorization must be turned on for clients to be able to
+connect to the X server via the <em>xfwp</em>. If <em>xfwp</em> is run without a
+configuration file and thus no sitepolicy is defined, if <em>xfwp</em> is using
+an X server where xhost + has been run to turn off host-based
+authorization checks, when a client tries to connect to this X server
+via <em>xfwp</em>, the X server will deny the connection. See /xfwp/(1) for
+more information about this proxy.</p>
+<p>
+The X protocol intrinsically does not have any notion of window
+operation permissions or place any restrictions on what a client can do;
+if a program can connect to a display, it has full run of the screen. X
+servers that support the SECURITY extension fare better because clients
+can be designated untrusted via the authorization they use to connect;
+see the /xauth/(1) manual page for details. Restrictions are imposed on
+untrusted clients that curtail the mischief they can do. See the
+SECURITY extension specification for a complete list of these
+restrictions.</p>
+<p>
+Sites that have better authentication and authorization systems might
+wish to make use of the hooks in the libraries and the server to provide
+additional security models.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+SIGNALS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The X server attaches special meaning to the following signals:</p>
+<dl>
+<dt>
+<em>SIGHUP</em>
+</dt>
+<dd>This signal causes the server to close all existing
+connections, free all resources, and restore all defaults. It is sent
+by the display manager whenever the main user&#39;s main application
+(usually an <em>xterm</em> or window manager) exits to force the server to
+clean up and prepare for the next user.</dd>
+<dt>
+<em>SIGTERM</em>
+</dt>
+<dd>This signal causes the server to exit cleanly.</dd>
+<dt>
+<em>SIGUSR1</em>
+</dt>
+<dd>This signal is used quite differently from either of the
+above. When the server starts, it checks to see if it has inherited
+SIGUSR1 as SIG_IGN instead of the usual SIG_DFL. In this case, the
+server sends a SIGUSR1 to its parent process after it has set up the
+various connection schemes. <em>Xdm</em> uses this feature to recognize when
+connecting to the server is possible.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+FONTS
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>The X server can obtain fonts from directories and/or from font servers.
+The list of directories and font servers the X server uses when trying
+to open a font is controlled by the <em>font path</em>.</p>
+<p>
+The default font path is /run/current-system/sw/share/X11/fonts .</p>
+<p>
+A special kind of directory can be specified using the <strong>catalogue</strong>:
+prefix. Directories specified this way can contain symlinks pointing to
+the real font directories. See the FONTPATH.D section for details.</p>
+<p>
+The font path can be set with the <strong>-fp</strong> option or by /xset/(1) after the
+server has started.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+FONTPATH.D
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>You can specify a special kind of font path in the form
+<strong>catalogue:&lt;dir&gt;</strong>. The directory specified after the catalogue: prefix
+will be scanned for symlinks and each symlink destination will be added
+as a local fontfile FPE.</p>
+<p>
+The symlink can be suffixed by attributes such as &#39;<strong>unscaled</strong>&#39;, which
+will be passed through to the underlying fontfile FPE. The only
+exception is the newly introduced &#39;<strong>pri</strong>&#39; attribute, which will be used
+for ordering the font paths specified by the symlinks.</p>
+<p>
+An example configuration:</p>
+<pre class="example">
+    75dpi:unscaled:pri=20 -&gt; /usr/share/X11/fonts/75dpi
+    ghostscript:pri=60 -&gt; /usr/share/fonts/default/ghostscript
+    misc:unscaled:pri=10 -&gt; /usr/share/X11/fonts/misc
+    type1:pri=40 -&gt; /usr/share/X11/fonts/Type1
+    type1:pri=50 -&gt; /usr/share/fonts/default/Type1
+</pre>
+<p>
+This will add /usr/share/X11/fonts/misc as the first FPE with the
+attribute unscaled&#39;, second FPE will be /usr/share/X11/fonts/75dpi, also
+with the attribute &#39;unscaled&#39; etc. This is functionally equivalent to
+setting the following font path:</p>
+<pre class="example">
+    /usr/share/X11/fonts/misc:unscaled,
+    /usr/share/X11/fonts/75dpi:unscaled,
+    /usr/share/X11/fonts/Type1,
+    /usr/share/fonts/default/Type1,
+    /usr/share/fonts/default/ghostscript
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+FILES
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<dl>
+<dt>
+<em>/etc/X*n*.hosts</em>
+</dt>
+<dd>Initial access control list for display number
+<strong>n</strong></dd>
+<dt>
+<em>/nix/store/qpmml219sc5kv1qxl0akz990pzkgn91v-xwayland-24.1.3/share/fonts/X11/misc</em>,//nix/store/qpmml219sc5kv1qxl0akz990pzkgn91v-xwayland-24.1.3/share/fonts/X11/75dpi/,//nix/store/qpmml219sc5kv1qxl0akz990pzkgn91v-xwayland-24.1.3/share/fonts/X11/100dpi/
+</dt>
+<dd>Bitmap
+font directories</dd>
+<dt>
+<em>/nix/store/qpmml219sc5kv1qxl0akz990pzkgn91v-xwayland-24.1.3/share/fonts/X11/TTF</em>,//nix/store/qpmml219sc5kv1qxl0akz990pzkgn91v-xwayland-24.1.3/share/fonts/X11/Type1/
+</dt>
+<dd>Outline
+font directories</dd>
+<dt>
+<em>/tmp</em>.X11-unix/X*n*/
+</dt>
+<dd>Unix domain socket for display number <strong>n</strong></dd>
+<dt>
+<em>/usr/adm/X*n*msgs</em>
+</dt>
+<dd>Error log file for display number <strong>n</strong> if run
+from /init/(8)</dd>
+<dt>
+<em>/nix/store/qpmml219sc5kv1qxl0akz990pzkgn91v-xwayland-24.1.3/lib/X11/xdm/xdm-errors</em>
+</dt>
+<dd>Default
+error log file if the server is run from /xdm/(1)</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>General information: /X/(7)</p>
+<p>
+Protocols: <em>X Window System Protocol,</em> <em>The X Font Service Protocol,</em> <em>X
+Display Manager Control Protocol</em></p>
+<p>
+Fonts: /bdftopcf/(1), /mkfontdir/(1), /mkfontscale/(1), /xfs/(1),
+<em>xlsfonts/(1), /xfontsel/(1), /xfd/(1), /X Logical Font Description
+Conventions</em></p>
+<p>
+Keyboards: /xkeyboard-config/(7)</p>
+<p>
+Security: <em>Xsecurity/(7), /xauth/(1), /Xau/(1), /xdm/(1), /xhost/(1),
+/xfwp/(1), /Security Extension Specification</em></p>
+<p>
+Starting the server: /startx/(1), /xdm/(1), /xinit/(1)</p>
+<p>
+Controlling the server once started: /xset/(1), /xsetroot/(1),
+/xhost/(1), /xinput/(1), /xrandr/(1)</p>
+<p>
+Server-specific man pages: /Xorg/(1), /Xephyr/(1), /Xnest/(1),
+/Xvfb/(1), /Xquartz/(1), /XWin/(1).</p>
+<p>
+Server internal documentation: <em>Definition of the Porting Layer for the
+X v11 Sample Server</em></p>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+AUTHORS
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>The sample server was originally written by Susan Angebranndt, Raymond
+Drewry, Philip Karlton, and Todd Newman, from Digital Equipment
+Corporation, with support from a large cast. It has since been
+extensively rewritten by Keith Packard and Bob Scheifler, from MIT. Dave
+Wiggins took over post-R5 and made substantial improvements.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

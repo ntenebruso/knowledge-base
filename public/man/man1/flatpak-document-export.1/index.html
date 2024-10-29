@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - flatpak-document-export.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - flatpak-document-export.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>flatpak-document-export - Export a file to a sandboxed application</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>flatpak document-export</strong> [OPTION…] FILE</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Creates a document id for a local file that can be exposed to sandboxed
+applications, allowing them access to files that they would not
+otherwise see. The exported files are exposed in a fuse filesystem at
+<em>run/user/$UID/doc</em>.</p>
+<p>
+This command also lets you modify the per-application permissions of the
+documents, granting or revoking access to the file on a per-application
+basis.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Show help options and exit.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–unique</strong></p>
+<blockquote>
+<p>Dont reuse an existing document id for the file. This makes it safe to
+later remove the document when youre finished with it.</p>
+</blockquote>
+<p>
+<strong>-t</strong>, <strong>–transient</strong></p>
+<blockquote>
+<p>The document will only exist for the length of the session. This is
+useful for temporary grants.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–noexist</strong></p>
+<blockquote>
+<p>Dont require the file to exist already.</p>
+</blockquote>
+<p>
+<strong>-a</strong>, <strong>–app=APPID</strong></p>
+<blockquote>
+<p>Grant read access to the specified application. The <strong>–allow</strong> and
+<strong>–forbid</strong> options can be used to grant or remove additional privileges.
+This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>-r</strong>, <strong>–allow-read</strong></p>
+<blockquote>
+<p>Grant read access to the applications specified with <strong>–app</strong>. This
+defaults to TRUE.</p>
+</blockquote>
+<p>
+<strong>–forbid-read</strong></p>
+<blockquote>
+<p>Revoke read access for the applications specified with <strong>–app</strong>.</p>
+</blockquote>
+<p>
+<strong>-w</strong>, <strong>–allow-write</strong></p>
+<blockquote>
+<p>Grant write access to the applications specified with <strong>–app</strong>.</p>
+</blockquote>
+<p>
+<strong>–forbid-write</strong></p>
+<blockquote>
+<p>Revoke write access for the applications specified with <strong>–app</strong>.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–allow-delete</strong></p>
+<blockquote>
+<p>Grant the ability to remove the document from the document portal to the
+applications specified with <strong>–app</strong>.</p>
+</blockquote>
+<p>
+<strong>–forbid-delete</strong></p>
+<blockquote>
+<p>Revoke the ability to remove the document from the document portal from
+the applications specified with <strong>–app</strong>.</p>
+</blockquote>
+<p>
+<strong>-g</strong>, <strong>–allow-grant-permission</strong></p>
+<blockquote>
+<p>Grant the ability to grant further permissions to the applications
+specified with <strong>–app</strong>.</p>
+</blockquote>
+<p>
+<strong>–forbid-grant-permission</strong></p>
+<blockquote>
+<p>Revoke the ability to grant further permissions for the applications
+specified with <strong>–app</strong>.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Print debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–ostree-verbose</strong></p>
+<blockquote>
+<p>Print OSTree debug information during command processing.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>$ flatpak document-export –app=org.gnome.gedit ~/test.txt</strong></p>
+<blockquote>
+<pre class="example">
+/run/user/1000/doc/e52f9c6a/test.txt
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*flatpak*(1), *flatpak-document-unexport*(1),
+*flatpak-document-info*(1), *flatpak-documents*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

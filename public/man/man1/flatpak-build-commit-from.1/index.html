@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - flatpak-build-commit-from.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - flatpak-build-commit-from.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>flatpak-build-commit-from - Create new commits based on existing one
+(possibly from another repository)</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>flatpak build-commit-from</strong> [OPTION…] DST-REPO DST-REF…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Creates new commits on the DST-REF branch in the DST-REPO, with the
+contents (and most of the metadata) taken from another branch, either
+from another repo, or from another branch in the same repository.</p>
+<p>
+The collection ID set on DST-REPO (if set) will be used for the newly
+created commits.</p>
+<p>
+This command is very useful when you want to maintain a branch with a
+clean history that has no unsigned or broken commits. For instance, you
+can import the head from a different repository from an automatic
+builder when youve verified that it worked. The new commit will have no
+parents or signatures from the autobuilder, and can be properly signed
+with the official key.</p>
+<p>
+Any deltas that affect the original commit and that match parent commits
+in the destination repository are copied and rewritten for the new
+commit id.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Show help options and exit.</p>
+</blockquote>
+<p>
+<strong>–src-repo=SRC-REPO</strong></p>
+<blockquote>
+<p>The (local) repository to pull the source branch from. Defaults to the
+destination repository.</p>
+</blockquote>
+<p>
+<strong>–src-ref=SRC-REF</strong></p>
+<blockquote>
+<p>The branch to use as the source for the new commit. Defaults to the same
+as the destination ref, which is useful only if a different source repo
+has been specified.</p>
+</blockquote>
+<p>
+<strong>–extra-collection-id=COLLECTION-ID</strong></p>
+<blockquote>
+<p>Add an extra collection-ref binding for this collection, in addition to
+whatever would normally be added due to the destination repository
+collection id. This option can be used multiple times.</p>
+</blockquote>
+<p>
+<strong>–subset=SUBSET</strong></p>
+<blockquote>
+<p>Mark the commit to be included in the named subset. This will cause the
+commit to be put in the named subset summary (in addition to the main
+one), allowing users to see only this subset instead of the whole repo.</p>
+</blockquote>
+<p>
+<strong>–untrusted</strong></p>
+<blockquote>
+<p>The source repostory is not trusted, all objects are copied (not
+hardlinked) and all checksums are verified.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–subject=SUBJECT</strong></p>
+<blockquote>
+<p>One line subject for the commit message. If not specified, will be taken
+from the source commit.</p>
+</blockquote>
+<p>
+<strong>-b</strong>, <strong>–body=BODY</strong></p>
+<blockquote>
+<p>Full description for the commit message. If not specified, will be taken
+from the source commit.</p>
+</blockquote>
+<p>
+<strong>–update-appstream</strong></p>
+<blockquote>
+<p>Update the appstream branch after the build.</p>
+</blockquote>
+<p>
+<strong>–no-update-summary</strong></p>
+<blockquote>
+<p>Dont update the summary file after the new commit is added. This means
+the repository will not be useful for serving over http until
+build-update-repo has been run. This is useful is you want to do
+multiple repo operations before finally updating the summary.</p>
+</blockquote>
+<p>
+<strong>–force</strong></p>
+<blockquote>
+<p>Create new commit even if the content didnt change from the existing
+branch head.</p>
+</blockquote>
+<p>
+<strong>–disable-fsync</strong></p>
+<blockquote>
+<p>Dont fsync when writing to the repository. This can result in data loss
+in exceptional situations, but can improve performance when working with
+temporary or test repositories.</p>
+</blockquote>
+<p>
+<strong>–gpg-sign=KEYID</strong></p>
+<blockquote>
+<p>Sign the commit with this GPG key. This option can be used multiple
+times.</p>
+</blockquote>
+<p>
+<strong>–gpg-homedir=PATH</strong></p>
+<blockquote>
+<p>GPG Homedir to use when looking for keyrings</p>
+</blockquote>
+<p>
+<strong>–end-of-life=REASON</strong></p>
+<blockquote>
+<p>Mark build as end-of-life</p>
+</blockquote>
+<p>
+<strong>–end-of-life-rebase=OLDID=NEWID</strong></p>
+<blockquote>
+<p>Mark new refs as end-of-life. Unlike <strong>–end-of-life</strong>, this one takes an
+ID that supersedes the current one. By the users request, the
+application data may be preserved for the new application. Note, this is
+actually a prefix match, so if you say org.the.app=org.new.app, then
+something like org.the.app.Locale will be rebased to org.new.app.Locale.</p>
+</blockquote>
+<p>
+<strong>–timestamp=TIMESTAMP</strong></p>
+<blockquote>
+<p>Override the timestamp of the commit. Use an ISO 8601 formatted date, or
+NOW for the current time</p>
+</blockquote>
+<p>
+<strong>–disable-fsync</strong></p>
+<blockquote>
+<p>Dont fsync when writing to the repository. This can result in data loss
+in exceptional situations, but can improve performance when working with
+temporary or test repositories.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Print debug information during command processing.</p>
+</blockquote>
+<p>
+<strong>–ostree-verbose</strong></p>
+<blockquote>
+<p>Print OSTree debug information during command processing.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>To revert a commit to the commit before:</p>
+<p>
+*$ flatpak build-commit-from –timestamp=NOW
+–src-ref=app/org.gnome.gedit/x86_64/master^ repo
+app/org.gnome.gedit/x86_64/master*</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*ostree*(1), *flatpak*(1), *flatpak-build-init*(1), *flatpak-build*(1),
+*flatpak-build-finish*(1), *flatpak-build-sign*(1),
+*flatpak-build-update-repo*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - fallocate.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - fallocate.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>fallocate - preallocate or deallocate space to a file</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>fallocate</strong> [*-c*|*-p*|*-z*] [*-o* <em>offset/] <strong>-l</strong> /length</em> [*-n*]
+<em>filename</em></p>
+<p>
+<strong>fallocate</strong> <strong>-d</strong> [*-o* <em>offset/] [*-l* /length/] /filename</em></p>
+<p>
+<strong>fallocate</strong> <strong>-x</strong> [*-o* <em>offset/] <strong>-l</strong> /length filename</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>fallocate</strong> is used to manipulate the allocated disk space for a file,
+either to deallocate or preallocate it. For filesystems which support
+the *fallocate*(2) system call, preallocation is done quickly by
+allocating blocks and marking them as uninitialized, requiring no IO to
+the data blocks. This is much faster than creating a file by filling it
+with zeroes.</p>
+<p>
+The exit status returned by <strong>fallocate</strong> is 0 on success and 1 on
+failure.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The <em>length</em> and <em>offset</em> arguments may be followed by the
+multiplicative suffixes KiB (=1024), MiB (=1024*1024), and so on for
+GiB, TiB, PiB, EiB, ZiB, and YiB (the &#34;iB&#34; is optional, e.g., &#34;K&#34; has
+the same meaning as &#34;KiB&#34;) or the suffixes KB (=1000), MB (=1000*1000),
+and so on for GB, TB, PB, EB, ZB, and YB.</p>
+<p>
+The options <strong>–collapse-range</strong>, <strong>–dig-holes</strong>, <strong>–punch-hole</strong>, and
+<strong>–zero-range</strong> are mutually exclusive.</p>
+<p>
+<strong>-c</strong>, <strong>–collapse-range</strong></p>
+<blockquote>
+<p>Removes a byte range from a file, without leaving a hole. The byte range
+to be collapsed starts at <em>offset</em> and continues for <em>length</em> bytes. At
+the completion of the operation, the contents of the file starting at
+the location <em>offset/+/length</em> will be appended at the location
+<em>offset</em>, and the file will be <em>length</em> bytes smaller. The option
+<strong>–keep-size</strong> may not be specified for the collapse-range operation.</p>
+<p>
+Available since Linux 3.15 for ext4 (only for extent-based files) and
+XFS.</p>
+<p>
+A filesystem may place limitations on the granularity of the operation,
+in order to ensure efficient implementation. Typically, <em>offset</em> and
+<em>length</em> must be a multiple of the filesystem logical block size, which
+varies according to the filesystem type and configuration. If a
+filesystem has such a requirement, the operation will fail with the
+error <strong>EINVAL</strong> if this requirement is violated.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–dig-holes</strong></p>
+<blockquote>
+<p>Detect and dig holes. This makes the file sparse in-place, without using
+extra disk space. The minimum size of the hole depends on filesystem I/O
+block size (usually 4096 bytes). Also, when using this option,
+<strong>–keep-size</strong> is implied. If no range is specified by <strong>–offset</strong> and
+<strong>–length</strong>, then the entire file is analyzed for holes.</p>
+<p>
+You can think of this option as doing a &#34;<strong>cp –sparse</strong>&#34; and then
+renaming the destination file to the original, without the need for
+extra disk space.</p>
+<p>
+See <strong>–punch-hole</strong> for a list of supported filesystems.</p>
+</blockquote>
+<p>
+<strong>-i</strong>, <strong>–insert-range</strong></p>
+<blockquote>
+<p>Insert a hole of <em>length</em> bytes from <em>offset</em>, shifting existing data.</p>
+</blockquote>
+<p>
+<strong>-l</strong>, <strong>–length</strong> <em>length</em></p>
+<blockquote>
+<p>Specifies the length of the range, in bytes.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–keep-size</strong></p>
+<blockquote>
+<p>Do not modify the apparent length of the file. This may effectively
+allocate blocks past EOF, which can be removed with a truncate.</p>
+</blockquote>
+<p>
+<strong>-o</strong>, <strong>–offset</strong> <em>offset</em></p>
+<blockquote>
+<p>Specifies the beginning offset of the range, in bytes.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–punch-hole</strong></p>
+<blockquote>
+<p>Deallocates space (i.e., creates a hole) in the byte range starting at
+<em>offset</em> and continuing for <em>length</em> bytes. Within the specified range,
+partial filesystem blocks are zeroed, and whole filesystem blocks are
+removed from the file. After a successful call, subsequent reads from
+this range will return zeroes. This option may not be specified at the
+same time as the <strong>–zero-range</strong> option. Also, when using this option,
+<strong>–keep-size</strong> is implied.</p>
+<p>
+Supported for XFS (since Linux 2.6.38), ext4 (since Linux 3.0), Btrfs
+(since Linux 3.7), tmpfs (since Linux 3.5) and gfs2 (since Linux 4.16).</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Enable verbose mode.</p>
+</blockquote>
+<p>
+<strong>-x</strong>, <strong>–posix</strong></p>
+<blockquote>
+<p>Enable POSIX operation mode. In that mode allocation operation always
+completes, but it may take longer time when fast allocation is not
+supported by the underlying filesystem.</p>
+</blockquote>
+<p>
+<strong>-z</strong>, <strong>–zero-range</strong></p>
+<blockquote>
+<p>Zeroes space in the byte range starting at <em>offset</em> and continuing for
+<em>length</em> bytes. Within the specified range, blocks are preallocated for
+the regions that span the holes in the file. After a successful call,
+subsequent reads from this range will return zeroes.</p>
+<p>
+Zeroing is done within the filesystem preferably by converting the range
+into unwritten extents. This approach means that the specified range
+will not be physically zeroed out on the device (except for partial
+blocks at the either end of the range), and I/O is (otherwise) required
+only to update metadata.</p>
+<p>
+Option <strong>–keep-size</strong> can be specified to prevent file length
+modification.</p>
+<p>
+Available since Linux 3.14 for ext4 (only for extent-based files) and
+XFS.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*truncate*(1), *fallocate*(2), *posix_fallocate*(3)</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The <strong>fallocate</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

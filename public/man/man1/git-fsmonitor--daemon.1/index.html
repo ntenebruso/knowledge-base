@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-fsmonitor--daemon.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-fsmonitor--daemon.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-fsmonitor–daemon - A Built-in Filesystem Monitor</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git fsmonitor--daemon start
+git fsmonitor--daemon run
+git fsmonitor--daemon stop
+git fsmonitor--daemon status
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>A daemon to watch the working directory for file and directory changes
+using platform-specific filesystem notification facilities.</p>
+<p>
+This daemon communicates directly with commands like <strong>git status</strong> using
+the <strong>simple IPC</strong>[1] interface instead of the slower *githooks*(5)
+interface.</p>
+<p>
+This daemon is built into Git so that no third-party tools are required.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>start</p>
+<blockquote>
+<p>Starts a daemon in the background.</p>
+</blockquote>
+<p>
+run</p>
+<blockquote>
+<p>Runs a daemon in the foreground.</p>
+</blockquote>
+<p>
+stop</p>
+<blockquote>
+<p>Stops the daemon running in the current working directory, if present.</p>
+</blockquote>
+<p>
+status</p>
+<blockquote>
+<p>Exits with zero status if a daemon is watching the current working
+directory.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+REMARKS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>This daemon is a long running process used to watch a single working
+directory and maintain a list of the recently changed files and
+directories. Performance of commands such as <strong>git status</strong> can be
+increased if they just ask for a summary of changes to the working
+directory and can avoid scanning the disk.</p>
+<p>
+When <strong>core.fsmonitor</strong> is set to <strong>true</strong> (see <strong>git-config*(1)) commands,
+such as *git status</strong>, will ask the daemon for changes and automatically
+start it (if necessary).</p>
+<p>
+For more information see the &#34;File System Monitor&#34; section in
+*git-update-index*(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+CAVEATS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The fsmonitor daemon does not currently know about submodules and does
+not know to filter out filesystem events that happen within a submodule.
+If fsmonitor daemon is watching a super repo and a file is modified
+within the working directory of a submodule, it will report the change
+(as happening against the super repo). However, the client will properly
+ignore these extra events, so performance may be affected but it will
+not cause an incorrect result.</p>
+<p>
+By default, the fsmonitor daemon refuses to work with network-mounted
+repositories; this may be overridden by setting <strong>fsmonitor.allowRemote</strong>
+to <strong>true</strong>. Note, however, that the fsmonitor daemon is not guaranteed to
+work correctly with all network-mounted repositories, so such use is
+considered experimental.</p>
+<p>
+On Mac OS, the inter-process communication (IPC) between various Git
+commands and the fsmonitor daemon is done via a Unix domain socket (UDS)
+— a special type of file — which is supported by native Mac OS
+filesystems, but not on network-mounted filesystems, NTFS, or FAT32.
+Other filesystems may or may not have the needed support; the fsmonitor
+daemon is not guaranteed to work with these filesystems and such use is
+considered experimental.</p>
+<p>
+By default, the socket is created in the <strong>.git</strong> directory. However, if
+the <strong>.git</strong> directory is on a network-mounted filesystem, it will instead
+be created at <strong>$HOME/.git-fsmonitor-*</strong> unless <strong>$HOME</strong> itself is on a
+network-mounted filesystem, in which case you must set the configuration
+variable <strong>fsmonitor.socketDir</strong> to the path of a directory on a Mac OS
+native filesystem in which to create the socket file.</p>
+<p>
+If none of the above directories (<strong>.git</strong>, <strong>$HOME</strong>, or
+<strong>fsmonitor.socketDir</strong>) is on a native Mac OS file filesystem the
+fsmonitor daemon will report an error that will cause the daemon and the
+currently running command to exit.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+fsmonitor.allowRemote</p>
+<blockquote>
+<p>By default, the fsmonitor daemon refuses to work with network-mounted
+repositories. Setting <strong>fsmonitor.allowRemote</strong> to <strong>true</strong> overrides this
+behavior. Only respected when <strong>core.fsmonitor</strong> is set to <strong>true</strong>.</p>
+</blockquote>
+<p>
+fsmonitor.socketDir</p>
+<blockquote>
+<p>This Mac OS-specific option, if set, specifies the directory in which to
+create the Unix domain socket used for communication between the
+fsmonitor daemon and various Git commands. The directory must reside on
+a native Mac OS filesystem. Only respected when <strong>core.fsmonitor</strong> is set
+to <strong>true</strong>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+NOTES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>simple IPC
+
+file:///nix/store/9xdnzfl42isjgsn1mnxyjdmspakf8ayi-git-2.46.1-doc/share/doc/git/technical/api-simple-ipc.html</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

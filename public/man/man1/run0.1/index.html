@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - run0.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - run0.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>run0 - Elevate privileges</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>run0</strong> [OPTIONS…] [COMMAND…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>run0</strong> may be used to temporarily and interactively acquire elevated or
+different privileges. It serves a similar purpose as *sudo*(8), but
+operates differently in a couple of key areas:</p>
+<blockquote>
+<p>·</p>
+<p>
+No execution or security context credentials are inherited from the
+caller into the invoked commands, as they are invoked from a fresh,
+isolated service forked off by the service manager.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+Authentication takes place via <strong>polkit</strong>[1], thus isolating the
+authentication prompt from the terminal (if possible).</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+An independent pseudo-tty is allocated for the invoked command,
+detaching its lifecycle and isolating it for security.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+No SetUID/SetGID file access bit functionality is used for the
+implementation.</p>
+</blockquote>
+<p>
+Altogether this should provide a safer and more robust alternative to
+the <strong>sudo</strong> mechanism, in particular in OS environments where
+SetUID/SetGID support is not available (for example by setting the
+<em>NoNewPrivileges=</em> variable in *systemd-system.conf*(5)).</p>
+<p>
+Any session invoked via <strong>run0</strong> will run through the &#34;systemd-run0&#34; PAM
+stack.</p>
+<p>
+Note that <strong>run0</strong> is implemented as an alternative multi-call invocation
+of *systemd-run*(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>–no-ask-password</strong></p>
+<blockquote>
+<p>Do not query the user for authentication for privileged operations.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–unit=</strong></p>
+<blockquote>
+<p>Use this unit name instead of an automatically generated one.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–property=</strong></p>
+<blockquote>
+<p>Sets a property on the service unit that is created. This option takes
+an assignment in the same format as <strong>systemctl*(1)s *set-property</strong>
+command.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–description=</strong></p>
+<blockquote>
+<p>Provide a description for the service unit that is invoked. If not
+specified, the command itself will be used as a description. See
+<em>Description=</em> in *systemd.unit*(5).</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–slice=</strong></p>
+<blockquote>
+<p>Make the new .service unit part of the specified slice, instead of
+user.slice.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–slice-inherit</strong></p>
+<blockquote>
+<p>Make the new .service unit part of the slice the <strong>run0</strong> itself has been
+invoked in. This option may be combined with <strong>–slice=</strong>, in which case
+the slice specified via <strong>–slice=</strong> is placed within the slice the <strong>run0</strong>
+command is invoked in.</p>
+<p>
+Example: consider <strong>run0</strong> being invoked in the slice foo.slice, and the
+<strong>–slice=</strong> argument is bar. The unit will then be placed under
+foo-bar.slice.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–user=</strong>, <strong>-u</strong>, <strong>–group=</strong>, <strong>-g</strong></p>
+<blockquote>
+<p>Switches to the specified user/group instead of root.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–nice=</strong></p>
+<blockquote>
+<p>Runs the invoked session with the specified nice level.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–chdir=</strong>, <strong>-D</strong></p>
+<blockquote>
+<p>Runs the invoked session with the specified working directory. If not
+specified defaults to the clients current working directory if switching
+to the root user, or the target users home directory otherwise.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–setenv=*/NAME/</strong>[=*/VALUE/*]*</p>
+<blockquote>
+<p>Runs the invoked session with the specified environment variable set.
+This parameter may be used more than once to set multiple variables.
+When &#34;=&#34; and <em>VALUE</em> are omitted, the value of the variable with the
+same name in the invoking environment will be used.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+*–background=*/COLOR/</p>
+<blockquote>
+<p>Change the terminal background color to the specified ANSI color as long
+as the session lasts. If not specified, the background will be tinted in
+a reddish tone when operating as root, and in a yellowish tone when
+operating under another UID, as reminder of the changed privileges. The
+color specified should be an ANSI X3.64 SGR background color, i.e.
+strings such as &#34;40&#34;, &#34;41&#34;, …, &#34;47&#34;, &#34;48;2;…&#34;, &#34;48;5;…&#34;. See <strong>ANSI
+Escape Code (Wikipedia)</strong>[2] for details. Set to an empty string to
+disable.</p>
+<p>
+Example: &#34;–background=44&#34; for a blue background.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>–machine=</strong></p>
+<blockquote>
+<p>Execute operation on a local container. Specify a container name to
+connect to.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Print a short help text and exit.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Print a short version string and exit.</p>
+</blockquote>
+<p>
+All command line arguments after the first non-option argument become
+part of the command line of the launched process. If no command line is
+specified an interactive shell is invoked. The shell to invoke may be
+controlled via <strong>–setenv=SHELL=…</strong> and currently defaults to the
+<em>originating users</em> shell (i.e. not the target users!) if operating
+locally, or /bin/sh when operating with <strong>–machine=</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>On success, 0 is returned. If <strong>run0</strong> failed to start the session or the
+specified command fails, a non-zero return value will be returned.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+ENVIRONMENT VARIABLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>As with <strong>systemd-run</strong>, the session will inherit the system environment
+from the service manager. In addition, the following environment
+variables will be set:</p>
+<p>
+<em>$TERM</em></p>
+<blockquote>
+<p>Copied from the <em>$TERM</em> of the caller. Can be overridden with
+<strong>–setenv=</strong></p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<em>$SUDO_USER</em></p>
+<blockquote>
+<p>Set to the username of the originating user.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<em>$SUDO_UID</em></p>
+<blockquote>
+<p>Set to the numeric UNIX user id of the originating user.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<em>$SUDO_GID</em></p>
+<blockquote>
+<p>Set to the primary numeric UNIX group id of the originating session.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*systemd*(1), *systemd-run*(1), *sudo*(8), *machinectl*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+NOTES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>polkit
+
+https://www.freedesktop.org/wiki/Software/polkit</dd>
+<dt>
+2.
+</dt>
+<dd>ANSI Escape Code (Wikipedia)
+
+https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

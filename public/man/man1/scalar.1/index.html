@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - scalar.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - scalar.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>scalar - A tool for managing large Git repositories</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+scalar clone [--single-branch] [--branch &lt;main-branch&gt;] [--full-clone]
+        [--[no-]src] &lt;url&gt; [&lt;enlistment&gt;]
+scalar list
+scalar register [&lt;enlistment&gt;]
+scalar unregister [&lt;enlistment&gt;]
+scalar run ( all | config | commit-graph | fetch | loose-objects | pack-files ) [&lt;enlistment&gt;]
+scalar reconfigure [ --all | &lt;enlistment&gt; ]
+scalar diagnose [&lt;enlistment&gt;]
+scalar delete &lt;enlistment&gt;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Scalar is a repository management tool that optimizes Git for use in
+large repositories. Scalar improves performance by configuring advanced
+Git settings, maintaining repositories in the background, and helping to
+reduce data sent across the network.</p>
+<p>
+An important Scalar concept is the enlistment: this is the top-level
+directory of the project. It usually contains the subdirectory <strong>src/</strong>
+which is a Git worktree. This encourages the separation between tracked
+files (inside <strong>src/</strong>) and untracked files, such as build artifacts
+(outside <strong>src/</strong>). When registering an existing Git worktree with Scalar
+whose name is not <strong>src</strong>, the enlistment will be identical to the
+worktree.</p>
+<p>
+The <strong>scalar</strong> command implements various subcommands, and different
+options depending on the subcommand. With the exception of <strong>clone</strong>,
+<strong>list</strong> and <strong>reconfigure –all</strong>, all subcommands expect to be run in an
+enlistment.</p>
+<p>
+The following options can be specified <em>before</em> the subcommand:</p>
+<p>
+-C &lt;directory&gt;</p>
+<blockquote>
+<p>Before running the subcommand, change the working directory. This option
+imitates the same option of *git*(1).</p>
+</blockquote>
+<p>
+-c &lt;key&gt;=&lt;value&gt;</p>
+<blockquote>
+<p>For the duration of running the specified subcommand, configure this
+setting. This option imitates the same option of *git*(1).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Clone
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>clone [&lt;options&gt;] &lt;url&gt; [&lt;enlistment&gt;]</p>
+<blockquote>
+<p>Clones the specified repository, similar to *git-clone*(1). By default,
+only commit and tree objects are cloned. Once finished, the worktree is
+located at <strong>&lt;enlistment&gt;/src</strong>.</p>
+<p>
+The sparse-checkout feature is enabled (except when run with
+<strong>–full-clone</strong>) and the only files present are those in the top-level
+directory. Use <strong>git sparse-checkout set</strong> to expand the set of
+directories you want to see, or <strong>git sparse-checkout disable</strong> to expand
+to all files (see *git-sparse-checkout*(1) for more details). You can
+explore the subdirectories outside your sparse-checkout by using <strong>git
+ls-tree HEAD[:&lt;directory&gt;]</strong>.</p>
+</blockquote>
+<p>
+-b &lt;name&gt;, –branch &lt;name&gt;</p>
+<blockquote>
+<p>Instead of checking out the branch pointed to by the cloned repository&#39;s
+HEAD, check out the <strong>&lt;name&gt;</strong> branch instead.</p>
+</blockquote>
+<p>
+–[no-]single-branch</p>
+<blockquote>
+<p>Clone only the history leading to the tip of a single branch, either
+specified by the <strong>–branch</strong> option or the primary branch remote&#39;s <strong>HEAD</strong>
+points at.</p>
+<p>
+Further fetches into the resulting repository will only update the
+remote-tracking branch for the branch this option was used for the
+initial cloning. If the HEAD at the remote did not point at any branch
+when <strong>–single-branch</strong> clone was made, no remote-tracking branch is
+created.</p>
+</blockquote>
+<p>
+–[no-]src</p>
+<blockquote>
+<p>By default, <strong>scalar clone</strong> places the cloned repository within a
+<strong>&lt;entlistment&gt;/src</strong> directory. Use <strong>–no-src</strong> to place the cloned
+repository directly in the <strong>&lt;enlistment&gt;</strong> directory.</p>
+</blockquote>
+<p>
+–[no-]full-clone</p>
+<blockquote>
+<p>A sparse-checkout is initialized by default. This behavior can be turned
+off via <strong>–full-clone</strong>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+List
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>list</p>
+<blockquote>
+<p>List enlistments that are currently registered by Scalar. This
+subcommand does not need to be run inside an enlistment.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Register
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>register [&lt;enlistment&gt;]</p>
+<blockquote>
+<p>Adds the enlistment&#39;s repository to the list of registered repositories
+and starts background maintenance. If <strong>&lt;enlistment&gt;</strong> is not provided,
+then the enlistment associated with the current working directory is
+registered.</p>
+<p>
+Note: when this subcommand is called in a worktree that is called
+<strong>src/</strong>, its parent directory is considered to be the Scalar enlistment.
+If the worktree is <em>not</em> called <strong>src/</strong>, it itself will be considered to
+be the Scalar enlistment.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Unregister
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>unregister [&lt;enlistment&gt;]</p>
+<blockquote>
+<p>Remove the specified repository from the list of repositories registered
+with Scalar and stop the scheduled background maintenance.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Run
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>scalar run ( all | config | commit-graph | fetch | loose-objects |
+pack-files ) [&lt;enlistment&gt;]</p>
+<blockquote>
+<p>Run the given maintenance task (or all tasks, if <strong>all</strong> was specified).
+Except for <strong>all</strong> and <strong>config</strong>, this subcommand simply hands off to
+<strong>git-maintenance*(1) (mapping *fetch</strong> to <strong>prefetch</strong> and <strong>pack-files</strong> to
+<strong>incremental-repack</strong>).</p>
+<p>
+These tasks are run automatically as part of the scheduled maintenance,
+as soon as the repository is registered with Scalar. It should therefore
+not be necessary to run this subcommand manually.</p>
+<p>
+The <strong>config</strong> task is specific to Scalar and configures all those
+opinionated default settings that make Git work more efficiently with
+large repositories. As this task is run as part of <strong>scalar clone</strong>
+automatically, explicit invocations of this task are rarely needed.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Reconfigure
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>After a Scalar upgrade, or when the configuration of a Scalar enlistment
+was somehow corrupted or changed by mistake, this subcommand allows to
+reconfigure the enlistment.</p>
+<p>
+With the <strong>–all</strong> option, all enlistments currently registered with
+Scalar will be reconfigured. Use this option after each Scalar upgrade.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Diagnose
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>diagnose [&lt;enlistment&gt;]</p>
+<blockquote>
+<p>When reporting issues with Scalar, it is often helpful to provide the
+information gathered by this command, including logs and certain
+statistics describing the data shape of the current enlistment.</p>
+<p>
+The output of this command is a <strong>.zip</strong> file that is written into a
+directory adjacent to the worktree in the <strong>src</strong> directory.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+Delete
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>delete &lt;enlistment&gt;</p>
+<blockquote>
+<p>This subcommand lets you delete an existing Scalar enlistment from your
+local file system, unregistering the repository.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>*git-clone*(1), *git-maintenance*(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+GIT
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

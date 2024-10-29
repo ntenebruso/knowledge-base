@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - getfacl.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - getfacl.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>getfacl - get file access control lists</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>getfacl</strong> [-aceEsRLPtpndvh] file …</p>
+<p>
+<strong>getfacl</strong> [-aceEsRLPtpndvh] -</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>For each file, getfacl displays the file name, owner, the group, and the
+Access Control List (ACL). If a directory has a default ACL, getfacl
+also displays the default ACL. Non-directories cannot have default ACLs.</p>
+<p>
+If getfacl is used on a file system that does not support ACLs, getfacl
+displays the access permissions defined by the traditional file mode
+permission bits.</p>
+<p>
+The output format of getfacl is as follows:</p>
+<blockquote>
+<pre class="example">
+ 1:  # file: somedir/
+ 2:  # owner: lisa
+ 3:  # group: staff
+ 4:  # flags: -s-
+ 5:  user::rwx
+ 6:  user:joe:rwx               #effective:r-x
+ 7:  group::rwx                 #effective:r-x
+ 8:  group:cool:r-x
+ 9:  mask::r-x
+10:  other::r-x
+11:  default:user::rwx
+12:  default:user:joe:rwx       #effective:r-x
+13:  default:group::r-x
+14:  default:mask::r-x
+15:  default:other::---
+</pre>
+</blockquote>
+<p>
+Lines 1–3 indicate the file name, owner, and owning group.</p>
+<p>
+Line 4 indicates the setuid (s), setgid (s), and sticky (t) bits: either
+the letter representing the bit, or else a dash (-). This line is
+included if any of those bits is set and left out otherwise, so it will
+not be shown for most files. (See CONFORMANCE TO POSIX 1003.1e DRAFT
+STANDARD 17 below.)</p>
+<p>
+Lines 5, 7 and 10 correspond to the user, group and other fields of the
+file mode permission bits. These three are called the base ACL entries.
+Lines 6 and 8 are named user and named group entries. Line 9 is the
+effective rights mask. This entry limits the effective rights granted to
+all groups and to named users. (The file owner and others permissions
+are not affected by the effective rights mask; all other entries are.)
+Lines 11–15 display the default ACL associated with this directory.
+Directories may have a default ACL. Regular files never have a default
+ACL.</p>
+<p>
+The default behavior for getfacl is to display both the ACL and the
+default ACL, and to include an effective rights comment for lines where
+the rights of the entry differ from the effective rights.</p>
+<p>
+If output is to a terminal, the effective rights comment is aligned to
+column 40. Otherwise, a single tab character separates the ACL entry and
+the effective rights comment.</p>
+<p>
+The ACL listings of multiple files are separated by blank lines. The
+output of getfacl can also be used as input to setfacl.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+PERMISSIONS
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>Process with search access to a file (i.e., processes with read access
+to the containing directory of a file) are also granted read access to
+the file&#39;s ACLs. This is analogous to the permissions required for
+accessing the file mode.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+<em>-a, –access</em>
+</dt>
+<dd>Display the file access control list.</dd>
+<dt>
+<em>-d, –default</em>
+</dt>
+<dd>Display the default access control list.</dd>
+<dt>
+<em>-c, –omit-header</em>
+</dt>
+<dd>Do not display the comment header (the first
+three lines of each file&#39;s output).</dd>
+<dt>
+<em>-e, –all-effective</em>
+</dt>
+<dd>Print all effective rights comments, even if
+identical to the rights defined by the ACL entry.</dd>
+<dt>
+<em>-E, –no-effective</em>
+</dt>
+<dd>Do not print effective rights comments.</dd>
+<dt>
+<em>-s, –skip-base</em>
+</dt>
+<dd>Skip files that only have the base ACL entries
+(owner, group, others).</dd>
+<dt>
+<em>-R, –recursive</em>
+</dt>
+<dd>List the ACLs of all files and directories
+recursively.</dd>
+<dt>
+<em>-L, –logical</em>
+</dt>
+<dd>Logical walk, follow symbolic links to directories.
+The default behavior is to follow symbolic link arguments, and skip
+symbolic links encountered in subdirectories. Only effective in
+combination with -R.</dd>
+<dt>
+<em>-P, –physical</em>
+</dt>
+<dd>Physical walk, do not follow symbolic links to
+directories. This also skips symbolic link arguments. Only effective
+in combination with -R.</dd>
+<dt>
+<em>-t, –tabular</em>
+</dt>
+<dd>Use an alternative tabular output format. The ACL
+and the default ACL are displayed side by side. Permissions that are
+ineffective due to the ACL mask entry are displayed capitalized. The
+entry tag names for the ACL_USER_OBJ and ACL_GROUP_OBJ entries are
+also displayed in capital letters, which helps in spotting those
+entries.</dd>
+<dt>
+<em>-p, –absolute-names</em>
+</dt>
+<dd>Do not strip leading slash characters (`/&#39;).
+The default behavior is to strip leading slash characters.</dd>
+<dt>
+<em>-n, –numeric</em>
+</dt>
+<dd>List numeric user and group IDs</dd>
+<dt>
+<em>-v, –version</em>
+</dt>
+<dd>Print the version of getfacl and exit.</dd>
+<dt>
+<em>-h, –help</em>
+</dt>
+<dd>Print help explaining the command line options.</dd>
+<dt>
+<em>–</em>
+</dt>
+<dd>End of command line options. All remaining parameters are
+interpreted as file names, even if they start with a dash character.</dd>
+<dt>
+<em>-</em>
+</dt>
+<dd>If the file name parameter is a single dash character, getfacl
+reads a list of files from standard input.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+CONFORMANCE TO POSIX 1003.1e DRAFT STANDARD 17
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>If the environment variable POSIXLY_CORRECT is defined, the default
+behavior of getfacl changes in the following ways: Unless otherwise
+specified, only the ACL is printed. The default ACL is only printed if
+the <em>-d</em> option is given. If no command line parameter is given,
+<em>getfacl</em> behaves as if it was invoked as ``getfacl -&#39;&#39;. No flags
+comments indicating the setuid, setgid, and sticky bits are generated.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHOR
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Andreas Gruenbacher, &lt;/andreas.gruenbacher@gmail.com/&gt;.</p>
+<p>
+Please send your bug reports and comments to the above address.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*setfacl*(1), *acl*(5)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

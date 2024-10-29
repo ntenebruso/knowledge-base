@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - hciattach.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - hciattach.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>hciattach - attach serial devices via UART HCI to BlueZ stack</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>hciattach</strong> [/OPTIONS/] &lt;/tty/&gt; &lt;/type|id/&gt; [/speed/] [/flow/] [/sleep/]
+[/bdaddr/]</p>
+<p>
+<strong>hciattach</strong> -1</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>hciattach(1)</strong> is used to attach a serial UART to the Bluetooth stack as
+HCI transport interface.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>-i</strong>
+</dt>
+<dd>Send break</dd>
+<dt>
+<strong>-n</strong>
+</dt>
+<dd>Don&#39;t detach from controlling terminal.</dd>
+<dt>
+<strong>-p</strong>
+</dt>
+<dd>Print the PID when detaching.</dd>
+<dt>
+*-t*/ timeout/
+</dt>
+<dd>Specify an initialization timeout. Default is 5
+seconds.</dd>
+<dt>
+*-s*/ speed/
+</dt>
+<dd>Specify an initial speed instead of the hardware
+default.</dd>
+<dt>
+<strong>-l</strong>
+</dt>
+<dd>List all available configurations.</dd>
+<dt>
+<strong>-r</strong>
+</dt>
+<dd>Set the HCI device into raw mode. The kernel and bluetooth
+daemon will ignore it.</dd>
+<dt>
+<strong>-h</strong>,* –help*
+</dt>
+<dd>Show help options</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ARGUMENTS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong><em>show</em></strong>
+</dt>
+<dd>This specifies the serial device to attach. A leading /dev
+can be omitted.
+
+Examples: <strong>/dev/ttyS1 ttyS2</strong></dd>
+<dt>
+<strong><em>type|id</em></strong>
+</dt>
+<dd>The /type/* or <strong><em>id</em></strong> of the Bluetooth device that is
+to be attached,* i.e. vendor or other device specific identifier.
+Currently supported types are</dd>
+</dl>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><em>type</em></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>any</td>
+<td>Unspecified HCI_UART interface, no vendor specific options</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td>ericsson</td>
+<td>Ericsson based modules</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td>digi</td>
+<td>Digianswer based cards</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td>xircom</td>
+<td>Xircom PCMCIA cards: Credit Card Adapter and Real Port Adapter</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td>csr</td>
+<td>CSR Casira serial adapter or BrainBoxes serial dongle (BL642)</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td>bboxes</td>
+<td>BrainBoxes PCMCIA card (BL620)</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td>swave</td>
+<td>Silicon Wave kits</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td>bcsp</td>
+<td>Serial adapters using CSR chips with BCSP serial protocol</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td>ath3k</td>
+<td>Atheros AR300x based serial Bluetooth device</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td>intel</td>
+<td>Intel Bluetooth device</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>#+begin_example</th>
+<th>Description</th>
+</tr>
+<tr>
+<th>Supported ID</th>
+<th></th>
+</tr>
+<tr>
+<th>(manufacturer id, product id)</th>
+<th></th>
+</tr>
+<tr>
+<th>#+end_example</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0105, 0x080a</td>
+<td>Xircom PCMCIA cards: Credit Card Adapter and Real Port Adapter</td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+<tr>
+<td>0x0160, 0x0002</td>
+<td>BrainBoxes PCMCIA card (BL620)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong><em>speed</em></strong>
+</dt>
+<dd>The /speed/* specifies the UART speed to use. Baudrates
+higher than 115200bps* require vendor specific initializations that
+are not implemented for all types of devices. In general the following
+speeds are supported:
+
+Supported vendor devices are automatically initialised to their
+respective best settings.</dd>
+</dl>
+</blockquote>
+<table>
+<tbody>
+<tr>
+<td class="align-right">9600</td>
+</tr>
+<tr>
+<td class="align-right">_</td>
+</tr>
+<tr>
+<td class="align-right">19200</td>
+</tr>
+<tr>
+<td class="align-right">_</td>
+</tr>
+<tr>
+<td class="align-right">38400</td>
+</tr>
+<tr>
+<td class="align-right">_</td>
+</tr>
+<tr>
+<td class="align-right">57600</td>
+</tr>
+<tr>
+<td class="align-right">_</td>
+</tr>
+<tr>
+<td class="align-right">115200</td>
+</tr>
+<tr>
+<td class="align-right">_</td>
+</tr>
+<tr>
+<td class="align-right">230400</td>
+</tr>
+<tr>
+<td class="align-right">_</td>
+</tr>
+<tr>
+<td class="align-right">460800</td>
+</tr>
+<tr>
+<td class="align-right">_</td>
+</tr>
+<tr>
+<td class="align-right">921600</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<dl>
+<dt>
+<strong><em>flow</em></strong>
+</dt>
+<dd>If the /flow/* is appended to the list of options then
+hardware flow control* is forced on the serial link (<strong>CRTSCTS). All
+above mentioned device</strong> types have flow set by default. To force no
+flow control use <em>noflow</em> instead.</dd>
+<dt>
+<strong><em>sleep|nosleep</em></strong>
+</dt>
+<dd>Enables hardware specific power management
+feature. If /sleep/* is appended* to the list of options then this
+feature is enabled. To disable this feature use /nosleep/* instead.
+All above mentioned device types have* /nosleep/* set by default.*
+
+Note: This option will only be valid for hardware which support
+hardware specific power management enable option from host.</dd>
+<dt>
+<strong><em>bdaddr</em></strong>
+</dt>
+<dd>The bdaddr specifies the Bluetooth Address to use. Some
+devices (like the STLC2500) do not store the Bluetooth address in
+hardware memory. Instead it must be uploaded during the initialization
+process. If this argument is specified, then the address will be used
+to initialize the device. Otherwise, a default address will be used.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+RESOURCES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Maxim Krasnyansky &lt;maxk@qualcomm.com&gt;, Nils Faerber
+&lt;nils@kernelconcepts.de&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

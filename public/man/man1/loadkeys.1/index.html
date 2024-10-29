@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - loadkeys.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - loadkeys.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>loadkeys - load keyboard translation tables</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>loadkeys</strong> [/OPTION/]… <em>FILENAME</em>…<br>
+<strong>loadkeys</strong> <em>–default</em><br>
+<strong>loadkeys</strong> <em>–mktable</em><br>
+<strong>loadkeys</strong> <em>–bkeymap</em><br>
+<strong>loadkeys</strong> <em>–parse</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The program <strong>loadkeys</strong> reads the file or files specified by
+<em>FILENAME…</em>. Its main purpose is to load the kernel keymap for the
+console. You can specify console device by the <em>-C</em> (or <em>–console</em> )
+option.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+RESET TO DEFAULT
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>If the <em>-d</em> (or <em>–default</em> ) option is given, <strong>loadkeys</strong> loads a
+default keymap, probably the file <em>defkeymap.map</em> either in
+<em>/nix/store/xa3wmqiw0h87k4p7isdrwv60xaqly1gy-kbd-2.6.4/share/keymaps</em> or
+in <em>/usr/src/linux/drivers/char</em>. (Probably the former was user-defined,
+while the latter is a qwerty keyboard map for PCs - maybe not what was
+desired.) Sometimes, with a strange keymap loaded (with the minus on
+some obscure unknown modifier combination) it is easier to type
+`loadkeys defkeymap&#39;.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+LOAD KERNEL KEYMAP
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The main function of <strong>loadkeys</strong> is to load or modify the keyboard
+driver&#39;s translation tables. When specifying the file names, standard
+input can be denoted by dash (-). If no file is specified, the data is
+read from the standard input.</p>
+<p>
+For many countries and keyboard types appropriate keymaps are available
+already, and a command like `loadkeys uk&#39; might do what you want. On the
+other hand, it is easy to construct one&#39;s own keymap. The user has to
+tell what symbols belong to each key. She can find the keycode for a key
+by use of *showkey*(1), while the keymap format is given in *keymaps*(5)
+and can also be seen from the output of *dumpkeys*(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+LOAD KERNEL ACCENT TABLE
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>If the input file does not contain any compose key definitions, the
+kernel accent table is left unchanged, unless the <em>-c</em> (or
+<em>–clearcompose</em> ) option is given, in which case the kernel accent
+table is emptied. If the input file does contain compose key
+definitions, then all old definitions are removed, and replaced by the
+specified new entries. The kernel accent table is a sequence of (by
+default 68) entries describing how dead diacritical signs and compose
+keys behave. For example, a line</p>
+<blockquote>
+<p>compose &#39;,&#39; &#39;c&#39; to ccedilla</p>
+</blockquote>
+<p>
+means that &lt;ComposeKey&gt;&lt;,&gt;&lt;c&gt; must be combined to &lt;ccedilla&gt;. The
+current content of this table can be see using `dumpkeys
+–compose-only&#39;.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+LOAD KERNEL STRING TABLE
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The option <em>-s</em> (or <em>–clearstrings</em> ) clears the kernel string table.
+If this option is not given, <strong>loadkeys</strong> will only add or replace
+strings, not remove them. (Thus, the option -s is required to reach a
+well-defined state.) The kernel string table is a sequence of strings
+with names like F31. One can make function key F5 (on an ordinary PC
+keyboard) produce the text `Hello!&#39;, and Shift+F5 `Goodbye!&#39; using lines</p>
+<blockquote>
+<p>keycode 63 = F70 F71<br>
+string F70 = &#34;Hello!&#34;<br>
+string F71 = &#34;Goodbye!&#34;</p>
+</blockquote>
+<p>
+in the keymap. The default bindings for the function keys are certain
+escape sequences mostly inspired by the VT100 terminal.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+CREATE KERNEL SOURCE TABLE
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>If the <em>-m</em> (or <em>–mktable</em> ) option is given <strong>loadkeys</strong> prints to the
+standard output a file that may be used as
+<em>/usr/src/linux/drivers/char/defkeymap.c,</em> specifying the default key
+bindings for a kernel (and does not modify the current keymap).</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+CREATE BINARY KEYMAP
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>If the <em>-b</em> (or <em>–bkeymap</em> ) option is given <strong>loadkeys</strong> prints to the
+standard output a file that may be used as a binary keymap as expected
+by Busybox <strong>loadkmap</strong> command (and does not modify the current keymap).</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+UNICODE MODE
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p><strong>loadkeys</strong> automatically detects whether the console is in Unicode or
+ASCII (XLATE) mode. When a keymap is loaded, literal keysyms (such as
+<strong>section</strong>) are resolved accordingly; numerical keysyms are converted to
+fit the current console mode, regardless of the way they are specified
+(decimal, octal, hexadecimal or Unicode).</p>
+<p>
+The <em>-u</em> (or <em>–unicode</em>) switch forces <strong>loadkeys</strong> to convert all
+keymaps to Unicode. If the keyboard is in a non-Unicode mode, such as
+XLATE, <strong>loadkeys</strong> will change it to Unicode for the time of its
+execution. A warning message will be printed in this case.</p>
+<p>
+It is recommended to run <strong>kbd_mode*(1) before *loadkeys</strong> instead of
+using the <em>-u</em> option.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+OTHER OPTIONS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<dl>
+<dt>
+<strong>-a –ascii</strong>
+</dt>
+<dd>Force conversion to ASCII.</dd>
+<dt>
+<strong>-h –help</strong>
+</dt>
+<dd><strong>loadkeys</strong> prints its version number and a short usage
+message to the programs standard error output and exits.</dd>
+<dt>
+<strong>-p –parse</strong>
+</dt>
+<dd><strong>loadkeys</strong> searches and parses keymap without action.</dd>
+<dt>
+<strong>-q –quiet</strong>
+</dt>
+<dd><strong>loadkeys</strong> suppresses all normal output.</dd>
+<dt>
+<strong>-V –version</strong>
+</dt>
+<dd><strong>loadkeys</strong> prints version number and exits.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+WARNING
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>Note that anyone having read access to <strong>/dev/console</strong> can run <strong>loadkeys</strong>
+and thus change the keyboard layout, possibly making it unusable. Note
+that the keyboard translation table is common for all the virtual
+consoles, so any changes to the keyboard bindings affect all the virtual
+consoles simultaneously.</p>
+<p>
+Note that because the changes affect all the virtual consoles, they also
+outlive your session. This means that even at the login prompt the key
+bindings may not be what the user expects.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+FILES
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<dl>
+<dt>
+<em>/nix/store/xa3wmqiw0h87k4p7isdrwv60xaqly1gy-kbd-2.6.4/share/keymaps</em>
+</dt>
+<dd>default
+directory for keymaps.</dd>
+<dt>
+<em>/usr/src/linux/drivers/char/defkeymap.map</em>
+</dt>
+<dd>default kernel keymap.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>*dumpkeys*(1), *keymaps*(5)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

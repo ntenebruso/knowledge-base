@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - cp.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - cp.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>cp - copy files and directories</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>cp</strong> [/OPTION/]… [/-T/] <em>SOURCE DEST</em><br>
+<strong>cp</strong> [/OPTION/]… <em>SOURCE</em>… <em>DIRECTORY</em><br>
+<strong>cp</strong> [/OPTION/]… <em>-t DIRECTORY SOURCE</em>…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<dl>
+<dt>
+<strong>-a</strong>, <strong>–archive</strong>
+</dt>
+<dd>same as <strong>-dR</strong> *–preserve*=/all/</dd>
+<dt>
+<strong>–attributes-only</strong>
+</dt>
+<dd>don&#39;t copy the file data, just the attributes</dd>
+<dt>
+<strong>–backup</strong>[=/CONTROL/]
+</dt>
+<dd>make a backup of each existing destination
+file</dd>
+<dt>
+<strong>-b</strong>
+</dt>
+<dd>like <strong>–backup</strong> but does not accept an argument</dd>
+<dt>
+<strong>–copy-contents</strong>
+</dt>
+<dd>copy contents of special files when recursive</dd>
+<dt>
+<strong>-d</strong>
+</dt>
+<dd>same as <strong>–no-dereference</strong> *–preserve*=/links/</dd>
+<dt>
+<strong>–debug</strong>
+</dt>
+<dd>explain how a file is copied. Implies <strong>-v</strong></dd>
+<dt>
+<strong>-f</strong>, <strong>–force</strong>
+</dt>
+<dd>if an existing destination file cannot be opened,
+remove it and try again (this option is ignored when the <strong>-n</strong> option
+is also used)</dd>
+<dt>
+<strong>-i</strong>, <strong>–interactive</strong>
+</dt>
+<dd>prompt before overwrite (overrides a previous
+<strong>-n</strong> option)</dd>
+<dt>
+<strong>-H</strong>
+</dt>
+<dd>follow command-line symbolic links in SOURCE</dd>
+<dt>
+<strong>-l</strong>, <strong>–link</strong>
+</dt>
+<dd>hard link files instead of copying</dd>
+<dt>
+<strong>-L</strong>, <strong>–dereference</strong>
+</dt>
+<dd>always follow symbolic links in SOURCE</dd>
+<dt>
+<strong>-n</strong>, <strong>–no-clobber</strong>
+</dt>
+<dd>(deprecated) silently skip existing files. See
+also <strong>–update</strong></dd>
+<dt>
+<strong>-P</strong>, <strong>–no-dereference</strong>
+</dt>
+<dd>never follow symbolic links in SOURCE</dd>
+<dt>
+<strong>-p</strong>
+</dt>
+<dd>same as *–preserve*=/mode/,ownership,timestamps</dd>
+<dt>
+<strong>–preserve</strong>[=/ATTR_LIST/]
+</dt>
+<dd>preserve the specified attributes</dd>
+<dt>
+*–no-preserve*=/ATTR_LIST/
+</dt>
+<dd>don&#39;t preserve the specified attributes</dd>
+<dt>
+<strong>–parents</strong>
+</dt>
+<dd>use full source file name under DIRECTORY</dd>
+<dt>
+<strong>-R</strong>, <strong>-r</strong>, <strong>–recursive</strong>
+</dt>
+<dd>copy directories recursively</dd>
+<dt>
+<strong>–reflink</strong>[=/WHEN/]
+</dt>
+<dd>control clone/CoW copies. See below</dd>
+<dt>
+<strong>–remove-destination</strong>
+</dt>
+<dd>remove each existing destination file before
+attempting to open it (contrast with <strong>–force</strong>)</dd>
+<dt>
+*–sparse*=/WHEN/
+</dt>
+<dd>control creation of sparse files. See below</dd>
+<dt>
+<strong>–strip-trailing-slashes</strong>
+</dt>
+<dd>remove any trailing slashes from each
+SOURCE argument</dd>
+<dt>
+<strong>-s</strong>, <strong>–symbolic-link</strong>
+</dt>
+<dd>make symbolic links instead of copying</dd>
+<dt>
+<strong>-S</strong>, *–suffix*=/SUFFIX/
+</dt>
+<dd>override the usual backup suffix</dd>
+<dt>
+<strong>-t</strong>, *–target-directory*=/DIRECTORY/
+</dt>
+<dd>copy all SOURCE arguments
+into DIRECTORY</dd>
+<dt>
+<strong>-T</strong>, <strong>–no-target-directory</strong>
+</dt>
+<dd>treat DEST as a normal file</dd>
+<dt>
+<strong>–update</strong>[=/UPDATE/]
+</dt>
+<dd>control which existing files are updated;
+UPDATE={all,none,none-fail,older(default)}.</dd>
+<dt>
+<strong>-u</strong>
+</dt>
+<dd>equivalent to <strong>–update</strong>[=/older/]. See below</dd>
+<dt>
+<strong>-v</strong>, <strong>–verbose</strong>
+</dt>
+<dd>explain what is being done</dd>
+<dt>
+<strong>–keep-directory-symlink</strong>
+</dt>
+<dd>follow existing symlinks to directories</dd>
+<dt>
+<strong>-x</strong>, <strong>–one-file-system</strong>
+</dt>
+<dd>stay on this file system</dd>
+<dt>
+<strong>-Z</strong>
+</dt>
+<dd>set SELinux security context of destination file to default
+type</dd>
+<dt>
+<strong>–context</strong>[=/CTX/]
+</dt>
+<dd>like <strong>-Z</strong>, or if CTX is specified then set the
+SELinux or SMACK security context to CTX</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>ATTR_LIST is a comma-separated list of attributes. Attributes are &#39;mode&#39;
+for permissions (including any ACL and xattr permissions), &#39;ownership&#39;
+for user and group, &#39;timestamps&#39; for file timestamps, &#39;links&#39; for hard
+links, &#39;context&#39; for security context, &#39;xattr&#39; for extended attributes,
+and &#39;all&#39; for all attributes.</p>
+<p>
+By default, sparse SOURCE files are detected by a crude heuristic and
+the corresponding DEST file is made sparse as well. That is the behavior
+selected by *–sparse*=/auto/. Specify *–sparse*=/always/ to create a
+sparse DEST file whenever the SOURCE file contains a long enough
+sequence of zero bytes. Use *–sparse*=/never/ to inhibit creation of
+sparse files.</p>
+<p>
+UPDATE controls which existing files in the destination are replaced.
+&#39;all&#39; is the default operation when an <strong>–update</strong> option is not
+specified, and results in all existing files in the destination being
+replaced. &#39;none&#39; is like the <strong>–no-clobber</strong> option, in that no files in
+the destination are replaced, and skipped files do not induce a failure.
+&#39;none-fail&#39; also ensures no files are replaced in the destination, but
+any skipped files are diagnosed and induce a failure. &#39;older&#39; is the
+default operation when <strong>–update</strong> is specified, and results in files
+being replaced if they&#39;re older than the corresponding source file.</p>
+<p>
+When <strong>–reflink</strong>[=/always/] is specified, perform a lightweight copy,
+where the data blocks are copied only when modified. If this is not
+possible the copy fails, or if *–reflink*=/auto/ is specified, fall
+back to a standard copy. Use *–reflink*=/never/ to ensure a standard
+copy is performed.</p>
+<p>
+The backup suffix is &#39;~&#39;, unless set with <strong>–suffix</strong> or
+SIMPLE_BACKUP_SUFFIX. The version control method may be selected via the
+<strong>–backup</strong> option or through the VERSION_CONTROL environment variable.
+Here are the values:</p>
+<dl>
+<dt>
+none, off
+</dt>
+<dd>never make backups (even if <strong>–backup</strong> is given)</dd>
+<dt>
+numbered, t
+</dt>
+<dd>make numbered backups</dd>
+<dt>
+existing, nil
+</dt>
+<dd>numbered if numbered backups exist, simple otherwise</dd>
+<dt>
+simple, never
+</dt>
+<dd>always make simple backups</dd>
+</dl>
+<p>As a special case, cp makes a backup of SOURCE when the force and backup
+options are given and SOURCE and DEST are the same name for an existing,
+regular file.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+AUTHOR
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Written by Torbjorn Granlund, David MacKenzie, and Jim Meyering.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*install*(1)</p>
+<p>
+\\
+Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/cp">https://www.gnu.org/software/coreutils/cp</a>&gt;<br>
+or available locally via: info &#39;(coreutils) cp invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - flatpak-spawn.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - flatpak-spawn.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>flatpak-spawn - Run commands in a sandbox</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>flatpak-spawn</strong> [OPTION…] COMMAND [ARGUMENT…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Unlike other flatpak commands, <strong>flatpak-spawn</strong> is available to
+applications inside the sandbox. It runs COMMAND outside the sandbox:
+either in another sandbox, or on the host.</p>
+<p>
+When called without <strong>–host</strong>, <strong>flatpak-spawn</strong> uses the Flatpak portal to
+create a copy of the sandbox it was called from, optionally using
+tighter permissions and optionally the latest version of the app and
+runtime (see <strong>–latest-version</strong>).</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Show help options and exit.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Print debug information</p>
+</blockquote>
+<p>
+<strong>–forward-fd=FD</strong></p>
+<blockquote>
+<p>Forward a file descriptor</p>
+</blockquote>
+<p>
+<strong>–clear-env</strong></p>
+<blockquote>
+<p>Run with a clean environment</p>
+</blockquote>
+<p>
+<strong>–watch-bus</strong></p>
+<blockquote>
+<p>Make the spawned command exit if the caller disappears from the session
+bus</p>
+</blockquote>
+<p>
+<strong>–env=VAR=VALUE</strong></p>
+<blockquote>
+<p>Set an environment variable</p>
+</blockquote>
+<p>
+<strong>–latest-version</strong></p>
+<blockquote>
+<p>Use the latest version of the refs that are used to set up the sandbox</p>
+</blockquote>
+<p>
+<strong>–no-network</strong></p>
+<blockquote>
+<p>Run without network access</p>
+</blockquote>
+<p>
+<strong>–sandbox</strong></p>
+<blockquote>
+<p>Run fully sandboxed. See the documentation for the <strong>–sandbox</strong> option in
+*flatpak-run*(1)</p>
+<p>
+See the <strong>–sandbox-expose</strong> and <strong>–sandbox-expose-ro</strong> options for
+selective file access.</p>
+</blockquote>
+<p>
+<strong>–sandbox-expose=NAME</strong></p>
+<blockquote>
+<p>Expose read-write access to a file in the sandbox.</p>
+<p>
+Note that absolute paths or subdirectories are not allowed. The files
+must be in the sandbox subdirectory of the instance directory (i.e.
+~/.var/app/$APP_ID/sandbox).</p>
+<p>
+This option is useful in combination with <strong>–sandbox</strong> (otherwise the
+instance directory is accessible anyway).</p>
+</blockquote>
+<p>
+<strong>–sandbox-expose-ro=NAME</strong></p>
+<blockquote>
+<p>Expose readonly access to a file in the sandbox.</p>
+<p>
+Note that absolute paths or subdirectories are not allowed. The files
+must be in the sandbox subdirectory of the instance directory (i.e.
+~/.var/app/$APP_ID/sandbox).</p>
+<p>
+This option is useful in combination with <strong>–sandbox</strong> (otherwise the
+instance directory is accessible anyway).</p>
+</blockquote>
+<p>
+<strong>–host</strong></p>
+<blockquote>
+<p>Run the command unsandboxed on the host. This requires access to the
+org.freedesktop.Flatpak D-Bus interface.</p>
+</blockquote>
+<p>
+<strong>–directory=DIR</strong></p>
+<blockquote>
+<p>The working directory in which to run the command.</p>
+<p>
+Note that the given directory must exist in the sandbox or, when used in
+conjunction with <strong>–host</strong>, on the host.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>$ flatpak-spawn ls /var/run</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*flatpak*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

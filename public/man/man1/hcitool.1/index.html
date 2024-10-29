@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - hcitool.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - hcitool.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>hcitool - Configure Bluetooth connections</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>hcitool</strong> -h</p>
+<p>
+<strong>hcitool</strong> <em>COMMAND</em> –help</p>
+<p>
+<strong>hcitool</strong> [-i <em>hciX/] [/COMMAND</em> [/PARAMETERS/]]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>hcitool(1)</strong> is used to configure Bluetooth connections and send some
+special command to Bluetooth devices. If no <strong>command</strong> is given, or if
+the option <strong>-h</strong> is used, <em>hcitool</em> prints some usage information and
+exits.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+*-i*/ &lt;hciX&gt;/
+</dt>
+<dd>The command is applied to device <em>hciX</em>, which must
+be the name of an installed Bluetooth device. If not specified, the
+command will be sent to the first available Bluetooth device.</dd>
+<dt>
+<strong>-h</strong>
+</dt>
+<dd>Gives a list of possible commands</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+COMMANDS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<blockquote>
+<dl>
+<dt>
+<strong>dev</strong>
+</dt>
+<dd>Display local devices</dd>
+<dt>
+<strong>inq</strong>
+</dt>
+<dd>Inquire remote devices. For each discovered device, Bluetooth
+device address, clock offset and class are printed.</dd>
+<dt>
+<strong>scan</strong>
+</dt>
+<dd>Inquire remote devices. For each discovered device, device
+name are printed.</dd>
+<dt>
+<strong>name &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Print device name of remote device with Bluetooth
+address <em>bdaddr</em>.</dd>
+<dt>
+<strong>info &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Print device name, version and supported features
+of remote device with Bluetooth address <em>bdaddr</em>.</dd>
+<dt>
+<strong>spinq</strong>
+</dt>
+<dd>Start periodic inquiry process. No inquiry results are
+printed.</dd>
+<dt>
+<strong>epinq</strong>
+</dt>
+<dd>Exit periodic inquiry process.</dd>
+<dt>
+<strong>cmd &lt;/ogf/&gt; &lt;/ocf/&gt; [/parameters/]</strong>
+</dt>
+<dd>Submit an arbitrary HCI
+command to local device. <em>ogf</em>, <em>ocf</em> and parameters are hexadecimal
+bytes.</dd>
+<dt>
+<strong>con</strong>
+</dt>
+<dd>Display active baseband connections</dd>
+<dt>
+<strong>cc [–/role/=c|p] [–/pkt-type/=&lt;/ptype/&gt;] &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Create
+baseband connection to remote device with Bluetooth address <em>bdaddr</em>.
+
+Option <strong>–pkt-type</strong> specifies a list of allowed packet types.
+&lt;/ptype/&gt; is a comma-separated list of packet types, where the
+possible packet types are <strong>DM1</strong>, <strong>DM3</strong>, <strong>DM5</strong>, <strong>DH1</strong>, <strong>DH3</strong>, <strong>DH5</strong>,
+<strong>HV1</strong>, <strong>HV2</strong>, <strong>HV3</strong>. Default is to allow all packet types.
+
+Option <strong>–role</strong> can have value <strong>c</strong> (do not allow role switch, stay
+central) or <strong>p</strong> (allow role switch, become peripheral if the peer asks
+to become central). Default is <strong>c</strong>.</dd>
+<dt>
+<strong>dc &lt;/bdaddr/&gt; [/reason/]</strong>
+</dt>
+<dd>Delete baseband connection from remote
+device with Bluetooth address <em>bdaddr</em>.
+
+The reason can be one of the Bluetooth HCI error codes. Default is
+<strong>19</strong> for user ended connections. The value must be given in decimal.</dd>
+<dt>
+<strong>sr &lt;/bdaddr/&gt; &lt;/role/&gt;</strong>
+</dt>
+<dd>Switch role for the baseband connection
+from the remote device to <strong>central</strong> or <strong>peripheral</strong>.</dd>
+<dt>
+<strong>cpt &lt;/bdaddr/&gt; &lt;/ptypes/&gt;</strong>
+</dt>
+<dd>Change packet types for baseband
+connection to device with Bluetooth address <em>bdaddr</em>. <em>ptypes</em> is a
+comma-separated list of packet types, where the possible packet types
+are <strong>DM1</strong>, <strong>DM3</strong>, <strong>DM5</strong>, <strong>DH1</strong>, <strong>DH3</strong>, <strong>DH5</strong>, <strong>HV1</strong>, <strong>HV2</strong>, <strong>HV3</strong>.</dd>
+<dt>
+<strong>rssi &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Display received signal strength information for
+the connection to the device with Bluetooth address <em>bdaddr</em>.</dd>
+<dt>
+<strong>lq &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Display link quality for the connection to the
+device with Bluetooth address <em>bdaddr</em>.</dd>
+<dt>
+<strong>tpl &lt;/bdaddr/&gt; [/type/]</strong>
+</dt>
+<dd>Display transmit power level for the
+connection to the device with Bluetooth address <em>bdaddr</em>.
+
+The <em>type</em> can be <strong>0</strong> for the current transmit power level (which is
+default) or <strong>1</strong> for the maximum transmit power level.</dd>
+<dt>
+<strong>afh &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Display AFH channel map for the connection to the
+device with Bluetooth address <em>bdaddr</em>.</dd>
+<dt>
+<strong>lp &lt;/bdaddr/&gt; [/value/]</strong>
+</dt>
+<dd>With no value, displays link policy
+settings for the connection to the device with Bluetooth address
+<em>bdaddr</em>.
+
+If <em>value</em> is given, sets the link policy settings for that connection
+to <em>value</em>. Possible values are <strong>RSWITCH</strong>, <strong>HOLD</strong>, <strong>SNIFF</strong> and <strong>PARK</strong>.</dd>
+<dt>
+<strong>lst &lt;/bdaddr/&gt; [/value/]</strong>
+</dt>
+<dd>With no value, displays link supervision
+timeout for the connection to the device with Bluetooth address
+<em>bdaddr</em>.
+
+If <em>value</em> is given, sets the link supervision timeout for that
+connection to <em>value</em> slots, or to infinite if value is 0.</dd>
+<dt>
+<strong>auth &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Request authentication for the device with
+Bluetooth address <em>bdaddr</em>.</dd>
+<dt>
+<strong>enc &lt;/bdaddr/&gt; [/encrypt/]</strong>
+</dt>
+<dd><strong>enable</strong> or <strong>disable</strong> the encryption
+for the device with Bluetooth address <em>bdaddr</em>.</dd>
+<dt>
+<strong>key &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Change the connection link key for the device with
+Bluetooth address <em>bdaddr</em>.</dd>
+<dt>
+<strong>clkoff &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Read the clock offset for the device with
+Bluetooth address <em>bdaddr</em>.</dd>
+<dt>
+<strong>clock [/bdaddr/] [/clock/]</strong>
+</dt>
+<dd>Read the clock for the device with
+Bluetooth address <em>bdaddr</em>.
+
+The <em>clock</em> can be <strong>0</strong> for the local clock or <strong>1</strong> for the piconet
+clock (which is default).</dd>
+<dt>
+?
+</dt>
+<dd><strong>lescan [–/privacy/] [–/passive/] [–/acceptlist/]
+[–/discovery/=g|l] [–/duplicates/]</strong> :: Start LE scan</dd>
+<dt>
+<strong>leinfo [–/static/] [–/random/] &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Get LE remote
+information</dd>
+<dt>
+<strong>lealadd [–/random/] &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Add device to LE Accept List</dd>
+<dt>
+<strong>lealrm &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Remove device from LE Accept List</dd>
+<dt>
+<strong>lealsz</strong>
+</dt>
+<dd>Read size of LE Accept List</dd>
+<dt>
+<strong>lealclr</strong>
+</dt>
+<dd>Clear LE Accept List</dd>
+<dt>
+?
+</dt>
+<dd><strong>lerladd [–/local_irk/] [–/peer_irk/] [–/random/]
+&lt;/bdaddr/&gt;</strong> :: Add device to LE Resolving List</dd>
+<dt>
+<strong>lerlrm &lt;/bdaddr/&gt;</strong>
+</dt>
+<dd>Remove device from LE Resolving List</dd>
+<dt>
+<strong>lerlclr</strong>
+</dt>
+<dd>Clear LE Resolving List</dd>
+<dt>
+<strong>lerlsz</strong>
+</dt>
+<dd>Read size of LE Resolving List</dd>
+<dt>
+<strong>lerlon</strong>
+</dt>
+<dd>Enable LE Address Resolution</dd>
+<dt>
+<strong>lerloff</strong>
+</dt>
+<dd>Disable LE Address Resolution</dd>
+<dt>
+?
+</dt>
+<dd><strong>lecc [–/static/] [–/random/] &lt;/bdaddr/&gt; |
+[–/acceptlist/]</strong> :: Create a LE Connection</dd>
+<dt>
+<strong>ledc &lt;/handle/&gt; [/reason/]</strong>
+</dt>
+<dd>Disconnect a LE Connection</dd>
+<dt>
+<strong>lecup &lt;/handle/&gt; &lt;/min/&gt; &lt;/max/&gt; &lt;/latency/&gt; &lt;/timeout/&gt;</strong>
+</dt>
+<dd>LE
+Connection Update</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+RESOURCES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>&lt;http://www.bluez.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>&lt;linux-bluetooth@vger.kernel.org&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Maxim Krasnyansky &lt;maxk@qualcomm.com&gt;, Marcel Holtmann
+&lt;marcel@holtmann.org&gt;, Fabrizio Gennari &lt;fabrizio.gennari@philips.com&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

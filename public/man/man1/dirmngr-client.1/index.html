@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - dirmngr-client.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - dirmngr-client.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><strong>dirmngr-client</strong> - Tool to access the Dirmngr services</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>dirmngr-client</strong> [/options/] [/certfile/|/pattern/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>dirmngr-client</strong> is a simple tool to contact a running dirmngr and
+test whether a certificate has been revoked — either by being listed
+in the corresponding CRL or by running the OCSP protocol. If no dirmngr
+is running, a new instances will be started but this is in general not a
+good idea due to the huge performance overhead.</p>
+<p>
+The usual way to run this tool is either:</p>
+<blockquote>
+<pre class="example">
+dirmngr-client acert
+</pre>
+</blockquote>
+<p>
+or</p>
+<blockquote>
+<pre class="example">
+dirmngr-client &lt;acert
+</pre>
+</blockquote>
+<p>
+Where <em>acert</em> is one DER encoded (binary) X.509 certificates to be
+tested.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+RETURN VALUE
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>dirmngr-client</strong> returns these values:</p>
+<dl>
+<dt>
+<strong>0</strong>
+</dt>
+<dd>The certificate under question is valid; i.e. there is a valid
+CRL available and it is not listed there or the OCSP request returned
+that that certificate is valid.</dd>
+<dt>
+<strong>1</strong>
+</dt>
+<dd>The certificate has been revoked</dd>
+<dt>
+<strong>2 (and other values)</strong>
+</dt>
+<dd>There was a problem checking the revocation
+state of the certificate. A message to stderr has given more detailed
+information. Most likely this is due to a missing or expired CRL or
+due to a network problem.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>dirmngr-client</strong> may be called with the following options:</p>
+<dl>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>Print the program version and licensing information.
+Note that you cannot abbreviate this command.</dd>
+<dt>
+<strong>–help, -h</strong>
+</dt>
+<dd>Print a usage message summarizing the most useful
+command-line options. Note that you cannot abbreviate this command.</dd>
+<dt>
+<strong>–quiet, -q</strong>
+</dt>
+<dd>Make the output extra brief by suppressing any
+informational messages.</dd>
+<dt>
+<strong>-v</strong>
+</dt>
+<dd>
+<dl>
+<dt>
+<strong>–verbose</strong>
+</dt>
+<dd>Outputs additional information while running.
+You can increase the verbosity by giving several verbose commands to
+<strong>dirmngr</strong>, such as ‘-vv&#39;.</dd>
+</dl>
+</dd>
+<dt>
+<strong>–pem</strong>
+</dt>
+<dd>Assume that the given certificate is in PEM (armored)
+format.</dd>
+<dt>
+<strong>–ocsp</strong>
+</dt>
+<dd>Do the check using the OCSP protocol and ignore any CRLs.</dd>
+<dt>
+<strong>–force-default-responder</strong>
+</dt>
+<dd>When checking using the OCSP protocol,
+force the use of the default OCSP responder. That is not to use the
+Reponder as given by the certificate.</dd>
+<dt>
+<strong>–ping</strong>
+</dt>
+<dd>Check whether the dirmngr daemon is up and running.</dd>
+<dt>
+<strong>–cache-cert</strong>
+</dt>
+<dd>Put the given certificate into the cache of a
+running dirmngr. This is mainly useful for debugging.</dd>
+<dt>
+<strong>–validate</strong>
+</dt>
+<dd>Validate the given certificate using dirmngr&#39;s
+internal validation code. This is mainly useful for debugging.</dd>
+<dt>
+<strong>–load-crl</strong>
+</dt>
+<dd>This command expects a list of filenames with DER
+encoded CRL files. With the option <strong>–url</strong> URLs are expected in place
+of filenames and they are loaded directly from the given location. All
+CRLs will be validated and then loaded into dirmngr&#39;s cache.</dd>
+<dt>
+<strong>–lookup</strong>
+</dt>
+<dd>Take the remaining arguments and run a lookup command on
+each of them. The results are Base-64 encoded outputs (without header
+lines). This may be used to retrieve certificates from a server.
+However the output format is not very well suited if more than one
+certificate is returned.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–url</strong><br>
+<strong>-u</strong> :: Modify the <strong>lookup</strong> and <strong>load-crl</strong> commands to take an URL.</dd>
+<dt>
+?
+</dt>
+<dd><strong>–local</strong><br>
+<strong>-l</strong> :: Let the <strong>lookup</strong> command only search the local cache.</dd>
+<dt>
+<strong>–squid-mode</strong>
+</dt>
+<dd>Run <strong>dirmngr-client</strong> in a mode suitable as a helper
+program for Squid&#39;s <strong>external_acl_type</strong> option.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*dirmngr*(8), *gpgsm*(1)</p>
+<p>
+The full documentation for this tool is maintained as a Texinfo manual.
+If GnuPG and the info program are properly installed at your site, the
+command</p>
+<blockquote>
+<pre class="example">
+info gnupg
+</pre>
+</blockquote>
+<p>
+should give you access to the complete manual including a menu structure
+and an index.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

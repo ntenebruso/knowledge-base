@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - col.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - col.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>col - filter reverse line feeds from input</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>col</strong> <em>options</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>col</strong> filters out reverse (and half-reverse) line feeds so the output is
+in the correct order, with only forward and half-forward line feeds. It
+also replaces any whitespace characters with tabs where possible. This
+can be useful in processing the output of *nroff*(1) and *tbl*(1).</p>
+<p>
+<strong>col</strong> reads from standard input and writes to standard output.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-b</strong>, <strong>–no-backspaces</strong></p>
+<blockquote>
+<p>Do not output any backspaces, printing only the last character written
+to each column position.</p>
+</blockquote>
+<p>
+<strong>-f</strong>, <strong>–fine</strong></p>
+<blockquote>
+<p>Permit half-forward line feeds. Normally characters destined for a
+half-line boundary are printed on the following line.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–tabs</strong></p>
+<blockquote>
+<p>Output tabs instead of multiple spaces.</p>
+</blockquote>
+<p>
+<strong>-l</strong>, <strong>–lines</strong> <em>number</em></p>
+<blockquote>
+<p>Buffer at least <em>number</em> lines in memory. By default, 128 lines are
+buffered.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–pass</strong></p>
+<blockquote>
+<p>Force unknown control sequences to be passed through unchanged. Normally
+<strong>col</strong> will filter out any control sequences other than those recognized
+and interpreted by itself, which are listed below.</p>
+</blockquote>
+<p>
+<strong>-x</strong>, <strong>–spaces</strong></p>
+<blockquote>
+<p>Output multiple spaces instead of tabs.</p>
+</blockquote>
+<p>
+<strong>-H</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+CONFORMING TO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The <strong>col</strong> utility conforms to the Single UNIX Specification, Version 2.
+The <strong>-l</strong> option is an extension to the standard.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+NOTES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The control sequences for carriage motion that <strong>col</strong> understands and
+their decimal values are listed in the following table:</p>
+<p>
+<strong>ESC-7</strong></p>
+<blockquote>
+<p>reverse line feed (escape then 7)</p>
+</blockquote>
+<p>
+<strong>ESC-8</strong></p>
+<blockquote>
+<p>half reverse line feed (escape then 8)</p>
+</blockquote>
+<p>
+<strong>ESC-9</strong></p>
+<blockquote>
+<p>half forward line feed (escape then 9)</p>
+</blockquote>
+<p>
+<strong>backspace</strong></p>
+<blockquote>
+<p>moves back one column (8); ignored in the first column</p>
+</blockquote>
+<p>
+<strong>newline</strong></p>
+<blockquote>
+<p>forward line feed (10); also does carriage return</p>
+</blockquote>
+<p>
+<strong>carriage return</strong></p>
+<blockquote>
+<p>(13)</p>
+</blockquote>
+<p>
+<strong>shift in</strong></p>
+<blockquote>
+<p>shift to normal character set (15)</p>
+</blockquote>
+<p>
+<strong>shift out</strong></p>
+<blockquote>
+<p>shift to alternate character set (14)</p>
+</blockquote>
+<p>
+<strong>space</strong></p>
+<blockquote>
+<p>moves forward one column (32)</p>
+</blockquote>
+<p>
+<strong>tab</strong></p>
+<blockquote>
+<p>moves forward to next tab stop (9)</p>
+</blockquote>
+<p>
+<strong>vertical tab</strong></p>
+<blockquote>
+<p>reverse line feed (11)</p>
+</blockquote>
+<p>
+All unrecognized control characters and escape sequences are discarded.</p>
+<p>
+<strong>col</strong> keeps track of the character set as characters are read and makes
+sure the character set is correct when they are output.</p>
+<p>
+If the input attempts to back up to the last flushed line, <strong>col</strong> will
+display a warning message.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+HISTORY
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>A <strong>col</strong> command appeared in Version 6 AT&amp;T UNIX.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*expand*(1), *nroff*(1), *tbl*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The <strong>col</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

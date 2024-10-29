@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - pod2text.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - pod2text.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>pod2text - Convert POD data to formatted ASCII text</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>pod2text [*-aclostu*] [*–code*] [*-e* <em>encoding/] [*–errors*=/style/]
+[*–guesswork*=/rule</em>[,/rule/…]] [*-i* <em>indent/] [*-q* /quotes/]
+[*–nourls*] [*–stderr*] [*-w* /width/] [/input</em> [/output/ …]]</p>
+<p>
+pod2text <strong>-h</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>pod2text</strong> is a wrapper script around the Pod::Text and its subclasses.
+It uses them to generate formatted text from POD source. It can
+optionally use either termcap sequences or ANSI color escape sequences
+to format the text.</p>
+<p>
+<em>input</em> is the file to read for POD source (the POD can be embedded in
+code). If <em>input</em> isn&#39;t given, it defaults to <code class="verbatim">STDIN</code>. <em>output</em>, if
+given, is the file to which to write the formatted output. If <em>output</em>
+isn&#39;t given, the formatted output is written to <code class="verbatim">STDOUT</code>. Several POD
+files can be processed in the same <strong>pod2text</strong> invocation (saving module
+load and compile times) by providing multiple pairs of <em>input</em> and
+<em>output</em> files on the command line.</p>
+<p>
+By default, the output encoding is the same as the encoding of the input
+file, or UTF-8 if that encoding is not set (except on EBCDIC systems).
+See the <strong>-e</strong> option to explicitly set the output encoding and &#34;Encoding&#34;
+in Pod::Text for more discussion.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Each option is annotated with the version of podlators in which that
+option was added with its current meaning.</p>
+<dl>
+<dt>
+-a, –alt
+</dt>
+<dd>[1.00] Use an alternate output format that, among other
+things, uses a different heading style and marks <code class="verbatim">=item</code> entries with
+a colon in the left margin.</dd>
+<dt>
+–code
+</dt>
+<dd>[1.11] Include any non-POD text from the input file in the
+output as well. Useful for viewing code documented with POD blocks
+with the POD rendered and the code left intact.</dd>
+<dt>
+-c, –color
+</dt>
+<dd>[1.00] Format the output with ANSI color escape
+sequences. Using this option requires that Term::ANSIColor be
+installed on your system.</dd>
+<dt>
+-e encoding, –encoding=encoding
+</dt>
+<dd>[5.00] Specifies the encoding of
+the output. <em>encoding</em> must be an encoding recognized by the Encode
+module (see Encode::Supported). If the output contains characters that
+cannot be represented in this encoding, that is an error that will be
+reported as configured by the <code class="verbatim">errors</code> option. If error handling is
+other than <code class="verbatim">die</code>, the unrepresentable character will be replaced with
+the Encode substitution character (normally <code class="verbatim">?</code>). WARNING: The input
+encoding of the POD source is independent from the output encoding,
+and setting this option does not affect the interpretation of the POD
+input. Unless your POD source is US-ASCII, its encoding should be
+declared with the <code class="verbatim">=encoding</code> command in the source, as near to the
+top of the file as possible. If this is not done, Pod::Simple will
+will attempt to guess the encoding and may be successful if it&#39;s
+Latin-1 or UTF-8, but it will produce warnings. See <strong>perlpod</strong> (1) for
+more information.</dd>
+<dt>
+–errors=style
+</dt>
+<dd>[2.5.0] Set the error handling style. <code class="verbatim">die</code> says to
+throw an exception on any POD formatting error. <code class="verbatim">stderr</code> says to
+report errors on standard error, but not to throw an exception. <code class="verbatim">pod</code>
+says to include a POD ERRORS section in the resulting documentation
+summarizing the errors. <code class="verbatim">none</code> ignores POD errors entirely, as much as
+possible. The default is <code class="verbatim">die</code>.</dd>
+<dt>
+–guesswork=rule[,rule…]
+</dt>
+<dd>
+<p>[5.01] By default, <strong>pod2text</strong> applies
+some default formatting rules based on guesswork and regular
+expressions that are intended to make writing Perl documentation
+easier and require less explicit markup. These rules may not always be
+appropriate, particularly for documentation that isn&#39;t about Perl.
+This option allows turning all or some of it off. The special rule
+<code class="verbatim">all</code> enables all guesswork. This is also the default for backward
+compatibility reasons. The special rule <code class="verbatim">none</code> disables all guesswork.
+Otherwise, the value of this option should be a comma-separated list
+of one or more of the following keywords:</p>
+<dl>
+<dt>
+quoting
+</dt>
+<dd>If no guesswork is enabled, any text enclosed in C&lt;&gt; is
+surrounded by double quotes in nroff (terminal) output unless the
+contents are already quoted. When this guesswork is enabled, quote
+marks will also be suppressed for Perl variables, function names,
+function calls, numbers, and hex constants.</dd>
+</dl>
+<p>Any unknown guesswork name is silently ignored (for potential future
+compatibility), so be careful about spelling.</p>
+</dd>
+<dt>
+-i indent, –indent=indent
+</dt>
+<dd>[1.00] Set the number of spaces to
+indent regular text, and the default indentation for <code class="verbatim">=over</code> blocks.
+Defaults to 4 spaces if this option isn&#39;t given.</dd>
+<dt>
+-h, –help
+</dt>
+<dd>[1.00] Print out usage information and exit.</dd>
+<dt>
+-l, –loose
+</dt>
+<dd>[1.00] Print a blank line after a <code class="verbatim">=head1</code> heading.
+Normally, no blank line is printed after <code class="verbatim">=head1</code>, although one is
+still printed after <code class="verbatim">=head2</code>, because this is the expected formatting
+for manual pages; if you&#39;re formatting arbitrary text documents, using
+this option is recommended.</dd>
+<dt>
+-m width, –left-margin=width, –margin=width
+</dt>
+<dd>[1.24] The width of
+the left margin in spaces. Defaults to 0. This is the margin for all
+text, including headings, not the amount by which regular text is
+indented; for the latter, see <strong>-i</strong> option.</dd>
+<dt>
+–nourls
+</dt>
+<dd>[2.5.0] Normally, L&lt;&gt; formatting codes with a URL but
+anchor text are formatted to show both the anchor text and the URL. In
+other words: L&lt;foo|<a href="http://example.com/">http://example.com/</a>&gt; is formatted as: foo
+&lt;<a href="http://example.com/">http://example.com/</a>&gt; This flag, if given, suppresses the URL when
+anchor text is given, so this example would be formatted as just
+<code class="verbatim">foo</code>. This can produce less cluttered output in cases where the URLs
+are not particularly important.</dd>
+<dt>
+-o, –overstrike
+</dt>
+<dd>[1.06] Format the output with overstrike printing.
+Bold text is rendered as character, backspace, character. Italics and
+file names are rendered as underscore, backspace, character. Many
+pagers, such as <strong>less</strong>, know how to convert this to bold or underlined
+text.</dd>
+<dt>
+-q quotes, –quotes=quotes
+</dt>
+<dd>[4.00] Sets the quote marks used to
+surround C&lt;&gt; text to <em>quotes</em>. If <em>quotes</em> is a single character, it
+is used as both the left and right quote. Otherwise, it is split in
+half, and the first half of the string is used as the left quote and
+the second is used as the right quote. <em>quotes</em> may also be set to the
+special value <code class="verbatim">none</code>, in which case no quote marks are added around
+C&lt;&gt; text.</dd>
+<dt>
+-s, –sentence
+</dt>
+<dd>[1.00] Assume each sentence ends with two spaces and
+try to preserve that spacing. Without this option, all consecutive
+whitespace in non-verbatim paragraphs is compressed into a single
+space.</dd>
+<dt>
+–stderr
+</dt>
+<dd>[2.1.3] By default, <strong>pod2text</strong> dies if any errors are
+detected in the POD input. If <strong>–stderr</strong> is given and no <strong>–errors</strong>
+flag is present, errors are sent to standard error, but <strong>pod2text</strong>
+does not abort. This is equivalent to <code class="verbatim">--errors=stderr</code> and is
+supported for backward compatibility.</dd>
+<dt>
+-t, –termcap
+</dt>
+<dd>[1.00] Try to determine the width of the screen and
+the bold and underline sequences for the terminal from termcap, and
+use that information in formatting the output. Output will be wrapped
+at two columns less than the width of your terminal device. Using this
+option requires that your system have a termcap file somewhere where
+Term::Cap can find it and requires that your system support termios.
+With this option, the output of <strong>pod2text</strong> will contain terminal
+control sequences for your current terminal type.</dd>
+<dt>
+-u, –utf8
+</dt>
+<dd>[2.2.0] Set the output encoding to UTF-8. This is
+equivalent to <code class="verbatim">--encoding=UTF-8</code> and is supported for backward
+compatibility.</dd>
+<dt>
+-w, –width=width, -width
+</dt>
+<dd>[1.00] The column at which to wrap text
+on the right-hand side. Defaults to 76, unless <strong>-t</strong> is given, in which
+case it&#39;s two columns less than the width of your terminal device.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>As long as all documents processed result in some output, even if that
+output includes errata (a <code class="verbatim">POD ERRORS</code> section generated with
+<code class="verbatim">--errors=pod</code>), <strong>pod2text</strong> will exit with status 0. If any of the
+documents being processed do not result in an output document,
+<strong>pod2text</strong> will exit with status 1. If there are syntax errors in a POD
+document being processed and the error handling style is set to the
+default of <code class="verbatim">die</code>, <strong>pod2text</strong> will abort immediately with exit
+status 255.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+DIAGNOSTICS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>If <strong>pod2text</strong> fails with errors, see Pod::Text and Pod::Simple for
+information about what those errors might mean. Internally, it can also
+produce the following diagnostics:</p>
+<dl>
+<dt>
+-c (–color) requires Term::ANSIColor be installed
+</dt>
+<dd>(F) <strong>-c</strong> or
+<strong>–color</strong> were given, but Term::ANSIColor could not be loaded.</dd>
+<dt>
+Unknown option: %s
+</dt>
+<dd>(F) An unknown command line option was given.</dd>
+</dl>
+<p>In addition, other Getopt::Long error messages may result from invalid
+command-line options.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<dl>
+<dt>
+COLUMNS
+</dt>
+<dd>If <strong>-t</strong> is given, <strong>pod2text</strong> will take the current width of
+your screen from this environment variable, if available. It overrides
+terminal width information in TERMCAP.</dd>
+<dt>
+TERMCAP
+</dt>
+<dd>If <strong>-t</strong> is given, <strong>pod2text</strong> will use the contents of this
+environment variable if available to determine the correct formatting
+sequences for your current terminal device.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Russ Allbery &lt;rra@cpan.org&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT AND LICENSE
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Copyright 1999-2001, 2004, 2006, 2008, 2010, 2012-2019, 2022 Russ
+Allbery &lt;rra@cpan.org&gt;</p>
+<p>
+This program is free software; you may redistribute it and/or modify it
+under the same terms as Perl itself.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Encode::Supported, Pod::Text, Pod::Text::Color, Pod::Text::Overstrike,
+Pod::Text::Termcap, Pod::Simple, <strong>perlpod</strong> (1)</p>
+<p>
+The current version of this script is always available from its web site
+at &lt;<a href="https://www.eyrie.org/~eagle/software/podlators/">https://www.eyrie.org/~eagle/software/podlators/</a>&gt;. It is also part
+of the Perl core distribution as of 5.6.0.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

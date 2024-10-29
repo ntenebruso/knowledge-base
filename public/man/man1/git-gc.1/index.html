@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-gc.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-gc.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-gc - Cleanup unnecessary files and optimize the local repository</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git gc [--aggressive] [--auto] [--quiet] [--prune=&lt;date&gt; | --no-prune] [--force] [--keep-largest-pack]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Runs a number of housekeeping tasks within the current repository, such
+as compressing file revisions (to reduce disk space and increase
+performance), removing unreachable objects which may have been created
+from prior invocations of <em>git add</em>, packing refs, pruning reflog,
+rerere metadata or stale working trees. May also update ancillary
+indexes such as the commit-graph.</p>
+<p>
+When common porcelain operations that create objects are run, they will
+check whether the repository has grown substantially since the last
+maintenance, and if so run <strong>git gc</strong> automatically. See <strong>gc.auto</strong> below
+for how to disable this behavior.</p>
+<p>
+Running <strong>git gc</strong> manually should only be needed when adding objects to a
+repository without regularly running such porcelain commands, to do a
+one-off repository optimization, or e.g. to clean up a suboptimal
+mass-import. See the &#34;PACKFILE OPTIMIZATION&#34; section in
+*git-fast-import*(1) for more details on the import case.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–aggressive</p>
+<blockquote>
+<p>Usually <em>git gc</em> runs very quickly while providing good disk space
+utilization and performance. This option will cause <em>git gc</em> to more
+aggressively optimize the repository at the expense of taking much more
+time. The effects of this optimization are mostly persistent. See the
+&#34;AGGRESSIVE&#34; section below for details.</p>
+</blockquote>
+<p>
+–auto</p>
+<blockquote>
+<p>With this option, <em>git gc</em> checks whether any housekeeping is required;
+if not, it exits without performing any work.</p>
+<p>
+See the <strong>gc.auto</strong> option in the &#34;CONFIGURATION&#34; section below for how
+this heuristic works.</p>
+<p>
+Once housekeeping is triggered by exceeding the limits of configuration
+options such as <strong>gc.auto</strong> and <strong>gc.autoPackLimit</strong>, all other housekeeping
+tasks (e.g. rerere, working trees, reflog…) will be performed as well.</p>
+</blockquote>
+<p>
+–[no-]cruft</p>
+<blockquote>
+<p>When expiring unreachable objects, pack them separately into a cruft
+pack instead of storing them as loose objects. <strong>–cruft</strong> is on by
+default.</p>
+</blockquote>
+<p>
+–max-cruft-size=&lt;n&gt;</p>
+<blockquote>
+<p>When packing unreachable objects into a cruft pack, limit the size of
+new cruft packs to be at most <strong>&lt;n&gt;</strong> bytes. Overrides any value specified
+via the <strong>gc.maxCruftSize</strong> configuration. See the <strong>–max-cruft-size</strong>
+option of *git-repack*(1) for more.</p>
+</blockquote>
+<p>
+–prune=&lt;date&gt;</p>
+<blockquote>
+<p>Prune loose objects older than date (default is 2 weeks ago, overridable
+by the config variable <strong>gc.pruneExpire</strong>). –prune=now prunes loose
+objects regardless of their age and increases the risk of corruption if
+another process is writing to the repository concurrently; see &#34;NOTES&#34;
+below. –prune is on by default.</p>
+</blockquote>
+<p>
+–no-prune</p>
+<blockquote>
+<p>Do not prune any loose objects.</p>
+</blockquote>
+<p>
+–quiet</p>
+<blockquote>
+<p>Suppress all progress reports.</p>
+</blockquote>
+<p>
+–force</p>
+<blockquote>
+<p>Force <strong>git gc</strong> to run even if there may be another <strong>git gc</strong> instance
+running on this repository.</p>
+</blockquote>
+<p>
+–keep-largest-pack</p>
+<blockquote>
+<p>All packs except the largest non-cruft pack, any packs marked with a
+<strong>.keep</strong> file, and any cruft pack(s) are consolidated into a single pack.
+When this option is used, <strong>gc.bigPackThreshold</strong> is ignored.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AGGRESSIVE
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>When the <strong>–aggressive</strong> option is supplied, <strong>git-repack*(1) will be
+invoked with the *-f</strong> flag, which in turn will pass <strong>–no-reuse-delta</strong>
+to *git-pack-objects*(1). This will throw away any existing deltas and
+re-compute them, at the expense of spending much more time on the
+repacking.</p>
+<p>
+The effects of this are mostly persistent, e.g. when packs and loose
+objects are coalesced into one another pack the existing deltas in that
+pack might get re-used, but there are also various cases where we might
+pick a sub-optimal delta from a newer pack instead.</p>
+<p>
+Furthermore, supplying <strong>–aggressive</strong> will tweak the <strong>–depth</strong> and
+<strong>–window</strong> options passed to <strong>git-repack*(1). See the
+*gc.aggressiveDepth</strong> and <strong>gc.aggressiveWindow</strong> settings below. By using
+a larger window size we&#39;re more likely to find more optimal deltas.</p>
+<p>
+It&#39;s probably not worth it to use this option on a given repository
+without running tailored performance benchmarks on it. It takes a lot
+more time, and the resulting space/delta optimization may or may not be
+worth it. Not using this at all is the right trade-off for most users
+and their repositories.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+gc.aggressiveDepth</p>
+<blockquote>
+<p>The depth parameter used in the delta compression algorithm used by <em>git
+gc –aggressive</em>. This defaults to 50, which is the default for the
+<strong>–depth</strong> option when <strong>–aggressive</strong> isn&#39;t in use.</p>
+<p>
+See the documentation for the <strong>–depth</strong> option in *git-repack*(1) for
+more details.</p>
+</blockquote>
+<p>
+gc.aggressiveWindow</p>
+<blockquote>
+<p>The window size parameter used in the delta compression algorithm used
+by <em>git gc –aggressive</em>. This defaults to 250, which is a much more
+aggressive window size than the default <strong>–window</strong> of 10.</p>
+<p>
+See the documentation for the <strong>–window</strong> option in *git-repack*(1) for
+more details.</p>
+</blockquote>
+<p>
+gc.auto</p>
+<blockquote>
+<p>When there are approximately more than this many loose objects in the
+repository, <strong>git gc –auto</strong> will pack them. Some Porcelain commands use
+this command to perform a light-weight garbage collection from time to
+time. The default value is 6700.</p>
+<p>
+Setting this to 0 disables not only automatic packing based on the
+number of loose objects, but also any other heuristic <strong>git gc –auto</strong>
+will otherwise use to determine if there&#39;s work to do, such as
+<strong>gc.autoPackLimit</strong>.</p>
+</blockquote>
+<p>
+gc.autoPackLimit</p>
+<blockquote>
+<p>When there are more than this many packs that are not marked with
+<strong>*.keep</strong> file in the repository, <strong>git gc –auto</strong> consolidates them into
+one larger pack. The default value is 50. Setting this to 0 disables it.
+Setting <strong>gc.auto</strong> to 0 will also disable this.</p>
+<p>
+See the <strong>gc.bigPackThreshold</strong> configuration variable below. When in use,
+it&#39;ll affect how the auto pack limit works.</p>
+</blockquote>
+<p>
+gc.autoDetach</p>
+<blockquote>
+<p>Make <strong>git gc –auto</strong> return immediately and run in the background if the
+system supports it. Default is true.</p>
+</blockquote>
+<p>
+gc.bigPackThreshold</p>
+<blockquote>
+<p>If non-zero, all non-cruft packs larger than this limit are kept when
+<strong>git gc</strong> is run. This is very similar to <strong>–keep-largest-pack</strong> except
+that all non-cruft packs that meet the threshold are kept, not just the
+largest pack. Defaults to zero. Common unit suffixes of <em>k</em>, <em>m</em>, or <em>g</em>
+are supported.</p>
+<p>
+Note that if the number of kept packs is more than gc.autoPackLimit,
+this configuration variable is ignored, all packs except the base pack
+will be repacked. After this the number of packs should go below
+gc.autoPackLimit and gc.bigPackThreshold should be respected again.</p>
+<p>
+If the amount of memory estimated for <strong>git repack</strong> to run smoothly is
+not available and <strong>gc.bigPackThreshold</strong> is not set, the largest pack
+will also be excluded (this is the equivalent of running <strong>git gc</strong> with
+<strong>–keep-largest-pack</strong>).</p>
+</blockquote>
+<p>
+gc.writeCommitGraph</p>
+<blockquote>
+<p>If true, then gc will rewrite the commit-graph file when <strong>git-gc*(1) is
+run. When using *git gc –auto</strong> the commit-graph will be updated if
+housekeeping is required. Default is true. See *git-commit-graph*(1) for
+details.</p>
+</blockquote>
+<p>
+gc.logExpiry</p>
+<blockquote>
+<p>If the file gc.log exists, then <strong>git gc –auto</strong> will print its content
+and exit with status zero instead of running unless that file is more
+than <em>gc.logExpiry</em> old. Default is &#34;1.day&#34;. See <strong>gc.pruneExpire</strong> for
+more ways to specify its value.</p>
+</blockquote>
+<p>
+gc.packRefs</p>
+<blockquote>
+<p>Running <strong>git pack-refs</strong> in a repository renders it unclonable by Git
+versions prior to 1.5.1.2 over dumb transports such as HTTP. This
+variable determines whether <em>git gc</em> runs <strong>git pack-refs</strong>. This can be
+set to <strong>notbare</strong> to enable it within all non-bare repos or it can be set
+to a boolean value. The default is <strong>true</strong>.</p>
+</blockquote>
+<p>
+gc.cruftPacks</p>
+<blockquote>
+<p>Store unreachable objects in a cruft pack (see <strong>git-repack*(1)) instead
+of as loose objects. The default is *true</strong>.</p>
+</blockquote>
+<p>
+gc.maxCruftSize</p>
+<blockquote>
+<p>Limit the size of new cruft packs when repacking. When specified in
+addition to <strong>–max-cruft-size</strong>, the command line option takes priority.
+See the <strong>–max-cruft-size</strong> option of *git-repack*(1).</p>
+</blockquote>
+<p>
+gc.pruneExpire</p>
+<blockquote>
+<p>When <em>git gc</em> is run, it will call <em>prune –expire 2.weeks.ago</em> (and
+<em>repack –cruft –cruft-expiration 2.weeks.ago</em> if using cruft packs via
+<strong>gc.cruftPacks</strong> or <strong>–cruft</strong>). Override the grace period with this
+config variable. The value &#34;now&#34; may be used to disable this grace
+period and always prune unreachable objects immediately, or &#34;never&#34; may
+be used to suppress pruning. This feature helps prevent corruption when
+<em>git gc</em> runs concurrently with another process writing to the
+repository; see the &#34;NOTES&#34; section of *git-gc*(1).</p>
+</blockquote>
+<p>
+gc.worktreePruneExpire</p>
+<blockquote>
+<p>When <em>git gc</em> is run, it calls <em>git worktree prune –expire
+3.months.ago</em>. This config variable can be used to set a different grace
+period. The value &#34;now&#34; may be used to disable the grace period and
+prune <strong>$GIT_DIR/worktrees</strong> immediately, or &#34;never&#34; may be used to
+suppress pruning.</p>
+</blockquote>
+<p>
+gc.reflogExpire, gc.&lt;pattern&gt;.reflogExpire</p>
+<blockquote>
+<p><em>git reflog expire</em> removes reflog entries older than this time;
+defaults to 90 days. The value &#34;now&#34; expires all entries immediately,
+and &#34;never&#34; suppresses expiration altogether. With &#34;&lt;pattern&gt;&#34; (e.g.
+&#34;refs/stash&#34;) in the middle the setting applies only to the refs that
+match the &lt;pattern&gt;.</p>
+</blockquote>
+<p>
+gc.reflogExpireUnreachable, gc.&lt;pattern&gt;.reflogExpireUnreachable</p>
+<blockquote>
+<p><em>git reflog expire</em> removes reflog entries older than this time and are
+not reachable from the current tip; defaults to 30 days. The value &#34;now&#34;
+expires all entries immediately, and &#34;never&#34; suppresses expiration
+altogether. With &#34;&lt;pattern&gt;&#34; (e.g. &#34;refs/stash&#34;) in the middle, the
+setting applies only to the refs that match the &lt;pattern&gt;.</p>
+<p>
+These types of entries are generally created as a result of using <strong>git
+commit –amend</strong> or <strong>git rebase</strong> and are the commits prior to the amend
+or rebase occurring. Since these changes are not part of the current
+project most users will want to expire them sooner, which is why the
+default is more aggressive than <strong>gc.reflogExpire</strong>.</p>
+</blockquote>
+<p>
+gc.recentObjectsHook</p>
+<blockquote>
+<p>When considering whether or not to remove an object (either when
+generating a cruft pack or storing unreachable objects as loose), use
+the shell to execute the specified command(s). Interpret their output as
+object IDs which Git will consider as &#34;recent&#34;, regardless of their age.
+By treating their mtimes as &#34;now&#34;, any objects (and their descendants)
+mentioned in the output will be kept regardless of their true age.</p>
+<p>
+Output must contain exactly one hex object ID per line, and nothing
+else. Objects which cannot be found in the repository are ignored.
+Multiple hooks are supported, but all must exit successfully, else the
+operation (either generating a cruft pack or unpacking unreachable
+objects) will be halted.</p>
+</blockquote>
+<p>
+gc.repackFilter</p>
+<blockquote>
+<p>When repacking, use the specified filter to move certain objects into a
+separate packfile. See the <strong>–filter=&lt;filter-spec&gt;</strong> option of
+*git-repack*(1).</p>
+</blockquote>
+<p>
+gc.repackFilterTo</p>
+<blockquote>
+<p>When repacking and using a filter, see <strong>gc.repackFilter</strong>, the specified
+location will be used to create the packfile containing the filtered out
+objects. <strong>WARNING:</strong> The specified location should be accessible, using
+for example the Git alternates mechanism, otherwise the repo could be
+considered corrupt by Git as it migh not be able to access the objects
+in that packfile. See the <strong>–filter-to=&lt;dir&gt;</strong> option of <strong>git-repack*(1)
+and the *objects/info/alternates</strong> section of *gitrepository-layout*(5).</p>
+</blockquote>
+<p>
+gc.rerereResolved</p>
+<blockquote>
+<p>Records of conflicted merge you resolved earlier are kept for this many
+days when <em>git rerere gc</em> is run. You can also use more human-readable
+&#34;1.month.ago&#34;, etc. The default is 60 days. See *git-rerere*(1).</p>
+</blockquote>
+<p>
+gc.rerereUnresolved</p>
+<blockquote>
+<p>Records of conflicted merge you have not resolved are kept for this many
+days when <em>git rerere gc</em> is run. You can also use more human-readable
+&#34;1.month.ago&#34;, etc. The default is 15 days. See *git-rerere*(1).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+NOTES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><em>git gc</em> tries very hard not to delete objects that are referenced
+anywhere in your repository. In particular, it will keep not only
+objects referenced by your current set of branches and tags, but also
+objects referenced by the index, remote-tracking branches, reflogs
+(which may reference commits in branches that were later amended or
+rewound), and anything else in the refs/* namespace. Note that a note
+(of the kind created by <em>git notes</em>) attached to an object does not
+contribute in keeping the object alive. If you are expecting some
+objects to be deleted and they aren&#39;t, check all of those locations and
+decide whether it makes sense in your case to remove those references.</p>
+<p>
+On the other hand, when <em>git gc</em> runs concurrently with another process,
+there is a risk of it deleting an object that the other process is using
+but hasn&#39;t created a reference to. This may just cause the other process
+to fail or may corrupt the repository if the other process later adds a
+reference to the deleted object. Git has two features that significantly
+mitigate this problem:</p>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>Any object with modification time newer than the <strong>–prune</strong> date is kept,
+along with everything reachable from it.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>Most operations that add an object to the database update the
+modification time of the object if it is already present so that #1
+applies.</p>
+</blockquote>
+<p>
+However, these features fall short of a complete solution, so users who
+run commands concurrently have to live with some risk of corruption
+(which seems to be low in practice).</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+HOOKS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The <em>git gc –auto</em> command will run the <em>pre-auto-gc</em> hook. See
+*githooks*(5) for more information.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>*git-prune*(1) *git-reflog*(1) *git-repack*(1) *git-rerere*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+GIT
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

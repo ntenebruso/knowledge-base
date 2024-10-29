@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-column.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-column.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-column - Display data in columns</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git column [--command=&lt;name&gt;] [--[raw-]mode=&lt;mode&gt;] [--width=&lt;width&gt;]
+             [--indent=&lt;string&gt;] [--nl=&lt;string&gt;] [--padding=&lt;n&gt;]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This command formats the lines of its standard input into a table with
+multiple columns. Each input line occupies one cell of the table. It is
+used internally by other git commands to format output into columns.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–command=&lt;name&gt;</p>
+<blockquote>
+<p>Look up layout mode using configuration variable column.&lt;name&gt; and
+column.ui.</p>
+</blockquote>
+<p>
+–mode=&lt;mode&gt;</p>
+<blockquote>
+<p>Specify layout mode. See configuration variable column.ui for option
+syntax in *git-config*(1).</p>
+</blockquote>
+<p>
+–raw-mode=&lt;n&gt;</p>
+<blockquote>
+<p>Same as –mode but take mode encoded as a number. This is mainly used by
+other commands that have already parsed layout mode.</p>
+</blockquote>
+<p>
+–width=&lt;width&gt;</p>
+<blockquote>
+<p>Specify the terminal width. By default <em>git column</em> will detect the
+terminal width, or fall back to 80 if it is unable to do so.</p>
+</blockquote>
+<p>
+–indent=&lt;string&gt;</p>
+<blockquote>
+<p>String to be printed at the beginning of each line.</p>
+</blockquote>
+<p>
+–nl=&lt;string&gt;</p>
+<blockquote>
+<p>String to be printed at the end of each line, including newline
+character.</p>
+</blockquote>
+<p>
+–padding=&lt;N&gt;</p>
+<blockquote>
+<p>The number of spaces between columns. One space by default.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Format data by columns:</p>
+<blockquote>
+<pre class="example">
+$ seq 1 24 | git column --mode=column --padding=5
+1      4      7      10     13     16     19     22
+2      5      8      11     14     17     20     23
+3      6      9      12     15     18     21     24
+</pre>
+</blockquote>
+<p>
+Format data by rows:</p>
+<blockquote>
+<pre class="example">
+$ seq 1 21 | git column --mode=row --padding=5
+1      2      3      4      5      6      7
+8      9      10     11     12     13     14
+15     16     17     18     19     20     21
+</pre>
+</blockquote>
+<p>
+List some tags in a table with unequal column widths:</p>
+<blockquote>
+<pre class="example">
+$ git tag --list v2.4.* --column=row,dense
+v2.4.0  v2.4.0-rc0  v2.4.0-rc1  v2.4.0-rc2  v2.4.0-rc3
+v2.4.1  v2.4.10     v2.4.11     v2.4.12     v2.4.2
+v2.4.3  v2.4.4      v2.4.5      v2.4.6      v2.4.7
+v2.4.8  v2.4.9
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+column.ui</p>
+<blockquote>
+<p>Specify whether supported commands should output in columns. This
+variable consists of a list of tokens separated by spaces or commas:</p>
+<p>
+These options control when the feature should be enabled (defaults to
+<em>never</em>):</p>
+<p>
+<strong>always</strong></p>
+<blockquote>
+<p>always show in columns</p>
+</blockquote>
+<p>
+<strong>never</strong></p>
+<blockquote>
+<p>never show in columns</p>
+</blockquote>
+<p>
+<strong>auto</strong></p>
+<blockquote>
+<p>show in columns if the output is to the terminal</p>
+</blockquote>
+<p>
+These options control layout (defaults to <em>column</em>). Setting any of
+these implies <em>always</em> if none of <em>always</em>, <em>never</em>, or <em>auto</em> are
+specified.</p>
+<p>
+<strong>column</strong></p>
+<blockquote>
+<p>fill columns before rows</p>
+</blockquote>
+<p>
+<strong>row</strong></p>
+<blockquote>
+<p>fill rows before columns</p>
+</blockquote>
+<p>
+<strong>plain</strong></p>
+<blockquote>
+<p>show in one column</p>
+</blockquote>
+<p>
+Finally, these options can be combined with a layout option (defaults to
+<em>nodense</em>):</p>
+<p>
+<strong>dense</strong></p>
+<blockquote>
+<p>make unequal size columns to utilize more space</p>
+</blockquote>
+<p>
+<strong>nodense</strong></p>
+<blockquote>
+<p>make equal size columns</p>
+</blockquote>
+</blockquote>
+<p>
+column.branch</p>
+<blockquote>
+<p>Specify whether to output branch listing in <strong>git branch</strong> in columns. See
+<strong>column.ui</strong> for details.</p>
+</blockquote>
+<p>
+column.clean</p>
+<blockquote>
+<p>Specify the layout when listing items in <strong>git clean -i</strong>, which always
+shows files and directories in columns. See <strong>column.ui</strong> for details.</p>
+</blockquote>
+<p>
+column.status</p>
+<blockquote>
+<p>Specify whether to output untracked files in <strong>git status</strong> in columns.
+See <strong>column.ui</strong> for details.</p>
+</blockquote>
+<p>
+column.tag</p>
+<blockquote>
+<p>Specify whether to output tag listings in <strong>git tag</strong> in columns. See
+<strong>column.ui</strong> for details.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+GIT
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

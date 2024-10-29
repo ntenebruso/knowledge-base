@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - networkctl.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - networkctl.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>networkctl - Query or modify the status of network links</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>networkctl</strong> [OPTIONS…] COMMAND [LINK…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>networkctl</strong> may be used to query or modify the state of the network
+links as seen by <strong>systemd-networkd</strong>. Please refer to
+*systemd-networkd.service*(8) for an introduction to the basic concepts,
+functionality, and configuration syntax.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+COMMANDS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following commands are understood:</p>
+<p>
+<strong>list</strong> [/PATTERN…/]</p>
+<blockquote>
+<p>Show a list of existing links and their status. If one or more
+/PATTERN/s are specified, only links matching one of them are shown. If
+no further arguments are specified shows all links, otherwise just the
+specified links. Produces output similar to:</p>
+<blockquote>
+<pre class="example">
+IDX LINK         TYPE     OPERATIONAL SETUP
+  1 lo           loopback carrier     unmanaged
+  2 eth0         ether    routable    configured
+  3 virbr0       ether    no-carrier  unmanaged
+  4 virbr0-nic   ether    off         unmanaged
+
+4 links listed.
+</pre>
+</blockquote>
+<p>
+The operational status is one of the following:</p>
+<p>
+missing</p>
+<blockquote>
+<p>The device is missing.</p>
+<p>
+Added in version 245.</p>
+</blockquote>
+<p>
+off</p>
+<blockquote>
+<p>The device is powered down.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+no-carrier</p>
+<blockquote>
+<p>The device is powered up, but does not yet have a carrier.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+dormant</p>
+<blockquote>
+<p>The device has a carrier, but is not yet ready for normal traffic.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+degraded-carrier</p>
+<blockquote>
+<p>One of the bonding or bridge slave network interfaces is in off,
+no-carrier, or dormant state, and the master interface has no address.</p>
+<p>
+Added in version 242.</p>
+</blockquote>
+<p>
+carrier</p>
+<blockquote>
+<p>The link has carrier, or for bond or bridge master, all bonding or
+bridge slave network interfaces are enslaved to the master.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+degraded</p>
+<blockquote>
+<p>The link has carrier and addresses valid on the local link configured.
+For bond or bridge master this means that not all slave network
+interfaces have carrier but at least one does.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+enslaved</p>
+<blockquote>
+<p>The link has carrier and is enslaved to bond or bridge master network
+interface.</p>
+<p>
+Added in version 242.</p>
+</blockquote>
+<p>
+routable</p>
+<blockquote>
+<p>The link has carrier and routable address configured. For bond or bridge
+master it is not necessary for all slave network interfaces to have
+carrier, but at least one must.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+The setup status is one of the following:</p>
+<p>
+pending</p>
+<blockquote>
+<p>*systemd-udevd*(8) is still processing the link, we dont yet know if we
+will manage it.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+initialized</p>
+<blockquote>
+<p>*systemd-udevd*(8) has processed the link, but we dont yet know if we
+will manage it.</p>
+<p>
+Added in version 251.</p>
+</blockquote>
+<p>
+configuring</p>
+<blockquote>
+<p>Configuration for the link is being retrieved or the link is being
+configured.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+configured</p>
+<blockquote>
+<p>Link has been configured successfully.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+unmanaged</p>
+<blockquote>
+<p><strong>systemd-networkd</strong> is not handling the link.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+failed</p>
+<blockquote>
+<p><strong>systemd-networkd</strong> failed to configure the link.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+linger</p>
+<blockquote>
+<p>The link is gone, but has not yet been dropped by <strong>systemd-networkd</strong>.</p>
+<p>
+Added in version 240.</p>
+</blockquote>
+<p>
+Added in version 219.</p>
+</blockquote>
+<p>
+<strong>status</strong> [/PATTERN…/]</p>
+<blockquote>
+<p>Show information about the specified links: type, state, kernel module
+driver, hardware and IP address, configured DNS servers, etc. If one or
+more /PATTERN/s are specified, only links matching one of them are
+shown.</p>
+<p>
+When no links are specified, an overall network status is shown. Also
+see the option <strong>–all</strong>.</p>
+<p>
+Produces output similar to:</p>
+<blockquote>
+<pre class="example">
+●        State: routable
+  Online state: online
+       Address: 10.193.76.5 on eth0
+                192.168.122.1 on virbr0
+                169.254.190.105 on eth0
+                fe80::5054:aa:bbbb:cccc on eth0
+       Gateway: 10.193.11.1 (CISCO SYSTEMS, INC.) on eth0
+           DNS: 8.8.8.8
+                8.8.4.4
+</pre>
+</blockquote>
+<p>
+In the overall network status, the online state depends on the
+individual online state of all required links. Managed links are
+required for online by default. In this case, the online state is one of
+the following:</p>
+<p>
+unknown</p>
+<blockquote>
+<p>All links have unknown online status (i.e. there are no required links).</p>
+<p>
+Added in version 249.</p>
+</blockquote>
+<p>
+offline</p>
+<blockquote>
+<p>All required links are offline.</p>
+<p>
+Added in version 249.</p>
+</blockquote>
+<p>
+partial</p>
+<blockquote>
+<p>Some, but not all, required links are online.</p>
+<p>
+Added in version 249.</p>
+</blockquote>
+<p>
+online</p>
+<blockquote>
+<p>All required links are online.</p>
+<p>
+Added in version 249.</p>
+</blockquote>
+<p>
+Added in version 219.</p>
+</blockquote>
+<p>
+<strong>lldp</strong> [/PATTERN…/]</p>
+<blockquote>
+<p>Show discovered LLDP (Link Layer Discovery Protocol) neighbors. If one
+or more /PATTERN/s are specified only neighbors on those interfaces are
+shown. Otherwise shows discovered neighbors on all interfaces. Note that
+for this feature to work, <em>LLDP=</em> must be turned on for the specific
+interface, see *systemd.network*(5) for details.</p>
+<p>
+Produces output similar to:</p>
+<blockquote>
+<pre class="example">
+LINK    SYSTEM-NAME SYSTEM-DESCRIPTION CHASSIS-ID        PORT-ID PORT-DESCRIPTION CAPS
+enp0s25 GS1900      -                  00:e0:4c:00:00:00 2       Port #2           ..b........
+
+Capability Flags:
+o - Other; p - Repeater;  b - Bridge; w - WLAN Access Point; r - Router;
+t - Telephone; d - DOCSIS cable device; a - Station; c - Customer VLAN;
+s - Service VLAN, m - Two-port MAC Relay (TPMR)
+
+1 neighbor(s) listed.
+</pre>
+</blockquote>
+<p>
+Added in version 219.</p>
+</blockquote>
+<p>
+<strong>label</strong></p>
+<blockquote>
+<p>Show numerical address labels that can be used for address selection.
+This is the same information that <strong>ip-addrlabel*(8) shows. See *RFC
+3484</strong>[1] for a discussion of address labels.</p>
+<p>
+Produces output similar to:</p>
+<blockquote>
+<pre class="example">
+Prefix/Prefixlen                          Label
+        ::/0                                  1
+    fc00::/7                                  5
+    fec0::/10                                11
+    2002::/16                                 2
+    3ffe::/16                                12
+ 2001:10::/28                                 7
+    2001::/32                                 6
+::ffff:0.0.0.0/96                             4
+        ::/96                                 3
+       ::1/128                                0
+</pre>
+</blockquote>
+<p>
+Added in version 234.</p>
+</blockquote>
+<p>
+<strong>delete</strong> <em>DEVICE…</em></p>
+<blockquote>
+<p>Deletes virtual netdevs. Takes interface name or index number.</p>
+<p>
+Added in version 243.</p>
+</blockquote>
+<p>
+<strong>up</strong> <em>DEVICE…</em></p>
+<blockquote>
+<p>Bring devices up. Takes interface name or index number.</p>
+<p>
+Added in version 246.</p>
+</blockquote>
+<p>
+<strong>down</strong> <em>DEVICE…</em></p>
+<blockquote>
+<p>Bring devices down. Takes interface name or index number.</p>
+<p>
+Added in version 246.</p>
+</blockquote>
+<p>
+<strong>renew</strong> <em>DEVICE…</em></p>
+<blockquote>
+<p>Renew dynamic configurations e.g. addresses received from DHCP server.
+Takes interface name or index number.</p>
+<p>
+Added in version 244.</p>
+</blockquote>
+<p>
+<strong>forcerenew</strong> <em>DEVICE…</em></p>
+<blockquote>
+<p>Send a FORCERENEW message to all connected clients, triggering DHCP
+reconfiguration. Takes interface name or index number.</p>
+<p>
+Added in version 246.</p>
+</blockquote>
+<p>
+<strong>reconfigure</strong> <em>DEVICE…</em></p>
+<blockquote>
+<p>Reconfigure network interfaces. Takes interface name or index number.
+Note that this does not reload .netdev or .network corresponding to the
+specified interface. So, if you edit config files, it is necessary to
+call <strong>networkctl reload</strong> first to apply new settings.</p>
+<p>
+Added in version 244.</p>
+</blockquote>
+<p>
+<strong>reload</strong></p>
+<blockquote>
+<p>Reload .netdev and .network files. If a new .netdev file is found, then
+the corresponding netdev is created. Note that even if an existing
+.netdev is modified or removed, <strong>systemd-networkd</strong> does not update or
+remove the netdev. If a new, modified or removed .network file is found,
+then all interfaces which match the file are reconfigured.</p>
+<p>
+Added in version 244.</p>
+</blockquote>
+<p>
+<strong>edit</strong> <em>FILE/|/@DEVICE</em>…</p>
+<blockquote>
+<p>Edit network configuration files, which include .network, .netdev, and
+.link files. If no network config file matching the given name is found,
+a new one will be created under <em>etc</em> or <em>run</em>, depending on whether
+<strong>–runtime</strong> is specified. Specially, if the name is prefixed by &#34;@&#34;, it
+will be treated as a network interface, and editing will be performed on
+the network config files associated with it. Additionally, the interface
+name can be suffixed with &#34;:network&#34; (default) or &#34;:link&#34;, in order to
+choose the type of network config to operate on.</p>
+<p>
+If <strong>–drop-in=</strong> is specified, edit the drop-in file instead of the main
+configuration file. Unless <strong>–no-reload</strong> is specified,
+<strong>systemd-networkd</strong> will be reloaded after the edit of the .network or
+.netdev files finishes. The same applies for .link files and
+*systemd-udevd*(8). Note that the changed link settings are not
+automatically applied after reloading. To achieve that, trigger uevents
+for the corresponding interface. Refer to *systemd.link*(5) for more
+information.</p>
+<p>
+Added in version 254.</p>
+</blockquote>
+<p>
+<strong>cat</strong> [/FILE/|/@DEVICE/…]</p>
+<blockquote>
+<p>Show network configuration files. This command honors the &#34;@&#34; prefix in
+the same way as <strong>edit</strong>. When no argument is specified,
+*networkd.conf*(5) and its drop-in files will be shown.</p>
+<p>
+Added in version 254.</p>
+</blockquote>
+<p>
+<strong>mask</strong> <em>FILE</em>…</p>
+<blockquote>
+<p>Mask network configuration files, which include .network, .netdev, and
+.link files. A symlink of the given name will be created under <em>etc</em> or
+<em>run</em>, depending on whether <strong>–runtime</strong> is specified, that points to
+/dev/null. If a non-empty config file with the specified name exists
+under the target directory or a directory with higher priority (e.g.
+<strong>–runtime</strong> is used while an existing config resides in <em>etc</em>), the
+operation is aborted.</p>
+<p>
+This command honors <strong>–no-reload</strong> in the same way as <strong>edit</strong>.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>unmask</strong> <em>FILE</em>…</p>
+<blockquote>
+<p>Unmask network configuration files, i.e. reverting the effect of <strong>mask</strong>.
+Note that this command operates regardless of the scope of the
+directory, i.e. <strong>–runtime</strong> is of no effect.</p>
+<p>
+This command honors <strong>–no-reload</strong> in the same way as <strong>edit</strong> and <strong>mask</strong>.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+<strong>persistent-storage</strong> <em>BOOL</em></p>
+<blockquote>
+<p>Notify systemd-networkd.service that the persistent storage for the
+service is ready. This is called by
+systemd-networkd-persistent-storage.service. Usually, this command
+should not be called manually by users or administrators.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following options are understood:</p>
+<p>
+<strong>-a</strong> <strong>–all</strong></p>
+<blockquote>
+<p>Show all links with <strong>status</strong>.</p>
+<p>
+Added in version 219.</p>
+</blockquote>
+<p>
+<strong>-s</strong> <strong>–stats</strong></p>
+<blockquote>
+<p>Show link statistics with <strong>status</strong>.</p>
+<p>
+Added in version 243.</p>
+</blockquote>
+<p>
+<strong>-l</strong>, <strong>–full</strong></p>
+<blockquote>
+<p>Do not ellipsize the output.</p>
+<p>
+Added in version 245.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–lines=</strong></p>
+<blockquote>
+<p>When used with <strong>status</strong>, controls the number of journal lines to show,
+counting from the most recent ones. Takes a positive integer argument.
+Defaults to 10.</p>
+<p>
+Added in version 245.</p>
+</blockquote>
+<p>
+*–drop-in=*/NAME/</p>
+<blockquote>
+<p>When used with <strong>edit</strong>, edit the drop-in file <em>NAME</em> instead of the main
+configuration file.</p>
+<p>
+Added in version 254.</p>
+</blockquote>
+<p>
+<strong>–no-reload</strong></p>
+<blockquote>
+<p>When used with <strong>edit</strong>, <strong>mask</strong>, or <strong>unmask</strong>,
+*systemd-networkd.service*(8) or *systemd-udevd.service*(8) will not be
+reloaded after the operation finishes.</p>
+<p>
+Added in version 254.</p>
+</blockquote>
+<p>
+<strong>–runtime</strong></p>
+<blockquote>
+<p>When used with <strong>edit</strong> or <strong>mask</strong>, operate on the file under <em>run</em> instead
+of <em>etc</em>.</p>
+<p>
+Added in version 256.</p>
+</blockquote>
+<p>
+*–json=*/MODE/</p>
+<blockquote>
+<p>Shows output formatted as JSON. Expects one of &#34;short&#34; (for the shortest
+possible output without any redundant whitespace or line breaks),
+&#34;pretty&#34; (for a pretty version of the same, with indentation and line
+breaks) or &#34;off&#34; (to turn off JSON output, the default).</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Print a short help text and exit.</p>
+</blockquote>
+<p>
+<strong>–version</strong></p>
+<blockquote>
+<p>Print a short version string and exit.</p>
+</blockquote>
+<p>
+<strong>–no-legend</strong></p>
+<blockquote>
+<p>Do not print the legend, i.e. column headers and the footer with hints.</p>
+</blockquote>
+<p>
+<strong>–no-pager</strong></p>
+<blockquote>
+<p>Do not pipe output into a pager.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>On success, 0 is returned, a non-zero failure code otherwise.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*systemd-networkd.service*(8), *systemd.network*(5),
+*systemd.netdev*(5), *ip*(8)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+NOTES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>RFC 3484
+
+https://tools.ietf.org/html/rfc3484</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

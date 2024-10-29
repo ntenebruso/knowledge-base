@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - dmesg.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - dmesg.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>dmesg - print or control the kernel ring buffer</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>dmesg</strong> [options]</p>
+<p>
+<strong>dmesg</strong> <strong>–clear</strong></p>
+<p>
+<strong>dmesg</strong> <strong>–read-clear</strong> [options]</p>
+<p>
+<strong>dmesg</strong> <strong>–console-level</strong> <em>level</em></p>
+<p>
+<strong>dmesg</strong> <strong>–console-on</strong></p>
+<p>
+<strong>dmesg</strong> <strong>–console-off</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>dmesg</strong> is used to examine or control the kernel ring buffer.</p>
+<p>
+The default action is to display all messages from the kernel ring
+buffer.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The <strong>–clear</strong>, <strong>–read-clear</strong>, <strong>–console-on</strong>, <strong>–console-off</strong>, and
+<strong>–console-level</strong> options are mutually exclusive.</p>
+<p>
+<strong>-C</strong>, <strong>–clear</strong></p>
+<blockquote>
+<p>Clear the ring buffer.</p>
+</blockquote>
+<p>
+<strong>-c</strong>, <strong>–read-clear</strong></p>
+<blockquote>
+<p>Clear the ring buffer after first printing its contents.</p>
+</blockquote>
+<p>
+<strong>-D</strong>, <strong>–console-off</strong></p>
+<blockquote>
+<p>Disable the printing of messages to the console.</p>
+</blockquote>
+<p>
+<strong>-d</strong>, <strong>–show-delta</strong></p>
+<blockquote>
+<p>Display the timestamp and the time delta spent between messages. If used
+together with <strong>–notime</strong> then only the time delta without the timestamp
+is printed.</p>
+</blockquote>
+<p>
+<strong>-E</strong>, <strong>–console-on</strong></p>
+<blockquote>
+<p>Enable printing messages to the console.</p>
+</blockquote>
+<p>
+<strong>-e</strong>, <strong>–reltime</strong></p>
+<blockquote>
+<p>Display the local time and the delta in human-readable format. Be aware
+that conversion to the local time could be inaccurate (see <strong>-T</strong> for more
+details).</p>
+</blockquote>
+<p>
+<strong>-F</strong>, <strong>–file</strong> <em>file</em></p>
+<blockquote>
+<p>Read the syslog messages from the given <em>file</em>. Note that <strong>-F</strong> does not
+support messages in kmsg format. The old syslog format is supported
+only.</p>
+</blockquote>
+<p>
+<strong>-f</strong>, <strong>–facility</strong> <em>list</em></p>
+<blockquote>
+<p>Restrict output to the given (comma-separated) <em>list</em> of facilities. For
+example:</p>
+<p>
+<strong>dmesg –facility=daemon</strong></p>
+<p>
+will print messages from system daemons only. For all supported
+facilities see the <strong>–help</strong> output.</p>
+</blockquote>
+<p>
+<strong>-H</strong>, <strong>–human</strong></p>
+<blockquote>
+<p>Enable human-readable output. See also <strong>–color</strong>, <strong>–reltime</strong> and
+<strong>–nopager</strong>.</p>
+</blockquote>
+<p>
+<strong>-J</strong>, <strong>–json</strong></p>
+<blockquote>
+<p>Use JSON output format. The time output format is in &#34;sec.usec&#34; format
+only, log priority level is not decoded by default (use <strong>–decode</strong> to
+split into facility and priority), the other options to control the
+output format or time format are silently ignored.</p>
+</blockquote>
+<p>
+<strong>-k</strong>, <strong>–kernel</strong></p>
+<blockquote>
+<p>Print kernel messages.</p>
+</blockquote>
+<p>
+<strong>-L</strong>, <strong>–color</strong>[=/when/]</p>
+<blockquote>
+<p>Colorize the output. The optional argument <em>when</em> can be <strong>auto</strong>, <strong>never</strong>
+or <strong>always</strong>. If the <em>when</em> argument is omitted, it defaults to <strong>auto</strong>.
+The colors can be disabled; for the current built-in default see the
+<strong>–help</strong> output. See also the <strong>COLORS</strong> section below.</p>
+</blockquote>
+<p>
+<strong>-l</strong>, <strong>–level</strong> <em>list</em></p>
+<blockquote>
+<p>Restrict output to the given (comma-separated) <em>list</em> of levels. For
+example:</p>
+<p>
+<strong>dmesg –level=err,warn</strong></p>
+<p>
+will print error and warning messages only. For all supported levels see
+the <strong>–help</strong> output.</p>
+<p>
+Appending a plus <strong>+</strong> to a level name also includes all higher levels.
+For example:</p>
+<p>
+<strong>dmesg –level=err+</strong></p>
+<p>
+will print levels <strong>err</strong>, <strong>crit</strong>, <strong>alert</strong> and <strong>emerg</strong>.</p>
+<p>
+Prepending it will include all lower levels.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–console-level</strong> <em>level</em></p>
+<blockquote>
+<p>Set the <em>level</em> at which printing of messages is done to the console.
+The <em>level</em> is a level number or abbreviation of the level name. For all
+supported levels see the <strong>–help</strong> output.</p>
+<p>
+For example, <strong>-n 1</strong> or <strong>-n emerg</strong> prevents all messages, except
+emergency (panic) messages, from appearing on the console. All levels of
+messages are still written to <em>/proc/kmsg</em>, so <strong>syslogd*(8) can still be
+used to control exactly where kernel messages appear. When the *-n</strong>
+option is used, <strong>dmesg</strong> will <em>not</em> print or clear the kernel ring
+buffer.</p>
+</blockquote>
+<p>
+<strong>–noescape</strong></p>
+<blockquote>
+<p>The unprintable and potentially unsafe characters (e.g., broken
+multi-byte sequences, terminal controlling chars, etc.) are escaped in
+format \x&lt;hex&gt; for security reason by default. This option disables this
+feature at all. It&#39;s usable for example for debugging purpose together
+with <strong>–raw</strong>. Be careful and don&#39;t use it by default.</p>
+</blockquote>
+<p>
+<strong>-P</strong>, <strong>–nopager</strong></p>
+<blockquote>
+<p>Do not pipe output into a pager. A pager is enabled by default for
+<strong>–human</strong> output.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–force-prefix</strong></p>
+<blockquote>
+<p>Add facility, level or timestamp information to each line of a
+multi-line message.</p>
+</blockquote>
+<p>
+<strong>-r</strong>, <strong>–raw</strong></p>
+<blockquote>
+<p>Print the raw message buffer, i.e., do not strip the log-level prefixes,
+but all unprintable characters are still escaped (see also
+<strong>–noescape</strong>).</p>
+<p>
+Note that the real raw format depends on the method how <strong>dmesg</strong> reads
+kernel messages. The <em>/dev/kmsg</em> device uses a different format than
+<strong>syslog*(2). For backward compatibility, *dmesg</strong> returns data always in
+the *syslog*(2) format. It is possible to read the real raw data from
+<em>/dev/kmsg</em> by, for example, the command dd if=/dev/kmsg iflag=nonblock.</p>
+</blockquote>
+<p>
+<strong>-S</strong>, <strong>–syslog</strong></p>
+<blockquote>
+<p>Force <strong>dmesg</strong> to use the *syslog*(2) kernel interface to read kernel
+messages. The default is to use <em>/dev/kmsg</em> rather than *syslog*(2)
+since kernel 3.5.0.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–buffer-size</strong> <em>size</em></p>
+<blockquote>
+<p>Use a buffer of <em>size</em> to query the kernel ring buffer. This is 16392 by
+default. (The default kernel syslog buffer size was 4096 at first, 8192
+since 1.3.54, 16384 since 2.1.113.) If you have set the kernel buffer to
+be larger than the default, then this option can be used to view the
+entire buffer.</p>
+</blockquote>
+<p>
+<strong>-T</strong>, <strong>–ctime</strong></p>
+<blockquote>
+<p>Print human-readable timestamps.</p>
+<p>
+<strong>Be aware that the timestamp could be inaccurate!</strong> The <strong>time</strong> source
+used for the logs is <strong>not updated after</strong> system <strong>SUSPEND*/*RESUME</strong>.
+Timestamps are adjusted according to current delta between boottime and
+monotonic clocks, this works only for messages printed after last
+resume.</p>
+</blockquote>
+<p>
+<strong>–since</strong> <em>time</em></p>
+<blockquote>
+<p>Display record since the specified time. Supported is the subsecond
+granularity. The time is possible to specify in absolute way as well as
+by relative notation (e.g. 1 hour ago). Be aware that the timestamp
+could be inaccurate and see <strong>–ctime</strong> for more details.</p>
+</blockquote>
+<p>
+<strong>–until</strong> <em>time</em></p>
+<blockquote>
+<p>Display record until the specified time. Supported is the subsecond
+granularity. The time is possible to specify in absolute way as well as
+by relative notation (e.g. 1 hour ago). Be aware that the timestamp
+could be inaccurate and see <strong>–ctime</strong> for more details.</p>
+</blockquote>
+<p>
+<strong>-t</strong>, <strong>–notime</strong></p>
+<blockquote>
+<p>Do not print kernel&#39;s timestamps.</p>
+</blockquote>
+<p>
+<strong>–time-format</strong> <em>format</em></p>
+<blockquote>
+<p>Print timestamps using the given <em>format</em>, which can be <strong>ctime</strong>,
+<strong>reltime</strong>, <strong>delta</strong> or <strong>iso</strong>. The first three formats are aliases of the
+time-format-specific options. The <strong>iso</strong> format is a <strong>dmesg</strong>
+implementation of the ISO-8601 timestamp format. The purpose of this
+format is to make the comparing of timestamps between two systems, and
+any other parsing, easy. The definition of the <strong>iso</strong> timestamp is:
+YYYY-MM-DD&lt;T&gt;HH:MM:SS,&lt;microseconds&gt;←+&gt;&lt;timezone offset from UTC&gt;.</p>
+<p>
+The <strong>iso</strong> format has the same issue as <strong>ctime</strong>: the time may be
+inaccurate when a system is suspended and resumed.</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–userspace</strong></p>
+<blockquote>
+<p>Print userspace messages.</p>
+</blockquote>
+<p>
+<strong>-w</strong>, <strong>–follow</strong></p>
+<blockquote>
+<p>Wait for new messages. This feature is supported only on systems with a
+readable <em>/dev/kmsg</em> (since kernel 3.5.0).</p>
+</blockquote>
+<p>
+<strong>-W</strong>, <strong>–follow-new</strong></p>
+<blockquote>
+<p>Wait and print only new messages.</p>
+</blockquote>
+<p>
+<strong>-x</strong>, <strong>–decode</strong></p>
+<blockquote>
+<p>Decode facility and level (priority) numbers to human-readable prefixes.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+COLORS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The output colorization is implemented by *terminal-colors.d*(5)
+functionality. Implicit coloring can be disabled by an empty file</p>
+<blockquote>
+<p><em>/etc/terminal-colors.d/dmesg.disable</em>\\</p>
+</blockquote>
+<p>
+for the <strong>dmesg</strong> command or for all tools by</p>
+<blockquote>
+<p><em>/etc/terminal-colors.d/disable</em>\\</p>
+</blockquote>
+<p>
+The user-specific <em>$XDG_CONFIG_HOME/terminal-colors.d</em> or
+<em>$HOME</em>.config/terminal-colors.d/ overrides the global setting.</p>
+<p>
+Note that the output colorization may be enabled by default, and in this
+case <em>terminal-colors.d</em> directories do not have to exist yet.</p>
+<p>
+The logical color names supported by <strong>dmesg</strong> are:</p>
+<p>
+<strong>subsys</strong></p>
+<blockquote>
+<p>The message sub-system prefix (e.g., &#34;ACPI:&#34;).</p>
+</blockquote>
+<p>
+<strong>time</strong></p>
+<blockquote>
+<p>The message timestamp.</p>
+</blockquote>
+<p>
+<strong>timebreak</strong></p>
+<blockquote>
+<p>The message timestamp in short ctime format in <strong>–reltime</strong> or <strong>–human</strong>
+output.</p>
+</blockquote>
+<p>
+<strong>alert</strong></p>
+<blockquote>
+<p>The text of the message with the alert log priority.</p>
+</blockquote>
+<p>
+<strong>crit</strong></p>
+<blockquote>
+<p>The text of the message with the critical log priority.</p>
+</blockquote>
+<p>
+<strong>err</strong></p>
+<blockquote>
+<p>The text of the message with the error log priority.</p>
+</blockquote>
+<p>
+<strong>warn</strong></p>
+<blockquote>
+<p>The text of the message with the warning log priority.</p>
+</blockquote>
+<p>
+<strong>segfault</strong></p>
+<blockquote>
+<p>The text of the message that inform about segmentation fault.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>dmesg</strong> can fail reporting permission denied error. This is usually
+caused by <strong>dmesg_restrict</strong> kernel setting, please see *syslog*(2) for
+more details.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHORS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><strong>dmesg</strong> was originally written by</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*terminal-colors.d*(5), *syslogd*(8)</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The <strong>dmesg</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

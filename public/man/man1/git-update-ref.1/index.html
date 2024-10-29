@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-update-ref.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-update-ref.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-update-ref - Update the object name stored in a ref safely</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git update-ref [-m &lt;reason&gt;] [--no-deref] (-d &lt;ref&gt; [&lt;old-oid&gt;] | [--create-reflog] &lt;ref&gt; &lt;new-oid&gt; [&lt;old-oid&gt;] | --stdin [-z])
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Given two arguments, stores the &lt;new-oid&gt; in the &lt;ref&gt;, possibly
+dereferencing the symbolic refs. E.g. <strong>git update-ref HEAD &lt;new-oid&gt;</strong>
+updates the current branch head to the new object.</p>
+<p>
+Given three arguments, stores the &lt;new-oid&gt; in the &lt;ref&gt;, possibly
+dereferencing the symbolic refs, after verifying that the current value
+of the &lt;ref&gt; matches &lt;old-oid&gt;. E.g. <strong>git update-ref refs/heads/master
+&lt;new-oid&gt; &lt;old-oid&gt;</strong> updates the master branch head to &lt;new-oid&gt; only if
+its current value is &lt;old-oid&gt;. You can specify 40 &#34;0&#34; or an empty
+string as &lt;old-oid&gt; to make sure that the ref you are creating does not
+exist.</p>
+<p>
+It also allows a &#34;ref&#34; file to be a symbolic pointer to another ref file
+by starting with the four-byte header sequence of &#34;ref:&#34;.</p>
+<p>
+More importantly, it allows the update of a ref file to follow these
+symbolic pointers, whether they are symlinks or these &#34;regular file
+symbolic refs&#34;. It follows <strong>real</strong> symlinks only if they start with
+&#34;refs/&#34;: otherwise it will just try to read them and update them as a
+regular file (i.e. it will allow the filesystem to follow them, but will
+overwrite such a symlink to somewhere else with a regular filename).</p>
+<p>
+If –no-deref is given, &lt;ref&gt; itself is overwritten, rather than the
+result of following the symbolic pointers.</p>
+<p>
+In general, using</p>
+<blockquote>
+<pre class="example">
+git update-ref HEAD &#34;$head&#34;
+</pre>
+</blockquote>
+<p>
+should be a <em>lot</em> safer than doing</p>
+<blockquote>
+<pre class="example">
+echo &#34;$head&#34; &gt; &#34;$GIT_DIR/HEAD&#34;
+</pre>
+</blockquote>
+<p>
+both from a symlink following standpoint <strong>and</strong> an error checking
+standpoint. The &#34;refs/&#34; rule for symlinks means that symlinks that point
+to &#34;outside&#34; the tree are safe: they&#39;ll be followed for reading but not
+for writing (so we&#39;ll never write through a ref symlink to some other
+tree, if you have copied a whole archive by creating a symlink tree).</p>
+<p>
+With <strong>-d</strong> flag, it deletes the named &lt;ref&gt; after verifying it still
+contains &lt;old-oid&gt;.</p>
+<p>
+With <strong>–stdin</strong>, update-ref reads instructions from standard input and
+performs all modifications together. Specify commands of the form:</p>
+<blockquote>
+<pre class="example">
+update SP &lt;ref&gt; SP &lt;new-oid&gt; [SP &lt;old-oid&gt;] LF
+create SP &lt;ref&gt; SP &lt;new-oid&gt; LF
+delete SP &lt;ref&gt; [SP &lt;old-oid&gt;] LF
+verify SP &lt;ref&gt; [SP &lt;old-oid&gt;] LF
+symref-update SP &lt;ref&gt; SP &lt;new-target&gt; [SP (ref SP &lt;old-target&gt; | oid SP &lt;old-oid&gt;)] LF
+symref-create SP &lt;ref&gt; SP &lt;new-target&gt; LF
+symref-delete SP &lt;ref&gt; [SP &lt;old-target&gt;] LF
+symref-verify SP &lt;ref&gt; [SP &lt;old-target&gt;] LF
+option SP &lt;opt&gt; LF
+start LF
+prepare LF
+commit LF
+abort LF
+</pre>
+</blockquote>
+<p>
+With <strong>–create-reflog</strong>, update-ref will create a reflog for each ref
+even if one would not ordinarily be created.</p>
+<p>
+Quote fields containing whitespace as if they were strings in C source
+code; i.e., surrounded by double-quotes and with backslash escapes. Use
+40 &#34;0&#34; characters or the empty string to specify a zero value. To
+specify a missing value, omit the value and its preceding SP entirely.</p>
+<p>
+Alternatively, use <strong>-z</strong> to specify in NUL-terminated format, without
+quoting:</p>
+<blockquote>
+<pre class="example">
+update SP &lt;ref&gt; NUL &lt;new-oid&gt; NUL [&lt;old-oid&gt;] NUL
+create SP &lt;ref&gt; NUL &lt;new-oid&gt; NUL
+delete SP &lt;ref&gt; NUL [&lt;old-oid&gt;] NUL
+verify SP &lt;ref&gt; NUL [&lt;old-oid&gt;] NUL
+symref-update SP &lt;ref&gt; NUL &lt;new-target&gt; [NUL (ref NUL &lt;old-target&gt; | oid NUL &lt;old-oid&gt;)] NUL
+symref-create SP &lt;ref&gt; NUL &lt;new-target&gt; NUL
+symref-delete SP &lt;ref&gt; [NUL &lt;old-target&gt;] NUL
+symref-verify SP &lt;ref&gt; [NUL &lt;old-target&gt;] NUL
+option SP &lt;opt&gt; NUL
+start NUL
+prepare NUL
+commit NUL
+abort NUL
+</pre>
+</blockquote>
+<p>
+In this format, use 40 &#34;0&#34; to specify a zero value, and use the empty
+string to specify a missing value.</p>
+<p>
+In either format, values can be specified in any form that Git
+recognizes as an object name. Commands in any other format or a repeated
+&lt;ref&gt; produce an error. Command meanings are:</p>
+<p>
+update</p>
+<blockquote>
+<p>Set &lt;ref&gt; to &lt;new-oid&gt; after verifying &lt;old-oid&gt;, if given. Specify a
+zero &lt;new-oid&gt; to ensure the ref does not exist after the update and/or
+a zero &lt;old-oid&gt; to make sure the ref does not exist before the update.</p>
+</blockquote>
+<p>
+create</p>
+<blockquote>
+<p>Create &lt;ref&gt; with &lt;new-oid&gt; after verifying it does not exist. The given
+&lt;new-oid&gt; may not be zero.</p>
+</blockquote>
+<p>
+delete</p>
+<blockquote>
+<p>Delete &lt;ref&gt; after verifying it exists with &lt;old-oid&gt;, if given. If
+given, &lt;old-oid&gt; may not be zero.</p>
+</blockquote>
+<p>
+symref-update</p>
+<blockquote>
+<p>Set &lt;ref&gt; to &lt;new-target&gt; after verifying &lt;old-target&gt; or &lt;old-oid&gt;, if
+given. Specify a zero &lt;old-oid&gt; to ensure that the ref does not exist
+before the update.</p>
+</blockquote>
+<p>
+verify</p>
+<blockquote>
+<p>Verify &lt;ref&gt; against &lt;old-oid&gt; but do not change it. If &lt;old-oid&gt; is
+zero or missing, the ref must not exist.</p>
+</blockquote>
+<p>
+symref-create: Create symbolic ref &lt;ref&gt; with &lt;new-target&gt; after
+verifying it does not exist.</p>
+<p>
+symref-delete</p>
+<blockquote>
+<p>Delete &lt;ref&gt; after verifying it exists with &lt;old-target&gt;, if given.</p>
+</blockquote>
+<p>
+symref-verify</p>
+<blockquote>
+<p>Verify symbolic &lt;ref&gt; against &lt;old-target&gt; but do not change it. If
+&lt;old-target&gt; is missing, the ref must not exist. Can only be used in
+<strong>no-deref</strong> mode.</p>
+</blockquote>
+<p>
+option</p>
+<blockquote>
+<p>Modify the behavior of the next command naming a &lt;ref&gt;. The only valid
+option is <strong>no-deref</strong> to avoid dereferencing a symbolic ref.</p>
+</blockquote>
+<p>
+start</p>
+<blockquote>
+<p>Start a transaction. In contrast to a non-transactional session, a
+transaction will automatically abort if the session ends without an
+explicit commit. This command may create a new empty transaction when
+the current one has been committed or aborted already.</p>
+</blockquote>
+<p>
+prepare</p>
+<blockquote>
+<p>Prepare to commit the transaction. This will create lock files for all
+queued reference updates. If one reference could not be locked, the
+transaction will be aborted.</p>
+</blockquote>
+<p>
+commit</p>
+<blockquote>
+<p>Commit all reference updates queued for the transaction, ending the
+transaction.</p>
+</blockquote>
+<p>
+abort</p>
+<blockquote>
+<p>Abort the transaction, releasing all locks if the transaction is in
+prepared state.</p>
+</blockquote>
+<p>
+If all &lt;ref&gt;s can be locked with matching &lt;old-oid&gt;s simultaneously, all
+modifications are performed. Otherwise, no modifications are performed.
+Note that while each individual &lt;ref&gt; is updated or deleted atomically,
+a concurrent reader may still see a subset of the modifications.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+LOGGING UPDATES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>If config parameter &#34;core.logAllRefUpdates&#34; is true and the ref is one
+under &#34;refs/heads/&#34;, &#34;refs/remotes/&#34;, &#34;refs/notes/&#34;, or a pseudoref like
+HEAD or ORIG_HEAD; or the file &#34;$GIT_DIR/logs/&lt;ref&gt;&#34; exists then *git
+update-ref* will append a line to the log file &#34;$GIT_DIR/logs/&lt;ref&gt;&#34;
+(dereferencing all symbolic refs before creating the log name)
+describing the change in ref value. Log lines are formatted as:</p>
+<blockquote>
+<pre class="example">
+oldsha1 SP newsha1 SP committer LF
+</pre>
+</blockquote>
+<p>
+Where &#34;oldsha1&#34; is the 40 character hexadecimal value previously stored
+in &lt;ref&gt;, &#34;newsha1&#34; is the 40 character hexadecimal value of &lt;new-oid&gt;
+and &#34;committer&#34; is the committer&#39;s name, email address and date in the
+standard Git committer ident format.</p>
+<p>
+Optionally with -m:</p>
+<blockquote>
+<pre class="example">
+oldsha1 SP newsha1 SP committer TAB message LF
+</pre>
+</blockquote>
+<p>
+Where all fields are as described above and &#34;message&#34; is the value
+supplied to the -m option.</p>
+<p>
+An update will fail (without changing &lt;ref&gt;) if the current user is
+unable to create a new log file, append to the existing log file or does
+not have committer information available.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+GIT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

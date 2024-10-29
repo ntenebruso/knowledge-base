@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - curl-config.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - curl-config.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>curl-config - Get information about a libcurl installation</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>curl-config [options]</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>curl-config</strong> displays information about the curl and libcurl
+installation.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+–ca
+</dt>
+<dd>Displays the built-in path to the CA cert bundle this libcurl
+uses.</dd>
+<dt>
+–cc
+</dt>
+<dd>Displays the compiler used to build libcurl.</dd>
+<dt>
+–cflags
+</dt>
+<dd>Set of compiler options (CFLAGS) to use when compiling
+files that use libcurl. Currently that is only the include path to the
+curl include files.</dd>
+<dt>
+–checkfor [version]
+</dt>
+<dd>Specify the oldest possible libcurl version
+string you want, and this script returns 0 if the current installation
+is new enough or it returns 1 and outputs a text saying that the
+current version is not new enough. (Added in 7.15.4)</dd>
+<dt>
+–configure
+</dt>
+<dd>Displays the arguments given to configure when building
+curl.</dd>
+<dt>
+–feature
+</dt>
+<dd>Lists what particular main features the installed libcurl
+was built with. At the time of writing, this list may include SSL,
+KRB4 or IPv6. Do not assume any particular order. The keywords are
+separated by newlines. There may be none, one, or several keywords in
+the list.</dd>
+<dt>
+–help
+</dt>
+<dd>Displays the available options.</dd>
+<dt>
+–libs
+</dt>
+<dd>Shows the complete set of libs and other linker options you
+need in order to link your application with libcurl.</dd>
+<dt>
+–prefix
+</dt>
+<dd>This is the prefix used when libcurl was installed.
+Libcurl is then installed in $prefix/lib and its header files are
+installed in $prefix/include and so on. The prefix is set with
+&#34;configure –prefix&#34;.</dd>
+<dt>
+–protocols
+</dt>
+<dd>Lists what particular protocols the installed libcurl
+was built to support. At the time of writing, this list may include
+HTTP, HTTPS, FTP, FTPS, FILE, TELNET, LDAP, DICT and many more. Do not
+assume any particular order. The protocols are listed using uppercase
+and are separated by newlines. There may be none, one, or several
+protocols in the list. (Added in 7.13.0)</dd>
+<dt>
+–ssl-backends
+</dt>
+<dd>Lists the SSL backends that were enabled when
+libcurl was built. It might be no, one or several names. If more than
+one name, they appear comma-separated. (Added in 7.58.0)</dd>
+<dt>
+–static-libs
+</dt>
+<dd>Shows the complete set of libs and other linker
+options you need in order to link your application with libcurl
+statically. (Added in 7.17.1)</dd>
+<dt>
+–version
+</dt>
+<dd>Outputs version information about the installed libcurl.</dd>
+<dt>
+–vernum
+</dt>
+<dd>Outputs version information about the installed libcurl,
+in numerical mode. This shows the version number, in hexadecimal,
+using 8 bits for each part: major, minor, and patch numbers. This
+makes libcurl 7.7.4 appear as 070704 and libcurl 12.13.14 appear as
+0c0d0e… Note that the initial zero might be omitted. (This option
+was broken in the 7.15.0 release.)</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>What linker options do I need when I link with libcurl?</p>
+<pre class="example">
+  $ curl-config --libs
+</pre>
+<p>
+What compiler options do I need when I compile using libcurl functions?</p>
+<pre class="example">
+  $ curl-config --cflags
+</pre>
+<p>
+How do I know if libcurl was built with SSL support?</p>
+<pre class="example">
+  $ curl-config --feature | grep SSL
+</pre>
+<p>
+What&#39;s the installed libcurl version?</p>
+<pre class="example">
+  $ curl-config --version
+</pre>
+<p>
+How do I build a single file with a one-line command?</p>
+<pre class="example">
+  $ `curl-config --cc --cflags` -o example source.c `curl-config --libs`
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*curl*(1)</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

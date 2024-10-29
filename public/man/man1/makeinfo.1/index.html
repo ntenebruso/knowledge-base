@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - makeinfo.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - makeinfo.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>texi2any - translate Texinfo documents</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>makeinfo</strong> [/OPTION/]… <em>TEXINFO-FILE</em>…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Translate Texinfo source documentation to various other formats, by
+default Info files suitable for reading online with Emacs or standalone
+GNU Info.</p>
+<p>
+This program is commonly installed as both `makeinfo&#39; and `texi2any&#39;;
+the behavior is identical, and does not depend on the installed name.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+General options:
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<ul>
+<li>*–document-language*=/STR/ locale to use in translating Texinfo
+keywords :: for the output document (default C).</li>
+<li>*–error-limit*=/NUM/ :: quit after NUM errors (default 100).</li>
+<li><strong>–force</strong> :: preserve output even if errors.</li>
+<li><strong>–help</strong> :: display this help and exit.</li>
+<li><strong>–no-validate</strong> :: suppress node cross-reference validation.</li>
+<li><strong>–no-warn</strong> :: suppress warnings (but not errors).</li>
+<li>*–conf-dir*=/DIR/ :: search also for initialization files in DIR.</li>
+<li>*–init-file*=/FILE/ :: load FILE to modify the default behavior.</li>
+<li><strong>-c</strong>, <strong>–set-customization-variable</strong> VAR=VAL :: set customization
+variable VAR to value VAL.</li>
+<li><strong>-v</strong>, <strong>–verbose</strong> :: explain what is being done.</li>
+<li><strong>–version</strong> :: display version information and exit.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Output format selection (default is to produce Info):
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<dl>
+<dt>
+<strong>–docbook</strong>
+</dt>
+<dd>output Docbook XML.</dd>
+<dt>
+<strong>–html</strong>
+</dt>
+<dd>output HTML.</dd>
+<dt>
+<strong>–epub3</strong>
+</dt>
+<dd>output EPUB 3.</dd>
+<dt>
+<strong>–latex</strong>
+</dt>
+<dd>output LaTeX.</dd>
+<dt>
+<strong>–plaintext</strong>
+</dt>
+<dd>output plain text rather than Info.</dd>
+<dt>
+<strong>–xml</strong>
+</dt>
+<dd>output Texinfo XML.</dd>
+<dt>
+<strong>–dvi</strong>, <strong>–dvipdf</strong>, <strong>–ps</strong>, <strong>–pdf</strong>
+</dt>
+<dd>call texi2dvi to generate
+given output, after checking validity of TEXINFO-FILE.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+General output options:
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<dl>
+<dt>
+<strong>-E</strong>, *–macro-expand*=/FILE/
+</dt>
+<dd>output macro-expanded source to FILE,
+ignoring any @setfilename.</dd>
+<dt>
+<strong>–no-headers</strong>
+</dt>
+<dd>suppress node separators, Node: lines, and menus
+from Info output (thus producing plain text) or from HTML (thus
+producing shorter output). Also, if producing Info, write to standard
+output by default.</dd>
+<dt>
+<strong>–no-split</strong>
+</dt>
+<dd>suppress any splitting of the output; generate only
+one output file.</dd>
+<dt>
+<strong>–[no-]number-sections</strong>
+</dt>
+<dd>output chapter and sectioning numbers;
+default is on.</dd>
+<dt>
+<strong>-o</strong>, *–output*=/DEST/
+</dt>
+<dd>output to DEST. With split output, create
+DEST as a directory and put the output files there. With non-split
+output, if DEST is already a directory or ends with a /, put the
+output file there. Otherwise, DEST names the output file.</dd>
+<dt>
+<strong>–disable-encoding</strong>
+</dt>
+<dd>do not output accented and special characters
+in Info and plain text output based on document encoding.</dd>
+<dt>
+<strong>–enable-encoding</strong>
+</dt>
+<dd>override <strong>–disable-encoding</strong> (default).</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Options for Info and plain text:
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<dl>
+<dt>
+*–fill-column*=/NUM/
+</dt>
+<dd>break Info lines at NUM columns (default 72).</dd>
+<dt>
+*–footnote-style*=/STYLE/
+</dt>
+<dd>output footnotes in Info according to
+STYLE: `separate&#39; to put them in their own node; `end&#39; to put them at
+the end of the node, in which they are defined (this is the default).</dd>
+<dt>
+*–paragraph-indent*=/VAL/
+</dt>
+<dd>indent Info paragraphs by VAL spaces
+(default 3). If VAL is `none&#39;, do not indent; if VAL is `asis&#39;,
+preserve existing indentation.</dd>
+<dt>
+*–split-size*=/NUM/
+</dt>
+<dd>split Info files at size NUM (default 300000).</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Options for HTML:
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<dl>
+<dt>
+*–css-include*=/FILE/
+</dt>
+<dd>include FILE in HTML &lt;style&gt; output; read
+stdin if FILE is -.</dd>
+<dt>
+*–css-ref*=/URL/
+</dt>
+<dd>generate CSS reference to URL.</dd>
+<dt>
+*–internal-links*=/FILE/
+</dt>
+<dd>produce list of internal links in FILE.</dd>
+<dt>
+*–split*=/SPLIT/
+</dt>
+<dd>split at SPLIT, where SPLIT may be `chapter&#39;,
+`section&#39; or `node&#39;.</dd>
+<dt>
+<strong>–transliterate-file-names</strong>
+</dt>
+<dd>use file names in ASCII
+transliteration.</dd>
+<dt>
+<strong>–node-files</strong>
+</dt>
+<dd>produce redirection files for nodes and anchors;
+default is set only if split.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Options for DVI/PS/PDF:
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<dl>
+<dt>
+*–Xopt*=/OPT/
+</dt>
+<dd>pass OPT to texi2dvi; can be repeated.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Input file options:
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<dl>
+<dt>
+<strong>-D</strong> VAR
+</dt>
+<dd>define the variable VAR, as with @set.</dd>
+<dt>
+<strong>-D</strong> &#39;VAR VAL&#39;
+</dt>
+<dd>define VAR to VAL (one shell argument).</dd>
+<dt>
+<strong>-I</strong> DIR
+</dt>
+<dd>append DIR to the @include search path.</dd>
+<dt>
+<strong>-P</strong> DIR
+</dt>
+<dd>prepend DIR to the @include search path.</dd>
+<dt>
+<strong>-U</strong> VAR
+</dt>
+<dd>undefine the variable VAR, as with @clear.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Conditional processing in input:
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<dl>
+<dt>
+<strong>–ifdocbook</strong>
+</dt>
+<dd>process @ifdocbook and @docbook even if not
+generating Docbook.</dd>
+<dt>
+<strong>–ifhtml</strong>
+</dt>
+<dd>process @ifhtml and @html even if not generating HTML.</dd>
+<dt>
+<strong>–ifinfo</strong>
+</dt>
+<dd>process @ifinfo even if not generating Info.</dd>
+<dt>
+<strong>–iflatex</strong>
+</dt>
+<dd>process @iflatex and @latex.</dd>
+<dt>
+<strong>–ifplaintext</strong>
+</dt>
+<dd>process @ifplaintext even if not generating plain
+text.</dd>
+<dt>
+<strong>–iftex</strong>
+</dt>
+<dd>process @iftex and @tex.</dd>
+<dt>
+<strong>–ifxml</strong>
+</dt>
+<dd>process @ifxml and @xml.</dd>
+<dt>
+<strong>–no-ifdocbook</strong>
+</dt>
+<dd>do not process @ifdocbook and @docbook text.</dd>
+<dt>
+<strong>–no-ifhtml</strong>
+</dt>
+<dd>do not process @ifhtml and @html text.</dd>
+<dt>
+<strong>–no-ifinfo</strong>
+</dt>
+<dd>do not process @ifinfo text.</dd>
+<dt>
+<strong>–no-iflatex</strong>
+</dt>
+<dd>do not process @iflatex and @latex text.</dd>
+<dt>
+<strong>–no-ifplaintext</strong>
+</dt>
+<dd>do not process @ifplaintext text.</dd>
+<dt>
+<strong>–no-iftex</strong>
+</dt>
+<dd>do not process @iftex and @tex text.</dd>
+<dt>
+<strong>–no-ifxml</strong>
+</dt>
+<dd>do not process @ifxml and @xml text.</dd>
+</dl>
+<p>Also, for the <strong>–no-ifFORMAT</strong> options, do process @ifnotFORMAT text.</p>
+<p>
+The defaults for the @if… conditionals depend on the output format: if
+generating Docbook, <strong>–ifdocbook</strong> is on and the others are off; if
+generating HTML, <strong>–ifhtml</strong> is on and the others are off; if generating
+Info, <strong>–ifinfo</strong> is on and the others are off; if generating plain text,
+<strong>–ifplaintext</strong> is on and the others are off; if generating LaTeX,
+<strong>–iflatex</strong> is on and the others are off; if generating XML, <strong>–ifxml</strong>
+is on and the others are off.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<dl>
+<dt>
+makeinfo foo.texi
+</dt>
+<dd>write Info to foo&#39;s @setfilename</dd>
+<dt>
+makeinfo –html foo.texi
+</dt>
+<dd>write HTML to @setfilename</dd>
+<dt>
+makeinfo –xml foo.texi
+</dt>
+<dd>write Texinfo XML to @setfilename</dd>
+<dt>
+makeinfo –docbook foo.texi
+</dt>
+<dd>write Docbook XML to @setfilename</dd>
+<dt>
+makeinfo –plaintext foo.texi
+</dt>
+<dd>write plain text to standard output</dd>
+<dt>
+makeinfo –pdf foo.texi
+</dt>
+<dd>write PDF using texi2dvi</dd>
+<dt>
+makeinfo –html –no-headers foo.texi
+</dt>
+<dd>write html without node
+lines, menus</dd>
+<dt>
+makeinfo –number-sections foo.texi
+</dt>
+<dd>write Info with numbered
+sections</dd>
+<dt>
+makeinfo –no-split foo.texi
+</dt>
+<dd>write one Info file however big</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>Email bug reports to bug-texinfo@gnu.org, general questions and
+discussion to help-texinfo@gnu.org.<br>
+Texinfo home page: <a href="http://www.gnu.org/software/texinfo/">http://www.gnu.org/software/texinfo/</a></p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>Copyright © 2023 Free Software Foundation, Inc. License GPLv3+: GNU GPL
+version 3 or later &lt;<a href="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</a>&gt;<br>
+This is free software: you are free to change and redistribute it. There
+is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>The full documentation for <strong>texi2any</strong> is maintained as a Texinfo manual.
+If the <strong>info</strong> and <strong>texi2any</strong> programs are properly installed at your
+site, the command</p>
+<blockquote>
+<p><strong>info texi2any</strong></p>
+</blockquote>
+<p>
+should give you access to the complete manual.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

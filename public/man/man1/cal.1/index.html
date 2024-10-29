@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - cal.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - cal.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>cal - display a calendar</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>cal</strong> [options] [[[/day/] /month/] /year/]</p>
+<p>
+<strong>cal</strong> [options] [/timestamp/|/monthname/]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>cal</strong> displays a simple calendar. If no arguments are specified, the
+current month is displayed.</p>
+<p>
+The <em>month</em> may be specified as a number (1-12), as a month name or as
+an abbreviated month name according to the current locales.</p>
+<p>
+Two different calendar systems are used, Gregorian and Julian. These are
+nearly identical systems with Gregorian making a small adjustment to the
+frequency of leap years; this facilitates improved synchronization with
+solar events like the equinoxes. The Gregorian calendar reform was
+introduced in 1582, but its adoption continued up to 1923. By default
+<strong>cal</strong> uses the adoption date of 3 Sept 1752. From that date forward the
+Gregorian calendar is displayed; previous dates use the Julian calendar
+system. 11 days were removed at the time of adoption to bring the
+calendar in sync with solar events. So Sept 1752 has a mix of Julian and
+Gregorian dates by which the 2nd is followed by the 14th (the 3rd
+through the 13th are absent).</p>
+<p>
+Optionally, either the proleptic Gregorian calendar or the Julian
+calendar may be used exclusively. See <strong>–reform</strong> below.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-1</strong>, <strong>–one</strong></p>
+<blockquote>
+<p>Display single month output. (This is the default.)</p>
+</blockquote>
+<p>
+<strong>-3</strong>, <strong>–three</strong></p>
+<blockquote>
+<p>Display three months spanning the date.</p>
+</blockquote>
+<p>
+<strong>-n , –months</strong> <em>number</em></p>
+<blockquote>
+<p>Display <em>number</em> of months, starting from the month containing the date.</p>
+</blockquote>
+<p>
+<strong>-S, –span</strong></p>
+<blockquote>
+<p>Display months spanning the date.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–sunday</strong></p>
+<blockquote>
+<p>Display Sunday as the first day of the week.</p>
+</blockquote>
+<p>
+<strong>-m</strong>, <strong>–monday</strong></p>
+<blockquote>
+<p>Display Monday as the first day of the week.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–vertical</strong></p>
+<blockquote>
+<p>Display using a vertical layout (aka *ncal*(1) mode).</p>
+</blockquote>
+<p>
+<strong>–iso</strong></p>
+<blockquote>
+<p>Display the proleptic Gregorian calendar exclusively. This option does
+not affect week numbers and the first day of the week. See <strong>–reform</strong>
+below.</p>
+</blockquote>
+<p>
+<strong>-j</strong>, <strong>–julian</strong></p>
+<blockquote>
+<p>Use day-of-year numbering for all calendars. These are also called
+ordinal days. Ordinal days range from 1 to 366. This option does not
+switch from the Gregorian to the Julian calendar system, that is
+controlled by the <strong>–reform</strong> option.</p>
+<p>
+Sometimes Gregorian calendars using ordinal dates are referred to as
+Julian calendars. This can be confusing due to the many date related
+conventions that use Julian in their name: (ordinal) julian date, julian
+(calendar) date, (astronomical) julian date, (modified) julian date, and
+more. This option is named julian, because ordinal days are identified
+as julian by the POSIX standard. However, be aware that <strong>cal</strong> also uses
+the Julian calendar system. See <strong>DESCRIPTION</strong> above.</p>
+</blockquote>
+<p>
+<strong>–reform</strong> <em>val</em></p>
+<blockquote>
+<p>This option sets the adoption date of the Gregorian calendar reform.
+Calendar dates previous to reform use the Julian calendar system.
+Calendar dates after reform use the Gregorian calendar system. The
+argument <em>val</em> can be:</p>
+<blockquote>
+<p>·</p>
+<p>
+<em>1752</em> - sets 3 September 1752 as the reform date (default). This is
+when the Gregorian calendar reform was adopted by the British Empire.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>gregorian</em> - display Gregorian calendars exclusively. This special
+placeholder sets the reform date below the smallest year that <strong>cal</strong> can
+use; meaning all calendar output uses the Gregorian calendar system.
+This is called the proleptic Gregorian calendar, because dates prior to
+the calendar system&#39;s creation use extrapolated values.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>iso</em> - alias of <em>gregorian</em>. The ISO 8601 standard for the
+representation of dates and times in information interchange requires
+using the proleptic Gregorian calendar.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>julian</em> - display Julian calendars exclusively. This special
+placeholder sets the reform date above the largest year that <strong>cal</strong> can
+use; meaning all calendar output uses the Julian calendar system.</p>
+<p>
+See <strong>DESCRIPTION</strong> above.</p>
+</blockquote>
+</blockquote>
+<p>
+<strong>-y</strong>, <strong>–year</strong></p>
+<blockquote>
+<p>Display a calendar for the whole year.</p>
+</blockquote>
+<p>
+<strong>-Y, –twelve</strong></p>
+<blockquote>
+<p>Display a calendar for the next twelve months.</p>
+</blockquote>
+<p>
+<strong>-w</strong>, <strong>–week</strong>[=/number/]</p>
+<blockquote>
+<p>Display week numbers in the calendar (US or ISO-8601). See the <strong>NOTES</strong>
+section for more details.</p>
+</blockquote>
+<p>
+<strong>–color</strong>[=/when/]</p>
+<blockquote>
+<p>Colorize the output. The optional argument <em>when</em> can be <strong>auto</strong>, <strong>never</strong>
+or <strong>always</strong>. If the <em>when</em> argument is omitted, it defaults to <strong>auto</strong>.
+The colors can be disabled; for the current built-in default see the
+<strong>–help</strong> output. See also the <strong>COLORS</strong> section.</p>
+</blockquote>
+<p>
+*-c, –columns*=/columns/</p>
+<blockquote>
+<p>Number of columns to use. <strong>auto</strong> uses as many as fit the terminal.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+PARAMETERS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p><strong>Single digits-only parameter (e.g., cal 2020)</strong></p>
+<blockquote>
+<p>Specifies the <em>year</em> to be displayed; note the year must be fully
+specified: <strong>cal 89</strong> will not display a calendar for 1989.</p>
+</blockquote>
+<p>
+<strong>Single string parameter (e.g., cal tomorrow or cal August)</strong></p>
+<blockquote>
+<p>Specifies <em>timestamp</em> or a <em>month name</em> (or abbreviated name) according
+to the current locales.</p>
+<p>
+The special placeholders are accepted when parsing timestamp, &#34;now&#34; may
+be used to refer to the current time, &#34;today&#34;, &#34;yesterday&#34;, &#34;tomorrow&#34;
+refer to of the current day, the day before or the next day,
+respectively.</p>
+<p>
+The relative date specifications are also accepted, in this case &#34;+&#34; is
+evaluated to the current time plus the specified time span.
+Correspondingly, a time span that is prefixed with &#34;-&#34; is evaluated to
+the current time minus the specified time span, for example <del>2days.
+Instead of prefixing the time span with &#34;</del>&#34; or &#34;-&#34;, it may also be
+suffixed with a space and the word &#34;left&#34; or &#34;ago&#34; (for example 1 week
+ago).</p>
+</blockquote>
+<p>
+<strong>Two parameters (e.g., cal 11 2020)</strong></p>
+<blockquote>
+<p>Denote the <em>month</em> (1 - 12) and <em>year</em>.</p>
+</blockquote>
+<p>
+<strong>Three parameters (e.g., cal 25 11 2020)</strong></p>
+<blockquote>
+<p>Denote the <em>day</em> (1-31), <em>month and year</em>, and the day will be
+highlighted if the calendar is displayed on a terminal. If no parameters
+are specified, the current month&#39;s calendar is displayed.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+NOTES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>A year starts on January 1. The first day of the week is determined by
+the locale or the <strong>–sunday</strong> and <strong>–monday</strong> options.</p>
+<p>
+The week numbering depends on the choice of the first day of the week.
+If it is Sunday then the customary North American numbering is used,
+where 1 January is in week number 1. If it is Monday (<strong>-m</strong>) then the ISO
+8601 standard week numbering is used, where the first Thursday is in
+week number 1.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+COLORS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The output colorization is implemented by *terminal-colors.d*(5)
+functionality. Implicit coloring can be disabled by an empty file</p>
+<blockquote>
+<p><em>/etc/terminal-colors.d/cal.disable</em>\\</p>
+</blockquote>
+<p>
+for the <strong>cal</strong> command or for all tools by</p>
+<blockquote>
+<p><em>/etc/terminal-colors.d/disable</em>\\</p>
+</blockquote>
+<p>
+The user-specific <em>$XDG_CONFIG_HOME/terminal-colors.d</em> or
+<em>$HOME</em>.config/terminal-colors.d/ overrides the global setting.</p>
+<p>
+Note that the output colorization may be enabled by default, and in this
+case <em>terminal-colors.d</em> directories do not have to exist yet.</p>
+<p>
+The logical color names supported by <strong>cal</strong> are:</p>
+<p>
+<strong>today</strong></p>
+<blockquote>
+<p>The current day.</p>
+</blockquote>
+<p>
+<strong>weeknumber</strong></p>
+<blockquote>
+<p>The number of the week.</p>
+</blockquote>
+<p>
+<strong>header</strong></p>
+<blockquote>
+<p>The header of a month.</p>
+</blockquote>
+<p>
+<strong>workday</strong></p>
+<blockquote>
+<p>Days that fall within the work-week.</p>
+</blockquote>
+<p>
+<strong>weekend</strong></p>
+<blockquote>
+<p>Days that fall outside the work-week.</p>
+</blockquote>
+<p>
+For example:</p>
+<blockquote>
+<p>echo -e weekend 35\ntoday 1;41\nheader yellow &gt;
+$HOME/.config/terminal-colors.d/cal.scheme\\</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+HISTORY
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>A <strong>cal</strong> command appeared in Version 6 AT&amp;T UNIX.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The default <strong>cal</strong> output uses 3 September 1752 as the Gregorian calendar
+reform date. The historical reform dates for the other locales,
+including its introduction in October 1582, are not implemented.</p>
+<p>
+Alternative calendars, such as the Umm al-Qura, the Solar Hijri, the
+Ge&#39;ez, or the lunisolar Hindu, are not supported.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>*terminal-colors.d*(5)</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>The <strong>cal</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-remote-ext.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-remote-ext.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-remote-ext - Bridge smart transport to external command.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git remote add &lt;nick&gt; &#34;ext::&lt;command&gt;[ &lt;arguments&gt;...]&#34;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This remote helper uses the specified <em>&lt;command&gt;</em> to connect to a remote
+Git server.</p>
+<p>
+Data written to stdin of the specified <em>&lt;command&gt;</em> is assumed to be sent
+to a git:// server, git-upload-pack, git-receive-pack or
+git-upload-archive (depending on situation), and data read from stdout
+of &lt;command&gt; is assumed to be received from the same service.</p>
+<p>
+Command and arguments are separated by an unescaped space.</p>
+<p>
+The following sequences have a special meaning:</p>
+<p>
+%</p>
+<blockquote>
+<p>Literal space in command or argument.</p>
+</blockquote>
+<p>
+<em>%%</em></p>
+<blockquote>
+<p>Literal percent sign.</p>
+</blockquote>
+<p>
+<em>%s</em></p>
+<blockquote>
+<p>Replaced with name (receive-pack, upload-pack, or upload-archive) of the
+service Git wants to invoke.</p>
+</blockquote>
+<p>
+<em>%S</em></p>
+<blockquote>
+<p>Replaced with long name (git-receive-pack, git-upload-pack, or
+git-upload-archive) of the service Git wants to invoke.</p>
+</blockquote>
+<p>
+<em>%G</em> (must be the first characters in an argument)</p>
+<blockquote>
+<p>This argument will not be passed to <em>&lt;command&gt;</em>. Instead, it will cause
+the helper to start by sending git:// service requests to the remote
+side with the service field set to an appropriate value and the
+repository field set to the rest of the argument. Default is not to send
+such a request.</p>
+<p>
+This is useful if the remote side is git:// server accessed over some
+tunnel.</p>
+</blockquote>
+<p>
+<em>%V</em> (must be first characters in argument)</p>
+<blockquote>
+<p>This argument will not be passed to <em>&lt;command&gt;</em>. Instead it sets the
+vhost field in the git:// service request (to the rest of the argument).
+Default is not to send vhost in such request (if sent).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+ENVIRONMENT VARIABLES
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>GIT_TRANSLOOP_DEBUG</p>
+<blockquote>
+<p>If set, prints debugging information about various reads/writes.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ENVIRONMENT VARIABLES PASSED TO COMMAND
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>GIT_EXT_SERVICE</p>
+<blockquote>
+<p>Set to long name (git-upload-pack, etc…) of service helper needs to
+invoke.</p>
+</blockquote>
+<p>
+GIT_EXT_SERVICE_NOPREFIX</p>
+<blockquote>
+<p>Set to long name (upload-pack, etc…) of service helper needs to
+invoke.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>This remote helper is transparently used by Git when you use commands
+such as &#34;git fetch &lt;URL&gt;&#34;, &#34;git clone &lt;URL&gt;&#34;, , &#34;git push &lt;URL&gt;&#34; or &#34;git
+remote add &lt;nick&gt; &lt;URL&gt;&#34;, where &lt;URL&gt; begins with <strong>ext::</strong>. Examples:</p>
+<p>
+&#34;ext::ssh -i <em>home/foo</em>.ssh/somekey user@host.example %S <em>foo/repo</em>&#34;</p>
+<blockquote>
+<p>Like host.example:foo/repo, but use <em>home/foo</em>.ssh/somekey as keypair
+and user as the user on the remote side. This avoids the need to edit
+.ssh/config.</p>
+</blockquote>
+<p>
+&#34;ext::socat -t3600 - ABSTRACT-CONNECT:/git-server %G/somerepo&#34;</p>
+<blockquote>
+<p>Represents repository with path /somerepo accessible over git protocol
+at the abstract namespace address /git-server.</p>
+</blockquote>
+<p>
+&#34;ext::git-server-alias foo %G/repo&#34;</p>
+<blockquote>
+<p>Represents a repository with path /repo accessed using the helper
+program &#34;git-server-alias foo&#34;. The path to the repository and type of
+request are not passed on the command line but as part of the protocol
+stream, as usual with git:// protocol.</p>
+</blockquote>
+<p>
+&#34;ext::git-server-alias foo %G/repo %Vfoo&#34;</p>
+<blockquote>
+<p>Represents a repository with path /repo accessed using the helper
+program &#34;git-server-alias foo&#34;. The hostname for the remote server
+passed in the protocol stream will be &#34;foo&#34; (this allows multiple
+virtual Git servers to share a link-level address).</p>
+</blockquote>
+<p>
+&#34;ext::git-server-alias foo %G/repo% with% spaces %Vfoo&#34;</p>
+<blockquote>
+<p>Represents a repository with path <strong>/repo with spaces</strong> accessed using the
+helper program &#34;git-server-alias foo&#34;. The hostname for the remote
+server passed in the protocol stream will be &#34;foo&#34; (this allows multiple
+virtual Git servers to share a link-level address).</p>
+</blockquote>
+<p>
+&#34;ext::git-ssl foo.example /bar&#34;</p>
+<blockquote>
+<p>Represents a repository accessed using the helper program &#34;git-ssl
+foo.example /bar&#34;. The type of request can be determined by the helper
+using environment variables (see above).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*gitremote-helpers*(7)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

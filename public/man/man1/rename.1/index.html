@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - rename.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - rename.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>rename - rename files</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>rename</strong> [options] <em>expression replacement file</em>…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>rename</strong> will rename the specified files by replacing the first
+occurrence of <em>expression</em> in their name by <em>replacement</em>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-s</strong>, <strong>–symlink</strong></p>
+<blockquote>
+<p>Do not rename a symlink but change where it points.</p>
+</blockquote>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<blockquote>
+<p>Show which files were renamed, if any.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–no-act</strong></p>
+<blockquote>
+<p>Do not make any changes; add <strong>–verbose</strong> to see what would be made.</p>
+</blockquote>
+<p>
+<strong>-a</strong>, <strong>–all</strong></p>
+<blockquote>
+<p>Replace all occurrences of <em>expression</em> rather than only the first one.</p>
+</blockquote>
+<p>
+<strong>-l</strong>, <strong>–last</strong></p>
+<blockquote>
+<p>Replace the last occurrence of <em>expression</em> rather than the first one.</p>
+</blockquote>
+<p>
+<strong>-o</strong>, <strong>–no-overwrite</strong></p>
+<blockquote>
+<p>Do not overwrite existing files. When <strong>–symlink</strong> is active, do not
+overwrite symlinks pointing to existing targets.</p>
+</blockquote>
+<p>
+<strong>-i</strong>, <strong>–interactive</strong></p>
+<blockquote>
+<p>Ask before overwriting existing files.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+WARNING
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The renaming has no safeguards by default or without any one of the
+options <strong>–no-overwrite</strong>, <strong>–interactive</strong> or <strong>–no-act</strong>. If the user has
+permission to rewrite file names, the command will perform the action
+without any questions. For example, the result can be quite drastic when
+the command is run as root in the <em>/lib</em> directory. Always make a backup
+before running the command, unless you truly know what you are doing.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EDGE CASES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>If the <em>expression</em> is empty, then by default <em>replacement</em> will be
+added to the start of the filename. With <strong>–all</strong>, <em>replacement</em> will be
+inserted in between every two characters of the filename, as well as at
+the start and end.</p>
+<p>
+Normally, only the final path component of a filename is updated. (Or
+with <strong>–symlink</strong>, only the final path component of the link.) But if
+either <em>expression</em> or <em>replacement</em> contains a <em>/</em>, the full path is
+updated. This can cause a file to be moved between folders. Creating
+folders, and moving files between filesystems, is not supported.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+INTERACTIVE MODE
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>As most standard utilities rename can be used with a terminal device
+(tty in short) in canonical mode, where the line is buffered by the tty
+and you press ENTER to validate the user input. If you put your tty in
+cbreak mode however, rename requires only a single key press to answer
+the prompt. To set cbreak mode, run for example:</p>
+<blockquote>
+<pre class="example">
+sh -c stty -icanon min 1; &#34;$0&#34; &#34;$@&#34;; stty icanon rename -i from to files
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>0</strong></p>
+<blockquote>
+<p>all requested rename operations were successful</p>
+</blockquote>
+<p>
+<strong>1</strong></p>
+<blockquote>
+<p>all rename operations failed</p>
+</blockquote>
+<p>
+<strong>2</strong></p>
+<blockquote>
+<p>some rename operations failed</p>
+</blockquote>
+<p>
+<strong>4</strong></p>
+<blockquote>
+<p>nothing was renamed</p>
+</blockquote>
+<p>
+<strong>64</strong></p>
+<blockquote>
+<p>unanticipated error occurred</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Given the files <em>foo1</em>, …, <em>foo9</em>, <em>foo10</em>, …, <em>foo278</em>, the
+commands</p>
+<blockquote>
+<pre class="example">
+rename foo foo00 foo?
+rename foo foo0 foo??
+</pre>
+</blockquote>
+<p>
+will turn them into <em>foo001</em>, …, <em>foo009</em>, <em>foo010</em>, …, <em>foo278</em>.
+And</p>
+<blockquote>
+<pre class="example">
+rename .htm .html *.htm
+</pre>
+</blockquote>
+<p>
+will fix the extension of your html files. Provide an empty string for
+shortening:</p>
+<blockquote>
+<pre class="example">
+rename _with_long_name  file_with_long_name.*
+</pre>
+</blockquote>
+<p>
+will remove the substring in the filenames.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>*mv*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>The <strong>rename</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

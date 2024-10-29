@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-ls-remote.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-ls-remote.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-ls-remote - List references in a remote repository</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git ls-remote [--branches] [--tags] [--refs] [--upload-pack=&lt;exec&gt;]
+              [-q | --quiet] [--exit-code] [--get-url] [--sort=&lt;key&gt;]
+              [--symref] [&lt;repository&gt; [&lt;patterns&gt;...]]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Displays references available in a remote repository along with the
+associated commit IDs.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-b, –branches, -t, –tags</p>
+<blockquote>
+<p>Limit to only local branches and local tags, respectively. These options
+are <em>not</em> mutually exclusive; when given both, references stored in
+refs/heads and refs/tags are displayed. Note that <strong>–heads</strong> and <strong>-h</strong> are
+deprecated synonyms for <strong>–branches</strong> and <strong>-b</strong> and may be removed in the
+future. Also note that <strong>git ls-remote -h</strong> used without anything else on
+the command line gives help, consistent with other git subcommands.</p>
+</blockquote>
+<p>
+–refs</p>
+<blockquote>
+<p>Do not show peeled tags or pseudorefs like <strong>HEAD</strong> in the output.</p>
+</blockquote>
+<p>
+-q, –quiet</p>
+<blockquote>
+<p>Do not print remote URL to stderr.</p>
+</blockquote>
+<p>
+–upload-pack=&lt;exec&gt;</p>
+<blockquote>
+<p>Specify the full path of <em>git-upload-pack</em> on the remote host. This
+allows listing references from repositories accessed via SSH and where
+the SSH daemon does not use the PATH configured by the user.</p>
+</blockquote>
+<p>
+–exit-code</p>
+<blockquote>
+<p>Exit with status &#34;2&#34; when no matching refs are found in the remote
+repository. Usually the command exits with status &#34;0&#34; to indicate it
+successfully talked with the remote repository, whether it found any
+matching refs.</p>
+</blockquote>
+<p>
+–get-url</p>
+<blockquote>
+<p>Expand the URL of the given remote repository taking into account any
+&#34;url.&lt;base&gt;.insteadOf&#34; config setting (See *git-config*(1)) and exit
+without talking to the remote.</p>
+</blockquote>
+<p>
+–symref</p>
+<blockquote>
+<p>In addition to the object pointed by it, show the underlying ref pointed
+by it when showing a symbolic ref. Currently, upload-pack only shows the
+symref HEAD, so it will be the only one shown by ls-remote.</p>
+</blockquote>
+<p>
+–sort=&lt;key&gt;</p>
+<blockquote>
+<p>Sort based on the key given. Prefix <strong>-</strong> to sort in descending order of
+the value. Supports &#34;version:refname&#34; or &#34;v:refname&#34; (tag names are
+treated as versions). The &#34;version:refname&#34; sort order can also be
+affected by the &#34;versionsort.suffix&#34; configuration variable. See
+<strong>git-for-each-ref*(1) for more sort options, but be aware keys like
+*committerdate</strong> that require access to the objects themselves will not
+work for refs whose objects have not yet been fetched from the remote,
+and will give a <strong>missing object</strong> error.</p>
+</blockquote>
+<p>
+-o &lt;option&gt;, –server-option=&lt;option&gt;</p>
+<blockquote>
+<p>Transmit the given string to the server when communicating using
+protocol version 2. The given string must not contain a NUL or LF
+character. When multiple <strong>–server-option=&lt;option&gt;</strong> are given, they are
+all sent to the other side in the order listed on the command line.</p>
+</blockquote>
+<p>
+&lt;repository&gt;</p>
+<blockquote>
+<p>The &#34;remote&#34; repository to query. This parameter can be either a URL or
+the name of a remote (see the GIT URLS and REMOTES sections of
+*git-fetch*(1)).</p>
+</blockquote>
+<p>
+&lt;patterns&gt;…</p>
+<blockquote>
+<p>When unspecified, all references, after filtering done with –heads and
+–tags, are shown. When &lt;patterns&gt;… are specified, only references
+matching one or more of the given patterns are displayed. Each pattern
+is interpreted as a glob (see <strong>glob</strong> in *gitglossary*(7)) which is
+matched against the &#34;tail&#34; of a ref, starting either from the start of
+the ref (so a full name like <strong>refs/heads/foo</strong> matches) or from a slash
+separator (so <strong>bar</strong> matches <strong>refs/heads/bar</strong> but not
+<strong>refs/heads/foobar</strong>).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OUTPUT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The output is in the format:</p>
+<blockquote>
+<pre class="example">
+&lt;oid&gt; TAB &lt;ref&gt; LF
+</pre>
+</blockquote>
+<p>
+When showing an annotated tag, unless <strong>–refs</strong> is given, two such lines
+are shown: one with the refname for the tag itself as <strong>&lt;ref&gt;</strong>, and
+another with <strong>&lt;ref&gt;</strong> followed by <strong>^{}</strong>. The <strong>&lt;oid&gt;</strong> on the latter line
+shows the name of the object the tag points at.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<blockquote>
+<p>·</p>
+<p>
+List all references (including symbolics and pseudorefs), peeling tags:</p>
+<blockquote>
+<pre class="example">
+$ git ls-remote
+27d43aaaf50ef0ae014b88bba294f93658016a2e        HEAD
+950264636c68591989456e3ba0a5442f93152c1a        refs/heads/main
+d9ab777d41f92a8c1684c91cfb02053d7dd1046b        refs/heads/next
+d4ca2e3147b409459955613c152220f4db848ee1        refs/tags/v2.40.0
+73876f4861cd3d187a4682290ab75c9dccadbc56        refs/tags/v2.40.0^{}
+</pre>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+List all references matching given patterns:</p>
+<blockquote>
+<pre class="example">
+$ git ls-remote http://www.kernel.org/pub/scm/git/git.git master seen rc
+5fe978a5381f1fbad26a80e682ddd2a401966740        refs/heads/master
+c781a84b5204fb294c9ccc79f8b3baceeb32c061        refs/heads/seen
+</pre>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+List only tags matching a given wildcard pattern:</p>
+<blockquote>
+<pre class="example">
+$ git ls-remote --tags http://www.kernel.org/pub/scm/git/git.git v\*
+485a869c64a68cc5795dd99689797c5900f4716d        refs/tags/v2.39.2
+cbf04937d5b9fcf0a76c28f69e6294e9e3ecd7e6        refs/tags/v2.39.2^{}
+d4ca2e3147b409459955613c152220f4db848ee1        refs/tags/v2.40.0
+73876f4861cd3d187a4682290ab75c9dccadbc56        refs/tags/v2.40.0^{}
+</pre>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*git-check-ref-format*(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

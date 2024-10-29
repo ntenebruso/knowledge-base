@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-count-objects.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-count-objects.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-count-objects - Count unpacked number of objects and their disk
+consumption</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git count-objects [-v] [-H | --human-readable]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Counts the number of unpacked object files and disk space consumed by
+them, to help you decide when it is a good time to repack.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-v, –verbose</p>
+<blockquote>
+<p>Provide more detailed reports:</p>
+<p>
+count: the number of loose objects</p>
+<p>
+size: disk space consumed by loose objects, in KiB (unless -H is
+specified)</p>
+<p>
+in-pack: the number of in-pack objects</p>
+<p>
+size-pack: disk space consumed by the packs, in KiB (unless -H is
+specified)</p>
+<p>
+prune-packable: the number of loose objects that are also present in the
+packs. These objects could be pruned using <strong>git prune-packed</strong>.</p>
+<p>
+garbage: the number of files in the object database that are neither
+valid loose objects nor valid packs</p>
+<p>
+size-garbage: disk space consumed by garbage files, in KiB (unless -H is
+specified)</p>
+<p>
+alternate: absolute path of alternate object databases; may appear
+multiple times, one line per path. Note that if the path contains
+non-printable characters, it may be surrounded by double-quotes and
+contain C-style backslashed escape sequences.</p>
+</blockquote>
+<p>
+-H, –human-readable</p>
+<blockquote>
+<p>Print sizes in human readable format</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+GIT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

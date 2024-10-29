@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - manpath.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - manpath.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>manpath - determine search path for manual pages</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>manpath</strong> [ <strong>-qgdc?V</strong> ] [ <strong>-m</strong> <em>system</em> [ ,. . . ] ] [ <strong>-C</strong> <em>file</em> ]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>If $*MANPATH* is set, <strong>manpath</strong> will simply display its contents and
+issue a warning. If not, <strong>manpath</strong> will determine a suitable manual page
+hierarchy search path and display the results.</p>
+<p>
+The colon-delimited path is determined using information gained from the
+man-db configuration file –
+(<em>/nix/store/fj110lfz7yfgdv7yv5pcb0n3af7i4gjk-man-db-2.12.1/etc/man_db.conf</em>)
+and the user&#39;s environment.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+<strong>-q</strong>, <strong>–quiet</strong>
+</dt>
+<dd>Do not issue warnings.</dd>
+<dt>
+<strong>-d</strong>, <strong>–debug</strong>
+</dt>
+<dd>Print debugging information.</dd>
+<dt>
+<strong>-c</strong>, <strong>–catpath</strong>
+</dt>
+<dd>Produce a catpath as opposed to a manpath. Once
+the manpath is determined, each path element is converted to its
+relative catpath.</dd>
+<dt>
+<strong>-g</strong>, <strong>–global</strong>
+</dt>
+<dd>Produce a manpath consisting of all paths named as
+&#34;global&#34; within the man-db configuration file.</dd>
+<dt>
+<strong>-m</strong> <em>system</em> [ ,. . . ] , *–systems=*/system/ [ ,. . . ]
+</dt>
+<dd>If this
+system has access to other operating systems&#39; manual hierarchies, this
+option can be used to include them in the output of <strong>manpath</strong>. To
+include NewOS&#39;s manual page hierarchies use the option <strong>-m</strong> <strong>NewOS</strong>.
+
+The <em>system</em> specified can be a combination of comma delimited
+operating system names. To include the native operating system&#39;s
+manual page hierarchies, the system name <strong>man</strong> must be included in the
+argument string. This option will override the $*SYSTEM* environment
+variable.</dd>
+<dt>
+<strong>-C */file/</strong>, *–config-file=**/file/
+</dt>
+<dd>Use this user configuration
+file rather than the default of <em>~</em>.manpath/.</dd>
+<dt>
+<strong>-?</strong>, <strong>–help</strong>
+</dt>
+<dd>Print a help message and exit.</dd>
+<dt>
+<strong>–usage</strong>
+</dt>
+<dd>Print a short usage message and exit.</dd>
+<dt>
+<strong>-V</strong>, <strong>–version</strong>
+</dt>
+<dd>Display version information.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<dl>
+<dt>
+<strong>MANPATH</strong>
+</dt>
+<dd>If $*MANPATH* is set, <strong>manpath</strong> displays its value rather
+than determining it on the fly.
+
+See the <strong>SEARCH PATH</strong> section of *manpath*(5) for the default
+behaviour and details of how this environment variable is handled.</dd>
+<dt>
+<strong>SYSTEM</strong>
+</dt>
+<dd>If $*SYSTEM* is set, it will have the same effect as if it
+had been specified as the argument to the <strong>-m</strong> option.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+FILES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<dl>
+<dt>
+<em>/nix/store/fj110lfz7yfgdv7yv5pcb0n3af7i4gjk-man-db-2.12.1/etc/man_db.conf</em>
+</dt>
+<dd>man-db
+configuration file.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>*apropos*(1), *man*(1), *whatis*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AUTHOR
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<pre class="example">
+Wilf. (G.Wilford@ee.surrey.ac.uk).
+Fabrizio Polacco (fpolacco@debian.org).
+Colin Watson (cjwatson@debian.org).
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+BUGS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p><a href="https://gitlab.com/man-db/man-db/-/issues">https://gitlab.com/man-db/man-db/-/issues</a><br>
+<a href="https://savannah.nongnu.org/bugs/?group=man-db">https://savannah.nongnu.org/bugs/?group=man-db</a></p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

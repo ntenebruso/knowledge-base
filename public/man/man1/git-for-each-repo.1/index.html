@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-for-each-repo.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-for-each-repo.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-for-each-repo - Run a Git command on a list of repositories</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git for-each-repo --config=&lt;config&gt; [--] &lt;arguments&gt;
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Run a Git command on a list of repositories. The arguments after the
+known options or <strong>–</strong> indicator are used as the arguments for the Git
+subprocess.</p>
+<p>
+THIS COMMAND IS EXPERIMENTAL. THE BEHAVIOR MAY CHANGE.</p>
+<p>
+For example, we could run maintenance on each of a list of repositories
+stored in a <strong>maintenance.repo</strong> config variable using</p>
+<blockquote>
+<pre class="example">
+git for-each-repo --config=maintenance.repo maintenance run
+</pre>
+</blockquote>
+<p>
+This will run <strong>git -C &lt;repo&gt; maintenance run</strong> for each value <strong>&lt;repo&gt;</strong> in
+the multi-valued config variable <strong>maintenance.repo</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>–config=&lt;config&gt;</p>
+<blockquote>
+<p>Use the given config variable as a multi-valued list storing absolute
+path names. Iterate on that list of paths to run the given arguments.</p>
+<p>
+These config values are loaded from system, global, and local Git
+config, as available. If <strong>git for-each-repo</strong> is run in a directory that
+is not a Git repository, then only the system and global config is used.</p>
+</blockquote>
+<p>
+–keep-going</p>
+<blockquote>
+<p>Continue with the remaining repositories if the command failed on a
+repository. The exit code will still indicate that the overall operation
+was not successful.</p>
+<p>
+Note that the exact exit code of the failing command is not passed
+through as the exit code of the <strong>for-each-repo</strong> command: If the command
+failed in any of the specified repositories, the overall exit code will
+be 1.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SUBPROCESS BEHAVIOR
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>If any <strong>git -C &lt;repo&gt; &lt;arguments&gt;</strong> subprocess returns a non-zero exit
+code, then the <strong>git for-each-repo</strong> process returns that exit code
+without running more subprocesses.</p>
+<p>
+Each <strong>git -C &lt;repo&gt; &lt;arguments&gt;</strong> subprocess inherits the standard file
+descriptors <strong>stdin</strong>, <strong>stdout</strong>, and <strong>stderr</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+GIT
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

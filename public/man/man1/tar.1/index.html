@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - tar.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - tar.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>tar - an archiving utility</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+Traditional usage
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p><strong>tar</strong> {<strong>A*|*c*|*d*|*r*|*t*|*u*|*x</strong>}[*GnSkUWOmpsMBiajJzZhPlRvwo*]
+[/ARG/…]</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+UNIX-style usage
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p><strong>tar</strong> <strong>-A</strong> [/OPTIONS/] <strong>-f</strong> <em>ARCHIVE</em> <em>ARCHIVE</em>…</p>
+<p>
+<strong>tar</strong> <strong>-c</strong> [*-f* <em>ARCHIVE/] [/OPTIONS/] [/FILE</em>…]</p>
+<p>
+<strong>tar</strong> <strong>-d</strong> [*-f* <em>ARCHIVE/] [/OPTIONS/] [/FILE</em>…]</p>
+<p>
+<strong>tar</strong> <strong>-r</strong> [*-f* <em>ARCHIVE/] [/OPTIONS/] [/FILE</em>…]</p>
+<p>
+<strong>tar</strong> <strong>-t</strong> [*-f* <em>ARCHIVE/] [/OPTIONS/] [/MEMBER</em>…]</p>
+<p>
+<strong>tar</strong> <strong>-u</strong> [*-f* <em>ARCHIVE/] [/OPTIONS/] [/FILE</em>…]</p>
+<p>
+<strong>tar</strong> <strong>-x</strong> [*-f* <em>ARCHIVE/] [/OPTIONS/] [/MEMBER</em>…]</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+GNU-style usage
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p><strong>tar</strong> {<strong>–catenate*|</strong>–concatenate*} [/OPTIONS/] <strong>–file</strong> <em>ARCHIVE</em>
+<em>ARCHIVE</em>…</p>
+<p>
+<strong>tar</strong> <strong>–create</strong> [*–file* <em>ARCHIVE/] [/OPTIONS/] [/FILE</em>…]</p>
+<p>
+<strong>tar</strong> {<strong>–diff*|</strong>–compare*} [*–file* <em>ARCHIVE/] [/OPTIONS/]
+[/FILE</em>…]</p>
+<p>
+<strong>tar</strong> <strong>–delete</strong> [*–file* <em>ARCHIVE/] [/OPTIONS/] [/MEMBER</em>…]</p>
+<p>
+<strong>tar</strong> <strong>–append</strong> [*–file* <em>ARCHIVE/] [/OPTIONS/] [/FILE</em>…]</p>
+<p>
+<strong>tar</strong> <strong>–list</strong> [*–file* <em>ARCHIVE/] [/OPTIONS/] [/MEMBER</em>…]</p>
+<p>
+<strong>tar</strong> <strong>–test-label</strong> [*–file* <em>ARCHIVE/] [/OPTIONS/] [/LABEL</em>…]</p>
+<p>
+<strong>tar</strong> <strong>–update</strong> [*–file* <em>ARCHIVE/] [/OPTIONS/] [/FILE</em>…]</p>
+<p>
+<strong>tar</strong> {<strong>–extract*|</strong>–get*} [*–file* <em>ARCHIVE/] [/OPTIONS/]
+[/MEMBER</em>…]</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+NOTE
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>This manpage is a short description of GNU <strong>tar</strong>. For a detailed
+discussion, including examples and usage recommendations, refer to the
+<strong>GNU Tar Manual</strong> available in texinfo format. If the <strong>info</strong> reader and
+the tar documentation are properly installed on your system, the command</p>
+<blockquote>
+<p><strong>info tar</strong></p>
+</blockquote>
+<p>
+should give you access to the complete manual.</p>
+<p>
+You can also view the manual using the info mode in *emacs*(1), or find
+it in various formats online at</p>
+<blockquote>
+<p><strong><a href="https://www.gnu.org/software/tar/manual">https://www.gnu.org/software/tar/manual</a></strong></p>
+</blockquote>
+<p>
+If any discrepancies occur between this manpage and the <strong>GNU Tar
+Manual</strong>, the later shall be considered the authoritative source.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>GNU <strong>tar</strong> is an archiving program designed to store multiple files in a
+single file (an <strong>archive</strong>), and to manipulate such archives. The archive
+can be either a regular file or a device (e.g. a tape drive, hence the
+name of the program, which stands for *t*ape *ar*chiver), which can be
+located either on the local or on a remote machine.</p>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Option styles
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Options to GNU <strong>tar</strong> can be given in three different styles. In
+<strong>traditional style</strong>, the first argument is a cluster of option letters
+and all subsequent arguments supply arguments to those options that
+require them. The arguments are read in the same order as the option
+letters. Any command line words that remain after all options have been
+processed are treated as non-option arguments: file or archive member
+names.</p>
+<p>
+For example, the <strong>c</strong> option requires creating the archive, the <strong>v</strong>
+option requests the verbose operation, and the <strong>f</strong> option takes an
+argument that sets the name of the archive to operate upon. The
+following command, written in the traditional style, instructs tar to
+store all files from the directory <strong>/etc</strong> into the archive file
+<strong>etc.tar</strong>, verbosely listing the files being archived:</p>
+<pre class="example">
+tar cfv etc.tar /etc
+</pre>
+<p>
+In <strong>UNIX *or</strong> short-option style*, each option letter is prefixed with a
+single dash, as in other command line utilities. If an option takes an
+argument, the argument follows it, either as a separate command line
+word, or immediately following the option. However, if the option takes
+an <strong>optional</strong> argument, the argument must follow the option letter
+without any intervening whitespace, as in <strong>-g/tmp/snar.db</strong>.</p>
+<p>
+Any number of options not taking arguments can be clustered together
+after a single dash, e.g. <strong>-vkp</strong>. An option that takes an argument
+(whether mandatory or optional) can appear at the end of such a cluster,
+e.g. <strong>-vkpf a.tar</strong>.</p>
+<p>
+The example command above written in the <strong>short-option style</strong> could look
+like:</p>
+<pre class="example">
+tar -cvf etc.tar /etc
+</pre>
+<p>
+or</p>
+<pre class="example">
+tar -c -v -f etc.tar /etc
+</pre>
+<p>
+In <strong>GNU *or</strong> long-option style*, each option begins with two dashes and
+has a meaningful name, consisting of lower-case letters and dashes. When
+used, the long option can be abbreviated to its initial letters,
+provided that this does not create ambiguity. Arguments to long options
+are supplied either as a separate command line word, immediately
+following the option, or separated from the option by an equals sign
+with no intervening whitespace. Optional arguments must always use the
+latter method.</p>
+<p>
+Here are several ways of writing the example command in this style:</p>
+<pre class="example">
+tar --create --file etc.tar --verbose /etc
+</pre>
+<p>
+or (abbreviating some options):</p>
+<pre class="example">
+tar --cre --file=etc.tar --verb /etc
+</pre>
+<p>
+The options in all three styles can be intermixed, although doing so
+with old options is not encouraged.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Operation mode
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>The options listed in the table below tell GNU <strong>tar</strong> what operation it
+is to perform. Exactly one of them must be given. The meaning of
+non-option arguments depends on the operation mode requested.</p>
+<dl>
+<dt>
+<strong>-A</strong>, <strong>–catenate</strong>, <strong>–concatenate</strong>
+</dt>
+<dd>Append archives to the end of
+another archive. The arguments are treated as the names of archives to
+append. All archives must be of the same format as the archive they
+are appended to, otherwise the resulting archive might be unusable
+with non-GNU implementations of <strong>tar</strong>. Notice also that when more than
+one archive is given, the members from archives other than the first
+one will be accessible in the resulting archive only when using the
+<strong>-i</strong> (<strong>–ignore-zeros</strong>) option.
+
+Compressed archives cannot be concatenated.</dd>
+<dt>
+<strong>-c</strong>, <strong>–create</strong>
+</dt>
+<dd>Create a new archive. Arguments supply the names
+of the files to be archived. Directories are archived recursively,
+unless the <strong>–no-recursion</strong> option is given.</dd>
+<dt>
+<strong>-d</strong>, <strong>–diff</strong>, <strong>–compare</strong>
+</dt>
+<dd>Find differences between archive and
+file system. The arguments are optional and specify archive members to
+compare. If not given, the current working directory is assumed.</dd>
+<dt>
+<strong>–delete</strong>
+</dt>
+<dd>Delete from the archive. The arguments supply names of
+the archive members to be removed. At least one argument must be
+given.
+
+This option does not operate on compressed archives. There is no short
+option equivalent.</dd>
+<dt>
+<strong>-r</strong>, <strong>–append</strong>
+</dt>
+<dd>Append files to the end of an archive. Arguments
+have the same meaning as for <strong>-c</strong> (<strong>–create</strong>).</dd>
+<dt>
+<strong>-t</strong>, <strong>–list</strong>
+</dt>
+<dd>List the contents of an archive. Arguments are
+optional. When given, they specify the names of the members to list.</dd>
+<dt>
+<strong>–test-label</strong>
+</dt>
+<dd>Test the archive volume label and exit. When used
+without arguments, it prints the volume label (if any) and exits with
+status <strong>0</strong>. When one or more command line arguments are given. <strong>tar</strong>
+compares the volume label with each argument. It exits with code <strong>0</strong>
+if a match is found, and with code <strong>1</strong> otherwise. No output is
+displayed, unless used together with the <strong>-v</strong> (<strong>–verbose</strong>) option.
+
+There is no short option equivalent for this option.</dd>
+<dt>
+<strong>-u</strong>, <strong>–update</strong>
+</dt>
+<dd>Append files which are newer than the
+corresponding copy in the archive. Arguments have the same meaning as
+with the <strong>-c</strong> and <strong>-r</strong> options. Notice, that newer files don&#39;t replace
+their old archive copies, but instead are appended to the end of
+archive. The resulting archive can thus contain several members of the
+same name, corresponding to various versions of the same file.</dd>
+<dt>
+<strong>-x</strong>, <strong>–extract</strong>, <strong>–get</strong>
+</dt>
+<dd>Extract files from an archive. Arguments
+are optional. When given, they specify names of the archive members to
+be extracted.</dd>
+<dt>
+<strong>–show-defaults</strong>
+</dt>
+<dd>Show built-in defaults for various <strong>tar</strong> options
+and exit.</dd>
+<dt>
+<strong>-?</strong>, <strong>–help</strong>
+</dt>
+<dd>Display a short option summary and exit.</dd>
+<dt>
+<strong>–usage</strong>
+</dt>
+<dd>Display a list of available options and exit.</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>Print program version and copyright information and
+exit.</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+OPTIONS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Operation modifiers
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<dl>
+<dt>
+<strong>–check-device</strong>
+</dt>
+<dd>Check device numbers when creating incremental
+archives (default).</dd>
+<dt>
+<strong>-g</strong>, *–listed-incremental*=/FILE/
+</dt>
+<dd>Handle new GNU-format
+incremental backups. <em>FILE</em> is the name of a <strong>snapshot file</strong>, where
+<strong>tar</strong> stores additional information which is used to decide which
+files changed since the previous incremental dump and, consequently,
+must be dumped again. If <em>FILE</em> does not exist when creating an
+archive, it will be created and all files will be added to the
+resulting archive (the <strong>level 0</strong> dump). To create incremental archives
+of non-zero level <strong>N</strong>, you need a copy of the snapshot file created
+for level <strong>N-1</strong>, and use it as <em>FILE</em>.
+
+When listing or extracting, the actual content of <em>FILE</em> is not
+inspected, it is needed only due to syntactical requirements. It is
+therefore common practice to use <strong>/dev/null</strong> in its place.</dd>
+<dt>
+*–hole-detection*=/METHOD/
+</dt>
+<dd>Use <em>METHOD</em> to detect holes in sparse
+files. This option implies <strong>–sparse</strong>. Valid values for <em>METHOD</em> are
+<strong>seek</strong> and <strong>raw</strong>. Default is <strong>seek</strong> with fallback to <strong>raw</strong> when not
+applicable.</dd>
+<dt>
+<strong>-G</strong>, <strong>–incremental</strong>
+</dt>
+<dd>Handle old GNU-format incremental backups.</dd>
+<dt>
+<strong>–ignore-failed-read</strong>
+</dt>
+<dd>Do not exit with nonzero on unreadable
+files.</dd>
+<dt>
+*–level*=/NUMBER/
+</dt>
+<dd>Set dump level for a created listed-incremental
+archive. Currently only <strong>–level=0</strong> is meaningful: it instructs <strong>tar</strong>
+to truncate the snapshot file before dumping, thereby forcing a level
+0 dump.</dd>
+<dt>
+<strong>-n</strong>, <strong>–seek</strong>
+</dt>
+<dd>Assume the archive is seekable. Normally <strong>tar</strong>
+determines automatically whether the archive can be seeked or not.
+This option is intended for use in cases when such recognition fails.
+It takes effect only if the archive is open for reading (e.g. with
+<strong>–list</strong> or <strong>–extract</strong> options).</dd>
+<dt>
+<strong>–no-check-device</strong>
+</dt>
+<dd>Do not check device numbers when creating
+incremental archives.</dd>
+<dt>
+<strong>–no-seek</strong>
+</dt>
+<dd>Assume the archive is not seekable.</dd>
+<dt>
+<strong>–occurrence</strong>[=/N/]
+</dt>
+<dd>Process only the /N/th occurrence of each file
+in the archive. This option is valid only when used with one of the
+following subcommands: <strong>–delete</strong>, <strong>–diff</strong>, <strong>–extract</strong> or <strong>–list</strong>
+and when a list of files is given either on the command line or via
+the <strong>-T</strong> option. The default <em>N</em> is <strong>1</strong>.</dd>
+<dt>
+<strong>–restrict</strong>
+</dt>
+<dd>Disable the use of some potentially harmful options.</dd>
+<dt>
+*–sparse-version*=/MAJOR/[./MINOR/]
+</dt>
+<dd>Set which version of the
+sparse format to use. This option implies <strong>–sparse</strong>. Valid argument
+values are <strong>0.0</strong>, <strong>0.1</strong>, and <strong>1.0</strong>. For a detailed discussion of
+sparse formats, refer to the <strong>GNU Tar</strong> Manual, appendix <strong>D</strong>, &#34;<strong>Sparse
+Formats</strong>&#34;. Using the <strong>info</strong> reader, it can be accessed running the
+following command: <strong>info tar &#39;Sparse Formats&#39;</strong>.</dd>
+<dt>
+<strong>-S</strong>, <strong>–sparse</strong>
+</dt>
+<dd>Handle sparse files efficiently. Some files in the
+file system may have segments which were actually never written (quite
+often these are database files created by such systems as <strong>DBM</strong>). When
+given this option, <strong>tar</strong> attempts to determine if the file is sparse
+prior to archiving it, and if so, to reduce the resulting archive size
+by not dumping empty parts of the file.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+Overwrite control
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>These options control <strong>tar</strong> actions when extracting a file over an
+existing copy on disk.</p>
+<dl>
+<dt>
+<strong>-k</strong>, <strong>–keep-old-files</strong>
+</dt>
+<dd>Don&#39;t replace existing files when
+extracting.</dd>
+<dt>
+<strong>–keep-newer-files</strong>
+</dt>
+<dd>Don&#39;t replace existing files that are newer
+than their archive copies.</dd>
+<dt>
+<strong>–keep-directory-symlink</strong>
+</dt>
+<dd>Don&#39;t replace existing symlinks to
+directories when extracting.</dd>
+<dt>
+<strong>–no-overwrite-dir</strong>
+</dt>
+<dd>Preserve metadata of existing directories.</dd>
+<dt>
+<strong>–one-top-level</strong>[*=*/DIR/]
+</dt>
+<dd>Extract all files into <em>DIR</em>, or, if
+used without argument, into a subdirectory named by the base name of
+the archive (minus standard compression suffixes recognizable by
+<strong>–auto-compress).</strong></dd>
+<dt>
+<strong>–overwrite</strong>
+</dt>
+<dd>Overwrite existing files when extracting.</dd>
+<dt>
+<strong>–overwrite-dir</strong>
+</dt>
+<dd>Overwrite metadata of existing directories when
+extracting (default).</dd>
+<dt>
+<strong>–recursive-unlink</strong>
+</dt>
+<dd>Recursively remove all files in the directory
+prior to extracting it.</dd>
+<dt>
+<strong>–remove-files</strong>
+</dt>
+<dd>Remove files from disk after adding them to the
+archive.</dd>
+<dt>
+<strong>–skip-old-files</strong>
+</dt>
+<dd>Don&#39;t replace existing files when extracting,
+silently skip over them.</dd>
+<dt>
+<strong>-U</strong>, <strong>–unlink-first</strong>
+</dt>
+<dd>Remove each file prior to extracting over
+it.</dd>
+<dt>
+<strong>-W</strong>, <strong>–verify</strong>
+</dt>
+<dd>Verify the archive after writing it.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+Output stream selection
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<dl>
+<dt>
+<strong>–ignore-command-error</strong>
+</dt>
+<dd>Ignore subprocess exit codes.</dd>
+<dt>
+<strong>–no-ignore-command-error</strong>
+</dt>
+<dd>Treat non-zero exit codes of children
+as error (default).</dd>
+<dt>
+<strong>-O</strong>, <strong>–to-stdout</strong>
+</dt>
+<dd>Extract files to standard output.</dd>
+<dt>
+*–to-command*=/COMMAND/
+</dt>
+<dd>
+<p>Pipe extracted files to <em>COMMAND</em>. The
+argument is the pathname of an external program, optionally with
+command line arguments. The program will be invoked and the contents
+of the file being extracted supplied to it on its standard input.
+Additional data will be supplied via the following environment
+variables:</p>
+<dl>
+<dt>
+<strong>TAR_FILETYPE</strong>
+</dt>
+<dd>
+<p>Type of the file. It is a single letter with the
+following meaning:</p>
+<pre class="example">
+	f	Regular file
+	d	Directory
+	l	Symbolic link
+	h	Hard link
+	b	Block device
+	c	Character device
+</pre>
+<p>
+Currently only regular files are supported.</p>
+</dd>
+<dt>
+<strong>TAR_MODE</strong>
+</dt>
+<dd>File mode, an octal number.</dd>
+<dt>
+<strong>TAR_FILENAME</strong>
+</dt>
+<dd>The name of the file.</dd>
+<dt>
+<strong>TAR_REALNAME</strong>
+</dt>
+<dd>Name of the file as stored in the archive.</dd>
+<dt>
+<strong>TAR_UNAME</strong>
+</dt>
+<dd>Name of the file owner.</dd>
+<dt>
+<strong>TAR_GNAME</strong>
+</dt>
+<dd>Name of the file owner group.</dd>
+<dt>
+<strong>TAR_ATIME</strong>
+</dt>
+<dd>Time of last access. It is a decimal number,
+representing seconds since the Epoch. If the archive provides times
+with nanosecond precision, the nanoseconds are appended to the
+timestamp after a decimal point.</dd>
+<dt>
+<strong>TAR_MTIME</strong>
+</dt>
+<dd>Time of last modification.</dd>
+<dt>
+<strong>TAR_CTIME</strong>
+</dt>
+<dd>Time of last status change.</dd>
+<dt>
+<strong>TAR_SIZE</strong>
+</dt>
+<dd>Size of the file.</dd>
+<dt>
+<strong>TAR_UID</strong>
+</dt>
+<dd>UID of the file owner.</dd>
+<dt>
+<strong>TAR_GID</strong>
+</dt>
+<dd>GID of the file owner.</dd>
+</dl>
+<p>Additionally, the following variables contain information about <strong>tar</strong>
+operation mode and the archive being processed:</p>
+<dl>
+<dt>
+<strong>TAR_VERSION</strong>
+</dt>
+<dd>GNU <strong>tar</strong> version number.</dd>
+<dt>
+<strong>TAR_ARCHIVE</strong>
+</dt>
+<dd>The name of the archive <strong>tar</strong> is processing.</dd>
+<dt>
+<strong>TAR_BLOCKING_FACTOR</strong>
+</dt>
+<dd>Current blocking factor, i.e. number of
+512-byte blocks in a record.</dd>
+<dt>
+<strong>TAR_VOLUME</strong>
+</dt>
+<dd>Ordinal number of the volume <strong>tar</strong> is processing
+(set if reading a multi-volume archive).</dd>
+<dt>
+<strong>TAR_FORMAT</strong>
+</dt>
+<dd>Format of the archive being processed. One of:
+<strong>gnu</strong>, <strong>oldgnu</strong>, <strong>posix</strong>, <strong>ustar</strong>, <strong>v7</strong>.</dd>
+<dt>
+<strong>TAR_SUBCOMMAND</strong>
+</dt>
+<dd>A short option (with a leading dash) describing
+the operation <strong>tar</strong> is executing.</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-3">
+<h3 id="headline-14">
+Handling of file attributes
+</h3>
+<div id="outline-text-headline-14" class="outline-text-3">
+<dl>
+<dt>
+<strong>–atime-preserve</strong>[=/METHOD/]
+</dt>
+<dd>Preserve access times on dumped
+files, either by restoring the times after reading
+(/METHOD/=*replace*, this is the default) or by not setting the times
+in the first place (/METHOD/=*system*).</dd>
+<dt>
+<strong>–delay-directory-restore</strong>
+</dt>
+<dd>Delay setting modification times and
+permissions of extracted directories until the end of extraction. Use
+this option when extracting from an archive which has unusual member
+ordering.</dd>
+<dt>
+*–group*=/NAME/[:/GID/]
+</dt>
+<dd>Force <em>NAME</em> as group for added files. If
+<em>GID</em> is not supplied, <em>NAME</em> can be either a user name or numeric
+GID. In this case the missing part (GID or name) will be inferred from
+the current host&#39;s group database.
+
+When used with *–group-map*=/FILE/, affects only those files whose
+owner group is not listed in <em>FILE</em>.</dd>
+<dt>
+*–group-map*=/FILE/
+</dt>
+<dd>
+<p>Read group translation map from <em>FILE</em>. Empty
+lines are ignored. Comments are introduced with <strong>#</strong> sign and extend to
+the end of line. Each non-empty line in <em>FILE</em> defines translation for
+a single group. It must consist of two fields, delimited by any amount
+of whitespace:</p>
+<pre class="example">
+OLDGRP NEWGRP[:NEWGID]
+</pre>
+<p>
+<em>OLDGRP</em> is either a valid group name or a GID prefixed with <strong>+</strong>.
+Unless <em>NEWGID</em> is supplied, <em>NEWGRP</em> must also be either a valid
+group name or a *+*/GID/. Otherwise, both <em>NEWGRP</em> and <em>NEWGID</em> need
+not be listed in the system group database.</p>
+<p>
+As a result, each input file with owner group <em>OLDGRP</em> will be stored
+in archive with owner group <em>NEWGRP</em> and GID <em>NEWGID</em>.</p>
+</dd>
+<dt>
+*–mode*=/CHANGES/
+</dt>
+<dd>Force symbolic mode <em>CHANGES</em> for added files.</dd>
+<dt>
+*–mtime*=/DATE-OR-FILE/
+</dt>
+<dd>Set mtime for added files. <em>DATE-OR-FILE</em>
+is either a date/time in almost arbitrary format, or the name of an
+existing file. In the latter case the mtime of that file will be used.</dd>
+<dt>
+<strong>-m</strong>, <strong>–touch</strong>
+</dt>
+<dd>Don&#39;t extract file modified time.</dd>
+<dt>
+<strong>–no-delay-directory-restore</strong>
+</dt>
+<dd>Cancel the effect of the prior
+<strong>–delay-directory-restore</strong> option.</dd>
+<dt>
+<strong>–no-same-owner</strong>
+</dt>
+<dd>Extract files as yourself (default for ordinary
+users).</dd>
+<dt>
+<strong>–no-same-permissions</strong>
+</dt>
+<dd>Apply the user&#39;s umask when extracting
+permissions from the archive (default for ordinary users).</dd>
+<dt>
+<strong>–numeric-owner</strong>
+</dt>
+<dd>Always use numbers for user/group names.</dd>
+<dt>
+*–owner*=/NAME/[:/UID/]
+</dt>
+<dd>Force <em>NAME</em> as owner for added files. If
+<em>UID</em> is not supplied, <em>NAME</em> can be either a user name or numeric
+UID. In this case the missing part (UID or name) will be inferred from
+the current host&#39;s user database.
+
+When used with *–owner-map*=/FILE/, affects only those files whose
+owner is not listed in <em>FILE</em>.</dd>
+<dt>
+*–owner-map*=/FILE/
+</dt>
+<dd>
+<p>Read owner translation map from <em>FILE</em>. Empty
+lines are ignored. Comments are introduced with <strong>#</strong> sign and extend to
+the end of line. Each non-empty line in <em>FILE</em> defines translation for
+a single UID. It must consist of two fields, delimited by any amount
+of whitespace:</p>
+<pre class="example">
+OLDUSR NEWUSR[:NEWUID]
+</pre>
+<p>
+<em>OLDUSR</em> is either a valid user name or a UID prefixed with <strong>+</strong>.
+Unless <em>NEWUID</em> is supplied, <em>NEWUSR</em> must also be either a valid user
+name or a *+*/UID/. Otherwise, both <em>NEWUSR</em> and <em>NEWUID</em> need not be
+listed in the system user database.</p>
+<p>
+As a result, each input file owned by <em>OLDUSR</em> will be stored in
+archive with owner name <em>NEWUSR</em> and UID <em>NEWUID</em>.</p>
+</dd>
+<dt>
+<strong>-p</strong>, <strong>–preserve-permissions</strong>, <strong>–same-permissions</strong>
+</dt>
+<dd>Set
+permissions of extracted files to those recorded in the archive
+(default for superuser).</dd>
+<dt>
+<strong>–same-owner</strong>
+</dt>
+<dd>Try extracting files with the same ownership as
+exists in the archive (default for superuser).</dd>
+<dt>
+<strong>-s</strong>, <strong>–preserve-order</strong>, <strong>–same-order</strong>
+</dt>
+<dd>Tell <strong>tar</strong> that the list
+of file names to process is sorted in the same order as the files in
+the archive.</dd>
+<dt>
+*–sort=*/ORDER/
+</dt>
+<dd>When creating an archive, sort directory entries
+according to <em>ORDER</em>, which is one of <strong>none</strong>, <strong>name</strong>, or <strong>inode</strong>.
+
+The default is <strong>–sort=none</strong>, which stores archive members in the same
+order as returned by the operating system.
+
+Using <strong>–sort=name</strong> ensures the member ordering in the created archive
+is uniform and reproducible.
+
+Using <strong>–sort=inode</strong> reduces the number of disk seeks made when
+creating the archive and thus can considerably speed up archivation.
+This sorting order is supported only if the underlying system provides
+the necessary information.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+Extended file attributes
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<dl>
+<dt>
+<strong>–acls</strong>
+</dt>
+<dd>Enable POSIX ACLs support.</dd>
+<dt>
+<strong>–no-acls</strong>
+</dt>
+<dd>Disable POSIX ACLs support.</dd>
+<dt>
+<strong>–selinux</strong>
+</dt>
+<dd>Enable SELinux context support.</dd>
+<dt>
+<strong>–no-selinux</strong>
+</dt>
+<dd>Disable SELinux context support.</dd>
+<dt>
+<strong>–xattrs</strong>
+</dt>
+<dd>Enable extended attributes support.</dd>
+<dt>
+<strong>–no-xattrs</strong>
+</dt>
+<dd>Disable extended attributes support.</dd>
+<dt>
+*–xattrs-exclude=*/PATTERN/
+</dt>
+<dd>Specify the exclude pattern for xattr
+keys. <em>PATTERN</em> is a globbing pattern, e.g.
+<strong>–xattrs-exclude=&#39;user.</strong>&#39;* to include only attributes from the user
+namespace.</dd>
+<dt>
+*–xattrs-include=*/PATTERN/
+</dt>
+<dd>Specify the include pattern for xattr
+keys. <em>PATTERN</em> is a globbing pattern.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-3">
+<h3 id="headline-16">
+Device selection and switching
+</h3>
+<div id="outline-text-headline-16" class="outline-text-3">
+<dl>
+<dt>
+<strong>-f</strong>, *–file*=/ARCHIVE/
+</dt>
+<dd>
+<p>Use archive file or device <em>ARCHIVE</em>. If
+this option is not given, <strong>tar</strong> will first examine the environment
+variable `TAPE&#39;. If it is set, its value will be used as the archive
+name. Otherwise, <strong>tar</strong> will assume the compiled-in default. The
+default value can be inspected either using the <strong>–show-defaults</strong>
+option, or at the end of the <strong>tar –help</strong> output.</p>
+<p>
+An archive name that has a colon in it specifies a file or device on a
+remote machine. The part before the colon is taken as the machine name
+or IP address, and the part after it as the file or device pathname,
+e.g.:</p>
+<pre class="example">
+--file=remotehost:/dev/sr0
+</pre>
+<p>
+An optional username can be prefixed to the hostname, placing a <strong>@</strong>
+sign between them.</p>
+<p>
+By default, the remote host is accessed via the *rsh*(1) command.
+Nowadays it is common to use *ssh*(1) instead. You can do so by giving
+the following command line option:</p>
+<pre class="example">
+--rsh-command=/usr/bin/ssh
+</pre>
+<p>
+The remote machine should have the <strong>rmt*(8) command installed. If its
+pathname does not match *tar</strong>&#39;s default, you can inform <strong>tar</strong> about
+the correct pathname using the <strong>–rmt-command</strong> option.</p>
+</dd>
+<dt>
+<strong>–force-local</strong>
+</dt>
+<dd>Archive file is local even if it has a colon.</dd>
+<dt>
+?
+</dt>
+<dd>
+<p><strong>-F</strong>, *–info-script*=/COMMAND/,
+<strong>–new-volume-script*=/COMMAND/ :: Run <em>COMMAND</em> at the end of each
+tape (implies *-M</strong>). The command can include arguments. When started,
+it will inherit <strong>tar</strong>&#39;s environment plus the following variables:</p>
+<dl>
+<dt>
+<strong>TAR_VERSION</strong>
+</dt>
+<dd>GNU <strong>tar</strong> version number.</dd>
+<dt>
+<strong>TAR_ARCHIVE</strong>
+</dt>
+<dd>The name of the archive <strong>tar</strong> is processing.</dd>
+<dt>
+<strong>TAR_BLOCKING_FACTOR</strong>
+</dt>
+<dd>Current blocking factor, i.e. number of
+512-byte blocks in a record.</dd>
+<dt>
+<strong>TAR_VOLUME</strong>
+</dt>
+<dd>Ordinal number of the volume <strong>tar</strong> is processing
+(set if reading a multi-volume archive).</dd>
+<dt>
+<strong>TAR_FORMAT</strong>
+</dt>
+<dd>Format of the archive being processed. One of:
+<strong>gnu</strong>, <strong>oldgnu</strong>, <strong>posix</strong>, <strong>ustar</strong>, <strong>v7</strong>.</dd>
+<dt>
+<strong>TAR_SUBCOMMAND</strong>
+</dt>
+<dd>A short option (with a leading dash) describing
+the operation <strong>tar</strong> is executing.</dd>
+<dt>
+<strong>TAR_FD</strong>
+</dt>
+<dd>File descriptor which can be used to communicate the new
+volume name to <strong>tar</strong>.</dd>
+</dl>
+<p>If the info script fails, <strong>tar</strong> exits; otherwise, it begins writing
+the next volume.</p>
+</dd>
+<dt>
+<strong>-L</strong>, *–tape-length*=/N/
+</dt>
+<dd>Change tape after writing <em>N/x1024 bytes.
+If /N</em> is followed by a size suffix (see the subsection <strong>Size
+suffixes</strong> below), the suffix specifies the multiplicative factor to be
+used instead of 1024.
+
+This option implies <strong>-M</strong>.</dd>
+<dt>
+<strong>-M</strong>, <strong>–multi-volume</strong>
+</dt>
+<dd>Create/list/extract multi-volume archive.</dd>
+<dt>
+*–rmt-command*=/COMMAND/
+</dt>
+<dd>Use <em>COMMAND</em> instead of <strong>rmt</strong> when
+accessing remote archives. See the description of the <strong>-f</strong> option,
+above.</dd>
+<dt>
+*–rsh-command*=/COMMAND/
+</dt>
+<dd>Use <em>COMMAND</em> instead of <strong>rsh</strong> when
+accessing remote archives. See the description of the <strong>-f</strong> option,
+above.</dd>
+<dt>
+*–volno-file*=/FILE/
+</dt>
+<dd>When this option is used in conjunction with
+<strong>–multi-volume</strong>, <strong>tar</strong> will keep track of which volume of a
+multi-volume archive it is working in <em>FILE</em>.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-3">
+<h3 id="headline-17">
+Device blocking
+</h3>
+<div id="outline-text-headline-17" class="outline-text-3">
+<dl>
+<dt>
+<strong>-b</strong>, *–blocking-factor*=/BLOCKS/
+</dt>
+<dd>Set record size to
+/BLOCKS/x*512* bytes.</dd>
+<dt>
+<strong>-B</strong>, <strong>–read-full-records</strong>
+</dt>
+<dd>When listing or extracting, accept
+incomplete input records after end-of-file marker.</dd>
+<dt>
+<strong>-i</strong>, <strong>–ignore-zeros</strong>
+</dt>
+<dd>Ignore zeroed blocks in archive. Normally
+two consecutive 512-blocks filled with zeroes mean EOF and <strong>tar</strong> stops
+reading after encountering them. This option instructs it to read
+further and is useful when reading archives created with the <strong>-A</strong>
+option.</dd>
+<dt>
+*–record-size*=/NUMBER/
+</dt>
+<dd>Set record size. <em>NUMBER</em> is the number of
+bytes per record. It must be multiple of <strong>512</strong>. It can can be suffixed
+with a <strong>size</strong> suffix, e.g. <strong>–record-size=10K</strong>, for 10 Kilobytes. See
+the subsection <strong>Size suffixes</strong>, for a list of valid suffixes.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-3">
+<h3 id="headline-18">
+Archive format selection
+</h3>
+<div id="outline-text-headline-18" class="outline-text-3">
+<dl>
+<dt>
+<strong>-H</strong>, *–format*=/FORMAT/
+</dt>
+<dd>
+<p>Create archive of the given format. Valid
+formats are:</p>
+<dl>
+<dt>
+<strong>gnu</strong>
+</dt>
+<dd>GNU tar 1.13.x format</dd>
+<dt>
+<strong>oldgnu</strong>
+</dt>
+<dd>GNU format as per tar &lt;= 1.12.</dd>
+<dt>
+<strong>pax</strong>, <strong>posix</strong>
+</dt>
+<dd>POSIX 1003.1-2001 (pax) format.</dd>
+<dt>
+<strong>ustar</strong>
+</dt>
+<dd>POSIX 1003.1-1988 (ustar) format.</dd>
+<dt>
+<strong>v7</strong>
+</dt>
+<dd>Old V7 tar format.</dd>
+</dl>
+</dd>
+<dt>
+<strong>–old-archive</strong>, <strong>–portability</strong>
+</dt>
+<dd>Same as <strong>–format=v7</strong>.</dd>
+<dt>
+*–pax-option*=/keyword/<a href=":]=/value/">,/keyword/[[:]=/value/</a>…
+</dt>
+<dd>Control
+pax keywords when creating <strong>PAX</strong> archives (<strong>-H</strong> pax). This option is
+equivalent to the <strong>-o</strong> option of the *pax*(1) utility.</dd>
+<dt>
+<strong>–posix</strong>
+</dt>
+<dd>Same as <strong>–format=posix</strong>.</dd>
+<dt>
+<strong>-V</strong>, *–label*=/TEXT/
+</dt>
+<dd>Create archive with volume name <em>TEXT</em>. If
+listing or extracting, use <em>TEXT</em> as a globbing pattern for volume
+name.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-19" class="outline-3">
+<h3 id="headline-19">
+Compression options
+</h3>
+<div id="outline-text-headline-19" class="outline-text-3">
+<dl>
+<dt>
+<strong>-a</strong>, <strong>–auto-compress</strong>
+</dt>
+<dd>Use archive suffix to determine the
+compression program.</dd>
+<dt>
+<strong>-I</strong>, *–use-compress-program*/=COMMAND/
+</dt>
+<dd>Filter data through
+<em>COMMAND</em>. It must accept the <strong>-d</strong> option, for decompression. The
+argument can contain command line options.</dd>
+<dt>
+<strong>-j</strong>, <strong>–bzip2</strong>
+</dt>
+<dd>Filter the archive through *bzip2*(1).</dd>
+<dt>
+<strong>-J</strong>, <strong>–xz</strong>
+</dt>
+<dd>Filter the archive through *xz*(1).</dd>
+<dt>
+<strong>–lzip</strong>
+</dt>
+<dd>Filter the archive through *lzip*(1).</dd>
+<dt>
+<strong>–lzma</strong>
+</dt>
+<dd>Filter the archive through *lzma*(1).</dd>
+<dt>
+<strong>–lzop</strong>
+</dt>
+<dd>Filter the archive through *lzop*(1).</dd>
+<dt>
+<strong>–no-auto-compress</strong>
+</dt>
+<dd>Do not use archive suffix to determine the
+compression program.</dd>
+<dt>
+<strong>-z</strong>, <strong>–gzip</strong>, <strong>–gunzip</strong>, <strong>–ungzip</strong>
+</dt>
+<dd>Filter the archive through
+*gzip*(1).</dd>
+<dt>
+<strong>-Z</strong>, <strong>–compress</strong>, <strong>–uncompress</strong>
+</dt>
+<dd>Filter the archive through
+*compress*(1).</dd>
+<dt>
+<strong>–zstd</strong>
+</dt>
+<dd>Filter the archive through *zstd*(1).</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-3">
+<h3 id="headline-20">
+Local file selection
+</h3>
+<div id="outline-text-headline-20" class="outline-text-3">
+<dl>
+<dt>
+*–add-file*=/FILE/
+</dt>
+<dd>Add <em>FILE</em> to the archive (useful if its name
+starts with a dash).</dd>
+<dt>
+<strong>–backup</strong>[=/CONTROL/]
+</dt>
+<dd>
+<p>Backup before removal. The <em>CONTROL</em>
+argument, if supplied, controls the backup policy. Its valid values
+are:</p>
+<dl>
+<dt>
+<strong>none</strong>, <strong>off</strong>
+</dt>
+<dd>Never make backups.</dd>
+<dt>
+<strong>t</strong>, <strong>numbered</strong>
+</dt>
+<dd>Make numbered backups.</dd>
+<dt>
+<strong>nil</strong>, <strong>existing</strong>
+</dt>
+<dd>Make numbered backups if numbered backups
+exist, simple backups otherwise.</dd>
+<dt>
+<strong>never</strong>, <strong>simple</strong>
+</dt>
+<dd>Always make simple backups
+
+If <em>CONTROL</em> is not given, the value is taken from the
+<strong>VERSION_CONTROL</strong> environment variable. If it is not set, <strong>existing</strong>
+is assumed.</dd>
+</dl>
+</dd>
+<dt>
+<strong>-C</strong>, *–directory*=/DIR/
+</dt>
+<dd>Change to <em>DIR</em> before performing any
+operations. This option is order-sensitive, i.e. it affects all
+options that follow.</dd>
+<dt>
+*–exclude*=/PATTERN/
+</dt>
+<dd>Exclude files matching <em>PATTERN</em>, a
+*glob*(3)-style wildcard pattern.</dd>
+<dt>
+<strong>–exclude-backups</strong>
+</dt>
+<dd>Exclude backup and lock files.</dd>
+<dt>
+<strong>–exclude-caches</strong>
+</dt>
+<dd>Exclude contents of directories containing file
+<strong>CACHEDIR.TAG</strong>, except for the tag file itself.</dd>
+<dt>
+<strong>–exclude-caches-all</strong>
+</dt>
+<dd>Exclude directories containing file
+<strong>CACHEDIR.TAG</strong> and the file itself.</dd>
+<dt>
+<strong>–exclude-caches-under</strong>
+</dt>
+<dd>Exclude everything under directories
+containing <strong>CACHEDIR.TAG</strong></dd>
+<dt>
+*–exclude-ignore=*/FILE/
+</dt>
+<dd>Before dumping a directory, see if it
+contains <em>FILE</em>. If so, read exclusion patterns from this file. The
+patterns affect only the directory itself.</dd>
+<dt>
+*–exclude-ignore-recursive=*/FILE/
+</dt>
+<dd>Same as <strong>–exclude-ignore</strong>,
+except that patterns from <em>FILE</em> affect both the directory and all its
+subdirectories.</dd>
+<dt>
+*–exclude-tag*=/FILE/
+</dt>
+<dd>Exclude contents of directories containing
+<em>FILE</em>, except for <em>FILE</em> itself.</dd>
+<dt>
+*–exclude-tag-all*=/FILE/
+</dt>
+<dd>Exclude directories containing <em>FILE</em>.</dd>
+<dt>
+*–exclude-tag-under*=/FILE/
+</dt>
+<dd>Exclude everything under directories
+containing <em>FILE</em>.</dd>
+<dt>
+<strong>–exclude-vcs</strong>
+</dt>
+<dd>Exclude version control system directories.</dd>
+<dt>
+<strong>–exclude-vcs-ignores</strong>
+</dt>
+<dd>Exclude files that match patterns read from
+VCS-specific ignore files. Supported files are: <strong>.cvsignore</strong>,
+<strong>.gitignore</strong>, <strong>.bzrignore</strong>, and <strong>.hgignore</strong>.</dd>
+<dt>
+<strong>-h</strong>, <strong>–dereference</strong>
+</dt>
+<dd>Follow symlinks; archive and dump the files
+they point to.</dd>
+<dt>
+<strong>–hard-dereference</strong>
+</dt>
+<dd>Follow hard links; archive and dump the files
+they refer to.</dd>
+<dt>
+<strong>-K</strong>, *–starting-file*=/MEMBER/
+</dt>
+<dd>Begin at the given member in the
+archive.</dd>
+<dt>
+*–newer-mtime*=/DATE/
+</dt>
+<dd>Work on files whose data changed after the
+<em>DATE</em>. If <em>DATE</em> starts with <strong>/</strong> or <strong>.</strong> it is taken to be a file
+name; the mtime of that file is used as the date.</dd>
+<dt>
+<strong>–no-null</strong>
+</dt>
+<dd>Disable the effect of the previous <strong>–null</strong> option.</dd>
+<dt>
+<strong>–no-recursion</strong>
+</dt>
+<dd>Avoid descending automatically in directories.</dd>
+<dt>
+<strong>–no-unquote</strong>
+</dt>
+<dd>Do not unquote input file or member names.</dd>
+<dt>
+<strong>–no-verbatim-files-from</strong>
+</dt>
+<dd>Treat each line read from a file list as
+if it were supplied in the command line. I.e., leading and trailing
+whitespace is removed and, if the resulting string begins with a dash,
+it is treated as <strong>tar</strong> command line option.
+
+This is the default behavior. The <strong>–no-verbatim-files-from</strong> option is
+provided as a way to restore it after <strong>–verbatim-files-from</strong> option.
+
+This option is positional: it affects all <strong>–files-from</strong> options that
+occur after it in, until <strong>–verbatim-files-from</strong> option or end of
+line, whichever occurs first.
+
+It is implied by the <strong>–no-null</strong> option.</dd>
+<dt>
+<strong>–null</strong>
+</dt>
+<dd>Instruct subsequent <strong>-T</strong> options to read null-terminated
+names verbatim (disables special handling of names that start with a
+dash).
+
+See also <strong>–verbatim-files-from</strong>.</dd>
+<dt>
+<strong>-N</strong>, *–newer*=/DATE/, *–after-date*=/DATE/
+</dt>
+<dd>Only store files
+newer than DATE. If <em>DATE</em> starts with <strong>/</strong> or <strong>.</strong> it is taken to be a
+file name; the mtime of that file is used as the date.</dd>
+<dt>
+<strong>–one-file-system</strong>
+</dt>
+<dd>Stay in local file system when creating
+archive.</dd>
+<dt>
+<strong>-P</strong>, <strong>–absolute-names</strong>
+</dt>
+<dd>Don&#39;t strip leading slashes from file
+names when creating archives.</dd>
+<dt>
+<strong>–recursion</strong>
+</dt>
+<dd>Recurse into directories (default).</dd>
+<dt>
+*–suffix*=/STRING/
+</dt>
+<dd>Backup before removal, override usual suffix.
+Default suffix is <strong>~</strong>, unless overridden by environment variable
+<strong>SIMPLE_BACKUP_SUFFIX</strong>.</dd>
+<dt>
+<strong>-T</strong>, *–files-from*=/FILE/
+</dt>
+<dd>Get names to extract or create from
+<em>FILE</em>.
+
+Unless specified otherwise, the <em>FILE</em> must contain a list of names
+separated by ASCII <strong>LF</strong> (i.e. one name per line). The names read are
+handled the same way as command line arguments. They undergo quote
+removal and word splitting, and any string that starts with a <strong>-</strong> is
+handled as <strong>tar</strong> command line option.
+
+If this behavior is undesirable, it can be turned off using the
+<strong>–verbatim-files-from</strong> option.
+
+The <strong>–null</strong> option instructs <strong>tar</strong> that the names in <em>FILE</em> are
+separated by ASCII <strong>NUL</strong> character, instead of <strong>LF</strong>. It is useful if
+the list is generated by <strong>find*(1) *-print0</strong> predicate.</dd>
+<dt>
+<strong>–unquote</strong>
+</dt>
+<dd>Unquote file or member names (default).</dd>
+<dt>
+<strong>–verbatim-files-from</strong>
+</dt>
+<dd>Treat each line obtained from a file list
+as a file name, even if it starts with a dash. File lists are supplied
+with the <strong>–files-from</strong> (<strong>-T</strong>) option. The default behavior is to
+handle names supplied in file lists as if they were typed in the
+command line, i.e. any names starting with a dash are treated as <strong>tar</strong>
+options. The <strong>–verbatim-files-from</strong> option disables this behavior.
+
+This option affects all <strong>–files-from</strong> options that occur after it in
+the command line. Its effect is reverted by the
+<strong>–no-verbatim-files-from</strong> option.
+
+This option is implied by the <strong>–null</strong> option.
+
+See also <strong>–add-file</strong>.</dd>
+<dt>
+<strong>-X</strong>, *–exclude-from*=/FILE/
+</dt>
+<dd>Exclude files matching patterns
+listed in FILE.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-21" class="outline-3">
+<h3 id="headline-21">
+File name transformations
+</h3>
+<div id="outline-text-headline-21" class="outline-text-3">
+<dl>
+<dt>
+*–strip-components*=/NUMBER/
+</dt>
+<dd>Strip <em>NUMBER</em> leading components
+from file names on extraction.</dd>
+<dt>
+*–transform*=/EXPRESSION/, *–xform*=/EXPRESSION/
+</dt>
+<dd>Use sed replace
+<em>EXPRESSION</em> to transform file names.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-22" class="outline-3">
+<h3 id="headline-22">
+File name matching options
+</h3>
+<div id="outline-text-headline-22" class="outline-text-3">
+<p>These options affect both exclude and include patterns.</p>
+<dl>
+<dt>
+<strong>–anchored</strong>
+</dt>
+<dd>Patterns match file name start.</dd>
+<dt>
+<strong>–ignore-case</strong>
+</dt>
+<dd>Ignore case.</dd>
+<dt>
+<strong>–no-anchored</strong>
+</dt>
+<dd>Patterns match after any <strong>/</strong> (default for
+exclusion).</dd>
+<dt>
+<strong>–no-ignore-case</strong>
+</dt>
+<dd>Case sensitive matching (default).</dd>
+<dt>
+<strong>–no-wildcards</strong>
+</dt>
+<dd>Verbatim string matching.</dd>
+<dt>
+<strong>–no-wildcards-match-slash</strong>
+</dt>
+<dd>Wildcards do not match <strong>/</strong>.</dd>
+<dt>
+<strong>–wildcards</strong>
+</dt>
+<dd>Use wildcards (default for exclusion).</dd>
+<dt>
+<strong>–wildcards-match-slash</strong>
+</dt>
+<dd>Wildcards match <strong>/</strong> (default for
+exclusion).</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-23" class="outline-3">
+<h3 id="headline-23">
+Informative output
+</h3>
+<div id="outline-text-headline-23" class="outline-text-3">
+<dl>
+<dt>
+<strong>–checkpoint</strong>[=/N/]
+</dt>
+<dd>Display progress messages every /N/th record
+(default 10).</dd>
+<dt>
+*–checkpoint-action*=/ACTION/
+</dt>
+<dd>Run <em>ACTION</em> on each checkpoint.</dd>
+<dt>
+<strong>–clamp-mtime</strong>
+</dt>
+<dd>Only set time when the file is more recent than
+what was given with <strong>–mtime</strong>.</dd>
+<dt>
+<strong>–full-time</strong>
+</dt>
+<dd>Print file time to its full resolution.</dd>
+<dt>
+*–index-file*=/FILE/
+</dt>
+<dd>Send verbose output to <em>FILE</em>.</dd>
+<dt>
+<strong>-l</strong>, <strong>–check-links</strong>
+</dt>
+<dd>Print a message if not all links are dumped.</dd>
+<dt>
+*–no-quote-chars*=/STRING/
+</dt>
+<dd>Disable quoting for characters from
+<em>STRING</em>.</dd>
+<dt>
+*–quote-chars*=/STRING/
+</dt>
+<dd>Additionally quote characters from
+<em>STRING</em>.</dd>
+<dt>
+*–quoting-style*=/STYLE/
+</dt>
+<dd>Set quoting style for file and member
+names. Valid values for <em>STYLE</em> are <strong>literal</strong>, <strong>shell</strong>,
+<strong>shell-always</strong>, <strong>c</strong>, <strong>c-maybe</strong>, <strong>escape</strong>, <strong>locale</strong>, <strong>clocale</strong>.</dd>
+<dt>
+<strong>-R</strong>, <strong>–block-number</strong>
+</dt>
+<dd>Show block number within archive with each
+message.</dd>
+<dt>
+<strong>–show-omitted-dirs</strong>
+</dt>
+<dd>When listing or extracting, list each
+directory that does not match search criteria.</dd>
+<dt>
+<strong>–show-transformed-names</strong>, <strong>–show-stored-names</strong>
+</dt>
+<dd>Show file or
+archive names after transformation by <strong>–strip</strong> and <strong>–transform</strong>
+options.</dd>
+<dt>
+<strong>–totals</strong>[=/SIGNAL/]
+</dt>
+<dd>Print total bytes after processing the
+archive. If <em>SIGNAL</em> is given, print total bytes when this signal is
+delivered. Allowed signals are: <strong>SIGHUP</strong>, <strong>SIGQUIT</strong>, <strong>SIGINT</strong>,
+<strong>SIGUSR1</strong>, and <strong>SIGUSR2</strong>. The <strong>SIG</strong> prefix can be omitted.</dd>
+<dt>
+<strong>–utc</strong>
+</dt>
+<dd>Print file modification times in UTC.</dd>
+<dt>
+<strong>-v</strong>, <strong>–verbose</strong>
+</dt>
+<dd>Verbosely list files processed. Each instance of
+this option on the command line increases the verbosity level by one.
+The maximum verbosity level is 3. For a detailed discussion of how
+various verbosity levels affect tar&#39;s output, please refer to <strong>GNU
+Tar</strong> Manual, subsection 2.5.2 &#34;<strong>The &#39;–verbose&#39; Option</strong>&#34;.</dd>
+<dt>
+*–warning*=/KEYWORD/
+</dt>
+<dd>
+<p>Enable or disable warning messages identified
+by <em>KEYWORD</em>. The messages are suppressed if <em>KEYWORD</em> is prefixed
+with <strong>no-</strong> and enabled otherwise.</p>
+<p>
+Multiple <strong>–warning</strong> options accumulate.</p>
+<p>
+Keywords controlling general <strong>tar</strong> operation:</p>
+<dl>
+<dt>
+<strong>all</strong>
+</dt>
+<dd>Enable all warning messages. This is the default.</dd>
+<dt>
+<strong>none</strong>
+</dt>
+<dd>Disable all warning messages.</dd>
+<dt>
+<strong>filename-with-nuls</strong>
+</dt>
+<dd>&#34;%s: file name read contains nul character&#34;</dd>
+<dt>
+<strong>alone-zero-block</strong>
+</dt>
+<dd>&#34;A lone zero block at %s&#34;</dd>
+</dl>
+<p>Keywords applicable for <strong>tar –create</strong>:</p>
+<dl>
+<dt>
+<strong>cachedir</strong>
+</dt>
+<dd>&#34;%s: contains a cache directory tag %s; %s&#34;</dd>
+<dt>
+<strong>file-shrank</strong>
+</dt>
+<dd>&#34;%s: File shrank by %s bytes; padding with zeros&#34;</dd>
+<dt>
+<strong>xdev</strong>
+</dt>
+<dd>&#34;%s: file is on a different filesystem; not dumped&#34;</dd>
+<dt>
+<strong>file-ignored</strong>
+</dt>
+<dd>&#34;%s: Unknown file type; file ignored&#34;<br>
+&#34;%s: socket ignored&#34;<br>
+&#34;%s: door ignored&#34;</dd>
+<dt>
+<strong>file-unchanged</strong>
+</dt>
+<dd>&#34;%s: file is unchanged; not dumped&#34;</dd>
+<dt>
+<strong>ignore-archive</strong>
+</dt>
+<dd>&#34;%s: archive cannot contain itself; not dumped&#34;</dd>
+<dt>
+<strong>file-removed</strong>
+</dt>
+<dd>&#34;%s: File removed before we read it&#34;</dd>
+<dt>
+<strong>file-changed</strong>
+</dt>
+<dd>&#34;%s: file changed as we read it&#34;</dd>
+<dt>
+<strong>failed-read</strong>
+</dt>
+<dd>Suppresses warnings about unreadable files or
+directories. This keyword applies only if used together with the
+<strong>–ignore-failed-read</strong> option.</dd>
+</dl>
+<p>Keywords applicable for <strong>tar –extract</strong>:</p>
+<dl>
+<dt>
+<strong>existing-file</strong>
+</dt>
+<dd>&#34;%s: skipping existing file&#34;</dd>
+<dt>
+<strong>timestamp</strong>
+</dt>
+<dd>&#34;%s: implausibly old time stamp %s&#34;<br>
+&#34;%s: time stamp %s is %s s in the future&#34;</dd>
+<dt>
+<strong>contiguous-cast</strong>
+</dt>
+<dd>&#34;Extracting contiguous files as regular files&#34;</dd>
+<dt>
+<strong>symlink-cast</strong>
+</dt>
+<dd>&#34;Attempting extraction of symbolic links as hard
+links&#34;</dd>
+<dt>
+<strong>unknown-cast</strong>
+</dt>
+<dd>&#34;%s: Unknown file type &#39;%c&#39;, extracted as normal
+file&#34;</dd>
+<dt>
+<strong>ignore-newer</strong>
+</dt>
+<dd>&#34;Current %s is newer or same age&#34;</dd>
+<dt>
+<strong>unknown-keyword</strong>
+</dt>
+<dd>&#34;Ignoring unknown extended header keyword &#39;%s&#39;&#34;</dd>
+<dt>
+<strong>decompress-program</strong>
+</dt>
+<dd>
+<p>Controls verbose description of failures
+occurring when trying to run alternative decompressor programs. This
+warning is disabled by default (unless <strong>–verbose</strong> is used). A
+common example of what you can get when using this warning is:</p>
+<pre class="example">
+$ tar --warning=decompress-program -x -f archive.Z
+tar (child): cannot run compress: No such file or directory
+tar (child): trying gzip
+</pre>
+<p>
+This means that <strong>tar</strong> first tried to decompress <strong>archive.Z</strong> using
+<strong>compress</strong>, and, when that failed, switched to <strong>gzip</strong>.</p>
+</dd>
+<dt>
+<strong>record-size</strong>
+</dt>
+<dd>&#34;Record size = %lu blocks&#34;</dd>
+</dl>
+<p>Keywords controlling incremental extraction:</p>
+<dl>
+<dt>
+<strong>rename-directory</strong>
+</dt>
+<dd>&#34;%s: Directory has been renamed from %s&#34;<br>
+&#34;%s: Directory has been renamed&#34;</dd>
+<dt>
+<strong>new-directory</strong>
+</dt>
+<dd>&#34;%s: Directory is new&#34;</dd>
+<dt>
+<strong>xdev</strong>
+</dt>
+<dd>&#34;%s: directory is on a different device: not purging&#34;</dd>
+<dt>
+<strong>bad-dumpdir</strong>
+</dt>
+<dd>&#34;Malformed dumpdir: &#39;X&#39; never used&#34;</dd>
+</dl>
+</dd>
+<dt>
+<strong>-w</strong>, <strong>–interactive</strong>, <strong>–confirmation</strong>
+</dt>
+<dd>Ask for confirmation for
+every action.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-24" class="outline-3">
+<h3 id="headline-24">
+Compatibility options
+</h3>
+<div id="outline-text-headline-24" class="outline-text-3">
+<dl>
+<dt>
+<strong>-o</strong>
+</dt>
+<dd>When creating, same as <strong>–old-archive</strong>. When extracting, same
+as <strong>–no-same-owner</strong>.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-25" class="outline-3">
+<h3 id="headline-25">
+Size suffixes
+</h3>
+<div id="outline-text-headline-25" class="outline-text-3">
+<pre class="example">
+	Suffix	Units	Byte Equivalent
+	b	Blocks	SIZE x 512
+	B	Kilobytes	SIZE x 1024
+	c	Bytes	SIZE
+	G	Gigabytes	SIZE x 1024^3
+	K	Kilobytes	SIZE x 1024
+	k	Kilobytes	SIZE x 1024
+	M	Megabytes	SIZE x 1024^2
+	P	Petabytes	SIZE x 1024^5
+	T	Terabytes	SIZE x 1024^4
+	w	Words	SIZE x 2
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-26" class="outline-2">
+<h2 id="headline-26">
+RETURN VALUE
+</h2>
+<div id="outline-text-headline-26" class="outline-text-2">
+<p>Tar&#39;s exit code indicates whether it was able to successfully perform
+the requested operation, and if not, what kind of error occurred.</p>
+<dl>
+<dt>
+<strong>0</strong>
+</dt>
+<dd>Successful termination.</dd>
+<dt>
+<strong>1</strong>
+</dt>
+<dd><em>Some files differ.</em> If <strong>tar</strong> was invoked with the <strong>–compare</strong>
+(<strong>–diff</strong>, <strong>-d</strong>) command line option, this means that some files in
+the archive differ from their disk counterparts. If <strong>tar</strong> was given
+one of the <strong>–create</strong>, <strong>–append</strong> or <strong>–update</strong> options, this exit
+code means that some files were changed while being archived and so
+the resulting archive does not contain the exact copy of the file set.</dd>
+<dt>
+<strong>2</strong>
+</dt>
+<dd><em>Fatal error.</em> This means that some fatal, unrecoverable error
+occurred.</dd>
+</dl>
+<p>If a subprocess that had been invoked by <strong>tar</strong> exited with a nonzero
+exit code, <strong>tar</strong> itself exits with that code as well. This can happen,
+for example, if a compression option (e.g. <strong>-z</strong>) was used and the
+external compressor program failed. Another example is <strong>rmt</strong> failure
+during backup to a remote device.</p>
+</div>
+</div>
+<div id="outline-container-headline-27" class="outline-2">
+<h2 id="headline-27">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-27" class="outline-text-2">
+<p>*bzip2*(1), *compress*(1), *gzip*(1), *lzma*(1), *lzop*(1), *rmt*(8),
+*symlink*(7), *xz*(1), *zstd*(1).</p>
+<p>
+Complete <strong>tar</strong> manual: run <strong>info tar</strong> or use *emacs*(1) info mode to
+read it.</p>
+<p>
+Online copies of <strong>GNU tar</strong> documentation in various formats can be found
+at:</p>
+<p>
+<strong><a href="https://www.gnu.org/software/tar/manual">https://www.gnu.org/software/tar/manual</a></strong></p>
+</div>
+</div>
+<div id="outline-container-headline-28" class="outline-2">
+<h2 id="headline-28">
+BUG REPORTS
+</h2>
+<div id="outline-text-headline-28" class="outline-text-2">
+<p>Report bugs to &lt;bug-tar@gnu.org&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-29" class="outline-2">
+<h2 id="headline-29">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-29" class="outline-text-2">
+<p>Copyright © 2023 Free Software Foundation, Inc.\\</p>
+<p>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</a>&gt;\\</p>
+<p>
+This is free software: you are free to change and redistribute it. There
+is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

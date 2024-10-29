@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - env.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - env.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>env - run a program in a modified environment</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>env</strong> [/OPTION/]… [/-/] [/NAME=VALUE/]… [/COMMAND /[/ARG/]…]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Set each NAME to VALUE in the environment and run COMMAND.</p>
+<p>
+Mandatory arguments to long options are mandatory for short options too.</p>
+<dl>
+<dt>
+<strong>-a</strong>, *–argv0*=/ARG/
+</dt>
+<dd>pass ARG as the zeroth argument of COMMAND</dd>
+<dt>
+<strong>-i</strong>, <strong>–ignore-environment</strong>
+</dt>
+<dd>start with an empty environment</dd>
+<dt>
+<strong>-0</strong>, <strong>–null</strong>
+</dt>
+<dd>end each output line with NUL, not newline</dd>
+<dt>
+<strong>-u</strong>, *–unset*=/NAME/
+</dt>
+<dd>remove variable from the environment</dd>
+<dt>
+<strong>-C</strong>, *–chdir*=/DIR/
+</dt>
+<dd>change working directory to DIR</dd>
+<dt>
+<strong>-S</strong>, *–split-string*=/S/
+</dt>
+<dd>process and split S into separate
+arguments; used to pass multiple arguments on shebang lines</dd>
+<dt>
+<strong>–block-signal</strong>[=/SIG/]
+</dt>
+<dd>block delivery of SIG signal(s) to COMMAND</dd>
+<dt>
+<strong>–default-signal</strong>[=/SIG/]
+</dt>
+<dd>reset handling of SIG signal(s) to the
+default</dd>
+<dt>
+<strong>–ignore-signal</strong>[=/SIG/]
+</dt>
+<dd>set handling of SIG signal(s) to do
+nothing</dd>
+<dt>
+<strong>–list-signal-handling</strong>
+</dt>
+<dd>list non default signal handling to stderr</dd>
+<dt>
+<strong>-v</strong>, <strong>–debug</strong>
+</dt>
+<dd>print verbose information for each processing step</dd>
+<dt>
+<strong>–help</strong>
+</dt>
+<dd>display this help and exit</dd>
+<dt>
+<strong>–version</strong>
+</dt>
+<dd>output version information and exit</dd>
+</dl>
+<p>A mere - implies <strong>-i</strong>. If no COMMAND, print the resulting environment.</p>
+<p>
+SIG may be a signal name like &#39;PIPE&#39;, or a signal number like &#39;13&#39;.
+Without SIG, all known signals are included. Multiple signals can be
+comma-separated. An empty SIG argument is a no-op.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Exit status:
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<dl>
+<dt>
+125
+</dt>
+<dd>if the env command itself fails</dd>
+<dt>
+126
+</dt>
+<dd>if COMMAND is found but cannot be invoked</dd>
+<dt>
+127
+</dt>
+<dd>if COMMAND cannot be found</dd>
+<dt>
+-
+</dt>
+<dd>the exit status of COMMAND otherwise</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+OPTIONS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+-S/–split-string usage in scripts
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>The <strong>-S</strong> option allows specifying multiple parameters in a script.
+Running a script named <strong>1.pl</strong> containing the following first line:</p>
+<blockquote>
+<pre class="example">
+#!/usr/bin/env -S perl -w -T
+...
+</pre>
+</blockquote>
+<p>
+Will execute <strong>perl -w -T 1.pl .</strong></p>
+<p>
+Without the <strong>&#39;-S&#39;</strong> parameter the script will likely fail with:</p>
+<blockquote>
+<pre class="example">
+/usr/bin/env: &#39;perl -w -T&#39;: No such file or directory
+</pre>
+</blockquote>
+<p>
+See the full documentation for more details.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+–default-signal[=SIG] usage
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>This option allows setting a signal handler to its default action, which
+is not possible using the traditional shell trap command. The following
+example ensures that seq will be terminated by SIGPIPE no matter how
+this signal is being handled in the process invoking the command.</p>
+<blockquote>
+<pre class="example">
+sh -c &#39;env --default-signal=PIPE seq inf | head -n1&#39;
+</pre>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+NOTES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>POSIX&#39;s *exec*(3p) pages says:</p>
+<blockquote>
+<p>&#34;many existing applications wrongly assume that they start with certain
+signals set to the default action and/or unblocked…. Therefore, it is
+best not to block or ignore signals across execs without explicit reason
+to do so, and especially not to block signals across execs of arbitrary
+(not closely cooperating) programs.&#34;</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+AUTHOR
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Written by Richard Mlynarik, David MacKenzie, and Assaf Gordon.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>GNU coreutils online help: &lt;<a href="https://www.gnu.org/software/coreutils/">https://www.gnu.org/software/coreutils/</a>&gt;<br>
+Report any translation bugs to &lt;<a href="https://translationproject.org/team/">https://translationproject.org/team/</a>&gt;</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>*sigaction*(2), *sigprocmask*(2), *signal*(7)</p>
+<p>
+\\
+Full documentation &lt;<a href="https://www.gnu.org/software/coreutils/env">https://www.gnu.org/software/coreutils/env</a>&gt;<br>
+or available locally via: info &#39;(coreutils) env invocation&#39;</p>
+<p>
+\\
+Packaged by <a href="https://nixos.org">https://nixos.org</a><br>
+Copyright © 2024 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a href="https://gnu.org/licenses/gpl.html">https://gnu.org/licenses/gpl.html</a>&gt;.<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

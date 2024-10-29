@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - lesskey.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - lesskey.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>lesskey - customize key bindings for less</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS (deprecated)
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>lesskey [-o output] [–] [input]</strong><br>
+<strong>lesskey [–output=output] [–] [input]</strong><br>
+<strong>lesskey -V</strong><br>
+<strong>lesskey –version</strong></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+SCOPE
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This document describes the format of the <strong>lesskey</strong> source file, which
+is used by <strong>less</strong> version 582 and later. In previous versions of <strong>less</strong>,
+a separate program called <strong>lesskey</strong> was used to compile the <strong>lesskey</strong>
+source file into a format understood by <strong>less</strong>. This compilation step is
+no longer required and the <strong>lesskey</strong> program is therefore deprecated,
+although the file format remains supported by <strong>less</strong> itself.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>A <strong>lesskey</strong> file specifies a set of key bindings and environment
+variables to be used by subsequent invocations of <strong>less</strong>.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+FILE FORMAT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The input file consists of one or more <em>sections</em>. Each section starts
+with a line that identifies the type of section. Possible sections are:</p>
+<dl>
+<dt>
+#command
+</dt>
+<dd>Customizes command key bindings.</dd>
+<dt>
+#line-edit
+</dt>
+<dd>Customizes line-editing key bindings.</dd>
+<dt>
+#env
+</dt>
+<dd>Defines environment variables.</dd>
+</dl>
+<p>Blank lines and lines which start with a hash mark (#) are ignored,
+except as noted below.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+COMMAND SECTION
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The command section begins with the line</p>
+<p>
+​#command</p>
+<p>
+If the command section is the first section in the file, this line may
+be omitted. The command section consists of lines of the form:</p>
+<p>
+<em>string</em> &lt;whitespace&gt; <em>action</em> [extra-string] &lt;newline&gt;</p>
+<p>
+Whitespace is any sequence of one or more spaces and/or tabs. The
+<em>string</em> is the command key(s) which invoke the action. The <em>string</em> may
+be a single command key, or a sequence of up to 15 keys. The <em>action</em> is
+the name of the less action, from the list below. The characters in the
+<em>string</em> may appear literally, or be prefixed by a caret to indicate a
+control key. A backslash followed by one to three octal digits may be
+used to specify a character by its octal value. A backslash followed by
+certain characters specifies input characters as follows:</p>
+<blockquote>
+<table>
+<tbody>
+<tr>
+<td>\b</td>
+<td>BACKSPACE</td>
+<td>(0x08)</td>
+</tr>
+<tr>
+<td>\e</td>
+<td>ESCAPE</td>
+<td>(0x1B)</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>NEWLINE</td>
+<td>(0x0A)</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>RETURN</td>
+<td>(0x0D)</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>TAB</td>
+<td>(0x09)</td>
+</tr>
+</tbody>
+</table>
+<p>
+\k followed by a single character represents the char(s) produced when
+one of these keys is pressed:</p>
+<table>
+<tbody>
+<tr>
+<td>\kb</td>
+<td>BACKSPACE (the BACKSPACE key)</td>
+</tr>
+<tr>
+<td>\kB</td>
+<td>ctrl-BACKSPACE</td>
+</tr>
+<tr>
+<td>\kd</td>
+<td>DOWN ARROW</td>
+</tr>
+<tr>
+<td>\kD</td>
+<td>PAGE DOWN</td>
+</tr>
+<tr>
+<td>\ke</td>
+<td>END</td>
+</tr>
+<tr>
+<td>\kh</td>
+<td>HOME</td>
+</tr>
+<tr>
+<td>\ki</td>
+<td>INSERT</td>
+</tr>
+<tr>
+<td>\kl</td>
+<td>LEFT ARROW</td>
+</tr>
+<tr>
+<td>\kL</td>
+<td>ctrl-LEFT ARROW</td>
+</tr>
+<tr>
+<td>\kr</td>
+<td>RIGHT ARROW</td>
+</tr>
+<tr>
+<td>\kR</td>
+<td>ctrl-RIGHT ARROW</td>
+</tr>
+<tr>
+<td>\kt</td>
+<td>BACKTAB</td>
+</tr>
+<tr>
+<td>\ku</td>
+<td>UP ARROW</td>
+</tr>
+<tr>
+<td>\kU</td>
+<td>PAGE UP</td>
+</tr>
+<tr>
+<td>\kx</td>
+<td>DELETE</td>
+</tr>
+<tr>
+<td>\kX</td>
+<td>ctrl-DELETE</td>
+</tr>
+<tr>
+<td>\k1</td>
+<td>F1</td>
+</tr>
+</tbody>
+</table>
+<p>
+A backslash followed by any other character indicates that character is
+to be taken literally. Characters which must be preceded by backslash
+include caret, space, tab, hash mark and the backslash itself.</p>
+<p>
+An action may be followed by an &#34;extra&#34; string. When such a command is
+entered while running <strong>less</strong>, the action is performed, and then the
+extra string is parsed, just as if it were typed in to <strong>less</strong>. This
+feature can be used in certain cases to extend the functionality of a
+command. For example, see the &#34;{&#34; and &#34;:t&#34; commands in the example
+below. The extra string has a special meaning for the &#34;quit&#34; action:
+when <strong>less</strong> quits, the ASCII value of the first character of the extra
+string is used as its exit status.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+EXAMPLE
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The following input file describes the set of default command keys used
+by <strong>less</strong>. Documentation on each command can be found in the <strong>less</strong> man
+page, under the key sequence which invokes the command.</p>
+<blockquote>
+<table>
+<tbody>
+<tr>
+<td>​#command</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>\r</td>
+<td>forw-line</td>
+<td></td>
+</tr>
+<tr>
+<td>\n</td>
+<td>forw-line</td>
+<td></td>
+</tr>
+<tr>
+<td>e</td>
+<td>forw-line</td>
+<td></td>
+</tr>
+<tr>
+<td>j</td>
+<td>forw-line</td>
+<td></td>
+</tr>
+<tr>
+<td>\kd</td>
+<td>forw-line</td>
+<td></td>
+</tr>
+<tr>
+<td>^E</td>
+<td>forw-line</td>
+<td></td>
+</tr>
+<tr>
+<td>^N</td>
+<td>forw-line</td>
+<td></td>
+</tr>
+<tr>
+<td>k</td>
+<td>back-line</td>
+<td></td>
+</tr>
+<tr>
+<td>y</td>
+<td>back-line</td>
+<td></td>
+</tr>
+<tr>
+<td>^Y</td>
+<td>back-line</td>
+<td></td>
+</tr>
+<tr>
+<td>^K</td>
+<td>back-line</td>
+<td></td>
+</tr>
+<tr>
+<td>^P</td>
+<td>back-line</td>
+<td></td>
+</tr>
+<tr>
+<td>J</td>
+<td>forw-line-force</td>
+<td></td>
+</tr>
+<tr>
+<td>K</td>
+<td>back-line-force</td>
+<td></td>
+</tr>
+<tr>
+<td>Y</td>
+<td>back-line-force</td>
+<td></td>
+</tr>
+<tr>
+<td>d</td>
+<td>forw-scroll</td>
+<td></td>
+</tr>
+<tr>
+<td>^D</td>
+<td>forw-scroll</td>
+<td></td>
+</tr>
+<tr>
+<td>u</td>
+<td>back-scroll</td>
+<td></td>
+</tr>
+<tr>
+<td>^U</td>
+<td>back-scroll</td>
+<td></td>
+</tr>
+<tr>
+<td>\40</td>
+<td>forw-screen</td>
+<td></td>
+</tr>
+<tr>
+<td>f</td>
+<td>forw-screen</td>
+<td></td>
+</tr>
+<tr>
+<td>^F</td>
+<td>forw-screen</td>
+<td></td>
+</tr>
+<tr>
+<td>^V</td>
+<td>forw-screen</td>
+<td></td>
+</tr>
+<tr>
+<td>\kD</td>
+<td>forw-screen</td>
+<td></td>
+</tr>
+<tr>
+<td>b</td>
+<td>back-screen</td>
+<td></td>
+</tr>
+<tr>
+<td>^B</td>
+<td>back-screen</td>
+<td></td>
+</tr>
+<tr>
+<td>\ev</td>
+<td>back-screen</td>
+<td></td>
+</tr>
+<tr>
+<td>\kU</td>
+<td>back-screen</td>
+<td></td>
+</tr>
+<tr>
+<td>z</td>
+<td>forw-window</td>
+<td></td>
+</tr>
+<tr>
+<td>w</td>
+<td>back-window</td>
+<td></td>
+</tr>
+<tr>
+<td>\e\40</td>
+<td>forw-screen-force</td>
+<td></td>
+</tr>
+<tr>
+<td>F</td>
+<td>forw-forever</td>
+<td></td>
+</tr>
+<tr>
+<td>\eF</td>
+<td>forw-until-hilite</td>
+<td></td>
+</tr>
+<tr>
+<td>R</td>
+<td>repaint-flush</td>
+<td></td>
+</tr>
+<tr>
+<td>r</td>
+<td>repaint</td>
+<td></td>
+</tr>
+<tr>
+<td>^R</td>
+<td>repaint</td>
+<td></td>
+</tr>
+<tr>
+<td>^L</td>
+<td>repaint</td>
+<td></td>
+</tr>
+<tr>
+<td>\eu</td>
+<td>undo-hilite</td>
+<td></td>
+</tr>
+<tr>
+<td>\eU</td>
+<td>clear-search</td>
+<td></td>
+</tr>
+<tr>
+<td>g</td>
+<td>goto-line</td>
+<td></td>
+</tr>
+<tr>
+<td>\kh</td>
+<td>goto-line</td>
+<td></td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>goto-line</td>
+<td></td>
+</tr>
+<tr>
+<td>\e&lt;</td>
+<td>goto-line</td>
+<td></td>
+</tr>
+<tr>
+<td>p</td>
+<td>percent</td>
+<td></td>
+</tr>
+<tr>
+<td>%</td>
+<td>percent</td>
+<td></td>
+</tr>
+<tr>
+<td>\e(</td>
+<td>left-scroll</td>
+<td></td>
+</tr>
+<tr>
+<td>\e)</td>
+<td>right-scroll</td>
+<td></td>
+</tr>
+<tr>
+<td>\kl</td>
+<td>left-scroll</td>
+<td></td>
+</tr>
+<tr>
+<td>\kr</td>
+<td>right-scroll</td>
+<td></td>
+</tr>
+<tr>
+<td>\e{</td>
+<td>no-scroll</td>
+<td></td>
+</tr>
+<tr>
+<td>\e}</td>
+<td>end-scroll</td>
+<td></td>
+</tr>
+<tr>
+<td>{</td>
+<td>forw-bracket {}</td>
+<td></td>
+</tr>
+<tr>
+<td>}</td>
+<td>back-bracket {}</td>
+<td></td>
+</tr>
+<tr>
+<td>(</td>
+<td>forw-bracket ()</td>
+<td></td>
+</tr>
+<tr>
+<td>)</td>
+<td>back-bracket ()</td>
+<td></td>
+</tr>
+<tr>
+<td>[</td>
+<td>forw-bracket []</td>
+<td></td>
+</tr>
+<tr>
+<td>]</td>
+<td>back-bracket []</td>
+<td></td>
+</tr>
+<tr>
+<td>\e^F</td>
+<td>forw-bracket</td>
+<td></td>
+</tr>
+<tr>
+<td>\e^B</td>
+<td>back-bracket</td>
+<td></td>
+</tr>
+<tr>
+<td>G</td>
+<td>goto-end</td>
+<td></td>
+</tr>
+<tr>
+<td>\e&gt;</td>
+<td>goto-end</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>goto-end</td>
+<td></td>
+</tr>
+<tr>
+<td>\ke</td>
+<td>goto-end</td>
+<td></td>
+</tr>
+<tr>
+<td>\eG</td>
+<td>goto-end-buffered</td>
+<td></td>
+</tr>
+<tr>
+<td>=</td>
+<td>status</td>
+<td></td>
+</tr>
+<tr>
+<td>^G</td>
+<td>status</td>
+<td></td>
+</tr>
+<tr>
+<td>:f</td>
+<td>status</td>
+<td></td>
+</tr>
+<tr>
+<td>/</td>
+<td>forw-search</td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>back-search</td>
+<td></td>
+</tr>
+<tr>
+<td>\e/</td>
+<td>forw-search *</td>
+<td></td>
+</tr>
+<tr>
+<td>\e?</td>
+<td>back-search *</td>
+<td></td>
+</tr>
+<tr>
+<td>n</td>
+<td>repeat-search</td>
+<td></td>
+</tr>
+<tr>
+<td>\en</td>
+<td>repeat-search-all</td>
+<td></td>
+</tr>
+<tr>
+<td>N</td>
+<td>reverse-search</td>
+<td></td>
+</tr>
+<tr>
+<td>\eN</td>
+<td>reverse-search-all</td>
+<td></td>
+</tr>
+<tr>
+<td>^O^N</td>
+<td>osc8-forw-search</td>
+<td></td>
+</tr>
+<tr>
+<td>^On</td>
+<td>osc8-forw-search</td>
+<td></td>
+</tr>
+<tr>
+<td>^O^P</td>
+<td>osc8-back-search</td>
+<td></td>
+</tr>
+<tr>
+<td>^Op</td>
+<td>osc8-back-search</td>
+<td></td>
+</tr>
+<tr>
+<td>^O^O</td>
+<td>osc8-open</td>
+<td></td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>filter</td>
+<td></td>
+</tr>
+<tr>
+<td>m</td>
+<td>set-mark</td>
+<td></td>
+</tr>
+<tr>
+<td>M</td>
+<td>set-mark-bottom</td>
+<td></td>
+</tr>
+<tr>
+<td>\em</td>
+<td>clear-mark</td>
+<td></td>
+</tr>
+<tr>
+<td>&#39;</td>
+<td>goto-mark</td>
+<td></td>
+</tr>
+<tr>
+<td>^X^X</td>
+<td>goto-mark</td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td>examine</td>
+<td></td>
+</tr>
+<tr>
+<td>:e</td>
+<td>examine</td>
+<td></td>
+</tr>
+<tr>
+<td>^X^V</td>
+<td>examine</td>
+<td></td>
+</tr>
+<tr>
+<td>:n</td>
+<td>next-file</td>
+<td></td>
+</tr>
+<tr>
+<td>:p</td>
+<td>prev-file</td>
+<td></td>
+</tr>
+<tr>
+<td>t</td>
+<td>next-tag</td>
+<td></td>
+</tr>
+<tr>
+<td>T</td>
+<td>prev-tag</td>
+<td></td>
+</tr>
+<tr>
+<td>:x</td>
+<td>index-file</td>
+<td></td>
+</tr>
+<tr>
+<td>:d</td>
+<td>remove-file</td>
+<td></td>
+</tr>
+<tr>
+<td>-</td>
+<td>toggle-option</td>
+<td></td>
+</tr>
+<tr>
+<td>:t</td>
+<td>toggle-option t</td>
+<td></td>
+</tr>
+<tr>
+<td>s</td>
+<td>toggle-option o</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>​## Use a long option name by starting the</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>​## extra string with ONE dash; eg:</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>​## s toggle-option -log-file\n</td>
+<td></td>
+</tr>
+<tr>
+<td>_</td>
+<td>display-option</td>
+<td></td>
+</tr>
+<tr>
+<td>​</td>
+<td></td>
+<td>pipe</td>
+</tr>
+<tr>
+<td>v</td>
+<td>visual</td>
+<td></td>
+</tr>
+<tr>
+<td>!</td>
+<td>shell</td>
+<td></td>
+</tr>
+<tr>
+<td>​#</td>
+<td>pshell</td>
+<td></td>
+</tr>
+<tr>
+<td>+</td>
+<td>firstcmd</td>
+<td></td>
+</tr>
+<tr>
+<td>H</td>
+<td>help</td>
+<td></td>
+</tr>
+<tr>
+<td>h</td>
+<td>help</td>
+<td></td>
+</tr>
+<tr>
+<td>V</td>
+<td>version</td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td>digit</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>digit</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>digit</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>digit</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>digit</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>digit</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>digit</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>digit</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>digit</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>digit</td>
+<td></td>
+</tr>
+<tr>
+<td>q</td>
+<td>quit</td>
+<td></td>
+</tr>
+<tr>
+<td>Q</td>
+<td>quit</td>
+<td></td>
+</tr>
+<tr>
+<td>:q</td>
+<td>quit</td>
+<td></td>
+</tr>
+<tr>
+<td>:Q</td>
+<td>quit</td>
+<td></td>
+</tr>
+<tr>
+<td>ZZ</td>
+<td>quit</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+PRECEDENCE
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Commands specified by <strong>lesskey</strong> take precedence over the default
+commands. A default command key may be disabled by including it in the
+input file with the action &#34;invalid&#34;. Alternatively, a key may be
+defined to do nothing by using the action &#34;noaction&#34;. &#34;noaction&#34; is
+similar to &#34;invalid&#34;, but <strong>less</strong> will give an error beep for an
+&#34;invalid&#34; command, but not for a &#34;noaction&#34; command. In addition, ALL
+default commands may be disabled by adding this control line to the
+input file:</p>
+<p>
+​#stop</p>
+<p>
+This will cause all default commands to be ignored. The #stop line
+should be the last line in that section of the file.</p>
+<p>
+Be aware that #stop can be dangerous. Since all default commands are
+disabled, you must provide sufficient commands before the #stop line to
+enable all necessary actions. For example, failure to provide a &#34;quit&#34;
+command can lead to frustration.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+LINE EDITING SECTION
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The line-editing section begins with the line:</p>
+<p>
+​#line-edit</p>
+<p>
+This section specifies new key bindings for the line editing commands,
+in a manner similar to the way key bindings for ordinary commands are
+specified in the #command section. The line-editing section consists of
+a list of keys and actions, one per line as in the example below.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+EXAMPLE
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The following input file describes the set of default line-editing keys
+used by <strong>less</strong>:</p>
+<blockquote>
+<table>
+<tbody>
+<tr>
+<td>​#line-edit</td>
+<td></td>
+</tr>
+<tr>
+<td>\t</td>
+<td>forw-complete</td>
+</tr>
+<tr>
+<td>\17</td>
+<td>back-complete</td>
+</tr>
+<tr>
+<td>\e\t</td>
+<td>back-complete</td>
+</tr>
+<tr>
+<td>^L</td>
+<td>expand</td>
+</tr>
+<tr>
+<td>^V</td>
+<td>literal</td>
+</tr>
+<tr>
+<td>^A</td>
+<td>literal</td>
+</tr>
+<tr>
+<td>\el</td>
+<td>right</td>
+</tr>
+<tr>
+<td>\kr</td>
+<td>right</td>
+</tr>
+<tr>
+<td>\eh</td>
+<td>left</td>
+</tr>
+<tr>
+<td>\kl</td>
+<td>left</td>
+</tr>
+<tr>
+<td>\eb</td>
+<td>word-left</td>
+</tr>
+<tr>
+<td>\e\kl</td>
+<td>word-left</td>
+</tr>
+<tr>
+<td>\ew</td>
+<td>word-right</td>
+</tr>
+<tr>
+<td>\e\kr</td>
+<td>word-right</td>
+</tr>
+<tr>
+<td>\ei</td>
+<td>insert</td>
+</tr>
+<tr>
+<td>\ex</td>
+<td>delete</td>
+</tr>
+<tr>
+<td>\kx</td>
+<td>delete</td>
+</tr>
+<tr>
+<td>\eX</td>
+<td>word-delete</td>
+</tr>
+<tr>
+<td>\ekx</td>
+<td>word-delete</td>
+</tr>
+<tr>
+<td>\e\b</td>
+<td>word-backspace</td>
+</tr>
+<tr>
+<td>\e0</td>
+<td>home</td>
+</tr>
+<tr>
+<td>\kh</td>
+<td>home</td>
+</tr>
+<tr>
+<td>\e$</td>
+<td>end</td>
+</tr>
+<tr>
+<td>\ke</td>
+<td>end</td>
+</tr>
+<tr>
+<td>\ek</td>
+<td>up</td>
+</tr>
+<tr>
+<td>\ku</td>
+<td>up</td>
+</tr>
+<tr>
+<td>\ej</td>
+<td>down</td>
+</tr>
+<tr>
+<td>^G</td>
+<td>abort</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+LESS ENVIRONMENT VARIABLES
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The environment variable section begins with the line</p>
+<p>
+​#env</p>
+<p>
+Following this line is a list of environment variable assignments. Each
+line consists of an environment variable name, an equals sign (=) and
+the value to be assigned to the environment variable. White space before
+and after the equals sign is ignored. Variables assigned in this way are
+visible only to <strong>less</strong>. If a variable is specified in the system
+environment and also in a lesskey file, the value in the lesskey file
+takes precedence.</p>
+<p>
+If the variable name is followed by += rather than =, the string is
+appended to the variable&#39;s existing value. This currently works only if
+any += lines immediately follow the same variable&#39;s original definition
+(with an = line), without any intervening definitions of other
+variables. It can append only to a variable defined earlier in the file;
+it cannot append to a variable in the system environment. The string is
+appended literally, without any extra whitespace added, so if whitespace
+is desired, it should be appended to the end of the preceding line. (It
+cannot be added to the beginning of the += string because space after
+the equals sign is ignored, as noted above.)</p>
+<p>
+In the string after the = sign, a substring of the form ${NAME} is
+replaced with the value of the environment variable &#34;NAME&#34;. The value of
+the variable may come from either the system environment, an earlier
+lesskey file, or an earlier definition in the current lesskey file.
+Simple text replacements can be performed by using the syntax
+${NAME/STRING/REPL}. This replaces all instances of &#34;STRING&#34; in the
+named environment variable with the text &#34;REPL&#34;. STRING is matched using
+a simple text comparison; no metacharacters are supported. An instance
+of slash or right curly bracket in STRING or REPL must be escaped by
+preceding it with <em>two</em> backslashes. If REPL is an empty string, all
+instances of STRING are removed. A slash immediately before the right
+curly bracket may be omitted. Multiple replacements may be performed by
+using the syntax ${NAME/STRING1/REPL1/STRING2/REPL2} and so on.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+CONDITIONAL CONFIGURATION
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>If a line begins with #version followed by a relational operator and a
+version number, the remainder of the line is parsed if and only if the
+running version of <strong>less</strong> (or <strong>lesskey</strong>) matches the operator. This can
+be helpful if a lesskey file is used by different versions of <strong>less</strong>.</p>
+<p>
+For example, suppose that a new command named &#39;sideways-search&#39; is added
+in <strong>less</strong> version 777. Then the following line would assign the command
+to the Q key, but only in versions of <strong>less</strong> which support it. The line
+would be ignored by versions earlier than 777.</p>
+<pre class="example">
+	#version &gt;= 777  Q sideways-search
+</pre>
+<p>
+These six operators are supported:</p>
+<blockquote>
+<table>
+<tbody>
+<tr>
+<td>&gt;</td>
+<td>Greater than</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>Less than</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>Greater than or equal to</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>Less than or equal to</td>
+</tr>
+<tr>
+<td>=</td>
+<td>Equal to</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>Not equal to</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>
+The #version feature is not supported in <strong>less</strong> and <strong>lesskey</strong> before
+version 594. In those older versions, all #version lines are ignored.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+EXAMPLE
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>The following input file sets the -i and -S options when <strong>less</strong> is run
+and, on version 595 and higher, adds a –color option.</p>
+<pre class="example">
+	#env
+	## (Note that there must be a space at the end of the next line,
+	##  to separate the --color option from the -S option.)
+	LESS = -i -S 
+	#version &gt;= 595  LESS += --color=Hkc
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>*less*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+WARNINGS
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>On MS-DOS and OS/2 systems, certain keys send a sequence of characters
+which start with a NUL character (0). This NUL character should be
+represented as \340 in a lesskey file.</p>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>Copyright (C) 1984-2024 Mark Nudelman</p>
+<p>
+less is part of the GNU project and is free software. You can
+redistribute it and/or modify it under the terms of either (1) the GNU
+General Public License as published by the Free Software Foundation; or
+(2) the Less License. See the file README in the less distribution for
+more details regarding redistribution. You should have received a copy
+of the GNU General Public License along with the source for less; see
+the file COPYING. If not, write to the Free Software Foundation, 59
+Temple Place, Suite 330, Boston, MA 02111-1307, USA. You should also
+have received a copy of the Less License; see the file LICENSE.</p>
+<p>
+less is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+more details.</p>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
+<h2 id="headline-17">
+AUTHOR
+</h2>
+<div id="outline-text-headline-17" class="outline-text-2">
+<p>Mark Nudelman<br>
+Report bugs at <a href="https://github.com/gwsw/less/issues.">https://github.com/gwsw/less/issues.</a></p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

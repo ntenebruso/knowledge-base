@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-am.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-am.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-am - Apply a series of patches from a mailbox</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git am [--signoff] [--keep] [--[no-]keep-cr] [--[no-]utf8] [--no-verify]
+         [--[no-]3way] [--interactive] [--committer-date-is-author-date]
+         [--ignore-date] [--ignore-space-change | --ignore-whitespace]
+         [--whitespace=&lt;action&gt;] [-C&lt;n&gt;] [-p&lt;n&gt;] [--directory=&lt;dir&gt;]
+         [--exclude=&lt;path&gt;] [--include=&lt;path&gt;] [--reject] [-q | --quiet]
+         [--[no-]scissors] [-S[&lt;keyid&gt;]] [--patch-format=&lt;format&gt;]
+         [--quoted-cr=&lt;action&gt;]
+         [--empty=(stop|drop|keep)]
+         [(&lt;mbox&gt; | &lt;Maildir&gt;)...]
+git am (--continue | --skip | --abort | --quit | --retry | --show-current-patch[=(diff|raw)] | --allow-empty)
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Splits mail messages in a mailbox into commit log messages, authorship
+information, and patches, and applies them to the current branch. You
+could think of it as a reverse operation of *git-format-patch*(1) run on
+a branch with a straight history without merges.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>(&lt;mbox&gt;|&lt;Maildir&gt;)…</p>
+<blockquote>
+<p>The list of mailbox files to read patches from. If you do not supply
+this argument, the command reads from the standard input. If you supply
+directories, they will be treated as Maildirs.</p>
+</blockquote>
+<p>
+-s, –signoff</p>
+<blockquote>
+<p>Add a <strong>Signed-off-by</strong> trailer to the commit message, using the committer
+identity of yourself. See the signoff option in *git-commit*(1) for more
+information.</p>
+</blockquote>
+<p>
+-k, –keep</p>
+<blockquote>
+<p>Pass <strong>-k</strong> flag to <em>git mailinfo</em> (see *git-mailinfo*(1)).</p>
+</blockquote>
+<p>
+–keep-non-patch</p>
+<blockquote>
+<p>Pass <strong>-b</strong> flag to <em>git mailinfo</em> (see *git-mailinfo*(1)).</p>
+</blockquote>
+<p>
+–[no-]keep-cr</p>
+<blockquote>
+<p>With <strong>–keep-cr</strong>, call <em>git mailsplit</em> (see *git-mailsplit*(1)) with the
+same option, to prevent it from stripping CR at the end of lines.
+<strong>am.keepcr</strong> configuration variable can be used to specify the default
+behaviour. <strong>–no-keep-cr</strong> is useful to override <strong>am.keepcr</strong>.</p>
+</blockquote>
+<p>
+-c, –scissors</p>
+<blockquote>
+<p>Remove everything in body before a scissors line (see
+<strong>git-mailinfo*(1)). Can be activated by default using the
+*mailinfo.scissors</strong> configuration variable.</p>
+</blockquote>
+<p>
+–no-scissors</p>
+<blockquote>
+<p>Ignore scissors lines (see *git-mailinfo*(1)).</p>
+</blockquote>
+<p>
+–quoted-cr=&lt;action&gt;</p>
+<blockquote>
+<p>This flag will be passed down to <em>git mailinfo</em> (see *git-mailinfo*(1)).</p>
+</blockquote>
+<p>
+–empty=(drop|keep|stop)</p>
+<blockquote>
+<p>How to handle an e-mail message lacking a patch:</p>
+<p>
+<strong>drop</strong></p>
+<blockquote>
+<p>The e-mail message will be skipped.</p>
+</blockquote>
+<p>
+<strong>keep</strong></p>
+<blockquote>
+<p>An empty commit will be created, with the contents of the e-mail message
+as its log.</p>
+</blockquote>
+<p>
+<strong>stop</strong></p>
+<blockquote>
+<p>The command will fail, stopping in the middle of the current <strong>am</strong>
+session. This is the default behavior.</p>
+</blockquote>
+</blockquote>
+<p>
+-m, –message-id</p>
+<blockquote>
+<p>Pass the <strong>-m</strong> flag to <em>git mailinfo</em> (see <strong>git-mailinfo*(1)), so that
+the Message-ID header is added to the commit message. The *am.messageid</strong>
+configuration variable can be used to specify the default behaviour.</p>
+</blockquote>
+<p>
+–no-message-id</p>
+<blockquote>
+<p>Do not add the Message-ID header to the commit message. <strong>no-message-id</strong>
+is useful to override <strong>am.messageid</strong>.</p>
+</blockquote>
+<p>
+-q, –quiet</p>
+<blockquote>
+<p>Be quiet. Only print error messages.</p>
+</blockquote>
+<p>
+-u, –utf8</p>
+<blockquote>
+<p>Pass <strong>-u</strong> flag to <em>git mailinfo</em> (see *git-mailinfo*(1)). The proposed
+commit log message taken from the e-mail is re-coded into UTF-8 encoding
+(configuration variable <strong>i18n.commitEncoding</strong> can be used to specify the
+project&#39;s preferred encoding if it is not UTF-8).</p>
+<p>
+This was optional in prior versions of git, but now it is the default.
+You can use <strong>–no-utf8</strong> to override this.</p>
+</blockquote>
+<p>
+–no-utf8</p>
+<blockquote>
+<p>Pass <strong>-n</strong> flag to <em>git mailinfo</em> (see *git-mailinfo*(1)).</p>
+</blockquote>
+<p>
+-3, –3way, –no-3way</p>
+<blockquote>
+<p>When the patch does not apply cleanly, fall back on 3-way merge if the
+patch records the identity of blobs it is supposed to apply to and we
+have those blobs available locally. <strong>–no-3way</strong> can be used to override
+am.threeWay configuration variable. For more information, see
+am.threeWay in *git-config*(1).</p>
+</blockquote>
+<p>
+–rerere-autoupdate, –no-rerere-autoupdate</p>
+<blockquote>
+<p>After the rerere mechanism reuses a recorded resolution on the current
+conflict to update the files in the working tree, allow it to also
+update the index with the result of resolution. <strong>–no-rerere-autoupdate</strong>
+is a good way to double-check what <strong>rerere</strong> did and catch potential
+mismerges, before committing the result to the index with a separate
+<strong>git add</strong>.</p>
+</blockquote>
+<p>
+–ignore-space-change, –ignore-whitespace, –whitespace=&lt;action&gt;,
+-C&lt;n&gt;, -p&lt;n&gt;, –directory=&lt;dir&gt;, –exclude=&lt;path&gt;, –include=&lt;path&gt;,
+–reject</p>
+<blockquote>
+<p>These flags are passed to the <em>git apply</em> (see *git-apply*(1)) program
+that applies the patch.</p>
+<p>
+Valid &lt;action&gt; for the <strong>–whitespace</strong> option are: <strong>nowarn</strong>, <strong>warn</strong>,
+<strong>fix</strong>, <strong>error</strong>, and <strong>error-all</strong>.</p>
+</blockquote>
+<p>
+–patch-format</p>
+<blockquote>
+<p>By default the command will try to detect the patch format
+automatically. This option allows the user to bypass the automatic
+detection and specify the patch format that the patch(es) should be
+interpreted as. Valid formats are mbox, mboxrd, stgit, stgit-series, and
+hg.</p>
+</blockquote>
+<p>
+-i, –interactive</p>
+<blockquote>
+<p>Run interactively.</p>
+</blockquote>
+<p>
+-n, –no-verify</p>
+<blockquote>
+<p>By default, the pre-applypatch and applypatch-msg hooks are run. When
+any of <strong>–no-verify</strong> or <strong>-n</strong> is given, these are bypassed. See also
+*githooks*(5).</p>
+</blockquote>
+<p>
+–committer-date-is-author-date</p>
+<blockquote>
+<p>By default the command records the date from the e-mail message as the
+commit author date, and uses the time of commit creation as the
+committer date. This allows the user to lie about the committer date by
+using the same value as the author date.</p>
+</blockquote>
+<p>
+–ignore-date</p>
+<blockquote>
+<p>By default the command records the date from the e-mail message as the
+commit author date, and uses the time of commit creation as the
+committer date. This allows the user to lie about the author date by
+using the same value as the committer date.</p>
+</blockquote>
+<p>
+–skip</p>
+<blockquote>
+<p>Skip the current patch. This is only meaningful when restarting an
+aborted patch.</p>
+</blockquote>
+<p>
+-S[&lt;keyid&gt;], –gpg-sign[=&lt;keyid&gt;], –no-gpg-sign</p>
+<blockquote>
+<p>GPG-sign commits. The <strong>keyid</strong> argument is optional and defaults to the
+committer identity; if specified, it must be stuck to the option without
+a space. <strong>–no-gpg-sign</strong> is useful to countermand both <strong>commit.gpgSign</strong>
+configuration variable, and earlier <strong>–gpg-sign</strong>.</p>
+</blockquote>
+<p>
+–continue, -r, –resolved</p>
+<blockquote>
+<p>After a patch failure (e.g. attempting to apply conflicting patch), the
+user has applied it by hand and the index file stores the result of the
+application. Make a commit using the authorship and commit log extracted
+from the e-mail message and the current index file, and continue.</p>
+</blockquote>
+<p>
+–resolvemsg=&lt;msg&gt;</p>
+<blockquote>
+<p>When a patch failure occurs, &lt;msg&gt; will be printed to the screen before
+exiting. This overrides the standard message informing you to use
+<strong>–continue</strong> or <strong>–skip</strong> to handle the failure. This is solely for
+internal use between <em>git rebase</em> and <em>git am</em>.</p>
+</blockquote>
+<p>
+–abort</p>
+<blockquote>
+<p>Restore the original branch and abort the patching operation. Revert the
+contents of files involved in the am operation to their pre-am state.</p>
+</blockquote>
+<p>
+–quit</p>
+<blockquote>
+<p>Abort the patching operation but keep HEAD and the index untouched.</p>
+</blockquote>
+<p>
+–retry</p>
+<blockquote>
+<p>Try to apply the last conflicting patch again. This is generally only
+useful for passing extra options to the retry attempt (e.g., <strong>–3way</strong>),
+since otherwise you&#39;ll just see the same failure again.</p>
+</blockquote>
+<p>
+–show-current-patch[=(diff|raw)]</p>
+<blockquote>
+<p>Show the message at which <strong>git am</strong> has stopped due to conflicts. If
+<strong>raw</strong> is specified, show the raw contents of the e-mail message; if
+<strong>diff</strong>, show the diff portion only. Defaults to <strong>raw</strong>.</p>
+</blockquote>
+<p>
+–allow-empty</p>
+<blockquote>
+<p>After a patch failure on an input e-mail message lacking a patch, create
+an empty commit with the contents of the e-mail message as its log
+message.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+DISCUSSION
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The commit author name is taken from the &#34;From: &#34; line of the message,
+and commit author date is taken from the &#34;Date: &#34; line of the message.
+The &#34;Subject: &#34; line is used as the title of the commit, after stripping
+common prefix &#34;[PATCH &lt;anything&gt;]&#34;. The &#34;Subject: &#34; line is supposed to
+concisely describe what the commit is about in one line of text.</p>
+<p>
+&#34;From: &#34;, &#34;Date: &#34;, and &#34;Subject: &#34; lines starting the body override the
+respective commit author name and title values taken from the headers.</p>
+<p>
+The commit message is formed by the title taken from the &#34;Subject: &#34;, a
+blank line and the body of the message up to where the patch begins.
+Excess whitespace at the end of each line is automatically stripped.</p>
+<p>
+The patch is expected to be inline, directly following the message. Any
+line that is of the form:</p>
+<blockquote>
+<p>·</p>
+<p>
+three-dashes and end-of-line, or</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+a line that begins with &#34;diff -&#34;, or</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+a line that begins with &#34;Index: &#34;</p>
+</blockquote>
+<p>
+is taken as the beginning of a patch, and the commit log message is
+terminated before the first occurrence of such a line.</p>
+<p>
+When initially invoking <strong>git am</strong>, you give it the names of the mailboxes
+to process. Upon seeing the first patch that does not apply, it aborts
+in the middle. You can recover from this in one of two ways:</p>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>skip the current patch by re-running the command with the <strong>–skip</strong>
+option.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li></li>
+</ol>
+<p>hand resolve the conflict in the working directory, and update the index
+file to bring it into a state that the patch should have produced. Then
+run the command with the <strong>–continue</strong> option.</p>
+</blockquote>
+<p>
+The command refuses to process new mailboxes until the current operation
+is finished, so if you decide to start over from scratch, run <strong>git am
+–abort</strong> before running the command with mailbox names.</p>
+<p>
+Before any patches are applied, ORIG_HEAD is set to the tip of the
+current branch. This is useful if you have problems with multiple
+commits, like running <em>git am</em> on the wrong branch or an error in the
+commits that is more easily fixed by changing the mailbox (e.g. errors
+in the &#34;From:&#34; lines).</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+HOOKS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>This command can run <strong>applypatch-msg</strong>, <strong>pre-applypatch</strong>, and
+<strong>post-applypatch</strong> hooks. See *githooks*(5) for more information.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+am.keepcr</p>
+<blockquote>
+<p>If true, git-am will call git-mailsplit for patches in mbox format with
+parameter <strong>–keep-cr</strong>. In this case git-mailsplit will not remove <strong>\r</strong>
+from lines ending with <strong>\r\n</strong>. Can be overridden by giving
+<strong>–no-keep-cr</strong> from the command line. See *git-am*(1),
+*git-mailsplit*(1).</p>
+</blockquote>
+<p>
+am.threeWay</p>
+<blockquote>
+<p>By default, <strong>git am</strong> will fail if the patch does not apply cleanly. When
+set to true, this setting tells <strong>git am</strong> to fall back on 3-way merge if
+the patch records the identity of blobs it is supposed to apply to and
+we have those blobs available locally (equivalent to giving the <strong>–3way</strong>
+option from the command line). Defaults to <strong>false</strong>. See *git-am*(1).</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*git-apply*(1), *git-format-patch*(1).</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+GIT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

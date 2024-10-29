@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - h2ph.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - h2ph.1</h1>
+    
+<p>
+\\</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>h2ph - convert .h C header files to .ph Perl header files</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>h2ph [-d destination directory] [-r | -a] [-l] [-h] [-e] [-D] [-Q]</strong>
+[headerfiles]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><em>h2ph</em> converts any C header files specified to the corresponding Perl
+header file format. It is most easily run while in /usr/include:</p>
+<p>
+cd /usr/include; h2ph * sys/*</p>
+<p>
+or</p>
+<p>
+cd /usr/include; h2ph * sys/* arpa/* netinet/*</p>
+<p>
+or</p>
+<p>
+cd /usr/include; h2ph -r -l .</p>
+<p>
+The output files are placed in the hierarchy rooted at Perl&#39;s
+architecture dependent library directory. You can specify a different
+hierarchy with a <strong>-d</strong> switch.</p>
+<p>
+If run with no arguments, filters standard input to standard output.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<dl>
+<dt>
+-d destination_dir
+</dt>
+<dd>Put the resulting <strong>.ph</strong> files beneath
+<strong>destination_dir</strong>, instead of beneath the default Perl library
+location (<code class="verbatim">$Config{installsitearch}</code>).</dd>
+<dt>
+-r
+</dt>
+<dd>Run recursively; if any of <strong>headerfiles</strong> are directories, then
+run <em>h2ph</em> on all files in those directories (and their
+subdirectories, etc.). <strong>-r</strong> and <strong>-a</strong> are mutually exclusive.</dd>
+<dt>
+-a
+</dt>
+<dd>Run automagically; convert <strong>headerfiles</strong>, as well as any <strong>.h</strong>
+files which they include. This option will search for <strong>.h</strong> files in
+all directories which your C compiler ordinarily uses. <strong>-a</strong> and <strong>-r</strong>
+are mutually exclusive.</dd>
+<dt>
+-l
+</dt>
+<dd>Symbolic links will be replicated in the destination directory.
+If <strong>-l</strong> is not specified, then links are skipped over.</dd>
+<dt>
+-h
+</dt>
+<dd>Put &#39;hints&#39; in the .ph files which will help in locating
+problems with <em>h2ph</em>. In those cases when you <strong>require</strong> a <strong>.ph</strong> file
+containing syntax errors, instead of the cryptic [ some error
+condition ] at (eval mmm) line nnn you will see the slightly more
+helpful [ some error condition ] at filename.ph line nnn However, the
+<strong>.ph</strong> files almost double in size when built using <strong>-h</strong>.</dd>
+<dt>
+-e
+</dt>
+<dd>If an error is encountered during conversion, output file will
+be removed and a warning emitted instead of terminating the conversion
+immediately.</dd>
+<dt>
+-D
+</dt>
+<dd>Include the code from the <strong>.h</strong> file as a comment in the <strong>.ph</strong>
+file. This is primarily used for debugging <em>h2ph</em>.</dd>
+<dt>
+-Q
+</dt>
+<dd>&#39;Quiet&#39; mode; don&#39;t print out the names of the files being
+converted.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+ENVIRONMENT
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>No environment variables are used.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+FILES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>/usr/include/*.h /usr/include/sys/*.h</p>
+<p>
+etc.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+AUTHOR
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Larry Wall</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>perl</strong> (1)</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+DIAGNOSTICS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The usual warnings if it can&#39;t read or write the files involved.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+BUGS
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>Doesn&#39;t construct the <code class="verbatim">%sizeof</code> array for you.</p>
+<p>
+It doesn&#39;t handle all C constructs, but it does attempt to isolate
+definitions inside evals so that you can get at the definitions that it
+can translate.</p>
+<p>
+It&#39;s only intended as a rough tool. You may need to dicker with the
+files produced.</p>
+<p>
+You have to run this program by hand; it&#39;s not run as part of the Perl
+installation.</p>
+<p>
+Doesn&#39;t handle complicated expressions built piecemeal, a la:</p>
+<p>
+enum { FIRST_VALUE, SECOND_VALUE, #ifdef ABC THIRD_VALUE #endif };</p>
+<p>
+Doesn&#39;t necessarily locate all of your C compiler&#39;s internally-defined
+symbols.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

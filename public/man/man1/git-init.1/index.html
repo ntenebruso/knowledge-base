@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-init.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-init.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-init - Create an empty Git repository or reinitialize an existing
+one</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git init [-q | --quiet] [--bare] [--template=&lt;template-directory&gt;]
+          [--separate-git-dir &lt;git-dir&gt;] [--object-format=&lt;format&gt;]
+          [--ref-format=&lt;format&gt;]
+          [-b &lt;branch-name&gt; | --initial-branch=&lt;branch-name&gt;]
+          [--shared[=&lt;permissions&gt;]] [&lt;directory&gt;]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This command creates an empty Git repository - basically a <strong>.git</strong>
+directory with subdirectories for <strong>objects</strong>, <strong>refs/heads</strong>, <strong>refs/tags</strong>,
+and template files. An initial branch without any commits will be
+created (see the <strong>–initial-branch</strong> option below for its name).</p>
+<p>
+If the <strong>$GIT_DIR</strong> environment variable is set then it specifies a path
+to use instead of <strong>./.git</strong> for the base of the repository.</p>
+<p>
+If the object storage directory is specified via the
+<strong>$GIT_OBJECT_DIRECTORY</strong> environment variable then the sha1 directories
+are created underneath; otherwise, the default <strong>$GIT_DIR/objects</strong>
+directory is used.</p>
+<p>
+Running <strong>git init</strong> in an existing repository is safe. It will not
+overwrite things that are already there. The primary reason for
+rerunning <strong>git init</strong> is to pick up newly added templates (or to move the
+repository to another place if <strong>–separate-git-dir</strong> is given).</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-q</strong>, <strong>–quiet</strong></p>
+<blockquote>
+<p>Only print error and warning messages; all other output will be
+suppressed.</p>
+</blockquote>
+<p>
+<strong>–bare</strong></p>
+<blockquote>
+<p>Create a bare repository. If <strong>GIT_DIR</strong> environment is not set, it is set
+to the current working directory.</p>
+</blockquote>
+<p>
+*–object-format=*/&lt;format&gt;/</p>
+<blockquote>
+<p>Specify the given object <em>&lt;format&gt;</em> (hash algorithm) for the repository.
+The valid values are <strong>sha1</strong> and (if enabled) <strong>sha256</strong>. <strong>sha1</strong> is the
+default.</p>
+<p>
+Note: At present, there is no interoperability between SHA-256
+repositories and SHA-1 repositories.</p>
+</blockquote>
+<p>
+Historically, we warned that SHA-256 repositories may later need
+backward incompatible changes when we introduce such interoperability
+features. Today, we only expect compatible changes. Furthermore, if such
+changes prove to be necessary, it can be expected that SHA-256
+repositories created with today&#39;s Git will be usable by future versions
+of Git without data loss.</p>
+<p>
+*–ref-format=*/&lt;format&gt;/</p>
+<blockquote>
+<p>Specify the given ref storage <em>&lt;format&gt;</em> for the repository. The valid
+values are:</p>
+<blockquote>
+<p>·</p>
+<p>
+<strong>files</strong> for loose files with packed-refs. This is the default.</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<strong>reftable</strong> for the reftable format. This format is experimental and its
+internals are subject to change.</p>
+</blockquote>
+</blockquote>
+<p>
+*–template=*/&lt;template-directory&gt;/</p>
+<blockquote>
+<p>Specify the directory from which templates will be used. (See the
+&#34;TEMPLATE DIRECTORY&#34; section below.)</p>
+</blockquote>
+<p>
+*–separate-git-dir=*/&lt;git-dir&gt;/</p>
+<blockquote>
+<p>Instead of initializing the repository as a directory to either
+<strong>$GIT_DIR</strong> or <strong>./.git/</strong>, create a text file there containing the path to
+the actual repository. This file acts as a filesystem-agnostic Git
+symbolic link to the repository.</p>
+<p>
+If this is a reinitialization, the repository will be moved to the
+specified path.</p>
+</blockquote>
+<p>
+<strong>-b</strong> <em>&lt;branch-name&gt;</em>, *–initial-branch=*/&lt;branch-name&gt;/</p>
+<blockquote>
+<p>Use <em>&lt;branch-name&gt;</em> for the initial branch in the newly created
+repository. If not specified, fall back to the default name (currently
+<strong>master</strong>, but this is subject to change in the future; the name can be
+customized via the <strong>init.defaultBranch</strong> configuration variable).</p>
+</blockquote>
+<p>
+<strong>–shared</strong>[*=*(*false*|*true*|*umask*|*group*|*all*|*world*|*everybody*|/&lt;perm&gt;/)]</p>
+<blockquote>
+<p>Specify that the Git repository is to be shared amongst several users.
+This allows users belonging to the same group to push into that
+repository. When specified, the config variable <strong>core.sharedRepository</strong>
+is set so that files and directories under <strong>$GIT_DIR</strong> are created with
+the requested permissions. When not specified, Git will use permissions
+reported by *umask*(2).</p>
+<p>
+The option can have the following values, defaulting to <strong>group</strong> if no
+value is given:</p>
+<p>
+<strong>umask</strong>, <strong>false</strong></p>
+<blockquote>
+<p>Use permissions reported by <strong>umask*(2). The default, when *–shared</strong> is
+not specified.</p>
+</blockquote>
+<p>
+<strong>group</strong>, <strong>true</strong></p>
+<blockquote>
+<p>Make the repository group-writable, (and <strong>g+sx</strong>, since the git group may
+not be the primary group of all users). This is used to loosen the
+permissions of an otherwise safe <strong>umask*(2) value. Note that the umask
+still applies to the other permission bits (e.g. if umask is *0022</strong>,
+using <strong>group</strong> will not remove read privileges from other (non-group)
+users). See <strong>0xxx</strong> for how to exactly specify the repository
+permissions.</p>
+</blockquote>
+<p>
+<strong>all</strong>, <strong>world</strong>, <strong>everybody</strong></p>
+<blockquote>
+<p>Same as <strong>group</strong>, but make the repository readable by all users.</p>
+</blockquote>
+<p>
+<em>&lt;perm&gt;</em></p>
+<blockquote>
+<p><em>&lt;perm&gt;</em> is a 3-digit octal number prefixed with ‘0` and each file will
+have mode <em>&lt;perm&gt;</em>. <em>&lt;perm&gt;</em> will override users&#39; <strong>umask*(2) value (and
+not only loosen permissions as *group</strong> and <strong>all</strong> do). <strong>0640</strong> will create
+a repository which is group-readable, but not group-writable or
+accessible to others. <strong>0660</strong> will create a repo that is readable and
+writable to the current user and group, but inaccessible to others
+(directories and executable files get their <strong>x</strong> bit from the <strong>r</strong> bit for
+corresponding classes of users).</p>
+</blockquote>
+</blockquote>
+<p>
+By default, the configuration flag <strong>receive.denyNonFastForwards</strong> is
+enabled in shared repositories, so that you cannot force a non
+fast-forwarding push into it.</p>
+<p>
+If you provide a <em>&lt;directory&gt;</em>, the command is run inside it. If this
+directory does not exist, it will be created.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+TEMPLATE DIRECTORY
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Files and directories in the template directory whose name do not start
+with a dot will be copied to the <strong>$GIT_DIR</strong> after it is created.</p>
+<p>
+The template directory will be one of the following (in order):</p>
+<blockquote>
+<p>·</p>
+<p>
+the argument given with the <strong>–template</strong> option;</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+the contents of the <strong>$GIT_TEMPLATE_DIR</strong> environment variable;</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+the <strong>init.templateDir</strong> configuration variable; or</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+the default template directory: <strong>/usr/share/git-core/templates</strong>.</p>
+</blockquote>
+<p>
+The default template directory includes some directory structure,
+suggested &#34;exclude patterns&#34; (see *gitignore*(5)), and sample hook
+files.</p>
+<p>
+The sample hooks are all disabled by default. To enable one of the
+sample hooks rename it by removing its <strong>.sample</strong> suffix.</p>
+<p>
+See *githooks*(5) for more general info on hook execution.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Start a new Git repository for an existing code base</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+$ cd /path/to/my/codebase
+$ git init      (1)
+$ git add .     (2)
+$ git commit    (3)
+</pre>
+</blockquote>
+<table>
+<tbody>
+<tr>
+<td><strong>1.</strong></td>
+<td>Create a <strong><em>path/to/my/codebase</em>.git</strong> directory.</td>
+</tr>
+<tr>
+<td><strong>2.</strong></td>
+<td>Add all existing files to the index.</td>
+</tr>
+<tr>
+<td><strong>3.</strong></td>
+<td>Record the pristine state as the first commit in the history.</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+CONFIGURATION
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Everything below this line in this section is selectively included from
+the *git-config*(1) documentation. The content is the same as what&#39;s
+found there:</p>
+<p>
+<strong>init.templateDir</strong></p>
+<blockquote>
+<p>Specify the directory from which templates will be copied.</p>
+</blockquote>
+<p>
+<strong>init.defaultBranch</strong></p>
+<blockquote>
+<p>Allows overriding the default branch name e.g. when initializing a new
+repository.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+GIT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

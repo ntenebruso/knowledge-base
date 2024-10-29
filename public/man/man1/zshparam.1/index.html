@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - zshparam.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - zshparam.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>zshparam - zsh parameters</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>A parameter has a name, a value, and a number of attributes. A name may
+be any sequence of alphanumeric characters and underscores, or the
+single characters `***&#39;, `*@*&#39;, `*#*&#39;, `*?*&#39;, `*-<strong>&#39;, `*$</strong>&#39;, or `*!*&#39;. A
+parameter whose name begins with an alphanumeric or underscore is also
+referred to as a <em>variable</em>.</p>
+<p>
+The attributes of a parameter determine the <em>type</em> of its value, often
+referred to as the parameter type or variable type, and also control
+other processing that may be applied to the value when it is referenced.
+The value type may be a <em>scalar</em> (a string, an integer, or a floating
+point number), an array (indexed numerically), or an <em>associative</em> array
+(an unordered set of name-value pairs, indexed by name, also referred to
+as a <em>hash</em>).</p>
+<p>
+Named scalar parameters may have the <em>exported</em>, <strong>-x</strong>, attribute, to
+copy them into the process environment, which is then passed from the
+shell to any new processes that it starts. Exported parameters are
+called <em>environment variables</em>. The shell also <em>imports</em> environment
+variables at startup time and automatically marks the corresponding
+parameters as exported. Some environment variables are not imported for
+reasons of security or because they would interfere with the correct
+operation of other shell features.</p>
+<p>
+Parameters may also be <em>special</em>, that is, they have a predetermined
+meaning to the shell. Special parameters cannot have their type changed
+or their readonly attribute turned off, and if a special parameter is
+unset, then later recreated, the special properties will be retained.</p>
+<p>
+To declare the type of a parameter, or to assign a string or numeric
+value to a scalar parameter, use the <strong>typeset</strong> builtin.</p>
+<p>
+The value of a scalar parameter may also be assigned by writing:</p>
+<blockquote>
+<pre class="example">
+name=value
+</pre>
+</blockquote>
+<p>
+In scalar assignment, <em>value</em> is expanded as a single string, in which
+the elements of arrays are joined together; filename expansion is not
+performed unless the option <strong>GLOB_ASSIGN</strong> is set.</p>
+<p>
+When the integer attribute, <strong>-i</strong>, or a floating point attribute, <strong>-E</strong> or
+<strong>-F</strong>, is set for <em>name</em>, the <em>value</em> is subject to arithmetic
+evaluation. Furthermore, by replacing `*=*&#39; with `*+=*&#39;, a parameter can
+be incremented or appended to. See the section `Array Parameters&#39; and
+<em>Arithmetic Evaluation</em> (in /zshmisc/(1)) for additional forms of
+assignment.</p>
+<p>
+Note that assignment may implicitly change the attributes of a
+parameter. For example, assigning a number to a variable in arithmetic
+evaluation may change its type to integer or float, and with
+<strong>GLOB_ASSIGN</strong> assigning a pattern to a variable may change its type to
+an array.</p>
+<p>
+To reference the value of a parameter, write `*$*/name/&#39; or
+`*${<strong><em>name</em></strong>}*&#39;. See <em>Parameter Expansion</em> in /zshexpn/(1) for complete
+details. That section also explains the effect of the difference between
+scalar and array assignment on parameter expansion.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+ARRAY PARAMETERS
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>To assign an array value, write one of:</p>
+<blockquote>
+<pre class="example">
+set -A name value ...
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+name=(value ...)
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+name=([key]=value ...)
+</pre>
+</blockquote>
+<p>
+If no parameter <em>name</em> exists, an ordinary array parameter is created.
+If the parameter <em>name</em> exists and is a scalar, it is replaced by a new
+array.</p>
+<p>
+In the third form, <em>key</em> is an expression that will be evaluated in
+arithmetic context (in its simplest form, an integer) that gives the
+index of the element to be assigned with <em>value</em>. In this form any
+elements not explicitly mentioned that come before the largest index to
+which a value is assigned are assigned an empty string. The indices may
+be in any order. Note that this syntax is strict: <strong>[</strong> and <strong>]=</strong> must not
+be quoted, and <em>key</em> may not consist of the unquoted string <strong>]=</strong>, but is
+otherwise treated as a simple string. The enhanced forms of subscript
+expression that may be used when directly subscripting a variable name,
+described in the section `Array Subscripts&#39; below, are not available.</p>
+<p>
+The syntaxes with and without the explicit key may be mixed. An implicit
+<em>key</em> is deduced by incrementing the index from the previously assigned
+element. Note that it is not treated as an error if latter assignments
+in this form overwrite earlier assignments.</p>
+<p>
+For example, assuming the option <strong>KSH_ARRAYS</strong> is not set, the following:</p>
+<blockquote>
+<pre class="example">
+array=(one [3]=three four)
+</pre>
+</blockquote>
+<p>
+causes the array variable <strong>array</strong> to contain four elements <strong>one</strong>, an
+empty string, <strong>three</strong> and <strong>four</strong>, in that order.</p>
+<p>
+In the forms where only <em>value</em> is specified, full command line
+expansion is performed.</p>
+<p>
+In the *[*/key/*]=*/value/ form, both <em>key</em> and <em>value</em> undergo all
+forms of expansion allowed for single word shell expansions (this does
+not include filename generation); these are as performed by the
+parameter expansion flag <strong>(e)</strong> as described in <em>zshexpn/(1). Nested
+parentheses may surround /value</em> and are included as part of the value,
+which is joined into a plain string; this differs from ksh which allows
+the values themselves to be arrays. A future version of zsh may support
+that. To cause the brackets to be interpreted as a character class for
+filename generation, and therefore to treat the resulting list of files
+as a set of values, quote the equal sign using any form of quoting.
+Example:</p>
+<blockquote>
+<pre class="example">
+name=([a-z]&#39;=&#39;*)
+</pre>
+</blockquote>
+<p>
+To append to an array without changing the existing values, use one of
+the following:</p>
+<blockquote>
+<pre class="example">
+name+=(value ...)
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+name+=([key]=value ...)
+</pre>
+</blockquote>
+<p>
+In the second form <em>key</em> may specify an existing index as well as an
+index off the end of the old array; any existing value is overwritten by
+<em>value</em>. Also, it is possible to use *[*/key/*]+=*/value/ to append to
+the existing value at that index.</p>
+<p>
+Within the parentheses on the right hand side of either form of the
+assignment, newlines and semicolons are treated the same as white space,
+separating individual /value/s. Any consecutive sequence of such
+characters has the same effect.</p>
+<p>
+Ordinary array parameters may also be explicitly declared with:</p>
+<blockquote>
+<pre class="example">
+typeset -a name
+</pre>
+</blockquote>
+<p>
+Associative arrays <em>must</em> be declared before assignment, by using:</p>
+<blockquote>
+<pre class="example">
+typeset -A name
+</pre>
+</blockquote>
+<p>
+When <em>name</em> refers to an associative array, the list in an assignment is
+interpreted as alternating keys and values:</p>
+<blockquote>
+<pre class="example">
+set -A name key value ...
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+name=(key value ...)
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+name=([key]=value ...)
+</pre>
+</blockquote>
+<p>
+Note that only one of the two syntaxes above may be used in any given
+assignment; the forms may not be mixed. This is unlike the case of
+numerically indexed arrays.</p>
+<p>
+Every <em>key</em> must have a <em>value</em> in this case. Note that this assigns to
+the entire array, deleting any elements that do not appear in the list.
+The append syntax may also be used with an associative array:</p>
+<blockquote>
+<pre class="example">
+name+=(key value ...)
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+name+=([key]=value ...)
+</pre>
+</blockquote>
+<p>
+This adds a new key/value pair if the key is not already present, and
+replaces the value for the existing key if it is. In the second form it
+is also possible to use *[*/key/*]+=*/value/ to append to the existing
+value at that key. Expansion is performed identically to the
+corresponding forms for normal arrays, as described above.</p>
+<p>
+To create an empty array (including associative arrays), use one of:</p>
+<blockquote>
+<pre class="example">
+set -A name
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+name=()
+</pre>
+</blockquote>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Array Subscripts
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>Individual elements of an array may be selected using a subscript. A
+subscript of the form `*[*/exp/*]*&#39; selects the single element <em>exp</em>,
+where <em>exp</em> is an arithmetic expression which will be subject to
+arithmetic expansion as if it were surrounded by `*$((<strong>…</strong>))*&#39;. The
+elements are numbered beginning with 1, unless the <strong>KSH_ARRAYS</strong> option
+is set in which case they are numbered from zero.</p>
+<p>
+Subscripts may be used inside braces used to delimit a parameter name,
+thus `*${foo[2]}*&#39; is equivalent to `*$foo[2]*&#39;. If the <strong>KSH_ARRAYS</strong>
+option is set, the braced form is the only one that works, as bracketed
+expressions otherwise are not treated as subscripts.</p>
+<p>
+If the <strong>KSH_ARRAYS</strong> option is not set, then by default accesses to an
+array element with a subscript that evaluates to zero return an empty
+string, while an attempt to write such an element is treated as an
+error. For backward compatibility the <strong>KSH_ZERO_SUBSCRIPT</strong> option can be
+set to cause subscript values 0 and 1 to be equivalent; see the
+description of the option in /zshoptions/(1).</p>
+<p>
+The same subscripting syntax is used for associative arrays, except that
+no arithmetic expansion is applied to <em>exp</em>. However, the parsing rules
+for arithmetic expressions still apply, which affects the way that
+certain special characters must be protected from interpretation. See
+<em>Subscript Parsing</em> below for details.</p>
+<p>
+A subscript of the form `*[*]*&#39; or `*[@]*&#39; evaluates to all elements of
+an array; there is no difference between the two except when they appear
+within double quotes. `*&#34;$foo[*]&#34;*&#39; evaluates to `*&#34;$foo[1] $foo[2]
+*...*&#34;*&#39;, whereas `*&#34;$foo[@]&#34;<strong>&#39; evaluates to `</strong>&#34;$foo[1]&#34; &#34;$foo[2]&#34;
+<strong>…&#39;. For associative arrays, `</strong>[*]*&#39; or `*[@]*&#39; evaluate to all the
+values, in no particular order. Note that this does not substitute the
+keys; see the documentation for the `*k*&#39; flag under <em>Parameter
+Expansion Flags</em> in <em>zshexpn/(1) for complete details. When an array
+parameter is referenced as `*$*/name</em>&#39; (with no subscript) it evaluates
+to `*$*/name/*[*]*&#39;, unless the *KSH_ARRAYS* option is set in which case
+it evaluates to `*${<strong><em>name</em></strong>[0]}*&#39; (for an associative array, this means
+the value of the key `*0*&#39;, which may not exist even if there are values
+for other keys).</p>
+<p>
+A subscript of the form `*[*/exp1/*,*/exp2/*]*&#39; selects all elements in
+the range <em>exp1</em> to <em>exp2</em>, inclusive. (Associative arrays are
+unordered, and so do not support ranges.) If one of the subscripts
+evaluates to a negative number, say <strong>-*/n/, then the /n/th element from
+the end of the array is used. Thus `*$foo[-3]</strong>&#39; is the third element
+from the end of the array <strong>foo</strong>, and `*$foo[1,-1]*&#39; is the same as
+`*$foo[*]*&#39;.</p>
+<p>
+Subscripting may also be performed on non-array values, in which case
+the subscripts specify a substring to be extracted. For example, if
+<strong>FOO</strong> is set to `*foobar*&#39;, then `*echo $FOO[2,5]*&#39; prints `*ooba*&#39;.
+Note that some forms of subscripting described below perform pattern
+matching, and in that case the substring extends from the start of the
+match of the first subscript to the end of the match of the second
+subscript. For example,</p>
+<blockquote>
+<pre class="example">
+string=&#34;abcdefghijklm&#34;
+print ${string[(r)d?,(r)h?]}
+</pre>
+</blockquote>
+<p>
+prints `*defghi*&#39;. This is an obvious generalisation of the rule for
+single-character matches. For a single subscript, only a single
+character is referenced (not the range of characters covered by the
+match).</p>
+<p>
+Note that in substring operations the second subscript is handled
+differently by the <strong>r</strong> and <strong>R</strong> subscript flags: the former takes the
+shortest match as the length and the latter the longest match. Hence in
+the former case a <strong>*</strong> at the end is redundant while in the latter case
+it matches the whole remainder of the string. This does not affect the
+result of the single subscript case as here the length of the match is
+irrelevant.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Array Element Assignment
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>A subscript may be used on the left side of an assignment like so:</p>
+<blockquote>
+<pre class="example">
+name[exp]=value
+</pre>
+</blockquote>
+<p>
+In this form of assignment the element or range specified by <em>exp</em> is
+replaced by the expression on the right side. An array (but not an
+associative array) may be created by assignment to a range or element.
+Arrays do not nest, so assigning a parenthesized list of values to an
+element or range changes the number of elements in the array, shifting
+the other elements to accommodate the new values. (This is not supported
+for associative arrays.)</p>
+<p>
+This syntax also works as an argument to the <strong>typeset</strong> command:</p>
+<blockquote>
+<pre class="example">
+typeset &#34;name[exp]&#34;=value
+</pre>
+</blockquote>
+<p>
+The <em>value</em> may <em>not</em> be a parenthesized list in this case; only
+single-element assignments may be made with <strong>typeset</strong>. Note that quotes
+are necessary in this case to prevent the brackets from being
+interpreted as filename generation operators. The <strong>noglob</strong> precommand
+modifier could be used instead.</p>
+<p>
+To delete an element of an ordinary array, assign `*()*&#39; to that
+element. To delete an element of an associative array, use the <strong>unset</strong>
+command:</p>
+<blockquote>
+<pre class="example">
+unset &#34;name[exp]&#34;
+</pre>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Subscript Flags
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>If the opening bracket, or the comma in a range, in any subscript
+expression is directly followed by an opening parenthesis, the string up
+to the matching closing one is considered to be a list of flags, as in
+`/name/*[(<strong><em>flags</em></strong>)*/exp/*]*&#39;.</p>
+<p>
+The flags <strong>s</strong>, <strong>n</strong> and <strong>b</strong> take an argument; the delimiter is shown
+below as `*:*&#39;, but any character, or the matching pairs `*(<strong>…</strong>)*&#39;,
+`*{<strong>…</strong>}*&#39;, `*[*…*]*&#39;, or `*&lt;*…*&gt;*&#39;, may be used, but note that
+`*&lt;*…*&gt;*&#39; can only be used if the subscript is inside a double quoted
+expression or a parameter substitution enclosed in braces as otherwise
+the expression is interpreted as a redirection.</p>
+<p>
+The flags currently understood are:</p>
+<p>
+<strong>w</strong> If the parameter subscripted is a scalar then this flag makes
+subscripting work on words instead of characters. The default word
+separator is whitespace. When combined with the <strong>i</strong> or <strong>I</strong> flag, the
+effect is to produce the index of the first character of the first/last
+word which matches the given pattern; note that a failed match in this
+case always yields 0.</p>
+<dl>
+<dt>
+<strong>s:*/string/</strong>:*
+</dt>
+<dd>This gives the <em>string</em> that separates words (for
+use with the <strong>w</strong> flag). The delimiter character <strong>:</strong> is arbitrary; see
+above.</dd>
+<dt>
+<strong>p</strong>
+</dt>
+<dd>Recognize the same escape sequences as the <strong>print</strong> builtin in
+the string argument of a subsequent `*s*&#39; flag.</dd>
+<dt>
+<strong>f</strong>
+</dt>
+<dd>If the parameter subscripted is a scalar then this flag makes
+subscripting work on lines instead of characters, i.e. with elements
+separated by newlines. This is a shorthand for `*pws:\n:*&#39;.</dd>
+<dt>
+<strong>r</strong>
+</dt>
+<dd>
+<p>Reverse subscripting: if this flag is given, the <em>exp</em> is taken
+as a pattern and the result is the first matching array element,
+substring or word (if the parameter is an array, if it is a scalar, or
+if it is a scalar and the `*w*&#39; flag is given, respectively). The
+subscript used is the number of the matching element, so that pairs of
+subscripts such as `*$foo[(r)??,3]*&#39; and `*$foo[(r)??,(r)f*]*&#39; are
+possible if the parameter is not an associative array. If the
+parameter is an associative array, only the value part of each pair is
+compared to the pattern, and the result is that value.</p>
+<p>
+If a search through an ordinary array failed, the search sets the
+subscript to one past the end of the array, and hence
+<strong>${array[(r)*/pattern/*]}</strong> will substitute the empty string. Thus the
+success of a search can be tested by using the <strong>(i)</strong> flag, for example
+(assuming the option <strong>KSH_ARRAYS</strong> is not in effect):</p>
+<blockquote>
+<pre class="example">
+[[ ${array[(i)pattern]} -le ${#array} ]]
+</pre>
+</blockquote>
+<p>
+If <strong>KSH_ARRAYS</strong> is in effect, the <strong>-le</strong> should be replaced by <strong>-lt</strong>.</p>
+</dd>
+<dt>
+<strong>R</strong>
+</dt>
+<dd>
+<p>Like `*r*&#39;, but gives the last match. For associative arrays,
+gives all possible matches. May be used for assigning to ordinary
+array elements, but not for assigning to associative arrays. On
+failure, for normal arrays this has the effect of returning the
+element corresponding to subscript 0; this is empty unless one of the
+options <strong>KSH_ARRAYS</strong> or <strong>KSH_ZERO_SUBSCRIPT</strong> is in effect.</p>
+<p>
+Note that in subscripts with both `*r*&#39; and `*R*&#39; pattern characters
+are active even if they were substituted for a parameter (regardless
+of the setting of <strong>GLOB_SUBST</strong> which controls this feature in normal
+pattern matching). The flag `*e*&#39; can be added to inhibit pattern
+matching. As this flag does not inhibit other forms of substitution,
+care is still required; using a parameter to hold the key has the
+desired effect:</p>
+<blockquote>
+<pre class="example">
+key2=&#39;original key&#39;
+print ${array[(Re)$key2]}
+</pre>
+</blockquote>
+</dd>
+<dt>
+<strong>i</strong>
+</dt>
+<dd>Like `*r*&#39;, but gives the index of the match instead; this may
+not be combined with a second argument. On the left side of an
+assignment, behaves like `*r*&#39;. For associative arrays, the key part
+of each pair is compared to the pattern, and the first matching key
+found is the result. On failure substitutes the length of the array
+plus one, as discussed under the description of `*r*&#39;, or the empty
+string for an associative array.
+
+Note: Although `*i*&#39; may be applied to a scalar substitution to find
+the offset of a substring, the results are likely to be misleading
+when searching within substitutions that yield an empty string, or
+when searching for the empty substring.</dd>
+<dt>
+<strong>I</strong>
+</dt>
+<dd>Like `*i*&#39;, but gives the index of the last match, or all
+possible matching keys in an associative array. On failure substitutes
+0, or the empty string for an associative array. This flag is best
+when testing for values or keys that do not exist.
+
+Note: If the option <strong>KSH_ARRAYS</strong> is in effect and no match is found,
+the result is indistinguishable from the case when the first element
+of the array matches.</dd>
+<dt>
+<strong>k</strong>
+</dt>
+<dd>If used in a subscript on an associative array, this flag
+causes the keys to be interpreted as patterns, and returns the value
+for the first key found where <em>exp</em> is matched by the key. Note this
+could be any such key as no ordering of associative arrays is defined.
+This flag does not work on the left side of an assignment to an
+associative array element. If used on another type of parameter, this
+behaves like `*r*&#39;.</dd>
+<dt>
+<strong>K</strong>
+</dt>
+<dd>On an associative array this is like `*k*&#39; but returns all
+values where <em>exp</em> is matched by the keys. On other types of
+parameters this has the same effect as `*R*&#39;.</dd>
+<dt>
+<strong>n:*/expr/</strong>:*
+</dt>
+<dd>If combined with `*r*&#39;, `*R*&#39;, `*i*&#39; or `*I*&#39;, makes
+them give the <em>n/th or /n/th last match (if /expr</em> evaluates to <em>n</em>).
+This flag is ignored when the array is associative. The delimiter
+character <strong>:</strong> is arbitrary; see above.</dd>
+<dt>
+<strong>b:*/expr/</strong>:*
+</dt>
+<dd>If combined with `*r*&#39;, `*R*&#39;, `*i*&#39; or `*I*&#39;, makes
+them begin at the <em>n/th or /n/th last element, word, or character (if
+/expr</em> evaluates to <em>n</em>). This flag is ignored when the array is
+associative. The delimiter character <strong>:</strong> is arbitrary; see above.</dd>
+<dt>
+<strong>e</strong>
+</dt>
+<dd>This flag causes any pattern matching that would be performed
+on the subscript to use plain string matching instead. Hence
+`*${array[(re)*]}*&#39; matches only the array element whose value is <strong>*</strong>.
+Note that other forms of substitution such as parameter substitution
+are not inhibited.
+
+This flag can also be used to force <strong>*</strong> or <strong>@</strong> to be interpreted as a
+single key rather than as a reference to all values. It may be used
+for either purpose on the left side of an assignment.</dd>
+</dl>
+<p>See <em>Parameter Expansion Flags</em> (/zshexpn/(1)) for additional ways to
+manipulate the results of array subscripting.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Subscript Parsing
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>This discussion applies mainly to associative array key strings and to
+patterns used for reverse subscripting (the `*r*&#39;, `*R*&#39;, `*i*&#39;, etc.
+flags), but it may also affect parameter substitutions that appear as
+part of an arithmetic expression in an ordinary subscript.</p>
+<p>
+To avoid subscript parsing limitations in assignments to associative
+array elements, use the append syntax:</p>
+<blockquote>
+<pre class="example">
+aa+=(&#39;key with &#34;*strange*&#34; characters&#39; &#39;value string&#39;)
+</pre>
+</blockquote>
+<p>
+The basic rule to remember when writing a subscript expression is that
+all text between the opening `*[*&#39; and the closing `*]*&#39; is interpreted
+<em>as if</em> it were in double quotes (see /zshmisc/(1)). However, unlike
+double quotes which normally cannot nest, subscript expressions may
+appear inside double-quoted strings or inside other subscript
+expressions (or both!), so the rules have two important differences.</p>
+<p>
+The first difference is that brackets (`*[*&#39; and `*]*&#39;) must appear as
+balanced pairs in a subscript expression unless they are preceded by a
+backslash (`*\*&#39;). Therefore, within a subscript expression (and unlike
+true double-quoting) the sequence `*\[*&#39; becomes `*[*&#39;, and similarly
+`*\]*&#39; becomes `*]*&#39;. This applies even in cases where a backslash is
+not normally required; for example, the pattern `*[^[]*&#39; (to match any
+character other than an open bracket) should be written `*[^\[]*&#39; in a
+reverse-subscript pattern. However, note that `*\[^\[\]*&#39; and even
+`*\[^[]*&#39; mean the <em>same</em> thing, because backslashes are always stripped
+when they appear before brackets!</p>
+<p>
+The same rule applies to parentheses (`*(<strong>&#39; and `</strong>)*&#39;) and braces (`*{<strong>&#39;
+and `</strong>}*&#39;): they must appear either in balanced pairs or preceded by a
+backslash, and backslashes that protect parentheses or braces are
+removed during parsing. This is because parameter expansions may be
+surrounded by balanced braces, and subscript flags are introduced by
+balanced parentheses.</p>
+<p>
+The second difference is that a double-quote (`*&#34;*&#39;) may appear as part
+of a subscript expression without being preceded by a backslash, and
+therefore that the two characters `*\&#34;<strong>&#39; remain as two characters in the
+subscript (in true double-quoting, `</strong>\&#34;<strong>&#39; becomes `</strong>&#34;*&#39;). However,
+because of the standard shell quoting rules, any double-quotes that
+appear must occur in balanced pairs unless preceded by a backslash. This
+makes it more difficult to write a subscript expression that contains an
+odd number of double-quote characters, but the reason for this
+difference is so that when a subscript expression appears inside true
+double-quotes, one can still write `*\&#34;<strong>&#39; (rather than `</strong>\\\&#34;<strong>&#39;) for
+`</strong>&#34;*&#39;.</p>
+<p>
+To use an odd number of double quotes as a key in an assignment, use the
+<strong>typeset</strong> builtin and an enclosing pair of double quotes; to refer to
+the value of that key, again use double quotes:</p>
+<blockquote>
+<pre class="example">
+typeset -A aa
+typeset &#34;aa[one\&#34;two\&#34;three\&#34;quotes]&#34;=QQQ
+print &#34;$aa[one\&#34;two\&#34;three\&#34;quotes]&#34;
+</pre>
+</blockquote>
+<p>
+It is important to note that the quoting rules do not change when a
+parameter expansion with a subscript is nested inside another subscript
+expression. That is, it is not necessary to use additional backslashes
+within the inner subscript expression; they are removed only once, from
+the innermost subscript outwards. Parameters are also expanded from the
+innermost subscript first, as each expansion is encountered left to
+right in the outer expression.</p>
+<p>
+A further complication arises from a way in which subscript parsing is
+<em>not</em> different from double quote parsing. As in true double-quoting,
+the sequences `*\**&#39;, and `*\@*&#39; remain as two characters when they
+appear in a subscript expression. To use a literal `***&#39; or `*@*&#39; as an
+associative array key, the `*e*&#39; flag must be used:</p>
+<blockquote>
+<pre class="example">
+typeset -A aa
+aa[(e)*]=star
+print $aa[(e)*]
+</pre>
+</blockquote>
+<p>
+A last detail must be considered when reverse subscripting is performed.
+Parameters appearing in the subscript expression are first expanded and
+then the complete expression is interpreted as a pattern. This has two
+effects: first, parameters behave as if <strong>GLOB_SUBST</strong> were on (and it
+cannot be turned off); second, backslashes are interpreted twice, once
+when parsing the array subscript and again when parsing the pattern. In
+a reverse subscript, it&#39;s necessary to use <em>four</em> backslashes to cause a
+single backslash to match literally in the pattern. For complex
+patterns, it is often easiest to assign the desired pattern to a
+parameter and then refer to that parameter in the subscript, because
+then the backslashes, brackets, parentheses, etc., are seen only when
+the complete expression is converted to a pattern. To match the value of
+a parameter literally in a reverse subscript, rather than as a pattern,
+use `*${(q)*/name/*}*&#39; (see /zshexpn/(1)) to quote the expanded value.</p>
+<p>
+Note that the `*k*&#39; and `*K*&#39; flags are reverse subscripting for an
+ordinary array, but are <em>not</em> reverse subscripting for an associative
+array! (For an associative array, the keys in the array itself are
+interpreted as patterns by those flags; the subscript is a plain string
+in that case.)</p>
+<p>
+One final note, not directly related to subscripting: the numeric names
+of positional parameters (described below) are parsed specially, so for
+example `*$2foo*&#39; is equivalent to `*${2}foo*&#39;. Therefore, to use
+subscript syntax to extract a substring from a positional parameter, the
+expansion must be surrounded by braces; for example, `*${2[3,5]}*&#39;
+evaluates to the third through fifth characters of the second positional
+parameter, but `*$2[3,5]*&#39; is the entire second parameter concatenated
+with the filename generation pattern `*[3,5]*&#39;.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+POSITIONAL PARAMETERS
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The positional parameters provide access to the command-line arguments
+of a shell function, shell script, or the shell itself; see the section
+`Invocation&#39;, and also the section `Functions&#39;. The parameter <em>n</em>, where
+<em>n</em> is a number, is the /n/th positional parameter. The parameter `*$0*&#39;
+is a special case, see the section `Parameters Set By The Shell&#39;.</p>
+<p>
+The parameters <strong>*</strong>, <strong>@</strong> and <strong>argv</strong> are arrays containing all the
+positional parameters; thus `*$argv[*/n/*]*&#39;, etc., is equivalent to
+simply `*$*/n/&#39;. Note that the options <strong>KSH_ARRAYS</strong> or
+<strong>KSH_ZERO_SUBSCRIPT</strong> apply to these arrays as well, so with either of
+those options set, `*${argv[0]}*&#39; is equivalent to `*$1*&#39; and so on.</p>
+<p>
+Positional parameters may be changed after the shell or function starts
+by using the <strong>set</strong> builtin, by assigning to the <strong>argv</strong> array, or by
+direct assignment of the form `/n/*=*/value/&#39; where <em>n</em> is the number of
+the positional parameter to be changed. This also creates (with empty
+values) any of the positions from 1 to <em>n</em> that do not already have
+values. Note that, because the positional parameters form an array, an
+array assignment of the form `/n/*=(<strong><em>value</em> …</strong>)*&#39; is allowed, and has
+the effect of shifting all the values at positions greater than <em>n</em> by
+as many positions as necessary to accommodate the new values.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+LOCAL PARAMETERS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Shell function executions delimit scopes for shell parameters.
+(Parameters are dynamically scoped.) The <strong>typeset</strong> builtin, and its
+alternative forms <strong>declare</strong>, <strong>integer</strong>, <strong>local</strong> and <strong>readonly</strong> (but not
+<strong>export</strong>), can be used to declare a parameter as being local to the
+innermost scope.</p>
+<p>
+When a parameter is read or assigned to, the innermost existing
+parameter of that name is used. (That is, the local parameter hides any
+less-local parameter.) However, assigning to a non-existent parameter,
+or declaring a new parameter with <strong>export</strong>, causes it to be created in
+the /outer/most scope.</p>
+<p>
+Local parameters disappear when their scope ends. <strong>unset</strong> can be used to
+delete a parameter while it is still in scope; any outer parameter of
+the same name remains hidden.</p>
+<p>
+Special parameters may also be made local; they retain their special
+attributes unless either the existing or the newly-created parameter has
+the <strong>-h</strong> (hide) attribute. This may have unexpected effects: there is no
+default value, so if there is no assignment at the point the variable is
+made local, it will be set to an empty value (or zero in the case of
+integers). The following:</p>
+<blockquote>
+<pre class="example">
+typeset PATH=/new/directory:$PATH
+</pre>
+</blockquote>
+<p>
+is valid for temporarily allowing the shell or programmes called from it
+to find the programs in <strong>/new/directory</strong> inside a function.</p>
+<p>
+Note that the restriction in older versions of zsh that local parameters
+were never exported has been removed.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+PARAMETERS SET BY THE SHELL
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>In the parameter lists that follow, the mark `&lt;S&gt;&#39; indicates that the
+parameter is special. `&lt;Z&gt;&#39; indicates that the parameter does not exist
+when the shell initializes in <strong>sh</strong> or <strong>ksh</strong> emulation mode.</p>
+<p>
+The parameters `*!*&#39;, `*#*&#39;, `***&#39;, `*-<strong>&#39;, `</strong>?*&#39;, `*@*&#39;, `*$*&#39;,
+`*ARGC*&#39;, `*HISTCMD*&#39;, `*LINENO*&#39;, `*PPID*&#39;, `*status*&#39;, `*TTYIDLE*&#39;,
+`*zsh_eval_context*&#39;, `*ZSH_EVAL_CONTEXT*&#39;, and `*ZSH_SUBSHELL*&#39; are
+read-only and thus cannot be restored by the user, so they are not
+output by `*typeset -p*&#39;. This also applies to many read-only parameters
+loaded from modules.</p>
+<p>
+The following parameters are automatically set by the shell:</p>
+<p>
+<strong>!</strong> &lt;S&gt; The process ID of the last command started in the background
+with <strong>&amp;</strong>, put into the background with the <strong>bg</strong> builtin, or spawned with
+<strong>coproc</strong>.</p>
+<dl>
+<dt>
+<strong>#</strong> &lt;S&gt;
+</dt>
+<dd>The number of positional parameters in decimal. Note that
+some confusion may occur with the syntax <strong>$#*/param/ which substitutes
+the length of /param/. Use *${#}</strong> to resolve ambiguities. In
+particular, the sequence `*$#-<strong><em>…</em>&#39; in an arithmetic expression is
+interpreted as the length of the parameter *-</strong>, q.v.</dd>
+<dt>
+<strong>ARGC</strong> &lt;S&gt; &lt;Z&gt;
+</dt>
+<dd>Same as <strong>#</strong>.</dd>
+<dt>
+<strong>$</strong> &lt;S&gt;
+</dt>
+<dd>The process ID of this shell, set when the shell
+initializes. Processes forked from the shell without executing a new
+program, such as command substitutions and commands grouped with
+<strong>(*/…/</strong>)*, are subshells that duplicate the current shell, and thus
+substitute the same value for <strong>$$</strong> as their parent shell.</dd>
+<dt>
+<strong>-</strong> &lt;S&gt;
+</dt>
+<dd>Flags supplied to the shell on invocation or by the <strong>set</strong>
+or <strong>setopt</strong> commands.</dd>
+<dt>
+<strong>*</strong> &lt;S&gt;
+</dt>
+<dd>An array containing the positional parameters.</dd>
+<dt>
+<strong>argv</strong> &lt;S&gt; &lt;Z&gt;
+</dt>
+<dd>Same as <strong>*</strong>. Assigning to <strong>argv</strong> changes the local
+positional parameters, but <strong>argv</strong> is <em>not</em> itself a local parameter.
+Deleting <strong>argv</strong> with <strong>unset</strong> in any function deletes it everywhere,
+although only the innermost positional parameter array is deleted (so
+<strong>*</strong> and <strong>@</strong> in other scopes are not affected).</dd>
+<dt>
+<strong>@</strong> &lt;S&gt;
+</dt>
+<dd>Same as <strong>argv[@]</strong>, even when <strong>argv</strong> is not set.</dd>
+<dt>
+<strong>?</strong> &lt;S&gt;
+</dt>
+<dd>The exit status returned by the last command.</dd>
+<dt>
+<strong>0</strong> &lt;S&gt;
+</dt>
+<dd>The name used to invoke the current shell, or as set by the
+<strong>-c</strong> command line option upon invocation. If the <strong>FUNCTION_ARGZERO</strong>
+option is set, <strong>$0</strong> is set upon entry to a shell function to the name
+of the function, and upon entry to a sourced script to the name of the
+script, and reset to its previous value when the function or script
+returns.</dd>
+<dt>
+<strong>status</strong> &lt;S&gt; &lt;Z&gt;
+</dt>
+<dd>Same as <strong>?</strong>.</dd>
+<dt>
+<strong>pipestatus</strong> &lt;S&gt; &lt;Z&gt;
+</dt>
+<dd>An array containing the exit statuses returned
+by all commands in the last pipeline.</dd>
+<dt>
+<strong>_</strong> &lt;S&gt;
+</dt>
+<dd>The last argument of the previous command. Also, this
+parameter is set in the environment of every command executed to the
+full pathname of the command.</dd>
+<dt>
+<strong>CPUTYPE</strong>
+</dt>
+<dd>The machine type (microprocessor class or machine model),
+as determined at run time.</dd>
+<dt>
+<strong>EGID</strong> &lt;S&gt;
+</dt>
+<dd>The effective group ID of the shell process. If you have
+sufficient privileges, you may change the effective group ID of the
+shell process by assigning to this parameter. Also (assuming
+sufficient privileges), you may start a single command with a
+different effective group ID by `*(EGID=*/gid/*; command)*&#39;
+
+If this is made local, it is not implicitly set to 0, but may be
+explicitly set locally.</dd>
+<dt>
+<strong>EUID</strong> &lt;S&gt;
+</dt>
+<dd>The effective user ID of the shell process. If you have
+sufficient privileges, you may change the effective user ID of the
+shell process by assigning to this parameter. Also (assuming
+sufficient privileges), you may start a single command with a
+different effective user ID by `*(EUID=*/uid/*; command)*&#39;
+
+If this is made local, it is not implicitly set to 0, but may be
+explicitly set locally.</dd>
+<dt>
+<strong>ERRNO</strong> &lt;S&gt;
+</dt>
+<dd>The value of <strong>errno</strong> (see /errno/(3)) as set by the
+most recently failed system call. This value is system dependent and
+is intended for debugging purposes. It is also useful with the
+<strong>zsh/system</strong> module which allows the number to be turned into a name
+or message.
+
+To use this parameter, it must first be assigned a value (typically 0
+(zero)). It is initially unset for scripting compatibility.</dd>
+<dt>
+<strong>FUNCNEST</strong> &lt;S&gt;
+</dt>
+<dd>Integer. If greater than or equal to zero, the
+maximum nesting depth of shell functions. When it is exceeded, an
+error is raised at the point where a function is called. The default
+value is determined when the shell is configured, but is
+typically 500. Increasing the value increases the danger of a runaway
+function recursion causing the shell to crash. Setting a negative
+value turns off the check.</dd>
+<dt>
+<strong>GID</strong> &lt;S&gt;
+</dt>
+<dd>The real group ID of the shell process. If you have
+sufficient privileges, you may change the group ID of the shell
+process by assigning to this parameter. Also (assuming sufficient
+privileges), you may start a single command under a different group ID
+by `*(GID=*/gid/*; command)*&#39;
+
+If this is made local, it is not implicitly set to 0, but may be
+explicitly set locally.</dd>
+<dt>
+<strong>HISTCMD</strong>
+</dt>
+<dd>The current history event number in an interactive shell,
+in other words the event number for the command that caused <strong>$HISTCMD</strong>
+to be read. If the current history event modifies the history,
+<strong>HISTCMD</strong> changes to the new maximum history event number.</dd>
+<dt>
+<strong>HOST</strong>
+</dt>
+<dd>The current hostname.</dd>
+<dt>
+<strong>LINENO</strong> &lt;S&gt;
+</dt>
+<dd>The line number of the current line within the current
+script, sourced file, or shell function being executed, whichever was
+started most recently. Note that in the case of shell functions the
+line number refers to the function as it appeared in the original
+definition, not necessarily as displayed by the <strong>functions</strong> builtin.</dd>
+<dt>
+<strong>LOGNAME</strong>
+</dt>
+<dd>If the corresponding variable is not set in the
+environment of the shell, it is initialized to the login name
+corresponding to the current login session. This parameter is exported
+by default but this can be disabled using the <strong>typeset</strong> builtin. The
+value is set to the string returned by the /getlogin/(3) system call
+if that is available.</dd>
+<dt>
+<strong>MACHTYPE</strong>
+</dt>
+<dd>The machine type (microprocessor class or machine
+model), as determined at compile time.</dd>
+<dt>
+<strong>OLDPWD</strong>
+</dt>
+<dd>The previous working directory. This is set when the shell
+initializes and whenever the directory changes.</dd>
+<dt>
+<strong>OPTARG</strong> &lt;S&gt;
+</dt>
+<dd>The value of the last option argument processed by the
+<strong>getopts</strong> command.</dd>
+<dt>
+<strong>OPTIND</strong> &lt;S&gt;
+</dt>
+<dd>The index of the last option argument processed by the
+<strong>getopts</strong> command.</dd>
+<dt>
+<strong>OSTYPE</strong>
+</dt>
+<dd>The operating system, as determined at compile time.</dd>
+<dt>
+<strong>PPID</strong> &lt;S&gt;
+</dt>
+<dd>The process ID of the parent of the shell, set when the
+shell initializes. As with <strong>$$</strong>, the value does not change in
+subshells created as a duplicate of the current shell.</dd>
+<dt>
+<strong>PWD</strong>
+</dt>
+<dd>The present working directory. This is set when the shell
+initializes and whenever the directory changes.</dd>
+<dt>
+<strong>RANDOM</strong> &lt;S&gt;
+</dt>
+<dd>A pseudo-random integer from 0 to 32767, newly
+generated each time this parameter is referenced. The random number
+generator can be seeded by assigning a numeric value to <strong>RANDOM</strong>.
+
+The values of <strong>RANDOM</strong> form an intentionally-repeatable pseudo-random
+sequence; subshells that reference <strong>RANDOM</strong> will result in identical
+pseudo-random values unless the value of <strong>RANDOM</strong> is referenced or
+seeded in the parent shell in between subshell invocations.</dd>
+<dt>
+<strong>SECONDS</strong> &lt;S&gt;
+</dt>
+<dd>The number of seconds since shell invocation. If this
+parameter is assigned a value, then the value returned upon reference
+will be the value that was assigned plus the number of seconds since
+the assignment.
+
+Unlike other special parameters, the type of the <strong>SECONDS</strong> parameter
+can be changed using the <strong>typeset</strong> command. The type may be changed
+only to one of the floating point types or back to integer. For
+example, `*typeset -F SECONDS*&#39; causes the value to be reported as a
+floating point number. The value is available to microsecond accuracy,
+although the shell may show more or fewer digits depending on the use
+of <strong>typeset</strong>. See the documentation for the builtin <strong>typeset</strong> in
+/zshbuiltins/(1) for more details.</dd>
+<dt>
+<strong>SHLVL</strong> &lt;S&gt;
+</dt>
+<dd>Incremented by one each time a new shell is started.</dd>
+<dt>
+<strong>signals</strong>
+</dt>
+<dd>An array containing the names of the signals. Note that
+with the standard zsh numbering of array indices, where the first
+element has index 1, the signals are offset by 1 from the signal
+number used by the operating system. For example, on typical Unix-like
+systems <strong>HUP</strong> is signal number 1, but is referred to as <strong>$signals[2]</strong>.
+This is because of <strong>EXIT</strong> at position 1 in the array, which is used
+internally by zsh but is not known to the operating system.</dd>
+<dt>
+<strong>TRY_BLOCK_ERROR</strong> &lt;S&gt;
+</dt>
+<dd>In an <strong>always</strong> block, indicates whether the
+preceding list of code caused an error. The value is 1 to indicate an
+error, 0 otherwise. It may be reset, clearing the error condition. See
+<em>Complex Commands</em> in /zshmisc/(1)</dd>
+<dt>
+<strong>TRY_BLOCK_INTERRUPT</strong> &lt;S&gt;
+</dt>
+<dd>This variable works in a similar way to
+<strong>TRY_BLOCK_ERROR</strong>, but represents the status of an interrupt from the
+signal SIGINT, which typically comes from the keyboard when the user
+types <strong>^C</strong>. If set to 0, any such interrupt will be reset; otherwise,
+the interrupt is propagated after the <strong>always</strong> block.
+
+Note that it is possible that an interrupt arrives during the
+execution of the <strong>always</strong> block; this interrupt is also propagated.</dd>
+<dt>
+<strong>TTY</strong>
+</dt>
+<dd>The name of the tty associated with the shell, if any.</dd>
+<dt>
+<strong>TTYIDLE</strong> &lt;S&gt;
+</dt>
+<dd>The idle time of the tty associated with the shell in
+seconds or -1 if there is no such tty.</dd>
+<dt>
+<strong>UID</strong> &lt;S&gt;
+</dt>
+<dd>The real user ID of the shell process. If you have
+sufficient privileges, you may change the user ID of the shell by
+assigning to this parameter. Also (assuming sufficient privileges),
+you may start a single command under a different user ID by
+`*(UID=*/uid/*; command)*&#39;
+
+If this is made local, it is not implicitly set to 0, but may be
+explicitly set locally.</dd>
+<dt>
+<strong>USERNAME</strong> &lt;S&gt;
+</dt>
+<dd>The username corresponding to the real user ID of
+the shell process. If you have sufficient privileges, you may change
+the username (and also the user ID and group ID) of the shell by
+assigning to this parameter. Also (assuming sufficient privileges),
+you may start a single command under a different username (and user ID
+and group ID) by `*(USERNAME=*/username/*; command)*&#39;</dd>
+<dt>
+<strong>VENDOR</strong>
+</dt>
+<dd>The vendor, as determined at compile time.</dd>
+<dt>
+<strong>zsh_eval_context</strong> &lt;S&gt; &lt;Z&gt; (<strong>ZSH_EVAL_CONTEXT</strong> &lt;S&gt;)
+</dt>
+<dd>
+<p>An array
+(colon-separated list) indicating the context of shell code that is
+being run. Each time a piece of shell code that is stored within the
+shell is executed a string is temporarily appended to the array to
+indicate the type of operation that is being performed. Read in order
+the array gives an indication of the stack of operations being
+performed with the most immediate context last.</p>
+<p>
+Note that the variable does not give information on syntactic context
+such as pipelines or subshells. Use <strong>$ZSH_SUBSHELL</strong> to detect
+subshells.</p>
+<p>
+The context is one of the following:</p>
+<p>
+<strong>cmdarg</strong> Code specified by the <strong>-c</strong> option to the command line that
+invoked the shell.</p>
+<dl>
+<dt>
+<strong>cmdsubst</strong>
+</dt>
+<dd>Command substitution using the <strong>`*/…/*`</strong> or
+<strong>$(*/…/</strong>)* construct.</dd>
+<dt>
+<strong>equalsubst</strong>
+</dt>
+<dd>File substitution using the <strong>=(*/…/</strong>)* construct.</dd>
+<dt>
+<strong>eval</strong>
+</dt>
+<dd>Code executed by the <strong>eval</strong> builtin.</dd>
+<dt>
+<strong>evalautofunc</strong>
+</dt>
+<dd>Code executed with the <strong>KSH_AUTOLOAD</strong> mechanism in
+order to define an autoloaded function.</dd>
+<dt>
+<strong>fc</strong>
+</dt>
+<dd>Code from the shell history executed by the <strong>-e</strong> option to
+the <strong>fc</strong> builtin.</dd>
+<dt>
+<strong>file</strong>
+</dt>
+<dd>Lines of code being read directly from a file, for example
+by the <strong>source</strong> builtin.</dd>
+<dt>
+<strong>filecode</strong>
+</dt>
+<dd>Lines of code being read from a <strong>.zwc</strong> file instead of
+directly from the source file.</dd>
+<dt>
+<strong>globqual</strong>
+</dt>
+<dd>Code executed by the <strong>e</strong> or <strong>+</strong> glob qualifier.</dd>
+<dt>
+<strong>globsort</strong>
+</dt>
+<dd>Code executed to order files by the <strong>o</strong> glob
+qualifier.</dd>
+<dt>
+<strong>insubst</strong>
+</dt>
+<dd>File substitution using the <strong>&lt;(*/…/</strong>)* construct.</dd>
+<dt>
+<strong>loadautofunc</strong>
+</dt>
+<dd>Code read directly from a file to define an
+autoloaded function.</dd>
+<dt>
+<strong>outsubst</strong>
+</dt>
+<dd>File substitution using the <strong>&gt;(*/…/</strong>)* construct.</dd>
+<dt>
+<strong>sched</strong>
+</dt>
+<dd>Code executed by the <strong>sched</strong> builtin.</dd>
+<dt>
+<strong>shfunc</strong>
+</dt>
+<dd>A shell function.</dd>
+<dt>
+<strong>stty</strong>
+</dt>
+<dd>Code passed to <strong>stty</strong> by the <strong>STTY</strong> environment variable.
+Normally this is passed directly to the system&#39;s <strong>stty</strong> command, so
+this value is unlikely to be seen in practice.</dd>
+<dt>
+<strong>style</strong>
+</dt>
+<dd>Code executed as part of a style retrieved by the
+<strong>zstyle</strong> builtin from the <strong>zsh/zutil</strong> module.</dd>
+<dt>
+<strong>toplevel</strong>
+</dt>
+<dd>The highest execution level of a script or interactive
+shell.</dd>
+<dt>
+<strong>trap</strong>
+</dt>
+<dd>Code executed as a trap defined by the <strong>trap</strong> builtin.
+Traps defined as functions have the context <strong>shfunc</strong>. As traps are
+asynchronous they may have a different hierarchy from other code.</dd>
+<dt>
+<strong>zpty</strong>
+</dt>
+<dd>Code executed by the <strong>zpty</strong> builtin from the <strong>zsh/zpty</strong>
+module.</dd>
+<dt>
+<strong>zregexparse-guard</strong>
+</dt>
+<dd>Code executed as a guard by the <strong>zregexparse</strong>
+command from the <strong>zsh/zutil</strong> module.</dd>
+<dt>
+<strong>zregexparse-action</strong>
+</dt>
+<dd>Code executed as an action by the
+<strong>zregexparse</strong> command from the <strong>zsh/zutil</strong> module.</dd>
+</dl>
+</dd>
+<dt>
+<strong>ZSH_ARGZERO</strong>
+</dt>
+<dd>If zsh was invoked to run a script, this is the name
+of the script. Otherwise, it is the name used to invoke the current
+shell. This is the same as the value of <strong>$0</strong> when the <strong>POSIX_ARGZERO</strong>
+option is set, but is always available.</dd>
+<dt>
+<strong>ZSH_EXECUTION_STRING</strong>
+</dt>
+<dd>If the shell was started with the option
+<strong>-c</strong>, this contains the argument passed to the option. Otherwise it is
+not set.</dd>
+<dt>
+<strong>ZSH_NAME</strong>
+</dt>
+<dd>Expands to the basename of the command used to invoke
+this instance of zsh.</dd>
+<dt>
+<strong>ZSH_PATCHLEVEL</strong>
+</dt>
+<dd>The output of `*git describe –tags –long*&#39; for
+the zsh repository used to build the shell. This is most useful in
+order to keep track of versions of the shell during development
+between releases; hence most users should not use it and should
+instead rely on <strong>$ZSH_VERSION</strong>.</dd>
+<dt>
+<strong>zsh_scheduled_events</strong>
+</dt>
+<dd>See the section `The zsh/sched Module&#39; in
+/zshmodules/(1).</dd>
+<dt>
+<strong>ZSH_SCRIPT</strong>
+</dt>
+<dd>If zsh was invoked to run a script, this is the name
+of the script, otherwise it is unset.</dd>
+<dt>
+<strong>ZSH_SUBSHELL</strong>
+</dt>
+<dd>Readonly integer. Initially zero, incremented each
+time the shell forks to create a subshell for executing code. Hence
+`*(print $ZSH_SUBSHELL)*&#39; and `*print $(print $ZSH_SUBSHELL)*&#39; output
+1, while `*( (print $ZSH_SUBSHELL) )*&#39; outputs 2.</dd>
+<dt>
+<strong>ZSH_VERSION</strong>
+</dt>
+<dd>The version number of the release of zsh.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+PARAMETERS USED BY THE SHELL
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>The following parameters are used by the shell. Again, `&lt;S&gt;&#39; indicates
+that the parameter is special and `&lt;Z&gt;&#39; indicates that the parameter
+does not exist when the shell initializes in <strong>sh</strong> or <strong>ksh</strong> emulation
+mode.</p>
+<p>
+In cases where there are two parameters with an upper- and lowercase
+form of the same name, such as <strong>path</strong> and <strong>PATH</strong>, the lowercase form is
+an array and the uppercase form is a scalar with the elements of the
+array joined together by colons. These are similar to tied parameters
+created via `*typeset -T*&#39;. The normal use for the colon-separated form
+is for exporting to the environment, while the array form is easier to
+manipulate within the shell. Note that unsetting either of the pair will
+unset the other; they retain their special properties when recreated,
+and recreating one of the pair will recreate the other.</p>
+<p>
+<strong>ARGV0</strong> If exported, its value is used as the <strong>argv[0]</strong> of external
+commands. Usually used in constructs like `*ARGV0=emacs nethack*&#39;.</p>
+<dl>
+<dt>
+<strong>BAUD</strong>
+</dt>
+<dd>The rate in bits per second at which data reaches the
+terminal. The line editor will use this value in order to compensate
+for a slow terminal by delaying updates to the display until
+necessary. If the parameter is unset or the value is zero the
+compensation mechanism is turned off. The parameter is not set by
+default.
+
+This parameter may be profitably set in some circumstances, e.g. for
+slow modems dialing into a communications server, or on a slow wide
+area network. It should be set to the baud rate of the slowest part of
+the link for best performance.</dd>
+<dt>
+<strong>cdpath</strong> &lt;S&gt; &lt;Z&gt; (<strong>CDPATH</strong> &lt;S&gt;)
+</dt>
+<dd>An array (colon-separated list) of
+directories specifying the search path for the <strong>cd</strong> command.</dd>
+<dt>
+<strong>COLUMNS</strong> &lt;S&gt;
+</dt>
+<dd>The number of columns for this terminal session. Used
+for printing select lists and for the line editor.</dd>
+<dt>
+<strong>CORRECT_IGNORE</strong>
+</dt>
+<dd>If set, is treated as a pattern during spelling
+correction. Any potential correction that matches the pattern is
+ignored. For example, if the value is `*_**&#39; then completion functions
+(which, by convention, have names beginning with `*_*&#39;) will never be
+offered as spelling corrections. The pattern does not apply to the
+correction of file names, as applied by the <strong>CORRECT_ALL</strong> option (so
+with the example just given files beginning with `*_*&#39; in the current
+directory would still be completed).</dd>
+<dt>
+<strong>CORRECT_IGNORE_FILE</strong>
+</dt>
+<dd>If set, is treated as a pattern during
+spelling correction of file names. Any file name that matches the
+pattern is never offered as a correction. For example, if the value is
+`*.**&#39; then dot file names will never be offered as spelling
+corrections. This is useful with the <strong>CORRECT_ALL</strong> option.</dd>
+<dt>
+<strong>DIRSTACKSIZE</strong>
+</dt>
+<dd>The maximum size of the directory stack, by default
+there is no limit. If the stack gets larger than this, it will be
+truncated automatically. This is useful with the <strong>AUTO_PUSHD</strong> option.</dd>
+<dt>
+<strong>ENV</strong>
+</dt>
+<dd>If the <strong>ENV</strong> environment variable is set when zsh is invoked
+as <strong>sh</strong> or <strong>ksh</strong>, <strong>$ENV</strong> is sourced after the profile scripts. The
+value of <strong>ENV</strong> is subjected to parameter expansion, command
+substitution, and arithmetic expansion before being interpreted as a
+pathname. Note that <strong>ENV</strong> is <em>not</em> used unless the shell is
+interactive and zsh is emulating <strong>sh</strong> or <strong>ksh</strong>.</dd>
+<dt>
+<strong>FCEDIT</strong>
+</dt>
+<dd>The default editor for the <strong>fc</strong> builtin. If <strong>FCEDIT</strong> is
+not set, the parameter <strong>EDITOR</strong> is used; if that is not set either, a
+builtin default, usually <strong>vi</strong>, is used.</dd>
+<dt>
+<strong>fignore</strong> &lt;S&gt; &lt;Z&gt; (<strong>FIGNORE</strong> &lt;S&gt;)
+</dt>
+<dd>An array (colon separated list)
+containing the suffixes of files to be ignored during filename
+completion. However, if completion only generates files with suffixes
+in this list, then these files are completed anyway.</dd>
+<dt>
+<strong>fpath</strong> &lt;S&gt; &lt;Z&gt; (<strong>FPATH</strong> &lt;S&gt;)
+</dt>
+<dd>An array (colon separated list) of
+directories specifying the search path for function definitions. This
+path is searched when a function with the <strong>-u</strong> attribute is
+referenced. If an executable file is found, then it is read and
+executed in the current environment.</dd>
+<dt>
+<strong>histchars</strong> &lt;S&gt;
+</dt>
+<dd>Three characters used by the shell&#39;s history and
+lexical analysis mechanism. The first character signals the start of a
+history expansion (default `*!*&#39;). The second character signals the
+start of a quick history substitution (default `*^*&#39;). The third
+character is the comment character (default `*#*&#39;).
+
+The characters must be in the ASCII character set; any attempt to set
+<strong>histchars</strong> to characters with a locale-dependent meaning will be
+rejected with an error message.</dd>
+<dt>
+<strong>HISTCHARS</strong> &lt;S&gt; &lt;Z&gt;
+</dt>
+<dd>Same as <strong>histchars</strong>. (Deprecated.)</dd>
+<dt>
+<strong>HISTFILE</strong>
+</dt>
+<dd>The file to save the history in when an interactive
+shell exits. If unset, the history is not saved.</dd>
+<dt>
+<strong>HISTORY_IGNORE</strong>
+</dt>
+<dd>
+<p>If set, is treated as a pattern at the time
+history files are written. Any potential history entry that matches
+the pattern is skipped. For example, if the value is `*fc **&#39; then
+commands that invoke the interactive history editor are never written
+to the history file.</p>
+<p>
+Note that <strong>HISTORY_IGNORE</strong> defines a single pattern: to specify
+alternatives use the `*(<strong><em>first/*|*/second/*|*</em>…/</strong>)*&#39; syntax.</p>
+<p>
+Compare the <strong>HIST_NO_STORE</strong> option or the <strong>zshaddhistory</strong> hook, either
+of which would prevent such commands from being added to the
+interactive history at all. If you wish to use <strong>HISTORY_IGNORE</strong> to
+stop history being added in the first place, you can define the
+following hook:</p>
+<blockquote>
+<pre class="example">
+zshaddhistory() {
+  emulate -L zsh
+  ## uncomment if HISTORY_IGNORE
+  ## should use EXTENDED_GLOB syntax
+  # setopt extendedglob
+  [[ $1 != ${~HISTORY_IGNORE} ]]
+}
+</pre>
+</blockquote>
+</dd>
+<dt>
+<strong>HISTSIZE</strong> &lt;S&gt;
+</dt>
+<dd>The maximum number of events stored in the internal
+history list. If you use the <strong>HIST_EXPIRE_DUPS_FIRST</strong> option, setting
+this value larger than the <strong>SAVEHIST</strong> size will give you the
+difference as a cushion for saving duplicated history events.
+
+If this is made local, it is not implicitly set to 0, but may be
+explicitly set locally.</dd>
+<dt>
+<strong>HOME</strong> &lt;S&gt;
+</dt>
+<dd>The default argument for the <strong>cd</strong> command. This is not
+set automatically by the shell in <strong>sh</strong>, <strong>ksh</strong> or <strong>csh</strong> emulation, but
+it is typically present in the environment anyway, and if it becomes
+set it has its usual special behaviour.</dd>
+<dt>
+<strong>IFS</strong> &lt;S&gt;
+</dt>
+<dd>Internal field separators (by default space, tab, newline
+and NUL), that are used to separate words which result from command or
+parameter expansion and words read by the <strong>read</strong> builtin. Any
+characters from the set space, tab and newline that appear in the IFS
+are called <em>IFS white space</em>. One or more IFS white space characters
+or one non-IFS white space character together with any adjacent IFS
+white space character delimit a field. If an IFS white space character
+appears twice consecutively in the IFS, this character is treated as
+if it were not an IFS white space character.
+
+If the parameter is unset, the default is used. Note this has a
+different effect from setting the parameter to an empty string.</dd>
+<dt>
+<strong>KEYBOARD_HACK</strong>
+</dt>
+<dd>This variable defines a character to be removed
+from the end of the command line before interpreting it (interactive
+shells only). It is intended to fix the problem with keys placed
+annoyingly close to return and replaces the <strong>SUNKEYBOARDHACK</strong> option
+which did this for backquotes only. Should the chosen character be one
+of singlequote, doublequote or backquote, there must also be an odd
+number of them on the command line for the last one to be removed.
+
+For backward compatibility, if the <strong>SUNKEYBOARDHACK</strong> option is
+explicitly set, the value of <strong>KEYBOARD_HACK</strong> reverts to backquote. If
+the option is explicitly unset, this variable is set to empty.</dd>
+<dt>
+<strong>KEYTIMEOUT</strong>
+</dt>
+<dd>The time the shell waits, in hundredths of seconds,
+for another key to be pressed when reading bound multi-character
+sequences.</dd>
+<dt>
+<strong>LANG</strong> &lt;S&gt;
+</dt>
+<dd>This variable determines the locale category for any
+category not specifically selected via a variable starting with
+`*LC_*&#39;.</dd>
+<dt>
+<strong>LC_ALL</strong> &lt;S&gt;
+</dt>
+<dd>This variable overrides the value of the `*LANG*&#39;
+variable and the value of any of the other variables starting with
+`*LC_*&#39;.</dd>
+<dt>
+<strong>LC_COLLATE</strong> &lt;S&gt;
+</dt>
+<dd>This variable determines the locale category for
+character collation information within ranges in glob brackets and for
+sorting.</dd>
+<dt>
+<strong>LC_CTYPE</strong> &lt;S&gt;
+</dt>
+<dd>This variable determines the locale category for
+character handling functions. If the <strong>MULTIBYTE</strong> option is in effect
+this variable or <strong>LANG</strong> should contain a value that reflects the
+character set in use, even if it is a single-byte character set,
+unless only the 7-bit subset (ASCII) is used. For example, if the
+character set is ISO-8859-1, a suitable value might be
+<strong>en_US.iso88591</strong> (certain Linux distributions) or <strong>en_US.ISO8859-1</strong>
+(MacOS).</dd>
+<dt>
+<strong>LC_MESSAGES</strong> &lt;S&gt;
+</dt>
+<dd>This variable determines the language in which
+messages should be written. Note that zsh does not use message
+catalogs.</dd>
+<dt>
+<strong>LC_NUMERIC</strong> &lt;S&gt;
+</dt>
+<dd>This variable affects the decimal point character
+and thousands separator character for the formatted input/output
+functions and string conversion functions. Note that zsh ignores this
+setting when parsing floating point mathematical expressions.</dd>
+<dt>
+<strong>LC_TIME</strong> &lt;S&gt;
+</dt>
+<dd>This variable determines the locale category for date
+and time formatting in prompt escape sequences.</dd>
+<dt>
+<strong>LINES</strong> &lt;S&gt;
+</dt>
+<dd>The number of lines for this terminal session. Used for
+printing select lists and for the line editor.</dd>
+<dt>
+<strong>LISTMAX</strong>
+</dt>
+<dd>In the line editor, the number of matches to list without
+asking first. If the value is negative, the list will be shown if it
+spans at most as many lines as given by the absolute value. If set to
+zero, the shell asks only if the top of the listing would scroll off
+the screen.</dd>
+<dt>
+<strong>MAIL</strong>
+</dt>
+<dd>If this parameter is set and <strong>mailpath</strong> is not set, the
+shell looks for mail in the specified file.</dd>
+<dt>
+<strong>MAILCHECK</strong>
+</dt>
+<dd>The interval in seconds between checks for new mail.</dd>
+<dt>
+<strong>mailpath</strong> &lt;S&gt; &lt;Z&gt; (<strong>MAILPATH</strong> &lt;S&gt;)
+</dt>
+<dd>An array (colon-separated list)
+of filenames to check for new mail. Each filename can be followed by a
+`*?*&#39; and a message that will be printed. The message will undergo
+parameter expansion, command substitution and arithmetic expansion
+with the variable <strong>$_</strong> defined as the name of the file that has
+changed. The default message is `*You have new mail*&#39;. If an element
+is a directory instead of a file the shell will recursively check
+every file in every subdirectory of the element.</dd>
+<dt>
+<strong>manpath</strong> &lt;S&gt; &lt;Z&gt; (<strong>MANPATH</strong> &lt;S&gt; &lt;Z&gt;)
+</dt>
+<dd>An array (colon-separated
+list) whose value is not used by the shell. The <strong>manpath</strong> array can be
+useful, however, since setting it also sets <strong>MANPATH</strong>, and vice versa.</dd>
+</dl>
+<p><strong>match</strong></p>
+<p>
+<strong>mbegin</strong></p>
+<p>
+<strong>mend</strong> Arrays set by the shell when the <strong>b</strong> globbing flag is used in
+pattern matches. See the subsection <em>Globbing flags</em> in the
+documentation for <em>Filename Generation</em> in /zshexpn/(1).</p>
+<p>
+<strong>MATCH</strong></p>
+<p>
+<strong>MBEGIN</strong></p>
+<p>
+<strong>MEND</strong> Set by the shell when the <strong>m</strong> globbing flag is used in pattern
+matches. See the subsection <em>Globbing flags</em> in the documentation for
+<em>Filename Generation</em> in /zshexpn/(1).</p>
+<dl>
+<dt>
+<strong>module_path</strong> &lt;S&gt; &lt;Z&gt; (<strong>MODULE_PATH</strong> &lt;S&gt;)
+</dt>
+<dd>An array (colon-separated
+list) of directories that <strong>zmodload</strong> searches for dynamically loadable
+modules. This is initialized to a standard pathname, usually
+`*/usr/local/lib/zsh/$ZSH_VERSION*&#39;. (The `*/usr/local/lib*&#39; part
+varies from installation to installation.) For security reasons, any
+value set in the environment when the shell is started will be
+ignored.
+
+These parameters only exist if the installation supports dynamic
+module loading.</dd>
+<dt>
+<strong>NULLCMD</strong> &lt;S&gt;
+</dt>
+<dd>The command name to assume if a redirection is
+specified with no command. Defaults to <strong>cat</strong>. For <strong>sh*/*ksh</strong> behavior,
+change this to <strong>:</strong>. For <strong>csh</strong>-like behavior, unset this parameter; the
+shell will print an error message if null commands are entered.</dd>
+<dt>
+<strong>path</strong> &lt;S&gt; &lt;Z&gt; (<strong>PATH</strong> &lt;S&gt;)
+</dt>
+<dd>An array (colon-separated list) of
+directories to search for commands. When this parameter is set, each
+directory is scanned and all files found are put in a hash table.</dd>
+<dt>
+<strong>POSTEDIT</strong> &lt;S&gt;
+</dt>
+<dd>This string is output whenever the line editor
+exits. It usually contains termcap strings to reset the terminal.</dd>
+</dl>
+<p><strong>PROMPT</strong> &lt;S&gt; &lt;Z&gt;</p>
+<p>
+<strong>PROMPT2</strong> &lt;S&gt; &lt;Z&gt;</p>
+<p>
+<strong>PROMPT3</strong> &lt;S&gt; &lt;Z&gt;</p>
+<p>
+<strong>PROMPT4</strong> &lt;S&gt; &lt;Z&gt; Same as <strong>PS1</strong>, <strong>PS2</strong>, <strong>PS3</strong> and <strong>PS4</strong>, respectively.</p>
+<dl>
+<dt>
+<strong>prompt</strong> &lt;S&gt; &lt;Z&gt;
+</dt>
+<dd>Same as <strong>PS1</strong>.</dd>
+<dt>
+<strong>PROMPT_EOL_MARK</strong>
+</dt>
+<dd>When the <strong>PROMPT_CR</strong> and <strong>PROMPT_SP</strong> options are
+set, the <strong>PROMPT_EOL_MARK</strong> parameter can be used to customize how the
+end of partial lines are shown. This parameter undergoes prompt
+expansion, with the <strong>PROMPT_PERCENT</strong> option set. If not set, the
+default behavior is equivalent to the value `*%B%S%#%s%b*&#39;.</dd>
+<dt>
+<strong>PS1</strong> &lt;S&gt;
+</dt>
+<dd>The primary prompt string, printed before a command is
+read. It undergoes a special form of expansion before being displayed;
+see EXPANSION OF PROMPT SEQUENCES in /zshmisc/(1). The default is
+`*%m%# *&#39;.</dd>
+<dt>
+<strong>PS2</strong> &lt;S&gt;
+</dt>
+<dd>The secondary prompt, printed when the shell needs more
+information to complete a command. It is expanded in the same way as
+<strong>PS1</strong>. The default is `*%_&gt; *&#39;, which displays any shell constructs or
+quotation marks which are currently being processed.</dd>
+<dt>
+<strong>PS3</strong> &lt;S&gt;
+</dt>
+<dd>Selection prompt used within a <strong>select</strong> loop. It is
+expanded in the same way as <strong>PS1</strong>. The default is `*?# *&#39;.</dd>
+<dt>
+<strong>PS4</strong> &lt;S&gt;
+</dt>
+<dd>The execution trace prompt. Default is `*+%N:%i&gt; *&#39;,
+which displays the name of the current shell structure and the line
+number within it. In sh or ksh emulation, the default is `*+ *&#39;.</dd>
+<dt>
+<strong>psvar</strong> &lt;S&gt; &lt;Z&gt; (<strong>PSVAR</strong> &lt;S&gt;)
+</dt>
+<dd>An array (colon-separated list) whose
+elements can be used in <strong>PROMPT</strong> strings. Setting <strong>psvar</strong> also sets
+<strong>PSVAR</strong>, and vice versa.</dd>
+<dt>
+<strong>READNULLCMD</strong> &lt;S&gt;
+</dt>
+<dd>The command name to assume if a single input
+redirection is specified with no command. Defaults to <strong>more</strong>.</dd>
+<dt>
+<strong>REPORTMEMORY</strong>
+</dt>
+<dd>If nonnegative, commands whose maximum resident set
+size (roughly speaking, main memory usage) in kilobytes is greater
+than this value have timing statistics reported. The format used to
+output statistics is the value of the <strong>TIMEFMT</strong> parameter, which is
+the same as for the <strong>REPORTTIME</strong> variable and the <strong>time</strong> builtin; note
+that by default this does not output memory usage. Appending <strong>&#34; max
+RSS %M&#34;</strong> to the value of <strong>TIMEFMT</strong> causes it to output the value that
+triggered the report. If <strong>REPORTTIME</strong> is also in use, at most a single
+report is printed for both triggers. This feature requires the
+<strong>getrusage()</strong> system call, commonly supported by modern Unix-like
+systems.</dd>
+<dt>
+<strong>REPORTTIME</strong>
+</dt>
+<dd>If nonnegative, commands whose combined user and
+system execution times (measured in seconds) are greater than this
+value have timing statistics printed for them. Output is suppressed
+for commands executed within the line editor, including completion;
+commands explicitly marked with the <strong>time</strong> keyword still cause the
+summary to be printed in this case.</dd>
+<dt>
+<strong>REPLY</strong>
+</dt>
+<dd>This parameter is reserved by convention to pass string
+values between shell scripts and shell builtins in situations where a
+function call or redirection are impossible or undesirable. The <strong>read</strong>
+builtin and the <strong>select</strong> complex command may set <strong>REPLY</strong>, and filename
+generation both sets and examines its value when evaluating certain
+expressions. Some modules also employ <strong>REPLY</strong> for similar purposes.</dd>
+<dt>
+<strong>reply</strong>
+</dt>
+<dd>As <strong>REPLY</strong>, but for array values rather than strings.</dd>
+</dl>
+<p><strong>RPROMPT</strong> &lt;S&gt;</p>
+<p>
+<strong>RPS1</strong> &lt;S&gt; This prompt is displayed on the right-hand side of the screen
+when the primary prompt is being displayed on the left. This does not
+work if the <strong>SINGLE_LINE_ZLE</strong> option is set. It is expanded in the same
+way as <strong>PS1</strong>.</p>
+<p>
+<strong>RPROMPT2</strong> &lt;S&gt;</p>
+<p>
+<strong>RPS2</strong> &lt;S&gt; This prompt is displayed on the right-hand side of the screen
+when the secondary prompt is being displayed on the left. This does not
+work if the <strong>SINGLE_LINE_ZLE</strong> option is set. It is expanded in the same
+way as <strong>PS2</strong>.</p>
+<dl>
+<dt>
+<strong>SAVEHIST</strong>
+</dt>
+<dd>The maximum number of history events to save in the
+history file.
+
+If this is made local, it is not implicitly set to 0, but may be
+explicitly set locally.</dd>
+<dt>
+<strong>SPROMPT</strong> &lt;S&gt;
+</dt>
+<dd>
+<p>The prompt used for spelling correction. The sequence
+`*%R*&#39; expands to the string which presumably needs spelling
+correction, and `*%r*&#39; expands to the proposed correction. All other
+prompt escapes are also allowed.</p>
+<p>
+The actions available at the prompt are <strong>[nyae]</strong>:</p>
+<dl>
+<dt>
+<strong>n</strong> (`no&#39;) (default)
+</dt>
+<dd>Discard the correction and run the command.</dd>
+<dt>
+<strong>y</strong> (`yes&#39;)
+</dt>
+<dd>Make the correction and run the command.</dd>
+<dt>
+<strong>a</strong> (`abort&#39;)
+</dt>
+<dd>Discard the entire command line without running it.</dd>
+<dt>
+<strong>e</strong> (`edit&#39;)
+</dt>
+<dd>Resume editing the command line.</dd>
+</dl>
+</dd>
+<dt>
+<strong>STTY</strong>
+</dt>
+<dd>If this parameter is set in a command&#39;s environment, the
+shell runs the <strong>stty</strong> command with the value of this parameter as
+arguments in order to set up the terminal before executing the
+command. The modes apply only to the command, and are reset when it
+finishes or is suspended. If the command is suspended and continued
+later with the <strong>fg</strong> or <strong>wait</strong> builtins it will see the modes specified
+by <strong>STTY</strong>, as if it were not suspended. This (intentionally) does not
+apply if the command is continued via `*kill* -CONT&#39;. <strong>STTY</strong> is
+ignored if the command is run in the background, or if it is in the
+environment of the shell but not explicitly assigned to in the input
+line. This avoids running stty at every external command by
+accidentally exporting it. Also note that <strong>STTY</strong> should not be used
+for window size specifications; these will not be local to the
+command.
+
+If the parameter is set and empty, all of the above applies except
+that <strong>stty</strong> is not run. This can be useful as a way to freeze the tty
+around a single command, blocking its changes to tty settings, similar
+to the <strong>ttyctl</strong> builtin.</dd>
+<dt>
+<strong>TERM</strong> &lt;S&gt;
+</dt>
+<dd>The type of terminal in use. This is used when looking
+up termcap sequences. An assignment to <strong>TERM</strong> causes zsh to
+re-initialize the terminal, even if the value does not change (e.g.,
+`*TERM=$TERM*&#39;). It is necessary to make such an assignment upon any
+change to the terminal definition database or terminal type in order
+for the new settings to take effect.</dd>
+<dt>
+<strong>TERMINFO</strong> &lt;S&gt;
+</dt>
+<dd>A reference to your terminfo database, used by the
+`terminfo&#39; library when the system has it; see /terminfo/(5). If set,
+this causes the shell to reinitialise the terminal, making the
+workaround `*TERM=$TERM*&#39; unnecessary.</dd>
+<dt>
+<strong>TERMINFO_DIRS</strong> &lt;S&gt;
+</dt>
+<dd>A colon-seprarated list of terminfo databases,
+used by the `terminfo&#39; library when the system has it; see
+/terminfo/(5). This variable is only used by certain terminal
+libraries, in particular ncurses; see /terminfo/(5) to check support
+on your system. If set, this causes the shell to reinitialise the
+terminal, making the workaround `*TERM=$TERM*&#39; unnecessary. Note that
+unlike other colon-separated arrays this is not tied to a zsh array.</dd>
+<dt>
+<strong>TIMEFMT</strong>
+</dt>
+<dd>
+<p>The format of process time reports with the <strong>time</strong>
+keyword. The default is `*%J %U user %S system %P cpu %*E total*&#39;.
+Recognizes the following escape sequences, although not all may be
+available on all systems, and some that are available may not be
+useful:</p>
+<dl>
+<dt>
+<strong>%%</strong>
+</dt>
+<dd>A `*%*&#39;.</dd>
+<dt>
+<strong>%U</strong>
+</dt>
+<dd>CPU seconds spent in user mode.</dd>
+<dt>
+<strong>%S</strong>
+</dt>
+<dd>CPU seconds spent in kernel mode.</dd>
+<dt>
+<strong>%E</strong>
+</dt>
+<dd>Elapsed time in seconds.</dd>
+<dt>
+<strong>%P</strong>
+</dt>
+<dd>The CPU percentage, computed as 100*(<strong>%U*+*%S</strong>)/*%E*.</dd>
+<dt>
+<strong>%W</strong>
+</dt>
+<dd>Number of times the process was swapped.</dd>
+<dt>
+<strong>%X</strong>
+</dt>
+<dd>The average amount in (shared) text space used in kilobytes.</dd>
+<dt>
+<strong>%D</strong>
+</dt>
+<dd>The average amount in (unshared) data/stack space used in
+kilobytes.</dd>
+<dt>
+<strong>%K</strong>
+</dt>
+<dd>The total space used (<strong>%X*+*%D</strong>) in kilobytes.</dd>
+<dt>
+<strong>%M</strong>
+</dt>
+<dd>The maximum memory the process had in use at any time in
+kilobytes.</dd>
+<dt>
+<strong>%F</strong>
+</dt>
+<dd>The number of major page faults (page needed to be brought
+from disk).</dd>
+<dt>
+<strong>%R</strong>
+</dt>
+<dd>The number of minor page faults.</dd>
+<dt>
+<strong>%I</strong>
+</dt>
+<dd>The number of input operations.</dd>
+<dt>
+<strong>%O</strong>
+</dt>
+<dd>The number of output operations.</dd>
+<dt>
+<strong>%r</strong>
+</dt>
+<dd>The number of socket messages received.</dd>
+<dt>
+<strong>%s</strong>
+</dt>
+<dd>The number of socket messages sent.</dd>
+<dt>
+<strong>%k</strong>
+</dt>
+<dd>The number of signals received.</dd>
+<dt>
+<strong>%w</strong>
+</dt>
+<dd>Number of voluntary context switches (waits).</dd>
+<dt>
+<strong>%c</strong>
+</dt>
+<dd>Number of involuntary context switches.</dd>
+<dt>
+<strong>%J</strong>
+</dt>
+<dd>The name of this job.</dd>
+</dl>
+<p>A star may be inserted between the percent sign and flags printing
+time (e.g., `*%*E*&#39;); this causes the time to be printed in
+`/hh/*:*/mm/*:*/ss/*.*/ttt/&#39; format (hours and minutes are only
+printed if they are not zero). Alternatively, `*m*&#39; or `*u*&#39; may be
+used (e.g., `*%mE*&#39;) to produce time output in milliseconds or
+microseconds, respectively.</p>
+</dd>
+<dt>
+<strong>TMOUT</strong>
+</dt>
+<dd>If this parameter is nonzero, the shell will receive an
+<strong>ALRM</strong> signal if a command is not entered within the specified number
+of seconds after issuing a prompt. If there is a trap on <strong>SIGALRM</strong>, it
+will be executed and a new alarm is scheduled using the value of the
+<strong>TMOUT</strong> parameter after executing the trap. If no trap is set, and the
+idle time of the terminal is not less than the value of the <strong>TMOUT</strong>
+parameter, zsh terminates. Otherwise a new alarm is scheduled to
+<strong>TMOUT</strong> seconds after the last keypress.</dd>
+<dt>
+<strong>TMPPREFIX</strong>
+</dt>
+<dd>A pathname prefix which the shell will use for all
+temporary files. Note that this should include an initial part for the
+file name as well as any directory names. The default is `*/tmp/zsh*&#39;.</dd>
+<dt>
+<strong>TMPSUFFIX</strong>
+</dt>
+<dd>A filename suffix which the shell will use for
+temporary files created by process substitutions (e.g.,
+`*=(<strong><em>list</em></strong>)*/&#39;)./ Note that the value should include a leading dot
+`*.*/&#39; if intended/ to be interpreted as a file extension. The default
+is not to append any suffix, thus this parameter should be assigned
+only when needed and then unset again.</dd>
+<dt>
+*WORDCHARS*/ &lt;S&gt;/
+</dt>
+<dd>A list of non-alphanumeric characters considered
+part of a word by the line editor.</dd>
+<dt>
+<strong>ZBEEP</strong>
+</dt>
+<dd>If set, this gives a string of characters, which can use
+all the same codes as the *bindkey*/ command as described in/ the
+zsh/zle module entry in <em>zshmodules(1), that will be output to the
+terminal</em> instead of beeping. This may have a visible instead of an
+audible effect; for example, the string `*\e[?5h\e[?5l*/&#39; on a vt100
+or xterm will have/ the effect of flashing reverse video on and off
+(if you usually use reverse video, you should use the string
+`*\e[?5l\e[?5h*/&#39; instead). This takes/ precedence over the *NOBEEP*/
+option./</dd>
+<dt>
+<strong>ZDOTDIR</strong>
+</dt>
+<dd>The directory to search for shell startup files (.zshrc,
+etc), if not *$HOME*/./</dd>
+<dt>
+<strong>zle_bracketed_paste</strong>
+</dt>
+<dd>Many terminal emulators have a feature that
+allows applications to identify when text is pasted into the terminal
+rather than being typed normally. For ZLE, this means that special
+characters such as tabs and newlines can be inserted instead of
+invoking editor commands. Furthermore, pasted text forms a single undo
+event and if the region is active, pasted text will replace the
+region.
+
+This two-element array contains the terminal escape sequences for
+enabling and disabling the feature. These escape sequences are used to
+enable bracketed paste when ZLE is active and disable it at other
+times. Unsetting the parameter has the effect of ensuring that
+bracketed paste remains disabled.</dd>
+<dt>
+<strong>zle_highlight</strong>
+</dt>
+<dd>An array describing contexts in which ZLE should
+highlight the input text. See <em>Character Highlighting in zshzle(1).</em></dd>
+<dt>
+<strong>ZLE_LINE_ABORTED</strong>
+</dt>
+<dd>This parameter is set by the line editor when an
+error occurs. It contains the line that was being edited at the point
+of the error. `*print -zr – $ZLE_LINE_ABORTED*/&#39; can be used to
+recover the line./ Only the most recent line of this kind is
+remembered.</dd>
+</dl>
+<p><strong>ZLE_REMOVE_SUFFIX_CHARS</strong></p>
+<p>
+<strong>ZLE_SPACE_SUFFIX_CHARS</strong> These parameters are used by the line editor.
+In certain circumstances suffixes (typically space or slash) added by
+the completion system will be removed automatically, either because the
+next editing command was not an insertable character, or because the
+character was marked as requiring the suffix to be removed.</p>
+<blockquote>
+<p>These variables can contain the sets of characters that will cause the
+suffix to be removed. If *ZLE_REMOVE_SUFFIX_CHARS*/ is set, those/
+characters will cause the suffix to be removed; if
+*ZLE_SPACE_SUFFIX_CHARS*/ is set, those characters will cause the/
+suffix to be removed and replaced by a space.</p>
+<p>
+If *ZLE_REMOVE_SUFFIX_CHARS*/ is not set, the default behaviour is/
+equivalent to:</p>
+<blockquote>
+<pre class="example">
+ZLE_REMOVE_SUFFIX_CHARS=$&#39; \t\n;&amp;|&#39;
+</pre>
+</blockquote>
+<p>
+If *ZLE_REMOVE_SUFFIX_CHARS*/ is set but is empty, no characters have
+this/ behaviour. *ZLE_SPACE_SUFFIX_CHARS*/ takes precedence, so that
+the/ following:</p>
+<blockquote>
+<pre class="example">
+ZLE_SPACE_SUFFIX_CHARS=$&#39;&amp;|&#39;
+</pre>
+</blockquote>
+<p>
+causes the characters `*&amp;*/&#39; and `/*|*/&#39; to remove the suffix but to/
+replace it with a space.</p>
+<p>
+To illustrate the difference, suppose that the option
+<strong>AUTO_REMOVE_SLASH</strong> is in effect and the directory *DIR*/ has just been
+completed, with an/ appended */*/, following which the user types
+`/*&amp;*/&#39;. The default result/ is `*DIR&amp;*/&#39;. With
+<em><strong>ZLE_REMOVE_SUFFIX_CHARS</strong></em> set but without including/ `*&amp;*/&#39; the result
+is `/*DIR/&amp;*/&#39;. With <em><strong>ZLE_SPACE_SUFFIX_CHARS</strong></em> set to/ include `*&amp;*/&#39;
+the result is `/*DIR &amp;*/&#39;./</p>
+<p>
+Note that certain completions may provide their own suffix removal or
+replacement behaviour which overrides the values described here. See the
+completion system documentation in <em>zshcompsys(1).</em></p>
+</blockquote>
+<dl>
+<dt>
+*ZLE_RPROMPT_INDENT*/ &lt;S&gt;/
+</dt>
+<dd>If set, used to give the indentation
+between the right hand side of the right prompt in the line editor as
+given by <strong>RPS1*/ or /*RPROMPT</strong> and the right hand side of the screen.
+If not set, the value 1 is used.
+
+Typically this will be used to set the value to 0 so that the prompt
+appears flush with the right hand side of the screen. This is not the
+default as many terminals do not handle this correctly, in particular
+when the prompt appears at the extreme bottom right of the screen.
+Recent virtual terminals are more likely to handle this case
+correctly. Some experimentation is necessary.</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-replace.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-replace.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-replace - Create, list, delete refs to replace objects</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git replace [-f] &lt;object&gt; &lt;replacement&gt;
+git replace [-f] --edit &lt;object&gt;
+git replace [-f] --graft &lt;commit&gt; [&lt;parent&gt;...]
+git replace [-f] --convert-graft-file
+git replace -d &lt;object&gt;...
+git replace [--format=&lt;format&gt;] [-l [&lt;pattern&gt;]]
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Adds a <em>replace</em> reference in <strong>refs/replace/</strong> namespace.</p>
+<p>
+The name of the <em>replace</em> reference is the SHA-1 of the object that is
+replaced. The content of the <em>replace</em> reference is the SHA-1 of the
+replacement object.</p>
+<p>
+The replaced object and the replacement object must be of the same type.
+This restriction can be bypassed using <strong>-f</strong>.</p>
+<p>
+Unless <strong>-f</strong> is given, the <em>replace</em> reference must not yet exist.</p>
+<p>
+There is no other restriction on the replaced and replacement objects.
+Merge commits can be replaced by non-merge commits and vice versa.</p>
+<p>
+Replacement references will be used by default by all Git commands
+except those doing reachability traversal (prune, pack transfer and
+fsck).</p>
+<p>
+It is possible to disable the use of replacement references for any
+command using the <strong>–no-replace-objects</strong> option just after <em>git</em>.</p>
+<p>
+For example if commit <em>foo</em> has been replaced by commit <em>bar</em>:</p>
+<blockquote>
+<pre class="example">
+$ git --no-replace-objects cat-file commit foo
+</pre>
+</blockquote>
+<p>
+shows information about commit <em>foo</em>, while:</p>
+<blockquote>
+<pre class="example">
+$ git cat-file commit foo
+</pre>
+</blockquote>
+<p>
+shows information about commit <em>bar</em>.</p>
+<p>
+The <strong>GIT_NO_REPLACE_OBJECTS</strong> environment variable can be set to achieve
+the same effect as the <strong>–no-replace-objects</strong> option.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-f, –force</p>
+<blockquote>
+<p>If an existing replace ref for the same object exists, it will be
+overwritten (instead of failing).</p>
+</blockquote>
+<p>
+-d, –delete</p>
+<blockquote>
+<p>Delete existing replace refs for the given objects.</p>
+</blockquote>
+<p>
+–edit &lt;object&gt;</p>
+<blockquote>
+<p>Edit an object&#39;s content interactively. The existing content for
+&lt;object&gt; is pretty-printed into a temporary file, an editor is launched
+on the file, and the result is parsed to create a new object of the same
+type as &lt;object&gt;. A replacement ref is then created to replace &lt;object&gt;
+with the newly created object. See *git-var*(1) for details about how
+the editor will be chosen.</p>
+</blockquote>
+<p>
+–raw</p>
+<blockquote>
+<p>When editing, provide the raw object contents rather than pretty-printed
+ones. Currently this only affects trees, which will be shown in their
+binary form. This is harder to work with, but can help when repairing a
+tree that is so corrupted it cannot be pretty-printed. Note that you may
+need to configure your editor to cleanly read and write binary data.</p>
+</blockquote>
+<p>
+–graft &lt;commit&gt; [&lt;parent&gt;…]</p>
+<blockquote>
+<p>Create a graft commit. A new commit is created with the same content as
+&lt;commit&gt; except that its parents will be [&lt;parent&gt;…] instead of
+&lt;commit&gt;s parents. A replacement ref is then created to replace &lt;commit&gt;
+with the newly created commit. Use <strong>–convert-graft-file</strong> to convert a
+<strong>$GIT_DIR/info/grafts</strong> file and use replace refs instead.</p>
+</blockquote>
+<p>
+–convert-graft-file</p>
+<blockquote>
+<p>Creates graft commits for all entries in <strong>$GIT_DIR/info/grafts</strong> and
+deletes that file upon success. The purpose is to help users with
+transitioning off of the now-deprecated graft file.</p>
+</blockquote>
+<p>
+-l &lt;pattern&gt;, –list &lt;pattern&gt;</p>
+<blockquote>
+<p>List replace refs for objects that match the given pattern (or all if no
+pattern is given). Typing &#34;git replace&#34; without arguments, also lists
+all replace refs.</p>
+</blockquote>
+<p>
+–format=&lt;format&gt;</p>
+<blockquote>
+<p>When listing, use the specified &lt;format&gt;, which can be one of <em>short</em>,
+<em>medium</em> and <em>long</em>. When omitted, the format defaults to <em>short</em>.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+FORMATS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The following formats are available:</p>
+<blockquote>
+<p>·</p>
+<p>
+<em>short</em>: &lt;replaced-sha1&gt;</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>medium</em>: &lt;replaced-sha1&gt; → &lt;replacement-sha1&gt;</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+<em>long</em>: &lt;replaced-sha1&gt; (&lt;replaced-type&gt;) → &lt;replacement-sha1&gt;
+(&lt;replacement-type&gt;)</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+CREATING REPLACEMENT OBJECTS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><strong>git-hash-object*(1), *git-rebase*(1), and *git-filter-repo</strong>[1], among
+other git commands, can be used to create replacement objects from
+existing objects. The <strong>–edit</strong> option can also be used with <em>git
+replace</em> to create a replacement object by editing an existing object.</p>
+<p>
+If you want to replace many blobs, trees or commits that are part of a
+string of commits, you may just want to create a replacement string of
+commits and then only replace the commit at the tip of the target string
+of commits with the commit at the tip of the replacement string of
+commits.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Comparing blobs or trees that have been replaced with those that replace
+them will not work properly. And using <strong>git reset –hard</strong> to go back to
+a replaced commit will move the branch to the replacement commit instead
+of the replaced commit.</p>
+<p>
+There may be other problems when using <em>git rev-list</em> related to pending
+objects.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p><strong>git-hash-object*(1) *git-rebase*(1) *git-tag*(1) *git-branch*(1)
+*git-commit*(1) *git-var*(1) *git*(1) *git-filter-repo</strong>[1]</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+GIT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+NOTES
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<dl>
+<dt>
+1.
+</dt>
+<dd>git-filter-repo
+
+https://github.com/newren/git-filter-repo</dd>
+</dl>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

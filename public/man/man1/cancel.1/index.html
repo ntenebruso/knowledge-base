@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - cancel.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - cancel.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>cancel - cancel jobs</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>cancel</strong> [ <strong>-h</strong> <em>hostname[:port]</em> ] [ <strong>-E</strong> ] [ <strong>-U</strong> <em>username</em> ] [ <strong>-a</strong>
+] [ <strong>-u</strong> <em>username</em> ] [ <strong>-x</strong> ] [ <em>id</em> ] [ <em>destination</em> ] [
+<em>destination-id</em> ]</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The <strong>cancel</strong> command cancels print jobs. If no <em>destination</em> or <em>id</em> is
+specified, the currently printing job on the default destination is
+canceled.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The following options are recognized by <strong>cancel</strong>:</p>
+<dl>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>Cancel all jobs on the named destination, or all jobs on all
+destinations if none is provided.</dd>
+<dt>
+<strong>-E</strong>
+</dt>
+<dd>Forces encryption when connecting to the server.</dd>
+<dt>
+*-h */hostname/[/:port/]
+</dt>
+<dd>Specifies an alternate server. Note: This
+option must occur before all others.</dd>
+<dt>
+*-U */username/
+</dt>
+<dd>Specifies the username to use when connecting to
+the server.</dd>
+<dt>
+*-u */username/
+</dt>
+<dd>Cancels jobs owned by <em>username</em>.</dd>
+<dt>
+<strong>-x</strong>
+</dt>
+<dd>Deletes job data files in addition to canceling.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+CONFORMING TO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Unlike the System V printing system, CUPS allows printer names to
+contain any printable character except SPACE, TAB, &#34;<em>&#34;, or &#34;#&#34;. Also,
+printer and class names are /not</em> case-sensitive.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Cancel the current print job:</p>
+<pre class="example">
+    cancel
+</pre>
+<p>
+Cancel job &#34;myprinter-42&#34;:</p>
+<pre class="example">
+    cancel myprinter-42
+</pre>
+<p>
+Cancel all jobs:</p>
+<pre class="example">
+    cancel -a
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+NOTES
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Administrators wishing to prevent unauthorized cancellation of jobs via
+the <em>-u</em> option should require authentication for Cancel-Jobs operations
+in *cupsd.conf*(5).</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>*cupsd.conf*(5), *lp*(1), *lpmove*(8), *lpstat*(1), CUPS Online Help
+(<a href="http://localhost:631/help)">http://localhost:631/help)</a></p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Copyright © 2020-2024 by OpenPrinting.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

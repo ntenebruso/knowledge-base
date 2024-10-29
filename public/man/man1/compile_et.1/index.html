@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - compile_et.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - compile_et.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>compile_et - error table compiler</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>compile_et</strong> file</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>Compile_et</strong> converts a table listing error-code names and associated
+messages into a C source file suitable for use with the /com_err/(3)
+library.</p>
+<p>
+The source file name must end with a suffix of ``.et&#39;&#39;; the file
+consists of a declaration supplying the name (up to four characters
+long) of the error-code table:</p>
+<p>
+<strong>error_table</strong> <em>name</em></p>
+<p>
+followed by up to 256 entries of the form:</p>
+<p>
+<strong>error_code</strong> <em>name,</em> &#34; <em>string</em> &#34;</p>
+<p>
+and a final</p>
+<p>
+<strong>end</strong></p>
+<p>
+to indicate the end of the table.</p>
+<p>
+The name of the table is used to construct the name of a subroutine
+<em>initialize_XXXX_error_table</em> which must be called in order for the
+<em>com_err</em> library to recognize the error table.</p>
+<p>
+The various error codes defined are assigned sequentially increasing
+numbers (starting with a large number computed as a hash function of the
+name of the table); thus for compatibility it is suggested that new
+codes be added only to the end of an existing table, and that no codes
+be removed from tables.</p>
+<p>
+The names defined in the table are placed into a C header file with
+preprocessor directives defining them as integer constants of up to 32
+bits in magnitude.</p>
+<p>
+A C source file is also generated which should be compiled and linked
+with the object files which reference these error codes; it contains the
+text of the messages and the initialization subroutine. Both C files
+have names derived from that of the original source file, with the
+``.et&#39;&#39; suffix replaced by ``.c&#39;&#39; and ``.h&#39;&#39;.</p>
+<p>
+A ``#&#39;&#39; in the source file is treated as a comment character, and all
+remaining text to the end of the source line will be ignored.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+BUGS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Since the original <strong>compile_et</strong> uses a very simple parser based on
+/yacc/(1), and this current version of <strong>compile_et</strong> uses an awk/sed
+combination of scripts, its error recovery leaves much to be desired.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>com_err (3).</p>
+<p>
+Ken Raeburn, &#34;A Common Error Description Library for UNIX&#34;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

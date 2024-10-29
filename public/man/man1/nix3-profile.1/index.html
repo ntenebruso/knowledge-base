@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - nix3-profile.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - nix3-profile.1</h1>
+    
+<p><strong>Warning</strong><br>
+This program is <strong>experimental</strong> and its interface is subject to change.</p>
+<p>#+end_quote</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Name
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><code class="verbatim">nix profile</code> - manage Nix profiles</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Synopsis
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><code class="verbatim">nix profile</code> [/option/…] <em>subcommand</em></p>
+<p>
+where <em>subcommand</em> is one of the following:</p>
+<ul>
+<li><code class="verbatim">nix profile diff-closures</code> - show the closure difference between each
+version of a profile</li>
+<li><code class="verbatim">nix profile history</code> - show all versions of a profile</li>
+<li><code class="verbatim">nix profile install</code> - install a package into a profile</li>
+<li><code class="verbatim">nix profile list</code> - list installed packages</li>
+<li><code class="verbatim">nix profile remove</code> - remove packages from a profile</li>
+<li><code class="verbatim">nix profile rollback</code> - roll back to the previous version or a
+specified version of a profile</li>
+<li><code class="verbatim">nix profile upgrade</code> - upgrade packages using their most recent flake</li>
+<li><code class="verbatim">nix profile wipe-history</code> - delete non-current versions of a profile</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Description
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><code class="verbatim">nix profile</code> allows you to create and manage <em>Nix profiles</em>. A Nix
+profile is a set of packages that can be installed and upgraded
+independently from each other. Nix profiles are versioned, allowing them
+to be rolled back easily.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Files
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Profiles
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>A directory that contains links to profiles managed by <code class="verbatim">nix-env</code> and
+<code class="verbatim">nix profile</code>:</p>
+<ul>
+<li><code class="verbatim">$XDG_STATE_HOME/nix/profiles</code> for regular users</li>
+<li><code class="verbatim">$NIX_STATE_DIR/profiles/per-user/root</code> if the user is <code class="verbatim">root</code></li>
+</ul>
+<p>A profile is a directory of symlinks to files in the Nix store.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Filesystem layout
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Profiles are versioned as follows. When using a profile named <em>path</em>,
+<em>path</em> is a symlink to <em>path/=-<code class="verbatim">/N/</code>-link=, where /N</em> is the version of
+the profile. In turn, /path/=-<code class="verbatim">/N/</code>-link= is a symlink to a path in the
+Nix store. For example:</p>
+<pre class="example">
+$ ls -l ~alice/.local/state/nix/profiles/profile*
+lrwxrwxrwx 1 alice users 14 Nov 25 14:35 /home/alice/.local/state/nix/profiles/profile -&gt; profile-7-link
+lrwxrwxrwx 1 alice users 51 Oct 28 16:18 /home/alice/.local/state/nix/profiles/profile-5-link -&gt; /nix/store/q69xad13ghpf7ir87h0b2gd28lafjj1j-profile
+lrwxrwxrwx 1 alice users 51 Oct 29 13:20 /home/alice/.local/state/nix/profiles/profile-6-link -&gt; /nix/store/6bvhpysd7vwz7k3b0pndn7ifi5xr32dg-profile
+lrwxrwxrwx 1 alice users 51 Nov 25 14:35 /home/alice/.local/state/nix/profiles/profile-7-link -&gt; /nix/store/mp0x6xnsg0b8qhswy6riqvimai4gm677-profile
+</pre>
+<p>
+Each of these symlinks is a root for the Nix garbage collector.</p>
+<p>
+The contents of the store path corresponding to each version of the
+profile is a tree of symlinks to the files of the installed packages,
+e.g.</p>
+<pre class="example">
+$ ll -R ~eelco/.local/state/nix/profiles/profile-7-link/
+/home/eelco/.local/state/nix/profiles/profile-7-link/:
+total 20
+dr-xr-xr-x 2 root root 4096 Jan  1  1970 bin
+-r--r--r-- 2 root root 1402 Jan  1  1970 manifest.nix
+dr-xr-xr-x 4 root root 4096 Jan  1  1970 share
+
+/home/eelco/.local/state/nix/profiles/profile-7-link/bin:
+total 20
+lrwxrwxrwx 5 root root 79 Jan  1  1970 chromium -&gt; /nix/store/ijm5k0zqisvkdwjkc77mb9qzb35xfi4m-chromium-86.0.4240.111/bin/chromium
+lrwxrwxrwx 7 root root 87 Jan  1  1970 spotify -&gt; /nix/store/w9182874m1bl56smps3m5zjj36jhp3rn-spotify-1.1.26.501.gbe11e53b-15/bin/spotify
+lrwxrwxrwx 3 root root 79 Jan  1  1970 zoom-us -&gt; /nix/store/wbhg2ga8f3h87s9h5k0slxk0m81m4cxl-zoom-us-5.3.469451.0927/bin/zoom-us
+
+/home/eelco/.local/state/nix/profiles/profile-7-link/share/applications:
+total 12
+lrwxrwxrwx 4 root root 120 Jan  1  1970 chromium-browser.desktop -&gt; /nix/store/4cf803y4vzfm3gyk3vzhzb2327v0kl8a-chromium-unwrapped-86.0.4240.111/share/applications/chromium-browser.desktop
+lrwxrwxrwx 7 root root 110 Jan  1  1970 spotify.desktop -&gt; /nix/store/w9182874m1bl56smps3m5zjj36jhp3rn-spotify-1.1.26.501.gbe11e53b-15/share/applications/spotify.desktop
+lrwxrwxrwx 3 root root 107 Jan  1  1970 us.zoom.Zoom.desktop -&gt; /nix/store/wbhg2ga8f3h87s9h5k0slxk0m81m4cxl-zoom-us-5.3.469451.0927/share/applications/us.zoom.Zoom.desktop
+
+…
+</pre>
+<p>
+Each profile version contains a manifest file: - <code class="verbatim">manifest.nix</code> used by
+<code class="verbatim">nix-env</code>. - <code class="verbatim">manifest.json</code> used by <code class="verbatim">nix profile</code> (experimental).</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+User profile link
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>A symbolic link to the user&#39;s current profile:</p>
+<ul>
+<li><code class="verbatim">~/.nix-profile</code></li>
+<li><code class="verbatim">$XDG_STATE_HOME/nix/profile</code> if <code class="verbatim">use-xdg-base-directories</code> is set to
+<code class="verbatim">true</code>.</li>
+</ul>
+<p>By default, this symlink points to:</p>
+<ul>
+<li><code class="verbatim">$XDG_STATE_HOME/nix/profiles/profile</code> for regular users</li>
+<li><code class="verbatim">$NIX_STATE_DIR/profiles/per-user/root/profile</code> for <code class="verbatim">root</code></li>
+</ul>
+<p>The <code class="verbatim">PATH</code> environment variable should include <code class="verbatim">/bin</code> subdirectory of
+the profile link (e.g. <code class="verbatim">~/.nix-profile/bin</code>) for the user environment to
+be visible to the user. The <strong>installer</strong> sets this up by default, unless
+you enable <code class="verbatim">use-xdg-base-directories</code>.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Profile compatibility
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<blockquote>
+<p><strong>Warning</strong></p>
+<p>
+Once you have used <code class="verbatim">nix profile</code> you can no longer use <code class="verbatim">nix-env</code> without
+first deleting <code class="verbatim">$XDG_STATE_HOME/nix/profiles/profile</code></p>
+</blockquote>
+<p>
+Once you installed a package with <code class="verbatim">nix profile</code>, you get the following
+error message when using <code class="verbatim">nix-env</code>:</p>
+<pre class="example">
+$ nix-env -f &#39;&lt;nixpkgs&gt;&#39; -iA &#39;hello&#39;
+error: nix-env
+profile &#39;/home/alice/.local/state/nix/profiles/profile&#39; is incompatible with &#39;nix-env&#39;; please use &#39;nix profile&#39; instead
+</pre>
+<p>
+To migrate back to <code class="verbatim">nix-env</code> you can delete your current profile:</p>
+<blockquote>
+<p><strong>Warning</strong></p>
+<p>
+This will delete packages that have been installed before, so you may
+want to back up this information before running the command.</p>
+</blockquote>
+<pre class="example">
+ $ rm -rf &#34;${XDG_STATE_HOME-$HOME/.local/state}/nix/profiles/profile&#34;
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+Options
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Logging-related options
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<ul>
+<li><code class="verbatim">--debug</code>
+
+Set the logging verbosity level to ‘debug&#39;.</li>
+<li><code class="verbatim">--log-format</code> <em>format</em>
+
+Set the format of log output; one of <code class="verbatim">raw</code>, <code class="verbatim">internal-json</code>, <code class="verbatim">bar</code> or
+<code class="verbatim">bar-with-logs</code>.</li>
+<li><code class="verbatim">--print-build-logs</code> / <code class="verbatim">-L</code>
+
+Print full build logs on standard error.</li>
+<li><code class="verbatim">--quiet</code>
+
+Decrease the logging verbosity level.</li>
+<li><code class="verbatim">--verbose</code> / <code class="verbatim">-v</code>
+
+Increase the logging verbosity level.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Miscellaneous global options
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<ul>
+<li><code class="verbatim">--help</code>
+
+Show usage information.</li>
+<li><code class="verbatim">--offline</code>
+
+Disable substituters and consider all previously downloaded files
+up-to-date.</li>
+<li><code class="verbatim">--option</code> <em>name</em> <em>value</em>
+
+Set the Nix configuration setting <em>name</em> to <em>value</em> (overriding
+<code class="verbatim">nix.conf</code>).</li>
+<li><code class="verbatim">--refresh</code>
+
+Consider all previously downloaded files out-of-date.</li>
+<li><code class="verbatim">--version</code>
+
+Show version information.
+
+<strong>Note</strong>
+
+See <code class="verbatim">man nix.conf</code> for overriding configuration settings with command
+line flags.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - fincore.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - fincore.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>fincore - count pages of file contents in core</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>fincore</strong> [options] <em>file</em>…</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>fincore</strong> counts pages of file contents being resident in memory (in
+core), and reports the numbers. If an error occurs during counting, then
+an error message is printed to the stderr and <strong>fincore</strong> continues
+processing the rest of files listed in a command line.</p>
+<p>
+The default output is subject to change. So whenever possible, you
+should avoid using default outputs in your scripts. Always explicitly
+define expected columns by using <strong>–output</strong> <em>columns-list</em> in
+environments where a stable output is required.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-n</strong>, <strong>–noheadings</strong></p>
+<blockquote>
+<p>Do not print a header line in status output.</p>
+</blockquote>
+<p>
+<strong>-b</strong>, <strong>–bytes</strong></p>
+<blockquote>
+<p>Print the sizes in bytes rather than in a human-readable format.</p>
+<p>
+By default, the unit, sizes are expressed in, is byte, and unit prefixes
+are in power of 2^10 (1024). Abbreviations of symbols are exhibited
+truncated in order to reach a better readability, by exhibiting alone
+the first letter of them; examples: &#34;1 KiB&#34; and &#34;1 MiB&#34; are respectively
+exhibited as &#34;1 K&#34; and &#34;1 M&#34;, then omitting on purpose the mention &#34;iB&#34;,
+which is part of these abbreviations.</p>
+</blockquote>
+<p>
+<strong>-o</strong>, <strong>–output</strong> <em>list</em></p>
+<blockquote>
+<p>Define output columns. See the <strong>–help</strong> output to get a list of the
+currently supported columns. The default list of columns may be extended
+if <em>list</em> is specified in the format <em>+list</em>.</p>
+</blockquote>
+<p>
+<strong>-r</strong>, <strong>–raw</strong></p>
+<blockquote>
+<p>Produce output in raw format. All potentially unsafe characters are
+hex-escaped (\x&lt;code&gt;).</p>
+</blockquote>
+<p>
+<strong>-J</strong>, <strong>–json</strong></p>
+<blockquote>
+<p>Use JSON output format.</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+AUTHORS
+</h2>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>*mincore*(2), *getpagesize*(2), *getconf*(1p)</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The <strong>fincore</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

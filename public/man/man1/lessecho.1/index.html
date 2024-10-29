@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - lessecho.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - lessecho.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>lessecho - expand metacharacters</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>lessecho</strong> <em>[-ox] [-cx] [-pn] [-dn] [-mx] [-nn] [-ex] [-a] file …</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>lessecho</strong> is a program that simply echos its arguments on standard
+output. But any metacharacter in the output is preceded by an &#34;escape&#34;
+character, which by default is a backslash. <strong>lessecho</strong> is invoked
+internally by <strong>less</strong>, and is not intended to be used directly by humans.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>A summary of options is included below.</p>
+<dl>
+<dt>
+<strong>-e/x/</strong>
+</dt>
+<dd>Specifies &#34;<em>x</em>&#34;, rather than backslash, to be the escape
+char for metachars. If <em>x</em> is &#34;-&#34;, no escape char is used and
+arguments containing metachars are surrounded by quotes instead.</dd>
+<dt>
+<strong>-o/x/</strong>
+</dt>
+<dd>Specifies &#34;<em>x</em>&#34;, rather than double-quote, to be the open
+quote character, which is used if the -e- option is specified.</dd>
+<dt>
+<strong>-c/x/</strong>
+</dt>
+<dd>Specifies &#34;<em>x</em>&#34; to be the close quote character.</dd>
+<dt>
+<strong>-p/n/</strong>
+</dt>
+<dd>Specifies &#34;<em>n</em>&#34; to be the open quote character, as an
+integer.</dd>
+<dt>
+<strong>-d/n/</strong>
+</dt>
+<dd>Specifies &#34;<em>n</em>&#34; to be the close quote character, as an
+integer.</dd>
+<dt>
+<strong>-m/x/</strong>
+</dt>
+<dd>Specifies &#34;<em>x</em>&#34; to be a metachar. By default, no characters
+are considered metachars.</dd>
+<dt>
+<strong>-n/n/</strong>
+</dt>
+<dd>Specifies &#34;<em>n</em>&#34; to be a metachar, as an integer.</dd>
+<dt>
+<strong>-f/n/</strong>
+</dt>
+<dd>Specifies &#34;<em>n</em>&#34; to be the escape char for metachars, as an
+integer.</dd>
+<dt>
+<strong>-a</strong>
+</dt>
+<dd>Specifies that all arguments are to be quoted. The default is
+that only arguments containing metacharacters are quoted.</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>*less*(1)</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHOR
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>This manual page was written by Thomas Schoepf &lt;schoepf@debian.org&gt;, for
+the Debian GNU/Linux system (but may be used by others).</p>
+<p>
+Report bugs at <a href="https://github.com/gwsw/less/issues.">https://github.com/gwsw/less/issues.</a></p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

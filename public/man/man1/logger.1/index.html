@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - logger.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - logger.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>logger - enter messages into the system log</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>logger</strong> [options] <em>message</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p><strong>logger</strong> makes entries in the system log.</p>
+<p>
+When the optional <em>message</em> argument is present, it is written to the
+log. If it is not present, and the <strong>-f</strong> option is not given either, then
+standard input is logged.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><strong>-d</strong>, <strong>–udp</strong></p>
+<blockquote>
+<p>Use datagrams (UDP) only. By default the connection is tried to the
+syslog port defined in <em>/etc/services</em>, which is often 514.</p>
+<p>
+See also <strong>–server</strong> and <strong>–socket</strong> to specify where to connect.</p>
+</blockquote>
+<p>
+<strong>-e</strong>, <strong>–skip-empty</strong></p>
+<blockquote>
+<p>Ignore empty lines when processing files. An empty line is defined to be
+a line without any characters. Thus a line consisting only of whitespace
+is NOT considered empty. Note that when the <strong>–prio-prefix</strong> option is
+specified, the priority is not part of the line. Thus an empty line in
+this mode is a line that does not have any characters after the priority
+prefix (e.g., <strong>&lt;13&gt;</strong>).</p>
+</blockquote>
+<p>
+<strong>-f</strong>, <strong>–file</strong> <em>file</em></p>
+<blockquote>
+<p>Log the contents of the specified <em>file</em>. This option cannot be combined
+with a command-line message.</p>
+</blockquote>
+<p>
+<strong>-i</strong></p>
+<blockquote>
+<p>Log the PID of the <strong>logger</strong> process with each line.</p>
+</blockquote>
+<p>
+<strong>–id</strong>[*=*/id/]</p>
+<blockquote>
+<p>Log the PID of the <strong>logger</strong> process with each line. When the optional
+argument <em>id</em> is specified, then it is used instead of the <strong>logger</strong>
+command&#39;s PID. The use of <strong>–id=$$</strong> (PPID) is recommended in scripts
+that send several messages.</p>
+<p>
+Note that the system logging infrastructure (for example <strong>systemd</strong> when
+listening on <em>/dev/log</em>) may follow local socket credentials to
+overwrite the PID specified in the message. *logger*(1) is able to set
+those socket credentials to the given <em>id</em>, but only if you have root
+permissions and a process with the specified PID exists, otherwise the
+socket credentials are not modified and the problem is silently ignored.</p>
+</blockquote>
+<p>
+<strong>–journald</strong>[*=*/file/]</p>
+<blockquote>
+<p>Write a <strong>systemd</strong> journal entry. The entry is read from the given
+<em>file</em>, when specified, otherwise from standard input. Each line must
+begin with a field that is accepted by <strong>journald</strong>; see
+*systemd.journal-fields*(7) for details. The use of a MESSAGE_ID field
+is generally a good idea, as it makes finding entries easy. Examples:</p>
+<blockquote>
+<blockquote>
+<pre class="example">
+logger --journald &lt;&lt;end
+MESSAGE_ID=67feb6ffbaf24c5cbec13c008dd72309
+MESSAGE=The dogs bark, but the caravan goes on.
+DOGS=bark
+CARAVAN=goes on
+end
+</pre>
+</blockquote>
+<blockquote>
+<pre class="example">
+logger --journald=entry.txt
+</pre>
+</blockquote>
+<p>
+\\</p>
+</blockquote>
+<p>
+Notice that <strong>–journald</strong> will ignore values of other options, such as
+priority. If priority is needed it must be within input, and use
+PRIORITY field. The simple execution of <strong>journalctl*(1) will display
+MESSAGE field. Use *journalctl –output json-pretty</strong> to see rest of the
+fields.</p>
+<p>
+To include newlines in MESSAGE, specify MESSAGE several times. This is
+handled as a special case, other fields will be stored as an array in
+the journal if they appear multiple times.</p>
+</blockquote>
+<p>
+<strong>–msgid</strong> <em>msgid</em></p>
+<blockquote>
+<p>Sets the <em>RFC 5424</em> &lt;<a href="https://tools.ietf.org/html/rfc5424">https://tools.ietf.org/html/rfc5424</a>&gt; MSGID field.
+Note that the space character is not permitted inside of <em>msgid</em>. This
+option is only used if <strong>–rfc5424</strong> is specified as well; otherwise, it
+is silently ignored.</p>
+</blockquote>
+<p>
+<strong>-n</strong>, <strong>–server</strong> <em>server</em></p>
+<blockquote>
+<p>Write to the specified remote syslog <em>server</em> instead of to the system
+log socket. Unless <strong>–udp</strong> or <strong>–tcp</strong> is specified, <strong>logger</strong> will first
+try to use UDP, but if this fails a TCP connection is attempted.</p>
+</blockquote>
+<p>
+<strong>–no-act</strong></p>
+<blockquote>
+<p>Causes everything to be done except for writing the log message to the
+system log, and removing the connection to the journal. This option can
+be used together with <strong>–stderr</strong> for testing purposes.</p>
+</blockquote>
+<p>
+<strong>–octet-count</strong></p>
+<blockquote>
+<p>Use the <em>RFC 6587</em> &lt;<a href="https://tools.ietf.org/html/rfc6587">https://tools.ietf.org/html/rfc6587</a>&gt; octet counting
+framing method for sending messages. When this option is not used, the
+default is no framing on UDP, and RFC6587 non-transparent framing (also
+known as octet stuffing) on TCP.</p>
+</blockquote>
+<p>
+<strong>-P</strong>, <strong>–port</strong> <em>port</em></p>
+<blockquote>
+<p>Use the specified <em>port</em>. When this option is not specified, the port
+defaults to <strong>syslog</strong> for udp and to <strong>syslog-conn</strong> for tcp connections.</p>
+</blockquote>
+<p>
+<strong>-p</strong>, <strong>–priority</strong> <em>priority</em></p>
+<blockquote>
+<p>Enter the message into the log with the specified <em>priority</em>. The
+priority may be specified numerically or as a <em>facility</em>./level/ pair.
+For example, <strong>-p local3.info</strong> logs the message as informational in the
+local3 facility. The default is <strong>user.notice</strong>.</p>
+</blockquote>
+<p>
+<strong>–prio-prefix</strong></p>
+<blockquote>
+<p>Look for a syslog prefix on every line read from standard input. This
+prefix is a decimal number within angle brackets that encodes both the
+facility and the level. The number is constructed by multiplying the
+facility by 8 and then adding the level. For example, <strong>local0.info</strong>,
+meaning facility=16 and level=6, becomes <strong>&lt;134&gt;</strong>.</p>
+<p>
+If the prefix contains no facility, the facility defaults to what is
+specified by the <strong>-p</strong> option. Similarly, if no prefix is provided, the
+line is logged using the <em>priority</em> given with <strong>-p</strong>.</p>
+<p>
+This option doesn&#39;t affect a command-line message.</p>
+</blockquote>
+<p>
+<strong>–rfc3164</strong></p>
+<blockquote>
+<p>Use the <em>RFC 3164</em> &lt;<a href="https://tools.ietf.org/html/rfc3164">https://tools.ietf.org/html/rfc3164</a>&gt; BSD syslog
+protocol to submit messages to a remote server.</p>
+</blockquote>
+<p>
+<strong>–rfc5424</strong>[*=*/without/]</p>
+<blockquote>
+<p>Use the <em>RFC 5424</em> &lt;<a href="https://tools.ietf.org/html/rfc5424">https://tools.ietf.org/html/rfc5424</a>&gt; syslog protocol
+to submit messages to a remote server. The optional <em>without</em> argument
+can be a comma-separated list of the following values: <strong>notq</strong>, <strong>notime</strong>,
+<strong>nohost</strong>.</p>
+<p>
+The <strong>notq</strong> value suppresses the time-quality structured data from the
+submitted message. The time-quality information shows whether the local
+clock was synchronized plus the maximum number of microseconds the
+timestamp might be off. The time quality is also automatically
+suppressed when <strong>–sd-id timeQuality</strong> is specified.</p>
+<p>
+The <strong>notime</strong> value (which implies <strong>notq</strong>) suppresses the complete sender
+timestamp that is in ISO-8601 format, including microseconds and
+timezone.</p>
+<p>
+The <strong>nohost</strong> value suppresses *gethostname*(2) information from the
+message header.</p>
+<p>
+The RFC 5424 protocol has been the default for <strong>logger</strong> since version
+2.26.</p>
+</blockquote>
+<p>
+<strong>-s</strong>, <strong>–stderr</strong></p>
+<blockquote>
+<p>Output the message to standard error as well as to the system log.</p>
+</blockquote>
+<p>
+<strong>–sd-id</strong> <em>name</em>[*@*/digits/]</p>
+<blockquote>
+<p>Specifies a structured data element ID for an RFC 5424 message header.
+The option has to be used before <strong>–sd-param</strong> to introduce a new
+element. The number of structured data elements is unlimited. The ID
+(<em>name</em> plus possibly *@*/digits/) is case-sensitive and uniquely
+identifies the type and purpose of the element. The same ID must not
+exist more than once in a message. The *@*/digits/ part is required for
+user-defined non-standardized IDs.</p>
+<p>
+<strong>logger</strong> currently generates the <strong>timeQuality</strong> standardized element
+only. RFC 5424 also describes the elements <strong>origin</strong> (with parameters
+<strong>ip</strong>, <strong>enterpriseId</strong>, <strong>software</strong> and <strong>swVersion</strong>) and <strong>meta</strong> (with
+parameters <strong>sequenceId</strong>, <strong>sysUpTime</strong> and <strong>language</strong>). These element IDs
+may be specified without the *@*/digits/ suffix.</p>
+</blockquote>
+<p>
+<strong>–sd-param</strong> <em>name/=/value</em></p>
+<blockquote>
+<p>Specifies a structured data element parameter, a name and value pair.
+The option has to be used after <strong>–sd-id</strong> and may be specified more than
+once for the same element. Note that the quotation marks around <em>value</em>
+are required and must be escaped on the command line.</p>
+<blockquote>
+<pre class="example">
+    logger --rfc5424 --sd-id zoo@123             \
+                     --sd-param tiger=&#34;hungry&#34;   \
+                     --sd-param zebra=&#34;running&#34;  \
+                     --sd-id manager@123         \
+                     --sd-param onMeeting=&#34;yes&#34;  \
+                     &#34;this is message&#34;
+</pre>
+</blockquote>
+<p>
+produces:</p>
+<p>
+*&lt;13&gt;1 2015-10-01T14:07:59.168662+02:00 ws kzak - - [timeQuality
+tzKnown=&#34;1&#34; isSynced=&#34;1&#34; syncAccuracy=&#34;218616&#34;][zoo@123 tiger=&#34;hungry&#34;
+zebra=&#34;running&#34;][manager@123 onMeeting=&#34;yes&#34;] this is message*</p>
+</blockquote>
+<p>
+<strong>-S</strong>, <strong>–size</strong> <em>size</em></p>
+<blockquote>
+<p>Sets the maximum permitted message size to <em>size</em>. The default is 1KiB
+characters, which is the limit traditionally used and specified in
+RFC 3164. With RFC 5424, this limit has become flexible. A good
+assumption is that RFC 5424 receivers can at least process 4KiB
+messages.</p>
+<p>
+Most receivers accept messages larger than 1KiB over any type of syslog
+protocol. As such, the <strong>–size</strong> option affects <strong>logger</strong> in all cases
+(not only when <strong>–rfc5424</strong> was used).</p>
+<p>
+Note: the message-size limit limits the overall message size, including
+the syslog header. Header sizes vary depending on the selected options
+and the hostname length. As a rule of thumb, headers are usually not
+longer than 50 to 80 characters. When selecting a maximum message size,
+it is important to ensure that the receiver supports the max size as
+well, otherwise messages may become truncated. Again, as a rule of thumb
+two to four KiB message size should generally be OK, whereas anything
+larger should be verified to work.</p>
+</blockquote>
+<p>
+<strong>–socket-errors</strong>[*=*/mode/]</p>
+<blockquote>
+<p>Print errors about Unix socket connections. The <em>mode</em> can be a value of
+<strong>off</strong>, <strong>on</strong>, or <strong>auto</strong>. When the mode is <strong>auto</strong>, then <strong>logger</strong> will
+detect if the init process is *systemd*(1), and if so assumption is made
+<em>/dev/log</em> can be used early at boot. Other init systems lack of
+<em>/dev/log</em> will not cause errors that is identical with messaging using
+*openlog*(3) system call. The *logger*(1) before version 2.26 used
+*openlog*(3), and hence was unable to detected loss of messages sent to
+Unix sockets.</p>
+<p>
+The default mode is <strong>auto</strong>. When errors are not enabled lost messages
+are not communicated and will result to successful exit status of
+*logger*(1) invocation.</p>
+</blockquote>
+<p>
+<strong>-T</strong>, <strong>–tcp</strong></p>
+<blockquote>
+<p>Use stream (TCP) only. By default the connection is tried to the
+<em>syslog-conn</em> port defined in <em>/etc/services</em>, which is often <em>601</em>.</p>
+<p>
+See also <strong>–server</strong> and <strong>–socket</strong> to specify where to connect.</p>
+</blockquote>
+<p>
+<strong>-t</strong>, <strong>–tag</strong> <em>tag</em></p>
+<blockquote>
+<p>Mark every line to be logged with the specified <em>tag</em>. The default tag
+is the name of the user logged in on the terminal (or a user name based
+on effective user ID).</p>
+</blockquote>
+<p>
+<strong>-u</strong>, <strong>–socket</strong> <em>socket</em></p>
+<blockquote>
+<p>Write to the specified <em>socket</em> instead of to the system log socket.</p>
+</blockquote>
+<p>
+<strong>–</strong></p>
+<blockquote>
+<p>End the argument list. This allows the <em>message</em> to start with a hyphen
+(-).</p>
+</blockquote>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<blockquote>
+<p>Display help text and exit.</p>
+</blockquote>
+<p>
+<strong>-V</strong>, <strong>–version</strong></p>
+<blockquote>
+<p>Print version and exit.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The <strong>logger</strong> utility exits 0 on success, and &gt;0 if an error occurs.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+FACILITIES AND LEVELS
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Valid facility names are:</p>
+<p>
+<strong>auth</strong><br>
+<strong>authpriv</strong> for security information of a sensitive nature<br>
+<strong>cron</strong>\\</p>
+<p>
+<strong>daemon</strong><br>
+<strong>ftp</strong><br>
+<strong>kern</strong> cannot be generated from userspace process, automatically
+converted to <strong>user</strong>\\</p>
+<p>
+<strong>lpr</strong><br>
+<strong>mail</strong><br>
+<strong>news</strong><br>
+<strong>syslog</strong><br>
+<strong>user</strong><br>
+<strong>uucp</strong><br>
+<strong>local0</strong><br>
+to<br>
+<strong>local7</strong><br>
+<strong>security</strong> deprecated synonym for <strong>auth</strong></p>
+<p>
+Valid level names are:</p>
+<p>
+<strong>emerg</strong><br>
+<strong>alert</strong><br>
+<strong>crit</strong><br>
+<strong>err</strong><br>
+<strong>warning</strong><br>
+<strong>notice</strong><br>
+<strong>info</strong><br>
+<strong>debug</strong><br>
+<strong>panic</strong> deprecated synonym for <strong>emerg</strong><br>
+<strong>error</strong> deprecated synonym for <strong>err</strong><br>
+<strong>warn</strong> deprecated synonym for <strong>warning</strong>\\</p>
+<p>
+For the priority order and intended purposes of these facilities and
+levels, see *syslog*(3).</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+CONFORMING TO
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The <strong>logger</strong> command is expected to be IEEE Std 1003.2 (&#34;POSIX.2&#34;)
+compatible.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+EXAMPLES
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<blockquote>
+<p>logger System rebooted</p>
+<p>
+logger -p local0.notice -t HOSTIDM -f /dev/idmc</p>
+<p>
+logger -n loghost.example.com System rebooted\\</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+AUTHORS
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The <strong>logger</strong> command was originally written by University of California
+in 1983-1993 and later rewritten by</p>
+<p>
+and</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>*journalctl*(1), *syslog*(3), *systemd.journal-fields*(7)</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+REPORTING BUGS
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>For bug reports, use the issue tracker at
+&lt;<a href="https://github.com/util-linux/util-linux/issues">https://github.com/util-linux/util-linux/issues</a>&gt;.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+AVAILABILITY
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>The <strong>logger</strong> command is part of the util-linux package which can be
+downloaded from <em>Linux Kernel Archive</em>
+&lt;<a href="https://www.kernel.org/pub/linux/utils/util-linux/">https://www.kernel.org/pub/linux/utils/util-linux/</a>&gt;.</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

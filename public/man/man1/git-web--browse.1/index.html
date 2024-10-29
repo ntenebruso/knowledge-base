@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - git-web--browse.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - git-web--browse.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>git-web–browse - Git helper script to launch a web browser</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<pre class="example">
+git web--browse [&lt;options&gt;] (&lt;URL&gt;|&lt;file&gt;)...
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This script tries, as much as possible, to display the URLs and FILEs
+that are passed as arguments, as HTML pages in new tabs on an already
+opened web browser.</p>
+<p>
+The following browsers (or commands) are currently supported:</p>
+<blockquote>
+<p>·</p>
+<p>
+firefox (this is the default under X Window when not using KDE)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+iceweasel</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+seamonkey</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+iceape</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+chromium (also supported as chromium-browser)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+google-chrome (also supported as chrome)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+konqueror (this is the default under KDE, see <em>Note about konqueror</em>
+below)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+opera</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+w3m (this is the default outside graphical environments)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+elinks</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+links</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+lynx</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+dillo</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+open (this is the default under Mac OS X GUI)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+start (this is the default under MinGW)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+cygstart (this is the default under Cygwin)</p>
+</blockquote>
+<blockquote>
+<p>·</p>
+<p>
+xdg-open</p>
+</blockquote>
+<p>
+Custom commands may also be specified.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>-b &lt;browser&gt;, –browser=&lt;browser&gt;</p>
+<blockquote>
+<p>Use the specified browser. It must be in the list of supported browsers.</p>
+</blockquote>
+<p>
+-t &lt;browser&gt;, –tool=&lt;browser&gt;</p>
+<blockquote>
+<p>Same as above.</p>
+</blockquote>
+<p>
+-c &lt;conf.var&gt;, –config=&lt;conf.var&gt;</p>
+<blockquote>
+<p>CONF.VAR is looked up in the Git config files. If it&#39;s set, then its
+value specifies the browser that should be used.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+CONFIGURATION VARIABLES
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+CONF.VAR (from -c option) and web.browser
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>The web browser can be specified using a configuration variable passed
+with the -c (or –config) command-line option, or the <strong>web.browser</strong>
+configuration variable if the former is not used.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+browser.&lt;tool&gt;.path
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>You can explicitly provide a full path to your preferred browser by
+setting the configuration variable <strong>browser.&lt;tool&gt;.path</strong>. For example,
+you can configure the absolute path to firefox by setting
+<em>browser.firefox.path</em>. Otherwise, <em>git web–browse</em> assumes the tool is
+available in PATH.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+browser.&lt;tool&gt;.cmd
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>When the browser, specified by options or configuration variables, is
+not among the supported ones, then the corresponding
+<strong>browser.&lt;tool&gt;.cmd</strong> configuration variable will be looked up. If this
+variable exists then <em>git web–browse</em> will treat the specified tool as
+a custom command and will use a shell eval to run the command with the
+URLs passed as arguments.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+NOTE ABOUT KONQUEROR
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>When <em>konqueror</em> is specified by a command-line option or a
+configuration variable, we launch <em>kfmclient</em> to try to open the HTML
+man page on an already opened konqueror in a new tab if possible.</p>
+<p>
+For consistency, we also try such a trick if <em>browser.konqueror.path</em> is
+set to something like <strong>A_PATH_TO/konqueror</strong>. That means we will try to
+launch <strong>A_PATH_TO/kfmclient</strong> instead.</p>
+<p>
+If you really want to use <em>konqueror</em>, then you can use something like
+the following:</p>
+<blockquote>
+<pre class="example">
+        [web]
+                browser = konq
+
+        [browser &#34;konq&#34;]
+                cmd = A_PATH_TO/konqueror
+</pre>
+</blockquote>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Note about git-config –global
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>Note that these configuration variables should probably be set using the
+<strong>–global</strong> flag, for example like this:</p>
+<blockquote>
+<pre class="example">
+$ git config --global web.browser firefox
+</pre>
+</blockquote>
+<p>
+as they are probably more user specific than repository specific. See
+*git-config*(1) for more information about this.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+GIT
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Part of the *git*(1) suite</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html
+    lang="en-us"
+    dir="ltr"
+>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manpages - virt-qemu-qmp-proxy.1 | Technical Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/css/syntax.css">
+        
+        
+    </head>
+    <body>
+        <header class="container header">
+            <span class="header__title">Technical Notes</span>
+<button id="menuOpenBtn" class="header__menu-open-btn"><i data-lucide="menu"></i></button>
+
+  <nav id="siteNav">
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/notes/">Notes</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/man/">Manpages</a>
+    </li>
+    <li>
+      <a href="/search/">Search</a>
+    </li>
+    </ul>
+    <button id="menuCloseBtn" class="header__menu-close-btn"><i data-lucide="x"></i></button>
+  </nav>
+
+
+        </header>
+        <main class="container">
+            
+    <h1>Manpages - virt-qemu-qmp-proxy.1</h1>
+    
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+NAME
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>virt-qemu-qmp-proxy - Expose a QMP proxy server for a libvirt QEMU guest</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+SYNOPSIS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><strong>virt-qemu-qmp-proxy</strong> [/OPTION/]… <em>DOMAIN</em> <em>QMP-SOCKET-PATH</em></p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+DESCRIPTION
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>This tool provides a way to expose a QMP proxy server that communicates
+with a QEMU guest managed by libvirt. This enables standard QMP client
+tools to interact with libvirt managed guests.</p>
+<p>
+<strong>NOTE: use of this tool will result in the running QEMU guest being</strong>
+marked as tainted. It is strongly recommended that this tool <em>only be</em>
+used to send commands which query information about the running guest.
+If this tool is used to make changes to the state of the guest, this may
+have negative interactions with the QEMU driver, resulting in an
+inability to manage the guest operation thereafter, and in the worst
+case <strong>potentially lead to data loss or corruption</strong>.</p>
+<p>
+The <strong>virt-qemu-qmp-proxy</strong> program will listen on a UNIX socket for
+incoming client connections, and run the QMP protocol over the
+connection. Any commands received will be sent to the running libvirt
+guest, and replies sent back.</p>
+<p>
+The <strong>virt-qemu-qmp-proxy</strong> program may be interrupted (eg Ctrl-C) when it
+is no longer required. The libvirt QEMU guest will continue running.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+OPTIONS
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><em>DOMAIN</em></p>
+<p>
+The ID or UUID or Name of the libvirt QEMU guest.</p>
+<p>
+<em>QMP-SOCKET-PATH</em></p>
+<p>
+The filesystem path at which to run the QMP server, listening for
+incoming connections.</p>
+<p>
+<strong>-c</strong> <em>CONNECTION-URI</em> *–connect*=/CONNECTION-URI/</p>
+<p>
+The URI for the connection to the libvirt QEMU driver. If omitted, a URI
+will be auto-detected.</p>
+<p>
+<strong>-v</strong>, <strong>–verbose</strong></p>
+<p>
+Run in verbose mode, printing all QMP commands and replies that are
+handled.</p>
+<p>
+<strong>-h</strong>, <strong>–help</strong></p>
+<p>
+Display the command line help.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+EXIT STATUS
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Upon successful shutdown, an exit status of 0 will be set. Upon failure
+a non-zero status will be set.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+AUTHOR
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Daniel P. Berrangé</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+BUGS
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Please report all bugs you discover. This should be done via either:</p>
+<blockquote>
+<ol>
+<li>the mailing list</li>
+</ol>
+<p>&lt;https://libvirt.org/contact.html&gt;</p>
+<ol>
+<li value="2">the bug tracker</li>
+</ol>
+<p>&lt;https://libvirt.org/bugs.html&gt;</p>
+</blockquote>
+<p>
+Alternatively, you may report bugs to your software distributor /
+vendor.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+COPYRIGHT
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Copyright (C) 2022 by Red Hat, Inc.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+LICENSE
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p><strong>virt-qemu-qmp-proxy</strong> is distributed under the terms of the GNU LGPL
+v2+. This is free software; see the source for copying conditions. There
+is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+SEE ALSO
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>virsh(1), &lt;<a href="https://libvirt.org/">https://libvirt.org/</a>&gt; , QMP reference
+&lt;<a href="https://www.qemu.org/docs/master/interop/qemu-qmp-ref.html">https://www.qemu.org/docs/master/interop/qemu-qmp-ref.html</a>&gt;</p>
+</div>
+</div>
+
+
+        </main>
+        <footer class="container footer">
+            <p>Copyright 2024. All rights reserved.</p>
+
+        </footer>
+
+        
+        
+
+        
+            <script src="/js/main.js"></script>
+    </body>
+</html>
