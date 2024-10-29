@@ -1,0 +1,248 @@
+#+TITLE: Manpages - nix3-profile-upgrade.1
+#+begin_quote
+*Warning*\\
+This program is *experimental* and its interface is subject to change.
+
+#+end_quote
+
+* Name
+=nix profile upgrade= - upgrade packages using their most recent flake
+
+* Synopsis
+=nix profile upgrade= [/option/...] /elements/...
+
+* Examples
+- Upgrade all packages that were installed using an unlocked flake
+  reference:
+
+#+begin_example
+# nix profile upgrade --all
+#+end_example
+
+- Upgrade a specific package by name:
+
+#+begin_example
+# nix profile upgrade hello
+#+end_example
+
+- Upgrade all packages that include ‘vim' in their name:
+
+#+begin_example
+# nix profile upgrade --regex '.*vim.*'
+#+end_example
+
+* Description
+This command upgrades a previously installed package in a Nix profile,
+by fetching and evaluating the latest version of the flake from which
+the package was installed.
+
+#+begin_quote
+*Warning*
+
+This only works if you used an /unlocked/ flake reference at
+installation time, e.g. =nixpkgs#hello=. It does not work if you used a
+/locked/ flake reference (e.g.
+=github:NixOS/nixpkgs/13d0c311e3ae923a00f734b43fd1d35b47d8943a#hello=),
+since in that case the “latest version” is always the same.
+
+#+end_quote
+
+* Options
+- =--all=
+
+  Match all packages in the profile.
+
+- =--profile= /path/
+
+  The profile to operate on.
+
+- =--regex= /pattern/
+
+  A regular expression to match one or more packages in the profile.
+
+** Common evaluation options
+- =--arg= /name/ /expr/
+
+  Pass the value /expr/ as the argument /name/ to Nix functions.
+
+- =--arg-from-file= /name/ /path/
+
+  Pass the contents of file /path/ as the argument /name/ to Nix
+  functions.
+
+- =--arg-from-stdin= /name/
+
+  Pass the contents of stdin as the argument /name/ to Nix functions.
+
+- =--argstr= /name/ /string/
+
+  Pass the string /string/ as the argument /name/ to Nix functions.
+
+- =--debugger=
+
+  Start an interactive environment if evaluation fails.
+
+- =--eval-store= /store-url/
+
+  The *URL of the Nix store* to use for evaluation, i.e. to store
+  derivations (=.drv= files) and inputs referenced by them.
+
+- =--impure=
+
+  Allow access to mutable paths and repositories.
+
+- =--include= / =-I= /path/
+
+  Add /path/ to search path entries used to resolve *lookup paths*
+
+  This option may be given multiple times.
+
+  Paths added through =-I= take precedence over the =nix-path=
+  configuration setting and the =NIX_PATH= environment variable.
+
+- =--override-flake= /original-ref/ /resolved-ref/
+
+  Override the flake registries, redirecting /original-ref/ to
+  /resolved-ref/.
+
+** Common flake-related options
+- =--commit-lock-file=
+
+  Commit changes to the flake's lock file.
+
+- =--inputs-from= /flake-url/
+
+  Use the inputs of the specified flake as registry entries.
+
+- =--no-registries=
+
+  Don't allow lookups in the flake registries.
+
+  #+begin_quote
+  *DEPRECATED*
+
+  #+end_quote
+
+  #+begin_quote
+  Use =--no-use-registries= instead.
+
+  #+end_quote
+
+- =--no-update-lock-file=
+
+  Do not allow any updates to the flake's lock file.
+
+- =--no-write-lock-file=
+
+  Do not write the flake's newly generated lock file.
+
+- =--output-lock-file= /flake-lock-path/
+
+  Write the given lock file instead of =flake.lock= within the top-level
+  flake.
+
+- =--override-input= /input-path/ /flake-url/
+
+  Override a specific flake input (e.g. =dwarffs/nixpkgs=). This implies
+  =--no-write-lock-file=.
+
+- =--recreate-lock-file=
+
+  Recreate the flake's lock file from scratch.
+
+  #+begin_quote
+  *DEPRECATED*
+
+  #+end_quote
+
+  #+begin_quote
+  Use =nix flake update= instead.
+
+  #+end_quote
+
+- =--reference-lock-file= /flake-lock-path/
+
+  Read the given lock file instead of =flake.lock= within the top-level
+  flake.
+
+- =--update-input= /input-path/
+
+  Update a specific flake input (ignoring its previous entry in the lock
+  file).
+
+  #+begin_quote
+  *DEPRECATED*
+
+  #+end_quote
+
+  #+begin_quote
+  Use =nix flake update= instead.
+
+  #+end_quote
+
+** Logging-related options
+- =--debug=
+
+  Set the logging verbosity level to ‘debug'.
+
+- =--log-format= /format/
+
+  Set the format of log output; one of =raw=, =internal-json=, =bar= or
+  =bar-with-logs=.
+
+- =--print-build-logs= / =-L=
+
+  Print full build logs on standard error.
+
+- =--quiet=
+
+  Decrease the logging verbosity level.
+
+- =--verbose= / =-v=
+
+  Increase the logging verbosity level.
+
+** Miscellaneous global options
+- =--help=
+
+  Show usage information.
+
+- =--offline=
+
+  Disable substituters and consider all previously downloaded files
+  up-to-date.
+
+- =--option= /name/ /value/
+
+  Set the Nix configuration setting /name/ to /value/ (overriding
+  =nix.conf=).
+
+- =--refresh=
+
+  Consider all previously downloaded files out-of-date.
+
+- =--repair=
+
+  During evaluation, rewrite missing or corrupted files in the Nix
+  store. During building, rebuild missing or corrupted store paths.
+
+- =--version=
+
+  Show version information.
+
+** Options that change the interpretation of *installables*
+- =--expr= /expr/
+
+  Interpret /installables/ as attribute paths relative to the Nix
+  expression /expr/.
+
+- =--file= / =-f= /file/
+
+  Interpret /installables/ as attribute paths relative to the Nix
+  expression stored in /file/. If /file/ is the character -, then a Nix
+  expression will be read from standard input. Implies =--impure=.
+
+  *Note*
+
+  See =man nix.conf= for overriding configuration settings with command
+  line flags.

@@ -1,0 +1,89 @@
+#+TITLE: Manpages - nix3-profile-diff-closures.1
+#+begin_quote
+*Warning*\\
+This program is *experimental* and its interface is subject to change.
+
+#+end_quote
+
+* Name
+=nix profile diff-closures= - show the closure difference between each
+version of a profile
+
+* Synopsis
+=nix profile diff-closures= [/option/...]
+
+* Examples
+- Show what changed between each version of the NixOS system profile:
+
+#+begin_example
+# nix profile diff-closures --profile /nix/var/nix/profiles/system
+Version 13 -> 14:
+acpi-call: 2020-04-07-5.8.13 → 2020-04-07-5.8.14
+aws-sdk-cpp: -6723.1 KiB
+…
+
+Version 14 -> 15:
+acpi-call: 2020-04-07-5.8.14 → 2020-04-07-5.8.16
+attica: -996.2 KiB
+breeze-icons: -78713.5 KiB
+brotli: 1.0.7 → 1.0.9, +44.2 KiB
+#+end_example
+
+* Description
+This command shows the difference between the closures of subsequent
+versions of a profile. See =nix store= diff-closures for details.
+
+* Options
+- =--profile= /path/
+
+  The profile to operate on.
+
+** Logging-related options
+- =--debug=
+
+  Set the logging verbosity level to ‘debug'.
+
+- =--log-format= /format/
+
+  Set the format of log output; one of =raw=, =internal-json=, =bar= or
+  =bar-with-logs=.
+
+- =--print-build-logs= / =-L=
+
+  Print full build logs on standard error.
+
+- =--quiet=
+
+  Decrease the logging verbosity level.
+
+- =--verbose= / =-v=
+
+  Increase the logging verbosity level.
+
+** Miscellaneous global options
+- =--help=
+
+  Show usage information.
+
+- =--offline=
+
+  Disable substituters and consider all previously downloaded files
+  up-to-date.
+
+- =--option= /name/ /value/
+
+  Set the Nix configuration setting /name/ to /value/ (overriding
+  =nix.conf=).
+
+- =--refresh=
+
+  Consider all previously downloaded files out-of-date.
+
+- =--version=
+
+  Show version information.
+
+  *Note*
+
+  See =man nix.conf= for overriding configuration settings with command
+  line flags.

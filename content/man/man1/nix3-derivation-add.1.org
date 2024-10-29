@@ -1,0 +1,79 @@
+#+TITLE: Manpages - nix3-derivation-add.1
+#+begin_quote
+*Warning*\\
+This program is *experimental* and its interface is subject to change.
+
+#+end_quote
+
+* Name
+=nix derivation add= - Add a store derivation
+
+* Synopsis
+=nix derivation add= [/option/...]
+
+* Description
+This command reads from standard input a JSON representation of a *store
+derivation* to which an /installable/ evaluates.
+
+Store derivations are used internally by Nix. They are store paths with
+extension =.drv= that represent the build-time dependency graph to which
+a Nix expression evaluates.
+
+=nix derivation add= takes a single derivation in the following format:
+
+{{#include ../../protocols/json/derivation.md}}
+
+* Options
+- =--dry-run=
+
+  Show what this command would do without doing it.
+
+** Logging-related options
+- =--debug=
+
+  Set the logging verbosity level to ‘debug'.
+
+- =--log-format= /format/
+
+  Set the format of log output; one of =raw=, =internal-json=, =bar= or
+  =bar-with-logs=.
+
+- =--print-build-logs= / =-L=
+
+  Print full build logs on standard error.
+
+- =--quiet=
+
+  Decrease the logging verbosity level.
+
+- =--verbose= / =-v=
+
+  Increase the logging verbosity level.
+
+** Miscellaneous global options
+- =--help=
+
+  Show usage information.
+
+- =--offline=
+
+  Disable substituters and consider all previously downloaded files
+  up-to-date.
+
+- =--option= /name/ /value/
+
+  Set the Nix configuration setting /name/ to /value/ (overriding
+  =nix.conf=).
+
+- =--refresh=
+
+  Consider all previously downloaded files out-of-date.
+
+- =--version=
+
+  Show version information.
+
+  *Note*
+
+  See =man nix.conf= for overriding configuration settings with command
+  line flags.

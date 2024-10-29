@@ -1,13 +1,22 @@
 ---
-title: Home
-date: 2024-07-26T13:51:00
-draft: false
+title: Welcome to the Knowledge Base!
 layout: single
 ---
 
-Welcome! I made this website as a way to organize all my tech notes written in markdown. Feel free to take a look at notes and browse around!
+I use this website to store all of my notes related to school,
+technology, and other fun things! Hopefully you\'re able to find
+something valuable here.
 
-## Quick Shortcuts
+This website is written in Emacs using org-mode and markdown, then
+converted to HTML.
 
-- [All notes (sorted by section)]({{< ref "/notes" >}})
-- [All tags]({{< ref "/tags" >}})
+## Contact Me
+
+-   **Email:** <nick@ntenebruso.com>
+-   **Backup email:** <nickten2006@gmail.com>
+-   [Download my PGP key](./pubkey.asc)
+
+## Extra References
+
+-   Visit my friend, [Frank Trani](https://ftrani.com/)\'s, website. His
+    blog has some very informational posts.

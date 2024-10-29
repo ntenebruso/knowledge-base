@@ -1,0 +1,169 @@
+#+TITLE: Manpages - bluetoothctl-player.1
+* NAME
+bluetoothctl-player - Media Player Submenu
+
+* SYNOPSIS
+*bluetoothctl* [--options] [player.commands]
+
+* MEDIA PLAYER COMMANDS
+** list
+List available players.
+
+#+begin_quote
+- *Usage* :: *# list*
+
+#+end_quote
+
+** show
+Show player information.
+
+#+begin_quote
+- *Usage* :: *# show [player]*
+
+#+end_quote
+
+** select
+Select default player.
+
+#+begin_quote
+- *Usage* :: *# select <player>*
+
+#+end_quote
+
+** play
+Start playback.
+
+#+begin_quote
+- *Usage* :: *# play [item]*
+
+#+end_quote
+
+** pause
+Pause playback.
+
+#+begin_quote
+- *Usage* :: *# pause*
+
+#+end_quote
+
+** stop
+Stop playback.
+
+#+begin_quote
+- *Usage* :: *# stop*
+
+#+end_quote
+
+** next
+Jump to next item.
+
+#+begin_quote
+- *Usage* :: *# next*
+
+#+end_quote
+
+** previous
+Jump to previous item.
+
+#+begin_quote
+- *Usage* :: *# previous*
+
+#+end_quote
+
+** fast-forward
+Fast forward playback.
+
+#+begin_quote
+- *Usage* :: *# fast-forward*
+
+#+end_quote
+
+** rewind
+Rewind playback.
+
+#+begin_quote
+- *Usage* :: *# rewind*
+
+#+end_quote
+
+** equalizer
+Enable/Disable equalizer.
+
+#+begin_quote
+- *Usage* :: *# equalizer <on/off>*
+
+#+end_quote
+
+** repeat
+Set repeat mode.
+
+#+begin_quote
+- *Usage* :: *# repeat <singletrack/alltrack/group/off>*
+
+#+end_quote
+
+** shuffle
+Set shuffle mode.
+
+#+begin_quote
+- *Usage* :: *# shuffle <alltracks/group/off>*
+
+#+end_quote
+
+** scan
+Set scan mode.
+
+#+begin_quote
+- *Usage* :: *# scan <alltracks/group/off>*
+
+#+end_quote
+
+** change-folder
+Change current folder.
+
+#+begin_quote
+- *Usage* :: *# change-folder <item>*
+
+#+end_quote
+
+** list-items
+List items of current folder.
+
+#+begin_quote
+- *Usage* :: *# list-items [start] [end]*
+
+#+end_quote
+
+** search
+Search items containing string.
+
+#+begin_quote
+- *Usage* :: *# search <string>*
+
+#+end_quote
+
+** queue
+Add item to playlist queue.
+
+#+begin_quote
+- *Usage* :: *# queue <item>*
+
+#+end_quote
+
+** show-item
+Show item information.
+
+#+begin_quote
+- *Usage* :: *# show-item <item>*
+
+#+end_quote
+
+* RESOURCES
+<http://www.bluez.org>
+
+* REPORTING BUGS
+<linux-bluetooth@vger.kernel.org>
+
+* COPYRIGHT
+Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).

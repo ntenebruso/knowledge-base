@@ -1,0 +1,99 @@
+#+TITLE: Manpages - waitpid.1
+* NAME
+waitpid - utility to wait for arbitrary processes
+
+* SYNOPSIS
+*waitpid* [-v] [*--timeout*|*-t* /seconds/] pid...
+
+* DESCRIPTION
+*waitpid* is a simple command to wait for arbitrary non-child processes.
+
+It exits after all processes whose PIDs have been passed as arguments
+have exited.
+
+* OPTIONS
+*-v*, *--verbose*
+
+#+begin_quote
+Be more verbose.
+
+#+end_quote
+
+*-t*, *--timeout* /seconds/
+
+#+begin_quote
+Maximum wait time.
+
+#+end_quote
+
+*-e*, *--exited*
+
+#+begin_quote
+Don't error on already exited PIDs.
+
+#+end_quote
+
+*-c*, *--count* /count/
+
+#+begin_quote
+Number of process exits to wait for.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Print version and exit.
+
+#+end_quote
+
+* EXIT STATUS
+*waitpid* has the following exit status values:
+
+*0*
+
+#+begin_quote
+success
+
+#+end_quote
+
+*1*
+
+#+begin_quote
+unspecified failure
+
+#+end_quote
+
+*2*
+
+#+begin_quote
+system does not provide necessary functionality
+
+#+end_quote
+
+*3*
+
+#+begin_quote
+timeout expired
+
+#+end_quote
+
+* AUTHORS
+* SEE ALSO
+*waitpid*(2) *wait*(1P)
+
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *waitpid* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

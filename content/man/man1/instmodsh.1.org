@@ -1,0 +1,19 @@
+#+TITLE: Manpages - instmodsh.1
+#+begin_example
+#+end_example
+
+\\
+
+* NAME
+instmodsh - A shell to examine installed modules
+
+* SYNOPSIS
+instmodsh
+
+* DESCRIPTION
+A little interface to ExtUtils::Installed to examine installed modules,
+validate your packlists and even create a tarball from an installed
+module.
+
+* SEE ALSO
+ExtUtils::Installed

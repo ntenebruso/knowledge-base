@@ -1,0 +1,272 @@
+#+TITLE: Manpages - flatpak-remote-modify.1
+* NAME
+flatpak-remote-modify - Modify a remote repository
+
+* SYNOPSIS
+*flatpak remote-modify* [OPTION...] NAME
+
+* DESCRIPTION
+Modifies options for an existing remote repository in the flatpak
+repository configuration. NAME is the name for the remote.
+
+Unless overridden with the *--system*, *--user*, or *--installation*
+options, this command uses either the default system-wide installation
+or the per-user one, depending on which has the specified REMOTE.
+
+* OPTIONS
+The following options are understood:
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*-u*, *--user*
+
+#+begin_quote
+Modify the per-user configuration.
+
+#+end_quote
+
+*--system*
+
+#+begin_quote
+Modify the default system-wide configuration.
+
+#+end_quote
+
+*--installation=NAME*
+
+#+begin_quote
+Modify a system-wide installation specified by NAME among those defined
+in /etc/flatpak/installations.d/. Using *--installation=default* is
+equivalent to using *--system*.
+
+#+end_quote
+
+*--no-gpg-verify*
+
+#+begin_quote
+Disable GPG verification for the added remote.
+
+#+end_quote
+
+*--gpg-verify*
+
+#+begin_quote
+Enable GPG verification for the added remote.
+
+#+end_quote
+
+*--prio=PRIO*
+
+#+begin_quote
+Set the priority for the remote. Default is 1, higher is more
+prioritized. This is mainly used for graphical installation tools.
+
+#+end_quote
+
+*--subset=SUBSET*
+
+#+begin_quote
+Limit the refs available from the remote to those that are part of the
+named subset.
+
+#+end_quote
+
+*--no-enumerate*
+
+#+begin_quote
+Mark the remote as not enumerated. This means the remote will not be
+used to list applications, for instance in graphical installation tools.
+It will also not be used for runtime dependency resolution (as with
+*--no-use-for-deps*).
+
+#+end_quote
+
+*--no-use-for-deps*
+
+#+begin_quote
+Mark the remote as not to be used for automatic runtime dependency
+resolution.
+
+#+end_quote
+
+*--disable*
+
+#+begin_quote
+Disable the remote. Disabled remotes will not be automatically updated
+from.
+
+#+end_quote
+
+*--enable*
+
+#+begin_quote
+Enable the remote.
+
+#+end_quote
+
+*--enumerate*
+
+#+begin_quote
+Mark the remote as enumerated. This means the remote will be used to
+list applications, for instance in graphical installation tools.
+
+#+end_quote
+
+*--use-for-deps*
+
+#+begin_quote
+Mark the remote as to be used for automatic runtime dependency
+resolution.
+
+#+end_quote
+
+*--title=TITLE*
+
+#+begin_quote
+A title for the remote, e.g. for display in a UI.
+
+#+end_quote
+
+*--comment=COMMENT*
+
+#+begin_quote
+A single-line comment for the remote, e.g. for display in a UI.
+
+#+end_quote
+
+*--description=DESCRIPTION*
+
+#+begin_quote
+A full-paragraph description for the remote, e.g. for display in a UI.
+
+#+end_quote
+
+*--homepage=URL*
+
+#+begin_quote
+URL for a website for the remote, e.g. for display in a UI.
+
+#+end_quote
+
+*--icon=URL*
+
+#+begin_quote
+URL for an icon for the remote, e.g. for display in a UI.
+
+#+end_quote
+
+*--default-branch=BRANCH*
+
+#+begin_quote
+A default branch for the remote, mainly for use in a UI.
+
+#+end_quote
+
+*--collection-id=COLLECTION-ID*
+
+#+begin_quote
+The globally unique identifier of the remote repository, to allow
+mirrors to be grouped. This must only be set to the collection ID
+provided by the remote, and must not be set if the remote does not
+provide a collection ID.
+
+#+end_quote
+
+*--url=URL*
+
+#+begin_quote
+Set a new URL.
+
+#+end_quote
+
+*--update-metadata*
+
+#+begin_quote
+Update the remotes extra metadata from the OSTree repositorys summary
+file. Only xa.title and xa.default-branch are supported at the moment.
+
+#+end_quote
+
+*--no-filter*, *--filter=FILE*
+
+#+begin_quote
+Modify the path (or unset) for the local filter used for this remote.
+See *flatpak-remote-add*(1) for details about the filter file format.
+
+#+end_quote
+
+*--gpg-import=FILE*
+
+#+begin_quote
+Import gpg keys from the specified keyring file as trusted for the new
+remote. If the file is - the keyring is read from standard input.
+
+#+end_quote
+
+*--authenticator-name=NAME*
+
+#+begin_quote
+Specify the authenticator to use for the remote.
+
+#+end_quote
+
+*--authenticator-option=KEY=VALUE*
+
+#+begin_quote
+Specify an authenticator option for the remote.
+
+#+end_quote
+
+*--authenticator-install*
+
+#+begin_quote
+Enable auto-installation of authenticator.
+
+#+end_quote
+
+*--no-authenticator-install*
+
+#+begin_quote
+Disable auto-installation of authenticator.
+
+#+end_quote
+
+*--follow-redirect*
+
+#+begin_quote
+Follow xa.redirect-url defined in the summary file.
+
+#+end_quote
+
+*--no-follow-redirect*
+
+#+begin_quote
+Do not follow xa.redirect-url defined in the summary file.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information during command processing.
+
+#+end_quote
+
+*--ostree-verbose*
+
+#+begin_quote
+Print OSTree debug information during command processing.
+
+#+end_quote
+
+* EXAMPLES
+*$ flatpak --user remote-modify --no-gpg-verify test-repo*
+
+* SEE ALSO
+*flatpak*(1), *flatpak-remote-add*(1), *flatpak-remote-delete*(1),
+*flatpak-remotes*(1)

@@ -1,0 +1,187 @@
+#+TITLE: Manpages - bluetoothctl-gatt.1
+* NAME
+bluetoothctl-gatt - Generic Attribute Submenu
+
+* SYNOPSIS
+*bluetoothctl* [--options] [gatt.commands]
+
+* GENERIC ATTRIBUTE COMMANDS
+** list-attributes
+List attributes.
+
+#+begin_quote
+- *Usage* :: *# list-attributes <attribute/UUID>*
+
+#+end_quote
+
+** select-attribute
+Select attribute.
+
+#+begin_quote
+- *Usage* :: *# select-attribute <attribute/UUID>*
+
+#+end_quote
+
+** attribute-info
+Select attribute.
+
+#+begin_quote
+- *Usage* :: *# attribute-info [attribute/UUID]*
+
+#+end_quote
+
+** read
+Read attribute value.
+
+#+begin_quote
+- *Usage* :: *# read [offset]*
+
+#+end_quote
+
+** write
+Write attribute value.
+
+#+begin_quote
+- *Usage* :: *# write <data=xx xx ...> [offset] [type]*
+
+#+end_quote
+
+** acquire-write
+Acquire Write file descriptor.
+
+#+begin_quote
+- *Usage* :: *# acquire-write*
+
+#+end_quote
+
+** release-write
+Release Write file descriptor.
+
+#+begin_quote
+- *Usage* :: *# release-write*
+
+#+end_quote
+
+** acquire-notify
+Acquire Notify file descriptor.
+
+#+begin_quote
+- *Usage* :: *# acquire-notify*
+
+#+end_quote
+
+** release-notify
+Release Notify file descriptor.
+
+#+begin_quote
+- *Usage* :: *# release-notify*
+
+#+end_quote
+
+** notify
+Notify attribute value.
+
+#+begin_quote
+- *Usage* :: *# notify <on/off>*
+
+#+end_quote
+
+** clone
+Clone a device or attribute.
+
+#+begin_quote
+- *Usage* :: *# clone [dev/attribute/UUID]*
+
+#+end_quote
+
+** register-application
+Register application.
+
+#+begin_quote
+- *Usage* :: *# register-application [UUID ...]*
+
+#+end_quote
+
+** unregister-application
+Unregister application
+
+#+begin_quote
+- *Usage* :: *# unregister-application*
+
+#+end_quote
+
+** register-service
+Register application service.
+
+#+begin_quote
+- *Usage* :: *# register-service <UUID> [handle]*
+
+#+end_quote
+
+** unregister-service
+Unregister application service
+
+#+begin_quote
+- *Usage* :: *# unregister-service <UUID/object>*
+
+#+end_quote
+
+** register-includes
+Register as Included service.
+
+#+begin_quote
+- *Usage* :: *#r egister-includes <UUID> [handle]*
+
+#+end_quote
+
+** unregister-includes
+Unregister Included service.
+
+#+begin_quote
+- *Usage* :: *# unregister-includes <Service-UUID><Inc-UUID>*
+
+#+end_quote
+
+** register-characteristic
+Register service characteristic.
+
+#+begin_quote
+- *Usage* :: *# register-characteristic <UUID>
+  <Flags=read,write,notify...> [handle]*
+
+#+end_quote
+
+** unregister-characteristic
+Unregister service characteristic.
+
+#+begin_quote
+- *Usage* :: *# unregister-characteristic <UUID/object>*
+
+#+end_quote
+
+** register-descriptor
+Register characteristic descriptor.
+
+#+begin_quote
+- *Usage* :: *# register-descriptor <UUID> <Flags=read,write...>
+  [handle]*
+
+#+end_quote
+
+** unregister-descriptor
+Unregister characteristic descriptor.
+
+#+begin_quote
+- *Usage* :: *# unregister-descriptor <UUID/object>*
+
+#+end_quote
+
+* RESOURCES
+<http://www.bluez.org>
+
+* REPORTING BUGS
+<linux-bluetooth@vger.kernel.org>
+
+* COPYRIGHT
+Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).

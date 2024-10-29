@@ -1,0 +1,104 @@
+#+TITLE: Manpages - nix3-upgrade-nix.1
+#+begin_quote
+*Warning*\\
+This program is *experimental* and its interface is subject to change.
+
+#+end_quote
+
+* Name
+=nix upgrade-nix= - upgrade Nix to the latest stable version
+
+* Synopsis
+=nix upgrade-nix= [/option/...]
+
+* Examples
+- Upgrade Nix to the stable version declared in Nixpkgs:
+
+#+begin_example
+# nix upgrade-nix
+#+end_example
+
+- Upgrade Nix in a specific profile:
+
+#+begin_example
+# nix upgrade-nix --profile ~alice/.local/state/nix/profiles/profile
+#+end_example
+
+* Description
+This command upgrades Nix to the stable version.
+
+By default, the latest stable version is defined by Nixpkgs, in
+*nix-fallback-paths.nix* and updated manually. It may not always be the
+latest tagged release.
+
+By default, it locates the directory containing the =nix= binary in the
+=$PATH= environment variable. If that directory is a Nix profile, it
+will upgrade the =nix= package in that profile to the latest stable
+binary release.
+
+You cannot use this command to upgrade Nix in the system profile of a
+NixOS system (that is, if =nix= is found in =/run/current-system=).
+
+* Options
+- =--dry-run=
+
+  Show what this command would do without doing it.
+
+- =--nix-store-paths-url= /url/
+
+  The URL of the file that contains the store paths of the latest Nix
+  release.
+
+- =--profile= / =-p= /profile-dir/
+
+  The path to the Nix profile to upgrade.
+
+** Logging-related options
+- =--debug=
+
+  Set the logging verbosity level to ‘debug'.
+
+- =--log-format= /format/
+
+  Set the format of log output; one of =raw=, =internal-json=, =bar= or
+  =bar-with-logs=.
+
+- =--print-build-logs= / =-L=
+
+  Print full build logs on standard error.
+
+- =--quiet=
+
+  Decrease the logging verbosity level.
+
+- =--verbose= / =-v=
+
+  Increase the logging verbosity level.
+
+** Miscellaneous global options
+- =--help=
+
+  Show usage information.
+
+- =--offline=
+
+  Disable substituters and consider all previously downloaded files
+  up-to-date.
+
+- =--option= /name/ /value/
+
+  Set the Nix configuration setting /name/ to /value/ (overriding
+  =nix.conf=).
+
+- =--refresh=
+
+  Consider all previously downloaded files out-of-date.
+
+- =--version=
+
+  Show version information.
+
+  *Note*
+
+  See =man nix.conf= for overriding configuration settings with command
+  line flags.

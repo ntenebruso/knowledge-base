@@ -1,0 +1,164 @@
+#+TITLE: Manpages - systemd-socket-activate.1
+* NAME
+systemd-socket-activate - Test socket activation of daemons
+
+* SYNOPSIS
+*systemd-socket-activate* [OPTIONS...] /daemon/ [OPTIONS...]
+
+* DESCRIPTION
+*systemd-socket-activate* may be used to launch a socket-activated
+service program from the command line for testing purposes. It may also
+be used to launch individual instances of the service program per
+connection.
+
+The daemon to launch and its options should be specified after options
+intended for *systemd-socket-activate*.
+
+If the *--inetd* option is given, the socket file descriptor will be
+used as the standard input and output of the launched process.
+Otherwise, standard input and output will be inherited, and sockets will
+be passed through file descriptors 3 and higher. Sockets passed through
+/$LISTEN_FDS/ to *systemd-socket-activate* will be passed through to the
+daemon, in the original positions. Other sockets specified with
+*--listen=* will use consecutive descriptors. By default,
+*systemd-socket-activate* listens on a stream socket, use *--datagram*
+and *--seqpacket* to listen on datagram or sequential packet sockets
+instead (see below).
+
+* OPTIONS
+*-l */address/, *--listen=*/address/
+
+#+begin_quote
+Listen on this /address/. Takes a string like "2000" or
+"127.0.0.1:2001".
+
+Added in version 230.
+
+#+end_quote
+
+*-a*, *--accept*
+
+#+begin_quote
+Launch an instance of the service program for each connection and pass
+the connection socket.
+
+Added in version 230.
+
+#+end_quote
+
+*-d*, *--datagram*
+
+#+begin_quote
+Listen on a datagram socket (*SOCK_DGRAM*), instead of a stream socket
+(*SOCK_STREAM*). May not be combined with *--seqpacket*.
+
+Added in version 230.
+
+#+end_quote
+
+*--seqpacket*
+
+#+begin_quote
+Listen on a sequential packet socket (*SOCK_SEQPACKET*), instead of a
+stream socket (*SOCK_STREAM*). May not be combined with *--datagram*.
+
+Added in version 230.
+
+#+end_quote
+
+*--inetd*
+
+#+begin_quote
+Use the inetd protocol for passing file descriptors, i.e. as standard
+input and standard output, instead of the new-style protocol for passing
+file descriptors using /$LISTEN_FDS/ (see above).
+
+Added in version 230.
+
+#+end_quote
+
+*-E */VAR/*[=*/VALUE/], *--setenv=*/VAR/*[=*/VALUE/]
+
+#+begin_quote
+Add this variable to the environment of the launched process. If /VAR/
+is followed by "=", assume that it is a variable--value pair. Otherwise,
+obtain the value from the environment of *systemd-socket-activate*
+itself.
+
+Added in version 230.
+
+#+end_quote
+
+*--fdname=*/NAME/*[:*/NAME/...]
+
+#+begin_quote
+Specify names for the file descriptors passed. This is equivalent to
+setting /FileDescriptorName=/ in socket unit files, and enables use of
+*sd_listen_fds_with_names*(3). Multiple entries may be specifies using
+separate options or by separating names with colons (":") in one option.
+In case more names are given than descriptors, superfluous ones will be
+ignored. In case less names are given than descriptors, the remaining
+file descriptors will be unnamed.
+
+Added in version 230.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Print a short help text and exit.
+
+#+end_quote
+
+*--version*
+
+#+begin_quote
+Print a short version string and exit.
+
+#+end_quote
+
+* ENVIRONMENT VARIABLES
+/$LISTEN_FDS/, /$LISTEN_PID/, /$LISTEN_FDNAMES/
+
+#+begin_quote
+See *sd_listen_fds*(3).
+
+Added in version 230.
+
+#+end_quote
+
+/$SYSTEMD_LOG_TARGET/, /$SYSTEMD_LOG_LEVEL/, /$SYSTEMD_LOG_TIME/,
+/$SYSTEMD_LOG_COLOR/, /$SYSTEMD_LOG_LOCATION/
+
+#+begin_quote
+Same as in *systemd*(1).
+
+Added in version 230.
+
+#+end_quote
+
+* EXAMPLES
+*Example 1. Run an echo server on port 2000*
+
+#+begin_quote
+#+begin_example
+$ systemd-socket-activate -l 2000 --inetd -a cat
+#+end_example
+
+#+end_quote
+
+*Example 2. Run a socket-activated instance of
+systemd-journal-gatewayd(8)*
+
+#+begin_quote
+#+begin_example
+$ systemd-socket-activate -l 19531 /usr/lib/systemd/systemd-journal-gatewayd
+#+end_example
+
+#+end_quote
+
+* SEE ALSO
+*systemd*(1), *systemd.socket*(5), *systemd.service*(5),
+*systemd-run*(1), *sd_listen_fds*(3), *sd_listen_fds_with_names*(3),
+*cat*(1)

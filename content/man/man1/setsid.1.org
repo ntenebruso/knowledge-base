@@ -1,0 +1,62 @@
+#+TITLE: Manpages - setsid.1
+* NAME
+setsid - run a program in a new session
+
+* SYNOPSIS
+*setsid* [options] /program/ [/arguments/]
+
+* DESCRIPTION
+*setsid* runs a program in a new session. The command calls *fork*(2) if
+already a process group leader. Otherwise, it executes a program in the
+current process. This default behavior is possible to override by the
+*--fork* option.
+
+* OPTIONS
+*-c*, *--ctty*
+
+#+begin_quote
+Set the controlling terminal to the current one.
+
+#+end_quote
+
+*-f*, *--fork*
+
+#+begin_quote
+Always create a new process.
+
+#+end_quote
+
+*-w*, *--wait*
+
+#+begin_quote
+Wait for the execution of the program to end, and return the exit status
+of this program as the exit status of *setsid*.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Display version information and exit.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+* AUTHORS
+* SEE ALSO
+*setsid*(2)
+
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *setsid* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

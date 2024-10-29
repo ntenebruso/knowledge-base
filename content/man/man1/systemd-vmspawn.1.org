@@ -1,0 +1,711 @@
+#+TITLE: Manpages - systemd-vmspawn.1
+* NAME
+systemd-vmspawn - Spawn an OS in a virtual machine
+
+* SYNOPSIS
+*systemd-vmspawn* [OPTIONS...] [ARGS...]
+
+* DESCRIPTION
+*systemd-vmspawn* may be used to start a virtual machine from an OS
+image. In many ways it is similar to *systemd-nspawn*(1), but launches a
+full virtual machine instead of using namespaces.
+
+File descriptors for /dev/kvm and /dev/vhost-vsock can be passed to
+*systemd-vmspawn* via systemds native socket passing interface (see
+*sd_listen_fds*(3) for details about the precise protocol used and the
+order in which the file descriptors are passed), these file descriptors
+must be passed with the names "kvm" and "vhost-vsock" respectively.
+
+Note: on Ubuntu/Debian derivatives systemd-vmspawn requires the user to
+be in the "kvm" group to use the VSOCK options.
+
+* OPTIONS
+The excess arguments are passed as extra kernel command line arguments
+using SMBIOS.
+
+The following options are understood:
+
+*-q*, *--quiet*
+
+#+begin_quote
+Turns off any status output by the tool itself. When this switch is
+used, the only output from vmspawn will be the console output of the
+Virtual Machine OS itself.
+
+Added in version 256.
+
+#+end_quote
+
+** Image Options
+*-D*, *--directory=*
+
+#+begin_quote
+Directory to use as file system root for the virtual machine.
+
+One of either *--directory=* or *--image=* must be specified. If neither
+are specified *--directory=.* is assumed.
+
+Note: If mounting a non-root owned directory you may require
+*--private-users=* to map into the users subuid namespace. An example of
+how to use */etc/subuid* for this is given later.
+
+Added in version 256.
+
+#+end_quote
+
+*-i*, *--image=*
+
+#+begin_quote
+Root file system disk image (or device node) for the virtual machine.
+
+Added in version 255.
+
+#+end_quote
+
+** Host Configuration
+*--cpus=*/CPUS/
+
+#+begin_quote
+The number of CPUs to start the virtual machine with. Defaults to 1.
+
+Added in version 255.
+
+#+end_quote
+
+*--ram=*/BYTES/
+
+#+begin_quote
+The amount of memory to start the virtual machine with. Defaults to 2G.
+
+Added in version 255.
+
+#+end_quote
+
+*--kvm=*/BOOL/
+
+#+begin_quote
+If *--kvm=* is not specified KVM support will be detected automatically.
+If true, KVM is always used, and if false, KVM is never used.
+
+Added in version 255.
+
+#+end_quote
+
+*--vsock=*/BOOL/
+
+#+begin_quote
+If *--vsock=* is not specified VSOCK networking support will be detected
+automatically. If true, VSOCK networking is always used, and if false,
+VSOCK networking is never used.
+
+Added in version 255.
+
+#+end_quote
+
+*--vsock-cid=*/CID/
+
+#+begin_quote
+Sets the specific CID to use for the guest. Valid CIDs are in the range
+*3* to *4294967294* (*0xFFFF_FFFE*). CIDs outside of this range are
+reserved. By default vmspawn will attempt to derive a CID for the guest
+derived from the machine name, falling back to a random CID if this CID
+is taken.
+
+Added in version 255.
+
+#+end_quote
+
+*--tpm=*/BOOL/
+
+#+begin_quote
+If *--tpm=* is not specified vmspawn will detect the presence of
+*swtpm*(8) and use it if available. If yes is specified *swtpm*(8) is
+always used, and if no is set *swtpm*(8) is never used.
+
+Note: the virtual TPM used may change in future.
+
+Added in version 256.
+
+#+end_quote
+
+*--linux=*/PATH/
+
+#+begin_quote
+Set the linux kernel image to use for direct kernel boot. If a directory
+type image is used and *--linux=* was omitted, vmspawn will search for
+boot loader entries according to the *Boot Loader Specification*[1]
+assuming XBOOTLDR to be located at /boot and ESP to be /efi
+respectively. If no kernel was installed into the image then the image
+will fail to boot.
+
+Added in version 256.
+
+#+end_quote
+
+*--initrd=*/PATH/
+
+#+begin_quote
+Set the initrd to use for direct kernel boot. If the *--linux=* supplied
+is a *Boot Loader Specification*[1] Type #2 entry, then this argument is
+not required. If no initrd was installed into the image then the image
+will fail to boot.
+
+*--initrd=* can be specified multiple times and vmspawn will merge them
+together.
+
+Added in version 256.
+
+#+end_quote
+
+*-n*, *--network-tap*
+
+#+begin_quote
+Create a TAP device to network with the virtual machine.
+
+Note: root privileges are required to use TAP networking. Additionally,
+*systemd-networkd*(8) must be running and correctly set up on the host
+to provision the host interface. The relevant ".network" file can be
+found at /usr/lib/systemd/network/80-vm-vt.network.
+
+Added in version 255.
+
+#+end_quote
+
+*--network-user-mode*
+
+#+begin_quote
+Use user mode networking.
+
+Added in version 255.
+
+#+end_quote
+
+*--firmware=*/PATH/
+
+#+begin_quote
+Takes an absolute path, or a relative path beginning with ./. Specifies
+a JSON firmware definition file, which allows selecting the firmware to
+boot in the VM. If not specified a suitable firmware is automatically
+discovered. If the special string "list" is specified lists all
+discovered firmwares.
+
+Added in version 256.
+
+#+end_quote
+
+*--discard-disk=*/BOOL/
+
+#+begin_quote
+Controls whether qemu processes discard requests from the VM. This
+prevents long running VMs from using more disk space than required. This
+is enabled by default.
+
+Added in version 256.
+
+#+end_quote
+
+*--secure-boot=*/BOOL/
+
+#+begin_quote
+Configure whether to search for firmware which supports Secure Boot.
+
+If the option is not specified the first firmware which is detected will
+be used. If the option is set to yes then the first firmware with Secure
+Boot support will be selected. If no is specified then the first
+firmware without Secure Boot will be selected.
+
+Added in version 255.
+
+#+end_quote
+
+** System Identity Options
+*-M*, *--machine=*
+
+#+begin_quote
+Sets the machine name for this virtual machine. This name may be used to
+identify this virtual machine during its runtime (for example in tools
+like *machinectl*(1) and similar).
+
+Added in version 255.
+
+#+end_quote
+
+*--uuid=*
+
+#+begin_quote
+Set the specified UUID for the virtual machine. The init system will
+initialize /etc/machine-id from this if this file is not set yet. Note
+that this option takes effect only if /etc/machine-id in the virtual
+machine is unpopulated.
+
+Added in version 256.
+
+#+end_quote
+
+** Property Options
+*--register=*
+
+#+begin_quote
+Controls whether the virtual machine is registered with
+*systemd-machined*(8). Takes a boolean argument, which defaults to "yes"
+when running as root, and "no" when running as a regular user. This
+ensures that the virtual machine is accessible via *machinectl*(1).
+
+Note: root privileges are required to use this option as registering
+with *systemd-machined*(8) requires privileged D-Bus method calls.
+
+Added in version 256.
+
+#+end_quote
+
+** User Namespacing Options
+*--private-users=*/UID_SHIFT[:UID_RANGE]/
+
+#+begin_quote
+Controls user namespacing under *--directory=*. If enabled,
+*virtiofsd*(1) is instructed to map user and group ids (UIDs and GIDs).
+This involves mapping the private UIDs/GIDs used in the virtual machine
+(starting with the virtual machines root user 0 and up) to a range of
+UIDs/GIDs on the host that are not used for other purposes (usually in
+the range beyond the hosts UID/GID 65536).
+
+If one or two colon-separated numbers are specified, user namespacing is
+turned on. /UID_SHIFT/ specifies the first host UID/GID to map,
+/UID_RANGE/ is optional and specifies number of host UIDs/GIDs to assign
+to the virtual machine. If /UID_RANGE/ is omitted, 65536 UIDs/GIDs are
+assigned.
+
+When user namespaces are used, the GID range assigned to each virtual
+machine is always chosen identical to the UID range.
+
+Added in version 256.
+
+#+end_quote
+
+** Mount Options
+*--bind=*/PATH/, *--bind-ro=*/PATH/
+
+#+begin_quote
+Mount a directory from the host into the virtual machine. Takes one of:
+a path argument --- in which case the specified path will be mounted
+from the host to the same path in the virtual machine, or a
+colon-separated pair of paths --- in which case the first specified path
+is the source in the host, and the second path is the destination in the
+virtual machine. If the source path is not absolute, it is resolved
+relative to the current working directory. The *--bind-ro=* option
+creates read-only bind mounts. Backslash escapes are interpreted, so
+"\:" may be used to embed colons in either path. This option may be
+specified multiple times for creating multiple independent bind mount
+points.
+
+Added in version 256.
+
+#+end_quote
+
+*--extra-drive=*/PATH/
+
+#+begin_quote
+Takes a disk image or block device on the host and supplies it to the
+virtual machine as another drive.
+
+Added in version 256.
+
+#+end_quote
+
+** Integration Options
+*--forward-journal=*/FILE|DIR/
+
+#+begin_quote
+Forward the virtual machines journal to the host.
+*systemd-journal-remote*(8) is currently used to receive the guest VMs
+forwarded journal entries. This option determines where this journal is
+saved on the host and has the same semantics as *-o*/*--output*
+described in *systemd-journal-remote*(8).
+
+Added in version 256.
+
+#+end_quote
+
+*--pass-ssh-key=*/BOOL/
+
+#+begin_quote
+By default an SSH key is generated to allow *systemd-vmspawn* to open a
+D-Bus connection to the VMs systemd bus. Setting this to "no" will
+disable SSH key generation.
+
+The generated keys are ephemeral. That is they are valid only for the
+current invocation of *systemd-vmspawn*, and are typically not
+persisted.
+
+Added in version 256.
+
+#+end_quote
+
+*--ssh-key-type=*/TYPE/
+
+#+begin_quote
+Configures the type of SSH key to generate, see *ssh-keygen*(1) for more
+information.
+
+By default "ed25519" keys are generated, however "rsa" keys may also be
+useful if the VM has a particularly old version of *sshd*.
+
+Added in version 256.
+
+#+end_quote
+
+** Input/Output Options
+*--console=*/MODE/
+
+#+begin_quote
+Configures how to set up the console of the VM. Takes one of
+"interactive", "read-only", "native", "gui". Defaults to "interactive".
+"interactive" provides an interactive terminal interface to the VM.
+"read-only" is similar, but is strictly read-only, i.e. does not accept
+any input from the user. "native" also provides a TTY-based interface,
+but uses qemu native implementation (which means the qemu monitor is
+available). "gui" shows the qemu graphical UI.
+
+Added in version 256.
+
+#+end_quote
+
+*--background=*/COLOR/
+
+#+begin_quote
+Change the terminal background color to the specified ANSI color as long
+as the VM runs. The color specified should be an ANSI X3.64 SGR
+background color, i.e. strings such as "40", "41", ..., "47",
+"48;2;...", "48;5;...". See *ANSI Escape Code (Wikipedia)*[2] for
+details. Assign an empty string to disable any coloring. This only has
+an effect in *--console=interactive* and *--console=read-only* modes.
+
+Added in version 256.
+
+#+end_quote
+
+** Credentials
+*--load-credential=*/ID/*:*/PATH/, *--set-credential=*/ID/*:*/VALUE/
+
+#+begin_quote
+Pass a credential to the virtual machine. These two options correspond
+to the /LoadCredential=/ and /SetCredential=/ settings in unit files.
+See *systemd.exec*(5) for details about these concepts, as well as the
+syntax of the options arguments.
+
+In order to embed binary data into the credential data for
+*--set-credential=*, use C-style escaping (i.e. "\n" to embed a newline,
+or "\x00" to embed a *NUL* byte). Note that the invoking shell might
+already apply unescaping once, hence this might require double escaping!
+
+Added in version 255.
+
+#+end_quote
+
+** Other
+*--no-pager*
+
+#+begin_quote
+Do not pipe output into a pager.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Print a short help text and exit.
+
+#+end_quote
+
+*--version*
+
+#+begin_quote
+Print a short version string and exit.
+
+#+end_quote
+
+* ENVIRONMENT
+/$SYSTEMD_LOG_LEVEL/
+
+#+begin_quote
+The maximum log level of emitted messages (messages with a higher log
+level, i.e. less important ones, will be suppressed). Takes a
+comma-separated list of values. A value may be either one of (in order
+of decreasing importance) *emerg*, *alert*, *crit*, *err*, *warning*,
+*notice*, *info*, *debug*, or an integer in the range 0...7. See
+*syslog*(3) for more information. Each value may optionally be prefixed
+with one of *console*, *syslog*, *kmsg* or *journal* followed by a colon
+to set the maximum log level for that specific log target (e.g.
+*SYSTEMD_LOG_LEVEL=debug,console:info* specifies to log at debug level
+except when logging to the console which should be at info level). Note
+that the global maximum log level takes priority over any per target
+maximum log levels.
+
+#+end_quote
+
+/$SYSTEMD_LOG_COLOR/
+
+#+begin_quote
+A boolean. If true, messages written to the tty will be colored
+according to priority.
+
+This setting is only useful when messages are written directly to the
+terminal, because *journalctl*(1) and other tools that display logs will
+color messages based on the log level on their own.
+
+#+end_quote
+
+/$SYSTEMD_LOG_TIME/
+
+#+begin_quote
+A boolean. If true, console log messages will be prefixed with a
+timestamp.
+
+This setting is only useful when messages are written directly to the
+terminal or a file, because *journalctl*(1) and other tools that display
+logs will attach timestamps based on the entry metadata on their own.
+
+#+end_quote
+
+/$SYSTEMD_LOG_LOCATION/
+
+#+begin_quote
+A boolean. If true, messages will be prefixed with a filename and line
+number in the source code where the message originates.
+
+Note that the log location is often attached as metadata to journal
+entries anyway. Including it directly in the message text can
+nevertheless be convenient when debugging programs.
+
+#+end_quote
+
+/$SYSTEMD_LOG_TID/
+
+#+begin_quote
+A boolean. If true, messages will be prefixed with the current numerical
+thread ID (TID).
+
+Note that the this information is attached as metadata to journal
+entries anyway. Including it directly in the message text can
+nevertheless be convenient when debugging programs.
+
+#+end_quote
+
+/$SYSTEMD_LOG_TARGET/
+
+#+begin_quote
+The destination for log messages. One of *console* (log to the attached
+tty), *console-prefixed* (log to the attached tty but with prefixes
+encoding the log level and "facility", see *syslog*(3), *kmsg* (log to
+the kernel circular log buffer), *journal* (log to the journal),
+*journal-or-kmsg* (log to the journal if available, and to kmsg
+otherwise), *auto* (determine the appropriate log target automatically,
+the default), *null* (disable log output).
+
+#+end_quote
+
+/$SYSTEMD_LOG_RATELIMIT_KMSG/
+
+#+begin_quote
+Whether to ratelimit kmsg or not. Takes a boolean. Defaults to "true".
+If disabled, systemd will not ratelimit messages written to kmsg.
+
+#+end_quote
+
+/$SYSTEMD_PAGER/
+
+#+begin_quote
+Pager to use when *--no-pager* is not given; overrides /$PAGER/. If
+neither /$SYSTEMD_PAGER/ nor /$PAGER/ are set, a set of well-known pager
+implementations are tried in turn, including *less*(1) and *more*(1),
+until one is found. If no pager implementation is discovered no pager is
+invoked. Setting this environment variable to an empty string or the
+value "cat" is equivalent to passing *--no-pager*.
+
+Note: if /$SYSTEMD_PAGERSECURE/ is not set, /$SYSTEMD_PAGER/ (as well as
+/$PAGER/) will be silently ignored.
+
+#+end_quote
+
+/$SYSTEMD_LESS/
+
+#+begin_quote
+Override the options passed to *less* (by default "FRSXMK").
+
+Users might want to change two options in particular:
+
+*K*
+
+#+begin_quote
+This option instructs the pager to exit immediately when Ctrl+C is
+pressed. To allow *less* to handle Ctrl+C itself to switch back to the
+pager command prompt, unset this option.
+
+If the value of /$SYSTEMD_LESS/ does not include "K", and the pager that
+is invoked is *less*, Ctrl+C will be ignored by the executable, and
+needs to be handled by the pager.
+
+#+end_quote
+
+*X*
+
+#+begin_quote
+This option instructs the pager to not send termcap initialization and
+deinitialization strings to the terminal. It is set by default to allow
+command output to remain visible in the terminal even after the pager
+exits. Nevertheless, this prevents some pager functionality from
+working, in particular paged output cannot be scrolled with the mouse.
+
+#+end_quote
+
+Note that setting the regular /$LESS/ environment variable has no effect
+for *less* invocations by systemd tools.
+
+See *less*(1) for more discussion.
+
+#+end_quote
+
+/$SYSTEMD_LESSCHARSET/
+
+#+begin_quote
+Override the charset passed to *less* (by default "utf-8", if the
+invoking terminal is determined to be UTF-8 compatible).
+
+Note that setting the regular /$LESSCHARSET/ environment variable has no
+effect for *less* invocations by systemd tools.
+
+#+end_quote
+
+/$SYSTEMD_PAGERSECURE/
+
+#+begin_quote
+Takes a boolean argument. When true, the "secure" mode of the pager is
+enabled; if false, disabled. If /$SYSTEMD_PAGERSECURE/ is not set at
+all, secure mode is enabled if the effective UID is not the same as the
+owner of the login session, see *geteuid*(2) and
+*sd_pid_get_owner_uid*(3). In secure mode, *LESSSECURE=1* will be set
+when invoking the pager, and the pager shall disable commands that open
+or create new files or start new subprocesses. When
+/$SYSTEMD_PAGERSECURE/ is not set at all, pagers which are not known to
+implement secure mode will not be used. (Currently only *less*(1)
+implements secure mode.)
+
+Note: when commands are invoked with elevated privileges, for example
+under *sudo*(8) or *pkexec*(1), care must be taken to ensure that
+unintended interactive features are not enabled. "Secure" mode for the
+pager may be enabled automatically as describe above. Setting
+/SYSTEMD_PAGERSECURE=0/ or not removing it from the inherited
+environment allows the user to invoke arbitrary commands. Note that if
+the /$SYSTEMD_PAGER/ or /$PAGER/ variables are to be honoured,
+/$SYSTEMD_PAGERSECURE/ must be set too. It might be reasonable to
+completely disable the pager using *--no-pager* instead.
+
+#+end_quote
+
+/$SYSTEMD_COLORS/
+
+#+begin_quote
+Takes a boolean argument. When true, *systemd* and related utilities
+will use colors in their output, otherwise the output will be
+monochrome. Additionally, the variable can take one of the following
+special values: "16", "256" to restrict the use of colors to the base 16
+or 256 ANSI colors, respectively. This can be specified to override the
+automatic decision based on /$TERM/ and what the console is connected
+to.
+
+#+end_quote
+
+/$SYSTEMD_URLIFY/
+
+#+begin_quote
+The value must be a boolean. Controls whether clickable links should be
+generated in the output for terminal emulators supporting this. This can
+be specified to override the decision that *systemd* makes based on
+/$TERM/ and other conditions.
+
+#+end_quote
+
+* EXAMPLES
+*Example 1. Run an Arch Linux VM image generated by mkosi*
+
+#+begin_quote
+#+begin_example
+$ mkosi -d arch -p systemd -p linux --autologin -o image.raw -f build
+$ systemd-vmspawn --image=image.raw
+      
+#+end_example
+
+#+end_quote
+
+*Example 2. Import and run a Fedora 39 Cloud image using machinectl*
+
+#+begin_quote
+#+begin_example
+$ curl -L \
+       -O https://download.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/Fedora-Cloud-Base-40-1.10.x86_64.raw.xz \
+       -O https://download.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/Fedora-Cloud-40-1.10-x86_64-CHECKSUM \
+       -O https://fedoraproject.org/fedora.gpg
+$ gpgv --keyring ./fedora.gpg Fedora-Cloud-40-1.10-x86_64-CHECKSUM
+$ sha256sum -c Fedora-Cloud-40-1.10-x86_64-CHECKSUM
+# machinectl import-raw Fedora-Cloud-Base-40-1.10.x86_64.raw.xz fedora-40-cloud
+# systemd-vmspawn -M fedora-40-cloud
+      
+#+end_example
+
+#+end_quote
+
+*Example 3. Build and run systemds system image and forward the VMs
+journal to a local file*
+
+#+begin_quote
+#+begin_example
+$ mkosi build
+$ systemd-vmspawn \
+    -D mkosi.output/system \
+    --private-users $(grep $(whoami) /etc/subuid | cut -d: -f2) \
+    --linux mkosi.output/system.efi \
+    --forward-journal=vm.journal \
+    enforcing=0
+      
+#+end_example
+
+#+end_quote
+
+Note: this example also uses a kernel command line argument to ensure
+SELinux isnt started in enforcing mode.
+
+*Example 4. SSH into a running VM using systemd-ssh-proxy*
+
+#+begin_quote
+#+begin_example
+$ mkosi build
+$ my_vsock_cid=3735928559
+$ systemd-vmspawn \
+    -D mkosi.output/system \
+    --private-users $(grep $(whoami) /etc/subuid | cut -d: -f2) \
+    --linux mkosi.output/system.efi \
+    --vsock-cid $my_vsock_cid \
+    enforcing=0
+$ ssh root@vsock/$my_vsock_cid -i /run/user/$UID/systemd/vmspawn/machine-*-system-ed25519
+      
+#+end_example
+
+#+end_quote
+
+* EXIT STATUS
+If an error occurred the value errno is propagated to the return code.
+If EXIT_STATUS is supplied by the running image that is returned.
+Otherwise EXIT_SUCCESS is returned.
+
+* SEE ALSO
+*systemd*(1), *mkosi*(1), *machinectl*(1), *importctl*(1), *Boot Loader
+Specification*[1]
+
+* NOTES
+-  1. :: Boot Loader Specification
+
+  https://uapi-group.org/specifications/specs/boot_loader_specification
+
+-  2. :: ANSI Escape Code (Wikipedia)
+
+  https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters

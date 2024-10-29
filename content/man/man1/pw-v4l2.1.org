@@ -1,0 +1,47 @@
+#+TITLE: Manpages - pw-v4l2.1
+* NAME
+pw-v4l2 - Use PipeWire instead of V4L2
+
+* SYNOPSIS
+*pw-v4l2* [/options/] /COMMAND/ [/ARGUMENTS.../]
+
+* DESCRIPTION
+*pw-v4l2* runs a command using a compatibility layer that maps PipeWire
+video devices to be visible to applications using V4L2.
+
+This is implemented by preloading a shared library via LD_PRELOAD, which
+translates library calls that try to access V4L2 devices.
+
+* OPTIONS
+*-h*
+
+#+begin_quote
+Show help.
+
+#+end_quote
+
+*-r NAME*
+
+#+begin_quote
+The name of the remote instance to connect to. If left unspecified, a
+connection is made to the default PipeWire instance.
+
+#+end_quote
+
+*-v*
+
+#+begin_quote
+Verbose operation.
+
+#+end_quote
+
+* EXAMPLES
+*pw-v4l2* v4l2-ctl --list-devices
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pipewire(1)*,

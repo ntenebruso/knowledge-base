@@ -1,0 +1,113 @@
+#+TITLE: Manpages - xdg-terminal.1
+.SH "NAME" xdg-terminal - opens the users preferred terminal emulator
+application
+
+.SH "SYNOPSIS"
+
+.HP u
+
+*xdg-terminal* [/command/]
+
+.HP u
+
+*xdg-terminal* { | *--help* | *--manual* | *--version* }
+
+.SH "DESCRIPTION"
+
+.PP xdg-terminal opens the users preferred terminal emulator
+application. If a command is provided the command will be executed by
+the shell within the newly opened terminal window.
+
+.PP xdg-terminal is for use inside a desktop session only. It is not
+recommended to use xdg-terminal as root.
+
+.SH "OPTIONS"
+
+.PP *--help*
+
+#+begin_quote
+Show command synopsis.
+
+.RE
+
+.PP *--manual*
+
+#+begin_quote
+Show this manual page.
+
+.RE
+
+.PP *--version*
+
+#+begin_quote
+Show the xdg-utils version information.
+
+.RE .SH "EXIT CODES"
+
+.PP An exit code of 0 indicates success while a non-zero exit code
+indicates failure. The following failure codes can be returned:
+
+.PP *1*
+
+#+begin_quote
+Error in command line syntax.
+
+.RE .PP *3*
+
+#+begin_quote
+A required tool could not be found.
+
+.RE .PP *4*
+
+#+begin_quote
+The action failed.
+
+.RE .SH "EXAMPLES"
+
+.PP
+
+#+begin_quote
+#+begin_example
+xdg-terminal
+#+end_example
+
+#+end_quote
+
+Opens the users default terminal emulator, just starting an interactive
+shell.
+
+.PP
+
+#+begin_quote
+#+begin_example
+xdg-terminal top
+#+end_example
+
+#+end_quote
+
+Opens the users default terminal emulator and lets it run the top
+executable.
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+* AUTHOR
+*Kevin Krammer*
+
+#+begin_quote
+Author.
+
+#+end_quote
+
+* COPYRIGHT
+\\
+Copyright © 2006\\

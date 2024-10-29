@@ -1,0 +1,299 @@
+#+TITLE: Manpages - xdg-icon-resource.1
+.SH "NAME" xdg-icon-resource - command line tool for (un)installing icon
+resources
+
+.SH "SYNOPSIS"
+
+.HP u
+
+*xdg-icon-resource* install [*--noupdate*] [*--novendor*] [*--theme
+*/theme/] [*--context */context/] [*--mode */mode/] *--size */size/
+/icon-file/ [/icon-name/]
+
+.HP u
+
+*xdg-icon-resource* uninstall [*--noupdate*] [*--theme */theme/]
+[*--context */context/] [*--mode */mode/] *--size */size/ /icon-name/
+
+.HP u
+
+*xdg-icon-resource* forceupdate [*--theme */theme/] [*--mode */mode/]
+
+.HP u
+
+*xdg-icon-resource* { | *--help* | *--manual* | *--version* }
+
+.SH "DESCRIPTION"
+
+.PP The xdg-icon-resource program can be used to install icon resources
+into the desktop icon system in order to illustrate menu entries, to
+depict desktop icons or to graphically represent file types.
+
+.PP The desktop icon system identifies icons by name. Depending on the
+required size, the choice of icon theme and the context in which the
+icon is used, the desktop icon system locates an appropriate icon
+resource to depict an icon. Icon resources can be XPM files or PNG
+files.
+
+.PP The desktop icon system works according to the XDG Icon Theme
+Specification at
+*http://www.freedesktop.org/wiki/Specifications/icon-theme-spec*
+
+.SH "COMMANDS"
+
+.PP install
+
+#+begin_quote
+Installs the icon file indicated by /icon-file/ to the desktop icon
+system under the name /icon-name/. Icon names do not have an extension.
+If /icon-name/ is not provided the name is derived from /icon-file/. The
+icon file must have /.png/ or /.xpm/ as extension. If a corresponding
+/.icon/ file exists in the same location as /icon-file/ it will be
+installed as well.
+
+.RE
+
+.PP uninstall
+
+#+begin_quote
+Removes the icon indicated by /icon-name/ from the desktop icon system.
+Note that icon names do not have an extension.
+
+.RE
+
+.PP forceupdate
+
+#+begin_quote
+Force an update of the desktop icon system. This is only useful if the
+last call to xdg-icon-resource included the *--noupdate* option.
+
+.RE .SH "OPTIONS"
+
+.PP *--noupdate*
+
+#+begin_quote
+Postpone updating the desktop icon system. If multiple icons are added
+in sequence this flag can be used to indicate that additional changes
+will follow and that it is not necessary to update the desktop icon
+system right away.
+
+.RE .PP *--novendor*
+
+#+begin_quote
+Normally, xdg-icon-resource checks to ensure that an icon file to be
+installed in the /apps/ context has a proper vendor prefix. This option
+can be used to disable that check.
+
+A vendor prefix consists of alpha characters ([a-zA-Z]) and is
+terminated with a dash ("-"). Companies and organizations are encouraged
+to use a word or phrase, preferably the organizations name, for which
+they hold a trademark as their vendor prefix. The purpose of the vendor
+prefix is to prevent name conflicts.
+
+.RE
+
+.PP *--theme* /theme/
+
+#+begin_quote
+Installs or removes the icon file as part of /theme/. If no theme is
+specified the icons will be installed as part of the default /hicolor/
+theme. Applications may install icons under multiple themes but should
+at least install icons for the default /hicolor/ theme.
+
+.RE
+
+.PP *--context* /context/
+
+#+begin_quote
+Specifies the context for the icon. Icons to be used in the application
+menu and as desktop icon should use /apps/ as context which is the
+default context. Icons to be used as file icons should use /mimetypes/
+as context. Other common contexts are /actions/, /devices/, /emblems/,
+/filesystems/ and /stock/.
+
+.RE
+
+.PP *--size* /size/
+
+#+begin_quote
+Specifies the size of the icon. All icons must be square. Common sizes
+for icons in the apps context are: 16, 22, 32, 48, 64 and 128. Common
+sizes for icons in the mimetypes context are: 16, 22, 32, 48, 64 and 128
+
+.RE
+
+.PP *--mode* /mode/
+
+#+begin_quote
+/mode/ can be /user/ or /system/. In user mode the file is (un)installed
+for the current user only. In system mode the file is (un)installed for
+all users on the system. Usually only root is allowed to install in
+system mode.
+
+The default is to use system mode when called by root and to use user
+mode when called by a non-root user.
+
+.RE
+
+.PP *--help*
+
+#+begin_quote
+Show command synopsis.
+
+.RE
+
+.PP *--manual*
+
+#+begin_quote
+Show this manual page.
+
+.RE
+
+.PP *--version*
+
+#+begin_quote
+Show the xdg-utils version information.
+
+.RE
+
+.SH "ENVIRONMENT VARIABLES"
+
+.PP xdg-icon-resource honours the following environment variables:
+
+.PP XDG_UTILS_DEBUG_LEVEL
+
+#+begin_quote
+Setting this environment variable to a non-zero numerical value makes
+xdg-icon-resource do more verbose reporting on stderr. Setting a higher
+value increases the verbosity.
+
+.RE .PP XDG_UTILS_INSTALL_MODE
+
+#+begin_quote
+This environment variable can be used by the user or administrator to
+override the installation mode. Valid values are /user/ and /system/.
+
+.RE
+
+.SH "EXIT CODES"
+
+.PP An exit code of 0 indicates success while a non-zero exit code
+indicates failure. The following failure codes can be returned:
+
+.PP *1*
+
+#+begin_quote
+Error in command line syntax.
+
+.RE .PP *2*
+
+#+begin_quote
+One of the files passed on the command line did not exist.
+
+.RE .PP *3*
+
+#+begin_quote
+A required tool could not be found.
+
+.RE .PP *4*
+
+#+begin_quote
+The action failed.
+
+.RE .PP *5*
+
+#+begin_quote
+No permission to read one of the files passed on the command line.
+
+.RE .SH "SEE ALSO"
+
+.PP *xdg-desktop-icon*(1), *xdg-desktop-menu*(1), *xdg-mime*(1), *Icon
+theme specification*[1]
+
+.SH "EXAMPLES"
+
+.PP To install an icon resource to depict a launcher for the application
+myfoobar, the company ShinyThings Inc. can use:
+
+#+begin_quote
+#+begin_example
+xdg-icon-resource install --size 64 shinythings-myfoobar.png
+#+end_example
+
+#+end_quote
+
+.PP To install an icon for a new application/x-foobar file type one can
+use:
+
+#+begin_quote
+#+begin_example
+xdg-icon-resource install --context mimetypes --size 48 ./mime-foobar-48.png application-x-foobar
+xdg-icon-resource install --context mimetypes --size 64 ./mime-foobar-64.png application-x-foobar
+#+end_example
+
+#+end_quote
+
+This will install two icons with the name application-x-foobar but with
+different sizes.
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+* AUTHORS
+*Kevin Krammer*
+
+#+begin_quote
+Author.
+
+#+end_quote
+
+*Jeremy White*
+
+#+begin_quote
+Author.
+
+#+end_quote
+
+* COPYRIGHT
+\\
+Copyright © 2006\\
+
+* NOTES
+-  1. :: Icon theme specification
+
+  http://www.freedesktop.org/wiki/Specifications/icon-theme-spec/

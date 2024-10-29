@@ -1,0 +1,148 @@
+#+TITLE: Manpages - spa-acp-tool.1
+* NAME
+spa-acp-tool - The PipeWire ALSA profile debugging utility
+
+* SYNOPSIS
+*spa-acp-tool* [/COMMAND/]
+
+* DESCRIPTION
+Debug tool for exercising the ALSA card profile probing code, without
+running PipeWire.
+
+May be used to debug problems where PipeWire has incorrectly functioning
+ALSA card profiles.
+
+* COMMANDS
+*help | h*
+
+#+begin_quote
+Show available commands
+
+#+end_quote
+
+*quit | q*
+
+#+begin_quote
+Quit
+
+#+end_quote
+
+*card ID | c ID*
+
+#+begin_quote
+Probe card
+
+#+end_quote
+
+*info | i*
+
+#+begin_quote
+List card info
+
+#+end_quote
+
+*list | l*
+
+#+begin_quote
+List all objects
+
+#+end_quote
+
+*list-verbose | lv*
+
+#+begin_quote
+List all data
+
+#+end_quote
+
+*list-profiles [ID] | lpr [ID]*
+
+#+begin_quote
+List profiles
+
+#+end_quote
+
+*set-profile ID | spr ID*
+
+#+begin_quote
+Activate a profile
+
+#+end_quote
+
+*list-ports [ID] | lp [ID]*
+
+#+begin_quote
+List ports
+
+#+end_quote
+
+*set-port ID | sp ID*
+
+#+begin_quote
+Activate a port
+
+#+end_quote
+
+*list-devices [ID] | ld [ID]*
+
+#+begin_quote
+List available devices
+
+#+end_quote
+
+*get-volume ID | gv ID*
+
+#+begin_quote
+Get volume from device
+
+#+end_quote
+
+*set-volume ID VOL | v ID VOL*
+
+#+begin_quote
+Set volume on device
+
+#+end_quote
+
+*inc-volume ID | v+ ID*
+
+#+begin_quote
+Increase volume on device
+
+#+end_quote
+
+*dec-volume ID | v- ID*
+
+#+begin_quote
+Decrease volume on device
+
+#+end_quote
+
+*get-mute ID | gm ID*
+
+#+begin_quote
+Get mute state from device
+
+#+end_quote
+
+*set-mute ID VAL | sm ID VAL*
+
+#+begin_quote
+Set mute on device
+
+#+end_quote
+
+*toggle-mute ID | m ID*
+
+#+begin_quote
+Toggle mute on device
+
+#+end_quote
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pipewire(1)*

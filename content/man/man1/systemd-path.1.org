@@ -1,0 +1,61 @@
+#+TITLE: Manpages - systemd-path.1
+* NAME
+systemd-path - List and query system and user paths
+
+* SYNOPSIS
+*systemd-path* [OPTIONS...] [NAME...]
+
+* DESCRIPTION
+*systemd-path* may be used to query system and user paths. The tool
+makes many of the paths described in *file-hierarchy*(7) available for
+querying.
+
+When invoked without arguments, a list of known paths and their current
+values is shown. When at least one argument is passed, the path with
+this name is queried and its value shown. The variables whose name
+begins with "search-" do not refer to individual paths, but instead to a
+list of colon-separated search paths, in their order of precedence.
+
+Note that paths which depend on environment variables are computed with
+*systemd-path*s invoked environment, and not the system or user managers
+environment. As such, the output of *systemd-path* may not reflect the
+behavior of manager processes.
+
+* OPTIONS
+The following options are understood:
+
+*--suffix=*
+
+#+begin_quote
+Printed paths are suffixed by the specified string.
+
+Added in version 215.
+
+#+end_quote
+
+*--no-pager*
+
+#+begin_quote
+Do not pipe output into a pager.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Print a short help text and exit.
+
+#+end_quote
+
+*--version*
+
+#+begin_quote
+Print a short version string and exit.
+
+#+end_quote
+
+* EXIT STATUS
+On success, 0 is returned, a non-zero failure code otherwise.
+
+* SEE ALSO
+*systemd*(1), *file-hierarchy*(7)

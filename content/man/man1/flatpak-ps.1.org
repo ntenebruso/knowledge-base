@@ -1,0 +1,157 @@
+#+TITLE: Manpages - flatpak-ps.1
+* NAME
+flatpak-ps - Enumerate running instances
+
+* SYNOPSIS
+*flatpak ps* [OPTION...]
+
+* DESCRIPTION
+Lists useful information about running Flatpak instances.
+
+To see full details of a running instance, you can open the file
+/run/user/$UID/.flatpak/$INSTANCE/info, where /$INSTANCE/ is the
+instance ID reported by flatpak ps.
+
+* OPTIONS
+The following options are understood:
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information during command processing.
+
+#+end_quote
+
+*--ostree-verbose*
+
+#+begin_quote
+Print OSTree debug information during command processing.
+
+#+end_quote
+
+*--columns=FIELD,...*
+
+#+begin_quote
+Specify what information to show about each instance. You can list
+multiple fields, or use this option multiple times.
+
+Append :s[tart], :m[iddle], :e[nd] or :f[ull] to column names to change
+ellipsization.
+
+#+end_quote
+
+* FIELDS
+The following fields are understood by the *--columns* option:
+
+instance
+
+#+begin_quote
+Show the instance ID
+
+#+end_quote
+
+application
+
+#+begin_quote
+Show the application ID
+
+#+end_quote
+
+arch
+
+#+begin_quote
+Show the architecture
+
+#+end_quote
+
+branch
+
+#+begin_quote
+Show the application branch
+
+#+end_quote
+
+commit
+
+#+begin_quote
+Show the application commit
+
+#+end_quote
+
+runtime
+
+#+begin_quote
+Show the runtime ID
+
+#+end_quote
+
+runtime-branch
+
+#+begin_quote
+Show the runtime branch
+
+#+end_quote
+
+runtime-commit
+
+#+begin_quote
+Show the runtime commit
+
+#+end_quote
+
+pid
+
+#+begin_quote
+Show the PID of the wrapper process
+
+#+end_quote
+
+child-pid
+
+#+begin_quote
+Show the PID of the sandbox process
+
+#+end_quote
+
+active
+
+#+begin_quote
+Show whether the app is active (i.e. has an active window)
+
+#+end_quote
+
+background
+
+#+begin_quote
+Show whether the app is in the background (with no open windows)
+
+#+end_quote
+
+all
+
+#+begin_quote
+Show all columns
+
+#+end_quote
+
+help
+
+#+begin_quote
+Show the list of available columns
+
+#+end_quote
+
+Note that field names can be abbreviated to a unique prefix.
+
+* EXAMPLES
+*$ flatpak ps --columns=application,pid,runtime,runtime-branch*
+
+* SEE ALSO
+*flatpak*(1), *flatpak-run*(1)

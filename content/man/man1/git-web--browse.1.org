@@ -1,0 +1,221 @@
+#+TITLE: Manpages - git-web--browse.1
+* NAME
+git-web--browse - Git helper script to launch a web browser
+
+* SYNOPSIS
+#+begin_example
+git web--browse [<options>] (<URL>|<file>)...
+#+end_example
+
+* DESCRIPTION
+This script tries, as much as possible, to display the URLs and FILEs
+that are passed as arguments, as HTML pages in new tabs on an already
+opened web browser.
+
+The following browsers (or commands) are currently supported:
+
+#+begin_quote
+·
+
+firefox (this is the default under X Window when not using KDE)
+
+#+end_quote
+
+#+begin_quote
+·
+
+iceweasel
+
+#+end_quote
+
+#+begin_quote
+·
+
+seamonkey
+
+#+end_quote
+
+#+begin_quote
+·
+
+iceape
+
+#+end_quote
+
+#+begin_quote
+·
+
+chromium (also supported as chromium-browser)
+
+#+end_quote
+
+#+begin_quote
+·
+
+google-chrome (also supported as chrome)
+
+#+end_quote
+
+#+begin_quote
+·
+
+konqueror (this is the default under KDE, see /Note about konqueror/
+below)
+
+#+end_quote
+
+#+begin_quote
+·
+
+opera
+
+#+end_quote
+
+#+begin_quote
+·
+
+w3m (this is the default outside graphical environments)
+
+#+end_quote
+
+#+begin_quote
+·
+
+elinks
+
+#+end_quote
+
+#+begin_quote
+·
+
+links
+
+#+end_quote
+
+#+begin_quote
+·
+
+lynx
+
+#+end_quote
+
+#+begin_quote
+·
+
+dillo
+
+#+end_quote
+
+#+begin_quote
+·
+
+open (this is the default under Mac OS X GUI)
+
+#+end_quote
+
+#+begin_quote
+·
+
+start (this is the default under MinGW)
+
+#+end_quote
+
+#+begin_quote
+·
+
+cygstart (this is the default under Cygwin)
+
+#+end_quote
+
+#+begin_quote
+·
+
+xdg-open
+
+#+end_quote
+
+Custom commands may also be specified.
+
+* OPTIONS
+-b <browser>, --browser=<browser>
+
+#+begin_quote
+Use the specified browser. It must be in the list of supported browsers.
+
+#+end_quote
+
+-t <browser>, --tool=<browser>
+
+#+begin_quote
+Same as above.
+
+#+end_quote
+
+-c <conf.var>, --config=<conf.var>
+
+#+begin_quote
+CONF.VAR is looked up in the Git config files. If it's set, then its
+value specifies the browser that should be used.
+
+#+end_quote
+
+* CONFIGURATION VARIABLES
+** CONF.VAR (from -c option) and web.browser
+The web browser can be specified using a configuration variable passed
+with the -c (or --config) command-line option, or the *web.browser*
+configuration variable if the former is not used.
+
+** browser.<tool>.path
+You can explicitly provide a full path to your preferred browser by
+setting the configuration variable *browser.<tool>.path*. For example,
+you can configure the absolute path to firefox by setting
+/browser.firefox.path/. Otherwise, /git web--browse/ assumes the tool is
+available in PATH.
+
+** browser.<tool>.cmd
+When the browser, specified by options or configuration variables, is
+not among the supported ones, then the corresponding
+*browser.<tool>.cmd* configuration variable will be looked up. If this
+variable exists then /git web--browse/ will treat the specified tool as
+a custom command and will use a shell eval to run the command with the
+URLs passed as arguments.
+
+* NOTE ABOUT KONQUEROR
+When /konqueror/ is specified by a command-line option or a
+configuration variable, we launch /kfmclient/ to try to open the HTML
+man page on an already opened konqueror in a new tab if possible.
+
+For consistency, we also try such a trick if /browser.konqueror.path/ is
+set to something like *A_PATH_TO/konqueror*. That means we will try to
+launch *A_PATH_TO/kfmclient* instead.
+
+If you really want to use /konqueror/, then you can use something like
+the following:
+
+#+begin_quote
+#+begin_example
+        [web]
+                browser = konq
+
+        [browser "konq"]
+                cmd = A_PATH_TO/konqueror
+#+end_example
+
+#+end_quote
+
+** Note about git-config --global
+Note that these configuration variables should probably be set using the
+*--global* flag, for example like this:
+
+#+begin_quote
+#+begin_example
+$ git config --global web.browser firefox
+#+end_example
+
+#+end_quote
+
+as they are probably more user specific than repository specific. See
+*git-config*(1) for more information about this.
+
+* GIT
+Part of the *git*(1) suite

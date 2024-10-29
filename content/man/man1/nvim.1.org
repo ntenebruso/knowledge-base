@@ -1,0 +1,322 @@
+#+TITLE: Manpages - nvim.1
+is a text editor based on Vim. Start
+
+followed by any number of options and/or files:
+
+Commands in
+
+begin with colon
+
+Type ":help subject" to get help on a specific subject. Use <Tab> and
+CTRL-D to complete subjects (":help cmdline-completion").
+
+The "quickref" help section is a condensed reference of editor features:
+
+If you are new to Vim/Nvim, start with the 30-minute tutorial:
+
+After installing/updating Nvim, it's a good idea to run the self-check:
+
+File(s) to edit. Opens one buffer per file. To switch between buffers,
+use the
+
+and
+
+commands.
+
+Reads text from standard input until
+
+then opens a buffer with that text. User input is read from standard
+error, which should be a terminal.
+
+Finds
+
+in the tags file, the associated file becomes the current file and the
+associated command is executed. Cursor is positioned at the tag location
+in the file.
+
+QuickFix mode. Display the first error in
+
+If
+
+is omitted, the value of the 'errorfile' option is used (defaults to
+
+Further errors can be jumped to with the
+
+command.
+
+End of options. Remaining arguments are treated as literal file names,
+including filenames starting with hyphen
+
+Ex mode, reading stdin as Ex commands.
+
+Ex mode, reading stdin as text.
+
+Silent (non-interactive) Ex mode, reading stdin as Ex commands. Useful
+for scripting because it does NOT start a UI, unlike
+
+Silent (non-interactive) Ex mode, reading stdin as text. Useful for
+scripting because it does NOT start a UI, unlike
+
+Diff mode. Show the difference between two to eight files, similar to
+
+Read-only mode. Sets the 'readonly' option. Implies
+
+Buffers can still be edited, but cannot be written to disk if already
+associated with a file. To overwrite a file, add an exclamation mark to
+the relevant Ex command, such as
+
+Resets the 'write' option, to disable file modifications. Writing to a
+file is disabled, but buffers can still be modified.
+
+Resets the 'write' and 'modifiable' options, to disable file and buffer
+modifications.
+
+Binary mode.
+
+Arabic mode. Sets the 'arabic' option.
+
+Hebrew mode. Sets the 'hkmap' and 'rightleft' options.
+
+Verbose mode. Prints debug messages.
+
+is the 'verbose' level, defaults to
+
+If
+
+is specified, append messages to
+
+instead of printing them.
+
+Vimscript debug mode. Started when executing the first command from a
+script. :help debug-mode
+
+Disable the use of swap files. Sets the 'updatecount' option to
+
+Can be useful for editing files on a slow medium.
+
+Recovery mode. If
+
+is omitted then list swap files with recovery information. Otherwise the
+swap file
+
+is used to recover a crashed session. The swap file has the same name as
+the file it's associated with, but with
+
+appended.
+
+Alias for
+
+Use
+
+instead of the default
+
+If
+
+is
+
+do not load any initialization files (except plugins). If
+
+is
+
+loading plugins is also skipped.
+
+Use
+
+instead of the default
+
+If
+
+is
+
+do not read or write a ShaDa file.
+
+Skip loading plugins (by setting the 'noloadplugins' option). Implied by
+
+Start Nvim with "factory defaults" (no user config and plugins, no
+shada).
+
+Open
+
+windows stacked horizontally. If
+
+is omitted, open one window for each file. If
+
+is less than the number of file arguments, allocate windows for the
+first
+
+files and hide the rest.
+
+Like
+
+but tile windows vertically.
+
+Like
+
+but for tab pages.
+
+For the first file, position the cursor on line
+
+If
+
+is omitted, position the cursor on the last line of the file.
+
+and
+
+on the command-line are equivalent to
+
+inside
+
+For the first file, position the cursor on the first occurrence of
+
+If
+
+is omitted, the most recent search pattern is used (if any).
+
+and
+
+on the command-line are equivalent to
+
+and
+
+inside
+
+Execute
+
+after reading the first file. Up to 10 instances allowed.
+
+and
+
+are equivalent.
+
+Like
+
+but execute
+
+before processing any vimrc. Up to 10 instances of these can be used
+independently from instances of
+
+Execute Lua
+
+with optional
+
+after processing any preceding Nvim startup arguments. All
+
+are treated as script arguments and are passed literally to Lua, that
+is,
+
+stops processing of Nvim arguments.
+
+Execute
+
+after the first file argument has been read. If
+
+filename ends with
+
+it is executed as Lua instead of Vimscript. Equivalent to
+
+cannot start with a hyphen
+
+If
+
+is omitted then
+
+is used, if found.
+
+Read normal mode commands from
+
+The same can be done with the command
+
+If the end of the file is reached before
+
+exits, further characters are read from the keyboard.
+
+Append all typed characters to
+
+Can be used for creating a script to be used with
+
+or
+
+Like
+
+but truncate
+
+During startup, append timing messages to
+
+Can be used to diagnose slow startup times.
+
+Dump API metadata serialized to msgpack and exit.
+
+Use standard input and standard output as a msgpack-rpc channel. :help
+--embed
+
+Do not start a UI. When supplied with --embed this implies that the
+embedding application does not intend to (immediately) start a UI. Also
+useful for "scraping" messages in a pipe. :help --headless
+
+Start RPC server on this pipe or TCP socket.
+
+Print usage information and exit.
+
+Print version information and exit.
+
+The name of sub-directories used within each XDG user directory.
+Defaults to
+
+:help $NVIM_APPNAME
+
+Low-level log file, usually found at ~/.local/state/nvim/log. :help
+$NVIM_LOG_FILE
+
+Used to locate user files, such as init.vim. System-dependent. :help
+$VIM
+
+Used to locate runtime files (documentation, syntax highlighting, etc.).
+
+Path to the user-local configuration directory, see
+
+Defaults to
+
+:help xdg
+
+Like
+
+but used to store data not generally edited by the user, namely swap,
+backup, and ShaDa files. Defaults to
+
+:help xdg
+
+Like
+
+but used to store data not generally edited by the user, things like
+runtime files. Defaults to
+
+:help xdg
+
+Ex commands to be executed at startup.
+
+Used to initialize the 'shell' option, which decides the default shell
+used by features like
+
+User-local
+
+configuration file.
+
+User-local
+
+configuration directory. See also
+
+System-global
+
+configuration file.
+
+System-global
+
+runtime directory.
+
+Nvim was started by
+
+Most of Vim was written by
+
+Vim is based on Stevie, worked on by
+
+and

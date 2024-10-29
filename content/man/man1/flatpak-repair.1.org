@@ -1,0 +1,125 @@
+#+TITLE: Manpages - flatpak-repair.1
+* NAME
+flatpak-repair - Repair a flatpak installation
+
+* SYNOPSIS
+*flatpak repair* [OPTION...]
+
+* DESCRIPTION
+Repair a flatpak installation by pruning and reinstalling invalid
+objects. The repair command does all of the following:
+
+#+begin_quote
+·
+
+Scan all locally available refs, removing any that dont correspond to a
+deployed ref.
+
+#+end_quote
+
+#+begin_quote
+·
+
+Verify each commit they point to, removing any invalid objects and
+noting any missing objects.
+
+#+end_quote
+
+#+begin_quote
+·
+
+Remove any refs that had an invalid object, and any non-partial refs
+that had missing objects.
+
+#+end_quote
+
+#+begin_quote
+·
+
+Prune all objects not referenced by a ref, which gets rid of any
+possibly invalid non-scanned objects.
+
+#+end_quote
+
+#+begin_quote
+·
+
+Enumerate all deployed refs and re-install any that are not in the repo
+(or are partial for a non-subdir deploy).
+
+#+end_quote
+
+Note that *flatpak repair* has to be run with root privileges to operate
+on the system installation.
+
+An alternative command for repairing OSTree repositories is ostree fsck.
+
+* OPTIONS
+The following options are understood:
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*-u*, *--user*
+
+#+begin_quote
+Repair per-user installation.
+
+#+end_quote
+
+*--system*
+
+#+begin_quote
+Repair system-wide installation.
+
+#+end_quote
+
+*--installation=NAME*
+
+#+begin_quote
+Repair the system-wide installation specified by NAME among those
+defined in /etc/flatpak/installations.d/. Using --installation=default
+is equivalent to using --system.
+
+#+end_quote
+
+*--dry-run*
+
+#+begin_quote
+Only report inconsistencies, dont make any changes
+
+#+end_quote
+
+*--reinstall-all*
+
+#+begin_quote
+Reinstall all refs, regardless of whether they were removed from the
+repo or not
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information during command processing.
+
+#+end_quote
+
+*--ostree-verbose*
+
+#+begin_quote
+Print OSTree debug information during command processing.
+
+#+end_quote
+
+* EXAMPLES
+*$ sudo flatpak repair*
+
+*$ flatpak repair --user*
+
+* SEE ALSO
+*flatpak*(1), *ostree-fsck*(1)

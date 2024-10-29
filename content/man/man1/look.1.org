@@ -1,0 +1,119 @@
+#+TITLE: Manpages - look.1
+* NAME
+look - display lines beginning with a given string
+
+* SYNOPSIS
+*look* [options] /string/ [/file/]
+
+* DESCRIPTION
+The *look* utility displays any lines in /file/ which contain /string/
+as a prefix. As *look* performs a binary search, the lines in /file/
+must be sorted (where *sort*(1) was given the same options *-d* and/or
+*-f* that *look* is invoked with).
+
+If /file/ is not specified, the file //usr/share/dict/words/ is used,
+only alphanumeric characters are compared and the case of alphabetic
+characters is ignored.
+
+* OPTIONS
+*-a*, *--alternative*
+
+#+begin_quote
+Use the alternative dictionary file.
+
+#+end_quote
+
+*-d*, *--alphanum*
+
+#+begin_quote
+Use normal dictionary character set and order, i.e., only blanks and
+alphanumeric characters are compared. This is on by default if no file
+is specified.
+
+Note that blanks have been added to dictionary character set for
+compatibility with *sort -d* command since version 2.28.
+
+#+end_quote
+
+*-f*, *--ignore-case*
+
+#+begin_quote
+Ignore the case of alphabetic characters. This is on by default if no
+file is specified.
+
+#+end_quote
+
+*-t*, *--terminate* /character/
+
+#+begin_quote
+Specify a string termination character, i.e., only the characters in
+/string/ up to and including the first occurrence of /character/ are
+compared.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Print version and exit.
+
+#+end_quote
+
+The *look* utility exits 0 if one or more lines were found and
+displayed, 1 if no lines were found, and >1 if an error occurred.
+
+* ENVIRONMENT
+*WORDLIST*
+
+#+begin_quote
+Path to a dictionary file. The environment variable has greater priority
+than the dictionary path defined in the *FILES* segment.
+
+#+end_quote
+
+* FILES
+//usr/share/dict/words/
+
+#+begin_quote
+the dictionary
+
+#+end_quote
+
+//usr/share/dict/web2/
+
+#+begin_quote
+the alternative dictionary
+
+#+end_quote
+
+* HISTORY
+The *look* utility appeared in Version 7 AT&T Unix.
+
+* EXAMPLES
+
+#+begin_quote
+#+begin_example
+sort -d /etc/passwd -o /tmp/look.dict
+look -t: root:foobar /tmp/look.dict
+#+end_example
+
+#+end_quote
+
+* SEE ALSO
+*grep*(1), *sort*(1)
+
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *look* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

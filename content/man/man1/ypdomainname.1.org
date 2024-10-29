@@ -1,0 +1,2 @@
+#+TITLE: Manpages - ypdomainname.1
+

@@ -1,0 +1,52 @@
+#+TITLE: Manpages - named-rrchecker.1
+* NAME
+named-rrchecker - syntax checker for individual DNS resource records
+
+* SYNOPSIS
+*named-rrchecker* [*-h*] [*-o* origin] [*-p*] [*-u*] [*-C*] [*-T*]
+[*-P*]
+
+* DESCRIPTION
+*named-rrchecker* reads a individual DNS resource record from standard
+input and checks whether it is syntactically correct.
+
+* OPTIONS
+
+#+begin_quote
+- *-h* :: This option prints out the help menu.
+
+#+end_quote
+
+#+begin_quote
+- *-o origin* :: This option specifies the origin to be used when
+  interpreting the record.
+
+#+end_quote
+
+#+begin_quote
+- *-p* :: This option prints out the resulting record in canonical form.
+  If there is no canonical form defined, the record is printed in
+  unknown record format.
+
+#+end_quote
+
+#+begin_quote
+- *-u* :: This option prints out the resulting record in unknown record
+  form.
+
+#+end_quote
+
+#+begin_quote
+- *-C, -T, -P* :: These options print out the known class, standard
+  type, and private type mnemonics, respectively.
+
+#+end_quote
+
+* SEE ALSO
+/RFC 1034/, /RFC 1035/, /named(8)/.
+
+* AUTHOR
+Internet Systems Consortium
+
+* COPYRIGHT
+2024, Internet Systems Consortium

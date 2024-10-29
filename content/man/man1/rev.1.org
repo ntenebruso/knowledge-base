@@ -1,0 +1,49 @@
+#+TITLE: Manpages - rev.1
+* NAME
+rev - reverse lines characterwise
+
+* SYNOPSIS
+*rev* [option] [/file/...]
+
+* DESCRIPTION
+The *rev* utility copies the specified files to standard output,
+reversing the order of characters in every line. If no files are
+specified, standard input is read.
+
+This utility is a line-oriented tool and it uses in-memory allocated
+buffer for a whole wide-char line. If the input file is huge and without
+line breaks then allocating the memory for the file may be unsuccessful.
+
+* OPTIONS
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Print version and exit.
+
+#+end_quote
+
+*-0*, *--zero*
+
+#+begin_quote
+/Zero termination/. Use the byte \0 as line separator.
+
+#+end_quote
+
+* SEE ALSO
+*tac*(1)
+
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *rev* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

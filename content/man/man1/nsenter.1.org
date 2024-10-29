@@ -1,0 +1,374 @@
+#+TITLE: Manpages - nsenter.1
+* NAME
+nsenter - run program in different namespaces
+
+* SYNOPSIS
+*nsenter* [options] [/program/ [/arguments/]]
+
+* DESCRIPTION
+The *nsenter* command executes /program/ in the namespace(s) that are
+specified in the command-line options (described below). If /program/ is
+not given, then "${SHELL}" is run (default: //bin/sh/).
+
+Enterable namespaces are:
+
+*mount namespace*
+
+#+begin_quote
+Mounting and unmounting filesystems will not affect the rest of the
+system, except for filesystems which are explicitly marked as shared
+(with *mount --make-shared*; see //proc/self/mountinfo/ for the *shared*
+flag). For further details, see *mount_namespaces*(7) and the discussion
+of the *CLONE_NEWNS* flag in *clone*(2).
+
+#+end_quote
+
+*UTS namespace*
+
+#+begin_quote
+Setting hostname or domainname will not affect the rest of the system.
+For further details, see *uts_namespaces*(7).
+
+#+end_quote
+
+*IPC namespace*
+
+#+begin_quote
+The process will have an independent namespace for POSIX message queues
+as well as System V message queues, semaphore sets and shared memory
+segments. For further details, see *ipc_namespaces*(7).
+
+#+end_quote
+
+*network namespace*
+
+#+begin_quote
+The process will have independent IPv4 and IPv6 stacks, IP routing
+tables, firewall rules, the //proc/net/ and //sys/class/net/ directory
+trees, sockets, etc. For further details, see *network_namespaces*(7).
+
+#+end_quote
+
+*PID namespace*
+
+#+begin_quote
+Children will have a set of PID to process mappings separate from the
+*nsenter* process. *nsenter* will fork by default if changing the PID
+namespace, so that the new program and its children share the same PID
+namespace and are visible to each other. If *--no-fork* is used, the new
+program will be exec'ed without forking. For further details, see
+*pid_namespaces*(7).
+
+#+end_quote
+
+*user namespace*
+
+#+begin_quote
+The process will have a distinct set of UIDs, GIDs and capabilities. For
+further details, see *user_namespaces*(7).
+
+#+end_quote
+
+*cgroup namespace*
+
+#+begin_quote
+The process will have a virtualized view of //proc/self/cgroup/, and new
+cgroup mounts will be rooted at the namespace cgroup root. For further
+details, see *cgroup_namespaces*(7).
+
+#+end_quote
+
+*time namespace*
+
+#+begin_quote
+The process can have a distinct view of *CLOCK_MONOTONIC* and/or
+*CLOCK_BOOTTIME* which can be changed using //proc/self/timens_offsets/.
+For further details, see *time_namespaces*(7).
+
+#+end_quote
+
+* OPTIONS
+Various of the options below that relate to namespaces take an optional
+/file/ argument. This should be one of the //proc/[pid]/ns/*/ files
+described in *namespaces*(7), or the pathname of a bind mount that was
+created on one of those files.
+
+*-a*, *--all*
+
+#+begin_quote
+Enter all namespaces of the target process by the default
+//proc/[pid]/ns/*/ namespace paths. The default paths to the target
+process namespaces may be overwritten by namespace specific options
+(e.g., *--all --mount*=[/path/]).
+
+The user namespace will be ignored if the same as the caller's current
+user namespace. It prevents a caller that has dropped capabilities from
+regaining those capabilities via a call to setns(). See *setns*(2) for
+more details.
+
+#+end_quote
+
+*-t*, *--target* /PID/
+
+#+begin_quote
+Specify a target process to get contexts from. The paths to the contexts
+specified by /pid/ are:
+
+//proc/pid/ns/mnt/
+
+#+begin_quote
+the mount namespace
+
+#+end_quote
+
+//proc/pid/ns/uts/
+
+#+begin_quote
+the UTS namespace
+
+#+end_quote
+
+//proc/pid/ns/ipc/
+
+#+begin_quote
+the IPC namespace
+
+#+end_quote
+
+//proc/pid/ns/net/
+
+#+begin_quote
+the network namespace
+
+#+end_quote
+
+//proc/pid/ns/pid/
+
+#+begin_quote
+the PID namespace
+
+#+end_quote
+
+//proc/pid/ns/user/
+
+#+begin_quote
+the user namespace
+
+#+end_quote
+
+//proc/pid/ns/cgroup/
+
+#+begin_quote
+the cgroup namespace
+
+#+end_quote
+
+//proc/pid/ns/time/
+
+#+begin_quote
+the time namespace
+
+#+end_quote
+
+//proc/pid/root/
+
+#+begin_quote
+the root directory
+
+#+end_quote
+
+//proc/pid/cwd/
+
+#+begin_quote
+the working directory respectively
+
+#+end_quote
+
+#+end_quote
+
+*-m*, *--mount*[=/file/]
+
+#+begin_quote
+Enter the mount namespace. If no file is specified, enter the mount
+namespace of the target process. If /file/ is specified, enter the mount
+namespace specified by /file/.
+
+#+end_quote
+
+*-u*, *--uts*[=/file/]
+
+#+begin_quote
+Enter the UTS namespace. If no file is specified, enter the UTS
+namespace of the target process. If /file/ is specified, enter the UTS
+namespace specified by /file/.
+
+#+end_quote
+
+*-i*, *--ipc*[=/file/]
+
+#+begin_quote
+Enter the IPC namespace. If no file is specified, enter the IPC
+namespace of the target process. If /file/ is specified, enter the IPC
+namespace specified by /file/.
+
+#+end_quote
+
+*-n*, *--net*[=/file/]
+
+#+begin_quote
+Enter the network namespace. If no file is specified, enter the network
+namespace of the target process. If /file/ is specified, enter the
+network namespace specified by /file/.
+
+#+end_quote
+
+*-p*, *--pid*[=/file/]
+
+#+begin_quote
+Enter the PID namespace. If no file is specified, enter the PID
+namespace of the target process. If /file/ is specified, enter the PID
+namespace specified by /file/.
+
+#+end_quote
+
+*-U*, *--user*[=/file/]
+
+#+begin_quote
+Enter the user namespace. If no file is specified, enter the user
+namespace of the target process. If /file/ is specified, enter the user
+namespace specified by /file/. See also the *--setuid* and *--setgid*
+options.
+
+#+end_quote
+
+*-C*, *--cgroup*[=/file/]
+
+#+begin_quote
+Enter the cgroup namespace. If no file is specified, enter the cgroup
+namespace of the target process. If /file/ is specified, enter the
+cgroup namespace specified by /file/.
+
+#+end_quote
+
+*-T*, *--time*[=/file/]
+
+#+begin_quote
+Enter the time namespace. If no file is specified, enter the time
+namespace of the target process. If /file/ is specified, enter the time
+namespace specified by /file/.
+
+#+end_quote
+
+*-G*, *--setgid* /gid/
+
+#+begin_quote
+Set the group ID which will be used in the entered namespace and drop
+supplementary groups. *nsenter* always sets GID for user namespaces, the
+default is 0. If the argument "follow" is specified the GID of the
+target process is used.
+
+#+end_quote
+
+*-S*, *--setuid* /uid/
+
+#+begin_quote
+Set the user ID which will be used in the entered namespace. *nsenter*
+always sets UID for user namespaces, the default is 0. If the argument
+"follow" is specified the UID of the target process is used.
+
+#+end_quote
+
+*--preserve-credentials*
+
+#+begin_quote
+Don't modify UID and GID when enter user namespace. The default is to
+drops supplementary groups and sets GID and UID to 0.
+
+#+end_quote
+
+*-r*, *--root*[=/directory/]
+
+#+begin_quote
+Set the root directory. If no directory is specified, set the root
+directory to the root directory of the target process. If directory is
+specified, set the root directory to the specified directory. The
+specified /directory/ is open before it switches to the requested
+namespaces.
+
+#+end_quote
+
+*-w*, *--wd*[=/directory/]
+
+#+begin_quote
+Set the working directory. If no directory is specified, set the working
+directory to the working directory of the target process. If directory
+is specified, set the working directory to the specified directory. The
+specified /directory/ is open before it switches to the requested
+namespaces, it means the specified directory works as "tunnel" to the
+current namespace. See also *--wdns*.
+
+#+end_quote
+
+*-W*, *--wdns*[=/directory/]
+
+#+begin_quote
+Set the working directory. The /directory/ is open after switch to the
+requested namespaces and after *chroot*(2) call. The options *--wd* and
+*--wdns* are mutually exclusive.
+
+#+end_quote
+
+*-e*, *--env*
+
+#+begin_quote
+Pass environment variables from the target process to the new process
+being created. If this option is not provided, the environment variables
+will remain the same as in the current namespace..
+
+#+end_quote
+
+*-F*, *--no-fork*
+
+#+begin_quote
+Do not fork before exec'ing the specified program. By default, when
+entering a PID namespace, *nsenter* calls *fork* before calling *exec*
+so that any children will also be in the newly entered PID namespace.
+
+#+end_quote
+
+*-Z*, *--follow-context*
+
+#+begin_quote
+Set the SELinux security context used for executing a new process
+according to already running process specified by *--target* PID. (The
+util-linux has to be compiled with SELinux support otherwise the option
+is unavailable.)
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Print version and exit.
+
+#+end_quote
+
+* AUTHORS
+* SEE ALSO
+*clone*(2), *setns*(2), *namespaces*(7)
+
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *nsenter* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

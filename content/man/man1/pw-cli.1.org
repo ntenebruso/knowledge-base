@@ -1,0 +1,239 @@
+#+TITLE: Manpages - pw-cli.1
+* NAME
+pw-cli - The PipeWire Command Line Interface
+
+* SYNOPSIS
+*pw-cli* [/command/]
+
+* DESCRIPTION
+Interact with a PipeWire instance.
+
+When a command is given, *pw-cli* will execute the command and exit
+
+When no command is given, *pw-cli* starts an interactive session with
+the default PipeWire instance /pipewire-0/.
+
+Connections to other, remote instances can be made. The current instance
+name is displayed at the prompt.
+
+Note that *pw-cli* also creates a local PipeWire instance. Some commands
+operate on the current (remote) instance and some on the local instance,
+such as module loading.
+
+Use the 'help' command to list the available commands.
+
+* GENERAL COMMANDS
+*help | h*
+
+#+begin_quote
+Show a quick help on the commands available. It also lists the aliases
+for many commands.
+
+#+end_quote
+
+*quit | q*
+
+#+begin_quote
+Exit from *pw-cli*
+
+#+end_quote
+
+* MODULE MANAGEMENT
+Modules are loaded and unloaded in the local instance, thus the pw-cli
+binary itself and can add functionality or objects to the local
+instance. It is not possible in PipeWire to load modules in another
+instance.
+
+*load-module */name/* [*/arguments.../*]*
+
+#+begin_quote
+Load a module specified by its name and arguments in the local instance.
+For most modules it is OK to be loaded more than once.
+
+This command returns a module variable that can be used to unload the
+module.
+
+The locally module is /not visible in the remote instance. It is not
+possible in PipeWire to load modules in a remote instance. /
+
+#+end_quote
+
+*unload-module */module-var/
+
+#+begin_quote
+Unload a module, specified either by its variable.
+
+#+end_quote
+
+* OBJECT INTROSPECTION
+*list-objects*
+
+#+begin_quote
+List the objects of the current instance.
+
+#+end_quote
+
+Objects are listed with their /id, type and version./
+
+*info */id/* | */all/
+
+#+begin_quote
+Get information about a specific object or /all objects./
+
+#+end_quote
+
+Requesting info about an object will also notify you of changes.
+
+* WORKING WITH REMOTES
+*connect [*/remote-name/*]*
+
+#+begin_quote
+Connect to a remote instance and make this the new current instance.
+
+If no remote name is specified, a connection is made to the default
+remote instance, usually /pipewire-0./
+
+The special remote name called /internal can be used to connect to the
+local /*pw-cli*/ PipeWire instance./
+
+This command returns a remote var that can be used to disconnect or
+switch remotes.
+
+#+end_quote
+
+*disconnect [*/remote-var/*]*
+
+#+begin_quote
+Disconnect from a /remote instance./
+
+If no remote name is specified, the current instance is disconnected.
+
+#+end_quote
+
+*list-remotes*
+
+#+begin_quote
+List all /remote instances./
+
+#+end_quote
+
+*switch-remote [*/remote-var/*]*
+
+#+begin_quote
+Make the specified /remote the current instance./
+
+If no remote name is specified, the first instance is made current.
+
+#+end_quote
+
+* NODE MANAGEMENT
+*create-node */factory-name/* [*/properties.../*]*
+
+#+begin_quote
+Create a node from a factory in the current instance.
+
+Properties are key=value pairs separated by whitespace.
+
+This command returns a /node variable. /
+
+#+end_quote
+
+*export-node */node-id/* [*/remote-var/*]*
+
+#+begin_quote
+Export a node from the local instance to the specified instance. When no
+instance is specified, the node will be exported to the current
+instance.
+
+#+end_quote
+
+* DEVICE MANAGEMENT
+*create-device */factory-name/* [*/properties.../*]*
+
+#+begin_quote
+Create a device from a factory in the current instance.
+
+Properties are key=value pairs separated by whitespace.
+
+This command returns a /device variable. /
+
+#+end_quote
+
+* LINK MANAGEMENT
+*create-link */node-id/* */port-id/* */node-id/* */port-id/*
+[*/properties.../*]*
+
+#+begin_quote
+Create a link between 2 nodes and ports.
+
+Port /ids and Node ids can be set to /-/ to automatically select a node
+or a port./
+
+Port /ids can be /*/ to automatically link matching ports ids in the
+nodes./
+
+Properties are key=value pairs separated by whitespace.
+
+This command returns one or more /link variables. /
+
+#+end_quote
+
+* GLOBALS MANAGEMENT
+*destroy */object-id/
+
+#+begin_quote
+Destroy a global object.
+
+#+end_quote
+
+* PARAMETER MANAGEMENT
+*enum-params */object-id/* */param-id/
+
+#+begin_quote
+Enumerate params of an object.
+
+/param-id can also be given as the param short name. /
+
+#+end_quote
+
+*set-param */object-id/* */param-id/* */param-json/
+
+#+begin_quote
+Set param of an object.
+
+/param-id can also be given as the param short name. /
+
+#+end_quote
+
+* PERMISSION MANAGEMENT
+*permissions */client-id/* */object-id/* */permission/
+
+#+begin_quote
+Set permissions for a client.
+
+/object-id can be -1 to set the default permissions. /
+
+#+end_quote
+
+*get-permissions */client-id/
+
+#+begin_quote
+Get permissions of a client.
+
+#+end_quote
+
+* COMMAND MANAGEMENT
+*send-command */object-id/
+
+#+begin_quote
+Send a command to an object.
+
+#+end_quote
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pipewire(1)*/, /*pw-mon(1)*/, /

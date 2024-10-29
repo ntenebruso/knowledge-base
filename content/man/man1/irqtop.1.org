@@ -1,0 +1,122 @@
+#+TITLE: Manpages - irqtop.1
+* NAME
+irqtop - utility to display kernel interrupt information
+
+* SYNOPSIS
+*irqtop* [options]
+
+* DESCRIPTION
+Display kernel interrupt counter information in *top*(1) style view.
+
+The default output is subject to change. So whenever possible, you
+should avoid using default outputs in your scripts. Always explicitly
+define expected columns by using *--output*.
+
+* OPTIONS
+*-o*, *--output* /list/
+
+#+begin_quote
+Specify which output columns to print. Use *--help* to get a list of all
+supported columns. The default list of columns may be extended if list
+is specified in the format /+list/.
+
+#+end_quote
+
+*-c*, *--cpu-stat* /mode/
+
+#+begin_quote
+Show per-cpu statistics by specified mode. Available modes are: *auto*,
+*enable*, *disable*. The default option *auto* detects the width of
+window, then shows the per-cpu statistics if the width of window is
+large enouth to show a full line of statistics.
+
+#+end_quote
+
+*-C*, *--cpu-list* /list/
+
+#+begin_quote
+Specify cpus in list format to show.
+
+#+end_quote
+
+*-d*, *--delay* /seconds/
+
+#+begin_quote
+Update interrupt output every /seconds/ intervals.
+
+#+end_quote
+
+*-s*, *--sort* /column/
+
+#+begin_quote
+Specify sort criteria by column name. See *--help* output to get column
+names. The sort criteria may be changes in interactive mode.
+
+#+end_quote
+
+*-S*, *--softirq*
+
+#+begin_quote
+Show softirqs information.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Print version and exit.
+
+#+end_quote
+
+* INTERACTIVE MODE KEY COMMANDS
+*i*
+
+#+begin_quote
+sort by short irq name or number field
+
+#+end_quote
+
+*t*
+
+#+begin_quote
+sort by total count of interrupts (the default)
+
+#+end_quote
+
+*d*
+
+#+begin_quote
+sort by delta count of interrupts
+
+#+end_quote
+
+*n*
+
+#+begin_quote
+sort by long descriptive name field
+
+#+end_quote
+
+*q Q*
+
+#+begin_quote
+stop updates and exit program
+
+#+end_quote
+
+* AUTHORS
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *irqtop* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

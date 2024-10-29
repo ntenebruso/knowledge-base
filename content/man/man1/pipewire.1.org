@@ -1,0 +1,432 @@
+#+TITLE: Manpages - pipewire.1
+* NAME
+pipewire - The PipeWire media server
+
+* SYNOPSIS
+*pipewire* [/options/]
+
+* DESCRIPTION
+PipeWire is a service that facilitates sharing of multimedia content
+between devices and applications.
+
+The *pipewire* daemon reads a config file that is further documented in
+*pipewire.conf(5)* manual page.
+
+* OPTIONS
+*-h | --help*
+
+#+begin_quote
+Show help.
+
+#+end_quote
+
+*-v | --verbose*
+
+#+begin_quote
+Increase the verbosity by one level. This option may be specified
+multiple times.
+
+#+end_quote
+
+*--version*
+
+#+begin_quote
+Show version information.
+
+#+end_quote
+
+*-c | --config=FILE*
+
+#+begin_quote
+Load the given config file (Default: pipewire.conf).
+
+#+end_quote
+
+*-P | --properties=PROPS*
+
+#+begin_quote
+Add the given properties as a SPA JSON object to the context.
+
+#+end_quote
+
+* RUNTIME SETTINGS
+A PipeWire daemon will also expose a settings metadata object that can
+be used to change some settings at runtime.
+
+Normally these settings can bypass any of the restrictions listed in the
+config options above, such as quantum and samplerate values.
+
+The settings can be modified using *pw-metadata(1)*:
+
+#+begin_example
+pw-metadata -n settings                  # list settings
+pw-metadata -n settings 0                # list server settings
+pw-metadata -n settings 0 log.level 2    # modify a server setting
+#+end_example
+
+*log.level = INTEGER*
+
+#+begin_quote
+Change the log level of the PipeWire daemon.
+
+#+end_quote
+
+*clock.rate = INTEGER*
+
+#+begin_quote
+The default samplerate.
+
+#+end_quote
+
+*clock.allowed-rates = [ RATE1 RATE2... ]*
+
+#+begin_quote
+The allowed samplerates.
+
+#+end_quote
+
+*clock.force-rate = INTEGER*
+
+#+begin_quote
+Temporarily forces the graph to operate in a fixed sample rate. Both DSP
+processing and devices will switch to the new rate immediately. Running
+streams (PulseAudio, native and ALSA applications) will automatically
+resample to match the new rate.
+
+Set the value to 0 to allow the sample rate to vary again.
+
+#+end_quote
+
+*clock.quantum = INTEGER*
+
+#+begin_quote
+The default quantum (buffer size).
+
+#+end_quote
+
+*clock.min-quantum = INTEGER*
+
+#+begin_quote
+Smallest quantum to be used.
+
+#+end_quote
+
+*clock.max-quantum = INTEGER*
+
+#+begin_quote
+Largest quantum to be used.
+
+#+end_quote
+
+*clock.force-quantum = INTEGER*
+
+#+begin_quote
+Temporarily force the graph to operate in a fixed quantum.
+
+Set the value to 0 to allow the quantum to vary again.
+
+#+end_quote
+
+* ENVIRONMENT VARIABLES
+** Socket directories
+*PIPEWIRE_RUNTIME_DIR *
+
+#+begin_quote
+#+end_quote
+
+*XDG_RUNTIME_DIR *
+
+#+begin_quote
+#+end_quote
+
+*USERPROFILE *
+
+#+begin_quote
+Used to find the PipeWire socket on the server (and native clients).
+
+#+end_quote
+
+*PIPEWIRE_CORE *
+
+#+begin_quote
+Name of the socket to make.
+
+#+end_quote
+
+*PIPEWIRE_REMOTE *
+
+#+begin_quote
+Name of the socket to connect to.
+
+#+end_quote
+
+*PIPEWIRE_DAEMON *
+
+#+begin_quote
+If set to true then the process becomes a new PipeWire server.
+
+#+end_quote
+
+** Config directories, config file name and prefix
+*PIPEWIRE_CONFIG_DIR *
+
+#+begin_quote
+#+end_quote
+
+*XDG_CONFIG_HOME *
+
+#+begin_quote
+#+end_quote
+
+*HOME *
+
+#+begin_quote
+Used to find the config file directories.
+
+#+end_quote
+
+*PIPEWIRE_CONFIG_PREFIX *
+
+#+begin_quote
+#+end_quote
+
+*PIPEWIRE_CONFIG_NAME *
+
+#+begin_quote
+Used to override the application provided config prefix and config name.
+
+#+end_quote
+
+*PIPEWIRE_NO_CONFIG *
+
+#+begin_quote
+Enables (false) or disables (true) overriding on the default
+configuration.
+
+#+end_quote
+
+** Context information
+As part of a client context, the following information is collected from
+environment variables and placed in the context properties:
+
+*LANG *
+
+#+begin_quote
+The current language in application.language.
+
+#+end_quote
+
+*XDG_SESSION_ID *
+
+#+begin_quote
+Set as the application.process.session-id property.
+
+#+end_quote
+
+*DISPLAY *
+
+#+begin_quote
+Is set as the window.x11.display property.
+
+#+end_quote
+
+** Modules
+*PIPEWIRE_MODULE_DIR *
+
+#+begin_quote
+Sets the directory where to find PipeWire modules.
+
+#+end_quote
+
+*SPA_SUPPORT_LIB *
+
+#+begin_quote
+The name of the SPA support lib to load. This can be used to switch to
+an alternative support library, for example, to run on the EVL realtime
+kernel.
+
+#+end_quote
+
+** Logging options
+*JOURNAL_STREAM *
+
+#+begin_quote
+Is used to parse the stream used for the journal. This is usually
+configured by systemd.
+
+#+end_quote
+
+*PIPEWIRE_LOG_LINE *
+
+#+begin_quote
+Enables the logging of line numbers. Default true.
+
+#+end_quote
+
+*PIPEWIRE_LOG *
+
+#+begin_quote
+Specifies a log file to use instead of the default logger.
+
+#+end_quote
+
+*PIPEWIRE_LOG_SYSTEMD *
+
+#+begin_quote
+Enables the use of systemd for the logger, default true.
+
+#+end_quote
+
+** Other settings
+*PIPEWIRE_CPU *
+
+#+begin_quote
+Selects the CPU and flags. This is a bitmask of any of the *CPU* flags
+
+#+end_quote
+
+*PIPEWIRE_VM *
+
+#+begin_quote
+Selects the Virtual Machine PipeWire is running on. This can be any of
+the *VM* types.
+
+#+end_quote
+
+*DISABLE_RTKIT *
+
+#+begin_quote
+Disables the use of RTKit or the Realtime Portal for realtime
+scheduling.
+
+#+end_quote
+
+*NO_COLOR *
+
+#+begin_quote
+Disables the use of colors in the console output.
+
+#+end_quote
+
+** Debugging options
+*PIPEWIRE_DLCLOSE *
+
+#+begin_quote
+Enables (true) or disables (false) the use of dlclose when a shared
+library is no longer in use. When debugging, it might make sense to
+disable dlclose to be able to get debugging symbols from the object.
+
+#+end_quote
+
+** Stream options
+*PIPEWIRE_NODE *
+
+#+begin_quote
+Makes a stream connect to a specific object.serial or node.name.
+
+#+end_quote
+
+*PIPEWIRE_PROPS *
+
+#+begin_quote
+Adds extra properties to a stream or filter.
+
+#+end_quote
+
+*PIPEWIRE_QUANTUM *
+
+#+begin_quote
+Forces a specific rate and buffer-size for the stream or filter.
+
+#+end_quote
+
+*PIPEWIRE_LATENCY *
+
+#+begin_quote
+Sets a specific latency for a stream or filter. This is only a
+suggestion but the configured latency will not be larger.
+
+#+end_quote
+
+*PIPEWIRE_RATE *
+
+#+begin_quote
+Sets a rate for a stream or filter. This is only a suggestion. The rate
+will be switched when the graph is idle.
+
+#+end_quote
+
+*PIPEWIRE_AUTOCONNECT *
+
+#+begin_quote
+Overrides the default stream autoconnect settings.
+
+#+end_quote
+
+** Plugin options
+*SPA_PLUGIN_DIR *
+
+#+begin_quote
+Is used to locate SPA plugins.
+
+#+end_quote
+
+*SPA_DATA_DIR *
+
+#+begin_quote
+Is used to locate plugin specific config files. This is used by the
+bluetooth plugin currently to locate the quirks database.
+
+#+end_quote
+
+*SPA_DEBUG *
+
+#+begin_quote
+Set the log level for SPA plugins. This is usually controlled by the
+PIPEWIRE_DEBUG variable when the plugins are managed by PipeWire but
+some standalone tools (like spa-inspect) uses this variable.
+
+#+end_quote
+
+*ACP_BUILDDIR *
+
+#+begin_quote
+If set, the ACP profiles are loaded from the builddir.
+
+#+end_quote
+
+*ACP_PATHS_DIR *
+
+#+begin_quote
+#+end_quote
+
+*ACP_PROFILES_DIR *
+
+#+begin_quote
+Used to locate the ACP paths and profile directories respectively.
+
+#+end_quote
+
+*LADSPA_PATH *
+
+#+begin_quote
+Comma separated list of directories where the ladspa plugins can be
+found.
+
+#+end_quote
+
+*LIBJACK_PATH *
+
+#+begin_quote
+Directory where the jack1 or jack2 libjack.so can be found.
+
+#+end_quote
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pw-top(1)*, *pw-dump(1)*, *pw-mon(1)*, *pw-cat(1)*, *pw-cli(1)*,
+*libpipewire-modules(7)*

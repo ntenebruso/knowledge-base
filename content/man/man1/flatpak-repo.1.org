@@ -1,0 +1,71 @@
+#+TITLE: Manpages - flatpak-repo.1
+* NAME
+flatpak-repo - Show information about a local repository
+
+* SYNOPSIS
+*flatpak repo* [OPTION...] LOCATION
+
+* DESCRIPTION
+Show information about a local repository.
+
+If you need to modify a local repository, see the *flatpak
+build-update-repo* command, or use the *ostree* tool.
+
+* OPTIONS
+The following options are understood:
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*--info*
+
+#+begin_quote
+Print general information about a local repository.
+
+#+end_quote
+
+*--branches*
+
+#+begin_quote
+List the branches in a local repository.
+
+#+end_quote
+
+*--metadata=BRANCH*
+
+#+begin_quote
+Print metadata for a branch in the repository.
+
+#+end_quote
+
+*--commits=BRANCH*
+
+#+begin_quote
+Show commits and deltas for a branch in the repository.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information during command processing.
+
+#+end_quote
+
+*--ostree-verbose*
+
+#+begin_quote
+Print OSTree debug information during command processing.
+
+#+end_quote
+
+* EXAMPLES
+*$ flatpak repo --info ~/my-repo*
+
+* SEE ALSO
+*flatpak*(1), *flatpak-info*(1) *flatpak-build-update-repo*(1)
+*ostree*(1)

@@ -1,0 +1,300 @@
+#+TITLE: Manpages - lslogins.1
+* NAME
+lslogins - display information about known users in the system
+
+* SYNOPSIS
+*lslogins* [options] [*-s*|*-u*[=/UID/]] [*-g* /groups/] [*-l* /logins/]
+[/username/]
+
+* DESCRIPTION
+Examine the wtmp and btmp logs, //etc/shadow/ (if necessary) and
+//passwd/ and output the desired data.
+
+The optional argument /username/ forces *lslogins* to print all
+available details about the specified user only. In this case the output
+format is different than in case of *-l* or *-g* and unknown is
+/username/ reported as an error.
+
+The default action is to list info about all the users in the system.
+
+* OPTIONS
+Mandatory arguments to long options are mandatory for short options too.
+
+*-a*, *--acc-expiration*
+
+#+begin_quote
+Display data about the date of last password change and the account
+expiration date (see *shadow*(5) for more info). (Requires root
+privileges.)
+
+#+end_quote
+
+*--btmp-file* /path/
+
+#+begin_quote
+Alternate path for btmp.
+
+#+end_quote
+
+*-c*, *--colon-separate*
+
+#+begin_quote
+Separate info about each user with a colon instead of a newline.
+
+#+end_quote
+
+*-e*, *--export*
+
+#+begin_quote
+Output data in the format of NAME=VALUE. See also option *--shell*.
+
+#+end_quote
+
+*-f*, *--failed*
+
+#+begin_quote
+Display data about the users last failed login attempts.
+
+#+end_quote
+
+*-G*, *--supp-groups*
+
+#+begin_quote
+Show information about supplementary groups.
+
+#+end_quote
+
+*-g*, *--groups*=/groups/
+
+#+begin_quote
+Only show data of users belonging to /groups/. More than one group may
+be specified; the list has to be comma-separated. Unknown group names
+are ignored.
+
+Note that the relation between user and group may be invisible for the
+primary group if the user is not explicitly specified as group member
+(e.g., in //etc/group/). If the command *lslogins* scans for groups then
+it uses the groups database only, and the user database with primary GID
+is not used at all.
+
+#+end_quote
+
+*-L*, *--last*
+
+#+begin_quote
+Display data containing information about the users last login sessions.
+
+#+end_quote
+
+*-l*, *--logins*=/logins/
+
+#+begin_quote
+Only show data of users with a login specified in /logins/ (user names
+or user IDs). More than one login may be specified; the list has to be
+comma-separated. Unknown login names are ignored.
+
+#+end_quote
+
+*-n*, *--newline*
+
+#+begin_quote
+Display each piece of information on a separate line.
+
+#+end_quote
+
+*--noheadings*
+
+#+begin_quote
+Do not print a header line.
+
+#+end_quote
+
+*--notruncate*
+
+#+begin_quote
+Don't truncate output.
+
+#+end_quote
+
+*-o*, *--output* /list/
+
+#+begin_quote
+Specify which output columns to print. The default list of columns may
+be extended if /list/ is specified in the format /+list/.
+
+#+end_quote
+
+*--output-all*
+
+#+begin_quote
+Output all available columns. *--help* to get a list of all supported
+columns.
+
+#+end_quote
+
+*-p*, *--pwd*
+
+#+begin_quote
+Display information related to login by password (see also *-afL*).
+
+#+end_quote
+
+*-r*, *--raw*
+
+#+begin_quote
+Raw output (no columnation).
+
+#+end_quote
+
+*-s*, *--system-accs*
+
+#+begin_quote
+Show system accounts. These are by default all accounts with a UID
+between 101 and 999 (inclusive), with the exception of either nobody or
+nfsnobody (UID 65534). This hardcoded default may be overwritten by
+parameters *SYS_UID_MIN* and *SYS_UID_MAX* in the file
+//etc/login.defs/.
+
+#+end_quote
+
+*--time-format* /type/
+
+#+begin_quote
+Display dates in short, full or iso format. The default is short, this
+time format is designed to be space efficient and human readable.
+
+#+end_quote
+
+*-u*, *--user-accs*
+
+#+begin_quote
+Show user accounts. These are by default all accounts with UID above
+1000 (inclusive), with the exception of either nobody or nfsnobody (UID
+65534). This hardcoded default maybe overwritten by parameters UID_MIN
+and UID_MAX in the file //etc/login.defs/.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Print version and exit.
+
+#+end_quote
+
+*--wtmp-file* /path/
+
+#+begin_quote
+Alternate path for wtmp.
+
+#+end_quote
+
+*--lastlog* /path/
+
+#+begin_quote
+Alternate path for *lastlog*(8).
+
+#+end_quote
+
+*-y*, *--shell*
+
+#+begin_quote
+The column name will be modified to contain only characters allowed for
+shell variable identifiers. This is usable, for example, with
+*--export*. Note that this feature has been automatically enabled for
+*--export* in version 2.37, but due to compatibility issues, now it's
+necessary to request this behavior by *--shell*.
+
+#+end_quote
+
+*-Z*, *--context*
+
+#+begin_quote
+Display the users security context.
+
+#+end_quote
+
+*-z*, *--print0*
+
+#+begin_quote
+Delimit user entries with a nul character, instead of a newline.
+
+#+end_quote
+
+* EXIT STATUS
+0
+
+#+begin_quote
+if OK,
+
+#+end_quote
+
+1
+
+#+begin_quote
+if incorrect arguments specified,
+
+#+end_quote
+
+2
+
+#+begin_quote
+if a serious error occurs (e.g., a corrupt log).
+
+#+end_quote
+
+* NOTES
+The default UID thresholds are read from //etc/login.defs/.
+
+** Password status
+Multiple fields describe password status.
+
+*"Password is locked"*
+
+#+begin_quote
+The password is prefixed by !!, and the user cannot login although the
+password is set or empty. This is common for new accounts without a set
+password.
+
+#+end_quote
+
+*"Password not required (empty)"*
+
+#+begin_quote
+The password is not set (hash is missing); this is common for locked
+system accounts. Not requiring a password does not mean the user can
+log-in without a password. It depends on the password "lock" status.
+
+#+end_quote
+
+*"Login by password disabled"*
+
+#+begin_quote
+yes means that there is no valid password. The password hash is missing,
+or the hash method is unknown or contains invalid chars.
+
+#+end_quote
+
+* HISTORY
+The *lslogins* utility is inspired by the *logins* utility, which first
+appeared in FreeBSD 4.10.
+
+* AUTHORS
+* SEE ALSO
+*group*(5), *passwd*(5), *shadow*(5), *utmp*(5)
+
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *lslogins* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

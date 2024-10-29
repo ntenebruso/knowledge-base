@@ -1,0 +1,233 @@
+#+TITLE: Manpages - isotest.1
+* NAME
+isotest - ISO testing
+
+* SYNOPSIS
+*isotest* </MODE/> [/OPTIONS/] [/bdaddr/] [/bdaddr1/]...
+
+* DESCRIPTION
+*isotest(1)* is used to test Isochronous (CIS/BIS) communications on the
+BlueZ stack
+
+* MODES
+
+#+begin_quote
+- *-d, --dump=[FILE] Listen and dump incoming data* :: (CIS server/BIS
+  broadcaster) and optionally save the contents to /FILE/.
+
+#+end_quote
+
+#+begin_quote
+- *-c/,/ --reconnect* :: Reconnect (CIS client).
+
+- *-m/,/ --multiple* :: Multiple connects (CIS client).
+
+#+end_quote
+
+#+begin_quote
+- *-r, --receive=[FILE] Receive (CIS server/BIS broadcast receiver)
+  and* :: optionally save the contents to /FILE/*.*
+
+- *-s, --send=[FILE] Connect and send (CIS client/BIS broadcaster),
+  can* :: optionally use contents from /FILE/*.*
+
+#+end_quote
+
+#+begin_quote
+- *-n/,/ --silent* :: Connect and be silent (CIS client/BIS
+  broadcaster).
+
+#+end_quote
+
+* OPTIONS
+
+#+begin_quote
+- *-b/,/*/--bytes*=*/*<SIZE>* :: Send or Receive packet size
+
+- *-i*,**/--index*=*/*<NUM>* :: Select the specified HCI device index.
+  /hciNUM/* is* also acceptable.
+
+- *-j/,/*/--jitter*=*/*<JITTER>* :: Socket jitter buffer.
+
+#+end_quote
+
+-h, --help
+
+#+begin_quote
+- *-q*,* --quiet* :: Disables packet logging.
+
+- *-t*,**/--timeout*=*/*<USEC>* :: Socket send timeout.
+
+- *-C*,* --continue* :: Continuously send packets starting over in case
+  of a file.
+
+- *-W*,**/--defer*=*/*<SEC>* :: Enable deferred setup.
+
+- *-M*,**/--mtu*=*/*<SDU>* :: Socket QoS SDU.
+
+#+end_quote
+
+#+begin_quote
+- *-S, --sca/adv-interval=<SCA/INTERVAL>* :: Socket QoS CIS SCA/BIS
+  advertising interval.
+
+#+end_quote
+
+#+begin_quote
+- *-P*,**/--packing*=*/*<PACKING>* :: Socket QoS Packing.
+
+#+end_quote
+
+| /PACKING/ | Description |
+|-----------+-------------|
+| *0x00*    | Sequential  |
+| _         |             |
+| *0x01*    | Interleaved |
+
+#+begin_quote
+- *-F*,**/--framing*=*/*<FRAMING>* :: Socket QoS Framing.
+
+#+end_quote
+
+| /FRAMING/ | Description |
+|-----------+-------------|
+| *0x00*    | Unframed    |
+| _         |             |
+| *0x01*    | Framed      |
+
+#+begin_quote
+- *-I*,**/--interval*=*/*<USEC>* :: Socket QoS Interval.
+
+- *-L*,**/--latency*=*/*<MSEC>* :: Socket QoS Latency.
+
+- *-Y*,**/--phy*=*/*<PHY>* :: Socket QoS PHY.
+
+#+end_quote
+
+| /PHY/  | Description |
+|--------+-------------|
+| *0x01* | LE 1M       |
+| _      |             |
+| *0x02* | LE 2M       |
+| _      |             |
+| *0x03* | LE Coded    |
+
+#+begin_quote
+- *-R*,**/--rtn*=*/*<NUM>* :: Socket QoS retransmissions.
+
+- *-B*,**/--preset*=*/*<PRESET>* :: Socket QoS preset.
+
+#+end_quote
+
+-G, --CIG/BIG=<ID> Socket QoS CIG/BIG ID.
+
+-T, --CIS/BIS=<ID> Socket QoS CIS/BIS ID.
+
+#+begin_quote
+- *-V*,**/--type*=*/*<TYPE>* :: Socket destination address type:
+
+#+end_quote
+
+| /TYPE/      | Description       |
+|-------------+-------------------|
+| *le_public* | LE Public Address |
+| _           |                   |
+| *le_random* | LE Random Address |
+
+#+begin_quote
+- *-e*,**/--enc*=*/*<ENCRYPTION>* :: Socket QoS BIG Encryption
+
+#+end_quote
+
+| /ENCRYPTION/ | Description     |
+|--------------+-----------------|
+| *0x00*       | BIG unencrypted |
+| _            |                 |
+| *0x01*       | BIG encrypted   |
+
+#+begin_quote
+- *-k*,**/--bcode*=*/*<BCODE>* :: Socket QoS Broadcast Code
+
+- *-N*,**/--nbis*=*/*<NBIS>* :: Number of BISes to create as part of a
+  BIG (BIS broadcaster) or to synchronize to (BIS broadcast receiver)
+
+#+end_quote
+
+* EXAMPLES
+** Unicast Central
+
+#+begin_quote
+
+#+begin_quote
+#+begin_example
+$ tools/isotest -s XX:XX:XX:XX:XX:XX
+#+end_example
+
+#+end_quote
+
+#+end_quote
+
+** Unicast Central connecting to 2 peers using CIG 0x01
+
+#+begin_quote
+
+#+begin_quote
+#+begin_example
+$ tools/isotest -G 0x01 -s XX:XX:XX:XX:XX:XX YY:YY:YY:YY:YY:YY
+#+end_example
+
+#+end_quote
+
+#+end_quote
+
+** Unicast Peripheral
+
+#+begin_quote
+
+#+begin_quote
+#+begin_example
+$ tools/isotest -d
+#+end_example
+
+#+end_quote
+
+#+end_quote
+
+** Broadcaster
+
+#+begin_quote
+
+#+begin_quote
+#+begin_example
+$ tools/isotest -s 00:00:00:00:00:00
+#+end_example
+
+#+end_quote
+
+#+end_quote
+
+** Broadcast Receiver using hci1
+
+#+begin_quote
+
+#+begin_quote
+#+begin_example
+$ tools/isotest -i hci1 -d XX:XX:XX:XX:XX:XX
+#+end_example
+
+#+end_quote
+
+#+end_quote
+
+* RESOURCES
+<http://www.bluez.org>
+
+* REPORTING BUGS
+<linux-bluetooth@vger.kernel.org>
+
+* AUTHOR
+Luiz Augusto Von Dentz <luiz.von.dentz@intel.com>
+
+* COPYRIGHT
+Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).

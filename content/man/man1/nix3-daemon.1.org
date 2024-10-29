@@ -1,0 +1,132 @@
+#+TITLE: Manpages - nix3-daemon.1
+#+begin_quote
+*Warning*\\
+This program is *experimental* and its interface is subject to change.
+
+#+end_quote
+
+* Name
+=nix daemon= - daemon to perform store operations on behalf of non-root
+clients
+
+* Synopsis
+=nix daemon= [/option/...]
+
+* Examples
+- Run the daemon:
+
+#+begin_example
+# nix daemon
+#+end_example
+
+- Run the daemon and listen on standard I/O instead of binding to a UNIX
+  socket:
+
+#+begin_example
+# nix daemon --stdio
+#+end_example
+
+- Run the daemon and force all connections to be trusted:
+
+#+begin_example
+# nix daemon --force-trusted
+#+end_example
+
+- Run the daemon and force all connections to be untrusted:
+
+#+begin_example
+# nix daemon --force-untrusted
+#+end_example
+
+- Run the daemon, listen on standard I/O, and force all connections to
+  use Nix's default trust:
+
+#+begin_example
+# nix daemon --stdio --default-trust
+#+end_example
+
+* Description
+This command runs the Nix daemon, which is a required component in
+multi-user Nix installations. It runs build tasks and other operations
+on the Nix store on behalf of non-root users. Usually you don't run the
+daemon directly; instead it's managed by a service management framework
+such as =systemd= on Linux, or =launchctl= on Darwin.
+
+Note that this daemon does not fork into the background.
+
+* Options
+- =--default-trust=
+
+  Use Nix's default trust.
+
+- =--force-trusted=
+
+  Force the daemon to trust connecting clients.
+
+- =--force-untrusted=
+
+  Force the daemon to not trust connecting clients. The connection will
+  be processed by the receiving daemon before forwarding commands.
+
+- =--process-ops=
+
+  Forces the daemon to process received commands itself rather than
+  forwarding the commands straight to the remote store.
+
+#+begin_example
+      This is useful for the `mounted-ssh://` store where some actions need to be performed on the remote end but as connected user, and not as the user of the underlying daemon on the remote end.
+#+end_example
+
+- =--stdio=
+
+  Attach to standard I/O, instead of trying to bind to a UNIX socket.
+
+** Logging-related options
+- =--debug=
+
+  Set the logging verbosity level to ‘debug'.
+
+- =--log-format= /format/
+
+  Set the format of log output; one of =raw=, =internal-json=, =bar= or
+  =bar-with-logs=.
+
+- =--print-build-logs= / =-L=
+
+  Print full build logs on standard error.
+
+- =--quiet=
+
+  Decrease the logging verbosity level.
+
+- =--verbose= / =-v=
+
+  Increase the logging verbosity level.
+
+** Miscellaneous global options
+- =--help=
+
+  Show usage information.
+
+- =--offline=
+
+  Disable substituters and consider all previously downloaded files
+  up-to-date.
+
+- =--option= /name/ /value/
+
+  Set the Nix configuration setting /name/ to /value/ (overriding
+  =nix.conf=).
+
+- =--refresh=
+
+  Consider all previously downloaded files out-of-date.
+
+- =--version=
+
+  Show version information.
+
+  *Note*
+
+  See =man nix.conf= for overriding configuration settings with command
+  line flags.

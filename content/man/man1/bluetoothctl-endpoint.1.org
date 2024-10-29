@@ -1,0 +1,147 @@
+#+TITLE: Manpages - bluetoothctl-endpoint.1
+* NAME
+bluetoothctl-endpoint - Endpoint Submenu
+
+* SYNOPSIS
+*bluetoothctl* [--options] [endpoint.commands]
+
+* ENDPOINT COMMANDS
+** list
+List available endpoints.
+
+#+begin_quote
+- *Usage* :: *# list [local]*
+
+#+end_quote
+
+** show
+Endpoint information.
+
+#+begin_quote
+- *Usage* :: *# show <endpoint>*
+
+#+end_quote
+
+** register
+Register Endpoint.
+
+#+begin_quote
+- *Usage* :: *# register <UUID> <codec[:company]> [capabilities...]*
+
+- *Example LC3 source* :: #+begin_example
+  #endpoint.register 00002bcb-0000-1000-8000-00805f9b34fb 0x06
+  #Auto Accept (yes/no): y
+  #Max Transports (auto/value): a
+  #Locations: a
+  #Supported Context (value): 3
+  #Context (value): 3
+  #CIG (auto/value): a
+  #CIS (auto/value): a
+  #+end_example
+
+- *Example LC3 since with extra capabilities* :: #+begin_example
+  #endpoint.register 00002bc9-0000-1000-8000-00805f9b34fb 0x06 "0x03 0xe5 0x03 0x00 0x02 0xe6 0x07"
+  #Enter Metadata (value/no): n
+  #Auto Accept (yes/no): y
+  #Max Transports (auto/value): a
+  #Locations: a
+  #Supported Context (value): 3
+  #Context (value): 3
+  #CIG (auto/value): a
+  #CIS (auto/value): a
+  #+end_example
+
+#+end_quote
+
+** unregister
+Unregister Endpoint.
+
+#+begin_quote
+- *Usage* :: *# unregister <UUID/object>*
+
+#+end_quote
+
+** config
+Configure Endpoint.
+
+#+begin_quote
+- *Usage* :: *# config <endpoint> <local endpoint> [preset]*
+
+#+end_quote
+
+** presets
+List available presets.
+
+#+begin_quote
+- *Usage* :: *# presets <endpoint>/<UUID> [codec[:company]] [preset]
+  [codec config] [metadata]*
+
+- *Example using endpoint* :: #+begin_example
+  #presets /local/endpoint/ep0 32_1_1
+  #presets /local/endpoint/ep0
+  Preset 32_1_1
+  Configuration.#0: len 0x02 type 0x01
+  Configuration.Sampling Frequency: 32 Khz (0x06)
+  Configuration.#1: len 0x02 type 0x02
+  Configuration.Frame Duration: 7.5 ms (0x00)
+  Configuration.#2: len 0x03 type 0x04
+  Configuration.Frame Length: 60 (0x003c)
+  #+end_example
+
+- *Example using UUID* :: #+begin_example
+  #presets 00002bc9-0000-1000-8000-00805f9b34fb 0x06 32_1_1
+  #presets 00002bc9-0000-1000-8000-00805f9b34fb 0x06
+  ...
+  *32_1_1
+  #+end_example
+
+- *Example setting up LC3 custom preset* :: #+begin_example
+  #presets 00002bc9-0000-1000-8000-00805f9b34fb 0x06 custom
+  #[Codec] Enter frequency (Khz): 48
+  #[Codec] Enter frame duration (ms): 10
+  #[Codec] Enter channel allocation: 3
+  #[Codec] Enter frame length: 100
+  #[QoS] Enter Target Latency (Low, Balance, High): Low
+  #[QoS] Enter SDU Interval (us): 1000
+  #[QoS] Enter Framing (Unframed, Framed): Unframed
+  #[QoS] Enter PHY (1M, 2M): 2M
+  #[QoS] Enter Max SDU: 200
+  #[QoS] Enter RTN: 3
+  #[QoS] Enter Max Transport Latency (ms): 10
+  #[QoS] Enter Presentation Delay (us): 20000
+  #presets 00002bc9-0000-1000-8000-00805f9b34fb 0x06
+  ...
+  *custom
+  #+end_example
+
+- *Example setting up LC3 custom preset with extra
+  configuration* :: #+begin_example
+  #presets 00002bc9-0000-1000-8000-00805f9b34fb 0x06 custom "0x03 0xe8 0x00 0x00 0x02 0xe9 0x00"
+  #[Codec] Enter frequency (Khz): 48
+  #[Codec] Enter frame duration (ms): 10
+  #[Codec] Enter channel allocation: 3
+  #[Codec] Enter frame length: 100
+  #[QoS] Enter Target Latency (Low, Balance, High): Low
+  #[QoS] Enter SDU Interval (us): 1000
+  #[QoS] Enter Framing (Unframed, Framed): Unframed
+  #[QoS] Enter PHY (1M, 2M): 2M
+  #[QoS] Enter Max SDU: 200
+  #[QoS] Enter RTN: 3
+  #[QoS] Enter Max Transport Latency (ms): 10
+  #[QoS] Enter Presentation Delay (us): 20000
+  #presets 00002bc9-0000-1000-8000-00805f9b34fb 0x06
+  ...
+  *custom
+  #+end_example
+
+#+end_quote
+
+* RESOURCES
+<http://www.bluez.org>
+
+* REPORTING BUGS
+<linux-bluetooth@vger.kernel.org>
+
+* COPYRIGHT
+Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).

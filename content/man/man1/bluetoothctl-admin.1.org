@@ -1,0 +1,29 @@
+#+TITLE: Manpages - bluetoothctl-admin.1
+* NAME
+bluetoothctl-admin - Admin Policy Submenu
+
+* SYNOPSIS
+*bluetoothctl* [--options] [admin.commands]
+
+* ADMIN POLICY COMMANDS
+** allow
+Allow service UUIDs and block rest of them.
+
+#+begin_quote
+- *Usage* :: *# allow [clear/uuid1 uuid2 ...]*
+
+- *Example* :: *# allow 0x1101 0x1102 0x1103*
+
+- *Example* :: *# allow clear*
+
+#+end_quote
+
+* RESOURCES
+<http://www.bluez.org>
+
+* REPORTING BUGS
+<linux-bluetooth@vger.kernel.org>
+
+* COPYRIGHT
+Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).

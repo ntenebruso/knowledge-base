@@ -1,0 +1,66 @@
+#+TITLE: Manpages - spa-resample.1
+* NAME
+spa-resample - The PipeWire resampler debugging utility
+
+* SYNOPSIS
+*spa-resample* [/OPTIONS/] /INFILE/ /OUTFILE/
+
+* DESCRIPTION
+Use the PipeWire resampler to resample input file to output file,
+following the given options.
+
+This is useful only for testing the resampler.
+
+* OPTIONS
+*-r RATE | --rate=RATE*
+
+#+begin_quote
+Output sample rate.
+
+#+end_quote
+
+*-f FORMAT | --format=FORMAT*
+
+#+begin_quote
+Output sample format (s8 | s16 | s32 | f32 | f64).
+
+#+end_quote
+
+*-q QUALITY | --quality=QUALITY*
+
+#+begin_quote
+Resampler output quality (0-14).
+
+#+end_quote
+
+*-c FLAGS | --cpuflags=FLAGS*
+
+#+begin_quote
+See *spa/support/cpu.h*.
+
+#+end_quote
+
+*-h*
+
+#+begin_quote
+Show help.
+
+#+end_quote
+
+*-v*
+
+#+begin_quote
+Verbose operation.
+
+#+end_quote
+
+* EXAMPLES
+*spa-resample* -r 48000 -f s32 in.wav out.wav
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pipewire(1)*

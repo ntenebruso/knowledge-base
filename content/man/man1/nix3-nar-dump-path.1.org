@@ -1,0 +1,75 @@
+#+TITLE: Manpages - nix3-nar-dump-path.1
+#+begin_quote
+*Warning*\\
+This program is *experimental* and its interface is subject to change.
+
+#+end_quote
+
+* Name
+=nix nar dump-path= - serialise a path to stdout in NAR format
+
+* Synopsis
+=nix nar dump-path= [/option/...] /path/
+
+* Examples
+- To serialise directory =foo= as a *Nix Archive (NAR)*:
+
+#+begin_example
+# nix nar pack ./foo > foo.nar
+#+end_example
+
+* Description
+This command generates a *Nix Archive (NAR)* file containing the
+serialisation of /path/, which must contain only regular files,
+directories and symbolic links. The NAR is written to standard output.
+
+* Options
+** Logging-related options
+- =--debug=
+
+  Set the logging verbosity level to ‘debug'.
+
+- =--log-format= /format/
+
+  Set the format of log output; one of =raw=, =internal-json=, =bar= or
+  =bar-with-logs=.
+
+- =--print-build-logs= / =-L=
+
+  Print full build logs on standard error.
+
+- =--quiet=
+
+  Decrease the logging verbosity level.
+
+- =--verbose= / =-v=
+
+  Increase the logging verbosity level.
+
+** Miscellaneous global options
+- =--help=
+
+  Show usage information.
+
+- =--offline=
+
+  Disable substituters and consider all previously downloaded files
+  up-to-date.
+
+- =--option= /name/ /value/
+
+  Set the Nix configuration setting /name/ to /value/ (overriding
+  =nix.conf=).
+
+- =--refresh=
+
+  Consider all previously downloaded files out-of-date.
+
+- =--version=
+
+  Show version information.
+
+  *Note*
+
+  See =man nix.conf= for overriding configuration settings with command
+  line flags.

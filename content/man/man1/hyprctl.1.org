@@ -1,0 +1,146 @@
+#+TITLE: Manpages - hyprctl.1
+* NAME
+hyprctl - Utility for controlling parts of Hyprland from a CLI or a
+script
+
+* SYNOPSIS
+*hyprctl* [/(opt)flags/] [*command*] [/(opt)args/]
+
+* DESCRIPTION
+*hyprctl* is a utility for controlling some parts of the compositor from
+a CLI or a script.
+
+* CONTROL COMMANDS
+*dispatch*
+
+#+begin_quote
+Call a dispatcher with an argument.
+
+An argument must be present. For dispatchers without parameters it can
+be anything.
+
+Returns: /ok/ on success, and an error message on failure.
+
+- Examples: :: *hyprctl* /dispatch exec kitty/
+
+  *hyprctl* /dispatch pseudo x/
+
+#+end_quote
+
+*keyword*
+
+#+begin_quote
+Set a config keyword dynamically.
+
+Returns: /ok/ on success, and an error message on failure.
+
+- Examples: :: *hyprctl* /keyword bind SUPER,0,pseudo/
+
+  *hyprctl* /keyword general:border_size 10/
+
+#+end_quote
+
+*reload*
+
+#+begin_quote
+Force a reload of the config file.
+
+#+end_quote
+
+*kill*
+
+#+begin_quote
+Enter kill mode, where you can kill an app by clicking on it. You can
+exit by pressing ESCAPE.
+
+#+end_quote
+
+* INFO COMMANDS
+*version*
+
+#+begin_quote
+Prints the Hyprland version, flags, commit and branch of build.
+
+#+end_quote
+
+*monitors*
+
+#+begin_quote
+Lists all the outputs with their properties.
+
+#+end_quote
+
+*workspaces*
+
+#+begin_quote
+Lists all workspaces with their properties.
+
+#+end_quote
+
+*clients*
+
+#+begin_quote
+Lists all windows with their properties.
+
+#+end_quote
+
+*devices*
+
+#+begin_quote
+Lists all connected input devices.
+
+#+end_quote
+
+*activewindow*
+
+#+begin_quote
+Returns the active window name.
+
+#+end_quote
+
+*layers*
+
+#+begin_quote
+Lists all the layers.
+
+#+end_quote
+
+*splash*
+
+#+begin_quote
+Returns the current random splash.
+
+#+end_quote
+
+* OPTIONS
+*--batch*
+
+#+begin_quote
+Specify a batch of commands to execute.
+
+- Example: :: *hyprctl* /--batch "keyword general:border_size 2 ;/
+  keyword general:gaps_out 20"
+
+  /;/ separates the commands.
+
+#+end_quote
+
+*-j*
+
+#+begin_quote
+Outputs information in JSON.
+
+#+end_quote
+
+* BUGS
+- Submit bug reports and request features online
+  at: :: </https://github.com/hyprwm/Hyprland/issues/>
+
+* SEE ALSO
+Sources at: </https://github.com/hyprwm/Hyprland/>
+
+* COPYRIGHT
+Copyright (c) 2022, vaxerski
+
+* AUTHORS
+Vaxerski </https://github.com/vaxerski/>.

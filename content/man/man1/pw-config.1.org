@@ -1,0 +1,143 @@
+#+TITLE: Manpages - pw-config.1
+* NAME
+pw-config - Debug PipeWire Config parsing
+
+* SYNOPSIS
+*pw-config* [/options/] paths
+
+*pw-config* [/options/] list [/SECTION/]
+
+*pw-config* [/options/] merge /SECTION/
+
+* DESCRIPTION
+List config paths and config sections and display the parsed output.
+
+This tool can be used to get an overview of the config file that will be
+parsed by the PipeWire server and clients.
+
+* COMMON OPTIONS
+*-h | --help*
+
+#+begin_quote
+Show help.
+
+#+end_quote
+
+*--version*
+
+#+begin_quote
+Show version information.
+
+#+end_quote
+
+*-n | --name=NAME*
+
+#+begin_quote
+Config Name (default 'pipewire.conf')
+
+#+end_quote
+
+*-p | --prefix=PREFIX*
+
+#+begin_quote
+Config Prefix (default '')
+
+#+end_quote
+
+*-L | --no-newline*
+
+#+begin_quote
+Omit newlines after values
+
+#+end_quote
+
+*-r | --recurse*
+
+#+begin_quote
+Reformat config sections recursively
+
+#+end_quote
+
+*-N | --no-colors*
+
+#+begin_quote
+Disable color output
+
+#+end_quote
+
+*-C | -color[=WHEN]*
+
+#+begin_quote
+whether to enable color support. WHEN is /never/, /always/, or /auto/
+
+#+end_quote
+
+* LISTING PATHS
+Specify the paths command. It will display all the config files that
+will be parsed and in what order.
+
+* LISTING CONFIG SECTIONS
+Specify the list command with an optional /SECTION/ to list the
+configuration fragments used for /SECTION/. Without a /SECTION/, all
+sections will be listed.
+
+Use the -r options to reformat the sections.
+
+* MERGING A CONFIG SECTION
+With the merge option and a /SECTION/, pw-config will merge all config
+files into a merged config section and dump the results. This will be
+the section used by the client or server.
+
+Use the -r options to reformat the sections.
+
+* EXAMPLES
+*pw-config*
+
+#+begin_quote
+List all config files that will be used
+
+#+end_quote
+
+*pw-config -n pipewire-pulse.conf*
+
+#+begin_quote
+List all config files that will be used by the PipeWire pulseaudio
+server.
+
+#+end_quote
+
+*pw-config -n pipewire-pulse.conf list*
+
+#+begin_quote
+List all config sections used by the PipeWire pulseaudio server
+
+#+end_quote
+
+*pw-config -n jack.conf list context.properties*
+
+#+begin_quote
+List the context.properties fragments used by the JACK clients
+
+#+end_quote
+
+*pw-config -n jack.conf merge context.properties*
+
+#+begin_quote
+List the merged context.properties used by the JACK clients
+
+#+end_quote
+
+*pw-config -n pipewire.conf -r merge context.modules*
+
+#+begin_quote
+List the merged context.modules used by the PipeWire server and reformat
+
+#+end_quote
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pipewire(1)*, *pw-dump(1)*,

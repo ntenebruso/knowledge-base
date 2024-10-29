@@ -1,0 +1,191 @@
+#+TITLE: Manpages - xdg-open.1
+.SH "NAME" xdg-open - opens a file or URL in the users preferred
+application
+
+.SH "SYNOPSIS"
+
+.HP u
+
+*xdg-open* { | /file/ | /URL/ }
+
+.HP u
+
+*xdg-open* { | *--help* | *--manual* | *--version* }
+
+.SH "DESCRIPTION"
+
+.PP xdg-open opens a file or URL in the users preferred application. If
+a URL is provided the URL will be opened in the users preferred web
+browser. If a file is provided the file will be opened in the preferred
+application for files of that type. xdg-open supports file, ftp, http
+and https URLs.
+
+.PP xdg-open is for use inside a desktop session only. It is not
+recommended to use xdg-open as root.
+
+.PP As xdg-open can not handle arguments that begin with a “-” it is
+recommended to pass filepaths in one of the following ways:
+
+#+begin_quote
+·
+
+Pass absolute paths, i.e. by using *realpath* as a preprocessor.
+
+#+end_quote
+
+#+begin_quote
+·
+
+Prefix known relative filepaths with a “./”. For example using sed -E
+s|^[^/]|./\0|.
+
+#+end_quote
+
+#+begin_quote
+·
+
+Pass a file URL.
+
+#+end_quote
+
+.SH "OPTIONS"
+
+.PP *--help*
+
+#+begin_quote
+Show command synopsis.
+
+.RE
+
+.PP *--manual*
+
+#+begin_quote
+Show this manual page.
+
+.RE
+
+.PP *--version*
+
+#+begin_quote
+Show the xdg-utils version information.
+
+.RE .SH "EXIT CODES"
+
+.PP An exit code of 0 indicates success while a non-zero exit code
+indicates failure. The following failure codes can be returned:
+
+.PP *1*
+
+#+begin_quote
+Error in command line syntax.
+
+.RE .PP *2*
+
+#+begin_quote
+One of the files passed on the command line did not exist.
+
+.RE .PP *3*
+
+#+begin_quote
+A required tool could not be found.
+
+.RE .PP *4*
+
+#+begin_quote
+The action failed.
+
+.RE .PP In case of success the process launched from the .desktop file
+will not be forked off and therefore may result in xdg-open running for
+a very long time. This behaviour intentionally differs from most desktop
+specific openers to allow terminal based applications to run using the
+same terminal xdg-open was called from.
+
+.SH "REPORTING ISSUES"
+
+.PP Please keep in mind *xdg-open* inherits most of the flaws of its
+configuration and the underlying opener.
+
+.PP In case the command xdg-mime query default "$(xdg-mime query
+filetype path/to/troublesome_file)" names the program responsible for
+any unexpected behaviour you can fix that by setting a different
+handler. (If the program is broken let the developers know)
+
+.PP Also see the security note on *xdg-mime*(1) for the default
+subcommand.
+
+.PP If a flaw is reproducible using the desktop specific opener (and
+isnt a configuration issue): Please report to whoever is responsible for
+that first (reporting to xdg-utils is better than not reporting at all,
+but since the xdg-utils are maintained in very little spare time a fix
+will take much longer)
+
+.PP In case an issue specific to xdg-open please report it to
+https://gitlab.freedesktop.org/xdg/xdg-utils/-/issues .
+
+.SH "SEE ALSO"
+
+.PP *xdg-mime*(1), *xdg-settings*(1), *MIME applications associations
+specification*[1]
+
+.SH "EXAMPLES"
+
+.PP
+
+#+begin_quote
+#+begin_example
+xdg-open http://www.freedesktop.org/
+#+end_example
+
+#+end_quote
+
+Opens the freedesktop.org website in the users default browser.
+
+.PP
+
+#+begin_quote
+#+begin_example
+xdg-open /tmp/foobar.png
+#+end_example
+
+#+end_quote
+
+Opens the PNG image file /tmp/foobar.png in the users default image
+viewing application.
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+* AUTHORS
+*Kevin Krammer*
+
+#+begin_quote
+Author.
+
+#+end_quote
+
+*Jeremy White*
+
+#+begin_quote
+Author.
+
+#+end_quote
+
+* COPYRIGHT
+\\
+Copyright © 2006\\
+
+* NOTES
+-  1. :: MIME applications associations specification
+
+  http://www.freedesktop.org/wiki/Specifications/mime-apps-spec/

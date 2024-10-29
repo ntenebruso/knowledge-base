@@ -1,0 +1,23 @@
+{{ define "main" }}
+    <article class="post">
+        <header>
+            <h1 class="post__title">{{ .Title }}</h1>
+        </header>
+
+        <div class="post__content">
+            <aside class="toc">
+                <div class="toc__wrapper">
+                    <span>Contents:</span>
+                    {{ .TableOfContents }}
+                </div>
+            </aside>
+            <main class="post__body">
+                {{ .Content }}
+            </main>
+        </div>
+    </article>
+{{ end }}
+
+{{ define "scripts" }}
+    {{ partial "script.html" (dict "src" "js/note.js") }}
+{{ end }}

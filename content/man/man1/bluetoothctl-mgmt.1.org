@@ -1,0 +1,615 @@
+#+TITLE: Manpages - bluetoothctl-mgmt.1
+* NAME
+bluetoothctl-mgmt - Management Submenu
+
+* SYNOPSIS
+*bluetoothctl* [--options] [mgmt.commands]
+
+* MGMT COMMANDS
+** select
+Select a different index
+
+#+begin_quote
+- *Usage* :: *# select <index>*
+
+#+end_quote
+
+** revision
+Get the MGMT Revision
+
+#+begin_quote
+- *Usage* :: *# revision*
+
+#+end_quote
+
+** commands
+List supported commands
+
+#+begin_quote
+- *Usage* :: *# commands*
+
+#+end_quote
+
+** config
+Show configuration info
+
+#+begin_quote
+- *Usage* :: *# config*
+
+#+end_quote
+
+** info
+Show controller info
+
+#+begin_quote
+- *Usage* :: *# info*
+
+#+end_quote
+
+** extinfo
+Show extended controller info
+
+#+begin_quote
+- *Usage* :: *# extinfo*
+
+#+end_quote
+
+** auto-power
+Power all available features
+
+#+begin_quote
+- *Usage* :: *# auto-power*
+
+#+end_quote
+
+** power
+Toggle powered state
+
+#+begin_quote
+- *Usage* :: *# power <on/off>*
+
+#+end_quote
+
+** discov
+Toggle discoverable state
+
+#+begin_quote
+- *Usage* :: *# discov <yes/no/limited> [timeout]*
+
+#+end_quote
+
+** connectable
+Toggle connectable state
+
+#+begin_quote
+- *Usage* :: *# connectable <on/off>*
+
+#+end_quote
+
+** fast-conn
+Toggle fast connectable state
+
+#+begin_quote
+- *Usage* :: *# fast-conn <on/off>*
+
+#+end_quote
+
+** bondable
+Toggle bondable state
+
+#+begin_quote
+- *Usage* :: *# bondable <on/off>*
+
+#+end_quote
+
+** pairable
+Toggle bondable state
+
+#+begin_quote
+- *Usage* :: *# pairable <on/off>*
+
+#+end_quote
+
+** linksec
+Toggle link level security
+
+#+begin_quote
+- *Usage* :: *# linksec <on/off>*
+
+#+end_quote
+
+** ssp
+Toggle SSP mode
+
+#+begin_quote
+- *Usage* :: *# spp <on/off>*
+
+#+end_quote
+
+** sc
+Toggle SC support
+
+#+begin_quote
+- *Usage* :: *# sc <on/off/only>*
+
+#+end_quote
+
+** hs
+Toggle HS support
+
+#+begin_quote
+- *Usage* :: *# hs <on/off>*
+
+#+end_quote
+
+** le
+Toggle LE support
+
+#+begin_quote
+- *Usage* :: *# le <on/off>*
+
+#+end_quote
+
+** advertising
+Toggle LE advertising
+
+#+begin_quote
+- *Usage* :: *# advertise <on/off>*
+
+#+end_quote
+
+** bredr
+Toggle BR/EDR support
+
+#+begin_quote
+- *Usage* :: *# bredr <on/off>*
+
+#+end_quote
+
+** privacy
+Toggle privacy support
+
+#+begin_quote
+- *Usage* :: *# privacy <on/off> [irk]*
+
+#+end_quote
+
+** class
+Set device major/minor class
+
+#+begin_quote
+- *Usage* :: *# class <major> <minor>*
+
+#+end_quote
+
+** disconnect
+Disconnect device
+
+#+begin_quote
+- *Usage* :: *# disconnect [-t type] <remote address>*
+
+#+end_quote
+
+** con
+List connections
+
+#+begin_quote
+- *Usage* :: *# con*
+
+#+end_quote
+
+** find
+Discover nearby devices
+
+#+begin_quote
+- *Usage* :: *# find [-l|-b] [-L]*
+
+#+end_quote
+
+** find-service
+Discover nearby service
+
+#+begin_quote
+- *Usage* :: *# find-service [-u UUID] [-r RSSI_Threshold] [-l|-b]*
+
+#+end_quote
+
+** stop-find
+Stop discovery
+
+#+begin_quote
+- *Usage* :: *# stop-find [-l|-b]*
+
+#+end_quote
+
+** name
+Set local name
+
+#+begin_quote
+- *Usage* :: *# name <name> [shortname]*
+
+#+end_quote
+
+** pair
+Pair with a remote device
+
+#+begin_quote
+- *Usage* :: *# pair [-c cap] [-t type] <remote address>*
+
+#+end_quote
+
+** cancelpair
+Cancel pairing
+
+#+begin_quote
+- *Usage* :: *# cancelpair [-t type] <remote address>*
+
+#+end_quote
+
+** unpair
+Unpair device
+
+#+begin_quote
+- *Usage* :: *# unpair [-t type] <remote address>*
+
+#+end_quote
+
+** keys
+Load Link Keys
+
+#+begin_quote
+- *Usage* :: *keys*
+
+#+end_quote
+
+** ltks
+Load Long Term Keys
+
+#+begin_quote
+- *Usage* :: *# ltks*
+
+#+end_quote
+
+** irks
+Load Identity Resolving Keys
+
+#+begin_quote
+- *Usage* :: *# irks [--local index] [--file file path]*
+
+#+end_quote
+
+** block
+Block Device
+
+#+begin_quote
+- *Usage* :: *# block [-t type] <remote address>*
+
+#+end_quote
+
+** unblock
+Unblock Device
+
+#+begin_quote
+- *Usage* :: *# unblock [-t type] <remote address>*
+
+#+end_quote
+
+** add-uuid
+Add UUID
+
+#+begin_quote
+- *Usage* :: *# add-uuid <UUID> <service class hint>*
+
+#+end_quote
+
+** rm-uuid
+Remove UUID
+
+#+begin_quote
+- *Usage* :: *# rm-uuid <UUID>*
+
+#+end_quote
+
+** clr-uuids
+Clear UUIDs
+
+#+begin_quote
+- *Usage* :: *# clear-uuids*
+
+#+end_quote
+
+** local-oob
+Local OOB data
+
+#+begin_quote
+- *Usage* :: *# local-oob*
+
+#+end_quote
+
+** remote-oob
+Remote OOB data
+
+#+begin_quote
+- *Usage* :: *# remote-oob [-t <addr_type>] [-r <rand192>] [-h
+  <hash192>]* [-R <rand256>] [-H <hash256>] <addr>
+
+#+end_quote
+
+** did
+Set Device ID
+
+#+begin_quote
+- *Usage* :: *# did <source>:<vendor>:<product>:<version>*
+
+#+end_quote
+
+** static-addr
+Set static address
+
+#+begin_quote
+- *Usage* :: *# static-addr <address>*
+
+#+end_quote
+
+** public-addr
+Set public address
+
+#+begin_quote
+- *Usage* :: *# public-addr <address>*
+
+#+end_quote
+
+** ext-config
+External configuration
+
+#+begin_quote
+- *Usage* :: *# ext-config <on/off>*
+
+#+end_quote
+
+** debug-keys
+Toggle debug keys
+
+#+begin_quote
+- *Usage* :: *# debug-keys <on/off>*
+
+#+end_quote
+
+** conn-info
+Get connection information
+
+#+begin_quote
+- *Usage* :: *# conn-info [-t type] <remote address>*
+
+#+end_quote
+
+** io-cap
+Set IO Capability
+
+#+begin_quote
+- *Usage* :: *# io-cap <cap>*
+
+#+end_quote
+
+** scan-params
+Set Scan Parameters
+
+#+begin_quote
+- *Usage* :: *# scan-params <interval> <window>*
+
+#+end_quote
+
+** get-clock
+Get Clock Information
+
+#+begin_quote
+- *Usage* :: *# get-clock [address]*
+
+#+end_quote
+
+** add-device
+Add Device
+
+#+begin_quote
+- *Usage* :: *# add-device [-a action] [-t type] <address>*
+
+#+end_quote
+
+** del-device
+Remove Device
+
+#+begin_quote
+- *Usage* :: *# del-device [-t type] <address>*
+
+#+end_quote
+
+** clr-devices
+Clear Devices
+
+#+begin_quote
+- *Usage* :: *# clr-devices*
+
+#+end_quote
+
+** bredr-oob
+Local OOB data (BR/EDR)
+
+#+begin_quote
+- *Usage* :: *# bredr-oob*
+
+#+end_quote
+
+** le-oob
+Local OOB data (LE)
+
+#+begin_quote
+- *Usage* :: *# le-oob*
+
+#+end_quote
+
+** advinfo
+Show advertising features
+
+#+begin_quote
+- *Usage* :: *# advinfo*
+
+#+end_quote
+
+** advsize
+Show advertising size info
+
+#+begin_quote
+- *Usage* :: *# advsize [options] <instance_id>*
+
+#+end_quote
+
+** add-adv
+Add advertising instance
+
+#+begin_quote
+- *Usage* :: *# add-adv [options] <instance_id>*
+
+#+end_quote
+
+** rm-adv
+Remove advertising instance
+
+#+begin_quote
+- *Usage* :: *# rm-adv <instance_id>*
+
+#+end_quote
+
+** clr-adv
+Clear advertising instances
+
+#+begin_quote
+- *Usage* :: *# clr-adv*
+
+#+end_quote
+
+** add-ext-adv-params
+Add extended advertising params
+
+#+begin_quote
+- *Usage* :: *# add-ext-adv-parms [options] <instance_id>*
+
+#+end_quote
+
+** add-ext-adv-data
+Add extended advertising data
+
+#+begin_quote
+- *Usage* :: *# add-ext-adv-data [options] <instance_id>*
+
+#+end_quote
+
+** appearance
+Set appearance
+
+#+begin_quote
+- *Usage* :: *# appearance <appearance>*
+
+#+end_quote
+
+** phy
+Get/Set PHY Configuration
+
+#+begin_quote
+- *Usage* :: *# phy [LE1MTX] [LE1MRX] [LE2MTX] [LE2MRX] [LECODEDTX]
+  [LECODEDRX]* [BR1M1SLOT] [BR1M3SLOT] [BR1M5SLOT][EDR2M1SLOT]
+  [EDR2M3SLOT] [EDR2M5SLOT][EDR3M1SLOT] [EDR3M3SLOT] [EDR3M5SLOT]
+
+#+end_quote
+
+** wbs
+Toggle Wideband-Speech support
+
+#+begin_quote
+- *Usage* :: *# wbs <on/off>*
+
+#+end_quote
+
+** secinfo
+Show security information
+
+#+begin_quote
+- *Usage* :: *# secinfo*
+
+#+end_quote
+
+** expinfo
+Show experimental features
+
+#+begin_quote
+- *Usage* :: *# expinfo*
+
+#+end_quote
+
+** exp-debug
+Set debug feature
+
+#+begin_quote
+- *Usage* :: *# exp-debug <on/off>*
+
+#+end_quote
+
+** exp-privacy
+Set LL privacy feature
+
+#+begin_quote
+- *Usage* :: *# exp-privacy <on/off>*
+
+#+end_quote
+
+** exp-quality
+Set bluetooth quality report feature
+
+#+begin_quote
+- *Usage* :: *# exp-quality <on/off>*
+
+#+end_quote
+
+** exp-offload
+Toggle codec support
+
+#+begin_quote
+- *Usage* :: *# exp-offload <on/off>*
+
+#+end_quote
+
+** read-sysconfig
+Read System Configuration
+
+#+begin_quote
+- *Usage* :: *# read-sysconfig*
+
+#+end_quote
+
+** set-sysconfig
+Set System Configuration
+
+#+begin_quote
+- *Usage* :: *# set-sysconfig <-v|-h> [options...]*
+
+#+end_quote
+
+** get-flags
+Get device flags
+
+** set-flags
+Set device flags
+
+#+begin_quote
+- *Usage* :: *# set-flags [-f flags] [-t type] <address>*
+
+#+end_quote
+
+* RESOURCES
+<http://www.bluez.org>
+
+* REPORTING BUGS
+<linux-bluetooth@vger.kernel.org>
+
+* COPYRIGHT
+Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).

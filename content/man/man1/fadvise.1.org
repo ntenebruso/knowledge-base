@@ -1,0 +1,90 @@
+#+TITLE: Manpages - fadvise.1
+* NAME
+fadvise - utility to use the posix_fadvise system call
+
+* SYNOPSIS
+*fadvise* [*-a* /advice/] [*-o* /offset/] [*-l* /length/] /filename/
+
+*fadvise* [*-a* /advice/] [*-o* /offset/] [*-l* /length/] -d
+/file-descriptor/
+
+* DESCRIPTION
+*fadvise* is a simple command wrapping posix_fadvise system call that is
+for predeclaring an access pattern for file data.
+
+* OPTIONS
+*-d*, *--fd* /file-descriptor/
+
+#+begin_quote
+Apply the advice to the file specified with the file descriptor instead
+of open a file specified with a file name.
+
+#+end_quote
+
+*-a*, *--advice* /advice/
+
+#+begin_quote
+See the command output with *--help* option for available values for
+advice. If this option is omitted, "dontneed" is used as default advice.
+
+#+end_quote
+
+*-o*, *--offset* /offset/
+
+#+begin_quote
+Specifies the beginning offset of the range, in bytes. If this option is
+omitted, 0 is used as default advice.
+
+#+end_quote
+
+*-l*, *--length* /length/
+
+#+begin_quote
+Specifies the length of the range, in bytes. If this option is omitted,
+0 is used as default advice.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Print version and exit.
+
+#+end_quote
+
+* EXIT STATUS
+*fadvise* has the following exit status values:
+
+*0*
+
+#+begin_quote
+success
+
+#+end_quote
+
+*1*
+
+#+begin_quote
+unspecified failure
+
+#+end_quote
+
+* AUTHORS
+* SEE ALSO
+*posix_fadvise*(2)
+
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *fadvise* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

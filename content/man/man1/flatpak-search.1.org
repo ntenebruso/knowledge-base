@@ -1,0 +1,134 @@
+#+TITLE: Manpages - flatpak-search.1
+* NAME
+flatpak-search - Search for applications and runtimes
+
+* SYNOPSIS
+*flatpak search* TEXT
+
+* DESCRIPTION
+Searches for applications and runtimes matching TEXT. Note that this
+uses appstream data that can be updated with the *flatpak update*
+command. The appstream data is updated automatically only if its at
+least a day old.
+
+* OPTIONS
+The following options are understood:
+
+*-u*, *--user*
+
+#+begin_quote
+Only search through remotes in the per-user installation.
+
+#+end_quote
+
+*--system*
+
+#+begin_quote
+Only search through remotes in the default system-wide installation.
+
+#+end_quote
+
+*--installation=NAME*
+
+#+begin_quote
+Show a system-wide installation by NAME among those defined in
+/etc/flatpak/installations.d/. Using *--installation=default* is
+equivalent to using *--system*.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information during command processing.
+
+#+end_quote
+
+*--ostree-verbose*
+
+#+begin_quote
+Print OSTree debug information during command processing.
+
+#+end_quote
+
+*--columns=FIELD,...*
+
+#+begin_quote
+Specify what information to show about each result. You can list
+multiple fields, or use this option multiple times.
+
+Append :s[tart], :m[iddle], :e[nd] or :f[ull] to column names to change
+ellipsization.
+
+#+end_quote
+
+* FIELDS
+The following fields are understood by the *--columns* option:
+
+name
+
+#+begin_quote
+Show the name
+
+#+end_quote
+
+description
+
+#+begin_quote
+Show the description
+
+#+end_quote
+
+application
+
+#+begin_quote
+Show the application ID
+
+#+end_quote
+
+version
+
+#+begin_quote
+Show the version
+
+#+end_quote
+
+branch
+
+#+begin_quote
+Show the branch
+
+#+end_quote
+
+remotes
+
+#+begin_quote
+Show the remotes
+
+#+end_quote
+
+all
+
+#+begin_quote
+Show all columns
+
+#+end_quote
+
+help
+
+#+begin_quote
+Show the list of available columns
+
+#+end_quote
+
+Note that field names can be abbreviated to a unique prefix.
+
+* SEE ALSO
+*flatpak*(1)

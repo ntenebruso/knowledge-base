@@ -1,0 +1,84 @@
+#+TITLE: Manpages - nix3-registry-remove.1
+#+begin_quote
+*Warning*\\
+This program is *experimental* and its interface is subject to change.
+
+#+end_quote
+
+* Name
+=nix registry remove= - remove flake from user flake registry
+
+* Synopsis
+=nix registry remove= [/option/...] /url/
+
+* Examples
+- Remove the entry =nixpkgs= from the user registry:
+
+#+begin_example
+# nix registry remove nixpkgs
+#+end_example
+
+- Remove the entry =nixpkgs= from a custom registry:
+
+#+begin_example
+# nix registry remove --registry ./custom-flake-registry.json nixpkgs
+#+end_example
+
+* Description
+This command removes from the user registry any entry for flake
+reference /url/.
+
+* Options
+- =--registry= /registry/
+
+  The registry to operate on.
+
+** Logging-related options
+- =--debug=
+
+  Set the logging verbosity level to ‘debug'.
+
+- =--log-format= /format/
+
+  Set the format of log output; one of =raw=, =internal-json=, =bar= or
+  =bar-with-logs=.
+
+- =--print-build-logs= / =-L=
+
+  Print full build logs on standard error.
+
+- =--quiet=
+
+  Decrease the logging verbosity level.
+
+- =--verbose= / =-v=
+
+  Increase the logging verbosity level.
+
+** Miscellaneous global options
+- =--help=
+
+  Show usage information.
+
+- =--offline=
+
+  Disable substituters and consider all previously downloaded files
+  up-to-date.
+
+- =--option= /name/ /value/
+
+  Set the Nix configuration setting /name/ to /value/ (overriding
+  =nix.conf=).
+
+- =--refresh=
+
+  Consider all previously downloaded files out-of-date.
+
+- =--version=
+
+  Show version information.
+
+  *Note*
+
+  See =man nix.conf= for overriding configuration settings with command
+  line flags.

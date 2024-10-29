@@ -1,0 +1,19 @@
+#+TITLE: Manpages - arpaname.1
+* NAME
+arpaname - translate IP addresses to the corresponding ARPA names
+
+* SYNOPSIS
+*arpaname* {/ipaddress/ ...}
+
+* DESCRIPTION
+*arpaname* translates IP addresses (IPv4 and IPv6) to the corresponding
+IN-ADDR.ARPA or IP6.ARPA names.
+
+* SEE ALSO
+BIND 9 Administrator Reference Manual.
+
+* AUTHOR
+Internet Systems Consortium
+
+* COPYRIGHT
+2024, Internet Systems Consortium

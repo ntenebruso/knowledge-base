@@ -1,0 +1,145 @@
+#+TITLE: Manpages - hciattach.1
+* NAME
+hciattach - attach serial devices via UART HCI to BlueZ stack
+
+* SYNOPSIS
+*hciattach* [/OPTIONS/] </tty/> </type|id/> [/speed/] [/flow/] [/sleep/]
+[/bdaddr/]
+
+*hciattach* -1
+
+* DESCRIPTION
+*hciattach(1)* is used to attach a serial UART to the Bluetooth stack as
+HCI transport interface.
+
+* OPTIONS
+
+#+begin_quote
+- *-i* :: Send break
+
+- *-n* :: Don't detach from controlling terminal.
+
+- *-p* :: Print the PID when detaching.
+
+- *-t*/ timeout/ :: Specify an initialization timeout. Default is 5
+  seconds.
+
+- *-s*/ speed/ :: Specify an initial speed instead of the hardware
+  default.
+
+- *-l* :: List all available configurations.
+
+- *-r* :: Set the HCI device into raw mode. The kernel and bluetooth
+  daemon will ignore it.
+
+- *-h*,* --help* :: Show help options
+
+#+end_quote
+
+* ARGUMENTS
+
+#+begin_quote
+- */show/* :: This specifies the serial device to attach. A leading /dev
+  can be omitted.
+
+  Examples: */dev/ttyS1 ttyS2*
+
+- */type|id/* :: The /type/* or */id/* of the Bluetooth device that is
+  to be attached,* i.e. vendor or other device specific identifier.
+  Currently supported types are
+
+#+end_quote
+
+| /type/   | Description                                                    |
+|----------+----------------------------------------------------------------|
+| any      | Unspecified HCI_UART interface, no vendor specific options     |
+| _        |                                                                |
+| ericsson | Ericsson based modules                                         |
+| _        |                                                                |
+| digi     | Digianswer based cards                                         |
+| _        |                                                                |
+| xircom   | Xircom PCMCIA cards: Credit Card Adapter and Real Port Adapter |
+| _        |                                                                |
+| csr      | CSR Casira serial adapter or BrainBoxes serial dongle (BL642)  |
+| _        |                                                                |
+| bboxes   | BrainBoxes PCMCIA card (BL620)                                 |
+| _        |                                                                |
+| swave    | Silicon Wave kits                                              |
+| _        |                                                                |
+| bcsp     | Serial adapters using CSR chips with BCSP serial protocol      |
+| _        |                                                                |
+| ath3k    | Atheros AR300x based serial Bluetooth device                   |
+| _        |                                                                |
+| intel    | Intel Bluetooth device                                         |
+
+| #+begin_example               | Description                                                    |
+| Supported ID                  |                                                                |
+| (manufacturer id, product id) |                                                                |
+| #+end_example                 |                                                                |
+|-------------------------------+----------------------------------------------------------------|
+| 0x0105, 0x080a                | Xircom PCMCIA cards: Credit Card Adapter and Real Port Adapter |
+| _                             |                                                                |
+| 0x0160, 0x0002                | BrainBoxes PCMCIA card (BL620)                                 |
+
+#+begin_quote
+- */speed/* :: The /speed/* specifies the UART speed to use. Baudrates
+  higher than 115200bps* require vendor specific initializations that
+  are not implemented for all types of devices. In general the following
+  speeds are supported:
+
+  Supported vendor devices are automatically initialised to their
+  respective best settings.
+
+#+end_quote
+
+| 9600   |
+| _      |
+| 19200  |
+| _      |
+| 38400  |
+| _      |
+| 57600  |
+| _      |
+| 115200 |
+| _      |
+| 230400 |
+| _      |
+| 460800 |
+| _      |
+| 921600 |
+
+#+begin_quote
+- */flow/* :: If the /flow/* is appended to the list of options then
+  hardware flow control* is forced on the serial link (*CRTSCTS). All
+  above mentioned device* types have flow set by default. To force no
+  flow control use /noflow/ instead.
+
+- */sleep|nosleep/* :: Enables hardware specific power management
+  feature. If /sleep/* is appended* to the list of options then this
+  feature is enabled. To disable this feature use /nosleep/* instead.
+  All above mentioned device types have* /nosleep/* set by default.*
+
+  Note: This option will only be valid for hardware which support
+  hardware specific power management enable option from host.
+
+- */bdaddr/* :: The bdaddr specifies the Bluetooth Address to use. Some
+  devices (like the STLC2500) do not store the Bluetooth address in
+  hardware memory. Instead it must be uploaded during the initialization
+  process. If this argument is specified, then the address will be used
+  to initialize the device. Otherwise, a default address will be used.
+
+#+end_quote
+
+* RESOURCES
+<http://www.bluez.org>
+
+* REPORTING BUGS
+<linux-bluetooth@vger.kernel.org>
+
+* AUTHOR
+Maxim Krasnyansky <maxk@qualcomm.com>, Nils Faerber
+<nils@kernelconcepts.de>
+
+* COPYRIGHT
+Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).

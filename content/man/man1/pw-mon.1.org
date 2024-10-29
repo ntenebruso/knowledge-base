@@ -1,0 +1,48 @@
+#+TITLE: Manpages - pw-mon.1
+* NAME
+pw-mon - The PipeWire monitor
+
+* SYNOPSIS
+*pw-mon* [/options/]
+
+* DESCRIPTION
+Monitor objects on the PipeWire instance.
+
+* OPTIONS
+*-r | --remote=NAME*
+
+#+begin_quote
+The name the /remote/ instance to monitor. If left unspecified, a
+connection is made to the default PipeWire instance.
+
+#+end_quote
+
+*-h | --help*
+
+#+begin_quote
+Show help.
+
+#+end_quote
+
+*--version*
+
+#+begin_quote
+Show version information.
+
+#+end_quote
+
+*-N | --color=WHEN*
+
+#+begin_quote
+Whether to use color, one of 'never', 'always', or 'auto'. The default
+is 'auto'. *-N* is equivalent to *--color=never*.
+
+#+end_quote
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pipewire(1)*

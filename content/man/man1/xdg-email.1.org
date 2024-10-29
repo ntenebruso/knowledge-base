@@ -1,0 +1,240 @@
+#+TITLE: Manpages - xdg-email.1
+.SH "NAME" xdg-email - command line tool for sending mail using the
+users preferred e-mail composer
+
+.SH "SYNOPSIS"
+
+.HP u
+
+*xdg-email* [*--utf8*] [*--cc* /address/] [*--bcc* /address/]
+[*--subject* /text/] [*--body* /text/] [*--attach* /file/] [ |
+/mailto-uri/ | /address(es)/ ]
+
+.HP u
+
+*xdg-email* { | *--help* | *--manual* | *--version* }
+
+.SH "DESCRIPTION"
+
+.PP xdg-email opens the users preferred e-mail composer in order to send
+a mail to /address(es)/ or /mailto-uri/. RFC2368 defines mailto: URIs.
+xdg-email limits support to, cc, subject and body fields in
+/mailto-uri/, all other fields are silently ignored. /address(es)/ must
+follow the syntax of RFC822. Multiple addresses may be provided as
+separate arguments.
+
+.PP All information provided on the command line is used to prefill
+corresponding fields in the users e-mail composer. The user will have
+the opportunity to change any of this information before actually
+sending the e-mail.
+
+.PP xdg-email is for use inside a desktop session only. It is not
+recommended to use xdg-email as root.
+
+.SH "OPTIONS"
+
+.PP *--utf8*
+
+#+begin_quote
+Indicates that all command line options that follow are in utf8. Without
+this option, command line options are expected to be encoded according
+to locale. If the locale already specifies utf8 this option has no
+effect. This option does not affect mailto URIs that are passed on the
+command line.
+
+.RE
+
+.PP *--cc* /address/
+
+#+begin_quote
+Specify a recipient to be copied on the e-mail.
+
+.RE
+
+.PP *--bcc* /address/
+
+#+begin_quote
+Specify a recipient to be blindly copied on the e-mail.
+
+.RE
+
+.PP *--subject* /text/
+
+#+begin_quote
+Specify a subject for the e-mail.
+
+.RE
+
+.PP *--body* /text/
+
+#+begin_quote
+Specify a body for the e-mail. Since the user will be able to make
+changes before actually sending the e-mail, this can be used to provide
+the user with a template for the e-mail. /text/ may contain linebreaks.
+
+.RE
+
+.PP *--attach* /file/
+
+#+begin_quote
+Specify an attachment for the e-mail. /file/ must point to an existing
+file.
+
+Some e-mail applications require the file to remain present after
+xdg-email returns.
+
+.RE .PP *--help*
+
+#+begin_quote
+Show command synopsis.
+
+.RE
+
+.PP *--manual*
+
+#+begin_quote
+Show this manual page.
+
+.RE
+
+.PP *--version*
+
+#+begin_quote
+Show the xdg-utils version information.
+
+.RE .SH "ENVIRONMENT VARIABLES"
+
+.PP xdg-email honours the following environment variables:
+
+.PP XDG_UTILS_DEBUG_LEVEL
+
+#+begin_quote
+Setting this environment variable to a non-zero numerical value makes
+xdg-email do more verbose reporting on stderr. Setting a higher value
+increases the verbosity.
+
+.RE .SH "EXIT CODES"
+
+.PP An exit code of 0 indicates success while a non-zero exit code
+indicates failure. The following failure codes can be returned:
+
+.PP *1*
+
+#+begin_quote
+Error in command line syntax.
+
+.RE .PP *2*
+
+#+begin_quote
+One of the files passed on the command line did not exist.
+
+.RE .PP *3*
+
+#+begin_quote
+A required tool could not be found.
+
+.RE .PP *4*
+
+#+begin_quote
+The action failed.
+
+.RE .PP *5*
+
+#+begin_quote
+No permission to read one of the files passed on the command line.
+
+.RE .SH "SEE ALSO"
+
+.PP *xdg-open*(1), *xdg-mime*(1), *MIME applications associations
+specification*[1], *RFC 6068 - The mailto URI Scheme*[2]
+
+.SH "EXAMPLES"
+
+.PP
+
+#+begin_quote
+#+begin_example
+xdg-email Jeremy White <jwhite@example.com>
+#+end_example
+
+#+end_quote
+
+.PP
+
+#+begin_quote
+#+begin_example
+xdg-email --attach /tmp/logo.png \
+          --subject Logo contest \
+          --body Attached you find the logo for the contest. \
+          jwhite@example.com
+#+end_example
+
+#+end_quote
+
+.PP
+
+#+begin_quote
+#+begin_example
+xdg-email --subject Your password is about to expire \
+          jwhite@example.com bastian@example.com whipple@example.com
+#+end_example
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+* AUTHORS
+*Kevin Krammer*
+
+#+begin_quote
+Author.
+
+#+end_quote
+
+*Jeremy White*
+
+#+begin_quote
+Author.
+
+#+end_quote
+
+* COPYRIGHT
+\\
+Copyright © 2006\\
+
+* NOTES
+-  1. :: MIME applications associations specification
+
+  http://www.freedesktop.org/wiki/Specifications/mime-apps-spec/
+
+-  2. :: RFC 6068 - The 'mailto' URI Scheme
+
+  https://tools.ietf.org/html/rfc6068

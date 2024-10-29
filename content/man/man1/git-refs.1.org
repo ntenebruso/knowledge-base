@@ -1,0 +1,89 @@
+#+TITLE: Manpages - git-refs.1
+* NAME
+git-refs - Low-level access to refs
+
+* SYNOPSIS
+#+begin_example
+git refs migrate --ref-format=<format> [--dry-run]
+#+end_example
+
+* DESCRIPTION
+This command provides low-level access to refs.
+
+* COMMANDS
+migrate
+
+#+begin_quote
+Migrate ref store between different formats.
+
+#+end_quote
+
+* OPTIONS
+The following options are specific to /git refs migrate/:
+
+--ref-format=<format>
+
+#+begin_quote
+The ref format to migrate the ref store to. Can be one of:
+
+#+begin_quote
+·
+
+*files* for loose files with packed-refs. This is the default.
+
+#+end_quote
+
+#+begin_quote
+·
+
+*reftable* for the reftable format. This format is experimental and its
+internals are subject to change.
+
+#+end_quote
+
+#+end_quote
+
+--dry-run
+
+#+begin_quote
+Perform the migration, but do not modify the repository. The migrated
+refs will be written into a separate directory that can be inspected
+separately. The name of the directory will be reported on stdout. This
+can be used to double check that the migration works as expected before
+performing the actual migration.
+
+#+end_quote
+
+* KNOWN LIMITATIONS
+The ref format migration has several known limitations in its current
+form:
+
+#+begin_quote
+·
+
+It is not possible to migrate repositories that have reflogs.
+
+#+end_quote
+
+#+begin_quote
+·
+
+It is not possible to migrate repositories that have worktrees.
+
+#+end_quote
+
+#+begin_quote
+·
+
+There is no way to block concurrent writes to the repository during an
+ongoing migration. Concurrent writes can lead to an inconsistent
+migrated state. Users are expected to block writes on a higher level. If
+your repository is registered for scheduled maintenance, it is
+recommended to unregister it first with git-maintenance(1).
+
+#+end_quote
+
+These limitations may eventually be lifted.
+
+* GIT
+Part of the *git*(1) suite

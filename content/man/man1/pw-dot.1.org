@@ -1,0 +1,86 @@
+#+TITLE: Manpages - pw-dot.1
+* NAME
+pw-dot - The PipeWire dot graph dump
+
+* SYNOPSIS
+*pw-dot* [/options/]
+
+* DESCRIPTION
+Create a .dot file of the PipeWire graph.
+
+The .dot file can then be visualized with a tool like *dotty* or
+rendered to a PNG file with dot -Tpng pw.dot -o pw.png.
+
+* OPTIONS
+*-r | --remote=NAME*
+
+#+begin_quote
+The name the remote instance to connect to. If left unspecified, a
+connection is made to the default PipeWire instance.
+
+#+end_quote
+
+*-h | --help*
+
+#+begin_quote
+Show help.
+
+#+end_quote
+
+*--version*
+
+#+begin_quote
+Show version information.
+
+#+end_quote
+
+*-a | --all*
+
+#+begin_quote
+Show all object types.
+
+#+end_quote
+
+*-s | --smart*
+
+#+begin_quote
+Show linked objects only.
+
+#+end_quote
+
+*-d | --detail*
+
+#+begin_quote
+Show all object properties.
+
+#+end_quote
+
+*-o FILE | --output=FILE*
+
+#+begin_quote
+Output file name (Default pw.dot). Use - for stdout.
+
+#+end_quote
+
+*-L | --lr*
+
+#+begin_quote
+Lay the graph from left to right, instead of dot's default top to
+bottom.
+
+#+end_quote
+
+*-9 | --90*
+
+#+begin_quote
+Lay the graph using 90-degree angles in edges.
+
+#+end_quote
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pipewire(1)*, *pw-cli(1)*, *pw-mon(1)*,

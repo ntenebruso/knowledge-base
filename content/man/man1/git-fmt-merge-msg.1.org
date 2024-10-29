@@ -1,0 +1,126 @@
+#+TITLE: Manpages - git-fmt-merge-msg.1
+* NAME
+git-fmt-merge-msg - Produce a merge commit message
+
+* SYNOPSIS
+#+begin_example
+git fmt-merge-msg [-m <message>] [--into-name <branch>] [--log[=<n>] | --no-log]
+git fmt-merge-msg [-m <message>] [--log[=<n>] | --no-log] -F <file>
+#+end_example
+
+* DESCRIPTION
+Takes the list of merged objects on stdin and produces a suitable commit
+message to be used for the merge commit, usually to be passed as the
+/<merge-message>/ argument of /git merge/.
+
+This command is intended mostly for internal use by scripts
+automatically invoking /git merge/.
+
+* OPTIONS
+--log[=<n>]
+
+#+begin_quote
+In addition to branch names, populate the log message with one-line
+descriptions from the actual commits that are being merged. At most <n>
+commits from each merge parent will be used (20 if <n> is omitted). This
+overrides the *merge.log* configuration variable.
+
+#+end_quote
+
+--no-log
+
+#+begin_quote
+Do not list one-line descriptions from the actual commits being merged.
+
+#+end_quote
+
+--[no-]summary
+
+#+begin_quote
+Synonyms to --log and --no-log; these are deprecated and will be removed
+in the future.
+
+#+end_quote
+
+-m <message>, --message <message>
+
+#+begin_quote
+Use <message> instead of the branch names for the first line of the log
+message. For use with *--log*.
+
+#+end_quote
+
+--into-name <branch>
+
+#+begin_quote
+Prepare the merge message as if merging to the branch *<branch>*,
+instead of the name of the real branch to which the merge is made.
+
+#+end_quote
+
+-F <file>, --file <file>
+
+#+begin_quote
+Take the list of merged objects from <file> instead of stdin.
+
+#+end_quote
+
+* CONFIGURATION
+merge.branchdesc
+
+#+begin_quote
+In addition to branch names, populate the log message with the branch
+description text associated with them. Defaults to false.
+
+#+end_quote
+
+merge.log
+
+#+begin_quote
+In addition to branch names, populate the log message with at most the
+specified number of one-line descriptions from the actual commits that
+are being merged. Defaults to false, and true is a synonym for 20.
+
+#+end_quote
+
+merge.suppressDest
+
+#+begin_quote
+By adding a glob that matches the names of integration branches to this
+multi-valued configuration variable, the default merge message computed
+for merges into these integration branches will omit "into <branch
+name>" from its title.
+
+An element with an empty value can be used to clear the list of globs
+accumulated from previous configuration entries. When there is no
+*merge.suppressDest* variable defined, the default value of *master* is
+used for backward compatibility.
+
+#+end_quote
+
+merge.summary
+
+#+begin_quote
+Synonym to *merge.log*; this is deprecated and will be removed in the
+future.
+
+#+end_quote
+
+* EXAMPLES
+
+#+begin_quote
+#+begin_example
+$ git fetch origin master
+$ git fmt-merge-msg --log <$GIT_DIR/FETCH_HEAD
+#+end_example
+
+#+end_quote
+
+Print a log message describing a merge of the "master" branch from the
+"origin" remote.
+
+* SEE ALSO
+*git-merge*(1)
+
+* GIT
+Part of the *git*(1) suite

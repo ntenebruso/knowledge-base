@@ -1,0 +1,102 @@
+#+TITLE: Manpages - git-prune.1
+* NAME
+git-prune - Prune all unreachable objects from the object database
+
+* SYNOPSIS
+#+begin_example
+git prune [-n] [-v] [--progress] [--expire <time>] [--] [<head>...]
+#+end_example
+
+* DESCRIPTION
+
+#+begin_quote
+\\
+
+*Note*
+
+\\
+
+In most cases, users should run /git gc/, which calls /git prune/. See
+the section "NOTES", below.
+
+#+end_quote
+
+This runs /git fsck --unreachable/ using all the refs available in
+*refs/*, optionally with an additional set of objects specified on the
+command line, and prunes all unpacked objects unreachable from any of
+these head objects from the object database. In addition, it prunes the
+unpacked objects that are also found in packs by running /git
+prune-packed/. It also removes entries from .git/shallow that are not
+reachable by any ref.
+
+Note that unreachable, packed objects will remain. If this is not
+desired, see *git-repack*(1).
+
+* OPTIONS
+-n, --dry-run
+
+#+begin_quote
+Do not remove anything; just report what it would remove.
+
+#+end_quote
+
+-v, --verbose
+
+#+begin_quote
+Report all removed objects.
+
+#+end_quote
+
+--progress
+
+#+begin_quote
+Show progress.
+
+#+end_quote
+
+--expire <time>
+
+#+begin_quote
+Only expire loose objects older than <time>.
+
+#+end_quote
+
+--
+
+#+begin_quote
+Do not interpret any more arguments as options.
+
+#+end_quote
+
+<head>...
+
+#+begin_quote
+In addition to objects reachable from any of our references, keep
+objects reachable from listed <head>s.
+
+#+end_quote
+
+* EXAMPLES
+To prune objects not used by your repository or another that borrows
+from your repository via its *.git/objects/info/alternates*:
+
+#+begin_quote
+#+begin_example
+$ git prune $(cd ../another && git rev-parse --all)
+#+end_example
+
+#+end_quote
+
+* NOTES
+In most cases, users will not need to call /git prune/ directly, but
+should instead call /git gc/, which handles pruning along with many
+other housekeeping tasks.
+
+For a description of which objects are considered for pruning, see /git
+fsck/s --unreachable option.
+
+* SEE ALSO
+*git-fsck*(1), *git-gc*(1), *git-reflog*(1)
+
+* GIT
+Part of the *git*(1) suite

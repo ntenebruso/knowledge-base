@@ -1,0 +1,139 @@
+#+TITLE: Manpages - git-var.1
+* NAME
+git-var - Show a Git logical variable
+
+* SYNOPSIS
+#+begin_example
+git var (-l | <variable>)
+#+end_example
+
+* DESCRIPTION
+Prints a Git logical variable. Exits with code 1 if the variable has no
+value.
+
+* OPTIONS
+-l
+
+#+begin_quote
+Display the logical variables. In addition, all the variables of the Git
+configuration file .git/config are listed as well. (However, the
+configuration variables listing functionality is deprecated in favor of
+*git config -l*.)
+
+#+end_quote
+
+* EXAMPLES
+
+#+begin_quote
+#+begin_example
+$ git var GIT_AUTHOR_IDENT
+Eric W. Biederman <ebiederm@lnxi.com> 1121223278 -0600
+#+end_example
+
+#+end_quote
+
+* VARIABLES
+GIT_AUTHOR_IDENT
+
+#+begin_quote
+The author of a piece of code.
+
+#+end_quote
+
+GIT_COMMITTER_IDENT
+
+#+begin_quote
+The person who put a piece of code into Git.
+
+#+end_quote
+
+GIT_EDITOR
+
+#+begin_quote
+Text editor for use by Git commands. The value is meant to be
+interpreted by the shell when it is used. Examples: *~/bin/vi*,
+*$SOME_ENVIRONMENT_VARIABLE*, *"C:\Program Files\Vim\gvim.exe"
+--nofork*. The order of preference is the *$GIT_EDITOR* environment
+variable, then *core.editor* configuration, then *$VISUAL*, then
+*$EDITOR*, and then the default chosen at compile time, which is usually
+/vi/.
+
+#+end_quote
+
+GIT_SEQUENCE_EDITOR
+
+#+begin_quote
+Text editor used to edit the /todo/ file while running *git rebase -i*.
+Like *GIT_EDITOR*, the value is meant to be interpreted by the shell
+when it is used. The order of preference is the *$GIT_SEQUENCE_EDITOR*
+environment variable, then *sequence.editor* configuration, and then the
+value of *git var GIT_EDITOR*.
+
+#+end_quote
+
+GIT_PAGER
+
+#+begin_quote
+Text viewer for use by Git commands (e.g., /less/). The value is meant
+to be interpreted by the shell. The order of preference is the
+*$GIT_PAGER* environment variable, then *core.pager* configuration, then
+*$PAGER*, and then the default chosen at compile time (usually /less/).
+
+#+end_quote
+
+GIT_DEFAULT_BRANCH
+
+#+begin_quote
+The name of the first branch created in newly initialized repositories.
+
+#+end_quote
+
+GIT_SHELL_PATH
+
+#+begin_quote
+The path of the binary providing the POSIX shell for commands which use
+the shell.
+
+#+end_quote
+
+GIT_ATTR_SYSTEM
+
+#+begin_quote
+The path to the system *gitattributes*(5) file, if one is enabled.
+
+#+end_quote
+
+GIT_ATTR_GLOBAL
+
+#+begin_quote
+The path to the global (per-user) *gitattributes*(5) file.
+
+#+end_quote
+
+GIT_CONFIG_SYSTEM
+
+#+begin_quote
+The path to the system configuration file, if one is enabled.
+
+#+end_quote
+
+GIT_CONFIG_GLOBAL
+
+#+begin_quote
+The path to the global (per-user) configuration files, if any.
+
+#+end_quote
+
+Most path values contain only one value. However, some can contain
+multiple values, which are separated by newlines, and are listed in
+order from highest to lowest priority. Callers should be prepared for
+any such path value to contain multiple items.
+
+Note that paths are printed even if they do not exist, but not if they
+are disabled by other environment variables.
+
+* SEE ALSO
+*git-commit-tree*(1) *git-tag*(1) *git-config*(1)
+
+* GIT
+Part of the *git*(1) suite

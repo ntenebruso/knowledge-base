@@ -17,3 +17,5 @@ hugo.linux
 
 # Node
 /node_modules/
+
+/mandb/

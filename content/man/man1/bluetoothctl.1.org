@@ -1,0 +1,382 @@
+#+TITLE: Manpages - bluetoothctl.1
+* NAME
+bluetoothctl - Bluetooth Control Command Line Tool
+
+* SYNOPSIS
+*bluetoothctl* [*-a* /capability/] [*-e*] [*-m*] [*-t* /seconds/] [*-v*]
+[*-h*]
+
+* DESCRIPTION
+*bluetoothctl(1)* interactive bluetooth control tool. The tool works
+with Bluetooth Classic (BR/EDR) and Bluetooth Low Energy (LE)
+controllers.
+
+The tool is menu driven but can be automated from the command line.
+Examples are given in the automation section.
+
+* OPTIONS
+
+#+begin_quote
+- *-a*/ capability,/* --agent*/ capability/ :: Register agent handler:
+  <capability>
+
+- *-e, --endpoints* :: Register Media endpoints
+
+- *-m, --monitor* :: Enable monitor output
+
+- *-t*/ seconds,/* --timeout*/ seconds/ :: Timeout in seconds for
+  non-interactive mode
+
+- *-v, --version* :: Display version
+
+- *-h, --help* :: Display help
+
+#+end_quote
+
+* COMMANDS
+** list
+List available controllers.
+
+#+begin_quote
+- *Usage* :: *# list*
+
+#+end_quote
+
+** show
+Controller information.
+
+#+begin_quote
+- *Usage* :: *# show [ctrl]*
+
+#+end_quote
+
+** select
+Select default controller.
+
+#+begin_quote
+- *Usage* :: *# select <ctrl>*
+
+#+end_quote
+
+** devices
+List available devices, with an optional property as the filter.
+
+#+begin_quote
+- *Usage* :: *# devices [Paired/Bonded/Trusted/Connected]*
+
+#+end_quote
+
+** system-alias
+Set controller alias.
+
+#+begin_quote
+- *Usage* :: *# system-alias <name>*
+
+#+end_quote
+
+** reset-alias
+Reset controller alias.
+
+#+begin_quote
+- *Usage* :: *# reset-alias*
+
+#+end_quote
+
+** power
+Set controller power.
+
+When the controller is powered off, the USB port the controller is
+attached to is put into a suspend state.
+
+#+begin_quote
+- *Usage* :: *# power <on/off>*
+
+#+end_quote
+
+** advertise
+Enable/disable advertising with given type.
+
+If you exit the program advertising will be disabled.
+
+When advertising the controller should advertise with random address but
+may use its public address if it does not support the feature (address
+of the device).
+
+A device can advertise if it initiated the connection to another
+advertising device.
+
+#+begin_quote
+- *Usage* :: *# advertise <on/off/type>*
+
+#+end_quote
+
+** set-alias
+Set device alias.
+
+#+begin_quote
+- *Usage* :: *# set-alias <alias>*
+
+#+end_quote
+
+** scan
+Scan for devices.
+
+For LE, scanning is an important requirement before connecting or
+pairing.
+
+The purpose of scanning is to find devices that are advertising with
+their discoverable flag set (either limited or general). Once you have
+found the address then you can connect or pair.
+
+Note the following when scanning:
+
+#+begin_quote
+
+#+begin_quote
+
+#+begin_quote
+- When scanning the controller will use a random address that is not
+  resolvable so the public address is not leaked. A new random address
+  is created every time scan on is used.
+
+- When turning on scanning the device will start receiving advertising
+  reports of what devices are advertising.
+
+- The filtering of duplicate advertising reports may be enabled
+  depending on the filtering settings.
+
+- Device objects found during a scan session will only be persisted if
+  they are connected/paired otherwise they are removed after some time.
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+begin_quote
+- *Usage* :: *# scan <on/off/bredr/le>*
+
+#+end_quote
+
+** pair
+Pair with device.
+
+This will pair with a device and then trust and connect to it. If the
+device is already paired this will first remove the pairing.
+
+The command can either be used while the controller is in the connected
+or not connected state.
+
+If the controller is already connected then the pair command can be used
+without an arguments. If the controller is not connected, the pair
+command can be given the address of a device with an active scan report
+and it will initiate the connection before pairing.
+
+Before pairing the agent must be selected to choose the authentication
+mechanism.
+
+#+begin_quote
+- *Usage* :: *# pair <dev>*
+
+#+end_quote
+
+** pairable
+Set controller pairable mode.
+
+This enables/disables pairing. If pairing is disabled then the
+controller will not accept any pairing requests.
+
+#+begin_quote
+- *Usage* :: *# pairable <on/off>*
+
+#+end_quote
+
+** discoverable
+Set discoverable mode.
+
+This enables/disables discoverable mode. If discoverable is disabled
+then the controller will not respond to any scan requests.
+
+In LE if discoverable if off the controller will just passively scan and
+not make scan requests to advertising devices. If on it will make the
+advertising requests.
+
+It will use a random address if supported by the controller. The length
+of time "discoverable on" is valid is determined by discoverable-timeout
+command.
+
+#+begin_quote
+- *Usage* :: *# discoverable <on/off>*
+
+#+end_quote
+
+** discoverable-timeout
+Set discoverable timeout.
+
+The time in seconds that "discoverable on" is valid.
+
+#+begin_quote
+- *Usage* :: *# discoverable-timeout [value]*
+
+#+end_quote
+
+** agent
+Enable/disable agent with given capability.
+
+This chooses the local authentication mechanism of the controller. It is
+needed for pairing and allows you to choose the IO capabilities of the
+controller.
+
+The valid agent capabilities are: DisplayOnly, DisplayYesNo,
+KeyboardDisplay, KeyboardOnly, NoInputNoOutput.
+
+#+begin_quote
+- *Usage* :: *# agent <on/off/capability>*
+
+#+end_quote
+
+** default-agent
+Set current agent as the default one.
+
+After selecting the agent this will make it the default agent.
+
+#+begin_quote
+- *Usage* :: *# default-agent*
+
+#+end_quote
+
+** trust
+Trust device.
+
+#+begin_quote
+- *Usage* :: *# trust <dev>*
+
+#+end_quote
+
+** untrust
+Untrust device.
+
+#+begin_quote
+- *Usage* :: *# untrust <dev>*
+
+#+end_quote
+
+** block
+Block device.
+
+#+begin_quote
+- *Usage* :: *# block <dev>*
+
+#+end_quote
+
+** unblock
+Unblock device
+
+#+begin_quote
+- *Usage* :: *# unblock <dev>*
+
+#+end_quote
+
+** remove
+Remove device.
+
+#+begin_quote
+- *Usage* :: *# remove <dev>*
+
+#+end_quote
+
+** connect
+Connect device.
+
+This will initiate a connection to a device.
+
+To connect with an LE device the controller must have an active scan
+report of the device it wants to connect to.
+
+If no advertising report is received before the timeout a
+le-connection-abort-by-local error will be issued. In that case either
+try again to connect assuming the device is advertising.
+
+#+begin_quote
+- *Usage* :: *# connect <dev>*
+
+#+end_quote
+
+** disconnect
+Disconnect device.
+
+For LE when disconnecting from an active connection the device address
+is not needed.
+
+#+begin_quote
+- *Usage* :: *# disconnect <dev>*
+
+#+end_quote
+
+** info
+Device information.
+
+#+begin_quote
+- *Usage* :: *# info <dev>*
+
+#+end_quote
+
+* ADVERTISE SUBMENU
+See *bluetoothctl-advertise(1).*
+
+* MONITOR SUBMENU
+See *bluetoothctl-monitor(1)*
+
+* SCAN SUBMENU
+See *bluetoothctl-scan(1)*
+
+* GATT SUBMENU
+See *bluetoothctl-gatt(1)*
+
+* ADMIN SUBMENU
+See *bluetoothctl-admin(1)*
+
+* PLAYER SUBMENU
+See *bluetoothctl-player(1)*
+
+* ENDPOINT SUBMENU
+See *bluetoothctl-endpoint(1)*
+
+* TRANSPORT SUBMENU
+See *bluetoothctl-transport(1)*
+
+* MANAGEMENT SUBMENU
+See *bluetoothctl-mgmt(1)*
+
+* ASSISTANT SUBMENU
+See *bluetoothctl-assistant(1)*
+
+* AUTOMATION
+Two common ways to automate the tool are to use Here Docs or the program
+expect. Using Here Docs to show information about the Bluetooth
+controller.
+
+#+begin_quote
+
+#+begin_quote
+#+begin_example
+bluetoothctl <<EOF
+list
+show
+EOF
+#+end_example
+
+#+end_quote
+
+#+end_quote
+
+* RESOURCES
+<http://www.bluez.org>
+
+* REPORTING BUGS
+<linux-bluetooth@vger.kernel.org>
+
+* COPYRIGHT
+Free use of this software is granted under the terms of the GNU Lesser
+General Public Licenses (LGPL).

@@ -1,0 +1,178 @@
+#+TITLE: Manpages - xdg-screensaver.1
+.SH "NAME" xdg-screensaver - command line tool for controlling the
+screensaver
+
+.SH "SYNOPSIS"
+
+.HP u
+
+*xdg-screensaver* *suspend */WindowID/
+
+.HP u
+
+*xdg-screensaver* *resume */WindowID/
+
+.HP u
+
+*xdg-screensaver* { | *activate* | *lock* | *reset* | *status* }
+
+.HP u
+
+*xdg-screensaver* { | *--help* | *--manual* | *--version* }
+
+.SH "DESCRIPTION"
+
+.PP xdg-screensaver provides commands to control the screensaver.
+
+.PP xdg-screensaver is for use inside a desktop session only. It is not
+recommended to use xdg-screensaver as root.
+
+.SH "COMMANDS"
+
+.PP *suspend */WindowID/
+
+#+begin_quote
+Suspends the screensaver and monitor power management. /WindowID/ must
+be the X Window ID of an existing window of the calling application. The
+window must remain in existence for the duration of the suspension.
+
+WindowID can be represented as either a decimal number or as a
+hexadecimal number consisting of the prefix /0x/ followed by one or more
+hexadecimal digits.
+
+The screensaver can be suspended in relation to multiple windows at the
+same time. In that case screensaver operation is only restored once the
+screensaver has been resumed in relation to each of the windows
+
+.RE
+
+.PP *resume */WindowID/
+
+#+begin_quote
+Resume the screensaver and monitor power management after being
+suspended. /WindowID/ must be the same X Window ID that was passed to a
+previous call of *xdg-screensaver suspend*
+
+.RE
+
+.PP *activate*
+
+#+begin_quote
+Turns the screensaver on immediately. This may result in the screen
+getting locked, depending on existing system policies.
+
+.RE
+
+.PP *lock*
+
+#+begin_quote
+Lock the screen immediately.
+
+.RE
+
+.PP *reset*
+
+#+begin_quote
+Turns the screensaver off immediately. If the screen was locked the user
+may be asked to authenticate first.
+
+.RE
+
+.PP *status*
+
+#+begin_quote
+Prints /enabled/ to stdout if the screensaver is enabled to turn on
+after a period of inactivity and prints /disabled/ if the screensaver is
+not enabled.
+
+.RE .SH "OPTIONS"
+
+.PP *--help*
+
+#+begin_quote
+Show command synopsis.
+
+.RE
+
+.PP *--manual*
+
+#+begin_quote
+Show this manual page.
+
+.RE
+
+.PP *--version*
+
+#+begin_quote
+Show the xdg-utils version information.
+
+.RE .SH "EXIT CODES"
+
+.PP An exit code of 0 indicates success while a non-zero exit code
+indicates failure. The following failure codes can be returned:
+
+.PP *1*
+
+#+begin_quote
+Error in command line syntax.
+
+.RE .PP *3*
+
+#+begin_quote
+A required tool could not be found.
+
+.RE .PP *4*
+
+#+begin_quote
+The action failed.
+
+.RE .SH "EXAMPLES"
+
+.PP
+
+#+begin_quote
+#+begin_example
+xdg-screensaver suspend 0x1c00007
+#+end_example
+
+#+end_quote
+
+Causes the screensaver to be disabled till *xdg-screensaver resume
+0x1c00007* is called. /0x1c00007/ must be the X Window ID of an existing
+window.
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+* AUTHOR
+*Bryce Harrington*
+
+#+begin_quote
+Author.
+
+#+end_quote
+
+* COPYRIGHT
+\\
+Copyright © 2006\\

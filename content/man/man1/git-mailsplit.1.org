@@ -1,0 +1,91 @@
+#+TITLE: Manpages - git-mailsplit.1
+* NAME
+git-mailsplit - Simple UNIX mbox splitter program
+
+* SYNOPSIS
+#+begin_example
+git mailsplit [-b] [-f<nn>] [-d<prec>] [--keep-cr] [--mboxrd]
+                -o<directory> [--] [(<mbox>|<Maildir>)...]
+#+end_example
+
+* DESCRIPTION
+Splits a mbox file or a Maildir into a list of files: "0001" "0002" ..
+in the specified directory so you can process them further from there.
+
+#+begin_quote
+\\
+
+*Important*
+
+\\
+
+Maildir splitting relies upon filenames being sorted to output patches
+in the correct order.
+
+#+end_quote
+
+* OPTIONS
+<mbox>
+
+#+begin_quote
+Mbox file to split. If not given, the mbox is read from the standard
+input.
+
+#+end_quote
+
+<Maildir>
+
+#+begin_quote
+Root of the Maildir to split. This directory should contain the cur, tmp
+and new subdirectories.
+
+#+end_quote
+
+-o<directory>
+
+#+begin_quote
+Directory in which to place the individual messages.
+
+#+end_quote
+
+-b
+
+#+begin_quote
+If any file doesn't begin with a From line, assume it is a single mail
+message instead of signaling an error.
+
+#+end_quote
+
+-d<prec>
+
+#+begin_quote
+Instead of the default 4 digits with leading zeros, different precision
+can be specified for the generated filenames.
+
+#+end_quote
+
+-f<nn>
+
+#+begin_quote
+Skip the first <nn> numbers, for example if -f3 is specified, start the
+numbering with 0004.
+
+#+end_quote
+
+--keep-cr
+
+#+begin_quote
+Do not remove *\r* from lines ending with *\r\n*.
+
+#+end_quote
+
+--mboxrd
+
+#+begin_quote
+Input is of the "mboxrd" format and "^>+From " line escaping is
+reversed.
+
+#+end_quote
+
+* GIT
+Part of the *git*(1) suite

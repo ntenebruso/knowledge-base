@@ -1,0 +1,147 @@
+#+TITLE: Manpages - flatpak-document-export.1
+* NAME
+flatpak-document-export - Export a file to a sandboxed application
+
+* SYNOPSIS
+*flatpak document-export* [OPTION...] FILE
+
+* DESCRIPTION
+Creates a document id for a local file that can be exposed to sandboxed
+applications, allowing them access to files that they would not
+otherwise see. The exported files are exposed in a fuse filesystem at
+/run/user/$UID/doc/.
+
+This command also lets you modify the per-application permissions of the
+documents, granting or revoking access to the file on a per-application
+basis.
+
+* OPTIONS
+The following options are understood:
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*-u*, *--unique*
+
+#+begin_quote
+Dont reuse an existing document id for the file. This makes it safe to
+later remove the document when youre finished with it.
+
+#+end_quote
+
+*-t*, *--transient*
+
+#+begin_quote
+The document will only exist for the length of the session. This is
+useful for temporary grants.
+
+#+end_quote
+
+*-n*, *--noexist*
+
+#+begin_quote
+Dont require the file to exist already.
+
+#+end_quote
+
+*-a*, *--app=APPID*
+
+#+begin_quote
+Grant read access to the specified application. The *--allow* and
+*--forbid* options can be used to grant or remove additional privileges.
+This option can be used multiple times.
+
+#+end_quote
+
+*-r*, *--allow-read*
+
+#+begin_quote
+Grant read access to the applications specified with *--app*. This
+defaults to TRUE.
+
+#+end_quote
+
+*--forbid-read*
+
+#+begin_quote
+Revoke read access for the applications specified with *--app*.
+
+#+end_quote
+
+*-w*, *--allow-write*
+
+#+begin_quote
+Grant write access to the applications specified with *--app*.
+
+#+end_quote
+
+*--forbid-write*
+
+#+begin_quote
+Revoke write access for the applications specified with *--app*.
+
+#+end_quote
+
+*-d*, *--allow-delete*
+
+#+begin_quote
+Grant the ability to remove the document from the document portal to the
+applications specified with *--app*.
+
+#+end_quote
+
+*--forbid-delete*
+
+#+begin_quote
+Revoke the ability to remove the document from the document portal from
+the applications specified with *--app*.
+
+#+end_quote
+
+*-g*, *--allow-grant-permission*
+
+#+begin_quote
+Grant the ability to grant further permissions to the applications
+specified with *--app*.
+
+#+end_quote
+
+*--forbid-grant-permission*
+
+#+begin_quote
+Revoke the ability to grant further permissions for the applications
+specified with *--app*.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information during command processing.
+
+#+end_quote
+
+*--ostree-verbose*
+
+#+begin_quote
+Print OSTree debug information during command processing.
+
+#+end_quote
+
+* EXAMPLES
+*$ flatpak document-export --app=org.gnome.gedit ~/test.txt*
+
+#+begin_quote
+#+begin_example
+/run/user/1000/doc/e52f9c6a/test.txt
+#+end_example
+
+#+end_quote
+
+* SEE ALSO
+*flatpak*(1), *flatpak-document-unexport*(1),
+*flatpak-document-info*(1), *flatpak-documents*(1)

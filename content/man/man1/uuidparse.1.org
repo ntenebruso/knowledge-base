@@ -1,0 +1,84 @@
+#+TITLE: Manpages - uuidparse.1
+* NAME
+uuidparse - a utility to parse unique identifiers
+
+* SYNOPSIS
+*uuidparse* [options] /uuid/
+
+* DESCRIPTION
+This command will parse unique identifier inputs from either command
+line arguments or standard input. The inputs are white-space separated.
+
+* OUTPUT
+** Variants
+| NCS       | Network Computing System identifier. These were the original UUIDs.           |
+| DCE       | The Open Software Foundation's (OSF) Distributed Computing Environment UUIDs. |
+| Microsoft | Microsoft Windows platform globally unique identifier (GUID).                 |
+| other     | Unknown variant. Usually invalid input data.                                  |
+
+** Types
+| nil        | Special type for zero in type file.       |
+| time-based | The DCE time based.                       |
+| DCE        | The DCE time and MAC Address.             |
+| name-based | RFC 4122 md5sum hash.                     |
+| random     | RFC 4122 random.                          |
+| sha1-based | RFC 4122 sha-1 hash.                      |
+| unknown    | Unknown type. Usually invalid input data. |
+
+* OPTIONS
+*-J*, *--json*
+
+#+begin_quote
+Use JSON output format.
+
+#+end_quote
+
+*-n*, *--noheadings*
+
+#+begin_quote
+Do not print a header line.
+
+#+end_quote
+
+*-o*, *--output*
+
+#+begin_quote
+Specify which output columns to print. Use *--help* to get a list of all
+supported columns.
+
+#+end_quote
+
+*-r*, *--raw*
+
+#+begin_quote
+Use the raw output format.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Print version and exit.
+
+#+end_quote
+
+* AUTHORS
+* SEE ALSO
+*uuidgen*(1), *libuuid*(3), /RFC 4122/
+<https://tools.ietf.org/html/rfc4122>
+
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *uuidparse* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

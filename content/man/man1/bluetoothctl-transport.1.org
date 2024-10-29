@@ -1,0 +1,73 @@
+#+TITLE: Manpages - bluetoothctl-transport.1
+* NAME
+bluetoothctl-transport - Media Transport Submenu
+
+* SYNOPSIS
+*bluetoothctl* [--options] [transport.commands]
+
+* MEDIA TRANSPORT COMMANDS
+** list
+List available transports.
+
+#+begin_quote
+- *Usage* :: *# list*
+
+#+end_quote
+
+** show
+Show transport information.
+
+#+begin_quote
+- *Usage* :: *# show <transport>*
+
+#+end_quote
+
+** acquire
+Acquire transport.
+
+#+begin_quote
+- *Usage* :: *# acquire <transport> [transport1...]*
+
+#+end_quote
+
+** release
+Release transport.
+
+#+begin_quote
+- *Usage* :: *# release <transport> [transport1...]*
+
+#+end_quote
+
+** send
+Send contents of a file.
+
+#+begin_quote
+- *Usage* :: *# send <transport> <filename>*
+
+#+end_quote
+
+** receive
+Get/Set file to receive.
+
+#+begin_quote
+- *Usage* :: *# receive <transport> [filename]*
+
+#+end_quote
+
+** volume
+Get/Set transport volume.
+
+#+begin_quote
+- *Usage* :: *# volume <transport> [value]*
+
+#+end_quote
+
+* RESOURCES
+<http://www.bluez.org>
+
+* REPORTING BUGS
+<linux-bluetooth@vger.kernel.org>
+
+* COPYRIGHT
+Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).

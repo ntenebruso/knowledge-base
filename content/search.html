@@ -1,0 +1,21 @@
+---
+title: Search
+---
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<div id="search" style="margin-top:1.5rem;"></div>
+<style>
+    body {
+        --pagefind-ui-text: var(--color-text);
+        --pagefind-ui-background: var(--color-accent);
+        --pagefind-ui-font: "JetBrains Mono";
+        --pagefind-ui-border: var(--color-meta);
+        --pagefind-ui-border-width: 1px;
+    }
+</style>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ element: "#search", showSubResults: true, showImages: false });
+    });
+</script>

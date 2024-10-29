@@ -1,0 +1,45 @@
+#+TITLE: Manpages - pw-mididump.1
+* NAME
+pw-mididump - The PipeWire MIDI dump
+
+* SYNOPSIS
+*pw-mididump* [/options/] [/FILE/]
+
+* DESCRIPTION
+Dump MIDI messages to stdout.
+
+When a MIDI file is given, the events inside the file are printed.
+
+When no file is given, *pw-mididump* creates a PipeWire MIDI input
+stream and will print all MIDI events received on the port to stdout.
+
+* OPTIONS
+*-r | --remote=NAME*
+
+#+begin_quote
+The name the remote instance to monitor. If left unspecified, a
+connection is made to the default PipeWire instance.
+
+#+end_quote
+
+*-h | --help*
+
+#+begin_quote
+Show help.
+
+#+end_quote
+
+*--version*
+
+#+begin_quote
+Show version information.
+
+#+end_quote
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pipewire(1)*, *pw-cat(1)*

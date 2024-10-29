@@ -1,0 +1,77 @@
+#+TITLE: Manpages - pipewire-pulse.1
+* NAME
+pipewire-pulse - The PipeWire PulseAudio replacement
+
+* SYNOPSIS
+*pipewire-pulse* [/options/]
+
+* DESCRIPTION
+*pipewire-pulse* starts a PulseAudio-compatible daemon that integrates
+with the PipeWire media server, by running a pipewire process through a
+systemd service. This daemon is a drop-in replacement for the PulseAudio
+daemon.
+
+* OPTIONS
+*-h | --help*
+
+#+begin_quote
+Show help.
+
+#+end_quote
+
+*-v | --verbose*
+
+#+begin_quote
+Increase the verbosity by one level. This option may be specified
+multiple times.
+
+#+end_quote
+
+*--version*
+
+#+begin_quote
+Show version information.
+
+#+end_quote
+
+*-c | --config=FILE*
+
+#+begin_quote
+Load the given config file (Default: pipewire-pulse.conf).
+
+#+end_quote
+
+* ENVIRONMENT VARIABLES
+The generic *pipewire(1) environment variables* are supported.
+
+In addition:
+
+*PULSE_RUNTIME_PATH *
+
+#+begin_quote
+#+end_quote
+
+*XDG_RUNTIME_DIR *
+
+#+begin_quote
+Directory where to create the native protocol pulseaudio socket.
+
+#+end_quote
+
+*PULSE_LATENCY_MSEC *
+
+#+begin_quote
+Extra buffering latency in milliseconds. This controls buffering logic
+in libpulse and may be set for PulseAudio client applications to adjust
+their buffering. (Setting it on the pipewire-pulse server has no
+effect.)
+
+#+end_quote
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pipewire-pulse.conf(5)*, *pipewire(1)*, *pipewire-pulse-modules(7)*

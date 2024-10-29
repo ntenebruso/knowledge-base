@@ -1,0 +1,82 @@
+#+TITLE: Manpages - chsh.1
+* NAME
+chsh - change login shell
+
+* SYNOPSIS
+*chsh* [/options/] [/LOGIN/]
+
+* DESCRIPTION
+The *chsh* command changes the user login shell. This determines the
+name of the users initial login command. A normal user may only change
+the login shell for her own account; the superuser may change the login
+shell for any account.
+
+* OPTIONS
+The options which apply to the *chsh* command are:
+
+*-h*, *--help*
+
+#+begin_quote
+Display help message and exit.
+
+#+end_quote
+
+*-R*, *--root* /CHROOT_DIR/
+
+#+begin_quote
+Apply changes in the /CHROOT_DIR/ directory and use the configuration
+files from the /CHROOT_DIR/ directory. Only absolute paths are
+supported.
+
+#+end_quote
+
+*-s*, *--shell* /SHELL/
+
+#+begin_quote
+The name of the users new login shell. Setting this field to blank
+causes the system to select the default login shell.
+
+#+end_quote
+
+If the *-s* option is not selected, *chsh* operates in an interactive
+fashion, prompting the user with the current login shell. Enter the new
+value to change the shell, or leave the line blank to use the current
+one. The current shell is displayed between a pair of /[ ]/ marks.
+
+* NOTE
+The only restriction placed on the login shell is that the command name
+must be listed in /etc/shells, unless the invoker is the superuser, and
+then any value may be added. An account with a restricted login shell
+may not change her login shell. For this reason, placing /bin/rsh in
+/etc/shells is discouraged since accidentally changing to a restricted
+shell would prevent the user from ever changing her login shell back to
+its original value.
+
+For this reason, placing /bin/rsh in /etc/shells is discouraged since
+accidentally changing to a restricted shell would prevent the user from
+ever changing her login shell back to its original value.
+
+* FILES
+/etc/passwd
+
+#+begin_quote
+User account information.
+
+#+end_quote
+
+/etc/shells
+
+#+begin_quote
+List of valid login shells.
+
+#+end_quote
+
+/etc/login.defs
+
+#+begin_quote
+Shadow password suite configuration.
+
+#+end_quote
+
+* SEE ALSO
+*chfn*(1), *login.defs*(5), *passwd*(5).

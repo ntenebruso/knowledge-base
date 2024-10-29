@@ -1,0 +1,109 @@
+#+TITLE: Manpages - pw-loopback.1
+* NAME
+pw-loopback - PipeWire loopback client
+
+* SYNOPSIS
+*pw-loopback* [/options/]
+
+* DESCRIPTION
+The /pw-loopback/ program is a PipeWire client that uses the PipeWire
+loopback module to create loopback nodes, with configuration given via
+the command-line options.
+
+* OPTIONS
+*-h | --help*
+
+#+begin_quote
+Show help.
+
+#+end_quote
+
+*-r | --remote=NAME*
+
+#+begin_quote
+The name of the /remote/ instance to connect to. If left unspecified, a
+connection is made to the default PipeWire instance.
+
+#+end_quote
+
+*-n | --name=NAME*
+
+#+begin_quote
+Name of the loopback node
+
+#+end_quote
+
+*-g | --group=NAME*
+
+#+begin_quote
+Name of the loopback node group
+
+#+end_quote
+
+*-c | --channels=NUMBER*
+
+#+begin_quote
+Number of channels to provide
+
+#+end_quote
+
+*-m | --channel-map=MAP*
+
+#+begin_quote
+Channel map (default [ FL, FR ])
+
+#+end_quote
+
+*-l | --latency=LATENCY*
+
+#+begin_quote
+Desired latency in ms
+
+#+end_quote
+
+*-d | --delay=DELAY*
+
+#+begin_quote
+Added delay in seconds (floating point allowed)
+
+#+end_quote
+
+*-C | --capture=TARGET*
+
+#+begin_quote
+Target device to capture from
+
+#+end_quote
+
+*-P | --playback=TARGET*
+
+#+begin_quote
+Target device to play to
+
+#+end_quote
+
+*--capture-props=PROPS*
+
+#+begin_quote
+Wanted properties of capture node (in JSON)
+
+#+end_quote
+
+*--playback-props=PROPS*
+
+#+begin_quote
+Wanted properties of capture node (in JSON)
+
+#+end_quote
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pipewire(1)*, *pw-cat(1)*, *pactl(1)*
+
+Other ways to create loopback nodes are adding the loopback module in
+the configuration of a PipeWire daemon, or loading the loopback module
+using Pulseaudio commands (pactl load-module module-loopback ...).

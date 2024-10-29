@@ -1,0 +1,191 @@
+#+TITLE: Manpages - rename.1
+* NAME
+rename - rename files
+
+* SYNOPSIS
+*rename* [options] /expression replacement file/...
+
+* DESCRIPTION
+*rename* will rename the specified files by replacing the first
+occurrence of /expression/ in their name by /replacement/.
+
+* OPTIONS
+*-s*, *--symlink*
+
+#+begin_quote
+Do not rename a symlink but change where it points.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Show which files were renamed, if any.
+
+#+end_quote
+
+*-n*, *--no-act*
+
+#+begin_quote
+Do not make any changes; add *--verbose* to see what would be made.
+
+#+end_quote
+
+*-a*, *--all*
+
+#+begin_quote
+Replace all occurrences of /expression/ rather than only the first one.
+
+#+end_quote
+
+*-l*, *--last*
+
+#+begin_quote
+Replace the last occurrence of /expression/ rather than the first one.
+
+#+end_quote
+
+*-o*, *--no-overwrite*
+
+#+begin_quote
+Do not overwrite existing files. When *--symlink* is active, do not
+overwrite symlinks pointing to existing targets.
+
+#+end_quote
+
+*-i*, *--interactive*
+
+#+begin_quote
+Ask before overwriting existing files.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Print version and exit.
+
+#+end_quote
+
+* WARNING
+The renaming has no safeguards by default or without any one of the
+options *--no-overwrite*, *--interactive* or *--no-act*. If the user has
+permission to rewrite file names, the command will perform the action
+without any questions. For example, the result can be quite drastic when
+the command is run as root in the //lib/ directory. Always make a backup
+before running the command, unless you truly know what you are doing.
+
+* EDGE CASES
+If the /expression/ is empty, then by default /replacement/ will be
+added to the start of the filename. With *--all*, /replacement/ will be
+inserted in between every two characters of the filename, as well as at
+the start and end.
+
+Normally, only the final path component of a filename is updated. (Or
+with *--symlink*, only the final path component of the link.) But if
+either /expression/ or /replacement/ contains a ///, the full path is
+updated. This can cause a file to be moved between folders. Creating
+folders, and moving files between filesystems, is not supported.
+
+* INTERACTIVE MODE
+As most standard utilities rename can be used with a terminal device
+(tty in short) in canonical mode, where the line is buffered by the tty
+and you press ENTER to validate the user input. If you put your tty in
+cbreak mode however, rename requires only a single key press to answer
+the prompt. To set cbreak mode, run for example:
+
+#+begin_quote
+#+begin_example
+sh -c stty -icanon min 1; "$0" "$@"; stty icanon rename -i from to files
+#+end_example
+
+#+end_quote
+
+* EXIT STATUS
+*0*
+
+#+begin_quote
+all requested rename operations were successful
+
+#+end_quote
+
+*1*
+
+#+begin_quote
+all rename operations failed
+
+#+end_quote
+
+*2*
+
+#+begin_quote
+some rename operations failed
+
+#+end_quote
+
+*4*
+
+#+begin_quote
+nothing was renamed
+
+#+end_quote
+
+*64*
+
+#+begin_quote
+unanticipated error occurred
+
+#+end_quote
+
+* EXAMPLES
+Given the files /foo1/, ..., /foo9/, /foo10/, ..., /foo278/, the
+commands
+
+#+begin_quote
+#+begin_example
+rename foo foo00 foo?
+rename foo foo0 foo??
+#+end_example
+
+#+end_quote
+
+will turn them into /foo001/, ..., /foo009/, /foo010/, ..., /foo278/.
+And
+
+#+begin_quote
+#+begin_example
+rename .htm .html *.htm
+#+end_example
+
+#+end_quote
+
+will fix the extension of your html files. Provide an empty string for
+shortening:
+
+#+begin_quote
+#+begin_example
+rename _with_long_name  file_with_long_name.*
+#+end_example
+
+#+end_quote
+
+will remove the substring in the filenames.
+
+* SEE ALSO
+*mv*(1)
+
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *rename* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

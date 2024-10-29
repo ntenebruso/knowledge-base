@@ -1,0 +1,3 @@
+#+TITLE: Manpages - blueman-tray.1
+* NAME
+blueman-tray - a status icon application for blueman

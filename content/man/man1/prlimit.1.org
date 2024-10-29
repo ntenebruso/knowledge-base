@@ -1,0 +1,278 @@
+#+TITLE: Manpages - prlimit.1
+* NAME
+prlimit - get and set process resource limits
+
+* SYNOPSIS
+*prlimit* [options] [*--resource*[=/limits/]] [*--pid* /PID/]
+
+*prlimit* [options] [*--resource*[=/limits/]] /command/ [/argument/...]
+
+* DESCRIPTION
+Given a process ID and one or more resources, *prlimit* tries to
+retrieve and/or modify the limits.
+
+When /command/ is given, *prlimit* will run this command with the given
+arguments.
+
+The /limits/ parameter is composed of a soft and a hard value, separated
+by a colon (:), in order to modify the existing values. If no /limits/
+are given, *prlimit* will display the current values. If one of the
+values is not given, then the existing one will be used. To specify the
+unlimited or infinity limit (*RLIM_INFINITY*), the -1 or unlimited
+string can be passed.
+
+Because of the nature of limits, the soft limit must be lower or equal
+to the high limit (also called the ceiling). To see all available
+resource limits, refer to the *RESOURCE OPTIONS* section.
+
+#+begin_quote
+·
+
+/soft/:_hard_ Specify both limits.
+
+#+end_quote
+
+#+begin_quote
+·
+
+/soft/: Specify only the soft limit.
+
+#+end_quote
+
+#+begin_quote
+·
+
+:/hard/ Specify only the hard limit.
+
+#+end_quote
+
+#+begin_quote
+·
+
+/value/ Specify both limits to the same value.
+
+#+end_quote
+
+* GENERAL OPTIONS
+*--noheadings*
+
+#+begin_quote
+Do not print a header line.
+
+#+end_quote
+
+*-o, --output* /list/
+
+#+begin_quote
+Define the output columns to use. If no output arrangement is specified,
+then a default set is used. Use *--help* to get a list of all supported
+columns.
+
+#+end_quote
+
+*-p, --pid*
+
+#+begin_quote
+Specify the process id; if none is given, the running process will be
+used.
+
+#+end_quote
+
+*--raw*
+
+#+begin_quote
+Use the raw output format.
+
+#+end_quote
+
+*--verbose*
+
+#+begin_quote
+Verbose mode.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Print version and exit.
+
+#+end_quote
+
+* RESOURCE OPTIONS
+*-c, --core*[=/limits/]
+
+#+begin_quote
+Maximum size of a core file.
+
+#+end_quote
+
+*-d, --data*[=/limits/]
+
+#+begin_quote
+Maximum data size.
+
+#+end_quote
+
+*-e, --nice*[=/limits/]
+
+#+begin_quote
+Maximum nice priority allowed to raise.
+
+#+end_quote
+
+*-f, --fsize*[=/limits/]
+
+#+begin_quote
+Maximum file size.
+
+#+end_quote
+
+*-i, --sigpending*[=/limits/]
+
+#+begin_quote
+Maximum number of pending signals.
+
+#+end_quote
+
+*-l, --memlock*[=/limits/]
+
+#+begin_quote
+Maximum locked-in-memory address space.
+
+#+end_quote
+
+*-m, --rss*[=/limits/]
+
+#+begin_quote
+Maximum Resident Set Size (RSS).
+
+#+end_quote
+
+*-n, --nofile*[=/limits/]
+
+#+begin_quote
+Maximum number of open files.
+
+#+end_quote
+
+*-q, --msgqueue*[=/limits/]
+
+#+begin_quote
+Maximum number of bytes in POSIX message queues.
+
+#+end_quote
+
+*-r, --rtprio*[=/limits/]
+
+#+begin_quote
+Maximum real-time priority.
+
+#+end_quote
+
+*-s, --stack*[=/limits/]
+
+#+begin_quote
+Maximum size of the stack.
+
+#+end_quote
+
+*-t, --cpu*[=/limits/]
+
+#+begin_quote
+CPU time, in seconds.
+
+#+end_quote
+
+*-u, --nproc*[=/limits/]
+
+#+begin_quote
+Maximum number of processes.
+
+#+end_quote
+
+*-v, --as*[=/limits/]
+
+#+begin_quote
+Address space limit.
+
+#+end_quote
+
+*-x, --locks*[=/limits/]
+
+#+begin_quote
+Maximum number of file locks held.
+
+#+end_quote
+
+*-y, --rttime*[=/limits/]
+
+#+begin_quote
+Timeout for real-time tasks.
+
+#+end_quote
+
+* NOTES
+The *prlimit*(2) system call is supported since Linux 2.6.36, older
+kernels will break this program.
+
+* EXAMPLES
+*prlimit --pid 13134*
+
+#+begin_quote
+Display limit values for all current resources.
+
+#+end_quote
+
+*prlimit --pid 13134 --rss --nofile=1024:4095*
+
+#+begin_quote
+Display the limits of the RSS, and set the soft and hard limits for the
+number of open files to 1024 and 4095, respectively.
+
+#+end_quote
+
+*prlimit --pid 13134 --nproc=512:*
+
+#+begin_quote
+Modify only the soft limit for the number of processes.
+
+#+end_quote
+
+*prlimit --pid $$ --nproc=unlimited*
+
+#+begin_quote
+Set for the current process both the soft and ceiling values for the
+number of processes to unlimited.
+
+#+end_quote
+
+*prlimit --cpu=10 sort -u hugefile*
+
+#+begin_quote
+Set both the soft and hard CPU time limit to ten seconds and run
+*sort*(1).
+
+#+end_quote
+
+* AUTHORS
+- In memory of Dennis M. Ritchie.
+
+* SEE ALSO
+*ulimit*(1p), *prlimit*(2)
+
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *prlimit* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

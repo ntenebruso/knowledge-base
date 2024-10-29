@@ -1,0 +1,122 @@
+#+TITLE: Manpages - git-stripspace.1
+* NAME
+git-stripspace - Remove unnecessary whitespace
+
+* SYNOPSIS
+#+begin_example
+git stripspace [-s | --strip-comments]
+git stripspace [-c | --comment-lines]
+#+end_example
+
+* DESCRIPTION
+Read text, such as commit messages, notes, tags and branch descriptions,
+from the standard input and clean it in the manner used by Git.
+
+With no arguments, this will:
+
+#+begin_quote
+·
+
+remove trailing whitespace from all lines
+
+#+end_quote
+
+#+begin_quote
+·
+
+collapse multiple consecutive empty lines into one empty line
+
+#+end_quote
+
+#+begin_quote
+·
+
+remove empty lines from the beginning and end of the input
+
+#+end_quote
+
+#+begin_quote
+·
+
+add a missing /\n/ to the last line if necessary.
+
+#+end_quote
+
+In the case where the input consists entirely of whitespace characters,
+no output will be produced.
+
+*NOTE*: This is intended for cleaning metadata. Prefer the
+*--whitespace=fix* mode of *git-apply*(1) for correcting whitespace of
+patches or files in the repository.
+
+* OPTIONS
+-s, --strip-comments
+
+#+begin_quote
+Skip and remove all lines starting with a comment character (default
+/#/).
+
+#+end_quote
+
+-c, --comment-lines
+
+#+begin_quote
+Prepend the comment character and a blank space to each line. Lines will
+automatically be terminated with a newline. On empty lines, only the
+comment character will be prepended.
+
+#+end_quote
+
+* EXAMPLES
+Given the following noisy input with /$/ indicating the end of a line:
+
+#+begin_quote
+#+begin_example
+|A brief introduction   $
+|   $
+|$
+|A new paragraph$
+|# with a commented-out line    $
+|explaining lots of stuff.$
+|$
+|# An old paragraph, also commented-out. $
+|      $
+|The end.$
+|  $
+#+end_example
+
+#+end_quote
+
+Use /git stripspace/ with no arguments to obtain:
+
+#+begin_quote
+#+begin_example
+|A brief introduction$
+|$
+|A new paragraph$
+|# with a commented-out line$
+|explaining lots of stuff.$
+|$
+|# An old paragraph, also commented-out.$
+|$
+|The end.$
+#+end_example
+
+#+end_quote
+
+Use /git stripspace --strip-comments/ to obtain:
+
+#+begin_quote
+#+begin_example
+|A brief introduction$
+|$
+|A new paragraph$
+|explaining lots of stuff.$
+|$
+|The end.$
+#+end_example
+
+#+end_quote
+
+* GIT
+Part of the *git*(1) suite

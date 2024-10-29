@@ -1,0 +1,179 @@
+#+TITLE: Manpages - nix3-profile-list.1
+#+begin_quote
+*Warning*\\
+This program is *experimental* and its interface is subject to change.
+
+#+end_quote
+
+* Name
+=nix profile list= - list installed packages
+
+* Synopsis
+=nix profile list= [/option/...]
+
+* Examples
+- Show what packages are installed in the default profile:
+
+#+begin_example
+# nix profile list
+Name:               gdb
+Flake attribute:    legacyPackages.x86_64-linux.gdb
+Original flake URL: flake:nixpkgs
+Locked flake URL:   github:NixOS/nixpkgs/7b38b03d76ab71bdc8dc325e3f6338d984cc35ca
+Store paths:        /nix/store/indzcw5wvlhx6vwk7k4iq29q15chvr3d-gdb-11.1
+
+Name:               blender-bin
+Flake attribute:    packages.x86_64-linux.default
+Original flake URL: flake:blender-bin
+Locked flake URL:   github:edolstra/nix-warez/91f2ffee657bf834e4475865ae336e2379282d34?dir=blender
+Store paths:        /nix/store/i798sxl3j40wpdi1rgf391id1b5klw7g-blender-bin-3.1.2
+#+end_example
+
+#+begin_quote
+Note that you can unambiguously rebuild a package from a profile through
+its locked flake URL and flake attribute, e.g.
+
+#+end_quote
+
+#+begin_example
+# nix build github:edolstra/nix-warez/91f2ffee657bf834e4475865ae336e2379282d34?dir=blender#packages.x86_64-linux.default
+#+end_example
+
+#+begin_quote
+will build the package =blender-bin= shown above.
+
+#+end_quote
+
+* Description
+This command shows what packages are currently installed in a profile.
+For each installed package, it shows the following information:
+
+- =Name=: A unique name used to unambiguously identify the package in
+  invocations of =nix profile remove= and =nix profile= upgrade.
+
+- =Index=: An integer that can be used to unambiguously identify the
+  package in invocations of =nix profile remove= and
+  =nix profile upgrade=. (/Deprecated, will be removed in a future
+  version in favor of =Name=./)
+
+- =Flake attribute=: The flake output attribute path that provides the
+  package (e.g. =packages.x86_64-linux.hello=).
+
+- =Original flake URL=: The original (“unlocked”) flake reference
+  specified by the user when the package was first installed via =nix=
+  profile install.
+
+- =Locked flake URL=: The locked flake reference to which the original
+  flake reference was resolved.
+
+- =Store paths=: The store path(s) of the package.
+
+* Options
+- =--json=
+
+  Produce output in JSON format, suitable for consumption by another
+  program.
+
+- =--profile= /path/
+
+  The profile to operate on.
+
+** Common evaluation options
+- =--arg= /name/ /expr/
+
+  Pass the value /expr/ as the argument /name/ to Nix functions.
+
+- =--arg-from-file= /name/ /path/
+
+  Pass the contents of file /path/ as the argument /name/ to Nix
+  functions.
+
+- =--arg-from-stdin= /name/
+
+  Pass the contents of stdin as the argument /name/ to Nix functions.
+
+- =--argstr= /name/ /string/
+
+  Pass the string /string/ as the argument /name/ to Nix functions.
+
+- =--debugger=
+
+  Start an interactive environment if evaluation fails.
+
+- =--eval-store= /store-url/
+
+  The *URL of the Nix store* to use for evaluation, i.e. to store
+  derivations (=.drv= files) and inputs referenced by them.
+
+- =--impure=
+
+  Allow access to mutable paths and repositories.
+
+- =--include= / =-I= /path/
+
+  Add /path/ to search path entries used to resolve *lookup paths*
+
+  This option may be given multiple times.
+
+  Paths added through =-I= take precedence over the =nix-path=
+  configuration setting and the =NIX_PATH= environment variable.
+
+- =--override-flake= /original-ref/ /resolved-ref/
+
+  Override the flake registries, redirecting /original-ref/ to
+  /resolved-ref/.
+
+** Logging-related options
+- =--debug=
+
+  Set the logging verbosity level to ‘debug'.
+
+- =--log-format= /format/
+
+  Set the format of log output; one of =raw=, =internal-json=, =bar= or
+  =bar-with-logs=.
+
+- =--print-build-logs= / =-L=
+
+  Print full build logs on standard error.
+
+- =--quiet=
+
+  Decrease the logging verbosity level.
+
+- =--verbose= / =-v=
+
+  Increase the logging verbosity level.
+
+** Miscellaneous global options
+- =--help=
+
+  Show usage information.
+
+- =--offline=
+
+  Disable substituters and consider all previously downloaded files
+  up-to-date.
+
+- =--option= /name/ /value/
+
+  Set the Nix configuration setting /name/ to /value/ (overriding
+  =nix.conf=).
+
+- =--refresh=
+
+  Consider all previously downloaded files out-of-date.
+
+- =--repair=
+
+  During evaluation, rewrite missing or corrupted files in the Nix
+  store. During building, rebuild missing or corrupted store paths.
+
+- =--version=
+
+  Show version information.
+
+  *Note*
+
+  See =man nix.conf= for overriding configuration settings with command
+  line flags.

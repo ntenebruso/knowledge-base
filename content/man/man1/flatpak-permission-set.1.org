@@ -1,0 +1,55 @@
+#+TITLE: Manpages - flatpak-permission-set.1
+* NAME
+flatpak-permission-set - Set permissions
+
+* SYNOPSIS
+*flatpak permission-set* [OPTION...] TABLE ID APP_ID [PERMISSION...]
+
+* DESCRIPTION
+Set the permissions for an application in an entry in the permission
+store. The entry is identified by TABLE and ID, the application is
+identified by APP_ID. The PERMISSION strings must be in a format
+suitable for the table.
+
+The permission store is used by portals. Each portal generally has its
+own table in the permission store, and the format of the table entries
+is specific to each portal.
+
+* OPTIONS
+The following options are understood:
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*--data=DATA*
+
+#+begin_quote
+Associate DATA with the entry. The data must be a serialized GVariant.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information during command processing.
+
+#+end_quote
+
+*--ostree-verbose*
+
+#+begin_quote
+Print OSTree debug information during command processing.
+
+#+end_quote
+
+* EXAMPLES
+*$ flatpak permission-set --data "{always-ask:<true>}" desktop-used-apps
+text/plain org.mozilla.Firefox org.gnome.gedit 0 3*
+
+* SEE ALSO
+*flatpak*(1), *flatpak-permissions*(1), *flatpak-permission-remove*(1),
+*flatpak-permission-reset*(1), *flatpak-permission-show*(1)

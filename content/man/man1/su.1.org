@@ -1,0 +1,270 @@
+#+TITLE: Manpages - su.1
+* NAME
+su - change user ID or become superuser
+
+* SYNOPSIS
+*su* [/options/] [/-/] [/username/ [ /args/ ]]
+
+* DESCRIPTION
+The *su* command is used to become another user during a login session.
+Invoked without a *username*, *su* defaults to becoming the superuser.
+The *-* option may be used to provide an environment similar to what the
+user would expect had the user logged in directly. The *-c* option may
+be used to treat the next argument as a command by most shells.
+
+Options are recognized everywhere in the argument list. You can use the
+*--* argument to stop option parsing. The *-* option is special: it is
+also recognized after *--*, but has to be placed before *username*.
+
+The user will be prompted for a password, if appropriate. Invalid
+passwords will produce an error message. All attempts, both valid and
+invalid, are logged to detect abuse of the system.
+
+The current environment is passed to the new shell. The value of *$PATH*
+is reset to /bin:/usr/bin for normal users, or
+/sbin:/bin:/usr/sbin:/usr/bin for the superuser. This may be changed
+with the *ENV_PATH* and *ENV_SUPATH* definitions in /etc/login.defs.
+
+A subsystem login is indicated by the presence of a "*" as the first
+character of the login shell. The given home directory will be used as
+the root of a new file system which the user is actually logged into.
+
+* OPTIONS
+The options which apply to the *su* command are:
+
+*-c*, *--command* /COMMAND/
+
+#+begin_quote
+Specify a command that will be invoked by the shell using its *-c*.
+
+The executed command will have no controlling terminal. This option
+cannot be used to execute interactive programs which need a controlling
+TTY.
+
+#+end_quote
+
+*-*, *-l*, *--login*
+
+#+begin_quote
+Provide an environment similar to what the user would expect had the
+user logged in directly.
+
+When *-* is used, it must be specified before any *username*. For
+portability it is recommended to use it as last option, before any
+*username*. The other forms (*-l* and *--login*) do not have this
+restriction.
+
+#+end_quote
+
+*-s*, *--shell* /SHELL/
+
+#+begin_quote
+The shell that will be invoked.
+
+The invoked shell is chosen from (highest priority first):
+
+#+begin_quote
+The shell specified with --shell.
+
+#+end_quote
+
+#+begin_quote
+If *--preserve-environment* is used, the shell specified by the *$SHELL*
+environment variable.
+
+#+end_quote
+
+#+begin_quote
+The shell indicated in the /etc/passwd entry for the target user.
+
+#+end_quote
+
+#+begin_quote
+/bin/sh if a shell could not be found by any above method.
+
+#+end_quote
+
+If the target user has a restricted shell (i.e. the shell field of this
+users entry in /etc/passwd is not listed in /etc/shells), then the
+*--shell* option or the *$SHELL* environment variable wont be taken into
+account, unless *su* is called by root.
+
+#+end_quote
+
+*-m*, *-p*, *--preserve-environment*
+
+#+begin_quote
+Preserve the current environment, except for:
+
+*$PATH*
+
+#+begin_quote
+reset according to the /etc/login.defs options *ENV_PATH* or
+*ENV_SUPATH* (see below);
+
+#+end_quote
+
+*$IFS*
+
+#+begin_quote
+reset to “<space><tab><newline>”, if it was set.
+
+#+end_quote
+
+If the target user has a restricted shell, this option has no effect
+(unless *su* is called by root).
+
+Note that the default behavior for the environment is the following:
+
+#+begin_quote
+The *$HOME*, *$SHELL*, *$USER*, *$LOGNAME*, *$PATH*, and *$IFS*
+environment variables are reset.
+
+#+end_quote
+
+#+begin_quote
+If *--login* is not used, the environment is copied, except for the
+variables above.
+
+#+end_quote
+
+#+begin_quote
+If *--login* is used, the *$TERM*, *$COLORTERM*, *$DISPLAY*, and
+*$XAUTHORITY* environment variables are copied if they were set.
+
+#+end_quote
+
+#+begin_quote
+Other environments might be set by PAM modules.
+
+#+end_quote
+
+#+end_quote
+
+* CAVEATS
+This version of *su* has many compilation options, only some of which
+may be in use at any particular site.
+
+* CONFIGURATION
+The following configuration variables in /etc/login.defs change the
+behavior of this tool:
+
+*DEFAULT_HOME* (boolean)
+
+#+begin_quote
+Indicate if login is allowed if we cant cd to the home directory.
+Default is no.
+
+If set to /yes/, the user will login in the root (/) directory if it is
+not possible to cd to her home directory.
+
+#+end_quote
+
+*ENV_PATH* (string)
+
+#+begin_quote
+If set, it will be used to define the PATH environment variable when a
+regular user login. The value is a colon separated list of paths (for
+example //bin:/usr/bin/) and can be preceded by /PATH=/. The default
+value is /PATH=/bin:/usr/bin/.
+
+#+end_quote
+
+*ENV_SUPATH* (string)
+
+#+begin_quote
+If set, it will be used to define the PATH environment variable when the
+superuser login. The value is a colon separated list of paths (for
+example //sbin:/bin:/usr/sbin:/usr/bin/) and can be preceded by /PATH=/.
+The default value is /PATH=/sbin:/bin:/usr/sbin:/usr/bin/.
+
+#+end_quote
+
+*SULOG_FILE* (string)
+
+#+begin_quote
+If defined, all su activity is logged to this file.
+
+#+end_quote
+
+*SU_NAME* (string)
+
+#+begin_quote
+If defined, the command name to display when running "su -". For
+example, if this is defined as "su" then a "ps" will display the command
+is "-su". If not defined, then "ps" would display the name of the shell
+actually being run, e.g. something like "-sh".
+
+#+end_quote
+
+*SYSLOG_SU_ENAB* (boolean)
+
+#+begin_quote
+Enable "syslog" logging of *su* activity - in addition to sulog file
+logging.
+
+#+end_quote
+
+* FILES
+/etc/passwd
+
+#+begin_quote
+User account information.
+
+#+end_quote
+
+/etc/shadow
+
+#+begin_quote
+Secure user account information.
+
+#+end_quote
+
+/etc/login.defs
+
+#+begin_quote
+Shadow password suite configuration.
+
+#+end_quote
+
+* EXIT VALUES
+On success, *su* returns the exit value of the command it executed.
+
+If this command was terminated by a signal, *su* returns the number of
+this signal plus 128.
+
+If su has to kill the command (because it was asked to terminate, and
+the command did not terminate in time), *su* returns 255.
+
+Some exit values from *su* are independent from the executed command:
+
+/0/
+
+#+begin_quote
+success (*--help* only)
+
+#+end_quote
+
+/1/
+
+#+begin_quote
+System or authentication failure
+
+#+end_quote
+
+/126/
+
+#+begin_quote
+The requested command was not found
+
+#+end_quote
+
+/127/
+
+#+begin_quote
+The requested command could not be executed
+
+#+end_quote
+
+* SEE ALSO
+*login*(1), *login.defs*(5), *sg*(1), *sh*(1).

@@ -1,0 +1,139 @@
+#+TITLE: Manpages - dconf.1
+* NAME
+dconf - Simple tool for manipulating a dconf database
+
+* SYNOPSIS
+*dconf* read [-d] /KEY/
+
+*dconf* list /DIR/
+
+*dconf* write /KEY/ /VALUE/
+
+*dconf* reset [-f] /PATH/
+
+*dconf* compile /OUTPUT/ /KEYFILEDIR/
+
+*dconf* update [/DBDIR/]
+
+*dconf* watch /PATH/
+
+*dconf* dump /DIR/
+
+*dconf* load [-f] /DIR/
+
+*dconf* help [/COMMAND/]
+
+* DESCRIPTION
+The *dconf* program can perform various operations on a dconf database,
+such as reading or writing individual values or entire directories. This
+tool operates on dconf directly, without using gsettings schema
+information. Therefore, it cannot perform type and consistency checks on
+values. The *gsettings*(1) utility is an alternative if such checks are
+needed.
+
+The /DIR/ arguments must be directory paths (starting and ending with
+/), the /KEY/ arguments must be key paths (starting, but not ending with
+/) and the /PATH/ arguments can be either directory or key paths.
+
+The /OUTPUT/ argument must the location to write a (binary) dconf
+database to and the /KEYFILEDIR/ argument must be a .d directory
+containing keyfiles.
+
+/VALUE/ arguments must be in GVariant format, so e.g. a string must
+include explicit quotes: "foo". This format is also used when printing
+out values.
+
+Note that dconf needs a D-Bus session bus connection to write changes to
+the dconf database.
+
+* COMMANDS
+*read*
+
+#+begin_quote
+Read the value of a key.
+
+#+end_quote
+
+*list*
+
+#+begin_quote
+List the sub-keys and sub-directories of a directory.
+
+#+end_quote
+
+*write*
+
+#+begin_quote
+Write a new value to a key.
+
+#+end_quote
+
+*reset*
+
+#+begin_quote
+Reset a key or an entire directory. For directories, *-f* must be
+specified.
+
+#+end_quote
+
+*compile*
+
+#+begin_quote
+Compile a binary database from keyfiles.
+
+The result is always in little-endian byte order, so it can be safely
+installed in share. If it is used on a big endian machine, dconf will
+automatically byteswap the contents on read.
+
+#+end_quote
+
+*update*
+
+#+begin_quote
+Update the system dconf databases.
+
+#+end_quote
+
+*watch*
+
+#+begin_quote
+Watch a key or directory for changes.
+
+#+end_quote
+
+*dump*
+
+#+begin_quote
+Dump an entire subpath to stdout. The output is in a keyfile-like
+format, with values in GVariant syntax.
+
+#+end_quote
+
+*load*
+
+#+begin_quote
+Populate a subpath from stdin. The expected format is the same as
+produced by *dump*. Attempting to change non-writable keys cancels the
+load command. To ignore changes to non-writable keys instead, use *-f*.
+
+#+end_quote
+
+*help*
+
+#+begin_quote
+Display help and exit. If /COMMAND/ is given, display help for this
+command.
+
+#+end_quote
+
+* ENVIRONMENT
+*DCONF_PROFILE*
+
+#+begin_quote
+This environment variable determines which dconf profile to use. See
+*dconf*(7).
+
+#+end_quote
+
+* SEE ALSO
+*dconf*(7), *gsettings*(1), *dconf-editor*(1)

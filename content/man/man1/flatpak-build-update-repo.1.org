@@ -1,0 +1,191 @@
+#+TITLE: Manpages - flatpak-build-update-repo.1
+* NAME
+flatpak-build-update-repo - Create a repository from a build directory
+
+* SYNOPSIS
+*flatpak build-update-repo* [OPTION...] LOCATION
+
+* DESCRIPTION
+Updates repository metadata for the repository at LOCATION. This command
+generates an OSTree summary file that lists the contents of the
+repository. The summary is used by flatpak remote-ls and other commands
+to display the contents of remote repositories.
+
+After this command, LOCATION can be used as the repository location for
+flatpak remote-add, either by exporting it over http, or directly with a
+file: url.
+
+* OPTIONS
+The following options are understood:
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*--redirect-url=URL*
+
+#+begin_quote
+Redirect this repo to a new URL.
+
+#+end_quote
+
+*--title=TITLE*
+
+#+begin_quote
+A title for the repository, e.g. for display in a UI. The title is
+stored in the repository summary.
+
+#+end_quote
+
+*--comment=COMMENT*
+
+#+begin_quote
+A single-line comment for the remote, e.g. for display in a UI. The
+comment is stored in the repository summary.
+
+#+end_quote
+
+*--description=DESCRIPTION*
+
+#+begin_quote
+A full-paragraph description for the remote, e.g. for display in a UI.
+The description is stored in the repository summary.
+
+#+end_quote
+
+*--homepage=URL*
+
+#+begin_quote
+URL for a website for the remote, e.g. for display in a UI. The url is
+stored in the repository summary.
+
+#+end_quote
+
+*--icon=URL*
+
+#+begin_quote
+URL for an icon for the remote, e.g. for display in a UI. The url is
+stored in the repository summary.
+
+#+end_quote
+
+*--default-branch=BRANCH*
+
+#+begin_quote
+A default branch for the repository, mainly for use in a UI.
+
+#+end_quote
+
+*--gpg-import=FILE*
+
+#+begin_quote
+Import a new default GPG public key from the given file.
+
+#+end_quote
+
+*--collection-id=COLLECTION-ID*
+
+#+begin_quote
+The globally unique identifier of the remote repository, to allow
+mirrors to be grouped. This must be set to a globally unique reverse DNS
+string if the repository is to be made publicly available. If a
+collection ID is already set on an existing repository, this will update
+it. If not specified, the existing collection ID will be left unchanged.
+
+#+end_quote
+
+*--deploy-collection-id*
+
+#+begin_quote
+Deploy the collection ID (set using *--collection-id*) in the static
+remote configuration for all clients. This is irrevocable once published
+in a repository. Use it to decide when to roll out a collection ID to
+users of an existing repository. If constructing a new repository which
+has a collection ID, you should typically always pass this option.
+
+#+end_quote
+
+*--deploy-sideload-collection-id*
+
+#+begin_quote
+This is similar to --deploy-collection-id, but it only applies the
+deploy to clients newer than flatpak 1.7 which supports the new form of
+sideloads.
+
+#+end_quote
+
+*--gpg-sign=KEYID*
+
+#+begin_quote
+Sign the commit with this GPG key. This option can be used multiple
+times.
+
+#+end_quote
+
+*--gpg-homedir=PATH*
+
+#+begin_quote
+GPG Homedir to use when looking for keyrings
+
+#+end_quote
+
+*--generate-static-deltas*
+
+#+begin_quote
+Generate static deltas for all references. This generates from-empty and
+delta static files that allow for faster download.
+
+#+end_quote
+
+*--static-delta-jobs=NUM-JOBS*
+
+#+begin_quote
+Limit the number of parallel jobs creating static deltas. The default is
+the number of cpus.
+
+#+end_quote
+
+*--static-delta-ignore-ref=PATTERN*
+
+#+begin_quote
+Dont generate deltas for runtime or application id matching this
+pattern. For instance, --static-delta-ignore-ref=*.Sources means there
+will not be any deltas for source refs.
+
+#+end_quote
+
+*--prune*
+
+#+begin_quote
+Remove unreferenced objects in repo.
+
+#+end_quote
+
+*--prune-depth*
+
+#+begin_quote
+Only keep at most this number of old versions for any particular ref.
+Default is -1 which means infinite.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information during command processing.
+
+#+end_quote
+
+*--ostree-verbose*
+
+#+begin_quote
+Print OSTree debug information during command processing.
+
+#+end_quote
+
+* SEE ALSO
+*ostree*(1), *flatpak*(1), *flatpak-remote-ls*(1),
+*flatpak-build-export*(1)

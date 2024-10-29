@@ -1,0 +1,90 @@
+#+TITLE: Manpages - nix3-store-add-path.1
+#+begin_quote
+*Warning*\\
+This program is *experimental* and its interface is subject to change.
+
+#+end_quote
+
+* Name
+=nix store add-path= - Deprecated alias to =nix store add=.
+
+* Synopsis
+=nix store add-path= [/option/...] /path/
+
+* Options
+- =--dry-run=
+
+  Show what this command would do without doing it.
+
+- =--hash-algo= /hash-algo/
+
+  Hash algorithm (=md5=, =sha1=, =sha256=, or =sha512=).
+
+- =--mode= /content-address-method/
+
+  How to compute the content-address of the store object. One of:
+
+  - =nar= (the default): Serialises the input as a *Nix Archive* and
+    passes that to the hash function.
+
+  - =flat=: Assumes that the input is a single file and *directly
+    passes* it to the hash function.
+
+  - =text=: Like =flat=, but used for *derivations* serialized in store
+    object and =builtins.toFile=. For advanced use-cases only; for
+    regular usage prefer =nar= and =flat=.
+
+- =--name= / =-n= /name/
+
+  Override the name component of the store path. It defaults to the base
+  name of /path/.
+
+** Logging-related options
+- =--debug=
+
+  Set the logging verbosity level to ‘debug'.
+
+- =--log-format= /format/
+
+  Set the format of log output; one of =raw=, =internal-json=, =bar= or
+  =bar-with-logs=.
+
+- =--print-build-logs= / =-L=
+
+  Print full build logs on standard error.
+
+- =--quiet=
+
+  Decrease the logging verbosity level.
+
+- =--verbose= / =-v=
+
+  Increase the logging verbosity level.
+
+** Miscellaneous global options
+- =--help=
+
+  Show usage information.
+
+- =--offline=
+
+  Disable substituters and consider all previously downloaded files
+  up-to-date.
+
+- =--option= /name/ /value/
+
+  Set the Nix configuration setting /name/ to /value/ (overriding
+  =nix.conf=).
+
+- =--refresh=
+
+  Consider all previously downloaded files out-of-date.
+
+- =--version=
+
+  Show version information.
+
+  *Note*
+
+  See =man nix.conf= for overriding configuration settings with command
+  line flags.

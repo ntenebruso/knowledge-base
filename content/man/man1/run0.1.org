@@ -1,0 +1,272 @@
+#+TITLE: Manpages - run0.1
+* NAME
+run0 - Elevate privileges
+
+* SYNOPSIS
+*run0* [OPTIONS...] [COMMAND...]
+
+* DESCRIPTION
+*run0* may be used to temporarily and interactively acquire elevated or
+different privileges. It serves a similar purpose as *sudo*(8), but
+operates differently in a couple of key areas:
+
+#+begin_quote
+·
+
+No execution or security context credentials are inherited from the
+caller into the invoked commands, as they are invoked from a fresh,
+isolated service forked off by the service manager.
+
+#+end_quote
+
+#+begin_quote
+·
+
+Authentication takes place via *polkit*[1], thus isolating the
+authentication prompt from the terminal (if possible).
+
+#+end_quote
+
+#+begin_quote
+·
+
+An independent pseudo-tty is allocated for the invoked command,
+detaching its lifecycle and isolating it for security.
+
+#+end_quote
+
+#+begin_quote
+·
+
+No SetUID/SetGID file access bit functionality is used for the
+implementation.
+
+#+end_quote
+
+Altogether this should provide a safer and more robust alternative to
+the *sudo* mechanism, in particular in OS environments where
+SetUID/SetGID support is not available (for example by setting the
+/NoNewPrivileges=/ variable in *systemd-system.conf*(5)).
+
+Any session invoked via *run0* will run through the "systemd-run0" PAM
+stack.
+
+Note that *run0* is implemented as an alternative multi-call invocation
+of *systemd-run*(1).
+
+* OPTIONS
+The following options are understood:
+
+*--no-ask-password*
+
+#+begin_quote
+Do not query the user for authentication for privileged operations.
+
+Added in version 256.
+
+#+end_quote
+
+*--unit=*
+
+#+begin_quote
+Use this unit name instead of an automatically generated one.
+
+Added in version 256.
+
+#+end_quote
+
+*--property=*
+
+#+begin_quote
+Sets a property on the service unit that is created. This option takes
+an assignment in the same format as *systemctl*(1)s *set-property*
+command.
+
+Added in version 256.
+
+#+end_quote
+
+*--description=*
+
+#+begin_quote
+Provide a description for the service unit that is invoked. If not
+specified, the command itself will be used as a description. See
+/Description=/ in *systemd.unit*(5).
+
+Added in version 256.
+
+#+end_quote
+
+*--slice=*
+
+#+begin_quote
+Make the new .service unit part of the specified slice, instead of
+user.slice.
+
+Added in version 256.
+
+#+end_quote
+
+*--slice-inherit*
+
+#+begin_quote
+Make the new .service unit part of the slice the *run0* itself has been
+invoked in. This option may be combined with *--slice=*, in which case
+the slice specified via *--slice=* is placed within the slice the *run0*
+command is invoked in.
+
+Example: consider *run0* being invoked in the slice foo.slice, and the
+*--slice=* argument is bar. The unit will then be placed under
+foo-bar.slice.
+
+Added in version 256.
+
+#+end_quote
+
+*--user=*, *-u*, *--group=*, *-g*
+
+#+begin_quote
+Switches to the specified user/group instead of root.
+
+Added in version 256.
+
+#+end_quote
+
+*--nice=*
+
+#+begin_quote
+Runs the invoked session with the specified nice level.
+
+Added in version 256.
+
+#+end_quote
+
+*--chdir=*, *-D*
+
+#+begin_quote
+Runs the invoked session with the specified working directory. If not
+specified defaults to the clients current working directory if switching
+to the root user, or the target users home directory otherwise.
+
+Added in version 256.
+
+#+end_quote
+
+*--setenv=*/NAME/*[=*/VALUE/*]*
+
+#+begin_quote
+Runs the invoked session with the specified environment variable set.
+This parameter may be used more than once to set multiple variables.
+When "=" and /VALUE/ are omitted, the value of the variable with the
+same name in the invoking environment will be used.
+
+Added in version 256.
+
+#+end_quote
+
+*--background=*/COLOR/
+
+#+begin_quote
+Change the terminal background color to the specified ANSI color as long
+as the session lasts. If not specified, the background will be tinted in
+a reddish tone when operating as root, and in a yellowish tone when
+operating under another UID, as reminder of the changed privileges. The
+color specified should be an ANSI X3.64 SGR background color, i.e.
+strings such as "40", "41", ..., "47", "48;2;...", "48;5;...". See *ANSI
+Escape Code (Wikipedia)*[2] for details. Set to an empty string to
+disable.
+
+Example: "--background=44" for a blue background.
+
+Added in version 256.
+
+#+end_quote
+
+*--machine=*
+
+#+begin_quote
+Execute operation on a local container. Specify a container name to
+connect to.
+
+Added in version 256.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Print a short help text and exit.
+
+#+end_quote
+
+*--version*
+
+#+begin_quote
+Print a short version string and exit.
+
+#+end_quote
+
+All command line arguments after the first non-option argument become
+part of the command line of the launched process. If no command line is
+specified an interactive shell is invoked. The shell to invoke may be
+controlled via *--setenv=SHELL=...* and currently defaults to the
+/originating users/ shell (i.e. not the target users!) if operating
+locally, or /bin/sh when operating with *--machine=*.
+
+* EXIT STATUS
+On success, 0 is returned. If *run0* failed to start the session or the
+specified command fails, a non-zero return value will be returned.
+
+* ENVIRONMENT VARIABLES
+As with *systemd-run*, the session will inherit the system environment
+from the service manager. In addition, the following environment
+variables will be set:
+
+/$TERM/
+
+#+begin_quote
+Copied from the /$TERM/ of the caller. Can be overridden with
+*--setenv=*
+
+Added in version 256.
+
+#+end_quote
+
+/$SUDO_USER/
+
+#+begin_quote
+Set to the username of the originating user.
+
+Added in version 256.
+
+#+end_quote
+
+/$SUDO_UID/
+
+#+begin_quote
+Set to the numeric UNIX user id of the originating user.
+
+Added in version 256.
+
+#+end_quote
+
+/$SUDO_GID/
+
+#+begin_quote
+Set to the primary numeric UNIX group id of the originating session.
+
+Added in version 256.
+
+#+end_quote
+
+* SEE ALSO
+*systemd*(1), *systemd-run*(1), *sudo*(8), *machinectl*(1)
+
+* NOTES
+-  1. :: polkit
+
+  https://www.freedesktop.org/wiki/Software/polkit
+
+-  2. :: ANSI Escape Code (Wikipedia)
+
+  https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters

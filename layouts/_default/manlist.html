@@ -1,0 +1,13 @@
+{{ define "main" }}
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+    {{ $paginator := .Paginate .Pages.ByTitle 25 }}
+    <ul>
+        {{ range $paginator.Pages }}
+            <li>
+                <a href="{{ .RelPermalink }}">{{ substr .LinkTitle 10 }}</a>
+            </li>
+        {{ end }}
+    </ul>
+    {{ template "_internal/pagination.html" . }}
+{{ end }}

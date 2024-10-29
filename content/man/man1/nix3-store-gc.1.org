@@ -1,0 +1,87 @@
+#+TITLE: Manpages - nix3-store-gc.1
+#+begin_quote
+*Warning*\\
+This program is *experimental* and its interface is subject to change.
+
+#+end_quote
+
+* Name
+=nix store gc= - perform garbage collection on a Nix store
+
+* Synopsis
+=nix store gc= [/option/...]
+
+* Examples
+- Delete unreachable paths in the Nix store:
+
+#+begin_example
+# nix store gc
+#+end_example
+
+- Delete up to 1 gigabyte of garbage:
+
+#+begin_example
+# nix store gc --max 1G
+#+end_example
+
+* Description
+This command deletes unreachable paths in the Nix store.
+
+* Options
+- =--dry-run=
+
+  Show what this command would do without doing it.
+
+- =--max= /n/
+
+  Stop after freeing /n/ bytes of disk space.
+
+** Logging-related options
+- =--debug=
+
+  Set the logging verbosity level to ‘debug'.
+
+- =--log-format= /format/
+
+  Set the format of log output; one of =raw=, =internal-json=, =bar= or
+  =bar-with-logs=.
+
+- =--print-build-logs= / =-L=
+
+  Print full build logs on standard error.
+
+- =--quiet=
+
+  Decrease the logging verbosity level.
+
+- =--verbose= / =-v=
+
+  Increase the logging verbosity level.
+
+** Miscellaneous global options
+- =--help=
+
+  Show usage information.
+
+- =--offline=
+
+  Disable substituters and consider all previously downloaded files
+  up-to-date.
+
+- =--option= /name/ /value/
+
+  Set the Nix configuration setting /name/ to /value/ (overriding
+  =nix.conf=).
+
+- =--refresh=
+
+  Consider all previously downloaded files out-of-date.
+
+- =--version=
+
+  Show version information.
+
+  *Note*
+
+  See =man nix.conf= for overriding configuration settings with command
+  line flags.

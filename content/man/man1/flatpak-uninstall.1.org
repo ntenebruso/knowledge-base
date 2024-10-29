@@ -1,0 +1,171 @@
+#+TITLE: Manpages - flatpak-uninstall.1
+* NAME
+flatpak-uninstall - Uninstall an application or runtime
+
+* SYNOPSIS
+*flatpak uninstall* [OPTION...] [REF...]
+
+* DESCRIPTION
+Uninstalls an application or runtime. REF is a reference to the
+application or runtime to uninstall.
+
+Each REF argument is a full or partial identifier in the flatpak ref
+format, which looks like "(app|runtime)/ID/ARCH/BRANCH". All elements
+except ID are optional and can be left out, including the slashes, so
+most of the time you need only specify ID. Any part left out will be
+matched against what is installed, and if there are multiple matches you
+will be prompted to choose between them. You will also be prompted if
+REF doesnt match any installed ref exactly but is similar (e.g. "gedit"
+is similar to "org.gnome.gedit"), but this fuzzy matching behavior is
+disabled if REF contains any slashes or periods.
+
+By default this looks for both installed apps and runtimes with the
+given REF, but you can limit this by using the *--app* or *--runtime*
+option, or by supplying the initial element in the REF.
+
+Normally, this command removes the ref for this application/runtime from
+the local OSTree repository and purges any objects that are no longer
+needed to free up disk space. If the same application is later
+reinstalled, the objects will be pulled from the remote repository
+again. The *--keep-ref* option can be used to prevent this.
+
+When *--delete-data* is specified while removing an app, its data
+directory in ~/.var/app and any permissions it might have are removed.
+When *--delete-data* is used without a REF, all unowned app data is
+removed.
+
+Unless overridden with the *--system*, *--user*, or *--installation*
+options, this command searches both the system-wide installation and the
+per-user one for REF and errors out if it exists in more than one.
+
+* OPTIONS
+The following options are understood:
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*--keep-ref*
+
+#+begin_quote
+Keep the ref for the application and the objects belonging to it in the
+local repository.
+
+#+end_quote
+
+*-u*, *--user*
+
+#+begin_quote
+Uninstalls from a per-user installation.
+
+#+end_quote
+
+*--system*
+
+#+begin_quote
+Uninstalls from the default system-wide installation.
+
+#+end_quote
+
+*--installation=NAME*
+
+#+begin_quote
+Uninstalls from a system-wide installation specified by NAME among those
+defined in /etc/flatpak/installations.d/. Using *--installation=default*
+is equivalent to using *--system*.
+
+#+end_quote
+
+*--arch=ARCH*
+
+#+begin_quote
+The architecture to uninstall, instead of the architecture of the host
+system. See *flatpak --supported-arches* for architectures supported by
+the host.
+
+#+end_quote
+
+*--all*
+
+#+begin_quote
+Remove all refs on the system.
+
+#+end_quote
+
+*--unused*
+
+#+begin_quote
+Remove unused refs on the system.
+
+#+end_quote
+
+*-y*, *--assumeyes*
+
+#+begin_quote
+Automatically answer yes to all questions. This is useful for
+automation.
+
+#+end_quote
+
+*--noninteractive*
+
+#+begin_quote
+Produce minimal output and avoid most questions. This is suitable for
+use in non-interactive situations, e.g. in a build script.
+
+#+end_quote
+
+*--app*
+
+#+begin_quote
+Only look for an app with the given name.
+
+#+end_quote
+
+*--runtime*
+
+#+begin_quote
+Only look for a runtime with the given name.
+
+#+end_quote
+
+*--no-related*
+
+#+begin_quote
+Dont uninstall related extensions, such as the locale data.
+
+#+end_quote
+
+*--force-remove*
+
+#+begin_quote
+Remove files even if theyre in use by a running application.
+
+#+end_quote
+
+*--delete-data*
+
+#+begin_quote
+Remove app data in ~/.var/app and in the permission store.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information during command processing.
+
+#+end_quote
+
+*--ostree-verbose*
+
+#+begin_quote
+Print OSTree debug information during command processing.
+
+#+end_quote
+
+* EXAMPLES
+*$ flatpak --user uninstall org.gnome.gedit*

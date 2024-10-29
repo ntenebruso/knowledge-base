@@ -14,9 +14,14 @@ pageRef = '/notes'
 weight = 20
 
 [[menus.main]]
-name = 'Tags'
-pageRef = '/tags'
+name = 'Manpages'
+pageRef = '/man'
 weight = 30
+
+[[menus.main]]
+name = 'Search'
+pageRef = '/search'
+weight = 40
 
 [markup]
     [markup.highlight]

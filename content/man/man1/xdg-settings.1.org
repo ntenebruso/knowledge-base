@@ -1,0 +1,173 @@
+#+TITLE: Manpages - xdg-settings.1
+.SH "NAME" xdg-settings - get various settings from the desktop
+environment
+
+.SH "SYNOPSIS"
+
+.HP u
+
+*xdg-settings* { | /get/ | /check/ | /set/ } { *property* } [
+*subproperty* ] [ *value* ]
+
+.HP u
+
+*xdg-settings* { | *--help* | *--list* | *--manual* | *--version* }
+
+.SH "DESCRIPTION"
+
+.PP xdg-settings gets various settings from the desktop environment. For
+instance, desktop environments often provide proxy configuration and
+default web browser settings. Using xdg-settings these parameters can be
+extracted for use by applications that do not use the desktop
+environments libraries (which would use the settings natively).
+
+.PP xdg-settings is for use inside a desktop session only. It is not
+recommended to use xdg-settings as root.
+
+.SH "OPTIONS"
+
+.PP *--help*
+
+#+begin_quote
+Show command synopsis.
+
+.RE
+
+.PP *--list*
+
+#+begin_quote
+List all properties xdg-settings knows about.
+
+.RE
+
+.PP *--manual*
+
+#+begin_quote
+Show this manual page.
+
+.RE
+
+.PP *--version*
+
+#+begin_quote
+Show the xdg-utils version information.
+
+.RE .SH "PROPERTIES"
+
+.PP When using xdg-settings to get, check or set a desktop setting,
+properties and possibly sub-properties are used to specify the setting
+to be changed.
+
+.PP Some properties (such as default-web-browser) fully describe the
+setting to be changed. Other properties (such as
+default-url-scheme-handler) require more information (in this case the
+actual scheme to set the default handler for) which must be provided in
+a sub-property.
+
+.SH "EXIT CODES"
+
+.PP An exit code of 0 indicates success while a non-zero exit code
+indicates failure. The following failure codes can be returned:
+
+.PP *1*
+
+#+begin_quote
+Error in command line syntax.
+
+.RE .PP *2*
+
+#+begin_quote
+One of the files passed on the command line did not exist.
+
+.RE .PP *3*
+
+#+begin_quote
+A required tool could not be found.
+
+.RE .PP *4*
+
+#+begin_quote
+The action failed.
+
+.RE .SH "SEE ALSO"
+
+.PP *xdg-mime*(1), *xdg-open*(1), *MIME applications associations
+specification*[1]
+
+.SH "EXAMPLES"
+
+.PP Get the desktop file name of the current default web browser
+
+#+begin_quote
+#+begin_example
+        xdg-settings get default-web-browser
+      
+#+end_example
+
+#+end_quote
+
+.PP Check whether the default web browser is firefox.desktop, which can
+be false even if "get default-web-browser" says that is the current
+value (if only some of the underlying settings actually reflect that
+value)
+
+#+begin_quote
+#+begin_example
+        xdg-settings check default-web-browser firefox.desktop
+      
+#+end_example
+
+#+end_quote
+
+.PP Set the default web browser to google-chrome.desktop
+
+#+begin_quote
+#+begin_example
+        xdg-settings set default-web-browser google-chrome.desktop
+      
+#+end_example
+
+#+end_quote
+
+.PP Set the default mailto URL scheme handler to be evolution.desktop
+
+#+begin_quote
+#+begin_example
+        xdg-settings set default-url-scheme-handler mailto evolution.desktop
+      
+#+end_example
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+#+end_quote
+
+* AUTHOR
+*Mike Mammarella*
+
+#+begin_quote
+Author.
+
+#+end_quote
+
+* COPYRIGHT
+\\
+Copyright © 2009-2011\\
+
+* NOTES
+-  1. :: MIME applications associations specification
+
+  http://www.freedesktop.org/wiki/Specifications/mime-apps-spec/

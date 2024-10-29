@@ -1,0 +1,122 @@
+#+TITLE: Manpages - chfn.1
+* NAME
+chfn - change real user name and information
+
+* SYNOPSIS
+*chfn* [/options/] [/LOGIN/]
+
+* DESCRIPTION
+The *chfn* command changes user fullname, office room number, office
+phone number, and home phone number information for a users account.
+This information is typically printed by *finger*(1) and similar
+programs. A normal user may only change the fields for her own account,
+subject to the restrictions in /etc/login.defs. (The default
+configuration is to prevent users from changing their fullname.) The
+superuser may change any field for any account. Additionally, only the
+superuser may use the *-o* option to change the undefined portions of
+the GECOS field.
+
+These fields must not contain any colons. Except for the /other/ field,
+they should not contain any comma or equal sign. It is also recommended
+to avoid non-US-ASCII characters, but this is only enforced for the
+phone numbers. The /other/ field is used to store accounting information
+used by other applications.
+
+* OPTIONS
+The options which apply to the *chfn* command are:
+
+*-f*, *--full-name* /FULL_NAME/
+
+#+begin_quote
+Change the users full name.
+
+#+end_quote
+
+*-h*, *--home-phone* /HOME_PHONE/
+
+#+begin_quote
+Change the users home phone number.
+
+#+end_quote
+
+*-o*, *--other* /OTHER/
+
+#+begin_quote
+Change the users other GECOS information. This field is used to store
+accounting information used by other applications, and can be changed
+only by a superuser.
+
+#+end_quote
+
+*-r*, *--room* /ROOM_NUMBER/
+
+#+begin_quote
+Change the users room number.
+
+#+end_quote
+
+*-R*, *--root* /CHROOT_DIR/
+
+#+begin_quote
+Apply changes in the /CHROOT_DIR/ directory and use the configuration
+files from the /CHROOT_DIR/ directory. Only absolute paths are
+supported.
+
+#+end_quote
+
+*-u*, *--help*
+
+#+begin_quote
+Display help message and exit.
+
+#+end_quote
+
+*-w*, *--work-phone* /WORK_PHONE/
+
+#+begin_quote
+Change the users office phone number.
+
+#+end_quote
+
+If none of the options are selected, *chfn* operates in an interactive
+fashion, prompting the user with the current values for all of the
+fields. Enter the new value to change the field, or leave the line blank
+to use the current value. The current value is displayed between a pair
+of *[ ]* marks. Without options, *chfn* prompts for the current user
+account.
+
+* CONFIGURATION
+The following configuration variables in /etc/login.defs change the
+behavior of this tool:
+
+*CHFN_RESTRICT* (string)
+
+#+begin_quote
+This parameter specifies which values in the /gecos/ field of the
+/etc/passwd file may be changed by regular users using the *chfn*
+program. It can be any combination of letters /f/, /r/, /w/, /h/, for
+Full name, Room number, Work phone, and Home phone, respectively. For
+backward compatibility, /yes/ is equivalent to /rwh/ and /no/ is
+equivalent to /frwh/. If not specified, only the superuser can make any
+changes. The most restrictive setting is better achieved by not
+installing *chfn* SUID.
+
+#+end_quote
+
+* FILES
+/etc/login.defs
+
+#+begin_quote
+Shadow password suite configuration.
+
+#+end_quote
+
+/etc/passwd
+
+#+begin_quote
+User account information.
+
+#+end_quote
+
+* SEE ALSO
+*chsh*(1), *login.defs*(5), *passwd*(5).

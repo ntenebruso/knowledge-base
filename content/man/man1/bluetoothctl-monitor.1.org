@@ -1,0 +1,81 @@
+#+TITLE: Manpages - bluetoothctl-monitor.1
+* NAME
+bluetoothctl-monitor - Monitor Submenu
+
+* SYNOPSIS
+*bluetoothctl* [--options] [monitor.commands]
+
+* MONITOR COMMANDS
+** set-rssi-threshold
+Set RSSI threshold parameter
+
+#+begin_quote
+- *Usage* :: *# set-rssi-threshold <low_threshold> <high_threshold>*
+
+#+end_quote
+
+** set-rssi-timeout
+Set RSSI timeout parameter
+
+#+begin_quote
+- *Usage* :: *# set-rssi-timeout <low_timeout> <high_timeout>*
+
+#+end_quote
+
+** set-rssi-sampling-period
+Set RSSI sampling period parameter
+
+#+begin_quote
+- *Usage* :: *# set-rssi-timeout <low_timeout> <high_timeout>*
+
+#+end_quote
+
+** add-or-pattern
+Register 'or pattern' type monitor with the specified RSSI parameters
+
+#+begin_quote
+- *Usage* :: *# add-or-pattern [patterns=pattern1 pattern2 ...]*
+
+#+end_quote
+
+** get-pattern
+Get advertisement monitor
+
+#+begin_quote
+- *Usage* :: *# get-pattern <monitor-id/all>*
+
+#+end_quote
+
+** remove-pattern
+Remove advertisement monitor
+
+#+begin_quote
+- *Usage* :: *# remove-pattern <monitor-id/all>*
+
+#+end_quote
+
+** get-supported-info
+Get advertisement manager supported features and supported monitor types
+
+#+begin_quote
+- *Usage* :: *# get-supported-info*
+
+#+end_quote
+
+** print-usage
+Print the command usage
+
+#+begin_quote
+- *Usage* :: *# print-usage <add-or-pattern>*
+
+#+end_quote
+
+* RESOURCES
+<http://www.bluez.org>
+
+* REPORTING BUGS
+<linux-bluetooth@vger.kernel.org>
+
+* COPYRIGHT
+Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).

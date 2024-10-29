@@ -1,0 +1,23 @@
+#+TITLE: Manpages - spa-monitor.1
+* NAME
+spa-monitor - The PipeWire SPA device debugging utility
+
+* SYNOPSIS
+*spa-monitor* /FILE/
+
+* DESCRIPTION
+Load a SPA plugin and instantiate a device from it.
+
+This is only useful for debugging device plugins.
+
+* EXAMPLES
+*spa-monitor*
+/nix/store/40mb4yjaa3zydd9vbr7mh01m2yifxbl6-pipewire-1.2.5/lib/spa-0.2/jack/libspa-jack.so
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pipewire(1)*

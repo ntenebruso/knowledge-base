@@ -1,0 +1,139 @@
+#+TITLE: Manpages - flatpak-spawn.1
+* NAME
+flatpak-spawn - Run commands in a sandbox
+
+* SYNOPSIS
+*flatpak-spawn* [OPTION...] COMMAND [ARGUMENT...]
+
+* DESCRIPTION
+Unlike other flatpak commands, *flatpak-spawn* is available to
+applications inside the sandbox. It runs COMMAND outside the sandbox:
+either in another sandbox, or on the host.
+
+When called without *--host*, *flatpak-spawn* uses the Flatpak portal to
+create a copy of the sandbox it was called from, optionally using
+tighter permissions and optionally the latest version of the app and
+runtime (see *--latest-version*).
+
+* OPTIONS
+The following options are understood:
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information
+
+#+end_quote
+
+*--forward-fd=FD*
+
+#+begin_quote
+Forward a file descriptor
+
+#+end_quote
+
+*--clear-env*
+
+#+begin_quote
+Run with a clean environment
+
+#+end_quote
+
+*--watch-bus*
+
+#+begin_quote
+Make the spawned command exit if the caller disappears from the session
+bus
+
+#+end_quote
+
+*--env=VAR=VALUE*
+
+#+begin_quote
+Set an environment variable
+
+#+end_quote
+
+*--latest-version*
+
+#+begin_quote
+Use the latest version of the refs that are used to set up the sandbox
+
+#+end_quote
+
+*--no-network*
+
+#+begin_quote
+Run without network access
+
+#+end_quote
+
+*--sandbox*
+
+#+begin_quote
+Run fully sandboxed. See the documentation for the *--sandbox* option in
+*flatpak-run*(1)
+
+See the *--sandbox-expose* and *--sandbox-expose-ro* options for
+selective file access.
+
+#+end_quote
+
+*--sandbox-expose=NAME*
+
+#+begin_quote
+Expose read-write access to a file in the sandbox.
+
+Note that absolute paths or subdirectories are not allowed. The files
+must be in the sandbox subdirectory of the instance directory (i.e.
+~/.var/app/$APP_ID/sandbox).
+
+This option is useful in combination with *--sandbox* (otherwise the
+instance directory is accessible anyway).
+
+#+end_quote
+
+*--sandbox-expose-ro=NAME*
+
+#+begin_quote
+Expose readonly access to a file in the sandbox.
+
+Note that absolute paths or subdirectories are not allowed. The files
+must be in the sandbox subdirectory of the instance directory (i.e.
+~/.var/app/$APP_ID/sandbox).
+
+This option is useful in combination with *--sandbox* (otherwise the
+instance directory is accessible anyway).
+
+#+end_quote
+
+*--host*
+
+#+begin_quote
+Run the command unsandboxed on the host. This requires access to the
+org.freedesktop.Flatpak D-Bus interface.
+
+#+end_quote
+
+*--directory=DIR*
+
+#+begin_quote
+The working directory in which to run the command.
+
+Note that the given directory must exist in the sandbox or, when used in
+conjunction with *--host*, on the host.
+
+#+end_quote
+
+* EXAMPLES
+*$ flatpak-spawn ls /var/run*
+
+* SEE ALSO
+*flatpak*(1)

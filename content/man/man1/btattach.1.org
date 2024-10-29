@@ -1,0 +1,65 @@
+#+TITLE: Manpages - btattach.1
+* NAME
+btattach - Attach serial devices to BlueZ stack
+
+* SYNOPSIS
+*btattach* [*-B* /device/] [*-A* /device/] [*-P* /protocol/] [*-R*]
+
+* DESCRIPTION
+*btattach(1)* is used to attach a serial UART to the Bluetooth stack as
+a transport interface.
+
+* OPTIONS
+
+#+begin_quote
+- *-B*/ device,/* --brder*/ device/ :: Attach a BR/EDR controller
+
+- *-A*/ device,/* --amp*/ device/ :: Attach an AMP controller
+
+- *-P*/ protocol,/* --protocol*/ protocol/ :: Specify the protocol type
+  for talking to the device.
+
+  Supported values are:
+
+#+end_quote
+
+| /protocol/ |
+| _          |
+| h4         |
+| _          |
+| bcsp       |
+| _          |
+| 3wire      |
+| _          |
+| h4ds       |
+| _          |
+| ll         |
+| _          |
+| ath3k      |
+| _          |
+| intel      |
+| _          |
+| bcm        |
+| _          |
+| qca        |
+
+#+begin_quote
+- *-S*/ baudrate,/* --speed*/ baudrate/ :: Specify wich baudrate to use
+
+- *-N, --noflowctl* :: Disable flow control
+
+- *-v, --version* :: Show version
+
+- *-h, --help* :: Show help options
+
+#+end_quote
+
+* RESOURCES
+<http://www.bluez.org>
+
+* REPORTING BUGS
+<linux-bluetooth@vger.kernel.org>
+
+* COPYRIGHT
+Free use of this software is granted under ther terms of the GNU Lesser
+General Public Licenses (LGPL).

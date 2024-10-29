@@ -1,0 +1,303 @@
+#+TITLE: Manpages - nix3-search.1
+#+begin_quote
+*Warning*\\
+This program is *experimental* and its interface is subject to change.
+
+#+end_quote
+
+* Name
+=nix search= - search for packages
+
+* Synopsis
+=nix search= [/option/...] /installable/ /regex/...
+
+* Examples
+- Show all packages in the =nixpkgs= flake:
+
+#+begin_example
+# nix search nixpkgs ^
+* legacyPackages.x86_64-linux.AMB-plugins (0.8.1)
+A set of ambisonics ladspa plugins
+
+* legacyPackages.x86_64-linux.ArchiSteamFarm (4.3.1.0)
+Application with primary purpose of idling Steam cards from multiple accounts simultaneously
+…
+#+end_example
+
+- Show packages in the =nixpkgs= flake containing =blender= in its name
+  or description:
+
+#+begin_example
+# nix search nixpkgs blender
+* legacyPackages.x86_64-linux.blender (2.91.0)
+3D Creation/Animation/Publishing System
+#+end_example
+
+- Search for packages underneath the attribute =gnome3= in Nixpkgs:
+
+#+begin_example
+# nix search nixpkgs#gnome3 vala
+* legacyPackages.x86_64-linux.gnome3.vala (0.48.9)
+Compiler for GObject type system
+#+end_example
+
+- Show all packages in the flake in the current directory:
+
+#+begin_example
+# nix search . ^
+#+end_example
+
+- Search for Firefox or Chromium:
+
+#+begin_example
+# nix search nixpkgs 'firefox|chromium'
+#+end_example
+
+- Search for packages containing =git= and either =frontend= or =gui=:
+
+#+begin_example
+# nix search nixpkgs git 'frontend|gui'
+#+end_example
+
+- Search for packages containing =neovim= but hide ones containing
+  either =gui= or =python=:
+
+#+begin_example
+# nix search nixpkgs neovim --exclude 'python|gui'
+#+end_example
+
+#+begin_quote
+or
+
+#+end_quote
+
+#+begin_example
+# nix search nixpkgs neovim --exclude 'python' --exclude 'gui'
+#+end_example
+
+* Description
+=nix search= searches /installable/ (which can be evaluated, that is, a
+flake or Nix expression, but not a store path or store derivation path)
+for packages whose name or description matches all of the regular
+expressions /regex/. For each matching package, It prints the full
+attribute name (from the root of the *installable*), the version and the
+=meta.description= field, highlighting the substrings that were matched
+by the regular expressions.
+
+To show all packages, use the regular expression =^=. In contrast to
+=.*=, it avoids highlighting the entire name and description of every
+package.
+
+#+begin_quote
+Note that in this context, =^= is the regex character to match the
+beginning of a string, /not/ the delimiter for *selecting a derivation
+output*.
+
+#+end_quote
+
+* Flake output attributes
+If no flake output attribute is given, =nix search= searches for
+packages:
+
+- Directly underneath =packages.<system>=.
+
+- Underneath =legacyPackages.<system>=, recursing into attribute sets
+  that contain an attribute =recurseForDerivations = true=.
+
+* Options
+- =--exclude= / =-e= /regex/
+
+  Hide packages whose attribute path, name or description contain
+  /regex/.
+
+- =--json=
+
+  Produce output in JSON format, suitable for consumption by another
+  program.
+
+** Common evaluation options
+- =--arg= /name/ /expr/
+
+  Pass the value /expr/ as the argument /name/ to Nix functions.
+
+- =--arg-from-file= /name/ /path/
+
+  Pass the contents of file /path/ as the argument /name/ to Nix
+  functions.
+
+- =--arg-from-stdin= /name/
+
+  Pass the contents of stdin as the argument /name/ to Nix functions.
+
+- =--argstr= /name/ /string/
+
+  Pass the string /string/ as the argument /name/ to Nix functions.
+
+- =--debugger=
+
+  Start an interactive environment if evaluation fails.
+
+- =--eval-store= /store-url/
+
+  The *URL of the Nix store* to use for evaluation, i.e. to store
+  derivations (=.drv= files) and inputs referenced by them.
+
+- =--impure=
+
+  Allow access to mutable paths and repositories.
+
+- =--include= / =-I= /path/
+
+  Add /path/ to search path entries used to resolve *lookup paths*
+
+  This option may be given multiple times.
+
+  Paths added through =-I= take precedence over the =nix-path=
+  configuration setting and the =NIX_PATH= environment variable.
+
+- =--override-flake= /original-ref/ /resolved-ref/
+
+  Override the flake registries, redirecting /original-ref/ to
+  /resolved-ref/.
+
+** Common flake-related options
+- =--commit-lock-file=
+
+  Commit changes to the flake's lock file.
+
+- =--inputs-from= /flake-url/
+
+  Use the inputs of the specified flake as registry entries.
+
+- =--no-registries=
+
+  Don't allow lookups in the flake registries.
+
+  #+begin_quote
+  *DEPRECATED*
+
+  #+end_quote
+
+  #+begin_quote
+  Use =--no-use-registries= instead.
+
+  #+end_quote
+
+- =--no-update-lock-file=
+
+  Do not allow any updates to the flake's lock file.
+
+- =--no-write-lock-file=
+
+  Do not write the flake's newly generated lock file.
+
+- =--output-lock-file= /flake-lock-path/
+
+  Write the given lock file instead of =flake.lock= within the top-level
+  flake.
+
+- =--override-input= /input-path/ /flake-url/
+
+  Override a specific flake input (e.g. =dwarffs/nixpkgs=). This implies
+  =--no-write-lock-file=.
+
+- =--recreate-lock-file=
+
+  Recreate the flake's lock file from scratch.
+
+  #+begin_quote
+  *DEPRECATED*
+
+  #+end_quote
+
+  #+begin_quote
+  Use =nix flake update= instead.
+
+  #+end_quote
+
+- =--reference-lock-file= /flake-lock-path/
+
+  Read the given lock file instead of =flake.lock= within the top-level
+  flake.
+
+- =--update-input= /input-path/
+
+  Update a specific flake input (ignoring its previous entry in the lock
+  file).
+
+  #+begin_quote
+  *DEPRECATED*
+
+  #+end_quote
+
+  #+begin_quote
+  Use =nix flake update= instead.
+
+  #+end_quote
+
+** Logging-related options
+- =--debug=
+
+  Set the logging verbosity level to ‘debug'.
+
+- =--log-format= /format/
+
+  Set the format of log output; one of =raw=, =internal-json=, =bar= or
+  =bar-with-logs=.
+
+- =--print-build-logs= / =-L=
+
+  Print full build logs on standard error.
+
+- =--quiet=
+
+  Decrease the logging verbosity level.
+
+- =--verbose= / =-v=
+
+  Increase the logging verbosity level.
+
+** Miscellaneous global options
+- =--help=
+
+  Show usage information.
+
+- =--offline=
+
+  Disable substituters and consider all previously downloaded files
+  up-to-date.
+
+- =--option= /name/ /value/
+
+  Set the Nix configuration setting /name/ to /value/ (overriding
+  =nix.conf=).
+
+- =--refresh=
+
+  Consider all previously downloaded files out-of-date.
+
+- =--repair=
+
+  During evaluation, rewrite missing or corrupted files in the Nix
+  store. During building, rebuild missing or corrupted store paths.
+
+- =--version=
+
+  Show version information.
+
+** Options that change the interpretation of *installables*
+- =--expr= /expr/
+
+  Interpret /installables/ as attribute paths relative to the Nix
+  expression /expr/.
+
+- =--file= / =-f= /file/
+
+  Interpret /installables/ as attribute paths relative to the Nix
+  expression stored in /file/. If /file/ is the character -, then a Nix
+  expression will be read from standard input. Implies =--impure=.
+
+  *Note*
+
+  See =man nix.conf= for overriding configuration settings with command
+  line flags.

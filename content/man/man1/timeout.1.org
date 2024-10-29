@@ -1,0 +1,116 @@
+#+TITLE: Manpages - timeout.1
+* NAME
+timeout - run a command with a time limit
+
+* SYNOPSIS
+*timeout* [/OPTION/] /DURATION COMMAND /[/ARG/]...\\
+*timeout* [/OPTION/]
+
+* DESCRIPTION
+Start COMMAND, and kill it if still running after DURATION.
+
+Mandatory arguments to long options are mandatory for short options too.
+
+*--preserve-status*
+
+#+begin_quote
+exit with the same status as COMMAND, even when the
+
+#+end_quote
+
+#+begin_quote
+command times out
+
+#+end_quote
+
+*--foreground*
+
+#+begin_quote
+when not running timeout directly from a shell prompt,
+
+#+end_quote
+
+#+begin_quote
+allow COMMAND to read from the TTY and get TTY signals; in this mode,
+children of COMMAND will not be timed out
+
+#+end_quote
+
+*-k*, *--kill-after*=/DURATION/
+
+#+begin_quote
+also send a KILL signal if COMMAND is still running
+
+#+end_quote
+
+#+begin_quote
+this long after the initial signal was sent
+
+#+end_quote
+
+*-s*, *--signal*=/SIGNAL/
+
+#+begin_quote
+specify the signal to be sent on timeout;
+
+#+end_quote
+
+#+begin_quote
+SIGNAL may be a name like 'HUP' or a number; see 'kill *-l*' for a list
+of signals
+
+#+end_quote
+
+- *-v*, *--verbose* :: diagnose to stderr any signal sent upon timeout
+
+- *--help* :: display this help and exit
+
+- *--version* :: output version information and exit
+
+DURATION is a floating point number with an optional suffix: 's' for
+seconds (the default), 'm' for minutes, 'h' for hours or 'd' for days. A
+duration of 0 disables the associated timeout.
+
+Upon timeout, send the TERM signal to COMMAND, if no other SIGNAL
+specified. The TERM signal kills any process that does not block or
+catch that signal. It may be necessary to use the KILL signal, since
+this signal can't be caught.
+
+** Exit status:
+- 124 :: if COMMAND times out, and *--preserve-status* is not specified
+
+- 125 :: if the timeout command itself fails
+
+- 126 :: if COMMAND is found but cannot be invoked
+
+- 127 :: if COMMAND cannot be found
+
+- 137 :: if COMMAND (or timeout itself) is sent the KILL (9) signal
+  (128+9)
+
+- - :: the exit status of COMMAND otherwise
+
+* BUGS
+Some platforms don't currently support timeouts beyond the year 2038.
+
+* AUTHOR
+Written by Padraig Brady.
+
+* REPORTING BUGS
+GNU coreutils online help: <https://www.gnu.org/software/coreutils/>\\
+Report any translation bugs to <https://translationproject.org/team/>
+
+* SEE ALSO
+*kill*(1)
+
+\\
+Full documentation <https://www.gnu.org/software/coreutils/timeout>\\
+or available locally via: info '(coreutils) timeout invocation'
+
+\\
+Packaged by https://nixos.org\\
+Copyright © 2024 Free Software Foundation, Inc.\\
+License GPLv3+: GNU GPL version 3 or later
+<https://gnu.org/licenses/gpl.html>.\\
+This is free software: you are free to change and redistribute it.\\
+There is NO WARRANTY, to the extent permitted by law.

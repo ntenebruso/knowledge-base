@@ -1,0 +1,1282 @@
+#+TITLE: Manpages - lsfd.1
+* NAME
+lsfd - list file descriptors
+
+* SYNOPSIS
+*lsfd* [option]
+
+* DESCRIPTION
+*lsfd* is intended to be a modern replacement for *lsof*(8) on Linux
+systems. Unlike *lsof*, *lsfd* is specialized to Linux kernel; it
+supports Linux specific features like namespaces with simpler code.
+*lsfd* is not a drop-in replacement for *lsof*; they are different in
+the command line interface and output formats.
+
+The default output is subject to change. So whenever possible, you
+should avoid using default outputs in your scripts. Always explicitly
+define expected columns by using *--output* /columns-list/ in
+environments where a stable output is required.
+
+*lsfd* uses Libsmartcols for output formatting and filtering. See the
+description of *--output* option for customizing the output format, and
+*--filter* option for filtering. Use *lsfd --help* to get a list of all
+available columns.
+
+* OPTIONS
+*-l*, *--threads*
+
+#+begin_quote
+List in threads level.
+
+#+end_quote
+
+*-J*, *--json*
+
+#+begin_quote
+Use JSON output format.
+
+#+end_quote
+
+*-n*, *--noheadings*
+
+#+begin_quote
+Don't print headings.
+
+#+end_quote
+
+*-o*, *--output* /list/
+
+#+begin_quote
+Specify which output columns to print. See the *OUTPUT COLUMNS* section
+for details of available columns.
+
+The default list of columns may be extended if /list/ is specified in
+the format +/list/ (e.g., *lsfd -o +DELETED*).
+
+#+end_quote
+
+*-r*, *--raw*
+
+#+begin_quote
+Use raw output format.
+
+#+end_quote
+
+*--notruncate*
+
+#+begin_quote
+Don't truncate text in columns.
+
+#+end_quote
+
+*-p*, *--pid* /pids/
+
+#+begin_quote
+Collect information only for specified processes. /pids/ is a list of
+pids. A comma or whitespaces can be used as separators. You can use this
+option with *pidof*(1). See *FILTER EXAMPLES*.
+
+Both *-Q* option with an expression including PID, e.g. -Q (PID == 1),
+and *-p* option, e.g. -p 1, may print the same output but using *-p*
+option is much more efficient because *-p* option works at a much
+earlier stage of processing than the *-Q* option.
+
+#+end_quote
+
+*-i*[4|6], *--inet*[=4|=6]
+
+#+begin_quote
+List only IPv4 sockets and/or IPv6 sockets.
+
+#+end_quote
+
+*-Q*, *--filter* /expr/
+
+#+begin_quote
+Print only the files matching the condition represented by the /expr/.
+See also *FILTER EXAMPLES*.
+
+#+end_quote
+
+*-C*, *--counter* /label/:/filter_expr/
+
+#+begin_quote
+Define a custom counter used in *--summary* output. *lsfd* makes a
+counter named /label/. During collect information, *lsfd* counts files
+matching /filter_expr/, and stores the counted number to the counter
+named /label/. *lsfd* applies filters defined with *--filter* options
+before counting; files excluded by the filters are not counted.
+
+See *FILTER EXPRESSION* about /filter_expr/. /label/ should not include
+={= nor =:=. You can define multiple counters by specifying this option
+multiple times.
+
+See also *COUNTER EXAMPLES*.
+
+#+end_quote
+
+*--summary*[=/when/]
+
+#+begin_quote
+This option controls summary lines output. The optional argument /when/
+can be *only*, *append* or *never*. If the /when/ argument is omitted,
+it defaults to *only*.
+
+The summary reports counters. A counter consists of a label and an
+integer value. *--counter* is the option for defining a counter. If a
+user defines no counter, *lsfd* uses the definitions of pre-defined
+built-in counters (default counters) to make the summary output.
+
+CAUTION: Using *--summary* and *--json* may make the output broken. Only
+combining *--summary*=*only* and *--json* is valid.
+
+#+end_quote
+
+*--debug-filter*
+
+#+begin_quote
+Dump the internal data structure for the filter and exit. This is useful
+only for *lsfd* developers.
+
+#+end_quote
+
+*--dump-counters*
+
+#+begin_quote
+Dump the definition of counters used in *--summary* output.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Print version and exit.
+
+#+end_quote
+
+* OUTPUT COLUMNS
+Each column has a type. Types are surround by < and >.
+
+CAUTION: The names and types of columns are not stable yet. They may be
+changed in the future releases.
+
+AINODECLASS <=string=>
+
+#+begin_quote
+Class of anonymous inode.
+
+#+end_quote
+
+ASSOC <=string=>
+
+#+begin_quote
+Association between file and process.
+
+#+end_quote
+
+BLKDRV <=string=>
+
+#+begin_quote
+Block device driver name resolved by =/proc/devices=.
+
+#+end_quote
+
+CHRDRV <=string=>
+
+#+begin_quote
+Character device driver name resolved by =/proc/devices=.
+
+#+end_quote
+
+COMMAND <=string=>
+
+#+begin_quote
+Command of the process opening the file.
+
+#+end_quote
+
+DELETED <=boolean=>
+
+#+begin_quote
+Reachability from the file system.
+
+#+end_quote
+
+DEV <=string=>
+
+#+begin_quote
+ID of the device containing the file.
+
+#+end_quote
+
+DEVTYPE <=string=>
+
+#+begin_quote
+Device type (=blk=, =char=, or =nodev=).
+
+#+end_quote
+
+ENDPOINT <=string=>
+
+#+begin_quote
+IPC endpoints information communicated with the fd. The format of the
+column depends on the object associated with the fd:
+
+FIFO type
+
+#+begin_quote
+/PID/,/COMMAND/,/ASSOC/[-r][-w]
+
+The last characters ([-r][-w]) represents the read and/or write mode of
+the endpoint.
+
+#+end_quote
+
+*lsfd* collects endpoints within the processes that *lsfd* scans; *lsfd*
+may miss some endpoints if you limits the processes with *-p* option.
+
+#+end_quote
+
+FD <=number=>
+
+#+begin_quote
+File descriptor for the file.
+
+#+end_quote
+
+FLAGS <=string=>
+
+#+begin_quote
+Flags specified when opening the file.
+
+#+end_quote
+
+FUID <=number=>
+
+#+begin_quote
+User ID number of the file's owner.
+
+#+end_quote
+
+INET.LADDR <=string=>
+
+#+begin_quote
+Local IP address.
+
+#+end_quote
+
+INET.RADDR <=string=>
+
+#+begin_quote
+Remote IP address.
+
+#+end_quote
+
+INET6.LADDR <=string=>
+
+#+begin_quote
+Local IP6 address.
+
+#+end_quote
+
+INET6.RADDR <=string=>
+
+#+begin_quote
+Remote IP6 address.
+
+#+end_quote
+
+INODE <=number=>
+
+#+begin_quote
+Inode number.
+
+#+end_quote
+
+KNAME <=string=>
+
+#+begin_quote
+Raw file name extracted from from =/proc/=/pid/=/fd/=/fd/ or
+=/proc/=/pid/=/map_files/=/region/.
+
+#+end_quote
+
+KTHREAD <=boolean=>
+
+#+begin_quote
+Whether the process is a kernel thread or not.
+
+#+end_quote
+
+MAJ:MIN <=string=>
+
+#+begin_quote
+Device ID for special, or ID of device containing file.
+
+#+end_quote
+
+MAPLEN <=number=>
+
+#+begin_quote
+Length of file mapping (in page).
+
+#+end_quote
+
+MISCDEV <=string=>
+
+#+begin_quote
+Misc character device name resolved by =/proc/misc=.
+
+#+end_quote
+
+MNTID <=number=>
+
+#+begin_quote
+Mount ID.
+
+#+end_quote
+
+MODE <=string=>
+
+#+begin_quote
+Access mode (rwx).
+
+#+end_quote
+
+NAME <=string=>
+
+#+begin_quote
+Cooked version of KNAME. It is mostly same as KNAME.
+
+Some files have special formats and information sources:
+
+NETLINK
+
+#+begin_quote
+protocol=/NETLINK.PROTOCOL/[ lport=/NETLINK.LPORT/[
+group=/NETLINK.GROUPS/]]
+
+#+end_quote
+
+PACKET
+
+#+begin_quote
+type=/SOCK.TYPE/[ protocol=/PACKET.PROTOCOL/][ iface=/PACKET.IFACE/]
+
+#+end_quote
+
+pidfd
+
+#+begin_quote
+pid=/TARGET-PID/ comm=/TARGET-COMMAND/ nspid=/TARGET-NSPIDS/
+
+*lsfd* extracts /TARGET-PID/ and /TARGET-NSPIDS/ from
+=/proc/=/pid/=/fdinfo/=/fd/.
+
+#+end_quote
+
+PING
+
+#+begin_quote
+state=/SOCK.STATE/[ id=/PING.ID/][ laddr=/INET.LADDR/ [
+raddr=/INET.RADDR/]]
+
+#+end_quote
+
+PINGv6
+
+#+begin_quote
+state=/SOCK.STATE/[ id=/PING.ID/][ laddr=/INET6.LADDR/ [
+raddr=/INET6.RADDR/]]
+
+#+end_quote
+
+RAW
+
+#+begin_quote
+state=/SOCK.STATE/[ protocol=/RAW.PROTOCOL/ [ laddr=/INET.LADDR/ [
+raddr=/INET.RADDR/]]]
+
+#+end_quote
+
+RAWv6
+
+#+begin_quote
+state=/SOCK.STATE/[ protocol=/RAW.PROTOCOL/ [ laddr=/INET6.LADDR/ [
+raddr=/INET6.RADDR/]]]
+
+#+end_quote
+
+TCP, TCPv6
+
+#+begin_quote
+state=/SOCK.STATE/[ laddr=/TCP.LADDR/ [ raddr=/TCP.RADDR/]]
+
+#+end_quote
+
+UDP, UDPv6
+
+#+begin_quote
+state=/SOCK.STATE/[ laddr=/UDP.LADDR/ [ raddr=/UDP.RADDR/]]
+
+*lsfd* hides =raddr== if /UDP.RADDR/ is =0.0.0.0= and /UDP.RPORT/ is 0.
+
+#+end_quote
+
+UDP-LITE, UDPLITEv6
+
+#+begin_quote
+state=/SOCK.STATE/[ laddr=/UDPLITE.LADDR/ [ raddr=/UDPLITE.RADDR/]]
+
+#+end_quote
+
+UNIX-STREAM
+
+#+begin_quote
+state=/SOCK.STATE/[ path=/UNIX.PATH/]
+
+#+end_quote
+
+UNIX
+
+#+begin_quote
+state=/SOCK.STATE/[ path=/UNIX.PATH/] type=/SOCK.TYPE/
+
+#+end_quote
+
+#+end_quote
+
+NETLINK.GROUPS <=number=>>
+
+#+begin_quote
+Netlink multicast groups.
+
+#+end_quote
+
+NETLINK.LPORT <=number=>>
+
+#+begin_quote
+Netlink local port id.
+
+#+end_quote
+
+NETLINK.PROTOCOL <=string=>>
+
+#+begin_quote
+Netlink protocol.
+
+#+end_quote
+
+NLINK <=number=>
+
+#+begin_quote
+Link count.
+
+#+end_quote
+
+NS.NAME <=string=>
+
+#+begin_quote
+Name (/NS.TYPE/:[/INODE/]) of the namespace specified with the file.
+
+#+end_quote
+
+NS.TYPE <=string=>
+
+#+begin_quote
+Type of the namespace specified with the file. The type is =mnt=,
+=cgroup=, =uts=, =ipc=, =user=, =pid=, =net=, =time=, or =unknown=.
+
+#+end_quote
+
+OWNER <=string=>
+
+#+begin_quote
+Owner of the file.
+
+#+end_quote
+
+PACKET.IFACE <=string=>
+
+#+begin_quote
+Interface name associated with the packet socket.
+
+#+end_quote
+
+PACKET.PROTOCOL <=string=>
+
+#+begin_quote
+L3 protocol associated with the packet socket.
+
+#+end_quote
+
+PARTITION <=string=>
+
+#+begin_quote
+Block device name resolved by =/proc/partition=.
+
+#+end_quote
+
+PID <=number=>
+
+#+begin_quote
+PID of the process opening the file.
+
+#+end_quote
+
+PIDFD.COMM <=string=>
+
+#+begin_quote
+Command of the process targeted by the pidfd.
+
+#+end_quote
+
+PIDFD.NSPID <=string=>
+
+#+begin_quote
+Value of NSpid field in =/proc/=/pid/=/fdinfo/=/fd/ of the pidfd.
+
+Quoted from kernel/fork.c of Linux source tree:
+
+#+begin_quote
+If pid namespaces are supported then this function will also print the
+pid of a given pidfd refers to for all descendant pid namespaces
+starting from the current pid namespace of the instance, i.e. the Pid
+field and the first entry in the NSpid field will be identical.
+
+Note that this differs from the Pid and NSpid fields in
+/proc/<pid>/status where Pid and NSpid are always shown relative to the
+pid namespace of the procfs instance.\\
+
+#+end_quote
+
+#+end_quote
+
+PIDFD.PID <=number=>
+
+#+begin_quote
+PID of the process targeted by the pidfd.
+
+#+end_quote
+
+PING.ID <`number`>
+
+#+begin_quote
+ICMP echo request id used on the PING socket.
+
+#+end_quote
+
+POS <=number=>
+
+#+begin_quote
+File position.
+
+#+end_quote
+
+RAW.PROTOCOL <=number=>
+
+#+begin_quote
+Protocol number of the raw socket.
+
+#+end_quote
+
+RDEV <=string=>
+
+#+begin_quote
+Device ID (if special file).
+
+#+end_quote
+
+SIZE <=number=>
+
+#+begin_quote
+File size.
+
+#+end_quote
+
+SOCK.LISTENING <=boolean=>
+
+#+begin_quote
+Listening socket.
+
+#+end_quote
+
+SOCK.NETS <=number=>
+
+#+begin_quote
+Inode identifying network namespace where the socket belongs to.
+
+#+end_quote
+
+SOCK.PROTONAME <=string=>
+
+#+begin_quote
+Protocol name.
+
+#+end_quote
+
+SOCK.STATE <=string=>
+
+#+begin_quote
+State of socket.
+
+#+end_quote
+
+SOCK.TYPE <=string=>
+
+#+begin_quote
+Type of socket. Here type means the second parameter of socket system
+call:
+
+#+begin_quote
+·
+
+stream
+
+#+end_quote
+
+#+begin_quote
+·
+
+dgram
+
+#+end_quote
+
+#+begin_quote
+·
+
+raw
+
+#+end_quote
+
+#+begin_quote
+·
+
+rdm
+
+#+end_quote
+
+#+begin_quote
+·
+
+seqpacket
+
+#+end_quote
+
+#+begin_quote
+·
+
+dccp
+
+#+end_quote
+
+#+begin_quote
+·
+
+packet
+
+#+end_quote
+
+#+end_quote
+
+SOURCE <=string=>
+
+#+begin_quote
+File system, partition, or device containing the file.
+
+#+end_quote
+
+STTYPE <=string=>
+
+#+begin_quote
+Raw file types returned from *stat*(2): BLK, CHR, DIR, FIFO, LINK, REG,
+SOCK, or UNKN.
+
+#+end_quote
+
+TCP.LADDR <=string=>
+
+#+begin_quote
+Local L3 (INET.LADDR or INET6.LADDR) address and local TCP port.
+
+#+end_quote
+
+TCP.LPORT <=integer=>
+
+#+begin_quote
+Local TCP port.
+
+#+end_quote
+
+TCP.RADDR <=string=>
+
+#+begin_quote
+Remote L3 (INET.RADDR or INET6.RADDR) address and remote TCP port.
+
+#+end_quote
+
+TCP.RPORT <=integer=>
+
+#+begin_quote
+Remote TCP port.
+
+#+end_quote
+
+TID <=number=>
+
+#+begin_quote
+Thread ID of the process opening the file.
+
+#+end_quote
+
+TYPE <=string=>
+
+#+begin_quote
+Cooked version of STTYPE. It is same as STTYPE with exceptions. For
+SOCK, print the value for SOCK.PROTONAME. For UNKN, print the value for
+AINODECLASS if SOURCE is anon_inodefs.
+
+#+end_quote
+
+UDP.LADDR <=string=>
+
+#+begin_quote
+Local IP address and local UDP port.
+
+#+end_quote
+
+UDP.LPORT <=integer=>
+
+#+begin_quote
+Local UDP port.
+
+#+end_quote
+
+UDP.RADDR <=string=>
+
+#+begin_quote
+Remote IP address and remote UDP port.
+
+#+end_quote
+
+UDP.RPORT <=integer=>
+
+#+begin_quote
+Remote UDP port.
+
+#+end_quote
+
+UDPLITE.LADDR <=string=>
+
+#+begin_quote
+Local IP address and local UDPLite port.
+
+#+end_quote
+
+UDPLITE.LPORT <=integer=>
+
+#+begin_quote
+Local UDP port.
+
+#+end_quote
+
+UDPLITE.RADDR <=string=>
+
+#+begin_quote
+Remote IP address and remote UDPLite port.
+
+#+end_quote
+
+UDPLITE.RPORT <=integer=>
+
+#+begin_quote
+Remote UDP port.
+
+#+end_quote
+
+UID <=number=>
+
+#+begin_quote
+User ID number.
+
+#+end_quote
+
+UNIX.PATH <=string=>
+
+#+begin_quote
+Filesystem pathname for UNIX domain socket.
+
+#+end_quote
+
+USER <=string=>
+
+#+begin_quote
+User of the process.
+
+#+end_quote
+
+* FILTER EXPRESSION
+*lsfd* evaluates the expression passed to *--filter* option every time
+before printing a file line. *lsfd* prints the line only if the result
+of evaluation is =true=.
+
+An expression consists of column names, literals and, operators like:
+=DELETED=, =(PID == 1)=, =(NAME == "/etc/passwd")=,
+=(PID == 1) && DELETED=. =DELETED=, =PID=, and =NAME= are column names
+in the example. =1= and "/etc/passwd" are literals. ==== and =&&= are
+operators.
+
+Before evaluation, *lsfd* substitutes column names in the given
+expression with actual column values in the line. There are three
+different data types: =boolean=, =string=, and =number=. For columns
+with a =boolean= type, the value can be stand-alone. For =string= and
+=number= values, the value must be an operand of an operator, for
+example, =(PID == 1)=. See *OUTPUT COLUMNS* about the types of columns.
+
+Literal is for representing a value directly. See BOOLLIT, STRLIT, and
+NUMLIT. Different data types have different literal syntax.
+
+An operator works with one or two operand(s). An operator has an
+expectation about the data type(s) of its operands. Giving an unexpected
+data type to an operator causes a syntax error.
+
+Operators taking two operands are =and=, =or=, =eq=, =ne=, =le=, =lt=,
+=ge=, =gt=, ==~=, =!~=. Alphabetically named operators have C-language
+flavored aliases: =&&=, =||=, ====, =!==, =<=, =⇐=, =>==, and =>=.
+
+=!= is the only operator that takes one operand.
+
+=eq=, =ne=, and their aliases expect operands have the same data type.
+Applying these operators return a =boolean=.
+
+=and=, =or=, =not= and their aliases expect operands have =boolean= data
+type. Applying these operators return a =boolean=.
+
+=lt=, =le=, =gt=, =ge=, and their aliases expect operands have =number=
+data types. Applying these operators return a =boolean=.
+
+==~= is for regular expression matching; if a string at the right side
+matches a regular expression at the left side, the result is true. The
+right side operand must be a string literal. See STRLIT about the
+syntax.
+
+=!~= is a short-hand version of =not (STR =~ PAT)=; it inverts the
+result of ==~=.
+
+** Limitations
+The current implementation does not define precedences within operators.
+Use =(= and =)= explicitly for grouping the sub-expressions if your
+expression uses more than two operators.
+
+About =number= typed values, the filter engine supports only
+non-negative integers.
+
+** Semi-formal syntax
+EXPR
+
+#+begin_quote
+BOOLEXP
+
+#+end_quote
+
+BOOLEXP0
+
+#+begin_quote
+COLUMN <=boolean=> | BOOLLIT | /(/ BOOLEXP /)/
+
+#+end_quote
+
+BOOLEXP
+
+#+begin_quote
+BOOLEXP0 | BOOLOP1 | BOOLOP2 | BOOLOP2BL | BOOLOP2CMP | BOOLOP2REG
+
+#+end_quote
+
+COLUMN
+
+#+begin_quote
+[_A-Za-z][-_:A-Za-z0-9]*
+
+#+end_quote
+
+BOOLOP1
+
+#+begin_quote
+/!/ BOOLEXP0 | /not/ BOOLEXP0
+
+#+end_quote
+
+STREXP
+
+#+begin_quote
+COLUMN <=string=> | STRLIT
+
+#+end_quote
+
+NUMEXP
+
+#+begin_quote
+COLUMN <=number=> | NUMLIT
+
+#+end_quote
+
+BOOLLIT
+
+#+begin_quote
+/true/ | /false/
+
+#+end_quote
+
+CHARS
+
+#+begin_quote
+( [^\] | /\\/ | /\/ | /\"/ )*
+
+#+end_quote
+
+STRLIT
+
+#+begin_quote
+CHARS | /"/ CHARS /"/
+
+#+end_quote
+
+NUMLIT
+
+#+begin_quote
+[1-9][0-9]* | /0/
+
+#+end_quote
+
+BOOLOP2
+
+#+begin_quote
+STREXP OP2 STREXP | NUMEXP OP2 NUMEXP | BOOLEXP0 OP2 BOOLEXP0
+
+#+end_quote
+
+OP2
+
+#+begin_quote
+/==/ | /eq/ | /!=/ | /ne/
+
+#+end_quote
+
+BOOLOP2BL
+
+#+begin_quote
+BOOLEXP0 OP2BL BOOLEXP0
+
+#+end_quote
+
+OP2BL
+
+#+begin_quote
+/&&/ | /and/ | /||/ | /or/
+
+#+end_quote
+
+BOOLOP2CMP
+
+#+begin_quote
+NUMEXP OP2CMP NUMEXP
+
+#+end_quote
+
+OP2CMP
+
+#+begin_quote
+/</ | /lt/ | /<=/ | /le/ | />/ | /gt/ | />=/ | /ge/
+
+#+end_quote
+
+BOOLOP2REG
+
+#+begin_quote
+STREXP OP2REG STRLIT
+
+#+end_quote
+
+OP2REG
+
+#+begin_quote
+/=~/ | /!~/
+
+#+end_quote
+
+* FILTER EXAMPLES
+*lsfd* has few options for filtering. In most of cases, what you should
+know is *-Q* (or *--filter*) option. Combined with *-o* (or *--output*)
+option, you can customize the output as you want.
+
+List files associated with PID 1 and PID 2 processes:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q (PID == 1) or (PID == 2)
+#+end_example
+
+#+end_quote
+
+Do the same in an alternative way:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q (PID == 1) || (PID == 2)
+#+end_example
+
+#+end_quote
+
+Do the same in a more efficient way:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd --pid 1,2
+#+end_example
+
+#+end_quote
+
+Whitescapes can be used instead of a comma:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd --pid 1 2
+#+end_example
+
+#+end_quote
+
+Utilize *pidof*(1) for list the files associated with "firefox":
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd --pid "$(pidof firefox)"
+#+end_example
+
+#+end_quote
+
+List the 1st file descriptor opened by PID 1 process:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q (PID == 1) and (FD == 1)
+#+end_example
+
+#+end_quote
+
+Do the same in an alternative way:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q (PID == 1) && (FD == 1)
+#+end_example
+
+#+end_quote
+
+List all running executables:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q ASSOC == "exe"
+#+end_example
+
+#+end_quote
+
+Do the same in an alternative way:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q ASSOC eq "exe"
+#+end_example
+
+#+end_quote
+
+Do the same but print only file names:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -o NAME -Q ASSOC eq "exe" | sort -u
+#+end_example
+
+#+end_quote
+
+List deleted files associated to processes:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q DELETED
+#+end_example
+
+#+end_quote
+
+List non-regular files:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q TYPE != "REG"
+#+end_example
+
+#+end_quote
+
+List block devices:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q DEVTYPE == "blk"
+#+end_example
+
+#+end_quote
+
+Do the same with TYPE column:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q TYPE == "BLK"
+#+end_example
+
+#+end_quote
+
+List files including "dconf" directory in their names:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q NAME =~ ".\*/dconf/.*"
+#+end_example
+
+#+end_quote
+
+List files opened in a QEMU virtual machine:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q (COMMAND =~ ".\*qemu.*") and (FD >= 0)
+#+end_example
+
+#+end_quote
+
+Hide files associated to kernel threads:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd -Q !KTHREAD
+#+end_example
+
+#+end_quote
+
+* COUNTER EXAMPLES
+Report the numbers of netlink socket descriptors and unix socket
+descriptors:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd --summary=only \
+        -C netlink sockets:(NAME =~ "NETLINK:.*") \
+        -C unix sockets:(NAME =~ "UNIX:.*")
+VALUE COUNTER
+   57 netlink sockets
+ 1552 unix sockets
+#+end_example
+
+#+end_quote
+
+Do the same but print in JSON format:
+
+#+begin_quote
+#+end_quote
+
+#+begin_quote
+#+begin_example
+# lsfd --summary=only --json \
+        -C netlink sockets:(NAME =~ "NETLINK:.*") \
+        -C unix sockets:(NAME =~ "UNIX:.*")
+{
+   "lsfd-summary": [
+      {
+         "value": 15,
+         "counter": "netlink sockets"
+      },{
+         "value": 798,
+         "counter": "unix sockets"
+      }
+   ]
+}
+#+end_example
+
+#+end_quote
+
+* HISTORY
+The *lsfd* command is part of the util-linux package since v2.38.
+
+* AUTHORS
+* SEE ALSO
+*lsof*(8) *pidof*(1) *proc*(5) *socket*(2) *stat*(2)
+
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *lsfd* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

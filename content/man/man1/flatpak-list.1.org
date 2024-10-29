@@ -1,0 +1,255 @@
+#+TITLE: Manpages - flatpak-list.1
+* NAME
+flatpak-list - List installed applications and/or runtimes
+
+* SYNOPSIS
+*flatpak list* [OPTION...]
+
+* DESCRIPTION
+Lists the names of the installed applications and runtimes.
+
+By default, both apps and runtimes are shown, but you can change this by
+using the *--app* or *--runtime* options.
+
+By default, both per-user and system-wide installations are shown. Use
+the *--user*, *--installation* or *--system* options to change this.
+
+The list command can also be used to find installed apps that use a
+certain runtime, with the *--app-runtime* option.
+
+* OPTIONS
+The following options are understood:
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*-u*, *--user*
+
+#+begin_quote
+List per-user installations.
+
+#+end_quote
+
+*--system*
+
+#+begin_quote
+List the default system-wide installations.
+
+#+end_quote
+
+*--installation=NAME*
+
+#+begin_quote
+List a system-wide installation specified by NAME among those defined in
+/etc/flatpak/installations.d/. Using *--installation=default* is
+equivalent to using *--system*.
+
+#+end_quote
+
+*--arch=ARCH*
+
+#+begin_quote
+List apps/runtimes for this architecture. See *flatpak
+--supported-arches* for architectures supported by the host.
+
+#+end_quote
+
+*-d*, *--show-details*
+
+#+begin_quote
+Show origin, sizes and other extra information. Equivalent to
+*--columns=all*.
+
+#+end_quote
+
+*--app*
+
+#+begin_quote
+List applications.
+
+#+end_quote
+
+*--runtime*
+
+#+begin_quote
+List runtimes.
+
+#+end_quote
+
+*--all*, *-a*
+
+#+begin_quote
+List all installed runtimes, including locale and debug extensions.
+These are hidden by default.
+
+#+end_quote
+
+*--app-runtime=RUNTIME*
+
+#+begin_quote
+List applications that use the given runtime.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information during command processing.
+
+#+end_quote
+
+*--ostree-verbose*
+
+#+begin_quote
+Print OSTree debug information during command processing.
+
+#+end_quote
+
+*--columns=FIELD,...*
+
+#+begin_quote
+Specify what information to show about each ref. You can list multiple
+fields, or use this option multiple times.
+
+Append :s[tart], :m[iddle], :e[nd] or :f[ull] to column names to change
+ellipsization.
+
+#+end_quote
+
+* FIELDS
+The following fields are understood by the *--columns* option:
+
+name
+
+#+begin_quote
+Show the name
+
+#+end_quote
+
+description
+
+#+begin_quote
+Show the description
+
+#+end_quote
+
+application
+
+#+begin_quote
+Show the application or runtime ID
+
+#+end_quote
+
+arch
+
+#+begin_quote
+Show the architecture
+
+#+end_quote
+
+branch
+
+#+begin_quote
+Show the branch
+
+#+end_quote
+
+runtime
+
+#+begin_quote
+Show the used runtime
+
+#+end_quote
+
+version
+
+#+begin_quote
+Show the version
+
+#+end_quote
+
+ref
+
+#+begin_quote
+Show the ref
+
+#+end_quote
+
+origin
+
+#+begin_quote
+Show the origin remote
+
+#+end_quote
+
+installation
+
+#+begin_quote
+Show the installation
+
+#+end_quote
+
+active
+
+#+begin_quote
+Show the active commit
+
+#+end_quote
+
+latest
+
+#+begin_quote
+Show the latest commit
+
+#+end_quote
+
+size
+
+#+begin_quote
+Show the installed size
+
+#+end_quote
+
+options
+
+#+begin_quote
+Show options
+
+#+end_quote
+
+all
+
+#+begin_quote
+Show all columns
+
+#+end_quote
+
+help
+
+#+begin_quote
+Show the list of available columns
+
+#+end_quote
+
+Note that field names can be abbreviated to a unique prefix.
+
+* EXAMPLES
+*$ flatpak --user --columns=app list*
+
+#+begin_quote
+#+begin_example
+Application
+org.gnome.Builder
+org.freedesktop.glxgears
+org.gnome.MyApp
+org.gnome.gedit
+#+end_example
+
+#+end_quote
+
+* SEE ALSO
+*flatpak*(1), *flatpak-install*(1), *flatpak-update*(1)

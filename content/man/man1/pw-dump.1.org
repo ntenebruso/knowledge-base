@@ -1,0 +1,57 @@
+#+TITLE: Manpages - pw-dump.1
+* NAME
+pw-dump - The PipeWire state dumper
+
+* SYNOPSIS
+*pw-dump* [/options/]
+
+* DESCRIPTION
+The /pw-dump/ program produces a representation of the current PipeWire
+state as JSON, including the information on nodes, devices, modules,
+ports, and other objects.
+
+* OPTIONS
+*-h | --help*
+
+#+begin_quote
+Show help.
+
+#+end_quote
+
+*-r | --remote=NAME*
+
+#+begin_quote
+The name of the /remote/ instance to dump. If left unspecified, a
+connection is made to the default PipeWire instance.
+
+#+end_quote
+
+*-m | --monitor*
+
+#+begin_quote
+Monitor PipeWire state changes, and output JSON arrays describing
+changes.
+
+#+end_quote
+
+*-N | --no-colors*
+
+#+begin_quote
+Disable color output.
+
+#+end_quote
+
+*-C | --color=WHEN*
+
+#+begin_quote
+Whether to enable color support. WHEN is never, always, or auto.
+
+#+end_quote
+
+* AUTHORS
+The PipeWire Developers
+<https://gitlab.freedesktop.org/pipewire/pipewire/issues>; PipeWire is
+available from <https://pipewire.org>
+
+* SEE ALSO
+*pipewire(1)*, *pw-cli(1)*, *pw-top(1)*,

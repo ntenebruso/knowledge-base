@@ -1,0 +1,194 @@
+#+TITLE: Manpages - flatpak-remotes.1
+* NAME
+flatpak-remotes - List remote repositories
+
+* SYNOPSIS
+*flatpak remotes* [OPTION...]
+
+* DESCRIPTION
+Lists the known remote repositories, in priority order.
+
+By default, both per-user and system-wide installations are shown. Use
+the *--user*, *--system* or *--installation* options to change this.
+
+* OPTIONS
+The following options are understood:
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*-u*, *--user*
+
+#+begin_quote
+Show the per-user configuration.
+
+#+end_quote
+
+*--system*
+
+#+begin_quote
+Show the default system-wide configuration.
+
+#+end_quote
+
+*--installation=NAME*
+
+#+begin_quote
+Show a system-wide installation by NAME among those defined in
+/etc/flatpak/installations.d/. Using *--installation=default* is
+equivalent to using *--system*.
+
+#+end_quote
+
+*-d*, *--show-details*
+
+#+begin_quote
+Show more information for each repository in addition to the name.
+Equivalent to *--columns=all*.
+
+#+end_quote
+
+*--show-disabled*
+
+#+begin_quote
+Show disabled repos.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information during command processing.
+
+#+end_quote
+
+*--ostree-verbose*
+
+#+begin_quote
+Print OSTree debug information during command processing.
+
+#+end_quote
+
+*--columns=FIELD,...*
+
+#+begin_quote
+Specify what information to show about each ref. You can list multiple
+fields, or use this option multiple times.
+
+Append :s[tart], :m[iddle], :e[nd] or :f[ull] to column names to change
+ellipsization.
+
+#+end_quote
+
+* FIELDS
+The following fields are understood by the *--columns* option:
+
+name
+
+#+begin_quote
+Show the name of the remote
+
+#+end_quote
+
+title
+
+#+begin_quote
+Show the title of the remote
+
+#+end_quote
+
+url
+
+#+begin_quote
+Show the URL of the remote
+
+#+end_quote
+
+filter
+
+#+begin_quote
+Show the path to the client-side filter of the remote.
+
+#+end_quote
+
+collection
+
+#+begin_quote
+Show the collection ID of the remote
+
+#+end_quote
+
+priority
+
+#+begin_quote
+Show the priority of the remote
+
+#+end_quote
+
+options
+
+#+begin_quote
+Show options
+
+#+end_quote
+
+comment
+
+#+begin_quote
+Show comment
+
+#+end_quote
+
+description
+
+#+begin_quote
+Show description
+
+#+end_quote
+
+homepage
+
+#+begin_quote
+Show homepage
+
+#+end_quote
+
+icon
+
+#+begin_quote
+Show icon
+
+#+end_quote
+
+all
+
+#+begin_quote
+Show all columns
+
+#+end_quote
+
+help
+
+#+begin_quote
+Show the list of available columns
+
+#+end_quote
+
+Note that field names can be abbreviated to a unique prefix.
+
+* EXAMPLES
+*$ flatpak remotes --user --show-details*
+
+#+begin_quote
+#+begin_example
+testrepo	Test Repository	 http://209.132.179.91/repo/ no-gpg-verify
+#+end_example
+
+#+end_quote
+
+* SEE ALSO
+*flatpak*(1), *flatpak-remote-add*(1), *flatpak-remote-delete*(1)

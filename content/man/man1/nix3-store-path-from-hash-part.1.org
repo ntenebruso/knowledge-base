@@ -1,0 +1,78 @@
+#+TITLE: Manpages - nix3-store-path-from-hash-part.1
+#+begin_quote
+*Warning*\\
+This program is *experimental* and its interface is subject to change.
+
+#+end_quote
+
+* Name
+=nix store path-from-hash-part= - get a store path from its hash part
+
+* Synopsis
+=nix store path-from-hash-part= [/option/...] /hash-part/
+
+* Examples
+- Return the full store path with the given hash part:
+
+#+begin_example
+# nix store path-from-hash-part --store https://cache.nixos.org/ 0i2jd68mp5g6h2sa5k9c85rb80sn8hi9
+/nix/store/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9-hello-2.10
+#+end_example
+
+* Description
+Given the hash part of a store path (that is, the 32 characters
+following =/nix/store/=), return the full store path. This is primarily
+useful in the implementation of binary caches, where a request for a
+=.narinfo= file only supplies the hash part (e.g.
+=https://cache.nixos.org/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9.narinfo=).
+
+* Options
+** Logging-related options
+- =--debug=
+
+  Set the logging verbosity level to ‘debug'.
+
+- =--log-format= /format/
+
+  Set the format of log output; one of =raw=, =internal-json=, =bar= or
+  =bar-with-logs=.
+
+- =--print-build-logs= / =-L=
+
+  Print full build logs on standard error.
+
+- =--quiet=
+
+  Decrease the logging verbosity level.
+
+- =--verbose= / =-v=
+
+  Increase the logging verbosity level.
+
+** Miscellaneous global options
+- =--help=
+
+  Show usage information.
+
+- =--offline=
+
+  Disable substituters and consider all previously downloaded files
+  up-to-date.
+
+- =--option= /name/ /value/
+
+  Set the Nix configuration setting /name/ to /value/ (overriding
+  =nix.conf=).
+
+- =--refresh=
+
+  Consider all previously downloaded files out-of-date.
+
+- =--version=
+
+  Show version information.
+
+  *Note*
+
+  See =man nix.conf= for overriding configuration settings with command
+  line flags.

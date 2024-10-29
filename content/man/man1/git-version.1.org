@@ -1,0 +1,27 @@
+#+TITLE: Manpages - git-version.1
+* NAME
+git-version - Display version information about Git
+
+* SYNOPSIS
+#+begin_example
+git version [--build-options]
+#+end_example
+
+* DESCRIPTION
+With no options given, the version of /git/ is printed on the standard
+output.
+
+Note that *git --version* is identical to *git version* because the
+former is internally converted into the latter.
+
+* OPTIONS
+--build-options
+
+#+begin_quote
+Include additional information about how git was built for diagnostic
+purposes.
+
+#+end_quote
+
+* GIT
+Part of the *git*(1) suite

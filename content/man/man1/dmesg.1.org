@@ -1,0 +1,429 @@
+#+TITLE: Manpages - dmesg.1
+* NAME
+dmesg - print or control the kernel ring buffer
+
+* SYNOPSIS
+*dmesg* [options]
+
+*dmesg* *--clear*
+
+*dmesg* *--read-clear* [options]
+
+*dmesg* *--console-level* /level/
+
+*dmesg* *--console-on*
+
+*dmesg* *--console-off*
+
+* DESCRIPTION
+*dmesg* is used to examine or control the kernel ring buffer.
+
+The default action is to display all messages from the kernel ring
+buffer.
+
+* OPTIONS
+The *--clear*, *--read-clear*, *--console-on*, *--console-off*, and
+*--console-level* options are mutually exclusive.
+
+*-C*, *--clear*
+
+#+begin_quote
+Clear the ring buffer.
+
+#+end_quote
+
+*-c*, *--read-clear*
+
+#+begin_quote
+Clear the ring buffer after first printing its contents.
+
+#+end_quote
+
+*-D*, *--console-off*
+
+#+begin_quote
+Disable the printing of messages to the console.
+
+#+end_quote
+
+*-d*, *--show-delta*
+
+#+begin_quote
+Display the timestamp and the time delta spent between messages. If used
+together with *--notime* then only the time delta without the timestamp
+is printed.
+
+#+end_quote
+
+*-E*, *--console-on*
+
+#+begin_quote
+Enable printing messages to the console.
+
+#+end_quote
+
+*-e*, *--reltime*
+
+#+begin_quote
+Display the local time and the delta in human-readable format. Be aware
+that conversion to the local time could be inaccurate (see *-T* for more
+details).
+
+#+end_quote
+
+*-F*, *--file* /file/
+
+#+begin_quote
+Read the syslog messages from the given /file/. Note that *-F* does not
+support messages in kmsg format. The old syslog format is supported
+only.
+
+#+end_quote
+
+*-f*, *--facility* /list/
+
+#+begin_quote
+Restrict output to the given (comma-separated) /list/ of facilities. For
+example:
+
+*dmesg --facility=daemon*
+
+will print messages from system daemons only. For all supported
+facilities see the *--help* output.
+
+#+end_quote
+
+*-H*, *--human*
+
+#+begin_quote
+Enable human-readable output. See also *--color*, *--reltime* and
+*--nopager*.
+
+#+end_quote
+
+*-J*, *--json*
+
+#+begin_quote
+Use JSON output format. The time output format is in "sec.usec" format
+only, log priority level is not decoded by default (use *--decode* to
+split into facility and priority), the other options to control the
+output format or time format are silently ignored.
+
+#+end_quote
+
+*-k*, *--kernel*
+
+#+begin_quote
+Print kernel messages.
+
+#+end_quote
+
+*-L*, *--color*[=/when/]
+
+#+begin_quote
+Colorize the output. The optional argument /when/ can be *auto*, *never*
+or *always*. If the /when/ argument is omitted, it defaults to *auto*.
+The colors can be disabled; for the current built-in default see the
+*--help* output. See also the *COLORS* section below.
+
+#+end_quote
+
+*-l*, *--level* /list/
+
+#+begin_quote
+Restrict output to the given (comma-separated) /list/ of levels. For
+example:
+
+*dmesg --level=err,warn*
+
+will print error and warning messages only. For all supported levels see
+the *--help* output.
+
+Appending a plus *+* to a level name also includes all higher levels.
+For example:
+
+*dmesg --level=err+*
+
+will print levels *err*, *crit*, *alert* and *emerg*.
+
+Prepending it will include all lower levels.
+
+#+end_quote
+
+*-n*, *--console-level* /level/
+
+#+begin_quote
+Set the /level/ at which printing of messages is done to the console.
+The /level/ is a level number or abbreviation of the level name. For all
+supported levels see the *--help* output.
+
+For example, *-n 1* or *-n emerg* prevents all messages, except
+emergency (panic) messages, from appearing on the console. All levels of
+messages are still written to //proc/kmsg/, so *syslogd*(8) can still be
+used to control exactly where kernel messages appear. When the *-n*
+option is used, *dmesg* will /not/ print or clear the kernel ring
+buffer.
+
+#+end_quote
+
+*--noescape*
+
+#+begin_quote
+The unprintable and potentially unsafe characters (e.g., broken
+multi-byte sequences, terminal controlling chars, etc.) are escaped in
+format \x<hex> for security reason by default. This option disables this
+feature at all. It's usable for example for debugging purpose together
+with *--raw*. Be careful and don't use it by default.
+
+#+end_quote
+
+*-P*, *--nopager*
+
+#+begin_quote
+Do not pipe output into a pager. A pager is enabled by default for
+*--human* output.
+
+#+end_quote
+
+*-p*, *--force-prefix*
+
+#+begin_quote
+Add facility, level or timestamp information to each line of a
+multi-line message.
+
+#+end_quote
+
+*-r*, *--raw*
+
+#+begin_quote
+Print the raw message buffer, i.e., do not strip the log-level prefixes,
+but all unprintable characters are still escaped (see also
+*--noescape*).
+
+Note that the real raw format depends on the method how *dmesg* reads
+kernel messages. The //dev/kmsg/ device uses a different format than
+*syslog*(2). For backward compatibility, *dmesg* returns data always in
+the *syslog*(2) format. It is possible to read the real raw data from
+//dev/kmsg/ by, for example, the command dd if=/dev/kmsg iflag=nonblock.
+
+#+end_quote
+
+*-S*, *--syslog*
+
+#+begin_quote
+Force *dmesg* to use the *syslog*(2) kernel interface to read kernel
+messages. The default is to use //dev/kmsg/ rather than *syslog*(2)
+since kernel 3.5.0.
+
+#+end_quote
+
+*-s*, *--buffer-size* /size/
+
+#+begin_quote
+Use a buffer of /size/ to query the kernel ring buffer. This is 16392 by
+default. (The default kernel syslog buffer size was 4096 at first, 8192
+since 1.3.54, 16384 since 2.1.113.) If you have set the kernel buffer to
+be larger than the default, then this option can be used to view the
+entire buffer.
+
+#+end_quote
+
+*-T*, *--ctime*
+
+#+begin_quote
+Print human-readable timestamps.
+
+*Be aware that the timestamp could be inaccurate!* The *time* source
+used for the logs is *not updated after* system *SUSPEND*/*RESUME*.
+Timestamps are adjusted according to current delta between boottime and
+monotonic clocks, this works only for messages printed after last
+resume.
+
+#+end_quote
+
+*--since* /time/
+
+#+begin_quote
+Display record since the specified time. Supported is the subsecond
+granularity. The time is possible to specify in absolute way as well as
+by relative notation (e.g. 1 hour ago). Be aware that the timestamp
+could be inaccurate and see *--ctime* for more details.
+
+#+end_quote
+
+*--until* /time/
+
+#+begin_quote
+Display record until the specified time. Supported is the subsecond
+granularity. The time is possible to specify in absolute way as well as
+by relative notation (e.g. 1 hour ago). Be aware that the timestamp
+could be inaccurate and see *--ctime* for more details.
+
+#+end_quote
+
+*-t*, *--notime*
+
+#+begin_quote
+Do not print kernel's timestamps.
+
+#+end_quote
+
+*--time-format* /format/
+
+#+begin_quote
+Print timestamps using the given /format/, which can be *ctime*,
+*reltime*, *delta* or *iso*. The first three formats are aliases of the
+time-format-specific options. The *iso* format is a *dmesg*
+implementation of the ISO-8601 timestamp format. The purpose of this
+format is to make the comparing of timestamps between two systems, and
+any other parsing, easy. The definition of the *iso* timestamp is:
+YYYY-MM-DD<T>HH:MM:SS,<microseconds>←+><timezone offset from UTC>.
+
+The *iso* format has the same issue as *ctime*: the time may be
+inaccurate when a system is suspended and resumed.
+
+#+end_quote
+
+*-u*, *--userspace*
+
+#+begin_quote
+Print userspace messages.
+
+#+end_quote
+
+*-w*, *--follow*
+
+#+begin_quote
+Wait for new messages. This feature is supported only on systems with a
+readable //dev/kmsg/ (since kernel 3.5.0).
+
+#+end_quote
+
+*-W*, *--follow-new*
+
+#+begin_quote
+Wait and print only new messages.
+
+#+end_quote
+
+*-x*, *--decode*
+
+#+begin_quote
+Decode facility and level (priority) numbers to human-readable prefixes.
+
+#+end_quote
+
+*-h*, *--help*
+
+#+begin_quote
+Display help text and exit.
+
+#+end_quote
+
+*-V*, *--version*
+
+#+begin_quote
+Print version and exit.
+
+#+end_quote
+
+* COLORS
+The output colorization is implemented by *terminal-colors.d*(5)
+functionality. Implicit coloring can be disabled by an empty file
+
+#+begin_quote
+//etc/terminal-colors.d/dmesg.disable/\\
+
+#+end_quote
+
+for the *dmesg* command or for all tools by
+
+#+begin_quote
+//etc/terminal-colors.d/disable/\\
+
+#+end_quote
+
+The user-specific /$XDG_CONFIG_HOME/terminal-colors.d/ or
+/$HOME/.config/terminal-colors.d/ overrides the global setting.
+
+Note that the output colorization may be enabled by default, and in this
+case /terminal-colors.d/ directories do not have to exist yet.
+
+The logical color names supported by *dmesg* are:
+
+*subsys*
+
+#+begin_quote
+The message sub-system prefix (e.g., "ACPI:").
+
+#+end_quote
+
+*time*
+
+#+begin_quote
+The message timestamp.
+
+#+end_quote
+
+*timebreak*
+
+#+begin_quote
+The message timestamp in short ctime format in *--reltime* or *--human*
+output.
+
+#+end_quote
+
+*alert*
+
+#+begin_quote
+The text of the message with the alert log priority.
+
+#+end_quote
+
+*crit*
+
+#+begin_quote
+The text of the message with the critical log priority.
+
+#+end_quote
+
+*err*
+
+#+begin_quote
+The text of the message with the error log priority.
+
+#+end_quote
+
+*warn*
+
+#+begin_quote
+The text of the message with the warning log priority.
+
+#+end_quote
+
+*segfault*
+
+#+begin_quote
+The text of the message that inform about segmentation fault.
+
+#+end_quote
+
+* EXIT STATUS
+*dmesg* can fail reporting permission denied error. This is usually
+caused by *dmesg_restrict* kernel setting, please see *syslog*(2) for
+more details.
+
+* AUTHORS
+*dmesg* was originally written by
+
+* SEE ALSO
+*terminal-colors.d*(5), *syslogd*(8)
+
+* REPORTING BUGS
+For bug reports, use the issue tracker at
+<https://github.com/util-linux/util-linux/issues>.
+
+* AVAILABILITY
+The *dmesg* command is part of the util-linux package which can be
+downloaded from /Linux Kernel Archive/
+<https://www.kernel.org/pub/linux/utils/util-linux/>.

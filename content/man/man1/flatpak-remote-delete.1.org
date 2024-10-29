@@ -1,0 +1,75 @@
+#+TITLE: Manpages - flatpak-remote-delete.1
+* NAME
+flatpak-remote-delete - Delete a remote repository
+
+* SYNOPSIS
+*flatpak remote-delete* [OPTION...] NAME
+
+* DESCRIPTION
+Removes a remote repository from the flatpak repository configuration.
+NAME is the name of an existing remote.
+
+Unless overridden with the *--system*, *--user*, or *--installation*
+options, this command uses either the default system-wide installation
+or the per-user one, depending on which has the specified REMOTE.
+
+* OPTIONS
+The following options are understood:
+
+*-h*, *--help*
+
+#+begin_quote
+Show help options and exit.
+
+#+end_quote
+
+*-u*, *--user*
+
+#+begin_quote
+Modify the per-user configuration.
+
+#+end_quote
+
+*--system*
+
+#+begin_quote
+Modify the default system-wide configuration.
+
+#+end_quote
+
+*--installation=NAME*
+
+#+begin_quote
+Modify a system-wide installation specified by NAME among those defined
+in /etc/flatpak/installations.d/. Using *--installation=default* is
+equivalent to using *--system*.
+
+#+end_quote
+
+*--force*
+
+#+begin_quote
+Remove remote even if its in use by installed apps or runtimes.
+
+#+end_quote
+
+*-v*, *--verbose*
+
+#+begin_quote
+Print debug information during command processing.
+
+#+end_quote
+
+*--ostree-verbose*
+
+#+begin_quote
+Print OSTree debug information during command processing.
+
+#+end_quote
+
+* EXAMPLES
+*$ flatpak --user remote-delete dried-raisins*
+
+* SEE ALSO
+*flatpak*(1), *flatpak-remote-add*(1), *flatpak-remote-modify*(1),
+*flatpak-remotes*(1)

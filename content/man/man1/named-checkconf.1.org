@@ -1,0 +1,106 @@
+#+TITLE: Manpages - named-checkconf.1
+* NAME
+named-checkconf - named configuration file syntax checking tool
+
+* SYNOPSIS
+*named-checkconf* [*-chjlvz*] [*-p* [*-x* ]] [*-t* directory] {filename}
+
+* DESCRIPTION
+*named-checkconf* checks the syntax, but not the semantics, of a /named/
+configuration file. The file, along with all files included by it, is
+parsed and checked for syntax errors. If no file is specified,
+*/nix/store/m0lwghj9czw5pvpxyji593ns7df0gn25-bind-9.18.28/etc/named.conf*
+is read by default.
+
+Note: files that /named/ reads in separate parser contexts, such as
+*rndc.key* and *bind.keys*, are not automatically read by
+*named-checkconf*. Configuration errors in these files may cause /named/
+to fail to run, even if *named-checkconf* was successful. However,
+*named-checkconf* can be run on these files explicitly.
+
+* OPTIONS
+
+#+begin_quote
+- *-h* :: This option prints the usage summary and exits.
+
+#+end_quote
+
+#+begin_quote
+- *-j* :: When loading a zonefile, this option instructs /named/ to read
+  the journal if it exists.
+
+#+end_quote
+
+#+begin_quote
+- *-l* :: This option lists all the configured zones. Each line of
+  output contains the zone name, class (e.g. IN), view, and type (e.g.
+  primary or secondary).
+
+#+end_quote
+
+#+begin_quote
+- *-c* :: This option specifies that only the "core" configuration
+  should be checked. This suppresses the loading of plugin modules, and
+  causes all parameters to *plugin* statements to be ignored.
+
+#+end_quote
+
+#+begin_quote
+- *-i* :: This option ignores warnings on deprecated options.
+
+#+end_quote
+
+#+begin_quote
+- *-p* :: This option prints out the /named.conf/ and included files in
+  canonical form if no errors were detected. See also the /-x/ option.
+
+#+end_quote
+
+#+begin_quote
+- *-t directory* :: This option instructs /named/ to chroot to
+  *directory*, so that *include* directives in the configuration file
+  are processed as if run by a similarly chrooted /named/.
+
+#+end_quote
+
+#+begin_quote
+- *-v* :: This option prints the version of the *named-checkconf*
+  program and exits.
+
+#+end_quote
+
+#+begin_quote
+- *-x* :: When printing the configuration files in canonical form, this
+  option obscures shared secrets by replacing them with strings of
+  question marks (*?*). This allows the contents of /named.conf/ and
+  related files to be shared - for example, when submitting bug
+  reports - without compromising private data. This option cannot be
+  used without /-p/.
+
+#+end_quote
+
+#+begin_quote
+- *-z* :: This option performs a test load of all zones of type
+  *primary* found in /named.conf/.
+
+#+end_quote
+
+#+begin_quote
+- *filename* :: This indicates the name of the configuration file to be
+  checked. If not specified, it defaults to
+  */nix/store/m0lwghj9czw5pvpxyji593ns7df0gn25-bind-9.18.28/etc/named.conf*.
+
+#+end_quote
+
+* RETURN VALUES
+*named-checkconf* returns an exit status of 1 if errors were detected
+and 0 otherwise.
+
+* SEE ALSO
+/named(8)/, /named-checkzone(8)/, BIND 9 Administrator Reference Manual.
+
+* AUTHOR
+Internet Systems Consortium
+
+* COPYRIGHT
+2024, Internet Systems Consortium

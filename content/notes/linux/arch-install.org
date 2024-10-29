@@ -1,0 +1,218 @@
+#+TITLE: Arch Linux Installation Guide
+#+AUTHOR: Nick Tenebruso
+#+DATE: 2024-10-26
+
+* Pre-install
+1. Download an Arch ISO using the [[https://archlinux.org/download/][official download site]]
+
+2. Connect to the internet:
+
+   #+BEGIN_SRC shell
+iwctl station wlan0 get-networks
+iwctl station wlan0 connect "SSID"
+   #+END_SRC
+
+* Set Up Disks
+** Partition the Drive
+This guide will go over a *non-encrypted* disk setup.
+
+Use =fdisk -l= to see which disk to format. Once you have found the disk, let's set it up by using the following command:
+
+#+BEGIN_SRC shell
+fdisk /dev/sda # Replace /dev/sda with your disk!
+#+END_SRC
+
+In fdisk, you can create your partition layout. If you don't know where to start, here's a good reference table from the [[https://wiki.archlinux.org/title/Installation_guide#Example_layouts][Arch Wiki]]:
+
+| Mountpoint | Partition                   | Partition type       | Suggested size          |
+|------------+-----------------------------+----------------------+-------------------------|
+| =/boot=    | =/dev/efi_system_partition= | EFI System Partition | 1 GiB                   |
+| =[SWAP]=   | =/dev/swap_partition=       | Linux Swap           | At least 4 GiB          |
+| =/=        | =/dev/root_partition=       | Linux x86-64 root    | Remainder of the device |
+
+** Format the Partitions
+Create an ext4 filesystem on the root partition:
+
+#+BEGIN_SRC shell
+mkfs.ext4 /dev/root_partition
+#+END_SRC
+
+Initialize swap, if you made a swap partition:
+
+#+BEGIN_SRC shell
+mkswap /dev/swap_partition
+#+END_SRC
+
+If you created an EFI partition, create a FAT32 filesystem:
+
+#+BEGIN_SRC shell
+mkfs.fat -F 32 /dev/efi_system_partition
+#+END_SRC
+
+** Mount the Filesystems
+Lastly, before installing the system, mount the filesystems that you just created.
+
+#+BEGIN_SRC shell
+mount /dev/root_partition /mnt
+mount --mkdir /dev/efi_system_partition /mnt/boot
+swapon /dev/swap_partition
+#+END_SRC
+
+* Install the System
+** Install required packages
+Use =pacstrap= to setup a base system on =/mnt=:
+
+#+BEGIN_SRC shell
+pacstrap -K /mnt base linux linux-firmware
+#+END_SRC
+
+Note that the pacstrap command *DOES NOT* contain all of the tools from the live image! We'll get to installing some extra tools in a bit.
+
+* Configure the System
+** Fstab
+An fstab file defines how and where filesystems should be mounted on boot. It is located in =/etc/fstab= on Arch Linux. To generate the fstab file:
+
+#+BEGIN_SRC shell
+genfstab -U /mnt > /mnt/etc/fstab
+#+END_SRC
+
+** Chroot
+Now that the base system has been installed, we can chroot into it:
+
+#+BEGIN_SRC shell
+arch-chroot /mnt
+#+END_SRC
+
+From here on out, this manual will assume that you are chrooted into the system.
+
+** Time
+Set the time zone with the below commands:
+
+#+BEGIN_SRC shell
+ln -sf /usr/share/zoneinfo/<REGION>/<CITY> /etc/localtime
+hwclock --systohc
+#+END_SRC
+
+** Localization
+Uncomment =en_US.UTF-8 UTF-8= and other necessary locales from =/etc/locale.gen=. Generate the locales by running:
+
+#+BEGIN_SRC shell
+locale-gen
+#+END_SRC
+
+Next, create the file =/etc/locale.conf= and set the LANG variable:
+
+#+BEGIN_SRC shell
+LANG=en_US.UTF-8
+#+END_SRC
+
+** Network Configuration
+Edit the =/etc/hostname= file to set your hostname.
+
+#+CAPTION: /etc/hostname
+#+BEGIN_SRC shell
+yourhostname
+#+END_SRC
+
+Next, we'll set up a network manager, as one is not installed by default on Arch. Based on personal experience, if you forget to install a network manager, you'll have to re-chroot into the system! I usually use NetworkManager (probably the most popular choice), so I'll show you how to set that up here. Feel free to [[https://wiki.archlinux.org/title/Network_configuration#Network_managers][choose your own]], though.
+
+To set up NetworkManager, use =pacman= to install it then enable it with =systemctl=.
+
+#+BEGIN_SRC
+pacman -S networkmanager
+sudo systemctl enable NetworkManager.service
+#+END_SRC
+
+** Bootloader
+The last "official" step of installation is to install a bootloader. My personal choice is GRUB, but again, feel free to [[https://wiki.archlinux.org/title/Arch_boot_process#Boot_loader][choose your own]].
+
+To install GRUB, first install the package with =pacman=:
+
+#+BEGIN_SRC shell
+pacman -S grub
+#+END_SRC
+
+Then, use the following commands to install GRUB to your EFI partition:
+
+#+BEGIN_SRC shell
+grub-install --target=x86_64-efi --efi-directory=/boot
+grub-mkconfig -o /boot/grub/grub.cfg
+#+END_SRC
+
+** Root password
+To set the root password, run the following command:
+
+#+BEGIN_SRC shell
+passwd <YOUR PASSWORD>
+#+END_SRC
+
+** Install Extra Packages
+At this point, your base installation is finished and you're now ready to use your system! Before booting into your system, though, I would recommend installing a couple basic utilities such as a text editor and Git. For instance:
+
+#+BEGIN_SRC shell
+pacman -S git vim wget # add whatever packages you want here
+#+END_SRC
+
+To reboot into your new system, simply leave the chroot environment with the =exit= command, then type the =reboot= command. Congratulations!
+
+* Post-Installation Steps
+Now, I'll walk you through some common post-installation steps. From here on out, these steps will assume you're booted into your live system.
+
+** Setting Up Your Users
+To create your user, then set its password:
+
+#+BEGIN_SRC shell
+useradd -m <USERNAME>
+passwd <USERNAME>
+#+END_SRC
+
+After creating your user, it's a good idea to add it to some common groups using =usermod=, for example:
+
+#+BEGIN_SRC shell
+usermod -aG wheel,networkmanager <USERNAME>
+#+END_SRC
+
+*** Setting up Sudo
+Setting up =sudo= will give your user the ability to run commands as root. First, install the =sudo= package:
+
+#+BEGIN_SRC shell
+pacman -S sudo
+#+END_SRC
+
+Then, to configure sudo to grant members of group =wheel= root access, run the =visudo= command and uncomment the line:
+
+#+BEGIN_SRC shell
+%wheel      ALL=(ALL:ALL) ALL
+#+END_SRC
+
+** Installing a Desktop Environment
+Picking a desktop environment is a decision that is entirely up to you, but for the purposes of this example, I'll show you how to install KDE Plasma. However, this process should be relatively the same for any DE you decide to install.
+
+First, install the =plasma= package:
+
+#+BEGIN_SRC shell
+pacman -S plasma
+#+END_SRC
+
+Then, enable =SDDM= to run on startup:
+
+#+BEGIN_SRC shell
+systemctl enable sddm.service
+#+END_SRC
+
+Here are the installation guides for some other popular desktop environments:
+- [[https://wiki.archlinux.org/title/GNOME#Installation][GNOME]]
+- [[https://wiki.archlinux.org/title/Xfce#Installation][XFCE]]
+- [[https://wiki.archlinux.org/title/Cinnamon#Installation][Cinnamon]]
+- [[https://wiki.archlinux.org/title/LXQt#Installation][LXQt]]
+- [[https://wiki.archlinux.org/title/Pantheon#Installation][Pantheon]]
+- [[https://wiki.archlinux.org/title/Budgie#Installation][Budgie]]
+
+* Conclusion
+
+I hope you found this guide for installing Arch Linux to be helpful. Installing Arch from scratch is, in my opinion, one of the absolute best ways to learn Linux comprehensively.
+
+** What's Next???
+- To maintain your Arch system, [[https://wiki.archlinux.org/title/System_maintenance][follow this article from the Arch Wiki]].
+- If you ever run into problems after an update, read the [[https://archlinux.org/news/][Arch News]] and see if manual intervention is required.
+- In general, the Arch Wiki is going to be your best friend for fixing problems and installing software. Always try to use the Wiki as your first resource.
