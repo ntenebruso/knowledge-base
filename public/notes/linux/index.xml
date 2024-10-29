@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on Technical Notes</title>
-    <link>http://localhost:1313/notes/linux/</link>
+    <link>https://kb.ntenebruso.com/notes/linux/</link>
     <description>Recent content in Linux on Technical Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 26 Oct 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/notes/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kb.ntenebruso.com/notes/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Arch Linux Installation Guide</title>
-      <link>http://localhost:1313/notes/linux/arch-install/</link>
+      <link>https://kb.ntenebruso.com/notes/linux/arch-install/</link>
       <pubDate>Sat, 26 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/notes/linux/arch-install/</guid>
+      <guid>https://kb.ntenebruso.com/notes/linux/arch-install/</guid>
       <description>&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;&#xA;&lt;h2 id=&#34;headline-1&#34;&gt;&#xA;Pre-install&#xA;&lt;/h2&gt;&#xA;&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Download an Arch ISO using the &lt;a href=&#34;https://archlinux.org/download/&#34;&gt;official download site&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Connect to the internet:&lt;/p&gt;&#xA;&lt;div class=&#34;src src-shell&#34;&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iwctl station wlan0 get-networks&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iwctl station wlan0 connect &lt;span class=&#34;s2&#34;&gt;&amp;#34;SSID&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&#xA;&lt;/div&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/div&gt;&#xA;&lt;/div&gt;&#xA;&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;&#xA;&lt;h2 id=&#34;headline-2&#34;&gt;&#xA;Set Up Disks&#xA;&lt;/h2&gt;&#xA;&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;&#xA;&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-3&#34;&gt;&#xA;&lt;h3 id=&#34;headline-3&#34;&gt;&#xA;Partition the Drive&#xA;&lt;/h3&gt;&#xA;&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-3&#34;&gt;&#xA;&lt;p&gt;This guide will go over a &lt;strong&gt;non-encrypted&lt;/strong&gt; disk setup.&lt;/p&gt;&#xA;&lt;p&gt;&#xA;Use &lt;code class=&#34;verbatim&#34;&gt;fdisk -l&lt;/code&gt; to see which disk to format. Once you have found the disk, let&amp;#39;s set it up by using the following command:&lt;/p&gt;&#xA;&lt;div class=&#34;src src-shell&#34;&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fdisk /dev/sda &lt;span class=&#34;c1&#34;&gt;# Replace /dev/sda with your disk!&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;&#xA;In fdisk, you can create your partition layout. If you don&amp;#39;t know where to start, here&amp;#39;s a good reference table from the &lt;a href=&#34;https://wiki.archlinux.org/title/Installation_guide#Example_layouts&#34;&gt;Arch Wiki&lt;/a&gt;:&lt;/p&gt;</description>
     </item>
   </channel>
